@@ -9,11 +9,28 @@ using SDK.Script.UMGSDK;
 
 namespace DeepRockGahactic
 {
+    public class Config
+    {
+        public Boolean Menu = Hotkeys.ToggledKey(Keys.Insert);
+        public Boolean Enemies = Hotkeys.ToggledKey(Keys.F1);
+        public Boolean Objectives = Hotkeys.ToggledKey(Keys.F2);
+        public Boolean Radar = !Hotkeys.ToggledKey(Keys.F3);
+        public Boolean Ammo = !Hotkeys.ToggledKey(Keys.F4);
+        public Boolean Health = !Hotkeys.ToggledKey(Keys.F5);
+        public Boolean Console = Hotkeys.IsPressed(Keys.F6);
+        public Boolean Resources = Hotkeys.IsPressed(Keys.F7);
+        public Boolean EndLevel = Hotkeys.IsPressed(Keys.F10);
+        public Boolean ThirdPerson = Hotkeys.IsPressed(Keys.F9);
+    }
+
+
     public class DeepRockGahactic
     {
         String staticGameName => "FSD-Win64-Shipping";
         Process process;
         public Overlay esp;
+        Boolean CanTakeDamage = true;
+
 
         public void InitWindow()
         {
@@ -21,7 +38,8 @@ namespace DeepRockGahactic
             {
                 process = Process.GetProcesses().FirstOrDefault(p =>
                     p.ProcessName.Contains(staticGameName) && p.MainWindowHandle != IntPtr.Zero);
-                if (process != null) break;
+                if (process != null)
+                    break;
                 Thread.Sleep(500);
             }
 
@@ -42,21 +60,6 @@ namespace DeepRockGahactic
             }
         }
 
-        Boolean CanTakeDamage = true;
-
-        public class Config
-        {
-            public Boolean Menu = Hotkeys.ToggledKey(Keys.Insert);
-            public Boolean Enemies = Hotkeys.ToggledKey(Keys.F1);
-            public Boolean Objectives = Hotkeys.ToggledKey(Keys.F2);
-            public Boolean Radar = !Hotkeys.ToggledKey(Keys.F3);
-            public Boolean Ammo = !Hotkeys.ToggledKey(Keys.F4);
-            public Boolean Health = !Hotkeys.ToggledKey(Keys.F5);
-            public Boolean Console = Hotkeys.IsPressed(Keys.F6);
-            public Boolean Resources = Hotkeys.IsPressed(Keys.F7);
-            public Boolean EndLevel = Hotkeys.IsPressed(Keys.F10);
-            public Boolean ThirdPerson = Hotkeys.IsPressed(Keys.F9);
-        }
 
         Int32 EngineLoop()
         {
@@ -78,7 +81,9 @@ namespace DeepRockGahactic
             }
 
             var World = new World(UnrealEngine.Memory.ReadProcessMemory<nint>(UnrealEngine.GWorldPtr));
-            if (!World.IsA<World>()) return 1;
+            if (!World.IsA<World>())
+                return 1;
+
             var OwningGameInstance = World.OwningGameInstance;
             if (!OwningGameInstance.IsA<GameInstance>()) return 1;
             var LocalPlayers = OwningGameInstance.LocalPlayers;
