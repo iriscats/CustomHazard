@@ -222,10 +222,12 @@ namespace UnrealSharp
         public static String GetName(int key)
         {
             var namePtr = UnrealEngine.Memory.ReadProcessMemory<nint>(UnrealEngine.GNames + ((key >> 16) + 2) * 8);
-            if (namePtr == 0) return "badIndex";
+            if (namePtr == 0) 
+                return "badIndex";
             var nameEntry = UnrealEngine.Memory.ReadProcessMemory<UInt16>(namePtr + (key & 0xffff) * 2);
             var nameLength = (Int32)(nameEntry >> 6);
-            if (nameLength <= 0) return "badIndex";
+            if (nameLength <= 0) 
+                return "badIndex";
 
             UnrealEngine.Memory.maxStringLength = nameLength;
             string result = UnrealEngine.Memory.ReadProcessMemory<String>(namePtr + (key & 0xffff) * 2 + 2);

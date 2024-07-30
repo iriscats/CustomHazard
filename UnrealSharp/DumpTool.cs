@@ -509,8 +509,8 @@ namespace UnrealSharp
                 i += name.Length / 2 + name.Length % 2 + 1;
             }
 
-            System.IO.Directory.CreateDirectory(Memory.Process.ProcessName);
-            System.IO.File.WriteAllText(Memory.Process.ProcessName + @"\GNamesDump.txt", sb.ToString());
+            Directory.CreateDirectory(Memory.Process.ProcessName);
+            File.WriteAllText(Memory.Process.ProcessName + @"\GNamesDump.txt", sb.ToString());
         }
 
 
