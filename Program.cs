@@ -1,4 +1,6 @@
-﻿namespace CustomHazard;
+﻿using UnrealSharp;
+
+namespace CustomHazard;
 
 static class Program
 {
@@ -6,6 +8,9 @@ static class Program
     {
         var mod = new Mod();
         mod.InitMod();
-        mod.Start();
+        //mod.Start();
+
+        new DumpTool().DumpObjects();
+
     }
 }

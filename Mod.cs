@@ -34,6 +34,7 @@ public class Mod
         while (!_isStop)
         {
             this.Update();
+            Thread.Sleep(100);
         }
 
         UEObject.ClearCache();
@@ -47,5 +48,6 @@ public class Mod
 
     public void Update()
     {
+        new WaveTimer().GetTimerArray();
     }
 }

@@ -1,15 +1,11 @@
+using SDK.Script.FSDSDK;
 using System.Text;
 
 namespace UnrealSharp
 {
+
     public class DumpTool
     {
-        public static Memory Memory;
-        public static nint GObjects;
-        public static nint GEngine;
-        public static nint GStaticCtor;
-
-
         public class Package
         {
             public String FullName;
@@ -43,11 +39,29 @@ namespace UnrealSharp
             }
         }
 
+
+        public static Memory Memory;
+        public static nint GObjects;
+        public static nint GEngine;
+        public static nint GStaticCtor;
+
+
+        public DumpTool()
+        {
+            Memory = UnrealEngine.Memory;
+            GObjects = UnrealEngine.GObjects;
+            GEngine = UnrealEngine.GEngine;
+            GStaticCtor = UnrealEngine.GStaticCtor;
+        }
+
+
         public void EnableConsole()
         {
             var engine = new UEObject(GEngine);
-            var console = new UEObject(Memory.Execute(GStaticCtor, engine["ConsoleClass"].Value,
-                engine["GameViewport"].Address, 0, 0, 0, 0, 0, 0, 0));
+            var console = new UEObject(Memory.Execute(GStaticCtor,
+                engine["ConsoleClass"].Value,
+                engine["GameViewport"].Address,
+                0, 0, 0, 0, 0, 0, 0));
             engine["GameViewport"]["ViewportConsole"] = console;
         }
 
@@ -250,7 +264,9 @@ namespace UnrealSharp
 
         public void DumpSdk(String location = "")
         {
-            if (location == "") location = Memory.Process.ProcessName;
+            if (location == "")
+                location = Memory.Process.ProcessName;
+
             Directory.CreateDirectory(location);
             var entityList = Memory.ReadProcessMemory<nint>(Memory.BaseAddress + GObjects);
             var count = Memory.ReadProcessMemory<UInt32>(Memory.BaseAddress + GObjects + 0x14);
@@ -299,7 +315,7 @@ namespace UnrealSharp
                     var parentClass =
                         UnrealEngine.Memory.ReadProcessMemory<nint>(obj.Address + UEObject.structSuperOffset);
                     var sdkClass = new Package.SDKClass
-                        { Name = className, Namespace = fullPackageName, SdkType = typeName };
+                    { Name = className, Namespace = fullPackageName, SdkType = typeName };
                     if (typeName == "enum") sdkClass.Parent = "int";
                     else if (parentClass != 0)
                     {
@@ -349,7 +365,7 @@ namespace UnrealSharp
                             //if (typeName == "struct") gettersetter = ";";
                             if (fName == className) fName += "_value";
                             sdkClass.Fields.Add(new Package.SDKClass.SDKFields
-                                { Type = fType, Name = fName, GetterSetter = gettersetter });
+                            { Type = fType, Name = fName, GetterSetter = gettersetter });
                         }
 
                         field = obj.Address + UEObject.childrenOffset - UEObject.funcNextOffset;
@@ -495,6 +511,187 @@ namespace UnrealSharp
 
             System.IO.Directory.CreateDirectory(Memory.Process.ProcessName);
             System.IO.File.WriteAllText(Memory.Process.ProcessName + @"\GNamesDump.txt", sb.ToString());
+        }
+
+
+        public void DumpObjects()
+        {
+            var entityList = Memory.ReadProcessMemory<nint>(Memory.BaseAddress + GObjects);
+            var count = Memory.ReadProcessMemory<UInt32>(Memory.BaseAddress + GObjects + 0x14);
+
+            entityList = Memory.ReadProcessMemory<nint>(entityList);
+            var packages = new Dictionary<nint, List<nint>>();
+            for (var i = 0; i < count; i++)
+            {
+                // var entityAddr = Memory.ReadProcessMemory<UInt64>((entityList + 8 * (i / 0x10400)) + 24 * (i % 0x10400));
+                var entityAddr = Memory.ReadProcessMemory<nint>((entityList + 8 * (i >> 16)) + 24 * (i % 0x10000));
+                if (entityAddr == 0) continue;
+                var outer = entityAddr;
+                while (true)
+                {
+                    var tempOuter = Memory.ReadProcessMemory<nint>(outer + UEObject.objectOuterOffset);
+                    if (tempOuter == 0) break;
+                    outer = tempOuter;
+                }
+
+                if (!packages.ContainsKey(outer)) packages.Add(outer, new List<nint>());
+                packages[outer].Add(entityAddr);
+            }
+
+
+            var ii = 0;
+            var dumpedPackages = new List<Package>();
+            foreach (var package in packages)
+            {
+                var packageObj = new UEObject(package.Key);
+                var fullPackageName = packageObj.GetName();
+
+                if (fullPackageName.Contains("TypedElementFrameworkSDK"))
+                    Console.WriteLine("");
+
+
+                var dumpedClasses = new List<String>();
+                var sdkPackage = new Package { FullName = fullPackageName };
+                foreach (var objAddr in package.Value)
+                {
+                    var obj = new UEObject(objAddr);
+                    if (dumpedClasses.Contains(obj.ClassName))
+                        continue;
+
+                    if (obj.ClassName.IndexOf("GameFunctionLibrary") > 0)
+                    {
+                        Console.WriteLine(obj);
+
+                        var game = obj.As<GameFunctionLibrary>();
+                        game.GetFSDGameMode(new UEObject(UnrealEngine.GWorldPtr));
+
+                    }
+
+
+                    dumpedClasses.Add(obj.ClassName);
+
+
+                    if (obj.ClassName.StartsWith("Package"))
+                        continue;
+
+
+                    var typeName = obj.ClassName.StartsWith("Class") ? "class" :
+                        obj.ClassName.StartsWith("ScriptStruct") ? "class" :
+                        obj.ClassName.StartsWith("Enum") ? "enum" : "unk";
+                    //if (obj.ClassName.StartsWith("BlueprintGenerated")) typeName = "class";
+
+
+
+                    var className = obj.GetName();
+                    if (typeName == "unk") continue;
+                    if (className == "Object") continue;
+                    var parentClass =
+                        UnrealEngine.Memory.ReadProcessMemory<nint>(obj.Address + UEObject.structSuperOffset);
+
+
+                    var sdkClass = new Package.SDKClass
+                    {
+                        Name = className,
+                        Namespace = fullPackageName,
+                        SdkType = typeName
+                    };
+
+
+                    if (typeName == "enum") sdkClass.Parent = "int";
+                    else if (parentClass != 0)
+                    {
+                        var parentNameIndex =
+                            UnrealEngine.Memory.ReadProcessMemory<Int32>(parentClass + UEObject.nameOffset);
+                        var parentName = UEObject.GetName(parentNameIndex);
+                        sdkClass.Parent = parentName;
+                    }
+                    else sdkClass.Parent = "Object";
+                    //else throw new Exception("unparented obj not supported");
+
+                    if (typeName == "enum")
+                    {
+                        var enumArray = UnrealEngine.Memory.ReadProcessMemory<nint>(objAddr + 0x40);
+                        var enumCount = UnrealEngine.Memory.ReadProcessMemory<int>(objAddr + 0x48);
+                        for (var i = 0; i < enumCount; i++)
+                        {
+                            var enumNameIndex = UnrealEngine.Memory.ReadProcessMemory<Int32>(enumArray + i * 0x10);
+                            var enumName = UEObject.GetName(enumNameIndex);
+                            enumName = enumName.Substring(enumName.LastIndexOf(":") + 1);
+                            var enumNameRepeatedIndex =
+                                UnrealEngine.Memory.ReadProcessMemory<Int32>(enumArray + i * 0x10 + 4);
+                            if (enumNameRepeatedIndex > 0)
+                                enumName += "_" + enumNameRepeatedIndex;
+                            var enumVal = UnrealEngine.Memory.ReadProcessMemory<Int32>(enumArray + i * 0x10 + 0x8);
+                            sdkClass.Fields.Add(new Package.SDKClass.SDKFields { Name = enumName, EnumVal = enumVal });
+                        }
+                    }
+                    else if (typeName == "unk")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        var field = obj.Address + UEObject.childPropertiesOffset - UEObject.fieldNextOffset;
+                        while ((field = UnrealEngine.Memory.ReadProcessMemory<nint>(field + UEObject.fieldNextOffset)) >
+                               0)
+                        {
+                            var fName = UEObject.GetName(
+                                UnrealEngine.Memory.ReadProcessMemory<Int32>(field + UEObject.fieldNameOffset));
+                            var fType = obj.GetFieldType(field);
+                            var fValue = "(" + field.ToString() + ")";
+                            var offset = (UInt32)obj.GetFieldOffset(field);
+                            var gettersetter =
+                                "{ get { return new {0}(this[\"{1}\"].Address); } set { this[\"{1}\"] = value; } }";
+                            fType = GetTypeFromFieldAddr(fName, fType, field, out gettersetter);
+                            //if (typeName == "struct") gettersetter = ";";
+                            if (fName == className) fName += "_value";
+                            sdkClass.Fields.Add(new Package.SDKClass.SDKFields
+                            { Type = fType, Name = fName, GetterSetter = gettersetter });
+                        }
+
+                        field = obj.Address + UEObject.childrenOffset - UEObject.funcNextOffset;
+                        while ((field = UnrealEngine.Memory.ReadProcessMemory<nint>(field + UEObject.funcNextOffset)) >
+                               0)
+                        {
+                            var fName = UEObject.GetName(
+                                UnrealEngine.Memory.ReadProcessMemory<Int32>(field + UEObject.nameOffset));
+                            if (fName == className) fName += "_value";
+                            var func = new Package.SDKClass.SDKFunctions { Name = fName };
+                            var fField = field + UEObject.childPropertiesOffset - UEObject.fieldNextOffset;
+                            while ((fField = UnrealEngine.Memory.ReadProcessMemory<nint>(fField +
+                                       UEObject.fieldNextOffset)) > 0)
+                            {
+                                var pName = UEObject.GetName(
+                                    UnrealEngine.Memory.ReadProcessMemory<Int32>(fField + UEObject.fieldNameOffset));
+                                var pType = obj.GetFieldType(fField);
+                                pType = GetTypeFromFieldAddr("", pType, fField, out _);
+                                func.Params.Add(new Package.SDKClass.SDKFields { Name = pName, Type = pType });
+                            }
+
+                            sdkClass.Functions.Add(func);
+                        }
+                    }
+
+                    sdkPackage.Classes.Add(sdkClass);
+                }
+
+                dumpedPackages.Add(sdkPackage);
+            }
+
+            foreach (var p in dumpedPackages)
+            {
+                foreach (var c in p.Classes)
+                {
+                    Console.WriteLine(c.SdkType + " " + c.Name);
+                    if (c.Name == "GameFunctionLibrary")
+                    {
+                        Console.WriteLine(c);
+                    }
+                }
+            }
+
+
+
         }
     }
 }
