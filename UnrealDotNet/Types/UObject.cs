@@ -122,8 +122,6 @@ public class UObject : UObjectBase
     }
 
 
-
-
     public String GetName()
     {
         return GetName(_unrealEngine.ReadProcessMemory<int>(Address + NameOffset));
@@ -386,9 +384,13 @@ public class UObject : UObjectBase
     {
         get
         {
-            if (_num != int.MaxValue) return _num;
+            if (_num != int.MaxValue) 
+                return _num;
+            
             _num = _unrealEngine.ReadProcessMemory<int>(Address + 8);
-            if (_num > 0x10000) _num = 0x10000;
+            if (_num > 0x10000) 
+                _num = 0x10000;
+            
             return _num;
         }
     }
@@ -399,8 +401,10 @@ public class UObject : UObjectBase
     {
         get
         {
-            if (_arrayCache.Length != 0) return _arrayCache;
-            _arrayCache = _unrealEngine.ReadProcessMemory(Value, Num * 8);
+            if (_arrayCache.Length != 0)
+                return _arrayCache;
+            
+            _arrayCache = _unrealEngine.MemoryReadBytes(Value, Num * 8);
             return _arrayCache;
         }
     }
@@ -416,7 +420,9 @@ public class UObject : UObjectBase
     {
         get
         {
-            if (_vTableFunc != 0xcafeb00) return _vTableFunc;
+            if (_vTableFunc != 0xcafeb00)
+                return _vTableFunc;
+            
             _vTableFunc = _unrealEngine.ReadProcessMemory<nint>(Address) + VTableFuncNum * 8;
             _vTableFunc = _unrealEngine.ReadProcessMemory<nint>(_vTableFunc);
             return _vTableFunc;
@@ -430,7 +436,7 @@ public class UObject : UObjectBase
         var nativeFlag = initFlags;
         nativeFlag |= 0x400;
         _unrealEngine.WriteProcessMemory(funcAddr + FuncFlagsOffset, BitConverter.GetBytes(nativeFlag));
-        var val = _unrealEngine.ExecuteUEFunc<T>(VTableFunc, Address, funcAddr, args);
+        var val = _unrealEngine.ExecuteUFunction<T>(VTableFunc, Address, funcAddr, args);
         _unrealEngine.WriteProcessMemory(funcAddr + FuncFlagsOffset, BitConverter.GetBytes(initFlags));
         return val;
     }

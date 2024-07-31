@@ -129,7 +129,7 @@ public class SigScan
             if (_vSize == 0)
                 return false;
 
-            _vDumpedRegion = UnrealEngine.GetInstance().ReadProcessMemory(_vAddress, _vSize);
+            _vDumpedRegion = UnrealEngine.GetInstance().MemoryReadBytes(_vAddress, _vSize);
 
             return true;
         }

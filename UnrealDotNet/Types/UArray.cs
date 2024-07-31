@@ -47,7 +47,7 @@ public class UArray<T> : UObject
         get
         {
             if (_arrayCache.Length != 0) return _arrayCache;
-            _arrayCache = _unrealEngine.ReadProcessMemory(Value, Num * 8);
+            _arrayCache = _unrealEngine.MemoryReadBytes(Value, Num * 8);
             return _arrayCache;
         }
     }

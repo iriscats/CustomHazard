@@ -20,44 +20,38 @@ public class UObjectBase
     protected int EnumArrayOffset = 0x40;
     protected int EnumCountOffset = 0x48;
 
+    private readonly UnrealEngine _unrealEngine = UnrealEngine.GetInstance();
+
     public string GetName(int key)
     {
-        var unrealEngine = UnrealEngine.GetInstance();
-        var namePtr = unrealEngine.ReadProcessMemory<nint>(unrealEngine.GNames + ((key >> 16) + 2) * 8);
+        var namePtr = _unrealEngine.ReadProcessMemory<nint>(_unrealEngine.GNames + ((key >> 16) + 2) * 8);
         if (namePtr == 0)
             return "badIndex";
 
-        var nameEntry = unrealEngine.ReadProcessMemory<UInt16>(namePtr + (key & 0xffff) * 2);
+        var nameEntry = _unrealEngine.ReadProcessMemory<UInt16>(namePtr + (key & 0xffff) * 2);
         var nameLength = nameEntry >> 6;
         if (nameLength <= 0)
             return "badIndex";
 
-        unrealEngine.maxStringLength = nameLength;
-   
-        string result = unrealEngine.ReadProcessMemory<String>(namePtr + (key & 0xffff) * 2 + 2);
-        
-        unrealEngine.maxStringLength = 0x100;
-        return result;
+        return _unrealEngine.MemoryReadString(namePtr + (key & 0xffff) * 2 + 2, nameLength);
     }
 
     public Boolean NewFName = true;
 
     public void UpdateUObject()
     {
-        var unrealEngine = UnrealEngine.GetInstance();
-
-        var world = unrealEngine.ReadProcessMemory<nint>(unrealEngine.GWorld);
+        var world = _unrealEngine.ReadProcessMemory<nint>(_unrealEngine.GWorld);
         {
             var foundClassAndName = false;
             for (var c = 0; c < 0x50 && !foundClassAndName; c += 0x8)
             {
-                var classPtr = unrealEngine.ReadProcessMemory<nint>(world + c);
+                var classPtr = _unrealEngine.ReadProcessMemory<nint>(world + c);
                 if (classPtr == 0x0)
                     continue;
 
                 for (var n = 0; n < 0x50 && !foundClassAndName; n += 0x8)
                 {
-                    var classNameIndex = unrealEngine.ReadProcessMemory<int>(classPtr + n);
+                    var classNameIndex = _unrealEngine.ReadProcessMemory<int>(classPtr + n);
                     var name = GetName(classNameIndex);
                     if (name == "World")
                     {
@@ -73,11 +67,11 @@ public class UObjectBase
         }
         {
             var foundOuter = false;
-            var classPtr = unrealEngine.ReadProcessMemory<nint>(world + ClassOffset);
+            var classPtr = _unrealEngine.ReadProcessMemory<nint>(world + ClassOffset);
             for (var o = 0; o < 0x50; o += 0x8)
             {
-                var outerObj = unrealEngine.ReadProcessMemory<nint>(classPtr + o);
-                var classNameIndex = unrealEngine.ReadProcessMemory<int>(outerObj + NameOffset);
+                var outerObj = _unrealEngine.ReadProcessMemory<nint>(classPtr + o);
+                var classNameIndex = _unrealEngine.ReadProcessMemory<int>(outerObj + NameOffset);
                 var name = GetName(classNameIndex);
                 if (name == "/Script/Engine")
                 {
@@ -87,15 +81,16 @@ public class UObjectBase
                 }
             }
 
-            if (!foundOuter) throw new Exception("bad outer addr");
+            if (!foundOuter)
+                throw new Exception("bad outer addr");
         }
         {
             var foundSuper = false;
-            var classPtr = unrealEngine.ReadProcessMemory<nint>(world + ClassOffset);
+            var classPtr = _unrealEngine.ReadProcessMemory<nint>(world + ClassOffset);
             for (var o = 0; o < 0x50; o += 0x8)
             {
-                var superObj = unrealEngine.ReadProcessMemory<nint>(classPtr + o);
-                var classNameIndex = unrealEngine.ReadProcessMemory<int>(superObj + NameOffset);
+                var superObj = _unrealEngine.ReadProcessMemory<nint>(classPtr + o);
+                var classNameIndex = _unrealEngine.ReadProcessMemory<int>(superObj + NameOffset);
                 var name = GetName(classNameIndex);
                 if (name == "Object")
                 {
@@ -110,14 +105,16 @@ public class UObjectBase
         }
         {
             var foundChildsAndFieldName = false;
-            var classPtr = unrealEngine.ReadProcessMemory<nint>(world + ClassOffset);
+            var classPtr = _unrealEngine.ReadProcessMemory<nint>(world + ClassOffset);
             for (var c = 0; c < 0x80 && !foundChildsAndFieldName; c += 0x8)
             {
-                var childPtr = unrealEngine.ReadProcessMemory<nint>(classPtr + c);
-                if (childPtr == 0x0) continue;
+                var childPtr = _unrealEngine.ReadProcessMemory<nint>(classPtr + c);
+                if (childPtr == 0x0)
+                    continue;
+
                 for (var n = 0; n < 0x80 && !foundChildsAndFieldName; n += 0x8)
                 {
-                    var classNameIndex = unrealEngine.ReadProcessMemory<int>(childPtr + n);
+                    var classNameIndex = _unrealEngine.ReadProcessMemory<int>(childPtr + n);
                     var name = GetName(classNameIndex);
                     if (name == "PersistentLevel")
                     {
@@ -133,15 +130,15 @@ public class UObjectBase
         }
         {
             var foundNextField = false;
-            var classPtr = unrealEngine.ReadProcessMemory<nint>(world + ClassOffset);
-            var fieldPtr = unrealEngine.ReadProcessMemory<nint>(classPtr + ChildPropertiesOffset);
+            var classPtr = _unrealEngine.ReadProcessMemory<nint>(world + ClassOffset);
+            var fieldPtr = _unrealEngine.ReadProcessMemory<nint>(classPtr + ChildPropertiesOffset);
             for (var c = 0; c < 0x80 && !foundNextField; c += 0x8)
             {
-                var childClassPtr = unrealEngine.ReadProcessMemory<nint>(fieldPtr + c);
+                var childClassPtr = _unrealEngine.ReadProcessMemory<nint>(fieldPtr + c);
                 if (childClassPtr == 0x0)
                     continue;
 
-                var classNameIndex = unrealEngine.ReadProcessMemory<int>(childClassPtr + FieldNameOffset);
+                var classNameIndex = _unrealEngine.ReadProcessMemory<int>(childClassPtr + FieldNameOffset);
                 var name = GetName(classNameIndex);
                 if (name == "NetDriver")
                 {
@@ -155,14 +152,14 @@ public class UObjectBase
         }
         {
             var foundFuncs = false;
-            var classPtr = unrealEngine.ReadProcessMemory<nint>(world + ClassOffset);
+            var classPtr = _unrealEngine.ReadProcessMemory<nint>(world + ClassOffset);
             for (var c = 0; c < 0x80 && !foundFuncs; c += 0x8)
             {
-                var childPtr = unrealEngine.ReadProcessMemory<nint>(classPtr + c);
+                var childPtr = _unrealEngine.ReadProcessMemory<nint>(classPtr + c);
                 if (childPtr == 0x0)
                     continue;
 
-                var classNameIndex = unrealEngine.ReadProcessMemory<int>(childPtr + NameOffset);
+                var classNameIndex = _unrealEngine.ReadProcessMemory<int>(childPtr + NameOffset);
                 var name = GetName(classNameIndex);
                 if (name == "K2_GetWorldSettings")
                 {
@@ -182,19 +179,20 @@ public class UObjectBase
                 }
             }
 
-            if (!foundFuncs) throw new Exception("bad childs offset");
+            if (!foundFuncs)
+                throw new Exception("bad childs offset");
         }
         {
             var foundNextField = false;
-            var classPtr = unrealEngine.ReadProcessMemory<nint>(world + ClassOffset);
-            var fieldPtr = unrealEngine.ReadProcessMemory<nint>(classPtr + ChildrenOffset);
+            var classPtr = _unrealEngine.ReadProcessMemory<nint>(world + ClassOffset);
+            var fieldPtr = _unrealEngine.ReadProcessMemory<nint>(classPtr + ChildrenOffset);
             for (var c = 0; c < 0x80 && !foundNextField; c += 0x8)
             {
-                var childClassPtr = unrealEngine.ReadProcessMemory<nint>(fieldPtr + c);
+                var childClassPtr = _unrealEngine.ReadProcessMemory<nint>(fieldPtr + c);
                 if (childClassPtr == 0x0)
                     continue;
 
-                var classNameIndex = unrealEngine.ReadProcessMemory<int>(childClassPtr + NameOffset);
+                var classNameIndex = _unrealEngine.ReadProcessMemory<int>(childClassPtr + NameOffset);
                 var name = GetName(classNameIndex);
                 if (name == "HandleTimelineScrubbed")
                 {
@@ -203,20 +201,21 @@ public class UObjectBase
                 }
             }
 
-            if (!foundNextField) throw new Exception("bad next offset");
+            if (!foundNextField)
+                throw new Exception("bad next offset");
         }
         {
             var foundNextField = false;
-            var classPtr = unrealEngine.ReadProcessMemory<nint>(world + ClassOffset);
-            var fieldPtr = unrealEngine.ReadProcessMemory<nint>(classPtr + ChildPropertiesOffset);
+            var classPtr = _unrealEngine.ReadProcessMemory<nint>(world + ClassOffset);
+            var fieldPtr = _unrealEngine.ReadProcessMemory<nint>(classPtr + ChildPropertiesOffset);
             for (var c = 0; c < 0x80 && !foundNextField; c += 0x8)
             {
-                var childClassPtr = unrealEngine.ReadProcessMemory<nint>(fieldPtr + c);
+                var childClassPtr = _unrealEngine.ReadProcessMemory<nint>(fieldPtr + c);
                 if (childClassPtr == 0x0)
                     continue;
 
                 var classNameOffset = NewFName ? 0 : FieldNameOffset;
-                var classNameIndex = unrealEngine.ReadProcessMemory<int>(childClassPtr + classNameOffset);
+                var classNameIndex = _unrealEngine.ReadProcessMemory<int>(childClassPtr + classNameOffset);
                 var name = GetName(classNameIndex);
                 if (name == "ObjectProperty")
                 {
@@ -225,17 +224,18 @@ public class UObjectBase
                 }
             }
 
-            if (!foundNextField) throw new Exception("bad field class offset");
+            if (!foundNextField)
+                throw new Exception("bad field class offset");
         }
         {
             var foundFieldOffset = false;
-            var classPtr = unrealEngine.ReadProcessMemory<nint>(world + ClassOffset);
-            var fieldPtr = unrealEngine.ReadProcessMemory<nint>(classPtr + ChildPropertiesOffset);
+            var classPtr = _unrealEngine.ReadProcessMemory<nint>(world + ClassOffset);
+            var fieldPtr = _unrealEngine.ReadProcessMemory<nint>(classPtr + ChildPropertiesOffset);
             for (var c = 0x0; c < 0x80 && !foundFieldOffset; c += 0x4)
             {
-                var fieldOffset = unrealEngine.ReadProcessMemory<nint>(fieldPtr + c);
-                var nextFieldPtr = unrealEngine.ReadProcessMemory<nint>(fieldPtr + FieldNextOffset);
-                var fieldOffsetPlus8 = unrealEngine.ReadProcessMemory<nint>(nextFieldPtr + c);
+                var fieldOffset = _unrealEngine.ReadProcessMemory<nint>(fieldPtr + c);
+                var nextFieldPtr = _unrealEngine.ReadProcessMemory<nint>(fieldPtr + FieldNextOffset);
+                var fieldOffsetPlus8 = _unrealEngine.ReadProcessMemory<nint>(nextFieldPtr + c);
                 if ((fieldOffset + 8) == fieldOffsetPlus8)
                 {
                     FieldOffset = c;
@@ -251,8 +251,8 @@ public class UObjectBase
             var foundPropertySize = false;
             for (var c = 0x60; c < 0x100 && !foundPropertySize; c += 0x8)
             {
-                var classAddr = unrealEngine.ReadProcessMemory<nint>(field + c);
-                var classNameIndex = unrealEngine.ReadProcessMemory<Int32>(classAddr + NameOffset);
+                var classAddr = _unrealEngine.ReadProcessMemory<nint>(field + c);
+                var classNameIndex = _unrealEngine.ReadProcessMemory<Int32>(classAddr + NameOffset);
                 var name = GetName(classNameIndex);
                 if (name == "StreamingLevelsToConsider")
                 {
@@ -265,12 +265,12 @@ public class UObjectBase
                 throw new Exception("bad property size offset");
         }
         {
-            var vTable = unrealEngine.ReadProcessMemory<nint>(world);
+            var vTable = _unrealEngine.ReadProcessMemory<nint>(world);
             var foundProcessEventOffset = false;
             for (var i = 50; i < 0x100 && !foundProcessEventOffset; i++)
             {
-                var s = unrealEngine.ReadProcessMemory<IntPtr>(vTable + i * 8);
-                var sig = (UInt64)unrealEngine.FindPattern("40 55 56 57 41 54 41 55 41 56 41 57", s, 0X20);
+                var s = _unrealEngine.ReadProcessMemory<IntPtr>(vTable + i * 8);
+                var sig = (UInt64)_unrealEngine.FindPattern("40 55 56 57 41 54 41 55 41 56 41 57", s, 0X20);
                 if (sig != 0)
                 {
                     VTableFuncNum = i;
@@ -278,7 +278,7 @@ public class UObjectBase
                 }
             }
 
-            if (!foundProcessEventOffset) 
+            if (!foundProcessEventOffset)
                 throw new Exception("bad process event offset");
         }
         {
@@ -287,7 +287,7 @@ public class UObjectBase
             var foundFuncFlags = false;
             for (var i = 0; i < 0x200 && !foundFuncFlags; i += 8)
             {
-                var flags = unrealEngine.ReadProcessMemory<nint>(funcAddr + i);
+                var flags = _unrealEngine.ReadProcessMemory<nint>(funcAddr + i);
                 if (flags == (nint)0x0008000104020401)
                 {
                     FuncFlagsOffset = i;
