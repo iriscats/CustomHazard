@@ -558,6 +558,13 @@ namespace UnrealSharp
                     if (dumpedClasses.Contains(obj.ClassName))
                         continue;
 
+                    if (obj.ClassName.IndexOf("Default__FSDGameMode") > 0)
+                    {
+                        var gameMode = obj.As<FSDGameMode>();
+                        var waveManager= gameMode.GetWaveManager();
+
+                    }
+
                     sb.AppendLine(obj.ClassName);
                 }
 

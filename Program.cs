@@ -10,7 +10,9 @@ static class Program
         mod.InitMod();
         //mod.Start();
 
-        new DumpTool().DumpObjects();
+        //new DumpTool().DumpObjects();
+        new WaveTimer().GetTimerArray();
+
 
     }
 }
