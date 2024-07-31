@@ -2,74 +2,83 @@
 {
     public class UnrealEngine
     {
-        public static UnrealEngine Instance;
-        static nint GNamesPattern;
-        public static nint GNames;
-        static nint GObjectsPattern;
-        public static nint GObjects;
-        static nint GWorldPtrPattern;
-        public static nint GWorldPtr;
-        static nint GEnginePattern;
-        public static nint GEngine;
-        public static nint GStaticCtor;
-        public static Memory Memory;
+        private static UnrealEngine? _instance;
+        public readonly Memory Memory;
 
-        public UnrealEngine(Memory mem)
+        public static UnrealEngine GetInstance(Memory memory)
         {
-            Memory = mem;
-            Instance = this;
+            return _instance ??= new UnrealEngine(memory);
         }
 
-        public void UpdateAddresses()
+        public nint GNames
         {
+            get
             {
-                GNamesPattern = Memory.FindPattern("74 09 48 8D 15 ? ? ? ? EB 16");
-                var offset = Memory.ReadProcessMemory<int>(GNamesPattern + 5);
-                GNames = GNamesPattern + offset + 9;
-                if (UEObject.GetName(3) != "ByteProperty") throw new Exception("bad GNames");
-                //DumpGNames();
+                var pattern = Memory.FindPattern("74 09 48 8D 15 ? ? ? ? EB 16");
+                var offset = Memory.ReadProcessMemory<int>(pattern + 5);
+                return pattern + offset + 9;
             }
+        }
+
+        public nint GObjects
+        {
+            get
+            {
+                var pattern = Memory.FindPattern("48 8B 05 ? ? ? ? 48 8B 0C C8 ? 8D 04 D1 EB ?");
+                var offset = Memory.ReadProcessMemory<int>(pattern + 3);
+                return pattern + offset + 7 - Memory.BaseAddress;
+            }
+        }
+
+        public nint GWorld
+        {
+            get
             {
                 int offset;
                 var stringAddr = Memory.FindStringRef("    SeamlessTravel FlushLevelStreaming");
-                GWorldPtrPattern = Memory.FindPattern("48 89 05", stringAddr - 0x500, 0x500);
+                var pattern = Memory.FindPattern("48 89 05", stringAddr - 0x500, 0x500);
                 //GWorldPtrPattern = Memory.FindPattern("48 89 5C 24 08 57 48 83 EC 30 0F B6 DA 48 8B F9 80 FA 01 ?? ?? ?? ?? ?? ?? ?? ?? ?? BA");
-                if (GWorldPtrPattern != 0)
+                if (pattern != 0)
                 {
-                    offset = UnrealEngine.Memory.ReadProcessMemory<int>(GWorldPtrPattern + 3);
-                    GWorldPtr = GWorldPtrPattern + offset + 7;
+                    offset = Memory.ReadProcessMemory<int>(pattern + 3);
+                    return pattern + offset + 7;
                 }
                 else
                 {
-                    GWorldPtrPattern = Memory.FindPattern("0F 2E ?? 74 ?? 48 8B 1D ?? ?? ?? ?? 48 85 DB 74");
-                    offset = Memory.ReadProcessMemory<int>(GWorldPtrPattern + 8);
-                    GWorldPtr = GWorldPtrPattern + offset + 12;
+                    pattern = Memory.FindPattern("0F 2E ?? 74 ?? 48 8B 1D ?? ?? ?? ?? 48 85 DB 74");
+                    offset = Memory.ReadProcessMemory<int>(pattern + 8);
+                    return pattern + offset + 12;
                 }
-
-                GObjectsPattern = Memory.FindPattern("48 8B 05 ? ? ? ? 48 8B 0C C8 ? 8D 04 D1 EB ?");
-
-                UpdateUEObject();
-
-                offset = Memory.ReadProcessMemory<int>(GObjectsPattern + 3);
-                GObjects = GObjectsPattern + offset + 7 - Memory.BaseAddress;
             }
+        }
+
+        public nint GEngine
+        {
+            get
             {
-                GEnginePattern = Memory.FindPattern("48 8B 0D ?? ?? ?? ?? 48 85 C9 74 1E 48 8B 01 FF 90");
-                var offset = Memory.ReadProcessMemory<int>(GEnginePattern + 3);
-                GEngine = Memory.ReadProcessMemory<nint>(GEnginePattern + offset + 7);
+                var pattern = Memory.FindPattern("48 8B 0D ?? ?? ?? ?? 48 85 C9 74 1E 48 8B 01 FF 90");
+                var offset = Memory.ReadProcessMemory<int>(pattern + 3);
+                return Memory.ReadProcessMemory<nint>(pattern + offset + 7);
             }
+        }
+
+        public nint GStaticCtor
+        {
+            get
             {
-                var engine = new UEObject(GEngine);
-                GStaticCtor =
-                    Memory.FindPattern(
-                        "4C 89 44 24 18 55 53 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 48 8B 05 ? ? ? ? 48 33 C4");
+                return Memory.FindPattern(
+                    "4C 89 44 24 18 55 53 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 48 8B 05 ? ? ? ? 48 33 C4");
             }
-            //DumpSdk();
+        }
+
+        private UnrealEngine(Memory mem)
+        {
+            Memory = mem;
         }
 
         public void UpdateUEObject()
         {
-            var world = Memory.ReadProcessMemory<nint>(GWorldPtr);
+            var world = Memory.ReadProcessMemory<nint>(GWorld);
             {
                 var classPtr = Memory.ReadProcessMemory<nint>(world + UEObject.classOffset);
                 var foundClassAndName = false;
@@ -90,7 +99,8 @@
                     }
                 }
 
-                if (!foundClassAndName) throw new Exception("bad World or offsets?");
+                if (!foundClassAndName)
+                    throw new Exception("bad World or offsets?");
             }
             {
                 var foundOuter = false;
@@ -126,7 +136,8 @@
                     }
                 }
 
-                if (!foundSuper) throw new Exception("bad super addr");
+                if (!foundSuper)
+                    throw new Exception("bad super addr");
             }
             {
                 var foundChildsAndFieldName = false;
@@ -295,7 +306,7 @@
                 var foundFuncFlags = false;
                 for (var i = 0; i < 0x200 && !foundFuncFlags; i += 8)
                 {
-                    var flags = UnrealEngine.Memory.ReadProcessMemory<nint>(funcAddr + i);
+                    var flags = Memory.ReadProcessMemory<nint>(funcAddr + i);
                     if (flags == 0x0008000104020401)
                     {
                         UEObject.funcFlagsOffset = i;
