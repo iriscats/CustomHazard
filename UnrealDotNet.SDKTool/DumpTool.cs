@@ -4,6 +4,17 @@ using System.Text;
 namespace UnrealSharp
 {
 
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum)]
+    public class NamespaceAttribute : Attribute
+    {
+        public string name;
+
+        public NamespaceAttribute(string name)
+        {
+            this.name = name;
+        }
+    }
+    
     public class DumpTool
     {
         public class Package
@@ -280,7 +291,7 @@ namespace UnrealSharp
                 var outer = entityAddr;
                 while (true)
                 {
-                    var tempOuter = Memory.ReadProcessMemory<nint>(outer + UEObject.objectOuterOffset);
+                    var tempOuter = Memory.ReadProcessMemory<nint>(outer + UEObject.ObjectOuterOffset);
                     if (tempOuter == 0) break;
                     outer = tempOuter;
                 }
@@ -529,7 +540,7 @@ namespace UnrealSharp
                 var outer = entityAddr;
                 while (true)
                 {
-                    var tempOuter = Memory.ReadProcessMemory<nint>(outer + UEObject.objectOuterOffset);
+                    var tempOuter = Memory.ReadProcessMemory<nint>(outer + UEObject.ObjectOuterOffset);
                     if (tempOuter == 0) break;
                     outer = tempOuter;
                 }
