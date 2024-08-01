@@ -2,27 +2,27 @@ namespace UnrealDotNet.Types;
 
 public class UObjectBase
 {
-    protected int ObjectOuterOffset = 0x20;
-    protected int ClassOffset = 0x10;
-    protected int NameOffset = 0x18;
-    protected int StructSuperOffset = 0x40;
-    protected int ChildPropertiesOffset = 0x50;
-    protected int ChildrenOffset = 0x48;
-    protected int FieldNameOffset = 0x28;
-    protected int FieldTypeNameOffset = 0;
-    protected int FieldClassOffset = 0x8;
-    protected int FieldNextOffset = 0x20;
-    protected int FuncNextOffset = 0x20;
-    protected int FieldOffset = 0x4C;
-    protected int PropertySize = 0x78;
-    protected int VTableFuncNum = 66;
-    protected int FuncFlagsOffset = 0xB0;
-    protected int EnumArrayOffset = 0x40;
-    protected int EnumCountOffset = 0x48;
+    public static int ObjectOuterOffset = 0x20;
+    public static int ClassOffset = 0x10;
+    public static int NameOffset = 0x18;
+    public static int StructSuperOffset = 0x40;
+    public static int ChildPropertiesOffset = 0x50;
+    public static int ChildrenOffset = 0x48;
+    public static int FieldNameOffset = 0x28;
+    public static int FieldTypeNameOffset = 0;
+    public static int FieldClassOffset = 0x8;
+    public static int FieldNextOffset = 0x20;
+    public static int FuncNextOffset = 0x20;
+    public static int FieldOffset = 0x4C;
+    public static int PropertySize = 0x78;
+    public static int VTableFuncNum = 66;
+    public static int FuncFlagsOffset = 0xB0;
+    public static int EnumArrayOffset = 0x40;
+    public static int EnumCountOffset = 0x48;
 
-    private readonly UnrealEngine _unrealEngine = UnrealEngine.GetInstance();
+    private static readonly UnrealEngine _unrealEngine = UnrealEngine.GetInstance();
 
-    public string GetName(int key)
+    public static string GetName(int key)
     {
         var namePtr = _unrealEngine.ReadProcessMemory<nint>(_unrealEngine.GNames + ((key >> 16) + 2) * 8);
         if (namePtr == 0)
@@ -36,9 +36,9 @@ public class UObjectBase
         return _unrealEngine.MemoryReadString(namePtr + (key & 0xffff) * 2 + 2, nameLength);
     }
 
-    public Boolean NewFName = true;
+    public static Boolean NewFName = true;
 
-    public void UpdateUObject()
+    public static void UpdateUObject()
     {
         var world = _unrealEngine.ReadProcessMemory<nint>(_unrealEngine.GWorld);
         {
@@ -243,7 +243,8 @@ public class UObjectBase
                 }
             }
 
-            if (!foundFieldOffset) throw new Exception("bad field offset");
+            if (!foundFieldOffset) 
+                throw new Exception("bad field offset");
         }
         {
             var worldUObject = new UObject(world);

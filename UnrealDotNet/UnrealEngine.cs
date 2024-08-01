@@ -103,4 +103,11 @@ public partial class UnrealEngine
     private UnrealEngine()
     {
     }
+
+    public void InitUOject()
+    {
+        UObjectBase.UpdateUObject();
+
+    }
+
 }

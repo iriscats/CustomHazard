@@ -236,9 +236,9 @@ public class UObject : UObjectBase
 
     public nint GetFuncAddr(nint origClassAddr, nint classAddr, String fieldName)
     {
-        if (!NewFName) 
+        if (!NewFName)
             return GetFieldAddr(origClassAddr, classAddr, fieldName);
-        
+
         if (ClassFieldToAddr.ContainsKey(origClassAddr) && ClassFieldToAddr[origClassAddr].ContainsKey(fieldName))
             return ClassFieldToAddr[origClassAddr][fieldName];
         var field = classAddr + ChildrenOffset - FuncNextOffset;
@@ -316,15 +316,17 @@ public class UObject : UObjectBase
         get
         {
             var fieldAddr = GetFieldAddr(key);
-            if (fieldAddr == 0) 
+            if (fieldAddr == 0)
                 return null;
-            
+
             var fieldType = GetFieldType(fieldAddr);
             var offset = GetFieldOffset(fieldAddr);
             UObject obj;
             if (fieldType == "ObjectProperty" || fieldType == "ScriptStruct")
-                obj = new UObject(_unrealEngine.ReadProcessMemory<nint>(Address + offset)) { FieldOffset = offset };
-    
+            {
+                obj = new UObject(_unrealEngine.ReadProcessMemory<nint>(Address + offset));
+                FieldOffset = offset;
+            }
             else if (fieldType == "ArrayProperty")
             {
                 obj = new UObject(Address + offset);
@@ -384,13 +386,13 @@ public class UObject : UObjectBase
     {
         get
         {
-            if (_num != int.MaxValue) 
+            if (_num != int.MaxValue)
                 return _num;
-            
+
             _num = _unrealEngine.ReadProcessMemory<int>(Address + 8);
-            if (_num > 0x10000) 
+            if (_num > 0x10000)
                 _num = 0x10000;
-            
+
             return _num;
         }
     }
@@ -403,7 +405,7 @@ public class UObject : UObjectBase
         {
             if (_arrayCache.Length != 0)
                 return _arrayCache;
-            
+
             _arrayCache = _unrealEngine.MemoryReadBytes(Value, Num * 8);
             return _arrayCache;
         }
@@ -422,7 +424,7 @@ public class UObject : UObjectBase
         {
             if (_vTableFunc != 0xcafeb00)
                 return _vTableFunc;
-            
+
             _vTableFunc = _unrealEngine.ReadProcessMemory<nint>(Address) + VTableFuncNum * 8;
             _vTableFunc = _unrealEngine.ReadProcessMemory<nint>(_vTableFunc);
             return _vTableFunc;

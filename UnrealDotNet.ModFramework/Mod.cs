@@ -1,7 +1,6 @@
 using System.Diagnostics;
-using UnrealSharp;
 
-namespace CustomHazard;
+namespace UnrealDotNet.ModFramework;
 
 public class Mod
 {
