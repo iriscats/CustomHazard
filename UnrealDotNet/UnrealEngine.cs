@@ -104,10 +104,8 @@ public partial class UnrealEngine
     {
     }
 
-    public void InitUOject()
+    public void InitUObject()
     {
-        UObject.UpdateUObject();
-
+        UObject.FindUObjectOffset();
     }
-
 }

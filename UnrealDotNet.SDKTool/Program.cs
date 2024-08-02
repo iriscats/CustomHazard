@@ -14,16 +14,6 @@ namespace UnrealDotNet.SDKTool
 
         static void Main()
         {
-            ulong value = 1;
-            var objSize = Marshal.SizeOf(value);
-            Console.WriteLine(objSize);
-            
-            ushort a = 1;
-            objSize = Marshal.SizeOf(a);
-            Console.WriteLine(objSize);
-            
-            return;
-            
             var ue = UnrealEngine.GetInstance();
             while (true)
             {
@@ -37,7 +27,7 @@ namespace UnrealDotNet.SDKTool
 
                 Thread.Sleep(100);
             }
-            ue.InitUOject();
+            ue.InitUObject();
             new DumpTool().DumpSdk();
         }
     }
