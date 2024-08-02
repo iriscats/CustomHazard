@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace UnrealDotNet.SDKTool
 {
-    internal class Program
+    internal static class Program
     {
         private static string GameName => "FSD-Win64-Shipping";
 
@@ -27,7 +27,7 @@ namespace UnrealDotNet.SDKTool
 
                 Thread.Sleep(100);
             }
-            ue.InitUObject();
+    
             new DumpTool().DumpSdk();
         }
     }

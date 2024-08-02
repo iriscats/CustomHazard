@@ -9,7 +9,7 @@ public unsafe partial class UnrealEngine
     static readonly delegate* unmanaged[Stdcall]<int, int, int, nint> OpenProcess =
         (delegate* unmanaged[Stdcall]<int, int, int, nint>)NativeLibrary.GetExport(Kernel, nameof(OpenProcess));
 
-    static readonly delegate* unmanaged[Stdcall]<nint, nint, byte[], int, out int, int> ReadProcessMemory2 =
+    static readonly delegate* unmanaged[Stdcall]<nint, nint, byte[], int, out int, int> ReadProcessMemory =
         (delegate* unmanaged[Stdcall]<nint, nint, byte[], int, out int, int>)
         NativeLibrary.GetExport(Kernel, "ReadProcessMemory");
 

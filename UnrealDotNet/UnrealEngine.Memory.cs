@@ -34,23 +34,23 @@ public unsafe partial class UnrealEngine
         var buffer = new byte[length];
         for (var i = 0; i < length / (float)MaxReadSize; i++)
         {
-            var blockSize = (i == (length / MaxReadSize)) ? length % MaxReadSize : MaxReadSize;
-            var buf = new byte[blockSize];
-            ReadProcessMemory2(_procHandle, addr + i * MaxReadSize, buf, blockSize, out _);
-            Array.Copy(buf, 0, buffer, i * MaxReadSize, blockSize);
+            var blockSize = i == length / MaxReadSize ? length % MaxReadSize : MaxReadSize;
+            var blockBuffer = new byte[blockSize];
+            ReadProcessMemory(_procHandle, addr + i * MaxReadSize, blockBuffer, blockSize, out _);
+            Array.Copy(blockBuffer, 0, buffer, i * MaxReadSize, blockSize);
         }
 
         return buffer;
     }
 
-    public string MemoryReadString(nint addr, int length)
+    public string MemoryReadString(nint address, int length)
     {
         var stringLength = length;
         var bytes = new List<byte>();
         var isUtf16 = false;
         for (var i = 0; i < 64; i++)
         {
-            var letters8 = MemoryReadPtr(addr + i * 8);
+            var letters8 = MemoryReadPtr(address + i * 8);
             var tempBytes = BitConverter.GetBytes(letters8);
             for (int j = 0; j < 8 && stringLength > 0; j++)
             {
@@ -73,7 +73,7 @@ public unsafe partial class UnrealEngine
     public byte MemoryReadByte(nint address)
     {
         var buffer = new byte[4];
-        ReadProcessMemory2(_procHandle, address, buffer, 4, out int _);
+        ReadProcessMemory(_procHandle, address, buffer, 4, out int _);
         var structPtr = GCHandle.Alloc(buffer, GCHandleType.Pinned);
         var obj = Marshal.PtrToStructure(structPtr.AddrOfPinnedObject(), typeof(int));
         structPtr.Free();
@@ -83,7 +83,7 @@ public unsafe partial class UnrealEngine
     public int MemoryReadInt(nint address)
     {
         var buffer = new byte[4];
-        ReadProcessMemory2(_procHandle, address, buffer, 4, out int _);
+        ReadProcessMemory(_procHandle, address, buffer, 4, out int _);
         var structPtr = GCHandle.Alloc(buffer, GCHandleType.Pinned);
         var obj = Marshal.PtrToStructure(structPtr.AddrOfPinnedObject(), typeof(int));
         structPtr.Free();
@@ -93,7 +93,7 @@ public unsafe partial class UnrealEngine
     public nint MemoryReadPtr(nint address)
     {
         var buffer = new byte[8];
-        ReadProcessMemory2(_procHandle, address, buffer, 8, out int _);
+        ReadProcessMemory(_procHandle, address, buffer, 8, out int _);
         var structPtr = GCHandle.Alloc(buffer, GCHandleType.Pinned);
         var obj = Marshal.PtrToStructure(structPtr.AddrOfPinnedObject(), typeof(nint));
         structPtr.Free();
@@ -103,7 +103,7 @@ public unsafe partial class UnrealEngine
     public ulong MemoryReadLong(nint address)
     {
         var buffer = new byte[8];
-        ReadProcessMemory2(_procHandle, address, buffer, 8, out int _);
+        ReadProcessMemory(_procHandle, address, buffer, 8, out int _);
         var structPtr = GCHandle.Alloc(buffer, GCHandleType.Pinned);
         var obj = Marshal.PtrToStructure(structPtr.AddrOfPinnedObject(), typeof(ulong));
         structPtr.Free();
@@ -113,7 +113,7 @@ public unsafe partial class UnrealEngine
     public ushort MemoryReadShort(nint address)
     {
         var buffer = new byte[2];
-        ReadProcessMemory2(_procHandle, address, buffer, 2, out int _);
+        ReadProcessMemory(_procHandle, address, buffer, 2, out int _);
         var structPtr = GCHandle.Alloc(buffer, GCHandleType.Pinned);
         var obj = Marshal.PtrToStructure(structPtr.AddrOfPinnedObject(), typeof(ushort));
         structPtr.Free();
@@ -312,14 +312,14 @@ public unsafe partial class UnrealEngine
     public string DumpHexString(nint start)
     {
         var buffer = new byte[0x1000];
-        ReadProcessMemory2(_procHandle, start, buffer, buffer.Length, out int bytesRead);
+        ReadProcessMemory(_procHandle, start, buffer, buffer.Length, out int bytesRead);
         return string.Join(",", buffer.Select(b => "0x" + b.ToString("X2")));
     }
 
     public string DumpSurroundString(ulong start)
     {
         var buffer = new byte[0x100];
-        ReadProcessMemory2(_procHandle, (nint)(start - 0x80), buffer, buffer.Length, out int bytesRead);
+        ReadProcessMemory(_procHandle, (nint)(start - 0x80), buffer, buffer.Length, out int bytesRead);
         var val = "";
         for (int i = 0x7f; i > 0; i--)
         {
