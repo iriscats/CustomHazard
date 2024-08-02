@@ -36,7 +36,7 @@ public unsafe partial class UnrealEngine
         {
             var blockSize = (i == (length / MaxReadSize)) ? length % MaxReadSize : MaxReadSize;
             var buf = new byte[blockSize];
-            ReadProcessMemory2(_procHandle, addr + i * MaxReadSize, buf, blockSize, out int bytesRead);
+            ReadProcessMemory2(_procHandle, addr + i * MaxReadSize, buf, blockSize, out _);
             Array.Copy(buf, 0, buffer, i * MaxReadSize, blockSize);
         }
 
@@ -50,7 +50,7 @@ public unsafe partial class UnrealEngine
         var isUtf16 = false;
         for (var i = 0; i < 64; i++)
         {
-            var letters8 = ReadProcessMemory<nint>(addr + i * 8);
+            var letters8 = MemoryReadPtr(addr + i * 8);
             var tempBytes = BitConverter.GetBytes(letters8);
             for (int j = 0; j < 8 && stringLength > 0; j++)
             {
@@ -70,19 +70,54 @@ public unsafe partial class UnrealEngine
         return Encoding.UTF8.GetString(bytes.ToArray());
     }
 
-    public object ReadProcessMemory(Type type, nint addr)
+    public byte MemoryReadByte(nint address)
     {
-        var buffer = new byte[Marshal.SizeOf(type)];
-        ReadProcessMemory2(_procHandle, addr, buffer, Marshal.SizeOf(type), out int bytesRead);
+        var buffer = new byte[4];
+        ReadProcessMemory2(_procHandle, address, buffer, 4, out int _);
         var structPtr = GCHandle.Alloc(buffer, GCHandleType.Pinned);
-        var obj = Marshal.PtrToStructure(structPtr.AddrOfPinnedObject(), type);
+        var obj = Marshal.PtrToStructure(structPtr.AddrOfPinnedObject(), typeof(int));
         structPtr.Free();
-        return obj;
+        return (byte)obj!;
     }
 
-    public T ReadProcessMemory<T>(nint addr)
+    public int MemoryReadInt(nint address)
     {
-        return (T)ReadProcessMemory(typeof(T), addr);
+        var buffer = new byte[4];
+        ReadProcessMemory2(_procHandle, address, buffer, 4, out int _);
+        var structPtr = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+        var obj = Marshal.PtrToStructure(structPtr.AddrOfPinnedObject(), typeof(int));
+        structPtr.Free();
+        return (int)obj!;
+    }
+
+    public nint MemoryReadPtr(nint address)
+    {
+        var buffer = new byte[8];
+        ReadProcessMemory2(_procHandle, address, buffer, 8, out int _);
+        var structPtr = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+        var obj = Marshal.PtrToStructure(structPtr.AddrOfPinnedObject(), typeof(nint));
+        structPtr.Free();
+        return (nint)obj!;
+    }
+
+    public ulong MemoryReadLong(nint address)
+    {
+        var buffer = new byte[8];
+        ReadProcessMemory2(_procHandle, address, buffer, 8, out int _);
+        var structPtr = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+        var obj = Marshal.PtrToStructure(structPtr.AddrOfPinnedObject(), typeof(ulong));
+        structPtr.Free();
+        return (ulong)obj!;
+    }
+
+    public ushort MemoryReadShort(nint address)
+    {
+        var buffer = new byte[2];
+        ReadProcessMemory2(_procHandle, address, buffer, 2, out int _);
+        var structPtr = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+        var obj = Marshal.PtrToStructure(structPtr.AddrOfPinnedObject(), typeof(ushort));
+        structPtr.Free();
+        return (ushort)obj!;
     }
 
     public void WriteProcessMemory(nint addr, byte[] buffer)
@@ -145,7 +180,7 @@ public unsafe partial class UnrealEngine
 
         var thread = CreateRemoteThread(_procHandle, IntPtr.Zero, 0, codePtr, IntPtr.Zero, 0, IntPtr.Zero);
         WaitForSingleObject(thread, 10000);
-        var returnValue = ReadProcessMemory<nint>(retValPtr);
+        var returnValue = MemoryReadPtr(retValPtr);
         VirtualFreeEx(_procHandle, codePtr, 0, 0x8000);
         VirtualFreeEx(_procHandle, retValPtr, 0, 0x8000);
         CloseHandle(thread);
@@ -193,12 +228,13 @@ public unsafe partial class UnrealEngine
         IntPtr thread = CreateRemoteThread(_procHandle, IntPtr.Zero, 0, codePtr, IntPtr.Zero, 0, IntPtr.Zero);
         WaitForSingleObject(thread, 10000);
 
-        var returnValue = ReadProcessMemory<T>(dummyParms);
+        var returnValue = MemoryReadPtr(dummyParms);
         VirtualFreeEx(_procHandle, dummyParms, 0, 0x8000);
         VirtualFreeEx(_procHandle, codePtr, 0, 0x8000);
         //VirtualFreeEx(procHandle, retValPtr, 0, 0x8000);
         CloseHandle(thread);
-        return returnValue;
+
+        return (T)Marshal.PtrToStructure(returnValue, typeof(T))!;
     }
 
     public static List<nint> Scan(byte[] buf, int[] pattern)

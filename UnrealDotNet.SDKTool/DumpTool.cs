@@ -17,33 +17,33 @@ public class NamespaceAttribute : Attribute
 
 public class Package
 {
-    public String FullName;
-    public String Name => FullName.Substring(FullName.LastIndexOf("/") + 1);
-    public List<SDKClass> Classes = new List<SDKClass>();
-    public List<Package> Dependencies = new List<Package>();
+    public string FullName;
+    public string Name => FullName.Substring(FullName.LastIndexOf("/") + 1);
+    public List<SDKClass> Classes = new();
+    public List<Package> Dependencies = new();
 
     public class SDKClass
     {
-        public String SdkType;
-        public String Namespace;
-        public String Name;
-        public String Parent;
-        public List<SDKFields> Fields = new List<SDKFields>();
-        public List<SDKFunctions> Functions = new List<SDKFunctions>();
+        public string SdkType;
+        public string Namespace;
+        public string Name;
+        public string Parent;
+        public List<SDKFields> Fields = new();
+        public List<SDKFunctions> Functions = new();
 
         public class SDKFields
         {
-            public String Type;
-            public String Name;
-            public String GetterSetter;
-            public Int32 EnumVal;
+            public string Type;
+            public string Name;
+            public string GetterSetter;
+            public int EnumVal;
         }
 
         public class SDKFunctions
         {
-            public String ReturnType;
-            public String Name;
-            public List<SDKFields> Params = new List<SDKFields>();
+            public string ReturnType;
+            public string Name;
+            public List<SDKFields> Params = new();
         }
     }
 }
@@ -51,7 +51,7 @@ public class Package
 public class DumpTool
 {
 
-    private readonly UnrealEngine _unrealEngine = UnrealEngine.GetInstance();
+    private readonly UnrealEngine _ue = UnrealEngine.GetInstance();
 
     public DumpTool()
     {
@@ -61,8 +61,8 @@ public class DumpTool
 
     public void EnableConsole()
     {
-        var engine = new UObject(_unrealEngine.GEngine);
-        var console = new UObject(_unrealEngine.Execute(_unrealEngine.GStaticCtor,
+        var engine = new UObject(_ue.GEngine);
+        var console = new UObject(_ue.Execute(_ue.GStaticCtor,
             engine["ConsoleClass"].Value,
             engine["GameViewport"].Address,
             0, 0, 0, 0, 0, 0, 0));
@@ -70,7 +70,7 @@ public class DumpTool
     }
 
 
-    public String GetTypeFromFieldAddr(String fName, String fType, nint fAddr, out String gettersetter)
+    public string GetTypeFromFieldAddr(string fName, string fType, nint fAddr, out string gettersetter)
     {
         gettersetter = "";
         if (fType == "BoolProperty")
@@ -143,8 +143,8 @@ public class DumpTool
         }
         else if (fType == "ObjectProperty")
         {
-            var structFieldIndex = _unrealEngine.ReadProcessMemory<Int32>(
-                _unrealEngine.ReadProcessMemory<nint>(fAddr + UObject.PropertySize) + UObject.NameOffset);
+            var structFieldIndex = _ue.MemoryReadInt(
+                _ue.MemoryReadPtr(fAddr + UObject.PropertySize) + UObject.NameOffset);
             fType = UObject.GetName(structFieldIndex);
             gettersetter = "{ get { return this[nameof(" + fName + ")].As<" + fType + ">(); } set { this[\"" +
                            fName + "\"] = value; } }";
@@ -163,8 +163,8 @@ public class DumpTool
         }
         else if (fType == "StructProperty")
         {
-            var structFieldIndex = _unrealEngine.ReadProcessMemory<Int32>(
-                _unrealEngine.ReadProcessMemory<nint>(fAddr + UObject.PropertySize) + UObject.NameOffset);
+            var structFieldIndex = _ue.MemoryReadInt(
+                _ue.MemoryReadPtr(fAddr + UObject.PropertySize) + UObject.NameOffset);
             fType = UObject.GetName(structFieldIndex);
             //gettersetter = "{ get { return UnrealEngine._unrealEngine.ReadProcessMemory<" + fType + ">(this[nameof(" + fName + ")].Address); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
             gettersetter = "{ get { return this[nameof(" + fName + ")].As<" + fType + ">(); } set { this[\"" +
@@ -172,8 +172,8 @@ public class DumpTool
         }
         else if (fType == "EnumProperty")
         {
-            var structFieldIndex = _unrealEngine.ReadProcessMemory<Int32>(
-                _unrealEngine.ReadProcessMemory<nint>(fAddr + UObject.PropertySize + 8) +
+            var structFieldIndex = _ue.MemoryReadInt(
+                _ue.MemoryReadPtr(fAddr + UObject.PropertySize + 8) +
                 UObject.NameOffset);
             fType = UObject.GetName(structFieldIndex);
             gettersetter = "{ get { return (" + fType + ")this[nameof(" + fName +
@@ -185,9 +185,9 @@ public class DumpTool
         }
         else if (fType == "ArrayProperty")
         {
-            var inner = _unrealEngine.ReadProcessMemory<nint>(fAddr + UObject.PropertySize);
-            var innerClass = _unrealEngine.ReadProcessMemory<nint>(inner + UObject.FieldClassOffset);
-            var structFieldIndex = _unrealEngine.ReadProcessMemory<Int32>(innerClass);
+            var inner = _ue.MemoryReadPtr(fAddr + UObject.PropertySize);
+            var innerClass = _ue.MemoryReadPtr(inner + UObject.FieldClassOffset);
+            var structFieldIndex = _ue.MemoryReadInt(innerClass);
             fType = UObject.GetName(structFieldIndex);
             var innerType = GetTypeFromFieldAddr(fName, fType, inner, out gettersetter);
             gettersetter = "{ get { return new UArray<" + innerType + ">(this[nameof(" + fName +
@@ -266,25 +266,25 @@ public class DumpTool
     }
 
 
-    public void DumpSdk(String location = "")
+    public void DumpSdk(string location = "")
     {
         if (location == "")
-            location = _unrealEngine.Process.ProcessName;
+            location = _ue.Process.ProcessName;
 
         Directory.CreateDirectory(location);
-        var entityList = _unrealEngine.ReadProcessMemory<nint>(_unrealEngine.BaseAddress + _unrealEngine.GObjects);
-        var count = _unrealEngine.ReadProcessMemory<UInt32>(_unrealEngine.BaseAddress + _unrealEngine.GObjects + 0x14);
-        entityList = _unrealEngine.ReadProcessMemory<nint>(entityList);
+        var entityList = _ue.MemoryReadPtr(_ue.BaseAddress + _ue.GObjects);
+        var count = _ue.MemoryReadInt(_ue.BaseAddress + _ue.GObjects + 0x14);
+        entityList = _ue.MemoryReadPtr(entityList);
         var packages = new Dictionary<nint, List<nint>>();
         for (var i = 0; i < count; i++)
         {
             // var entityAddr = _unrealEngine.ReadProcessMemory<UInt64>((entityList + 8 * (i / 0x10400)) + 24 * (i % 0x10400));
-            var entityAddr = _unrealEngine.ReadProcessMemory<nint>((entityList + 8 * (i >> 16)) + 24 * (i % 0x10000));
+            var entityAddr = _ue.MemoryReadPtr((entityList + 8 * (i >> 16)) + 24 * (i % 0x10000));
             if (entityAddr == 0) continue;
             var outer = entityAddr;
             while (true)
             {
-                var tempOuter = _unrealEngine.ReadProcessMemory<nint>(outer + UObject.ObjectOuterOffset);
+                var tempOuter = _ue.MemoryReadPtr(outer + UObject.ObjectOuterOffset);
                 if (tempOuter == 0) break;
                 outer = tempOuter;
             }
@@ -292,8 +292,7 @@ public class DumpTool
             if (!packages.ContainsKey(outer)) packages.Add(outer, new List<nint>());
             packages[outer].Add(entityAddr);
         }
-
-        var ii = 0;
+        
         var dumpedPackages = new List<Package>();
         foreach (var package in packages)
         {
@@ -301,7 +300,7 @@ public class DumpTool
             var fullPackageName = packageObj.GetName();
             if (fullPackageName.Contains("TypedElementFrameworkSDK"))
                 Console.WriteLine("");
-            var dumpedClasses = new List<String>();
+            var dumpedClasses = new List<string>();
             var sdkPackage = new Package { FullName = fullPackageName };
             foreach (var objAddr in package.Value)
             {
@@ -326,7 +325,7 @@ public class DumpTool
                 if (className == "UObject") 
                     continue;
 
-                var parentClass = _unrealEngine.ReadProcessMemory<nint>(obj.Address + UObject.StructSuperOffset);
+                var parentClass = _ue.MemoryReadPtr(obj.Address + UObject.StructSuperOffset);
                 var sdkClass = new Package.SDKClass
                 {
                     Name = className,
@@ -338,7 +337,7 @@ public class DumpTool
                 if (typeName == "enum") sdkClass.Parent = "int";
                 else if (parentClass != 0)
                 {
-                    var parentNameIndex = _unrealEngine.ReadProcessMemory<Int32>(parentClass + UObject.NameOffset);
+                    var parentNameIndex = _ue.MemoryReadInt(parentClass + UObject.NameOffset);
                     var parentName = UObject.GetName(parentNameIndex);
                     sdkClass.Parent = parentName;
                 }
@@ -347,18 +346,18 @@ public class DumpTool
 
                 if (typeName == "enum")
                 {
-                    var enumArray = _unrealEngine.ReadProcessMemory<nint>(objAddr + 0x40);
-                    var enumCount = _unrealEngine.ReadProcessMemory<int>(objAddr + 0x48);
+                    var enumArray = _ue.MemoryReadPtr(objAddr + 0x40);
+                    var enumCount = _ue.MemoryReadInt(objAddr + 0x48);
                     for (var i = 0; i < enumCount; i++)
                     {
-                        var enumNameIndex = _unrealEngine.ReadProcessMemory<Int32>(enumArray + i * 0x10);
+                        var enumNameIndex = _ue.MemoryReadInt(enumArray + i * 0x10);
                         var enumName = UObject.GetName(enumNameIndex);
                         enumName = enumName.Substring(enumName.LastIndexOf(":") + 1);
                         var enumNameRepeatedIndex =
-                            _unrealEngine.ReadProcessMemory<Int32>(enumArray + i * 0x10 + 4);
+                            _ue.MemoryReadInt(enumArray + i * 0x10 + 4);
                         if (enumNameRepeatedIndex > 0)
                             enumName += "_" + enumNameRepeatedIndex;
-                        var enumVal = _unrealEngine.ReadProcessMemory<Int32>(enumArray + i * 0x10 + 0x8);
+                        var enumVal = _ue.MemoryReadInt(enumArray + i * 0x10 + 0x8);
                         sdkClass.Fields.Add(new Package.SDKClass.SDKFields { Name = enumName, EnumVal = enumVal });
                     }
                 }
@@ -369,14 +368,14 @@ public class DumpTool
                 else
                 {
                     var field = obj.Address + UObject.ChildPropertiesOffset - UObject.FieldNextOffset;
-                    while ((field = _unrealEngine.ReadProcessMemory<nint>(field + UObject.FieldNextOffset)) >
+                    while ((field = _ue.MemoryReadPtr(field + UObject.FieldNextOffset)) >
                            0)
                     {
                         var fName = UObject.GetName(
-                            _unrealEngine.ReadProcessMemory<Int32>(field + UObject.FieldNameOffset));
+                            _ue.MemoryReadInt(field + UObject.FieldNameOffset));
                         var fType = obj.GetFieldType(field);
                         var fValue = "(" + field.ToString() + ")";
-                        var offset = (UInt32)obj.GetFieldOffset(field);
+                        var offset = (uint)obj.GetFieldOffset(field);
                         var gettersetter =
                             "{ get { return new {0}(this[\"{1}\"].Address); } set { this[\"{1}\"] = value; } }";
                         fType = GetTypeFromFieldAddr(fName, fType, field, out gettersetter);
@@ -387,19 +386,19 @@ public class DumpTool
                     }
 
                     field = obj.Address + UObject.ChildrenOffset - UObject.FuncNextOffset;
-                    while ((field = _unrealEngine.ReadProcessMemory<nint>(field + UObject.FuncNextOffset)) >
+                    while ((field = _ue.MemoryReadPtr(field + UObject.FuncNextOffset)) >
                            0)
                     {
                         var fName = UObject.GetName(
-                            _unrealEngine.ReadProcessMemory<Int32>(field + UObject.NameOffset));
+                            _ue.MemoryReadInt(field + UObject.NameOffset));
                         if (fName == className) fName += "_value";
                         var func = new Package.SDKClass.SDKFunctions { Name = fName };
                         var fField = field + UObject.ChildPropertiesOffset - UObject.FieldNextOffset;
-                        while ((fField = _unrealEngine.ReadProcessMemory<nint>(fField +
+                        while ((fField = _ue.MemoryReadPtr(fField +
                                    UObject.FieldNextOffset)) > 0)
                         {
                             var pName = UObject.GetName(
-                                _unrealEngine.ReadProcessMemory<Int32>(fField + UObject.FieldNameOffset));
+                                _ue.MemoryReadInt(fField + UObject.FieldNameOffset));
                             var pType = obj.GetFieldType(fField);
                             pType = GetTypeFromFieldAddr("", pType, fField, out _);
                             func.Params.Add(new Package.SDKClass.SDKFields { Name = pName, Type = pType });
@@ -481,11 +480,11 @@ public class DumpTool
                 {
                     if (f.Name == "ClientReceiveLocalizedMessage") continue; // todo fix
                     var returnType = f.Params.FirstOrDefault(pa => pa.Name == "ReturnValue")?.Type ?? "void";
-                    var parameters = String.Join(", ",
+                    var parameters = string.Join(", ",
                         f.Params.FindAll(pa => pa.Name != "ReturnValue").Select(pa => pa.Type + " " + pa.Name));
                     var args = f.Params.FindAll(pa => pa.Name != "ReturnValue").Select(pa => pa.Name).ToList();
                     args.Insert(0, "nameof(" + f.Name + ")");
-                    var argList = String.Join(", ", args);
+                    var argList = string.Join(", ", args);
                     var returnTypeTemplate = returnType == "void" ? "" : ("<" + returnType + ">");
                     sb.AppendLine("        public " + returnType + " " + f.Name + "(" + parameters + ") { " +
                                   (returnType == "void" ? "" : "return ") + "Invoke" + returnTypeTemplate + "(" +
@@ -527,27 +526,27 @@ public class DumpTool
             i += name.Length / 2 + name.Length % 2 + 1;
         }
 
-        Directory.CreateDirectory(_unrealEngine.Process.ProcessName);
-        File.WriteAllText(_unrealEngine.Process.ProcessName + @"\GNamesDump.txt", sb.ToString());
+        Directory.CreateDirectory(_ue.Process.ProcessName);
+        File.WriteAllText(_ue.Process.ProcessName + @"\GNamesDump.txt", sb.ToString());
     }
 
 
     public void DumpObjects()
     {
-        var entityList = _unrealEngine.ReadProcessMemory<nint>(_unrealEngine.BaseAddress + _unrealEngine.GObjects);
-        var count = _unrealEngine.ReadProcessMemory<UInt32>(_unrealEngine.BaseAddress + _unrealEngine.GObjects + 0x14);
+        var entityList = _ue.MemoryReadPtr(_ue.BaseAddress + _ue.GObjects);
+        var count = _ue.MemoryReadInt(_ue.BaseAddress + _ue.GObjects + 0x14);
 
-        entityList = _unrealEngine.ReadProcessMemory<nint>(entityList);
+        entityList = _ue.MemoryReadPtr(entityList);
         var packages = new Dictionary<nint, List<nint>>();
         for (var i = 0; i < count; i++)
         {
             // var entityAddr = _unrealEngine.ReadProcessMemory<UInt64>((entityList + 8 * (i / 0x10400)) + 24 * (i % 0x10400));
-            var entityAddr = _unrealEngine.ReadProcessMemory<nint>((entityList + 8 * (i >> 16)) + 24 * (i % 0x10000));
+            var entityAddr = _ue.MemoryReadPtr((entityList + 8 * (i >> 16)) + 24 * (i % 0x10000));
             if (entityAddr == 0) continue;
             var outer = entityAddr;
             while (true)
             {
-                var tempOuter = _unrealEngine.ReadProcessMemory<nint>(outer + UObject.ObjectOuterOffset);
+                var tempOuter = _ue.MemoryReadPtr(outer + UObject.ObjectOuterOffset);
                 if (tempOuter == 0) break;
                 outer = tempOuter;
             }
@@ -555,9 +554,7 @@ public class DumpTool
             if (!packages.ContainsKey(outer)) packages.Add(outer, new List<nint>());
             packages[outer].Add(entityAddr);
         }
-
-
-        var ii = 0;
+        
         var dumpedPackages = new List<Package>();
         var sb = new StringBuilder();
         foreach (var package in packages)
@@ -568,7 +565,7 @@ public class DumpTool
             if (fullPackageName.Contains("TypedElementFrameworkSDK"))
                 Console.WriteLine("");
 
-            var dumpedClasses = new List<String>();
+            var dumpedClasses = new List<string>();
             var sdkPackage = new Package { FullName = fullPackageName };
             foreach (var objAddr in package.Value)
             {
@@ -586,8 +583,8 @@ public class DumpTool
 
         }
 
-        Directory.CreateDirectory(_unrealEngine.Process.ProcessName);
-        File.WriteAllText(_unrealEngine.Process.ProcessName + @"\DumpObjects.txt", sb.ToString());
+        Directory.CreateDirectory(_ue.Process.ProcessName);
+        File.WriteAllText(_ue.Process.ProcessName + @"\DumpObjects.txt", sb.ToString());
 
     }
 }

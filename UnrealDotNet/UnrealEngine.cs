@@ -20,7 +20,7 @@ public partial class UnrealEngine
             if (_gNames == -1)
             {
                 var pattern = FindPattern("74 09 48 8D 15 ? ? ? ? EB 16");
-                var offset = ReadProcessMemory<int>(pattern + 5);
+                var offset = MemoryReadInt(pattern + 5);
                 _gNames = pattern + offset + 9;
             }
 
@@ -37,7 +37,7 @@ public partial class UnrealEngine
             if (_gObjects == -1)
             {
                 var pattern = FindPattern("48 8B 05 ? ? ? ? 48 8B 0C C8 ? 8D 04 D1 EB ?");
-                var offset = ReadProcessMemory<int>(pattern + 3);
+                var offset = MemoryReadInt(pattern + 3);
                 _gObjects = pattern + offset + 7 - BaseAddress;
             }
 
@@ -59,13 +59,13 @@ public partial class UnrealEngine
                 var pattern = FindPattern("48 89 05", stringAddr - 0x500, 0x500);
                 if (pattern != 0)
                 {
-                    offset = ReadProcessMemory<int>(pattern + 3);
+                    offset = MemoryReadInt(pattern + 3);
                     _gWorld = pattern + offset + 7;
                 }
                 else
                 {
                     pattern = FindPattern("0F 2E ?? 74 ?? 48 8B 1D ?? ?? ?? ?? 48 85 DB 74");
-                    offset = ReadProcessMemory<int>(pattern + 8);
+                    offset = MemoryReadInt(pattern + 8);
                     _gWorld = pattern + offset + 12;
                 }
             }
@@ -83,8 +83,8 @@ public partial class UnrealEngine
             if (_gEngine == -1)
             {
                 var pattern = FindPattern("48 8B 0D ?? ?? ?? ?? 48 85 C9 74 1E 48 8B 01 FF 90");
-                var offset = ReadProcessMemory<int>(pattern + 3);
-                _gEngine = ReadProcessMemory<nint>(pattern + offset + 7);
+                var offset = MemoryReadInt(pattern + 3);
+                _gEngine = MemoryReadPtr(pattern + offset + 7);
             }
 
             return _gEngine;
@@ -106,7 +106,7 @@ public partial class UnrealEngine
 
     public void InitUOject()
     {
-        UObjectBase.UpdateUObject();
+        UObject.UpdateUObject();
 
     }
 

@@ -25,7 +25,7 @@ public class Mod
             Thread.Sleep(500);
         }
 
-        new UnrealEngine(new Memory(_process!)).UpdateAddresses();
+        //new UnrealEngine(new Memory(_process!)).UpdateAddresses();
     }
 
     public void Start()
@@ -36,7 +36,7 @@ public class Mod
             Thread.Sleep(100);
         }
 
-        UEObject.ClearCache();
+        //UEObject.ClearCache();
     }
 
     public void Stop()
@@ -47,6 +47,6 @@ public class Mod
 
     public void Update()
     {
-        new WaveTimer().GetTimerArray();
+        //new WaveTimer().GetTimerArray();
     }
 }

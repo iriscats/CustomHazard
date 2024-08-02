@@ -11,7 +11,7 @@ public unsafe partial class UnrealEngine
 
     static readonly delegate* unmanaged[Stdcall]<nint, nint, byte[], int, out int, int> ReadProcessMemory2 =
         (delegate* unmanaged[Stdcall]<nint, nint, byte[], int, out int, int>)
-        NativeLibrary.GetExport(Kernel, nameof(ReadProcessMemory));
+        NativeLibrary.GetExport(Kernel, "ReadProcessMemory");
 
     [DllImport("kernel32")]
     static extern Boolean WriteProcessMemory(nint hProcess, nint lpBaseAddress, Byte[] buffer, Int32 nSize,
