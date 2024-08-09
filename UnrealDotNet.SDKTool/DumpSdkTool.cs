@@ -4,18 +4,9 @@ using UnrealDotNet.Types;
 
 namespace UnrealDotNet.SDKTool;
 
-
-
-public class DumpSDKTool
+public class DumpSdkTool(string location = "")
 {
     private readonly UnrealEngine _ue = UnrealEngine.GetInstance();
-    private string _location;
-
-
-    public DumpSDKTool(string location = "")
-    {
-        _location = location;
-    }
 
 
     public void DumpSdk()
@@ -25,195 +16,145 @@ public class DumpSDKTool
         GenerateAllFiles(classes);
     }
 
-    private string GetTypeFromFieldAddr(string fName, string fType, nint fAddr, out string gettersetter)
+    private string GetTypeFromFieldAddr(string fName, string fType, nint fAddr, out string getterSetter)
     {
-        gettersetter = "";
-        if (fType == "BoolProperty")
+        getterSetter = "";
+        switch (fType)
         {
-            fType = "bool";
-            gettersetter = "{ get { return this[nameof(" + fName + ")].Flag; } set { this[nameof(" + fName +
-                           ")].Flag = value; } }";
-        }
-        else if (fType == "ByteProperty" || fType == "Int8Property")
-        {
-            fType = "byte";
-            gettersetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
-                           ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
-        }
-        else if (fType == "Int16Property")
-        {
-            fType = "short";
-            gettersetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
-                           ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
-        }
-        else if (fType == "UInt16Property")
-        {
-            fType = "ushort";
-            gettersetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
-                           ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
-        }
-        else if (fType == "IntProperty")
-        {
-            fType = "int";
-            gettersetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
-                           ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
-        }
-        else if (fType == "UInt32Property")
-        {
-            fType = "uint";
-            gettersetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
-                           ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
-        }
-        else if (fType == "Int64Property")
-        {
-            fType = "long";
-            gettersetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
-                           ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
-        }
-        else if (fType == "UInt64Property")
-        {
-            fType = "ulong";
-            gettersetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
-                           ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
-        }
-        else if (fType == "FloatProperty")
-        {
-            fType = "float";
-            gettersetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
-                           ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
-        }
-        else if (fType == "DoubleProperty")
-        {
-            fType = "double";
-            gettersetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
-                           ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
-        }
-        else if (fType == "StrProperty")
-        {
-            fType = "unk";
-        }
-        else if (fType == "TextProperty")
-        {
-            fType = "unk";
-        }
-        else if (fType == "ObjectProperty")
-        {
-            var structFieldIndex = _ue.MemoryReadInt(
-                _ue.MemoryReadPtr(fAddr + UObject.PropertySize) + UObject.NameOffset);
-            fType = UObject.GetName(structFieldIndex);
-            gettersetter = "{ get { return this[nameof(" + fName + ")].As<" + fType + ">(); } set { this[\"" +
-                           fName + "\"] = value; } }";
-        }
-        else if (fType == "ClassPtrProperty")
-        {
-            fType = "UObject";
-            gettersetter = "{ get { return this[nameof(" + fName + ")].As<" + fType + ">(); } set { this[\"" +
-                           fName + "\"] = value; } } // ClassPtrProperty";
-        }
-        else if (fType == "ScriptTypedElementHandle")
-        {
-            fType = "UObject";
-            gettersetter = "{ get { return this[nameof(" + fName + ")].As<" + fType + ">(); } set { this[\"" +
-                           fName + "\"] = value; } } // ClassPtrProperty";
-        }
-        else if (fType == "StructProperty")
-        {
-            var structFieldIndex = _ue.MemoryReadInt(
-                _ue.MemoryReadPtr(fAddr + UObject.PropertySize) + UObject.NameOffset);
-            fType = UObject.GetName(structFieldIndex);
-            //gettersetter = "{ get { return UnrealEngine._unrealEngine.ReadProcessMemory<" + fType + ">(this[nameof(" + fName + ")].Address); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
-            gettersetter = "{ get { return this[nameof(" + fName + ")].As<" + fType + ">(); } set { this[\"" +
-                           fName + "\"] = value; } }";
-        }
-        else if (fType == "EnumProperty")
-        {
-            var structFieldIndex = _ue.MemoryReadInt(
-                _ue.MemoryReadPtr(fAddr + UObject.PropertySize + 8) +
-                UObject.NameOffset);
-            fType = UObject.GetName(structFieldIndex);
-            gettersetter = "{ get { return (" + fType + ")this[nameof(" + fName +
-                           ")].GetValue<int>(); } set { this[nameof(" + fName + ")].SetValue<int>((int)value); } }";
-        }
-        else if (fType == "NameProperty")
-        {
-            fType = "unk";
-        }
-        else if (fType == "ArrayProperty")
-        {
-            var inner = _ue.MemoryReadPtr(fAddr + UObject.PropertySize);
-            var innerClass = _ue.MemoryReadPtr(inner + UObject.FieldClassOffset);
-            var structFieldIndex = _ue.MemoryReadInt(innerClass);
-            fType = UObject.GetName(structFieldIndex);
-            var innerType = GetTypeFromFieldAddr(fName, fType, inner, out gettersetter);
-            gettersetter = "{ get { return new UArray<" + innerType + ">(this[nameof(" + fName +
-                           ")].Address); } }"; // set { this[\"" + fName + "\"] = value; } }";
-            fType = "Array<" + innerType + ">";
-        }
-        else if (fType == "SoftObjectProperty")
-        {
-            fType = "unk";
-        }
-        else if (fType == "SoftClassProperty")
-        {
-            fType = "unk";
-        }
-        else if (fType == "WeakObjectProperty")
-        {
-            fType = "unk";
-        }
-        else if (fType == "LazyObjectProperty")
-        {
-            fType = "unk";
-        }
-        else if (fType == "DelegateProperty")
-        {
-            fType = "unk";
-        }
-        else if (fType == "MulticastSparseDelegateProperty")
-        {
-            fType = "unk";
-        }
-        else if (fType == "MulticastInlineDelegateProperty")
-        {
-            fType = "unk";
-        }
-        else if (fType == "ClassProperty")
-        {
-            fType = "unk";
-        }
-        else if (fType == "MapProperty")
-        {
-            fType = "unk";
-        }
-        else if (fType == "SetProperty")
-        {
-            fType = "unk";
-        }
-        else if (fType == "FieldPathProperty")
-        {
-            fType = "unk";
-        }
-        else if (fType == "InterfaceProperty")
-        {
-            fType = "unk";
-        }
-        else if (fType == "Enum")
-        {
-            fType = "UEEnum";
-        }
-        else if (fType == "DateTime")
-        {
-            fType = "UEDateTime";
-        }
-        else if (fType == "Guid")
-        {
-            fType = "UEGuid";
+            case "BoolProperty":
+                fType = "bool";
+                getterSetter = "{ get { return this[nameof(" + fName + ")].Flag; } set { this[nameof(" + fName +
+                               ")].Flag = value; } }";
+                break;
+            case "ByteProperty":
+            case "Int8Property":
+                fType = "byte";
+                getterSetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
+                               ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
+                break;
+            case "Int16Property":
+                fType = "short";
+                getterSetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
+                               ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
+                break;
+            case "UInt16Property":
+                fType = "ushort";
+                getterSetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
+                               ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
+                break;
+            case "IntProperty":
+                fType = "int";
+                getterSetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
+                               ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
+                break;
+            case "UInt32Property":
+                fType = "uint";
+                getterSetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
+                               ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
+                break;
+            case "Int64Property":
+                fType = "long";
+                getterSetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
+                               ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
+                break;
+            case "UInt64Property":
+                fType = "ulong";
+                getterSetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
+                               ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
+                break;
+            case "FloatProperty":
+                fType = "float";
+                getterSetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
+                               ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
+                break;
+            case "DoubleProperty":
+                fType = "double";
+                getterSetter = "{ get { return this[nameof(" + fName + ")].GetValue<" + fType +
+                               ">(); } set { this[nameof(" + fName + ")].SetValue<" + fType + ">(value); } }";
+                break;
+            case "StrProperty":
+            case "TextProperty":
+                fType = "unk";
+                break;
+            case "ObjectProperty":
+            {
+                var structFieldIndex = _ue.MemoryReadInt(
+                    _ue.MemoryReadPtr(fAddr + UObject.PropertySize) + UObject.NameOffset);
+                fType = UObject.GetName(structFieldIndex);
+                getterSetter = "{ get { return this[nameof(" + fName + ")].As<" + fType + ">(); } set { this[\"" +
+                               fName + "\"] = value; } }";
+                break;
+            }
+            case "ClassPtrProperty":
+                fType = "UObject";
+                getterSetter = "{ get { return this[nameof(" + fName + ")].As<" + fType + ">(); } set { this[\"" +
+                               fName + "\"] = value; } } // ClassPtrProperty";
+                break;
+            case "ScriptTypedElementHandle":
+                fType = "UObject";
+                getterSetter = "{ get { return this[nameof(" + fName + ")].As<" + fType + ">(); } set { this[\"" +
+                               fName + "\"] = value; } } // ClassPtrProperty";
+                break;
+            case "StructProperty":
+            {
+                var structFieldIndex = _ue.MemoryReadInt(_ue.MemoryReadPtr(fAddr + UObject.PropertySize) + UObject.NameOffset);
+                fType = UObject.GetName(structFieldIndex);
+                getterSetter = "{ get { return this[nameof(" + fName + ")].As<" + fType + ">(); } set { this[\"" + fName + "\"] = value; } }";
+                break;
+            }
+            case "EnumProperty":
+            {
+                var structFieldIndex = _ue.MemoryReadInt(
+                    _ue.MemoryReadPtr(fAddr + UObject.PropertySize + 8) +
+                    UObject.NameOffset);
+                fType = UObject.GetName(structFieldIndex);
+                getterSetter = "{ get { return (" + fType + ")this[nameof(" + fName +
+                               ")].GetValue<int>(); } set { this[nameof(" + fName + ")].SetValue<int>((int)value); } }";
+                break;
+            }
+            case "NameProperty":
+                fType = "unk";
+                break;
+            case "ArrayProperty":
+            {
+                var inner = _ue.MemoryReadPtr(fAddr + UObject.PropertySize);
+                var innerClass = _ue.MemoryReadPtr(inner + UObject.FieldClassOffset);
+                var structFieldIndex = _ue.MemoryReadInt(innerClass);
+                fType = UObject.GetName(structFieldIndex);
+                var innerType = GetTypeFromFieldAddr(fName, fType, inner, out getterSetter);
+                getterSetter = "{ get { return new UArray<" + innerType + ">(this[nameof(" + fName + ")].Address); } }"; 
+                fType = "Array<" + innerType + ">";
+                break;
+            }
+            case "SoftObjectProperty":
+            case "SoftClassProperty":
+            case "WeakObjectProperty":
+            case "LazyObjectProperty":
+            case "DelegateProperty":
+            case "MulticastSparseDelegateProperty":
+            case "MulticastInlineDelegateProperty":
+            case "ClassProperty":
+            case "MapProperty":
+            case "SetProperty":
+            case "FieldPathProperty":
+            case "InterfaceProperty":
+                fType = "unk";
+                break;
+            case "Enum":
+                fType = "UEEnum";
+                break;
+            case "DateTime":
+                fType = "UEDateTime";
+                break;
+            case "Guid":
+                fType = "UEGuid";
+                break;
         }
 
         if (fType == "unk")
         {
             fType = "UObject";
-            gettersetter = "{ get { return this[nameof(" + fName + ")]; } set { this[nameof(" + fName +
+            getterSetter = "{ get { return this[nameof(" + fName + ")]; } set { this[nameof(" + fName +
                            ")] = value; } }";
         }
 
@@ -270,11 +211,10 @@ public class DumpSDKTool
 
     private void GenerateAllFiles(List<Package> packages)
     {
+        if (location == "")
+            location = _ue.Process!.ProcessName;
 
-        if (_location == "")
-            _location = _ue.Process!.ProcessName;
-
-        Directory.CreateDirectory(_location);
+        Directory.CreateDirectory(location);
 
         foreach (var p in packages)
         {
@@ -291,16 +231,18 @@ public class DumpSDKTool
             {
                 if (c.Fields.Count > 0)
                     printedClasses++;
-
-                // sb.AppendLine("    [Namespace(\"" + c.Namespace + "\")]");
-                sb.AppendLine("    public " + c.SdkType + " " + c.Name + ((c.Parent == null) ? "" : (" : " + c.Parent)));
+                
+                sb.AppendLine("    public " + c.SdkType + " " + c.Name +
+                              ((c.Parent == null) ? "" : (" : " + c.Parent)));
+                
                 sb.AppendLine("    {");
                 if (c.SdkType != "enum")
                     sb.AppendLine("        public " + c.Name + "(nint addr) : base(addr) { }");
 
                 foreach (var f in c.Fields)
                 {
-                    if (f.Name == "RelatedPlayerState") continue; // todo fix
+                    if (f.Name == "RelatedPlayerState")
+                        continue; // todo fix
                     if (c.SdkType == "enum")
                         sb.AppendLine("        " + f.Name + " = " + f.EnumVal + ",");
                     else
@@ -313,14 +255,17 @@ public class DumpSDKTool
                         continue; // todo fix
 
                     var returnType = f.Params.FirstOrDefault(pa => pa.Name == "ReturnValue")?.Type ?? "void";
-                    var parameters = string.Join(", ", f.Params.FindAll(pa => pa.Name != "ReturnValue").Select(pa => pa.Type + " " + pa.Name));
+                    var parameters = string.Join(", ",
+                        f.Params.FindAll(pa => pa.Name != "ReturnValue").Select(pa => pa.Type + " " + pa.Name));
 
                     var args = f.Params.FindAll(pa => pa.Name != "ReturnValue").Select(pa => pa.Name).ToList();
                     args.Insert(0, "nameof(" + f.Name + ")");
 
                     var argList = string.Join(", ", args);
                     var returnTypeTemplate = returnType == "void" ? "" : ("<" + returnType + ">");
-                    sb.AppendLine("        public " + returnType + " " + f.Name + "(" + parameters + ") { " + (returnType == "void" ? "" : "return ") + "Invoke" + returnTypeTemplate + "(" + argList + "); }");
+                    sb.AppendLine("        public " + returnType + " " + f.Name + "(" + parameters + ") { " +
+                                  (returnType == "void" ? "" : "return ") + "Invoke" + returnTypeTemplate + "(" +
+                                  argList + "); }");
                 }
 
                 sb.AppendLine("    }");
@@ -330,9 +275,8 @@ public class DumpSDKTool
             if (printedClasses == 0)
                 continue;
 
-            File.WriteAllText(_location + @"\" + p.Name + ".cs", sb.ToString());
+            File.WriteAllText(location + @"\" + p.Name + ".cs", sb.ToString());
         }
-
     }
 
 
@@ -374,7 +318,8 @@ public class DumpSDKTool
                 if (typeName == "unk")
                     continue;
 
-                if (className == "Object") {
+                if (className == "Object")
+                {
                     className = "UObject";
                 }
 
@@ -399,7 +344,7 @@ public class DumpSDKTool
                     var parentName = UObject.GetName(parentNameIndex);
                     sdkClass.Parent = parentName;
                 }
-                else 
+                else
                     sdkClass.Parent = "UObject";
                 //else throw new Exception("unparented obj not supported");
 
@@ -411,7 +356,7 @@ public class DumpSDKTool
                     {
                         var enumNameIndex = _ue.MemoryReadInt(enumArray + i * 0x10);
                         var enumName = UObject.GetName(enumNameIndex);
-                        enumName = enumName.Substring(enumName.LastIndexOf(":") + 1);
+                        enumName = enumName.Substring(enumName.LastIndexOf(':') + 1);
 
                         var enumNameRepeatedIndex = _ue.MemoryReadInt(enumArray + i * 0x10 + 4);
 
@@ -438,18 +383,15 @@ public class DumpSDKTool
                         var fName = UObject.GetName(
                             _ue.MemoryReadInt(field + UObject.FieldNameOffset));
                         var fType = obj.GetFieldType(field);
-                        var fValue = "(" + field.ToString() + ")";
-                        var offset = (uint)obj.GetFieldOffset(field);
-                        var gettersetter =
-                            "{ get { return new {0}(this[\"{1}\"].Address); } set { this[\"{1}\"] = value; } }";
-                        fType = GetTypeFromFieldAddr(fName, fType, field, out gettersetter);
-                        //if (typeName == "struct") gettersetter = ";";
+
+                        fType = GetTypeFromFieldAddr(fName, fType, field, out var getterSetter);
+                     
                         if (fName == className) fName += "_value";
                         sdkClass.Fields.Add(new Package.SDKClass.SDKFields
                         {
                             Type = fType,
                             Name = fName,
-                            GetterSetter = gettersetter
+                            GetterSetter = getterSetter
                         });
                     }
 
@@ -502,7 +444,7 @@ public class DumpSDKTool
                 foreach (var f in c.Fields)
                 {
                     var fromPackage = dumpedPackages.Find(tp =>
-                        tp.Classes.Count(tc => tc.Name == f.Type?.Replace("UArray<", "").Replace(">", "")) > 0);
+                        tp.Classes.Count(tc => tc.Name == f.Type.Replace("UArray<", "").Replace(">", "")) > 0);
                     if (fromPackage != null && fromPackage != p && !p.Dependencies.Contains(fromPackage))
                         p.Dependencies.Add(fromPackage);
                 }
@@ -512,7 +454,7 @@ public class DumpSDKTool
                     foreach (var param in f.Params)
                     {
                         var fromPackage = dumpedPackages.Find(tp =>
-                            tp.Classes.Count(tc => tc.Name == param.Type?.Replace("UArray<", "").Replace(">", "")) >
+                            tp.Classes.Count(tc => tc.Name == param.Type.Replace("UArray<", "").Replace(">", "")) >
                             0);
                         if (fromPackage != null && fromPackage != p && !p.Dependencies.Contains(fromPackage))
                             p.Dependencies.Add(fromPackage);
@@ -523,5 +465,4 @@ public class DumpSDKTool
 
         return dumpedPackages;
     }
-
 }

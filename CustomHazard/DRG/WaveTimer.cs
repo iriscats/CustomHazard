@@ -1,22 +1,26 @@
 
+using UnrealDotNet;
+
 public class WaveTimer
 {
+    private UnrealEngine _unrealEngine = UnrealEngine.GetInstance();
+    
     public WaveTimer()
     {
     }
 
 
-    public Array<float>? GetTimerArray()
+    public void GetTimerArray()
     {
-        if (UnrealEngine.GWorldPtr == 0)
+        /*if (_unrealEngine.GWorld == 0)
             return null;
 
 
-        var world = new World(UnrealEngine.Memory.ReadProcessMemory<nint>(UnrealEngine.GWorldPtr));
+        var world = new World(_unrealEngine.MemoryReadPtr(_unrealEngine.GWorld));
         var gameMode = world.AuthorityGameMode.GetType();
 
 
-        var World = new World(UnrealEngine.Memory.ReadProcessMemory<nint>(UnrealEngine.GWorldPtr));
+        var World = new World(_unrealEngine.MemoryReadPtr(_unrealEngine.GWorld));
         if (!World.IsA<World>())
             return null;
 
@@ -37,11 +41,10 @@ public class WaveTimer
             return null;
 
         AcknowledgedPawn.SetCameraMode(ECharacterCameraMode.Follow);
+        var waveManager = gameMode.GetWaveManager();
+        var point = waveManager.Address + 304;
+        return UnrealEngine.Memory.ReadProcessMemory<Array<float>>(point);*/
 
-        /*        var waveManager = gameMode.GetWaveManager();
-                var point = waveManager.Address + 304;
-                return UnrealEngine.Memory.ReadProcessMemory<Array<float>>(point);*/
-
-        return null;
+  
     }
 }

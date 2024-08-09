@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿/*using System.Diagnostics;
 using System.Drawing;
 using System.Numerics;
 using System.Text;
@@ -285,7 +285,7 @@ namespace DeepRockGahactic
                         {
                             /*var loc = esp.WorldToScreen(Location, CameraLocation, CameraRotation, CameraFOV);
                             esp.DrawBox(Location, Rotation, CameraLocation, CameraRotation, CameraFOV, Color.Green);
-                            esp.DrawText(Actor.ClassName.Split('_')[1], new Vector2(loc.X, loc.Y), Color.Green);*/
+                            esp.DrawText(Actor.ClassName.Split('_')[1], new Vector2(loc.X, loc.Y), Color.Green);#1#
                         }
                     }
                 }
@@ -294,4 +294,4 @@ namespace DeepRockGahactic
             return 0;
         }
     }
-}
+}*/
