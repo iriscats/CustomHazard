@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -49,13 +51,13 @@ namespace SDK.Script.SerializationSDK
     public class StructSerializerArrayTestStruct : Object
     {
         public StructSerializerArrayTestStruct(nint addr) : base(addr) { }
-        public Array<int> Int32Array { get { return new Array<int>(this[nameof(Int32Array)].Address); } }
-        public Array<byte> ByteArray { get { return new Array<byte>(this[nameof(ByteArray)].Address); } }
+        public UArray<int> Int32Array { get { return new UArray<int>(this[nameof(Int32Array)].Address); } }
+        public UArray<byte> ByteArray { get { return new UArray<byte>(this[nameof(ByteArray)].Address); } }
         public int StaticSingleElement { get { return this[nameof(StaticSingleElement)].GetValue<int>(); } set { this[nameof(StaticSingleElement)].SetValue<int>(value); } }
         public int StaticInt32Array { get { return this[nameof(StaticInt32Array)].GetValue<int>(); } set { this[nameof(StaticInt32Array)].SetValue<int>(value); } }
         public float StaticFloatArray { get { return this[nameof(StaticFloatArray)].GetValue<float>(); } set { this[nameof(StaticFloatArray)].SetValue<float>(value); } }
-        public Array<Vector> VectorArray { get { return new Array<Vector>(this[nameof(VectorArray)].Address); } }
-        public Array<StructSerializerBuiltinTestStruct> StructArray { get { return new Array<StructSerializerBuiltinTestStruct>(this[nameof(StructArray)].Address); } }
+        public UArray<Vector> VectorArray { get { return new UArray<Vector>(this[nameof(VectorArray)].Address); } }
+        public UArray<StructSerializerBuiltinTestStruct> StructArray { get { return new UArray<StructSerializerBuiltinTestStruct>(this[nameof(StructArray)].Address); } }
     }
     public class StructSerializerObjectTestStruct : Object
     {
@@ -101,9 +103,9 @@ namespace SDK.Script.SerializationSDK
     {
         public StructSerializerByteArray(nint addr) : base(addr) { }
         public int Dummy1 { get { return this[nameof(Dummy1)].GetValue<int>(); } set { this[nameof(Dummy1)].SetValue<int>(value); } }
-        public Array<byte> ByteArray { get { return new Array<byte>(this[nameof(ByteArray)].Address); } }
+        public UArray<byte> ByteArray { get { return new UArray<byte>(this[nameof(ByteArray)].Address); } }
         public int Dummy2 { get { return this[nameof(Dummy2)].GetValue<int>(); } set { this[nameof(Dummy2)].SetValue<int>(value); } }
-        public Array<byte> Int8Array { get { return new Array<byte>(this[nameof(Int8Array)].Address); } }
+        public UArray<byte> Int8Array { get { return new UArray<byte>(this[nameof(Int8Array)].Address); } }
         public int Dummy3 { get { return this[nameof(Dummy3)].GetValue<int>(); } set { this[nameof(Dummy3)].SetValue<int>(value); } }
     }
 }

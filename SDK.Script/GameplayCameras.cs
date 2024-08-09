@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -29,7 +31,7 @@ namespace SDK.Script.GameplayCamerasSDK
     public class CompositeCameraShakePattern : CameraShakePattern
     {
         public CompositeCameraShakePattern(nint addr) : base(addr) { }
-        public Array<CameraShakePattern> ChildPatterns { get { return new Array<CameraShakePattern>(this[nameof(ChildPatterns)].Address); } }
+        public UArray<CameraShakePattern> ChildPatterns { get { return new UArray<CameraShakePattern>(this[nameof(ChildPatterns)].Address); } }
     }
     public class DefaultCameraShakeBase : CameraShakeBase
     {

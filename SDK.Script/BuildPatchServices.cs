@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -20,17 +22,17 @@ namespace SDK.Script.BuildPatchServicesSDK
         public Object PrereqName { get { return this[nameof(PrereqName)]; } set { this[nameof(PrereqName)] = value; } }
         public Object PrereqPath { get { return this[nameof(PrereqPath)]; } set { this[nameof(PrereqPath)] = value; } }
         public Object PrereqArgs { get { return this[nameof(PrereqArgs)]; } set { this[nameof(PrereqArgs)] = value; } }
-        public Array<FileManifestData> FileManifestList { get { return new Array<FileManifestData>(this[nameof(FileManifestList)].Address); } }
-        public Array<ChunkInfoData> ChunkList { get { return new Array<ChunkInfoData>(this[nameof(ChunkList)].Address); } }
-        public Array<CustomFieldData> CustomFields { get { return new Array<CustomFieldData>(this[nameof(CustomFields)].Address); } }
+        public UArray<FileManifestData> FileManifestList { get { return new UArray<FileManifestData>(this[nameof(FileManifestList)].Address); } }
+        public UArray<ChunkInfoData> ChunkList { get { return new UArray<ChunkInfoData>(this[nameof(ChunkList)].Address); } }
+        public UArray<CustomFieldData> CustomFields { get { return new UArray<CustomFieldData>(this[nameof(CustomFields)].Address); } }
     }
     public class FileManifestData : Object
     {
         public FileManifestData(nint addr) : base(addr) { }
         public Object Filename { get { return this[nameof(Filename)]; } set { this[nameof(Filename)] = value; } }
         public SHAHashData FileHash { get { return this[nameof(FileHash)].As<SHAHashData>(); } set { this["FileHash"] = value; } }
-        public Array<ChunkPartData> FileChunkParts { get { return new Array<ChunkPartData>(this[nameof(FileChunkParts)].Address); } }
-        public Array<Object> InstallTags { get { return new Array<Object>(this[nameof(InstallTags)].Address); } }
+        public UArray<ChunkPartData> FileChunkParts { get { return new UArray<ChunkPartData>(this[nameof(FileChunkParts)].Address); } }
+        public UArray<Object> InstallTags { get { return new UArray<Object>(this[nameof(InstallTags)].Address); } }
         public bool bIsUnixExecutable { get { return this[nameof(bIsUnixExecutable)].Flag; } set { this[nameof(bIsUnixExecutable)].Flag = value; } }
         public Object SymlinkTarget { get { return this[nameof(SymlinkTarget)]; } set { this[nameof(SymlinkTarget)] = value; } }
         public bool bIsReadOnly { get { return this[nameof(bIsReadOnly)].Flag; } set { this[nameof(bIsReadOnly)].Flag = value; } }

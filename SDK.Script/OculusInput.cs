@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -19,7 +21,7 @@ namespace SDK.Script.OculusInputSDK
         public bool bUpdateHandScale { get { return this[nameof(bUpdateHandScale)].Flag; } set { this[nameof(bUpdateHandScale)].Flag = value; } }
         public MaterialInterface MaterialOverride { get { return this[nameof(MaterialOverride)].As<MaterialInterface>(); } set { this["MaterialOverride"] = value; } }
         public Object BoneNameMappings { get { return this[nameof(BoneNameMappings)]; } set { this[nameof(BoneNameMappings)] = value; } }
-        public Array<OculusCapsuleCollider> CollisionCapsules { get { return new Array<OculusCapsuleCollider>(this[nameof(CollisionCapsules)].Address); } }
+        public UArray<OculusCapsuleCollider> CollisionCapsules { get { return new UArray<OculusCapsuleCollider>(this[nameof(CollisionCapsules)].Address); } }
         public bool bSkeletalMeshInitialized { get { return this[nameof(bSkeletalMeshInitialized)].Flag; } set { this[nameof(bSkeletalMeshInitialized)].Flag = value; } }
     }
     public class OculusInputFunctionLibrary : BlueprintFunctionLibrary
@@ -27,7 +29,7 @@ namespace SDK.Script.OculusInputSDK
         public OculusInputFunctionLibrary(nint addr) : base(addr) { }
         public bool IsPointerPoseValid(EOculusHandType DeviceHand, int ControllerIndex) { return Invoke<bool>(nameof(IsPointerPoseValid), DeviceHand, ControllerIndex); }
         public bool IsHandTrackingEnabled() { return Invoke<bool>(nameof(IsHandTrackingEnabled)); }
-        public Array<OculusCapsuleCollider> InitializeHandPhysics(EOculusHandType SkeletonType, SkinnedMeshComponent HandComponent, float WorldToMeters) { return Invoke<Array<OculusCapsuleCollider>>(nameof(InitializeHandPhysics), SkeletonType, HandComponent, WorldToMeters); }
+        public UArray<OculusCapsuleCollider> InitializeHandPhysics(EOculusHandType SkeletonType, SkinnedMeshComponent HandComponent, float WorldToMeters) { return Invoke<UArray<OculusCapsuleCollider>>(nameof(InitializeHandPhysics), SkeletonType, HandComponent, WorldToMeters); }
         public ETrackingConfidence GetTrackingConfidence(EOculusHandType DeviceHand, int ControllerIndex) { return Invoke<ETrackingConfidence>(nameof(GetTrackingConfidence), DeviceHand, ControllerIndex); }
         public Transform GetPointerPose(EOculusHandType DeviceHand, int ControllerIndex) { return Invoke<Transform>(nameof(GetPointerPose), DeviceHand, ControllerIndex); }
         public bool GetHandSkeletalMesh(SkeletalMesh HandSkeletalMesh, EOculusHandType SkeletonType, EOculusHandType MeshType, float WorldToMeters) { return Invoke<bool>(nameof(GetHandSkeletalMesh), HandSkeletalMesh, SkeletonType, MeshType, WorldToMeters); }

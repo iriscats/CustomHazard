@@ -12,10 +12,7 @@ public class WaveTimer
 
     public void GetTimerArray()
     {
-        /*if (_unrealEngine.GWorld == 0)
-            return null;
-
-
+        /*
         var world = new World(_unrealEngine.MemoryReadPtr(_unrealEngine.GWorld));
         var gameMode = world.AuthorityGameMode.GetType();
 
@@ -43,8 +40,7 @@ public class WaveTimer
         AcknowledgedPawn.SetCameraMode(ECharacterCameraMode.Follow);
         var waveManager = gameMode.GetWaveManager();
         var point = waveManager.Address + 304;
-        return UnrealEngine.Memory.ReadProcessMemory<Array<float>>(point);*/
-
-  
+        return UnrealEngine.Memory.ReadProcessMemory<Array<float>>(point);
+        */
     }
 }

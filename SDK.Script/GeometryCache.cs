@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -9,8 +11,8 @@ namespace SDK.Script.GeometryCacheSDK
     public class GeometryCache : Object
     {
         public GeometryCache(nint addr) : base(addr) { }
-        public Array<MaterialInterface> Materials { get { return new Array<MaterialInterface>(this[nameof(Materials)].Address); } }
-        public Array<GeometryCacheTrack> Tracks { get { return new Array<GeometryCacheTrack>(this[nameof(Tracks)].Address); } }
+        public UArray<MaterialInterface> Materials { get { return new UArray<MaterialInterface>(this[nameof(Materials)].Address); } }
+        public UArray<GeometryCacheTrack> Tracks { get { return new UArray<GeometryCacheTrack>(this[nameof(Tracks)].Address); } }
         public int StartFrame { get { return this[nameof(StartFrame)].GetValue<int>(); } set { this[nameof(StartFrame)].SetValue<int>(value); } }
         public int EndFrame { get { return this[nameof(EndFrame)].GetValue<int>(); } set { this[nameof(EndFrame)].SetValue<int>(value); } }
         public ulong Hash { get { return this[nameof(Hash)].GetValue<ulong>(); } set { this[nameof(Hash)].SetValue<ulong>(value); } }
@@ -24,7 +26,7 @@ namespace SDK.Script.GeometryCacheSDK
     public class GeometryCacheCodecBase : Object
     {
         public GeometryCacheCodecBase(nint addr) : base(addr) { }
-        public Array<int> TopologyRanges { get { return new Array<int>(this[nameof(TopologyRanges)].Address); } }
+        public UArray<int> TopologyRanges { get { return new UArray<int>(this[nameof(TopologyRanges)].Address); } }
     }
     public class GeometryCacheCodecRaw : GeometryCacheCodecBase
     {

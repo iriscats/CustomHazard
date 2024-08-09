@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -269,17 +271,17 @@ namespace SDK.Script.ChaosSDK
     public class RecordedTransformTrack : Object
     {
         public RecordedTransformTrack(nint addr) : base(addr) { }
-        public Array<RecordedFrame> Records { get { return new Array<RecordedFrame>(this[nameof(Records)].Address); } }
+        public UArray<RecordedFrame> Records { get { return new UArray<RecordedFrame>(this[nameof(Records)].Address); } }
     }
     public class RecordedFrame : Object
     {
         public RecordedFrame(nint addr) : base(addr) { }
-        public Array<Transform> Transforms { get { return new Array<Transform>(this[nameof(Transforms)].Address); } }
-        public Array<int> TransformIndices { get { return new Array<int>(this[nameof(TransformIndices)].Address); } }
-        public Array<int> PreviousTransformIndices { get { return new Array<int>(this[nameof(PreviousTransformIndices)].Address); } }
-        public Array<bool> DisabledFlags { get { return new Array<bool>(this[nameof(DisabledFlags)].Address); } }
-        public Array<SolverCollisionData> Collisions { get { return new Array<SolverCollisionData>(this[nameof(Collisions)].Address); } }
-        public Array<SolverBreakingData> Breakings { get { return new Array<SolverBreakingData>(this[nameof(Breakings)].Address); } }
+        public UArray<Transform> Transforms { get { return new UArray<Transform>(this[nameof(Transforms)].Address); } }
+        public UArray<int> TransformIndices { get { return new UArray<int>(this[nameof(TransformIndices)].Address); } }
+        public UArray<int> PreviousTransformIndices { get { return new UArray<int>(this[nameof(PreviousTransformIndices)].Address); } }
+        public UArray<bool> DisabledFlags { get { return new UArray<bool>(this[nameof(DisabledFlags)].Address); } }
+        public UArray<SolverCollisionData> Collisions { get { return new UArray<SolverCollisionData>(this[nameof(Collisions)].Address); } }
+        public UArray<SolverBreakingData> Breakings { get { return new UArray<SolverBreakingData>(this[nameof(Breakings)].Address); } }
         public Object Trailings { get { return this[nameof(Trailings)]; } set { this[nameof(Trailings)] = value; } }
         public float Timestamp { get { return this[nameof(Timestamp)].GetValue<float>(); } set { this[nameof(Timestamp)].SetValue<float>(value); } }
     }

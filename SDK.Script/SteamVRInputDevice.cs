@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -19,12 +21,12 @@ namespace SDK.Script.SteamVRInputDeviceSDK
         public void PlaySteamVR_HapticFeedback(ESteamVRHand hand, float StartSecondsFromNow, float DurationSeconds, float Frequency, float Amplitude) { Invoke(nameof(PlaySteamVR_HapticFeedback), hand, StartSecondsFromNow, DurationSeconds, Frequency, Amplitude); }
         public float GetUserIPD() { return Invoke<float>(nameof(GetUserIPD)); }
         public bool GetSteamVR_OriginTrackedDeviceInfo(SteamVRAction SteamVRAction, SteamVRInputOriginInfo InputOriginInfo) { return Invoke<bool>(nameof(GetSteamVR_OriginTrackedDeviceInfo), SteamVRAction, InputOriginInfo); }
-        public void GetSteamVR_OriginLocalizedName(SteamVRAction SteamVRAction, Array<ESteamVRInputStringBits> LocalizedParts, Object OriginLocalizedName) { Invoke(nameof(GetSteamVR_OriginLocalizedName), SteamVRAction, LocalizedParts, OriginLocalizedName); }
-        public Array<SteamVRInputBindingInfo> GetSteamVR_InputBindingInfo(SteamVRAction SteamVRActionHandle) { return Invoke<Array<SteamVRInputBindingInfo>>(nameof(GetSteamVR_InputBindingInfo), SteamVRActionHandle); }
+        public void GetSteamVR_OriginLocalizedName(SteamVRAction SteamVRAction, UArray<ESteamVRInputStringBits> LocalizedParts, Object OriginLocalizedName) { Invoke(nameof(GetSteamVR_OriginLocalizedName), SteamVRAction, LocalizedParts, OriginLocalizedName); }
+        public UArray<SteamVRInputBindingInfo> GetSteamVR_InputBindingInfo(SteamVRAction SteamVRActionHandle) { return Invoke<UArray<SteamVRInputBindingInfo>>(nameof(GetSteamVR_InputBindingInfo), SteamVRActionHandle); }
         public bool GetSteamVR_HandPoseRelativeToNow(Vector Position, Rotator Orientation, ESteamVRHand hand, float PredictedSecondsFromNow) { return Invoke<bool>(nameof(GetSteamVR_HandPoseRelativeToNow), Position, Orientation, hand, PredictedSecondsFromNow); }
         public float GetSteamVR_GlobalPredictedSecondsFromNow() { return Invoke<float>(nameof(GetSteamVR_GlobalPredictedSecondsFromNow)); }
-        public void GetSteamVR_ActionSetArray(Array<SteamVRActionSet> SteamVRActionSets) { Invoke(nameof(GetSteamVR_ActionSetArray), SteamVRActionSets); }
-        public void GetSteamVR_ActionArray(Array<SteamVRAction> SteamVRActions) { Invoke(nameof(GetSteamVR_ActionArray), SteamVRActions); }
+        public void GetSteamVR_ActionSetArray(UArray<SteamVRActionSet> SteamVRActionSets) { Invoke(nameof(GetSteamVR_ActionSetArray), SteamVRActionSets); }
+        public void GetSteamVR_ActionArray(UArray<SteamVRAction> SteamVRActions) { Invoke(nameof(GetSteamVR_ActionArray), SteamVRActions); }
         public void GetSkeletalTransform(SteamVRSkeletonTransform LeftHand, SteamVRSkeletonTransform RightHand, bool bWithController) { Invoke(nameof(GetSkeletalTransform), LeftHand, RightHand, bWithController); }
         public void GetSkeletalState(bool LeftHandState, bool RightHandState) { Invoke(nameof(GetSkeletalState), LeftHandState, RightHandState); }
         public void GetRightHandPoseData(Vector Position, Rotator Orientation, Vector AngularVelocity, Vector Velocity) { Invoke(nameof(GetRightHandPoseData), Position, Orientation, AngularVelocity, Velocity); }
@@ -34,7 +36,7 @@ namespace SDK.Script.SteamVRInputDeviceSDK
         public void GetCurlsAndSplaysState(bool LeftHandState, bool RightHandState) { Invoke(nameof(GetCurlsAndSplaysState), LeftHandState, RightHandState); }
         public void GetControllerFidelity(EControllerFidelity LeftControllerFidelity, EControllerFidelity RightControllerFidelity) { Invoke(nameof(GetControllerFidelity), LeftControllerFidelity, RightControllerFidelity); }
         public void FindSteamVR_OriginTrackedDeviceInfo(Object ActionName, bool bResult, SteamVRInputOriginInfo InputOriginInfo, Object ActionSet) { Invoke(nameof(FindSteamVR_OriginTrackedDeviceInfo), ActionName, bResult, InputOriginInfo, ActionSet); }
-        public Array<SteamVRInputBindingInfo> FindSteamVR_InputBindingInfo(Object ActionName, Object ActionSet) { return Invoke<Array<SteamVRInputBindingInfo>>(nameof(FindSteamVR_InputBindingInfo), ActionName, ActionSet); }
+        public UArray<SteamVRInputBindingInfo> FindSteamVR_InputBindingInfo(Object ActionName, Object ActionSet) { return Invoke<UArray<SteamVRInputBindingInfo>>(nameof(FindSteamVR_InputBindingInfo), ActionName, ActionSet); }
         public bool FindSteamVR_ActionOrigin(Object ActionName, Object ActionSet) { return Invoke<bool>(nameof(FindSteamVR_ActionOrigin), ActionName, ActionSet); }
         public void FindSteamVR_Action(Object ActionName, bool bResult, SteamVRAction FoundAction, SteamVRActionSet FoundActionSet, Object ActionSet) { Invoke(nameof(FindSteamVR_Action), ActionName, bResult, FoundAction, FoundActionSet, ActionSet); }
     }
@@ -45,7 +47,7 @@ namespace SDK.Script.SteamVRInputDeviceSDK
         public Object OnTrackedDeviceDeactivated { get { return this[nameof(OnTrackedDeviceDeactivated)]; } set { this[nameof(OnTrackedDeviceDeactivated)] = value; } }
         public float ActiveDevicePollFrequency { get { return this[nameof(ActiveDevicePollFrequency)].GetValue<float>(); } set { this[nameof(ActiveDevicePollFrequency)].SetValue<float>(value); } }
         public Vector TrackingReferenceScale { get { return this[nameof(TrackingReferenceScale)].As<Vector>(); } set { this["TrackingReferenceScale"] = value; } }
-        public Array<StaticMeshComponent> TrackingReferences { get { return new Array<StaticMeshComponent>(this[nameof(TrackingReferences)].Address); } }
+        public UArray<StaticMeshComponent> TrackingReferences { get { return new UArray<StaticMeshComponent>(this[nameof(TrackingReferences)].Address); } }
         public bool ShowTrackingReferences(StaticMesh TrackingReferenceMesh) { return Invoke<bool>(nameof(ShowTrackingReferences), TrackingReferenceMesh); }
         public void HideTrackingReferences() { Invoke(nameof(HideTrackingReferences)); }
     }

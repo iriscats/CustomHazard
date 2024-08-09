@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -10,11 +12,11 @@ namespace SDK.Script.AssetTagsSDK
     public class AssetTagsSubsystem : EngineSubsystem
     {
         public AssetTagsSubsystem(nint addr) : base(addr) { }
-        public Array<Object> GetCollectionsContainingAssetPtr(Object AssetPtr) { return Invoke<Array<Object>>(nameof(GetCollectionsContainingAssetPtr), AssetPtr); }
-        public Array<Object> GetCollectionsContainingAssetData(AssetData AssetData) { return Invoke<Array<Object>>(nameof(GetCollectionsContainingAssetData), AssetData); }
-        public Array<Object> GetCollectionsContainingAsset(Object AssetPathName) { return Invoke<Array<Object>>(nameof(GetCollectionsContainingAsset), AssetPathName); }
-        public Array<Object> GetCollections() { return Invoke<Array<Object>>(nameof(GetCollections)); }
-        public Array<AssetData> GetAssetsInCollection(Object Name) { return Invoke<Array<AssetData>>(nameof(GetAssetsInCollection), Name); }
+        public UArray<Object> GetCollectionsContainingAssetPtr(Object AssetPtr) { return Invoke<UArray<Object>>(nameof(GetCollectionsContainingAssetPtr), AssetPtr); }
+        public UArray<Object> GetCollectionsContainingAssetData(AssetData AssetData) { return Invoke<UArray<Object>>(nameof(GetCollectionsContainingAssetData), AssetData); }
+        public UArray<Object> GetCollectionsContainingAsset(Object AssetPathName) { return Invoke<UArray<Object>>(nameof(GetCollectionsContainingAsset), AssetPathName); }
+        public UArray<Object> GetCollections() { return Invoke<UArray<Object>>(nameof(GetCollections)); }
+        public UArray<AssetData> GetAssetsInCollection(Object Name) { return Invoke<UArray<AssetData>>(nameof(GetAssetsInCollection), Name); }
         public bool CollectionExists(Object Name) { return Invoke<bool>(nameof(CollectionExists), Name); }
     }
     public enum ECollectionScriptingShareType : int

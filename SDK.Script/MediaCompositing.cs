@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -33,7 +35,7 @@ namespace SDK.Script.MediaCompositingSDK
     public class MovieSceneMediaTrack : MovieSceneNameableTrack
     {
         public MovieSceneMediaTrack(nint addr) : base(addr) { }
-        public Array<MovieSceneSection> MediaSections { get { return new Array<MovieSceneSection>(this[nameof(MediaSections)].Address); } }
+        public UArray<MovieSceneSection> MediaSections { get { return new UArray<MovieSceneSection>(this[nameof(MediaSections)].Address); } }
     }
     public class MovieSceneMediaPlayerPropertySectionTemplate : MovieScenePropertySectionTemplate
     {

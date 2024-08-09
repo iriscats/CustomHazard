@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -21,7 +23,7 @@ namespace SDK.Script.NavigationSystemSDK
         public ERuntimeGenerationType RuntimeGeneration { get { return (ERuntimeGenerationType)this[nameof(RuntimeGeneration)].GetValue<int>(); } set { this[nameof(RuntimeGeneration)].SetValue<int>((int)value); } }
         public float ObservedPathsTickInterval { get { return this[nameof(ObservedPathsTickInterval)].GetValue<float>(); } set { this[nameof(ObservedPathsTickInterval)].SetValue<float>(value); } }
         public uint DataVersion { get { return this[nameof(DataVersion)].GetValue<uint>(); } set { this[nameof(DataVersion)].SetValue<uint>(value); } }
-        public Array<SupportedAreaData> SupportedAreas { get { return new Array<SupportedAreaData>(this[nameof(SupportedAreas)].Address); } }
+        public UArray<SupportedAreaData> SupportedAreas { get { return new UArray<SupportedAreaData>(this[nameof(SupportedAreas)].Address); } }
     }
     public class AbstractNavData : NavigationData
     {
@@ -98,8 +100,8 @@ namespace SDK.Script.NavigationSystemSDK
     public class NavCollision : NavCollisionBase
     {
         public NavCollision(nint addr) : base(addr) { }
-        public Array<NavCollisionCylinder> CylinderCollision { get { return new Array<NavCollisionCylinder>(this[nameof(CylinderCollision)].Address); } }
-        public Array<NavCollisionBox> BoxCollision { get { return new Array<NavCollisionBox>(this[nameof(BoxCollision)].Address); } }
+        public UArray<NavCollisionCylinder> CylinderCollision { get { return new UArray<NavCollisionCylinder>(this[nameof(CylinderCollision)].Address); } }
+        public UArray<NavCollisionBox> BoxCollision { get { return new UArray<NavCollisionBox>(this[nameof(BoxCollision)].Address); } }
         public Object AreaClass { get { return this[nameof(AreaClass)]; } set { this[nameof(AreaClass)] = value; } }
         public bool bGatherConvexGeometry { get { return this[nameof(bGatherConvexGeometry)].Flag; } set { this[nameof(bGatherConvexGeometry)].Flag = value; } }
         public bool bCreateOnClient { get { return this[nameof(bCreateOnClient)].Flag; } set { this[nameof(bCreateOnClient)].Flag = value; } }
@@ -129,7 +131,7 @@ namespace SDK.Script.NavigationSystemSDK
     {
         public NavigationPath(nint addr) : base(addr) { }
         public Object PathUpdatedNotifier { get { return this[nameof(PathUpdatedNotifier)]; } set { this[nameof(PathUpdatedNotifier)] = value; } }
-        public Array<Vector> PathPoints { get { return new Array<Vector>(this[nameof(PathPoints)].Address); } }
+        public UArray<Vector> PathPoints { get { return new UArray<Vector>(this[nameof(PathPoints)].Address); } }
         public byte RecalculateOnInvalidation { get { return this[nameof(RecalculateOnInvalidation)].GetValue<byte>(); } set { this[nameof(RecalculateOnInvalidation)].SetValue<byte>(value); } }
         public bool IsValid() { return Invoke<bool>(nameof(IsValid)); }
         public bool IsStringPulled() { return Invoke<bool>(nameof(IsStringPulled)); }
@@ -147,7 +149,7 @@ namespace SDK.Script.NavigationSystemSDK
     public class NavigationQueryFilter : Object
     {
         public NavigationQueryFilter(nint addr) : base(addr) { }
-        public Array<NavigationFilterArea> Areas { get { return new Array<NavigationFilterArea>(this[nameof(Areas)].Address); } }
+        public UArray<NavigationFilterArea> Areas { get { return new UArray<NavigationFilterArea>(this[nameof(Areas)].Address); } }
         public NavigationFilterFlags IncludeFlags { get { return this[nameof(IncludeFlags)].As<NavigationFilterFlags>(); } set { this["IncludeFlags"] = value; } }
         public NavigationFilterFlags ExcludeFlags { get { return this[nameof(ExcludeFlags)].As<NavigationFilterFlags>(); } set { this["ExcludeFlags"] = value; } }
     }
@@ -170,10 +172,10 @@ namespace SDK.Script.NavigationSystemSDK
         public float ActiveTilesUpdateInterval { get { return this[nameof(ActiveTilesUpdateInterval)].GetValue<float>(); } set { this[nameof(ActiveTilesUpdateInterval)].SetValue<float>(value); } }
         public ENavDataGatheringModeConfig DataGatheringMode { get { return (ENavDataGatheringModeConfig)this[nameof(DataGatheringMode)].GetValue<int>(); } set { this[nameof(DataGatheringMode)].SetValue<int>((int)value); } }
         public float DirtyAreaWarningSizeThreshold { get { return this[nameof(DirtyAreaWarningSizeThreshold)].GetValue<float>(); } set { this[nameof(DirtyAreaWarningSizeThreshold)].SetValue<float>(value); } }
-        public Array<NavDataConfig> SupportedAgents { get { return new Array<NavDataConfig>(this[nameof(SupportedAgents)].Address); } }
+        public UArray<NavDataConfig> SupportedAgents { get { return new UArray<NavDataConfig>(this[nameof(SupportedAgents)].Address); } }
         public NavAgentSelector SupportedAgentsMask { get { return this[nameof(SupportedAgentsMask)].As<NavAgentSelector>(); } set { this["SupportedAgentsMask"] = value; } }
-        public Array<NavigationData> NavDataSet { get { return new Array<NavigationData>(this[nameof(NavDataSet)].Address); } }
-        public Array<NavigationData> NavDataRegistrationQueue { get { return new Array<NavigationData>(this[nameof(NavDataRegistrationQueue)].Address); } }
+        public UArray<NavigationData> NavDataSet { get { return new UArray<NavigationData>(this[nameof(NavDataSet)].Address); } }
+        public UArray<NavigationData> NavDataRegistrationQueue { get { return new UArray<NavigationData>(this[nameof(NavDataRegistrationQueue)].Address); } }
         public Object OnNavDataRegisteredEvent { get { return this[nameof(OnNavDataRegisteredEvent)]; } set { this[nameof(OnNavDataRegisteredEvent)] = value; } }
         public Object OnNavigationGenerationFinishedDelegate { get { return this[nameof(OnNavigationGenerationFinishedDelegate)]; } set { this[nameof(OnNavigationGenerationFinishedDelegate)] = value; } }
         public FNavigationSystemRunMode OperationMode { get { return (FNavigationSystemRunMode)this[nameof(OperationMode)].GetValue<int>(); } set { this[nameof(OperationMode)].SetValue<int>((int)value); } }
@@ -249,7 +251,7 @@ namespace SDK.Script.NavigationSystemSDK
     public class NavLinkComponent : PrimitiveComponent
     {
         public NavLinkComponent(nint addr) : base(addr) { }
-        public Array<NavigationLink> Links { get { return new Array<NavigationLink>(this[nameof(Links)].Address); } }
+        public UArray<NavigationLink> Links { get { return new UArray<NavigationLink>(this[nameof(Links)].Address); } }
     }
     public class NavRelevantComponent : ActorComponent
     {

@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -554,7 +556,7 @@ namespace SDK.Script.SlateCoreSDK
         public CompositeFont(nint addr) : base(addr) { }
         public Typeface DefaultTypeface { get { return this[nameof(DefaultTypeface)].As<Typeface>(); } set { this["DefaultTypeface"] = value; } }
         public CompositeFallbackFont FallbackTypeface { get { return this[nameof(FallbackTypeface)].As<CompositeFallbackFont>(); } set { this["FallbackTypeface"] = value; } }
-        public Array<CompositeSubFont> SubTypefaces { get { return new Array<CompositeSubFont>(this[nameof(SubTypefaces)].Address); } }
+        public UArray<CompositeSubFont> SubTypefaces { get { return new UArray<CompositeSubFont>(this[nameof(SubTypefaces)].Address); } }
     }
     public class CompositeFallbackFont : Object
     {
@@ -565,7 +567,7 @@ namespace SDK.Script.SlateCoreSDK
     public class Typeface : Object
     {
         public Typeface(nint addr) : base(addr) { }
-        public Array<TypefaceEntry> Fonts { get { return new Array<TypefaceEntry>(this[nameof(Fonts)].Address); } }
+        public UArray<TypefaceEntry> Fonts { get { return new UArray<TypefaceEntry>(this[nameof(Fonts)].Address); } }
     }
     public class TypefaceEntry : Object
     {
@@ -585,7 +587,7 @@ namespace SDK.Script.SlateCoreSDK
     public class CompositeSubFont : CompositeFallbackFont
     {
         public CompositeSubFont(nint addr) : base(addr) { }
-        public Array<Int32Range> CharacterRanges { get { return new Array<Int32Range>(this[nameof(CharacterRanges)].Address); } }
+        public UArray<Int32Range> CharacterRanges { get { return new UArray<Int32Range>(this[nameof(CharacterRanges)].Address); } }
         public Object Cultures { get { return this[nameof(Cultures)]; } set { this[nameof(Cultures)] = value; } }
     }
     public class CaptureLostEvent : Object

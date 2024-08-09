@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -32,13 +34,13 @@ namespace SDK.Script.MediaAssetsSDK
         public float RateAdjustmentFactor { get { return this[nameof(RateAdjustmentFactor)].GetValue<float>(); } set { this[nameof(RateAdjustmentFactor)].SetValue<float>(value); } }
         public FloatRange RateAdjustmentRange { get { return this[nameof(RateAdjustmentRange)].As<FloatRange>(); } set { this["RateAdjustmentRange"] = value; } }
         public MediaPlayer MediaPlayer { get { return this[nameof(MediaPlayer)].As<MediaPlayer>(); } set { this["MediaPlayer"] = value; } }
-        public void SetSpectralAnalysisSettings(Array<float> InFrequenciesToAnalyze, EMediaSoundComponentFFTSize InFFTSize) { Invoke(nameof(SetSpectralAnalysisSettings), InFrequenciesToAnalyze, InFFTSize); }
+        public void SetSpectralAnalysisSettings(UArray<float> InFrequenciesToAnalyze, EMediaSoundComponentFFTSize InFFTSize) { Invoke(nameof(SetSpectralAnalysisSettings), InFrequenciesToAnalyze, InFFTSize); }
         public void SetMediaPlayer(MediaPlayer NewMediaPlayer) { Invoke(nameof(SetMediaPlayer), NewMediaPlayer); }
         public void SetEnvelopeFollowingsettings(int AttackTimeMsec, int ReleaseTimeMsec) { Invoke(nameof(SetEnvelopeFollowingsettings), AttackTimeMsec, ReleaseTimeMsec); }
         public void SetEnableSpectralAnalysis(bool bInSpectralAnalysisEnabled) { Invoke(nameof(SetEnableSpectralAnalysis), bInSpectralAnalysisEnabled); }
         public void SetEnableEnvelopeFollowing(bool bInEnvelopeFollowing) { Invoke(nameof(SetEnableEnvelopeFollowing), bInEnvelopeFollowing); }
-        public Array<MediaSoundComponentSpectralData> GetSpectralData() { return Invoke<Array<MediaSoundComponentSpectralData>>(nameof(GetSpectralData)); }
-        public Array<MediaSoundComponentSpectralData> GetNormalizedSpectralData() { return Invoke<Array<MediaSoundComponentSpectralData>>(nameof(GetNormalizedSpectralData)); }
+        public UArray<MediaSoundComponentSpectralData> GetSpectralData() { return Invoke<UArray<MediaSoundComponentSpectralData>>(nameof(GetSpectralData)); }
+        public UArray<MediaSoundComponentSpectralData> GetNormalizedSpectralData() { return Invoke<UArray<MediaSoundComponentSpectralData>>(nameof(GetNormalizedSpectralData)); }
         public MediaPlayer GetMediaPlayer() { return Invoke<MediaPlayer>(nameof(GetMediaPlayer)); }
         public float GetEnvelopeValue() { return Invoke<float>(nameof(GetEnvelopeValue)); }
         public bool BP_GetAttenuationSettingsToApply(SoundAttenuationSettings OutAttenuationSettings) { return Invoke<bool>(nameof(BP_GetAttenuationSettingsToApply), OutAttenuationSettings); }
@@ -53,9 +55,9 @@ namespace SDK.Script.MediaAssetsSDK
     public class MediaBlueprintFunctionLibrary : BlueprintFunctionLibrary
     {
         public MediaBlueprintFunctionLibrary(nint addr) : base(addr) { }
-        public void EnumerateWebcamCaptureDevices(Array<MediaCaptureDevice> OutDevices, int Filter) { Invoke(nameof(EnumerateWebcamCaptureDevices), OutDevices, Filter); }
-        public void EnumerateVideoCaptureDevices(Array<MediaCaptureDevice> OutDevices, int Filter) { Invoke(nameof(EnumerateVideoCaptureDevices), OutDevices, Filter); }
-        public void EnumerateAudioCaptureDevices(Array<MediaCaptureDevice> OutDevices, int Filter) { Invoke(nameof(EnumerateAudioCaptureDevices), OutDevices, Filter); }
+        public void EnumerateWebcamCaptureDevices(UArray<MediaCaptureDevice> OutDevices, int Filter) { Invoke(nameof(EnumerateWebcamCaptureDevices), OutDevices, Filter); }
+        public void EnumerateVideoCaptureDevices(UArray<MediaCaptureDevice> OutDevices, int Filter) { Invoke(nameof(EnumerateVideoCaptureDevices), OutDevices, Filter); }
+        public void EnumerateAudioCaptureDevices(UArray<MediaCaptureDevice> OutDevices, int Filter) { Invoke(nameof(EnumerateAudioCaptureDevices), OutDevices, Filter); }
     }
     public class MediaComponent : ActorComponent
     {
@@ -149,7 +151,7 @@ namespace SDK.Script.MediaAssetsSDK
         public MediaTimeStampInfo GetTimeStamp() { return Invoke<MediaTimeStampInfo>(nameof(GetTimeStamp)); }
         public Timespan GetTimeDelay() { return Invoke<Timespan>(nameof(GetTimeDelay)); }
         public Timespan GetTime() { return Invoke<Timespan>(nameof(GetTime)); }
-        public void GetSupportedRates(Array<FloatRange> OutRates, bool Unthinned) { Invoke(nameof(GetSupportedRates), OutRates, Unthinned); }
+        public void GetSupportedRates(UArray<FloatRange> OutRates, bool Unthinned) { Invoke(nameof(GetSupportedRates), OutRates, Unthinned); }
         public int GetSelectedTrack(EMediaPlayerTrack TrackType) { return Invoke<int>(nameof(GetSelectedTrack), TrackType); }
         public float GetRate() { return Invoke<float>(nameof(GetRate)); }
         public int GetPlaylistIndex() { return Invoke<int>(nameof(GetPlaylistIndex)); }
@@ -172,7 +174,7 @@ namespace SDK.Script.MediaAssetsSDK
     public class MediaPlaylist : Object
     {
         public MediaPlaylist(nint addr) : base(addr) { }
-        public Array<MediaSource> Items { get { return new Array<MediaSource>(this[nameof(Items)].Address); } }
+        public UArray<MediaSource> Items { get { return new UArray<MediaSource>(this[nameof(Items)].Address); } }
         public bool Replace(int Index, MediaSource Replacement) { return Invoke<bool>(nameof(Replace), Index, Replacement); }
         public bool RemoveAt(int Index) { return Invoke<bool>(nameof(RemoveAt), Index); }
         public bool Remove(MediaSource MediaSource) { return Invoke<bool>(nameof(Remove), MediaSource); }

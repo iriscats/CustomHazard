@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -22,7 +24,7 @@ namespace SDK.Script.GameplayTagsSDK
         public GameplayTag MakeLiteralGameplayTag(GameplayTag Value) { return Invoke<GameplayTag>(nameof(MakeLiteralGameplayTag), Value); }
         public GameplayTagQuery MakeGameplayTagQuery(GameplayTagQuery tagQuery) { return Invoke<GameplayTagQuery>(nameof(MakeGameplayTagQuery), tagQuery); }
         public GameplayTagContainer MakeGameplayTagContainerFromTag(GameplayTag SingleTag) { return Invoke<GameplayTagContainer>(nameof(MakeGameplayTagContainerFromTag), SingleTag); }
-        public GameplayTagContainer MakeGameplayTagContainerFromArray(Array<GameplayTag> GameplayTags) { return Invoke<GameplayTagContainer>(nameof(MakeGameplayTagContainerFromArray), GameplayTags); }
+        public GameplayTagContainer MakeGameplayTagContainerFromArray(UArray<GameplayTag> GameplayTags) { return Invoke<GameplayTagContainer>(nameof(MakeGameplayTagContainerFromArray), GameplayTags); }
         public bool IsTagQueryEmpty(GameplayTagQuery tagQuery) { return Invoke<bool>(nameof(IsTagQueryEmpty), tagQuery); }
         public bool IsGameplayTagValid(GameplayTag GameplayTag) { return Invoke<bool>(nameof(IsGameplayTagValid), GameplayTag); }
         public bool HasTag(GameplayTagContainer TagContainer, GameplayTag Tag, bool bExactMatch) { return Invoke<bool>(nameof(HasTag), TagContainer, Tag, bExactMatch); }
@@ -33,12 +35,12 @@ namespace SDK.Script.GameplayTagsSDK
         public int GetNumGameplayTagsInContainer(GameplayTagContainer TagContainer) { return Invoke<int>(nameof(GetNumGameplayTagsInContainer), TagContainer); }
         public Object GetDebugStringFromGameplayTagContainer(GameplayTagContainer TagContainer) { return Invoke<Object>(nameof(GetDebugStringFromGameplayTagContainer), TagContainer); }
         public Object GetDebugStringFromGameplayTag(GameplayTag GameplayTag) { return Invoke<Object>(nameof(GetDebugStringFromGameplayTag), GameplayTag); }
-        public void GetAllActorsOfClassMatchingTagQuery(Object WorldContextObject, Object actorClass, GameplayTagQuery GameplayTagQuery, Array<Actor> OutActors) { Invoke(nameof(GetAllActorsOfClassMatchingTagQuery), WorldContextObject, actorClass, GameplayTagQuery, OutActors); }
+        public void GetAllActorsOfClassMatchingTagQuery(Object WorldContextObject, Object actorClass, GameplayTagQuery GameplayTagQuery, UArray<Actor> OutActors) { Invoke(nameof(GetAllActorsOfClassMatchingTagQuery), WorldContextObject, actorClass, GameplayTagQuery, OutActors); }
         public bool EqualEqual_GameplayTagContainer(GameplayTagContainer A, GameplayTagContainer B) { return Invoke<bool>(nameof(EqualEqual_GameplayTagContainer), A, B); }
         public bool EqualEqual_GameplayTag(GameplayTag A, GameplayTag B) { return Invoke<bool>(nameof(EqualEqual_GameplayTag), A, B); }
         public bool DoesTagAssetInterfaceHaveTag(Object TagContainerInterface, GameplayTag Tag) { return Invoke<bool>(nameof(DoesTagAssetInterfaceHaveTag), TagContainerInterface, Tag); }
         public bool DoesContainerMatchTagQuery(GameplayTagContainer TagContainer, GameplayTagQuery tagQuery) { return Invoke<bool>(nameof(DoesContainerMatchTagQuery), TagContainer, tagQuery); }
-        public void BreakGameplayTagContainer(GameplayTagContainer GameplayTagContainer, Array<GameplayTag> GameplayTags) { Invoke(nameof(BreakGameplayTagContainer), GameplayTagContainer, GameplayTags); }
+        public void BreakGameplayTagContainer(GameplayTagContainer GameplayTagContainer, UArray<GameplayTag> GameplayTags) { Invoke(nameof(BreakGameplayTagContainer), GameplayTagContainer, GameplayTags); }
         public void AppendGameplayTagContainers(GameplayTagContainer InOutTagContainer, GameplayTagContainer InTagContainer) { Invoke(nameof(AppendGameplayTagContainers), InOutTagContainer, InTagContainer); }
         public void AddGameplayTag(GameplayTagContainer TagContainer, GameplayTag Tag) { Invoke(nameof(AddGameplayTag), TagContainer, Tag); }
     }
@@ -79,35 +81,35 @@ namespace SDK.Script.GameplayTagsSDK
     public class EditableGameplayTagQueryExpression_AnyExprMatch : EditableGameplayTagQueryExpression
     {
         public EditableGameplayTagQueryExpression_AnyExprMatch(nint addr) : base(addr) { }
-        public Array<EditableGameplayTagQueryExpression> Expressions { get { return new Array<EditableGameplayTagQueryExpression>(this[nameof(Expressions)].Address); } }
+        public UArray<EditableGameplayTagQueryExpression> Expressions { get { return new UArray<EditableGameplayTagQueryExpression>(this[nameof(Expressions)].Address); } }
     }
     public class EditableGameplayTagQueryExpression_AllExprMatch : EditableGameplayTagQueryExpression
     {
         public EditableGameplayTagQueryExpression_AllExprMatch(nint addr) : base(addr) { }
-        public Array<EditableGameplayTagQueryExpression> Expressions { get { return new Array<EditableGameplayTagQueryExpression>(this[nameof(Expressions)].Address); } }
+        public UArray<EditableGameplayTagQueryExpression> Expressions { get { return new UArray<EditableGameplayTagQueryExpression>(this[nameof(Expressions)].Address); } }
     }
     public class EditableGameplayTagQueryExpression_NoExprMatch : EditableGameplayTagQueryExpression
     {
         public EditableGameplayTagQueryExpression_NoExprMatch(nint addr) : base(addr) { }
-        public Array<EditableGameplayTagQueryExpression> Expressions { get { return new Array<EditableGameplayTagQueryExpression>(this[nameof(Expressions)].Address); } }
+        public UArray<EditableGameplayTagQueryExpression> Expressions { get { return new UArray<EditableGameplayTagQueryExpression>(this[nameof(Expressions)].Address); } }
     }
     public class GameplayTagsManager : Object
     {
         public GameplayTagsManager(nint addr) : base(addr) { }
         public Object TagSources { get { return this[nameof(TagSources)]; } set { this[nameof(TagSources)] = value; } }
-        public Array<DataTable> GameplayTagTables { get { return new Array<DataTable>(this[nameof(GameplayTagTables)].Address); } }
+        public UArray<DataTable> GameplayTagTables { get { return new UArray<DataTable>(this[nameof(GameplayTagTables)].Address); } }
     }
     public class GameplayTagsList : Object
     {
         public GameplayTagsList(nint addr) : base(addr) { }
         public Object ConfigFileName { get { return this[nameof(ConfigFileName)]; } set { this[nameof(ConfigFileName)] = value; } }
-        public Array<GameplayTagTableRow> GameplayTagList { get { return new Array<GameplayTagTableRow>(this[nameof(GameplayTagList)].Address); } }
+        public UArray<GameplayTagTableRow> GameplayTagList { get { return new UArray<GameplayTagTableRow>(this[nameof(GameplayTagList)].Address); } }
     }
     public class RestrictedGameplayTagsList : Object
     {
         public RestrictedGameplayTagsList(nint addr) : base(addr) { }
         public Object ConfigFileName { get { return this[nameof(ConfigFileName)]; } set { this[nameof(ConfigFileName)] = value; } }
-        public Array<RestrictedGameplayTagTableRow> RestrictedGameplayTagList { get { return new Array<RestrictedGameplayTagTableRow>(this[nameof(RestrictedGameplayTagList)].Address); } }
+        public UArray<RestrictedGameplayTagTableRow> RestrictedGameplayTagList { get { return new UArray<RestrictedGameplayTagTableRow>(this[nameof(RestrictedGameplayTagList)].Address); } }
     }
     public class GameplayTagsSettings : GameplayTagsList
     {
@@ -117,13 +119,13 @@ namespace SDK.Script.GameplayTagsSDK
         public bool ClearInvalidTags { get { return this[nameof(ClearInvalidTags)].Flag; } set { this[nameof(ClearInvalidTags)].Flag = value; } }
         public bool FastReplication { get { return this[nameof(FastReplication)].Flag; } set { this[nameof(FastReplication)].Flag = value; } }
         public Object InvalidTagCharacters { get { return this[nameof(InvalidTagCharacters)]; } set { this[nameof(InvalidTagCharacters)] = value; } }
-        public Array<GameplayTagCategoryRemap> CategoryRemapping { get { return new Array<GameplayTagCategoryRemap>(this[nameof(CategoryRemapping)].Address); } }
-        public Array<SoftObjectPath> GameplayTagTableList { get { return new Array<SoftObjectPath>(this[nameof(GameplayTagTableList)].Address); } }
-        public Array<GameplayTagRedirect> GameplayTagRedirects { get { return new Array<GameplayTagRedirect>(this[nameof(GameplayTagRedirects)].Address); } }
-        public Array<Object> CommonlyReplicatedTags { get { return new Array<Object>(this[nameof(CommonlyReplicatedTags)].Address); } }
+        public UArray<GameplayTagCategoryRemap> CategoryRemapping { get { return new UArray<GameplayTagCategoryRemap>(this[nameof(CategoryRemapping)].Address); } }
+        public UArray<SoftObjectPath> GameplayTagTableList { get { return new UArray<SoftObjectPath>(this[nameof(GameplayTagTableList)].Address); } }
+        public UArray<GameplayTagRedirect> GameplayTagRedirects { get { return new UArray<GameplayTagRedirect>(this[nameof(GameplayTagRedirects)].Address); } }
+        public UArray<Object> CommonlyReplicatedTags { get { return new UArray<Object>(this[nameof(CommonlyReplicatedTags)].Address); } }
         public int NumBitsForContainerSize { get { return this[nameof(NumBitsForContainerSize)].GetValue<int>(); } set { this[nameof(NumBitsForContainerSize)].SetValue<int>(value); } }
         public int NetIndexFirstBitSegment { get { return this[nameof(NetIndexFirstBitSegment)].GetValue<int>(); } set { this[nameof(NetIndexFirstBitSegment)].SetValue<int>(value); } }
-        public Array<RestrictedConfigInfo> RestrictedConfigFiles { get { return new Array<RestrictedConfigInfo>(this[nameof(RestrictedConfigFiles)].Address); } }
+        public UArray<RestrictedConfigInfo> RestrictedConfigFiles { get { return new UArray<RestrictedConfigInfo>(this[nameof(RestrictedConfigFiles)].Address); } }
     }
     public class GameplayTagsDeveloperSettings : DeveloperSettings
     {
@@ -134,8 +136,8 @@ namespace SDK.Script.GameplayTagsSDK
     public class GameplayTagContainer : Object
     {
         public GameplayTagContainer(nint addr) : base(addr) { }
-        public Array<GameplayTag> GameplayTags { get { return new Array<GameplayTag>(this[nameof(GameplayTags)].Address); } }
-        public Array<GameplayTag> ParentTags { get { return new Array<GameplayTag>(this[nameof(ParentTags)].Address); } }
+        public UArray<GameplayTag> GameplayTags { get { return new UArray<GameplayTag>(this[nameof(GameplayTags)].Address); } }
+        public UArray<GameplayTag> ParentTags { get { return new UArray<GameplayTag>(this[nameof(ParentTags)].Address); } }
     }
     public class GameplayTag : Object
     {
@@ -146,8 +148,8 @@ namespace SDK.Script.GameplayTagsSDK
     {
         public GameplayTagQuery(nint addr) : base(addr) { }
         public int TokenStreamVersion { get { return this[nameof(TokenStreamVersion)].GetValue<int>(); } set { this[nameof(TokenStreamVersion)].SetValue<int>(value); } }
-        public Array<GameplayTag> TagDictionary { get { return new Array<GameplayTag>(this[nameof(TagDictionary)].Address); } }
-        public Array<byte> QueryTokenStream { get { return new Array<byte>(this[nameof(QueryTokenStream)].Address); } }
+        public UArray<GameplayTag> TagDictionary { get { return new UArray<GameplayTag>(this[nameof(TagDictionary)].Address); } }
+        public UArray<byte> QueryTokenStream { get { return new UArray<byte>(this[nameof(QueryTokenStream)].Address); } }
         public Object UserDescription { get { return this[nameof(UserDescription)]; } set { this[nameof(UserDescription)] = value; } }
         public Object AutoDescription { get { return this[nameof(AutoDescription)]; } set { this[nameof(AutoDescription)] = value; } }
     }
@@ -233,12 +235,12 @@ namespace SDK.Script.GameplayTagsSDK
     {
         public RestrictedConfigInfo(nint addr) : base(addr) { }
         public Object RestrictedConfigName { get { return this[nameof(RestrictedConfigName)]; } set { this[nameof(RestrictedConfigName)] = value; } }
-        public Array<Object> Owners { get { return new Array<Object>(this[nameof(Owners)].Address); } }
+        public UArray<Object> Owners { get { return new UArray<Object>(this[nameof(Owners)].Address); } }
     }
     public class GameplayTagCategoryRemap : Object
     {
         public GameplayTagCategoryRemap(nint addr) : base(addr) { }
         public Object BaseCategory { get { return this[nameof(BaseCategory)]; } set { this[nameof(BaseCategory)] = value; } }
-        public Array<Object> RemapCategories { get { return new Array<Object>(this[nameof(RemapCategories)].Address); } }
+        public UArray<Object> RemapCategories { get { return new UArray<Object>(this[nameof(RemapCategories)].Address); } }
     }
 }

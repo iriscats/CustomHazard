@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -56,10 +58,10 @@ namespace SDK.Script.ClothingSystemRuntimeNvSDK
     public class ClothPhysicalMeshDataNv_Legacy : ClothPhysicalMeshDataBase_Legacy
     {
         public ClothPhysicalMeshDataNv_Legacy(nint addr) : base(addr) { }
-        public Array<float> MaxDistances { get { return new Array<float>(this[nameof(MaxDistances)].Address); } }
-        public Array<float> BackstopDistances { get { return new Array<float>(this[nameof(BackstopDistances)].Address); } }
-        public Array<float> BackstopRadiuses { get { return new Array<float>(this[nameof(BackstopRadiuses)].Address); } }
-        public Array<float> AnimDriveMultipliers { get { return new Array<float>(this[nameof(AnimDriveMultipliers)].Address); } }
+        public UArray<float> MaxDistances { get { return new UArray<float>(this[nameof(MaxDistances)].Address); } }
+        public UArray<float> BackstopDistances { get { return new UArray<float>(this[nameof(BackstopDistances)].Address); } }
+        public UArray<float> BackstopRadiuses { get { return new UArray<float>(this[nameof(BackstopRadiuses)].Address); } }
+        public UArray<float> AnimDriveMultipliers { get { return new UArray<float>(this[nameof(AnimDriveMultipliers)].Address); } }
     }
     public enum EClothingWindMethodNv : int
     {

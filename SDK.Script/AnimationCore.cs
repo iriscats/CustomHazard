@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -33,8 +35,8 @@ namespace SDK.Script.AnimationCoreSDK
     public class NodeHierarchyData : Object
     {
         public NodeHierarchyData(nint addr) : base(addr) { }
-        public Array<NodeObject> Nodes { get { return new Array<NodeObject>(this[nameof(Nodes)].Address); } }
-        public Array<Transform> Transforms { get { return new Array<Transform>(this[nameof(Transforms)].Address); } }
+        public UArray<NodeObject> Nodes { get { return new UArray<NodeObject>(this[nameof(Nodes)].Address); } }
+        public UArray<Transform> Transforms { get { return new UArray<Transform>(this[nameof(Transforms)].Address); } }
         public Object NodeNameToIndexMapping { get { return this[nameof(NodeNameToIndexMapping)]; } set { this[nameof(NodeNameToIndexMapping)] = value; } }
     }
     public class NodeObject : Object
@@ -141,7 +143,7 @@ namespace SDK.Script.AnimationCoreSDK
     public class NodeChain : Object
     {
         public NodeChain(nint addr) : base(addr) { }
-        public Array<Object> Nodes { get { return new Array<Object>(this[nameof(Nodes)].Address); } }
+        public UArray<Object> Nodes { get { return new UArray<Object>(this[nameof(Nodes)].Address); } }
     }
     public class TransformNoScale : Object
     {

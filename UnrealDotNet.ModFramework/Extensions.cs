@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Numerics;
 using System.Runtime.InteropServices;
 
-namespace UnrealSharp
+namespace UnrealDotNet
 {
     public static class Extensions
     {

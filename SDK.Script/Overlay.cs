@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -13,7 +15,7 @@ namespace SDK.Script.OverlaySDK
     public class BasicOverlays : Overlays
     {
         public BasicOverlays(nint addr) : base(addr) { }
-        public Array<OverlayItem> Overlays { get { return new Array<OverlayItem>(this[nameof(Overlays)].Address); } }
+        public UArray<OverlayItem> Overlays { get { return new UArray<OverlayItem>(this[nameof(Overlays)].Address); } }
     }
     public class LocalizedOverlays : Overlays
     {

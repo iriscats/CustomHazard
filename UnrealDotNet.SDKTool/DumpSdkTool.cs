@@ -198,9 +198,9 @@ public class DumpSdkTool(string location = "")
     {
         sb.AppendLine("using UnrealDotNet;");
         sb.AppendLine("using UnrealDotNet.Types;");
-        sb.AppendLine("using Guid = SDK.Script.CoreUObjectSDK.Guid;");
-        sb.AppendLine("using Enum = SDK.Script.CoreUObjectSDK.Enum;");
-        sb.AppendLine("using DateTime = SDK.Script.CoreUObjectSDK.DateTime;");
+        sb.AppendLine("using Guid = SDK.Script.CoreObjectSDK.Guid;");
+        sb.AppendLine("using Enum = SDK.Script.CoreObjectSDK.Enum;");
+        sb.AppendLine("using DateTime = SDK.Script.CoreObjectSDK.DateTime;");
 
         foreach (var d in package.Dependencies)
             sb.AppendLine("using SDK" + d.FullName.Replace("/", ".") + "SDK;");
@@ -318,12 +318,8 @@ public class DumpSdkTool(string location = "")
                 if (typeName == "unk")
                     continue;
 
-                if (className == "Object")
-                {
-                    className = "UObject";
-                }
 
-                if (className == "UObject")
+                if (className == "Object")
                     continue;
 
 
@@ -345,7 +341,7 @@ public class DumpSdkTool(string location = "")
                     sdkClass.Parent = parentName;
                 }
                 else
-                    sdkClass.Parent = "UObject";
+                    sdkClass.Parent = "Object";
                 //else throw new Exception("unparented obj not supported");
 
                 if (typeName == "enum")

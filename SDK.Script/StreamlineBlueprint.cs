@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -21,7 +23,7 @@ namespace SDK.Script.StreamlineBlueprintSDK
         public UStreamlineFeatureSupport QueryDLSSGSupport() { return Invoke<UStreamlineFeatureSupport>(nameof(QueryDLSSGSupport)); }
         public bool IsDLSSGSupported() { return Invoke<bool>(nameof(IsDLSSGSupported)); }
         public bool IsDLSSGModeSupported(UStreamlineDLSSGMode DLSSGMode) { return Invoke<bool>(nameof(IsDLSSGModeSupported), DLSSGMode); }
-        public Array<UStreamlineDLSSGMode> GetSupportedDLSSGModes() { return Invoke<Array<UStreamlineDLSSGMode>>(nameof(GetSupportedDLSSGModes)); }
+        public UArray<UStreamlineDLSSGMode> GetSupportedDLSSGModes() { return Invoke<UArray<UStreamlineDLSSGMode>>(nameof(GetSupportedDLSSGModes)); }
         public UStreamlineDLSSGMode GetDLSSGMode() { return Invoke<UStreamlineDLSSGMode>(nameof(GetDLSSGMode)); }
         public void GetDLSSGFrameTiming(float FrameRateInHertz, int FramesPresented) { Invoke(nameof(GetDLSSGFrameTiming), FrameRateInHertz, FramesPresented); }
         public UStreamlineDLSSGMode GetDefaultDLSSGMode() { return Invoke<UStreamlineDLSSGMode>(nameof(GetDefaultDLSSGMode)); }

@@ -1,5 +1,8 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using UnrealDotNet.Types;
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -19,6 +22,8 @@ using SDK.Script.AudioExtensionsSDK;
 using SDK.Script.StaticMeshDescriptionSDK;
 using SDK.Script.LandscapeSDK;
 using SDK.Script.ChaosSDK;
+
+
 namespace SDK.Script.EngineSDK
 {
     public class BlueprintFunctionLibrary : Object
@@ -36,19 +41,19 @@ namespace SDK.Script.EngineSDK
     public class NetConnection : Player
     {
         public NetConnection(nint addr) : base(addr) { }
-        public Array<ChildConnection> Children { get { return new Array<ChildConnection>(this[nameof(Children)].Address); } }
+        public UArray<ChildConnection> Children { get { return new UArray<ChildConnection>(this[nameof(Children)].Address); } }
         public NetDriver Driver { get { return this[nameof(Driver)].As<NetDriver>(); } set { this["Driver"] = value; } }
         public Object PackageMapClass { get { return this[nameof(PackageMapClass)]; } set { this[nameof(PackageMapClass)] = value; } }
         public PackageMap PackageMap { get { return this[nameof(PackageMap)].As<PackageMap>(); } set { this["PackageMap"] = value; } }
-        public Array<Channel> OpenChannels { get { return new Array<Channel>(this[nameof(OpenChannels)].Address); } }
-        public Array<Actor> SentTemporaries { get { return new Array<Actor>(this[nameof(SentTemporaries)].Address); } }
+        public UArray<Channel> OpenChannels { get { return new UArray<Channel>(this[nameof(OpenChannels)].Address); } }
+        public UArray<Actor> SentTemporaries { get { return new UArray<Actor>(this[nameof(SentTemporaries)].Address); } }
         public Actor ViewTarget { get { return this[nameof(ViewTarget)].As<Actor>(); } set { this["ViewTarget"] = value; } }
         public Actor owningActor { get { return this[nameof(owningActor)].As<Actor>(); } set { this["owningActor"] = value; } }
         public int MaxPacket { get { return this[nameof(MaxPacket)].GetValue<int>(); } set { this[nameof(MaxPacket)].SetValue<int>(value); } }
         public bool InternalAck { get { return this[nameof(InternalAck)].Flag; } set { this[nameof(InternalAck)].Flag = value; } }
         public UniqueNetIdRepl PlayerId { get { return this[nameof(PlayerId)].As<UniqueNetIdRepl>(); } set { this["PlayerId"] = value; } }
         public double LastReceiveTime { get { return this[nameof(LastReceiveTime)].GetValue<double>(); } set { this[nameof(LastReceiveTime)].SetValue<double>(value); } }
-        public Array<Channel> ChannelsToTick { get { return new Array<Channel>(this[nameof(ChannelsToTick)].Address); } }
+        public UArray<Channel> ChannelsToTick { get { return new UArray<Channel>(this[nameof(ChannelsToTick)].Address); } }
     }
     public class NetDriver : Object
     {
@@ -71,16 +76,16 @@ namespace SDK.Script.EngineSDK
         public bool bNoTimeouts { get { return this[nameof(bNoTimeouts)].Flag; } set { this[nameof(bNoTimeouts)].Flag = value; } }
         public bool bNeverApplyNetworkEmulationSettings { get { return this[nameof(bNeverApplyNetworkEmulationSettings)].Flag; } set { this[nameof(bNeverApplyNetworkEmulationSettings)].Flag = value; } }
         public NetConnection ServerConnection { get { return this[nameof(ServerConnection)].As<NetConnection>(); } set { this["ServerConnection"] = value; } }
-        public Array<NetConnection> ClientConnections { get { return new Array<NetConnection>(this[nameof(ClientConnections)].Address); } }
+        public UArray<NetConnection> ClientConnections { get { return new UArray<NetConnection>(this[nameof(ClientConnections)].Address); } }
         public int RecentlyDisconnectedTrackingTime { get { return this[nameof(RecentlyDisconnectedTrackingTime)].GetValue<int>(); } set { this[nameof(RecentlyDisconnectedTrackingTime)].SetValue<int>(value); } }
         public World World { get { return this[nameof(World)].As<World>(); } set { this["World"] = value; } }
         public Package WorldPackage { get { return this[nameof(WorldPackage)].As<Package>(); } set { this["WorldPackage"] = value; } }
         public Object NetConnectionClass { get { return this[nameof(NetConnectionClass)]; } set { this[nameof(NetConnectionClass)] = value; } }
         public Object ReplicationDriverClass { get { return this[nameof(ReplicationDriverClass)]; } set { this[nameof(ReplicationDriverClass)] = value; } }
         public Object NetDriverName { get { return this[nameof(NetDriverName)]; } set { this[nameof(NetDriverName)] = value; } }
-        public Array<ChannelDefinition> ChannelDefinitions { get { return new Array<ChannelDefinition>(this[nameof(ChannelDefinitions)].Address); } }
+        public UArray<ChannelDefinition> ChannelDefinitions { get { return new UArray<ChannelDefinition>(this[nameof(ChannelDefinitions)].Address); } }
         public Object ChannelDefinitionMap { get { return this[nameof(ChannelDefinitionMap)]; } set { this[nameof(ChannelDefinitionMap)] = value; } }
-        public Array<Channel> ActorChannelPool { get { return new Array<Channel>(this[nameof(ActorChannelPool)].Address); } }
+        public UArray<Channel> ActorChannelPool { get { return new UArray<Channel>(this[nameof(ActorChannelPool)].Address); } }
         public float Time { get { return this[nameof(Time)].GetValue<float>(); } set { this[nameof(Time)].SetValue<float>(value); } }
         public ReplicationDriver ReplicationDriver { get { return this[nameof(ReplicationDriver)].As<ReplicationDriver>(); } set { this["ReplicationDriver"] = value; } }
     }
@@ -148,12 +153,12 @@ namespace SDK.Script.EngineSDK
         public float MinNetUpdateFrequency { get { return this[nameof(MinNetUpdateFrequency)].GetValue<float>(); } set { this[nameof(MinNetUpdateFrequency)].SetValue<float>(value); } }
         public float NetPriority { get { return this[nameof(NetPriority)].GetValue<float>(); } set { this[nameof(NetPriority)].SetValue<float>(value); } }
         public Pawn Instigator { get { return this[nameof(Instigator)].As<Pawn>(); } set { this["Instigator"] = value; } }
-        public Array<Actor> Children { get { return new Array<Actor>(this[nameof(Children)].Address); } }
+        public UArray<Actor> Children { get { return new UArray<Actor>(this[nameof(Children)].Address); } }
         public SceneComponent RootComponent { get { return this[nameof(RootComponent)].As<SceneComponent>(); } set { this["RootComponent"] = value; } }
-        public Array<MatineeActor> ControllingMatineeActors { get { return new Array<MatineeActor>(this[nameof(ControllingMatineeActors)].Address); } }
-        public Array<Object> Layers { get { return new Array<Object>(this[nameof(Layers)].Address); } }
+        public UArray<MatineeActor> ControllingMatineeActors { get { return new UArray<MatineeActor>(this[nameof(ControllingMatineeActors)].Address); } }
+        public UArray<Object> Layers { get { return new UArray<Object>(this[nameof(Layers)].Address); } }
         public Object ParentComponent { get { return this[nameof(ParentComponent)]; } set { this[nameof(ParentComponent)] = value; } }
-        public Array<Object> Tags { get { return new Array<Object>(this[nameof(Tags)].Address); } }
+        public UArray<Object> Tags { get { return new UArray<Object>(this[nameof(Tags)].Address); } }
         public Object OnTakeAnyDamage { get { return this[nameof(OnTakeAnyDamage)]; } set { this[nameof(OnTakeAnyDamage)] = value; } }
         public Object OnTakePointDamage { get { return this[nameof(OnTakePointDamage)]; } set { this[nameof(OnTakePointDamage)] = value; } }
         public Object OnTakeRadialDamage { get { return this[nameof(OnTakeRadialDamage)]; } set { this[nameof(OnTakeRadialDamage)] = value; } }
@@ -170,8 +175,8 @@ namespace SDK.Script.EngineSDK
         public Object OnActorHit { get { return this[nameof(OnActorHit)]; } set { this[nameof(OnActorHit)] = value; } }
         public Object OnDestroyed { get { return this[nameof(OnDestroyed)]; } set { this[nameof(OnDestroyed)] = value; } }
         public Object OnEndPlay { get { return this[nameof(OnEndPlay)]; } set { this[nameof(OnEndPlay)] = value; } }
-        public Array<ActorComponent> InstanceComponents { get { return new Array<ActorComponent>(this[nameof(InstanceComponents)].Address); } }
-        public Array<ActorComponent> BlueprintCreatedComponents { get { return new Array<ActorComponent>(this[nameof(BlueprintCreatedComponents)].Address); } }
+        public UArray<ActorComponent> InstanceComponents { get { return new UArray<ActorComponent>(this[nameof(InstanceComponents)].Address); } }
+        public UArray<ActorComponent> BlueprintCreatedComponents { get { return new UArray<ActorComponent>(this[nameof(BlueprintCreatedComponents)].Address); } }
         public bool WasRecentlyRendered(float Tolerance) { return Invoke<bool>(nameof(WasRecentlyRendered), Tolerance); }
         public void UserConstructionScript() { Invoke(nameof(UserConstructionScript)); }
         public void TearOff() { Invoke(nameof(TearOff)); }
@@ -230,7 +235,7 @@ namespace SDK.Script.EngineSDK
         public void K2_OnEndViewTarget(PlayerController PC) { Invoke(nameof(K2_OnEndViewTarget), PC); }
         public void K2_OnBecomeViewTarget(PlayerController PC) { Invoke(nameof(K2_OnBecomeViewTarget), PC); }
         public SceneComponent K2_GetRootComponent() { return Invoke<SceneComponent>(nameof(K2_GetRootComponent)); }
-        public Array<ActorComponent> K2_GetComponentsByClass(Object ComponentClass) { return Invoke<Array<ActorComponent>>(nameof(K2_GetComponentsByClass), ComponentClass); }
+        public UArray<ActorComponent> K2_GetComponentsByClass(Object ComponentClass) { return Invoke<UArray<ActorComponent>>(nameof(K2_GetComponentsByClass), ComponentClass); }
         public Rotator K2_GetActorRotation() { return Invoke<Rotator>(nameof(K2_GetActorRotation)); }
         public Vector K2_GetActorLocation() { return Invoke<Vector>(nameof(K2_GetActorLocation)); }
         public void K2_DetachFromActor(EDetachmentRule LocationRule, EDetachmentRule RotationRule, EDetachmentRule ScaleRule) { Invoke(nameof(K2_DetachFromActor), LocationRule, RotationRule, ScaleRule); }
@@ -262,8 +267,8 @@ namespace SDK.Script.EngineSDK
         public ChildActorComponent GetParentComponent() { return Invoke<ChildActorComponent>(nameof(GetParentComponent)); }
         public Actor GetParentActor() { return Invoke<Actor>(nameof(GetParentActor)); }
         public Actor GetOwner() { return Invoke<Actor>(nameof(GetOwner)); }
-        public void GetOverlappingComponents(Array<PrimitiveComponent> OverlappingComponents) { Invoke(nameof(GetOverlappingComponents), OverlappingComponents); }
-        public void GetOverlappingActors(Array<Actor> OverlappingActors, Object ClassFilter) { Invoke(nameof(GetOverlappingActors), OverlappingActors, ClassFilter); }
+        public void GetOverlappingComponents(UArray<PrimitiveComponent> OverlappingComponents) { Invoke(nameof(GetOverlappingComponents), OverlappingComponents); }
+        public void GetOverlappingActors(UArray<Actor> OverlappingActors, Object ClassFilter) { Invoke(nameof(GetOverlappingActors), OverlappingActors, ClassFilter); }
         public byte GetLocalRole() { return Invoke<byte>(nameof(GetLocalRole)); }
         public float GetLifeSpan() { return Invoke<float>(nameof(GetLifeSpan)); }
         public Controller GetInstigatorController() { return Invoke<Controller>(nameof(GetInstigatorController)); }
@@ -276,13 +281,13 @@ namespace SDK.Script.EngineSDK
         public float GetGameTimeSinceCreation() { return Invoke<float>(nameof(GetGameTimeSinceCreation)); }
         public float GetDotProductTo(Actor OtherActor) { return Invoke<float>(nameof(GetDotProductTo), OtherActor); }
         public float GetDistanceTo(Actor OtherActor) { return Invoke<float>(nameof(GetDistanceTo), OtherActor); }
-        public Array<ActorComponent> GetComponentsByTag(Object ComponentClass, Object Tag) { return Invoke<Array<ActorComponent>>(nameof(GetComponentsByTag), ComponentClass, Tag); }
-        public Array<ActorComponent> GetComponentsByInterface(Object Interface) { return Invoke<Array<ActorComponent>>(nameof(GetComponentsByInterface), Interface); }
+        public UArray<ActorComponent> GetComponentsByTag(Object ComponentClass, Object Tag) { return Invoke<UArray<ActorComponent>>(nameof(GetComponentsByTag), ComponentClass, Tag); }
+        public UArray<ActorComponent> GetComponentsByInterface(Object Interface) { return Invoke<UArray<ActorComponent>>(nameof(GetComponentsByInterface), Interface); }
         public ActorComponent GetComponentByClass(Object ComponentClass) { return Invoke<ActorComponent>(nameof(GetComponentByClass), ComponentClass); }
         public Object GetAttachParentSocketName() { return Invoke<Object>(nameof(GetAttachParentSocketName)); }
         public Actor GetAttachParentActor() { return Invoke<Actor>(nameof(GetAttachParentActor)); }
-        public void GetAttachedActors(Array<Actor> OutActors, bool bResetArray) { Invoke(nameof(GetAttachedActors), OutActors, bResetArray); }
-        public void GetAllChildActors(Array<Actor> ChildActors, bool bIncludeDescendants) { Invoke(nameof(GetAllChildActors), ChildActors, bIncludeDescendants); }
+        public void GetAttachedActors(UArray<Actor> OutActors, bool bResetArray) { Invoke(nameof(GetAttachedActors), OutActors, bResetArray); }
+        public void GetAllChildActors(UArray<Actor> ChildActors, bool bIncludeDescendants) { Invoke(nameof(GetAllChildActors), ChildActors, bIncludeDescendants); }
         public Vector GetActorUpVector() { return Invoke<Vector>(nameof(GetActorUpVector)); }
         public float GetActorTimeDilation() { return Invoke<float>(nameof(GetActorTimeDilation)); }
         public float GetActorTickInterval() { return Invoke<float>(nameof(GetActorTickInterval)); }
@@ -317,8 +322,8 @@ namespace SDK.Script.EngineSDK
     {
         public ActorComponent(nint addr) : base(addr) { }
         public ActorComponentTickFunction PrimaryComponentTick { get { return this[nameof(PrimaryComponentTick)].As<ActorComponentTickFunction>(); } set { this["PrimaryComponentTick"] = value; } }
-        public Array<Object> ComponentTags { get { return new Array<Object>(this[nameof(ComponentTags)].Address); } }
-        public Array<AssetUserData> AssetUserData { get { return new Array<AssetUserData>(this[nameof(AssetUserData)].Address); } }
+        public UArray<Object> ComponentTags { get { return new UArray<Object>(this[nameof(ComponentTags)].Address); } }
+        public UArray<AssetUserData> AssetUserData { get { return new UArray<AssetUserData>(this[nameof(AssetUserData)].Address); } }
         public int UCSSerializationIndex { get { return this[nameof(UCSSerializationIndex)].GetValue<int>(); } set { this[nameof(UCSSerializationIndex)].SetValue<int>(value); } }
         public bool bNetAddressable { get { return this[nameof(bNetAddressable)].Flag; } set { this[nameof(bNetAddressable)].Flag = value; } }
         public bool bReplicates { get { return this[nameof(bReplicates)].Flag; } set { this[nameof(bReplicates)].Flag = value; } }
@@ -330,7 +335,7 @@ namespace SDK.Script.EngineSDK
         public EComponentCreationMethod CreationMethod { get { return (EComponentCreationMethod)this[nameof(CreationMethod)].GetValue<int>(); } set { this[nameof(CreationMethod)].SetValue<int>((int)value); } }
         public Object OnComponentActivated { get { return this[nameof(OnComponentActivated)]; } set { this[nameof(OnComponentActivated)] = value; } }
         public Object OnComponentDeactivated { get { return this[nameof(OnComponentDeactivated)]; } set { this[nameof(OnComponentDeactivated)] = value; } }
-        public Array<SimpleMemberReference> UCSModifiedProperties { get { return new Array<SimpleMemberReference>(this[nameof(UCSModifiedProperties)].Address); } }
+        public UArray<SimpleMemberReference> UCSModifiedProperties { get { return new UArray<SimpleMemberReference>(this[nameof(UCSModifiedProperties)].Address); } }
         public void ToggleActive() { Invoke(nameof(ToggleActive)); }
         public void SetTickGroup(byte NewTickGroup) { Invoke(nameof(SetTickGroup), NewTickGroup); }
         public void SetTickableWhenPaused(bool bTickableWhenPaused) { Invoke(nameof(SetTickableWhenPaused), bTickableWhenPaused); }
@@ -364,8 +369,8 @@ namespace SDK.Script.EngineSDK
         public Object PhysicsVolume { get { return this[nameof(PhysicsVolume)]; } set { this[nameof(PhysicsVolume)] = value; } }
         public SceneComponent AttachParent { get { return this[nameof(AttachParent)].As<SceneComponent>(); } set { this["AttachParent"] = value; } }
         public Object AttachSocketName { get { return this[nameof(AttachSocketName)]; } set { this[nameof(AttachSocketName)] = value; } }
-        public Array<SceneComponent> AttachChildren { get { return new Array<SceneComponent>(this[nameof(AttachChildren)].Address); } }
-        public Array<SceneComponent> ClientAttachedChildren { get { return new Array<SceneComponent>(this[nameof(ClientAttachedChildren)].Address); } }
+        public UArray<SceneComponent> AttachChildren { get { return new UArray<SceneComponent>(this[nameof(AttachChildren)].Address); } }
+        public UArray<SceneComponent> ClientAttachedChildren { get { return new UArray<SceneComponent>(this[nameof(ClientAttachedChildren)].Address); } }
         public Vector RelativeLocation { get { return this[nameof(RelativeLocation)].As<Vector>(); } set { this["RelativeLocation"] = value; } }
         public Rotator RelativeRotation { get { return this[nameof(RelativeRotation)].As<Rotator>(); } set { this["RelativeRotation"] = value; } }
         public Vector RelativeScale3D { get { return this[nameof(RelativeScale3D)].As<Vector>(); } set { this["RelativeScale3D"] = value; } }
@@ -436,15 +441,15 @@ namespace SDK.Script.EngineSDK
         public Vector GetRightVector() { return Invoke<Vector>(nameof(GetRightVector)); }
         public Transform GetRelativeTransform() { return Invoke<Transform>(nameof(GetRelativeTransform)); }
         public PhysicsVolume GetPhysicsVolume() { return Invoke<PhysicsVolume>(nameof(GetPhysicsVolume)); }
-        public void GetParentComponents(Array<SceneComponent> Parents) { Invoke(nameof(GetParentComponents), Parents); }
+        public void GetParentComponents(UArray<SceneComponent> Parents) { Invoke(nameof(GetParentComponents), Parents); }
         public int GetNumChildrenComponents() { return Invoke<int>(nameof(GetNumChildrenComponents)); }
         public Vector GetForwardVector() { return Invoke<Vector>(nameof(GetForwardVector)); }
         public Vector GetComponentVelocity() { return Invoke<Vector>(nameof(GetComponentVelocity)); }
-        public void GetChildrenComponents(bool bIncludeAllDescendants, Array<SceneComponent> Children) { Invoke(nameof(GetChildrenComponents), bIncludeAllDescendants, Children); }
+        public void GetChildrenComponents(bool bIncludeAllDescendants, UArray<SceneComponent> Children) { Invoke(nameof(GetChildrenComponents), bIncludeAllDescendants, Children); }
         public SceneComponent GetChildComponent(int ChildIndex) { return Invoke<SceneComponent>(nameof(GetChildComponent), ChildIndex); }
         public Object GetAttachSocketName() { return Invoke<Object>(nameof(GetAttachSocketName)); }
         public SceneComponent GetAttachParent() { return Invoke<SceneComponent>(nameof(GetAttachParent)); }
-        public Array<Object> GetAllSocketNames() { return Invoke<Array<Object>>(nameof(GetAllSocketNames)); }
+        public UArray<Object> GetAllSocketNames() { return Invoke<UArray<Object>>(nameof(GetAllSocketNames)); }
         public bool DoesSocketExist(Object InSocketName) { return Invoke<bool>(nameof(DoesSocketExist), InSocketName); }
         public void DetachFromParent(bool bMaintainWorldPosition, bool bCallModify) { Invoke(nameof(DetachFromParent), bMaintainWorldPosition, bCallModify); }
     }
@@ -533,15 +538,15 @@ namespace SDK.Script.EngineSDK
         public int TranslucencySortPriority { get { return this[nameof(TranslucencySortPriority)].GetValue<int>(); } set { this[nameof(TranslucencySortPriority)].SetValue<int>(value); } }
         public float TranslucencySortDistanceOffset { get { return this[nameof(TranslucencySortDistanceOffset)].GetValue<float>(); } set { this[nameof(TranslucencySortDistanceOffset)].SetValue<float>(value); } }
         public int VisibilityId { get { return this[nameof(VisibilityId)].GetValue<int>(); } set { this[nameof(VisibilityId)].SetValue<int>(value); } }
-        public Array<RuntimeVirtualTexture> RuntimeVirtualTextures { get { return new Array<RuntimeVirtualTexture>(this[nameof(RuntimeVirtualTextures)].Address); } }
+        public UArray<RuntimeVirtualTexture> RuntimeVirtualTextures { get { return new UArray<RuntimeVirtualTexture>(this[nameof(RuntimeVirtualTextures)].Address); } }
         public byte VirtualTextureLodBias { get { return this[nameof(VirtualTextureLodBias)].GetValue<byte>(); } set { this[nameof(VirtualTextureLodBias)].SetValue<byte>(value); } }
         public byte VirtualTextureCullMips { get { return this[nameof(VirtualTextureCullMips)].GetValue<byte>(); } set { this[nameof(VirtualTextureCullMips)].SetValue<byte>(value); } }
         public byte VirtualTextureMinCoverage { get { return this[nameof(VirtualTextureMinCoverage)].GetValue<byte>(); } set { this[nameof(VirtualTextureMinCoverage)].SetValue<byte>(value); } }
         public ERuntimeVirtualTextureMainPassType VirtualTextureRenderPassType { get { return (ERuntimeVirtualTextureMainPassType)this[nameof(VirtualTextureRenderPassType)].GetValue<int>(); } set { this[nameof(VirtualTextureRenderPassType)].SetValue<int>((int)value); } }
         public float LpvBiasMultiplier { get { return this[nameof(LpvBiasMultiplier)].GetValue<float>(); } set { this[nameof(LpvBiasMultiplier)].SetValue<float>(value); } }
         public float BoundsScale { get { return this[nameof(BoundsScale)].GetValue<float>(); } set { this[nameof(BoundsScale)].SetValue<float>(value); } }
-        public Array<Actor> MoveIgnoreActors { get { return new Array<Actor>(this[nameof(MoveIgnoreActors)].Address); } }
-        public Array<PrimitiveComponent> MoveIgnoreComponents { get { return new Array<PrimitiveComponent>(this[nameof(MoveIgnoreComponents)].Address); } }
+        public UArray<Actor> MoveIgnoreActors { get { return new UArray<Actor>(this[nameof(MoveIgnoreActors)].Address); } }
+        public UArray<PrimitiveComponent> MoveIgnoreComponents { get { return new UArray<PrimitiveComponent>(this[nameof(MoveIgnoreComponents)].Address); } }
         public BodyInstance BodyInstance { get { return this[nameof(BodyInstance)].As<BodyInstance>(); } set { this["BodyInstance"] = value; } }
         public Object OnComponentHit { get { return this[nameof(OnComponentHit)]; } set { this[nameof(OnComponentHit)] = value; } }
         public Object OnComponentBeginOverlap { get { return this[nameof(OnComponentBeginOverlap)]; } set { this[nameof(OnComponentBeginOverlap)] = value; } }
@@ -641,8 +646,8 @@ namespace SDK.Script.EngineSDK
         public Vector GetPhysicsAngularVelocityInRadians(Object BoneName) { return Invoke<Vector>(nameof(GetPhysicsAngularVelocityInRadians), BoneName); }
         public Vector GetPhysicsAngularVelocityInDegrees(Object BoneName) { return Invoke<Vector>(nameof(GetPhysicsAngularVelocityInDegrees), BoneName); }
         public Vector GetPhysicsAngularVelocity(Object BoneName) { return Invoke<Vector>(nameof(GetPhysicsAngularVelocity), BoneName); }
-        public void GetOverlappingComponents(Array<PrimitiveComponent> OutOverlappingComponents) { Invoke(nameof(GetOverlappingComponents), OutOverlappingComponents); }
-        public void GetOverlappingActors(Array<Actor> OverlappingActors, Object ClassFilter) { Invoke(nameof(GetOverlappingActors), OverlappingActors, ClassFilter); }
+        public void GetOverlappingComponents(UArray<PrimitiveComponent> OutOverlappingComponents) { Invoke(nameof(GetOverlappingComponents), OutOverlappingComponents); }
+        public void GetOverlappingActors(UArray<Actor> OverlappingActors, Object ClassFilter) { Invoke(nameof(GetOverlappingActors), OverlappingActors, ClassFilter); }
         public int GetNumMaterials() { return Invoke<int>(nameof(GetNumMaterials)); }
         public MaterialInterface GetMaterialFromCollisionFaceIndex(int FaceIndex, int SectionIndex) { return Invoke<MaterialInterface>(nameof(GetMaterialFromCollisionFaceIndex), FaceIndex, SectionIndex); }
         public MaterialInterface GetMaterial(int ElementIndex) { return Invoke<MaterialInterface>(nameof(GetMaterial), ElementIndex); }
@@ -661,8 +666,8 @@ namespace SDK.Script.EngineSDK
         public MaterialInstanceDynamic CreateDynamicMaterialInstance(int ElementIndex, MaterialInterface SourceMaterial, Object OptionalName) { return Invoke<MaterialInstanceDynamic>(nameof(CreateDynamicMaterialInstance), ElementIndex, SourceMaterial, OptionalName); }
         public MaterialInstanceDynamic CreateAndSetMaterialInstanceDynamicFromMaterial(int ElementIndex, MaterialInterface Parent) { return Invoke<MaterialInstanceDynamic>(nameof(CreateAndSetMaterialInstanceDynamicFromMaterial), ElementIndex, Parent); }
         public MaterialInstanceDynamic CreateAndSetMaterialInstanceDynamic(int ElementIndex) { return Invoke<MaterialInstanceDynamic>(nameof(CreateAndSetMaterialInstanceDynamic), ElementIndex); }
-        public Array<PrimitiveComponent> CopyArrayOfMoveIgnoreComponents() { return Invoke<Array<PrimitiveComponent>>(nameof(CopyArrayOfMoveIgnoreComponents)); }
-        public Array<Actor> CopyArrayOfMoveIgnoreActors() { return Invoke<Array<Actor>>(nameof(CopyArrayOfMoveIgnoreActors)); }
+        public UArray<PrimitiveComponent> CopyArrayOfMoveIgnoreComponents() { return Invoke<UArray<PrimitiveComponent>>(nameof(CopyArrayOfMoveIgnoreComponents)); }
+        public UArray<Actor> CopyArrayOfMoveIgnoreActors() { return Invoke<UArray<Actor>>(nameof(CopyArrayOfMoveIgnoreActors)); }
         public void ClearMoveIgnoreComponents() { Invoke(nameof(ClearMoveIgnoreComponents)); }
         public void ClearMoveIgnoreActors() { Invoke(nameof(ClearMoveIgnoreActors)); }
         public bool CanCharacterStepUp(Pawn Pawn) { return Invoke<bool>(nameof(CanCharacterStepUp), Pawn); }
@@ -733,9 +738,9 @@ namespace SDK.Script.EngineSDK
         public bool bIsRegeneratingOnLoad { get { return this[nameof(bIsRegeneratingOnLoad)].Flag; } set { this[nameof(bIsRegeneratingOnLoad)].Flag = value; } }
         public int BlueprintSystemVersion { get { return this[nameof(BlueprintSystemVersion)].GetValue<int>(); } set { this[nameof(BlueprintSystemVersion)].SetValue<int>(value); } }
         public SimpleConstructionScript SimpleConstructionScript { get { return this[nameof(SimpleConstructionScript)].As<SimpleConstructionScript>(); } set { this["SimpleConstructionScript"] = value; } }
-        public Array<ActorComponent> ComponentTemplates { get { return new Array<ActorComponent>(this[nameof(ComponentTemplates)].Address); } }
-        public Array<TimelineTemplate> Timelines { get { return new Array<TimelineTemplate>(this[nameof(Timelines)].Address); } }
-        public Array<BPComponentClassOverride> ComponentClassOverrides { get { return new Array<BPComponentClassOverride>(this[nameof(ComponentClassOverrides)].Address); } }
+        public UArray<ActorComponent> ComponentTemplates { get { return new UArray<ActorComponent>(this[nameof(ComponentTemplates)].Address); } }
+        public UArray<TimelineTemplate> Timelines { get { return new UArray<TimelineTemplate>(this[nameof(Timelines)].Address); } }
+        public UArray<BPComponentClassOverride> ComponentClassOverrides { get { return new UArray<BPComponentClassOverride>(this[nameof(ComponentClassOverrides)].Address); } }
         public InheritableComponentHandler InheritableComponentHandler { get { return this[nameof(InheritableComponentHandler)].As<InheritableComponentHandler>(); } set { this["InheritableComponentHandler"] = value; } }
     }
     public class BlueprintGeneratedClass : Class
@@ -744,10 +749,10 @@ namespace SDK.Script.EngineSDK
         public int NumReplicatedProperties { get { return this[nameof(NumReplicatedProperties)].GetValue<int>(); } set { this[nameof(NumReplicatedProperties)].SetValue<int>(value); } }
         public bool bHasNativizedParent { get { return this[nameof(bHasNativizedParent)].Flag; } set { this[nameof(bHasNativizedParent)].Flag = value; } }
         public bool bHasCookedComponentInstancingData { get { return this[nameof(bHasCookedComponentInstancingData)].Flag; } set { this[nameof(bHasCookedComponentInstancingData)].Flag = value; } }
-        public Array<DynamicBlueprintBinding> DynamicBindingObjects { get { return new Array<DynamicBlueprintBinding>(this[nameof(DynamicBindingObjects)].Address); } }
-        public Array<ActorComponent> ComponentTemplates { get { return new Array<ActorComponent>(this[nameof(ComponentTemplates)].Address); } }
-        public Array<TimelineTemplate> Timelines { get { return new Array<TimelineTemplate>(this[nameof(Timelines)].Address); } }
-        public Array<BPComponentClassOverride> ComponentClassOverrides { get { return new Array<BPComponentClassOverride>(this[nameof(ComponentClassOverrides)].Address); } }
+        public UArray<DynamicBlueprintBinding> DynamicBindingObjects { get { return new UArray<DynamicBlueprintBinding>(this[nameof(DynamicBindingObjects)].Address); } }
+        public UArray<ActorComponent> ComponentTemplates { get { return new UArray<ActorComponent>(this[nameof(ComponentTemplates)].Address); } }
+        public UArray<TimelineTemplate> Timelines { get { return new UArray<TimelineTemplate>(this[nameof(Timelines)].Address); } }
+        public UArray<BPComponentClassOverride> ComponentClassOverrides { get { return new UArray<BPComponentClassOverride>(this[nameof(ComponentClassOverrides)].Address); } }
         public SimpleConstructionScript SimpleConstructionScript { get { return this[nameof(SimpleConstructionScript)].As<SimpleConstructionScript>(); } set { this["SimpleConstructionScript"] = value; } }
         public InheritableComponentHandler InheritableComponentHandler { get { return this[nameof(InheritableComponentHandler)].As<InheritableComponentHandler>(); } set { this["InheritableComponentHandler"] = value; } }
         public StructProperty UberGraphFramePointerProperty { get { return this[nameof(UberGraphFramePointerProperty)].As<StructProperty>(); } set { this["UberGraphFramePointerProperty"] = value; } }
@@ -777,14 +782,14 @@ namespace SDK.Script.EngineSDK
     public class MeshComponent : PrimitiveComponent
     {
         public MeshComponent(nint addr) : base(addr) { }
-        public Array<MaterialInterface> OverrideMaterials { get { return new Array<MaterialInterface>(this[nameof(OverrideMaterials)].Address); } }
+        public UArray<MaterialInterface> OverrideMaterials { get { return new UArray<MaterialInterface>(this[nameof(OverrideMaterials)].Address); } }
         public bool bEnableMaterialParameterCaching { get { return this[nameof(bEnableMaterialParameterCaching)].Flag; } set { this[nameof(bEnableMaterialParameterCaching)].Flag = value; } }
         public void SetVectorParameterValueOnMaterials(Object ParameterName, Vector ParameterValue) { Invoke(nameof(SetVectorParameterValueOnMaterials), ParameterName, ParameterValue); }
         public void SetScalarParameterValueOnMaterials(Object ParameterName, float ParameterValue) { Invoke(nameof(SetScalarParameterValueOnMaterials), ParameterName, ParameterValue); }
         public void PrestreamTextures(float Seconds, bool bPrioritizeCharacterTextures, int CinematicTextureGroups) { Invoke(nameof(PrestreamTextures), Seconds, bPrioritizeCharacterTextures, CinematicTextureGroups); }
         public bool IsMaterialSlotNameValid(Object MaterialSlotName) { return Invoke<bool>(nameof(IsMaterialSlotNameValid), MaterialSlotName); }
-        public Array<Object> GetMaterialSlotNames() { return Invoke<Array<Object>>(nameof(GetMaterialSlotNames)); }
-        public Array<MaterialInterface> GetMaterials() { return Invoke<Array<MaterialInterface>>(nameof(GetMaterials)); }
+        public UArray<Object> GetMaterialSlotNames() { return Invoke<UArray<Object>>(nameof(GetMaterialSlotNames)); }
+        public UArray<MaterialInterface> GetMaterials() { return Invoke<UArray<MaterialInterface>>(nameof(GetMaterials)); }
         public int GetMaterialIndex(Object MaterialSlotName) { return Invoke<int>(nameof(GetMaterialIndex), MaterialSlotName); }
     }
     public class SkinnedMeshComponent : MeshComponent
@@ -792,13 +797,13 @@ namespace SDK.Script.EngineSDK
         public SkinnedMeshComponent(nint addr) : base(addr) { }
         public SkeletalMesh SkeletalMesh { get { return this[nameof(SkeletalMesh)].As<SkeletalMesh>(); } set { this["SkeletalMesh"] = value; } }
         public Object MasterPoseComponent { get { return this[nameof(MasterPoseComponent)]; } set { this[nameof(MasterPoseComponent)] = value; } }
-        public Array<ESkinCacheUsage> SkinCacheUsage { get { return new Array<ESkinCacheUsage>(this[nameof(SkinCacheUsage)].Address); } }
-        public Array<VertexOffsetUsage> VertexOffsetUsage { get { return new Array<VertexOffsetUsage>(this[nameof(VertexOffsetUsage)].Address); } }
+        public UArray<ESkinCacheUsage> SkinCacheUsage { get { return new UArray<ESkinCacheUsage>(this[nameof(SkinCacheUsage)].Address); } }
+        public UArray<VertexOffsetUsage> VertexOffsetUsage { get { return new UArray<VertexOffsetUsage>(this[nameof(VertexOffsetUsage)].Address); } }
         public PhysicsAsset PhysicsAssetOverride { get { return this[nameof(PhysicsAssetOverride)].As<PhysicsAsset>(); } set { this["PhysicsAssetOverride"] = value; } }
         public int ForcedLodModel { get { return this[nameof(ForcedLodModel)].GetValue<int>(); } set { this[nameof(ForcedLodModel)].SetValue<int>(value); } }
         public int MinLodModel { get { return this[nameof(MinLodModel)].GetValue<int>(); } set { this[nameof(MinLodModel)].SetValue<int>(value); } }
         public float StreamingDistanceMultiplier { get { return this[nameof(StreamingDistanceMultiplier)].GetValue<float>(); } set { this[nameof(StreamingDistanceMultiplier)].SetValue<float>(value); } }
-        public Array<SkelMeshComponentLODInfo> LODInfo { get { return new Array<SkelMeshComponentLODInfo>(this[nameof(LODInfo)].Address); } }
+        public UArray<SkelMeshComponentLODInfo> LODInfo { get { return new UArray<SkelMeshComponentLODInfo>(this[nameof(LODInfo)].Address); } }
         public EVisibilityBasedAnimTickOption VisibilityBasedAnimTickOption { get { return (EVisibilityBasedAnimTickOption)this[nameof(VisibilityBasedAnimTickOption)].GetValue<int>(); } set { this[nameof(VisibilityBasedAnimTickOption)].SetValue<int>((int)value); } }
         public bool bOverrideMinLod { get { return this[nameof(bOverrideMinLod)].Flag; } set { this[nameof(bOverrideMinLod)].Flag = value; } }
         public bool bUseBoundsFromMasterPoseComponent { get { return this[nameof(bUseBoundsFromMasterPoseComponent)].Flag; } set { this[nameof(bUseBoundsFromMasterPoseComponent)].Flag = value; } }
@@ -831,13 +836,13 @@ namespace SDK.Script.EngineSDK
         public void ShowMaterialSection(int MaterialID, int SectionIndex, bool bShow, int LODIndex) { Invoke(nameof(ShowMaterialSection), MaterialID, SectionIndex, bShow, LODIndex); }
         public void ShowAllMaterialSections(int LODIndex) { Invoke(nameof(ShowAllMaterialSections), LODIndex); }
         public void SetVertexOffsetUsage(int LODIndex, int Usage) { Invoke(nameof(SetVertexOffsetUsage), LODIndex, Usage); }
-        public void SetVertexColorOverride_LinearColor(int LODIndex, Array<LinearColor> VertexColors) { Invoke(nameof(SetVertexColorOverride_LinearColor), LODIndex, VertexColors); }
+        public void SetVertexColorOverride_LinearColor(int LODIndex, UArray<LinearColor> VertexColors) { Invoke(nameof(SetVertexColorOverride_LinearColor), LODIndex, VertexColors); }
         public bool SetSkinWeightProfile(Object InProfileName) { return Invoke<bool>(nameof(SetSkinWeightProfile), InProfileName); }
-        public void SetSkinWeightOverride(int LODIndex, Array<SkelMeshSkinWeightInfo> SkinWeights) { Invoke(nameof(SetSkinWeightOverride), LODIndex, SkinWeights); }
+        public void SetSkinWeightOverride(int LODIndex, UArray<SkelMeshSkinWeightInfo> SkinWeights) { Invoke(nameof(SetSkinWeightOverride), LODIndex, SkinWeights); }
         public void SetSkeletalMesh(SkeletalMesh NewMesh, bool bReinitPose) { Invoke(nameof(SetSkeletalMesh), NewMesh, bReinitPose); }
         public void SetRenderStatic(bool bNewValue) { Invoke(nameof(SetRenderStatic), bNewValue); }
-        public void SetPreSkinningOffsets(int LODIndex, Array<Vector> Offsets) { Invoke(nameof(SetPreSkinningOffsets), LODIndex, Offsets); }
-        public void SetPostSkinningOffsets(int LODIndex, Array<Vector> Offsets) { Invoke(nameof(SetPostSkinningOffsets), LODIndex, Offsets); }
+        public void SetPreSkinningOffsets(int LODIndex, UArray<Vector> Offsets) { Invoke(nameof(SetPreSkinningOffsets), LODIndex, Offsets); }
+        public void SetPostSkinningOffsets(int LODIndex, UArray<Vector> Offsets) { Invoke(nameof(SetPostSkinningOffsets), LODIndex, Offsets); }
         public void SetPhysicsAsset(PhysicsAsset NewPhysicsAsset, bool bForceReInit) { Invoke(nameof(SetPhysicsAsset), NewPhysicsAsset, bForceReInit); }
         public void SetMinLOD(int InNewMinLOD) { Invoke(nameof(SetMinLOD), InNewMinLOD); }
         public void SetMasterPoseComponent(SkinnedMeshComponent NewMasterBoneComponent, bool bForceUpdate) { Invoke(nameof(SetMasterPoseComponent), NewMasterBoneComponent, bForceUpdate); }
@@ -877,9 +882,9 @@ namespace SDK.Script.EngineSDK
         public SingleAnimationPlayData AnimationData { get { return this[nameof(AnimationData)].As<SingleAnimationPlayData>(); } set { this["AnimationData"] = value; } }
         public Vector RootBoneTranslation { get { return this[nameof(RootBoneTranslation)].As<Vector>(); } set { this["RootBoneTranslation"] = value; } }
         public Vector LineCheckBoundsScale { get { return this[nameof(LineCheckBoundsScale)].As<Vector>(); } set { this["LineCheckBoundsScale"] = value; } }
-        public Array<AnimInstance> LinkedInstances { get { return new Array<AnimInstance>(this[nameof(LinkedInstances)].Address); } }
-        public Array<Transform> CachedBoneSpaceTransforms { get { return new Array<Transform>(this[nameof(CachedBoneSpaceTransforms)].Address); } }
-        public Array<Transform> CachedComponentSpaceTransforms { get { return new Array<Transform>(this[nameof(CachedComponentSpaceTransforms)].Address); } }
+        public UArray<AnimInstance> LinkedInstances { get { return new UArray<AnimInstance>(this[nameof(LinkedInstances)].Address); } }
+        public UArray<Transform> CachedBoneSpaceTransforms { get { return new UArray<Transform>(this[nameof(CachedBoneSpaceTransforms)].Address); } }
+        public UArray<Transform> CachedComponentSpaceTransforms { get { return new UArray<Transform>(this[nameof(CachedComponentSpaceTransforms)].Address); } }
         public float GlobalAnimRateScale { get { return this[nameof(GlobalAnimRateScale)].GetValue<float>(); } set { this[nameof(GlobalAnimRateScale)].SetValue<float>(value); } }
         public byte KinematicBonesUpdateType { get { return this[nameof(KinematicBonesUpdateType)].GetValue<byte>(); } set { this[nameof(KinematicBonesUpdateType)].SetValue<byte>(value); } }
         public byte PhysicsTransformUpdateMode { get { return this[nameof(PhysicsTransformUpdateMode)].GetValue<byte>(); } set { this[nameof(PhysicsTransformUpdateMode)].SetValue<byte>(value); } }
@@ -919,7 +924,7 @@ namespace SDK.Script.EngineSDK
         public ushort CachedAnimCurveUidVersion { get { return this[nameof(CachedAnimCurveUidVersion)].GetValue<ushort>(); } set { this[nameof(CachedAnimCurveUidVersion)].SetValue<ushort>(value); } }
         public float ClothBlendWeight { get { return this[nameof(ClothBlendWeight)].GetValue<float>(); } set { this[nameof(ClothBlendWeight)].SetValue<float>(value); } }
         public bool bWaitForParallelClothTask { get { return this[nameof(bWaitForParallelClothTask)].Flag; } set { this[nameof(bWaitForParallelClothTask)].Flag = value; } }
-        public Array<Object> DisallowedAnimCurves { get { return new Array<Object>(this[nameof(DisallowedAnimCurves)].Address); } }
+        public UArray<Object> DisallowedAnimCurves { get { return new UArray<Object>(this[nameof(DisallowedAnimCurves)].Address); } }
         public BodySetup BodySetup { get { return this[nameof(BodySetup)].As<BodySetup>(); } set { this["BodySetup"] = value; } }
         public Object OnConstraintBroken { get { return this[nameof(OnConstraintBroken)]; } set { this[nameof(OnConstraintBroken)] = value; } }
         public Object ClothingSimulationFactory { get { return this[nameof(ClothingSimulationFactory)]; } set { this[nameof(ClothingSimulationFactory)] = value; } }
@@ -958,7 +963,7 @@ namespace SDK.Script.EngineSDK
         public void SetAnimation(AnimationAsset NewAnimToPlay) { Invoke(nameof(SetAnimation), NewAnimToPlay); }
         public void SetAngularLimits(Object InBoneName, float Swing1LimitAngle, float TwistLimitAngle, float Swing2LimitAngle) { Invoke(nameof(SetAngularLimits), InBoneName, Swing1LimitAngle, TwistLimitAngle, Swing2LimitAngle); }
         public void SetAllowRigidBodyAnimNode(bool bInAllow, bool bReinitAnim) { Invoke(nameof(SetAllowRigidBodyAnimNode), bInAllow, bReinitAnim); }
-        public void SetAllowedAnimCurvesEvaluation(Array<Object> List, bool bAllow) { Invoke(nameof(SetAllowedAnimCurvesEvaluation), List, bAllow); }
+        public void SetAllowedAnimCurvesEvaluation(UArray<Object> List, bool bAllow) { Invoke(nameof(SetAllowedAnimCurvesEvaluation), List, bAllow); }
         public void SetAllowAnimCurveEvaluation(bool bInAllow) { Invoke(nameof(SetAllowAnimCurveEvaluation), bInAllow); }
         public void SetAllMotorsAngularVelocityDrive(bool bEnableSwingDrive, bool bEnableTwistDrive, bool bSkipCustomPhysicsType) { Invoke(nameof(SetAllMotorsAngularVelocityDrive), bEnableSwingDrive, bEnableTwistDrive, bSkipCustomPhysicsType); }
         public void SetAllMotorsAngularPositionDrive(bool bEnableSwingDrive, bool bEnableTwistDrive, bool bSkipCustomPhysicsType) { Invoke(nameof(SetAllMotorsAngularPositionDrive), bEnableSwingDrive, bEnableTwistDrive, bSkipCustomPhysicsType); }
@@ -993,7 +998,7 @@ namespace SDK.Script.EngineSDK
         public float GetMorphTarget(Object MorphTargetName) { return Invoke<float>(nameof(GetMorphTarget), MorphTargetName); }
         public AnimInstance GetLinkedAnimLayerInstanceByGroup(Object InGroup) { return Invoke<AnimInstance>(nameof(GetLinkedAnimLayerInstanceByGroup), InGroup); }
         public AnimInstance GetLinkedAnimLayerInstanceByClass(Object InClass) { return Invoke<AnimInstance>(nameof(GetLinkedAnimLayerInstanceByClass), InClass); }
-        public void GetLinkedAnimGraphInstancesByTag(Object InTag, Array<AnimInstance> OutLinkedInstances) { Invoke(nameof(GetLinkedAnimGraphInstancesByTag), InTag, OutLinkedInstances); }
+        public void GetLinkedAnimGraphInstancesByTag(Object InTag, UArray<AnimInstance> OutLinkedInstances) { Invoke(nameof(GetLinkedAnimGraphInstancesByTag), InTag, OutLinkedInstances); }
         public AnimInstance GetLinkedAnimGraphInstanceByTag(Object InTag) { return Invoke<AnimInstance>(nameof(GetLinkedAnimGraphInstanceByTag), InTag); }
         public bool GetIntegerAttribute_Ref(Object BoneName, Object AttributeName, int OutValue, ECustomBoneAttributeLookup LookupType) { return Invoke<bool>(nameof(GetIntegerAttribute_Ref), BoneName, AttributeName, OutValue, LookupType); }
         public bool GetIntegerAttribute(Object BoneName, Object AttributeName, int DefaultValue, int OutValue, ECustomBoneAttributeLookup LookupType) { return Invoke<bool>(nameof(GetIntegerAttribute), BoneName, AttributeName, DefaultValue, OutValue, LookupType); }
@@ -1036,7 +1041,7 @@ namespace SDK.Script.EngineSDK
         public Object OnMontageEnded { get { return this[nameof(OnMontageEnded)]; } set { this[nameof(OnMontageEnded)] = value; } }
         public Object OnAllMontageInstancesEnded { get { return this[nameof(OnAllMontageInstancesEnded)]; } set { this[nameof(OnAllMontageInstancesEnded)] = value; } }
         public AnimNotifyQueue NotifyQueue { get { return this[nameof(NotifyQueue)].As<AnimNotifyQueue>(); } set { this["NotifyQueue"] = value; } }
-        public Array<AnimNotifyEvent> ActiveAnimNotifyState { get { return new Array<AnimNotifyEvent>(this[nameof(ActiveAnimNotifyState)].Address); } }
+        public UArray<AnimNotifyEvent> ActiveAnimNotifyState { get { return new UArray<AnimNotifyEvent>(this[nameof(ActiveAnimNotifyState)].Address); } }
         public void UnlockAIResources(bool bUnlockMovement, bool UnlockAILogic) { Invoke(nameof(UnlockAIResources), bUnlockMovement, UnlockAILogic); }
         public void UnlinkAnimClassLayers(Object InClass) { Invoke(nameof(UnlinkAnimClassLayers), InClass); }
         public Pawn TryGetPawnOwner() { return Invoke<Pawn>(nameof(TryGetPawnOwner)); }
@@ -1085,11 +1090,11 @@ namespace SDK.Script.EngineSDK
         public bool GetPropagateNotifiesToLinkedInstances() { return Invoke<bool>(nameof(GetPropagateNotifiesToLinkedInstances)); }
         public SkeletalMeshComponent GetOwningComponent() { return Invoke<SkeletalMeshComponent>(nameof(GetOwningComponent)); }
         public Actor GetOwningActor() { return Invoke<Actor>(nameof(GetOwningActor)); }
-        public void GetLinkedAnimLayerInstancesByGroup(Object InGroup, Array<AnimInstance> OutLinkedInstances) { Invoke(nameof(GetLinkedAnimLayerInstancesByGroup), InGroup, OutLinkedInstances); }
+        public void GetLinkedAnimLayerInstancesByGroup(Object InGroup, UArray<AnimInstance> OutLinkedInstances) { Invoke(nameof(GetLinkedAnimLayerInstancesByGroup), InGroup, OutLinkedInstances); }
         public AnimInstance GetLinkedAnimLayerInstanceByGroupAndClass(Object InGroup, Object InClass) { return Invoke<AnimInstance>(nameof(GetLinkedAnimLayerInstanceByGroupAndClass), InGroup, InClass); }
         public AnimInstance GetLinkedAnimLayerInstanceByGroup(Object InGroup) { return Invoke<AnimInstance>(nameof(GetLinkedAnimLayerInstanceByGroup), InGroup); }
         public AnimInstance GetLinkedAnimLayerInstanceByClass(Object InClass) { return Invoke<AnimInstance>(nameof(GetLinkedAnimLayerInstanceByClass), InClass); }
-        public void GetLinkedAnimGraphInstancesByTag(Object InTag, Array<AnimInstance> OutLinkedInstances) { Invoke(nameof(GetLinkedAnimGraphInstancesByTag), InTag, OutLinkedInstances); }
+        public void GetLinkedAnimGraphInstancesByTag(Object InTag, UArray<AnimInstance> OutLinkedInstances) { Invoke(nameof(GetLinkedAnimGraphInstancesByTag), InTag, OutLinkedInstances); }
         public AnimInstance GetLinkedAnimGraphInstanceByTag(Object InTag) { return Invoke<AnimInstance>(nameof(GetLinkedAnimGraphInstanceByTag), InTag); }
         public float GetInstanceTransitionTimeElapsedFraction(int MachineIndex, int TransitionIndex) { return Invoke<float>(nameof(GetInstanceTransitionTimeElapsedFraction), MachineIndex, TransitionIndex); }
         public float GetInstanceTransitionTimeElapsed(int MachineIndex, int TransitionIndex) { return Invoke<float>(nameof(GetInstanceTransitionTimeElapsed), MachineIndex, TransitionIndex); }
@@ -1105,8 +1110,8 @@ namespace SDK.Script.EngineSDK
         public float GetCurveValue(Object CurveName) { return Invoke<float>(nameof(GetCurveValue), CurveName); }
         public Object GetCurrentStateName(int MachineIndex) { return Invoke<Object>(nameof(GetCurrentStateName), MachineIndex); }
         public AnimMontage GetCurrentActiveMontage() { return Invoke<AnimMontage>(nameof(GetCurrentActiveMontage)); }
-        public void GetAllCurveNames(Array<Object> OutNames) { Invoke(nameof(GetAllCurveNames), OutNames); }
-        public void GetActiveCurveNames(EAnimCurveType CurveType, Array<Object> OutNames) { Invoke(nameof(GetActiveCurveNames), CurveType, OutNames); }
+        public void GetAllCurveNames(UArray<Object> OutNames) { Invoke(nameof(GetAllCurveNames), OutNames); }
+        public void GetActiveCurveNames(EAnimCurveType CurveType, UArray<Object> OutNames) { Invoke(nameof(GetActiveCurveNames), CurveType, OutNames); }
         public void ClearMorphTargets() { Invoke(nameof(ClearMorphTargets)); }
         public float CalculateDirection(Vector Velocity, Rotator BaseRotation) { return Invoke<float>(nameof(CalculateDirection), Velocity, BaseRotation); }
         public void BlueprintUpdateAnimation(float DeltaTimeX) { Invoke(nameof(BlueprintUpdateAnimation), DeltaTimeX); }
@@ -1135,8 +1140,8 @@ namespace SDK.Script.EngineSDK
         public Object HelpDescription { get { return this[nameof(HelpDescription)]; } set { this[nameof(HelpDescription)] = value; } }
         public Object HelpUsage { get { return this[nameof(HelpUsage)]; } set { this[nameof(HelpUsage)] = value; } }
         public Object HelpWebLink { get { return this[nameof(HelpWebLink)]; } set { this[nameof(HelpWebLink)] = value; } }
-        public Array<Object> HelpParamNames { get { return new Array<Object>(this[nameof(HelpParamNames)].Address); } }
-        public Array<Object> HelpParamDescriptions { get { return new Array<Object>(this[nameof(HelpParamDescriptions)].Address); } }
+        public UArray<Object> HelpParamNames { get { return new UArray<Object>(this[nameof(HelpParamNames)].Address); } }
+        public UArray<Object> HelpParamDescriptions { get { return new UArray<Object>(this[nameof(HelpParamDescriptions)].Address); } }
         public bool IsServer { get { return this[nameof(IsServer)].Flag; } set { this[nameof(IsServer)].Flag = value; } }
         public bool IsClient { get { return this[nameof(IsClient)].Flag; } set { this[nameof(IsClient)].Flag = value; } }
         public bool IsEditor { get { return this[nameof(IsEditor)].Flag; } set { this[nameof(IsEditor)].Flag = value; } }
@@ -1148,7 +1153,7 @@ namespace SDK.Script.EngineSDK
     {
         public AudioComponent(nint addr) : base(addr) { }
         public SoundBase Sound { get { return this[nameof(Sound)].As<SoundBase>(); } set { this["Sound"] = value; } }
-        public Array<AudioComponentParam> InstanceParameters { get { return new Array<AudioComponentParam>(this[nameof(InstanceParameters)].Address); } }
+        public UArray<AudioComponentParam> InstanceParameters { get { return new UArray<AudioComponentParam>(this[nameof(InstanceParameters)].Address); } }
         public SoundClass SoundClassOverride { get { return this[nameof(SoundClassOverride)].As<SoundClass>(); } set { this["SoundClassOverride"] = value; } }
         public bool bAutoDestroy { get { return this[nameof(bAutoDestroy)].Flag; } set { this[nameof(bAutoDestroy)].Flag = value; } }
         public bool bStopWhenOwnerDestroyed { get { return this[nameof(bStopWhenOwnerDestroyed)].Flag; } set { this[nameof(bStopWhenOwnerDestroyed)].Flag = value; } }
@@ -1217,9 +1222,9 @@ namespace SDK.Script.EngineSDK
         public bool HasCookedFFTData() { return Invoke<bool>(nameof(HasCookedFFTData)); }
         public bool HasCookedAmplitudeEnvelopeData() { return Invoke<bool>(nameof(HasCookedAmplitudeEnvelopeData)); }
         public EAudioComponentPlayState GetPlayState() { return Invoke<EAudioComponentPlayState>(nameof(GetPlayState)); }
-        public bool GetCookedFFTDataForAllPlayingSounds(Array<SoundWaveSpectralDataPerSound> OutSoundWaveSpectralData) { return Invoke<bool>(nameof(GetCookedFFTDataForAllPlayingSounds), OutSoundWaveSpectralData); }
-        public bool GetCookedFFTData(Array<float> FrequenciesToGet, Array<SoundWaveSpectralData> OutSoundWaveSpectralData) { return Invoke<bool>(nameof(GetCookedFFTData), FrequenciesToGet, OutSoundWaveSpectralData); }
-        public bool GetCookedEnvelopeDataForAllPlayingSounds(Array<SoundWaveEnvelopeDataPerSound> OutEnvelopeData) { return Invoke<bool>(nameof(GetCookedEnvelopeDataForAllPlayingSounds), OutEnvelopeData); }
+        public bool GetCookedFFTDataForAllPlayingSounds(UArray<SoundWaveSpectralDataPerSound> OutSoundWaveSpectralData) { return Invoke<bool>(nameof(GetCookedFFTDataForAllPlayingSounds), OutSoundWaveSpectralData); }
+        public bool GetCookedFFTData(UArray<float> FrequenciesToGet, UArray<SoundWaveSpectralData> OutSoundWaveSpectralData) { return Invoke<bool>(nameof(GetCookedFFTData), FrequenciesToGet, OutSoundWaveSpectralData); }
+        public bool GetCookedEnvelopeDataForAllPlayingSounds(UArray<SoundWaveEnvelopeDataPerSound> OutEnvelopeData) { return Invoke<bool>(nameof(GetCookedEnvelopeDataForAllPlayingSounds), OutEnvelopeData); }
         public bool GetCookedEnvelopeData(float OutEnvelopeData) { return Invoke<bool>(nameof(GetCookedEnvelopeData), OutEnvelopeData); }
         public void FadeOut(float FadeoutDuration, float FadeVolumeLevel, EAudioFaderCurve FadeCurve) { Invoke(nameof(FadeOut), FadeoutDuration, FadeVolumeLevel, FadeCurve); }
         public void FadeIn(float FadeInDuration, float FadeVolumeLevel, float StartTime, EAudioFaderCurve FadeCurve) { Invoke(nameof(FadeIn), FadeInDuration, FadeVolumeLevel, StartTime, FadeCurve); }
@@ -1269,9 +1274,9 @@ namespace SDK.Script.EngineSDK
     public class GameInstance : Object
     {
         public GameInstance(nint addr) : base(addr) { }
-        public Array<LocalPlayer> LocalPlayers { get { return new Array<LocalPlayer>(this[nameof(LocalPlayers)].Address); } }
+        public UArray<LocalPlayer> LocalPlayers { get { return new UArray<LocalPlayer>(this[nameof(LocalPlayers)].Address); } }
         public OnlineSession OnlineSession { get { return this[nameof(OnlineSession)].As<OnlineSession>(); } set { this["OnlineSession"] = value; } }
-        public Array<Object> ReferencedObjects { get { return new Array<Object>(this[nameof(ReferencedObjects)].Address); } }
+        public UArray<Object> ReferencedObjects { get { return new UArray<Object>(this[nameof(ReferencedObjects)].Address); } }
         public Object OnPawnControllerChangedDelegates { get { return this[nameof(OnPawnControllerChangedDelegates)]; } set { this[nameof(OnPawnControllerChangedDelegates)] = value; } }
         public void ReceiveShutdown() { Invoke(nameof(ReceiveShutdown)); }
         public void ReceiveInit() { Invoke(nameof(ReceiveInit)); }
@@ -1365,8 +1370,8 @@ namespace SDK.Script.EngineSDK
         public float DistanceFieldIndirectShadowMinVisibility { get { return this[nameof(DistanceFieldIndirectShadowMinVisibility)].GetValue<float>(); } set { this[nameof(DistanceFieldIndirectShadowMinVisibility)].SetValue<float>(value); } }
         public float DistanceFieldSelfShadowBias { get { return this[nameof(DistanceFieldSelfShadowBias)].GetValue<float>(); } set { this[nameof(DistanceFieldSelfShadowBias)].SetValue<float>(value); } }
         public float StreamingDistanceMultiplier { get { return this[nameof(StreamingDistanceMultiplier)].GetValue<float>(); } set { this[nameof(StreamingDistanceMultiplier)].SetValue<float>(value); } }
-        public Array<StaticMeshComponentLODInfo> LODData { get { return new Array<StaticMeshComponentLODInfo>(this[nameof(LODData)].Address); } }
-        public Array<StreamingTextureBuildInfo> StreamingTextureData { get { return new Array<StreamingTextureBuildInfo>(this[nameof(StreamingTextureData)].Address); } }
+        public UArray<StaticMeshComponentLODInfo> LODData { get { return new UArray<StaticMeshComponentLODInfo>(this[nameof(LODData)].Address); } }
+        public UArray<StreamingTextureBuildInfo> StreamingTextureData { get { return new UArray<StreamingTextureBuildInfo>(this[nameof(StreamingTextureData)].Address); } }
         public LightmassPrimitiveSettings LightmassSettings { get { return this[nameof(LightmassSettings)].As<LightmassPrimitiveSettings>(); } set { this["LightmassSettings"] = value; } }
         public bool SetStaticMesh(StaticMesh NewMesh) { return Invoke<bool>(nameof(SetStaticMesh), NewMesh); }
         public void SetReverseCulling(bool ReverseCulling) { Invoke(nameof(SetReverseCulling), ReverseCulling); }
@@ -1419,44 +1424,44 @@ namespace SDK.Script.EngineSDK
     public class InstancedStaticMeshComponent : StaticMeshComponent
     {
         public InstancedStaticMeshComponent(nint addr) : base(addr) { }
-        public Array<InstancedStaticMeshInstanceData> PerInstanceSMData { get { return new Array<InstancedStaticMeshInstanceData>(this[nameof(PerInstanceSMData)].Address); } }
+        public UArray<InstancedStaticMeshInstanceData> PerInstanceSMData { get { return new UArray<InstancedStaticMeshInstanceData>(this[nameof(PerInstanceSMData)].Address); } }
         public int NumCustomDataFloats { get { return this[nameof(NumCustomDataFloats)].GetValue<int>(); } set { this[nameof(NumCustomDataFloats)].SetValue<int>(value); } }
-        public Array<float> PerInstanceSMCustomData { get { return new Array<float>(this[nameof(PerInstanceSMCustomData)].Address); } }
+        public UArray<float> PerInstanceSMCustomData { get { return new UArray<float>(this[nameof(PerInstanceSMCustomData)].Address); } }
         public int InstancingRandomSeed { get { return this[nameof(InstancingRandomSeed)].GetValue<int>(); } set { this[nameof(InstancingRandomSeed)].SetValue<int>(value); } }
         public int InstanceStartCullDistance { get { return this[nameof(InstanceStartCullDistance)].GetValue<int>(); } set { this[nameof(InstanceStartCullDistance)].SetValue<int>(value); } }
         public int InstanceEndCullDistance { get { return this[nameof(InstanceEndCullDistance)].GetValue<int>(); } set { this[nameof(InstanceEndCullDistance)].SetValue<int>(value); } }
-        public Array<int> InstanceReorderTable { get { return new Array<int>(this[nameof(InstanceReorderTable)].Address); } }
+        public UArray<int> InstanceReorderTable { get { return new UArray<int>(this[nameof(InstanceReorderTable)].Address); } }
         public int NumPendingLightmaps { get { return this[nameof(NumPendingLightmaps)].GetValue<int>(); } set { this[nameof(NumPendingLightmaps)].SetValue<int>(value); } }
-        public Array<InstancedStaticMeshMappingInfo> CachedMappings { get { return new Array<InstancedStaticMeshMappingInfo>(this[nameof(CachedMappings)].Address); } }
+        public UArray<InstancedStaticMeshMappingInfo> CachedMappings { get { return new UArray<InstancedStaticMeshMappingInfo>(this[nameof(CachedMappings)].Address); } }
         public bool UpdateInstanceTransform(int InstanceIndex, Transform NewInstanceTransform, bool bWorldSpace, bool bMarkRenderStateDirty, bool bTeleport) { return Invoke<bool>(nameof(UpdateInstanceTransform), InstanceIndex, NewInstanceTransform, bWorldSpace, bMarkRenderStateDirty, bTeleport); }
         public bool SetCustomDataValue(int InstanceIndex, int CustomDataIndex, float CustomDataValue, bool bMarkRenderStateDirty) { return Invoke<bool>(nameof(SetCustomDataValue), InstanceIndex, CustomDataIndex, CustomDataValue, bMarkRenderStateDirty); }
         public void SetCullDistances(int StartCullDistance, int EndCullDistance) { Invoke(nameof(SetCullDistances), StartCullDistance, EndCullDistance); }
         public bool RemoveInstance(int InstanceIndex) { return Invoke<bool>(nameof(RemoveInstance), InstanceIndex); }
         public bool GetInstanceTransform(int InstanceIndex, Transform OutInstanceTransform, bool bWorldSpace) { return Invoke<bool>(nameof(GetInstanceTransform), InstanceIndex, OutInstanceTransform, bWorldSpace); }
-        public Array<int> GetInstancesOverlappingSphere(Vector Center, float Radius, bool bSphereInWorldSpace) { return Invoke<Array<int>>(nameof(GetInstancesOverlappingSphere), Center, Radius, bSphereInWorldSpace); }
-        public Array<int> GetInstancesOverlappingBox(Box Box, bool bBoxInWorldSpace) { return Invoke<Array<int>>(nameof(GetInstancesOverlappingBox), Box, bBoxInWorldSpace); }
+        public UArray<int> GetInstancesOverlappingSphere(Vector Center, float Radius, bool bSphereInWorldSpace) { return Invoke<UArray<int>>(nameof(GetInstancesOverlappingSphere), Center, Radius, bSphereInWorldSpace); }
+        public UArray<int> GetInstancesOverlappingBox(Box Box, bool bBoxInWorldSpace) { return Invoke<UArray<int>>(nameof(GetInstancesOverlappingBox), Box, bBoxInWorldSpace); }
         public int GetInstanceCount() { return Invoke<int>(nameof(GetInstanceCount)); }
         public void ClearInstances() { Invoke(nameof(ClearInstances)); }
-        public bool BatchUpdateInstancesTransforms(int StartInstanceIndex, Array<Transform> NewInstancesTransforms, bool bWorldSpace, bool bMarkRenderStateDirty, bool bTeleport) { return Invoke<bool>(nameof(BatchUpdateInstancesTransforms), StartInstanceIndex, NewInstancesTransforms, bWorldSpace, bMarkRenderStateDirty, bTeleport); }
+        public bool BatchUpdateInstancesTransforms(int StartInstanceIndex, UArray<Transform> NewInstancesTransforms, bool bWorldSpace, bool bMarkRenderStateDirty, bool bTeleport) { return Invoke<bool>(nameof(BatchUpdateInstancesTransforms), StartInstanceIndex, NewInstancesTransforms, bWorldSpace, bMarkRenderStateDirty, bTeleport); }
         public bool BatchUpdateInstancesTransform(int StartInstanceIndex, int NumInstances, Transform NewInstancesTransform, bool bWorldSpace, bool bMarkRenderStateDirty, bool bTeleport) { return Invoke<bool>(nameof(BatchUpdateInstancesTransform), StartInstanceIndex, NumInstances, NewInstancesTransform, bWorldSpace, bMarkRenderStateDirty, bTeleport); }
         public int AddInstanceWorldSpace(Transform WorldTransform) { return Invoke<int>(nameof(AddInstanceWorldSpace), WorldTransform); }
-        public Array<int> AddInstances(Array<Transform> InstanceTransforms, bool bShouldReturnIndices) { return Invoke<Array<int>>(nameof(AddInstances), InstanceTransforms, bShouldReturnIndices); }
+        public UArray<int> AddInstances(UArray<Transform> InstanceTransforms, bool bShouldReturnIndices) { return Invoke<UArray<int>>(nameof(AddInstances), InstanceTransforms, bShouldReturnIndices); }
         public int AddInstance(Transform InstanceTransform) { return Invoke<int>(nameof(AddInstance), InstanceTransform); }
     }
     public class HierarchicalInstancedStaticMeshComponent : InstancedStaticMeshComponent
     {
         public HierarchicalInstancedStaticMeshComponent(nint addr) : base(addr) { }
-        public Array<int> SortedInstances { get { return new Array<int>(this[nameof(SortedInstances)].Address); } }
+        public UArray<int> SortedInstances { get { return new UArray<int>(this[nameof(SortedInstances)].Address); } }
         public int NumBuiltInstances { get { return this[nameof(NumBuiltInstances)].GetValue<int>(); } set { this[nameof(NumBuiltInstances)].SetValue<int>(value); } }
         public Box BuiltInstanceBounds { get { return this[nameof(BuiltInstanceBounds)].As<Box>(); } set { this["BuiltInstanceBounds"] = value; } }
         public Box UnbuiltInstanceBounds { get { return this[nameof(UnbuiltInstanceBounds)].As<Box>(); } set { this["UnbuiltInstanceBounds"] = value; } }
-        public Array<Box> UnbuiltInstanceBoundsList { get { return new Array<Box>(this[nameof(UnbuiltInstanceBoundsList)].Address); } }
+        public UArray<Box> UnbuiltInstanceBoundsList { get { return new UArray<Box>(this[nameof(UnbuiltInstanceBoundsList)].Address); } }
         public bool bEnableDensityScaling { get { return this[nameof(bEnableDensityScaling)].Flag; } set { this[nameof(bEnableDensityScaling)].Flag = value; } }
         public int OcclusionLayerNumNodes { get { return this[nameof(OcclusionLayerNumNodes)].GetValue<int>(); } set { this[nameof(OcclusionLayerNumNodes)].SetValue<int>(value); } }
         public BoxSphereBounds CacheMeshExtendedBounds { get { return this[nameof(CacheMeshExtendedBounds)].As<BoxSphereBounds>(); } set { this["CacheMeshExtendedBounds"] = value; } }
         public bool bDisableCollision { get { return this[nameof(bDisableCollision)].Flag; } set { this[nameof(bDisableCollision)].Flag = value; } }
         public int InstanceCountToRender { get { return this[nameof(InstanceCountToRender)].GetValue<int>(); } set { this[nameof(InstanceCountToRender)].SetValue<int>(value); } }
-        public bool RemoveInstances(Array<int> InstancesToRemove) { return Invoke<bool>(nameof(RemoveInstances), InstancesToRemove); }
+        public bool RemoveInstances(UArray<int> InstancesToRemove) { return Invoke<bool>(nameof(RemoveInstances), InstancesToRemove); }
     }
     public class MovementComponent : ActorComponent
     {
@@ -1562,8 +1567,8 @@ namespace SDK.Script.EngineSDK
     {
         public ParticleSystemComponent(nint addr) : base(addr) { }
         public ParticleSystem Template { get { return this[nameof(Template)].As<ParticleSystem>(); } set { this["Template"] = value; } }
-        public Array<MaterialInterface> EmitterMaterials { get { return new Array<MaterialInterface>(this[nameof(EmitterMaterials)].Address); } }
-        public Array<SkeletalMeshComponent> SkelMeshComponents { get { return new Array<SkeletalMeshComponent>(this[nameof(SkelMeshComponents)].Address); } }
+        public UArray<MaterialInterface> EmitterMaterials { get { return new UArray<MaterialInterface>(this[nameof(EmitterMaterials)].Address); } }
+        public UArray<SkeletalMeshComponent> SkelMeshComponents { get { return new UArray<SkeletalMeshComponent>(this[nameof(SkelMeshComponents)].Address); } }
         public bool bResetOnDetach { get { return this[nameof(bResetOnDetach)].Flag; } set { this[nameof(bResetOnDetach)].Flag = value; } }
         public bool bUpdateOnDedicatedServer { get { return this[nameof(bUpdateOnDedicatedServer)].Flag; } set { this[nameof(bUpdateOnDedicatedServer)].Flag = value; } }
         public bool bAllowRecycling { get { return this[nameof(bAllowRecycling)].Flag; } set { this[nameof(bAllowRecycling)].Flag = value; } }
@@ -1574,7 +1579,7 @@ namespace SDK.Script.EngineSDK
         public bool bSkipUpdateDynamicDataDuringTick { get { return this[nameof(bSkipUpdateDynamicDataDuringTick)].Flag; } set { this[nameof(bSkipUpdateDynamicDataDuringTick)].Flag = value; } }
         public byte LODMethod { get { return this[nameof(LODMethod)].GetValue<byte>(); } set { this[nameof(LODMethod)].SetValue<byte>(value); } }
         public EParticleSignificanceLevel RequiredSignificance { get { return (EParticleSignificanceLevel)this[nameof(RequiredSignificance)].GetValue<int>(); } set { this[nameof(RequiredSignificance)].SetValue<int>((int)value); } }
-        public Array<ParticleSysParam> InstanceParameters { get { return new Array<ParticleSysParam>(this[nameof(InstanceParameters)].Address); } }
+        public UArray<ParticleSysParam> InstanceParameters { get { return new UArray<ParticleSysParam>(this[nameof(InstanceParameters)].Address); } }
         public Object OnParticleSpawn { get { return this[nameof(OnParticleSpawn)]; } set { this[nameof(OnParticleSpawn)] = value; } }
         public Object OnParticleBurst { get { return this[nameof(OnParticleBurst)]; } set { this[nameof(OnParticleBurst)] = value; } }
         public Object OnParticleDeath { get { return this[nameof(OnParticleDeath)]; } set { this[nameof(OnParticleDeath)] = value; } }
@@ -1586,7 +1591,7 @@ namespace SDK.Script.EngineSDK
         public float WarmupTickRate { get { return this[nameof(WarmupTickRate)].GetValue<float>(); } set { this[nameof(WarmupTickRate)].SetValue<float>(value); } }
         public float SecondsBeforeInactive { get { return this[nameof(SecondsBeforeInactive)].GetValue<float>(); } set { this[nameof(SecondsBeforeInactive)].SetValue<float>(value); } }
         public float MaxTimeBeforeForceUpdateTransform { get { return this[nameof(MaxTimeBeforeForceUpdateTransform)].GetValue<float>(); } set { this[nameof(MaxTimeBeforeForceUpdateTransform)].SetValue<float>(value); } }
-        public Array<ParticleSystemReplay> ReplayClips { get { return new Array<ParticleSystemReplay>(this[nameof(ReplayClips)].Address); } }
+        public UArray<ParticleSystemReplay> ReplayClips { get { return new UArray<ParticleSystemReplay>(this[nameof(ReplayClips)].Address); } }
         public float CustomTimeDilation { get { return this[nameof(CustomTimeDilation)].GetValue<float>(); } set { this[nameof(CustomTimeDilation)].SetValue<float>(value); } }
         public Object AutoAttachParent { get { return this[nameof(AutoAttachParent)]; } set { this[nameof(AutoAttachParent)] = value; } }
         public Object AutoAttachSocketName { get { return this[nameof(AutoAttachSocketName)]; } set { this[nameof(AutoAttachSocketName)] = value; } }
@@ -1767,7 +1772,7 @@ namespace SDK.Script.EngineSDK
     public class AssetManager : Object
     {
         public AssetManager(nint addr) : base(addr) { }
-        public Array<Object> ObjectReferenceList { get { return new Array<Object>(this[nameof(ObjectReferenceList)].Address); } }
+        public UArray<Object> ObjectReferenceList { get { return new UArray<Object>(this[nameof(ObjectReferenceList)].Address); } }
         public bool bIsGlobalAsyncScanEnvironment { get { return this[nameof(bIsGlobalAsyncScanEnvironment)].Flag; } set { this[nameof(bIsGlobalAsyncScanEnvironment)].Flag = value; } }
         public bool bShouldGuessTypeAndName { get { return this[nameof(bShouldGuessTypeAndName)].Flag; } set { this[nameof(bShouldGuessTypeAndName)].Flag = value; } }
         public bool bShouldUseSynchronousLoad { get { return this[nameof(bShouldUseSynchronousLoad)].Flag; } set { this[nameof(bShouldUseSynchronousLoad)].Flag = value; } }
@@ -1794,8 +1799,8 @@ namespace SDK.Script.EngineSDK
         public bool bAutoManageActiveCameraTarget { get { return this[nameof(bAutoManageActiveCameraTarget)].Flag; } set { this[nameof(bAutoManageActiveCameraTarget)].Flag = value; } }
         public Rotator TargetViewRotation { get { return this[nameof(TargetViewRotation)].As<Rotator>(); } set { this["TargetViewRotation"] = value; } }
         public float SmoothTargetViewRotationSpeed { get { return this[nameof(SmoothTargetViewRotationSpeed)].GetValue<float>(); } set { this[nameof(SmoothTargetViewRotationSpeed)].SetValue<float>(value); } }
-        public Array<Actor> HiddenActors { get { return new Array<Actor>(this[nameof(HiddenActors)].Address); } }
-        public Array<Object> HiddenPrimitiveComponents { get { return new Array<Object>(this[nameof(HiddenPrimitiveComponents)].Address); } }
+        public UArray<Actor> HiddenActors { get { return new UArray<Actor>(this[nameof(HiddenActors)].Address); } }
+        public UArray<Object> HiddenPrimitiveComponents { get { return new UArray<Object>(this[nameof(HiddenPrimitiveComponents)].Address); } }
         public float LastSpectatorStateSynchTime { get { return this[nameof(LastSpectatorStateSynchTime)].GetValue<float>(); } set { this[nameof(LastSpectatorStateSynchTime)].SetValue<float>(value); } }
         public Vector LastSpectatorSyncLocation { get { return this[nameof(LastSpectatorSyncLocation)].As<Vector>(); } set { this["LastSpectatorSyncLocation"] = value; } }
         public Rotator LastSpectatorSyncRotation { get { return this[nameof(LastSpectatorSyncRotation)].As<Rotator>(); } set { this["LastSpectatorSyncRotation"] = value; } }
@@ -1803,7 +1808,7 @@ namespace SDK.Script.EngineSDK
         public CheatManager CheatManager { get { return this[nameof(CheatManager)].As<CheatManager>(); } set { this["CheatManager"] = value; } }
         public Object CheatClass { get { return this[nameof(CheatClass)]; } set { this[nameof(CheatClass)] = value; } }
         public PlayerInput PlayerInput { get { return this[nameof(PlayerInput)].As<PlayerInput>(); } set { this["PlayerInput"] = value; } }
-        public Array<ActiveForceFeedbackEffect> ActiveForceFeedbackEffects { get { return new Array<ActiveForceFeedbackEffect>(this[nameof(ActiveForceFeedbackEffects)].Address); } }
+        public UArray<ActiveForceFeedbackEffect> ActiveForceFeedbackEffects { get { return new UArray<ActiveForceFeedbackEffect>(this[nameof(ActiveForceFeedbackEffects)].Address); } }
         public bool bPlayerIsWaiting { get { return this[nameof(bPlayerIsWaiting)].Flag; } set { this[nameof(bPlayerIsWaiting)].Flag = value; } }
         public byte NetPlayerIndex { get { return this[nameof(NetPlayerIndex)].GetValue<byte>(); } set { this[nameof(NetPlayerIndex)].SetValue<byte>(value); } }
         public NetConnection PendingSwapConnection { get { return this[nameof(PendingSwapConnection)].As<NetConnection>(); } set { this["PendingSwapConnection"] = value; } }
@@ -1818,7 +1823,7 @@ namespace SDK.Script.EngineSDK
         public bool bEnableTouchOverEvents { get { return this[nameof(bEnableTouchOverEvents)].Flag; } set { this[nameof(bEnableTouchOverEvents)].Flag = value; } }
         public bool bForceFeedbackEnabled { get { return this[nameof(bForceFeedbackEnabled)].Flag; } set { this[nameof(bForceFeedbackEnabled)].Flag = value; } }
         public float ForceFeedbackScale { get { return this[nameof(ForceFeedbackScale)].GetValue<float>(); } set { this[nameof(ForceFeedbackScale)].SetValue<float>(value); } }
-        public Array<Key> ClickEventKeys { get { return new Array<Key>(this[nameof(ClickEventKeys)].Address); } }
+        public UArray<Key> ClickEventKeys { get { return new UArray<Key>(this[nameof(ClickEventKeys)].Address); } }
         public byte DefaultMouseCursor { get { return this[nameof(DefaultMouseCursor)].GetValue<byte>(); } set { this[nameof(DefaultMouseCursor)].SetValue<byte>(value); } }
         public byte CurrentMouseCursor { get { return this[nameof(CurrentMouseCursor)].GetValue<byte>(); } set { this[nameof(CurrentMouseCursor)].SetValue<byte>(value); } }
         public byte DefaultClickTraceChannel { get { return this[nameof(DefaultClickTraceChannel)].GetValue<byte>(); } set { this[nameof(DefaultClickTraceChannel)].SetValue<byte>(value); } }
@@ -1854,7 +1859,7 @@ namespace SDK.Script.EngineSDK
         public void ServerViewPrevPlayer() { Invoke(nameof(ServerViewPrevPlayer)); }
         public void ServerViewNextPlayer() { Invoke(nameof(ServerViewNextPlayer)); }
         public void ServerVerifyViewTarget() { Invoke(nameof(ServerVerifyViewTarget)); }
-        public void ServerUpdateMultipleLevelsVisibility(Array<UpdateLevelVisibilityLevelInfo> LevelVisibilities) { Invoke(nameof(ServerUpdateMultipleLevelsVisibility), LevelVisibilities); }
+        public void ServerUpdateMultipleLevelsVisibility(UArray<UpdateLevelVisibilityLevelInfo> LevelVisibilities) { Invoke(nameof(ServerUpdateMultipleLevelsVisibility), LevelVisibilities); }
         public void ServerUpdateLevelVisibility(UpdateLevelVisibilityLevelInfo LevelVisibility) { Invoke(nameof(ServerUpdateLevelVisibility), LevelVisibility); }
         public void ServerUpdateCamera(Vector_NetQuantize CamLoc, int CamPitchAndYaw) { Invoke(nameof(ServerUpdateCamera), CamLoc, CamPitchAndYaw); }
         public void ServerUnmutePlayer(UniqueNetIdRepl PlayerId) { Invoke(nameof(ServerUnmutePlayer), PlayerId); }
@@ -1895,10 +1900,10 @@ namespace SDK.Script.EngineSDK
         public void GetInputAnalogStickState(byte WhichStick, float StickX, float StickY) { Invoke(nameof(GetInputAnalogStickState), WhichStick, StickX, StickY); }
         public float GetInputAnalogKeyState(Key Key) { return Invoke<float>(nameof(GetInputAnalogKeyState), Key); }
         public HUD GetHUD() { return Invoke<HUD>(nameof(GetHUD)); }
-        public bool GetHitResultUnderFingerForObjects(byte FingerIndex, Array<byte> ObjectTypes, bool bTraceComplex, HitResult HitResult) { return Invoke<bool>(nameof(GetHitResultUnderFingerForObjects), FingerIndex, ObjectTypes, bTraceComplex, HitResult); }
+        public bool GetHitResultUnderFingerForObjects(byte FingerIndex, UArray<byte> ObjectTypes, bool bTraceComplex, HitResult HitResult) { return Invoke<bool>(nameof(GetHitResultUnderFingerForObjects), FingerIndex, ObjectTypes, bTraceComplex, HitResult); }
         public bool GetHitResultUnderFingerByChannel(byte FingerIndex, byte TraceChannel, bool bTraceComplex, HitResult HitResult) { return Invoke<bool>(nameof(GetHitResultUnderFingerByChannel), FingerIndex, TraceChannel, bTraceComplex, HitResult); }
         public bool GetHitResultUnderFinger(byte FingerIndex, byte TraceChannel, bool bTraceComplex, HitResult HitResult) { return Invoke<bool>(nameof(GetHitResultUnderFinger), FingerIndex, TraceChannel, bTraceComplex, HitResult); }
-        public bool GetHitResultUnderCursorForObjects(Array<byte> ObjectTypes, bool bTraceComplex, HitResult HitResult) { return Invoke<bool>(nameof(GetHitResultUnderCursorForObjects), ObjectTypes, bTraceComplex, HitResult); }
+        public bool GetHitResultUnderCursorForObjects(UArray<byte> ObjectTypes, bool bTraceComplex, HitResult HitResult) { return Invoke<bool>(nameof(GetHitResultUnderCursorForObjects), ObjectTypes, bTraceComplex, HitResult); }
         public bool GetHitResultUnderCursorByChannel(byte TraceChannel, bool bTraceComplex, HitResult HitResult) { return Invoke<bool>(nameof(GetHitResultUnderCursorByChannel), TraceChannel, bTraceComplex, HitResult); }
         public bool GetHitResultUnderCursor(byte TraceChannel, bool bTraceComplex, HitResult HitResult) { return Invoke<bool>(nameof(GetHitResultUnderCursor), TraceChannel, bTraceComplex, HitResult); }
         public Vector GetFocalLocation() { return Invoke<Vector>(nameof(GetFocalLocation)); }
@@ -1909,7 +1914,7 @@ namespace SDK.Script.EngineSDK
         public void ConsoleKey(Key Key) { Invoke(nameof(ConsoleKey), Key); }
         public void ClientWasKicked(Object KickReason) { Invoke(nameof(ClientWasKicked), KickReason); }
         public void ClientVoiceHandshakeComplete() { Invoke(nameof(ClientVoiceHandshakeComplete)); }
-        public void ClientUpdateMultipleLevelsStreamingStatus(Array<UpdateLevelStreamingLevelStatus> LevelStatuses) { Invoke(nameof(ClientUpdateMultipleLevelsStreamingStatus), LevelStatuses); }
+        public void ClientUpdateMultipleLevelsStreamingStatus(UArray<UpdateLevelStreamingLevelStatus> LevelStatuses) { Invoke(nameof(ClientUpdateMultipleLevelsStreamingStatus), LevelStatuses); }
         public void ClientUpdateLevelStreamingStatus(Object PackageName, bool bNewShouldBeLoaded, bool bNewShouldBeVisible, bool bNewShouldBlockOnLoad, int LODIndex) { Invoke(nameof(ClientUpdateLevelStreamingStatus), PackageName, bNewShouldBeLoaded, bNewShouldBeVisible, bNewShouldBlockOnLoad, LODIndex); }
         public void ClientUnmutePlayer(UniqueNetIdRepl PlayerId) { Invoke(nameof(ClientUnmutePlayer), PlayerId); }
         public void ClientTravelInternal(Object URL, byte TravelType, bool bSeamless, Guid MapPackageGuid) { Invoke(nameof(ClientTravelInternal), URL, TravelType, bSeamless, MapPackageGuid); }
@@ -1972,7 +1977,7 @@ namespace SDK.Script.EngineSDK
         public CheatManager(nint addr) : base(addr) { }
         public DebugCameraController DebugCameraControllerRef { get { return this[nameof(DebugCameraControllerRef)].As<DebugCameraController>(); } set { this["DebugCameraControllerRef"] = value; } }
         public Object DebugCameraControllerClass { get { return this[nameof(DebugCameraControllerClass)]; } set { this[nameof(DebugCameraControllerClass)] = value; } }
-        public Array<CheatManagerExtension> CheatManagerExtensions { get { return new Array<CheatManagerExtension>(this[nameof(CheatManagerExtensions)].Address); } }
+        public UArray<CheatManagerExtension> CheatManagerExtensions { get { return new UArray<CheatManagerExtension>(this[nameof(CheatManagerExtensions)].Address); } }
         public void Walk() { Invoke(nameof(Walk)); }
         public void ViewSelf() { Invoke(nameof(ViewSelf)); }
         public void ViewPlayer(Object S) { Invoke(nameof(ViewPlayer), S); }
@@ -2098,7 +2103,7 @@ namespace SDK.Script.EngineSDK
         public float MinRespawnDelay { get { return this[nameof(MinRespawnDelay)].GetValue<float>(); } set { this[nameof(MinRespawnDelay)].SetValue<float>(value); } }
         public int NumTravellingPlayers { get { return this[nameof(NumTravellingPlayers)].GetValue<int>(); } set { this[nameof(NumTravellingPlayers)].SetValue<int>(value); } }
         public Object EngineMessageClass { get { return this[nameof(EngineMessageClass)]; } set { this[nameof(EngineMessageClass)] = value; } }
-        public Array<PlayerState> InactivePlayerArray { get { return new Array<PlayerState>(this[nameof(InactivePlayerArray)].Address); } }
+        public UArray<PlayerState> InactivePlayerArray { get { return new UArray<PlayerState>(this[nameof(InactivePlayerArray)].Address); } }
         public float InactivePlayerStateLifeSpan { get { return this[nameof(InactivePlayerStateLifeSpan)].GetValue<float>(); } set { this[nameof(InactivePlayerStateLifeSpan)].SetValue<float>(value); } }
         public int MaxInactivePlayers { get { return this[nameof(MaxInactivePlayers)].GetValue<int>(); } set { this[nameof(MaxInactivePlayers)].SetValue<int>(value); } }
         public bool bHandleDedicatedServerReplays { get { return this[nameof(bHandleDedicatedServerReplays)].Flag; } set { this[nameof(bHandleDedicatedServerReplays)].Flag = value; } }
@@ -2130,7 +2135,7 @@ namespace SDK.Script.EngineSDK
         public Object GameModeClass { get { return this[nameof(GameModeClass)]; } set { this[nameof(GameModeClass)] = value; } }
         public GameModeBase AuthorityGameMode { get { return this[nameof(AuthorityGameMode)].As<GameModeBase>(); } set { this["AuthorityGameMode"] = value; } }
         public Object SpectatorClass { get { return this[nameof(SpectatorClass)]; } set { this[nameof(SpectatorClass)] = value; } }
-        public Array<PlayerState> PlayerArray { get { return new Array<PlayerState>(this[nameof(PlayerArray)].Address); } }
+        public UArray<PlayerState> PlayerArray { get { return new UArray<PlayerState>(this[nameof(PlayerArray)].Address); } }
         public bool bReplicatedHasBegunPlay { get { return this[nameof(bReplicatedHasBegunPlay)].Flag; } set { this[nameof(bReplicatedHasBegunPlay)].Flag = value; } }
         public float ReplicatedWorldTimeSeconds { get { return this[nameof(ReplicatedWorldTimeSeconds)].GetValue<float>(); } set { this[nameof(ReplicatedWorldTimeSeconds)].SetValue<float>(value); } }
         public float ServerWorldTimeSecondsDelta { get { return this[nameof(ServerWorldTimeSecondsDelta)].GetValue<float>(); } set { this[nameof(ServerWorldTimeSecondsDelta)].SetValue<float>(value); } }
@@ -2182,8 +2187,8 @@ namespace SDK.Script.EngineSDK
         public float LastRecommendedScreenHeight { get { return this[nameof(LastRecommendedScreenHeight)].GetValue<float>(); } set { this[nameof(LastRecommendedScreenHeight)].SetValue<float>(value); } }
         public float LastCPUBenchmarkResult { get { return this[nameof(LastCPUBenchmarkResult)].GetValue<float>(); } set { this[nameof(LastCPUBenchmarkResult)].SetValue<float>(value); } }
         public float LastGPUBenchmarkResult { get { return this[nameof(LastGPUBenchmarkResult)].GetValue<float>(); } set { this[nameof(LastGPUBenchmarkResult)].SetValue<float>(value); } }
-        public Array<float> LastCPUBenchmarkSteps { get { return new Array<float>(this[nameof(LastCPUBenchmarkSteps)].Address); } }
-        public Array<float> LastGPUBenchmarkSteps { get { return new Array<float>(this[nameof(LastGPUBenchmarkSteps)].Address); } }
+        public UArray<float> LastCPUBenchmarkSteps { get { return new UArray<float>(this[nameof(LastCPUBenchmarkSteps)].Address); } }
+        public UArray<float> LastGPUBenchmarkSteps { get { return new UArray<float>(this[nameof(LastGPUBenchmarkSteps)].Address); } }
         public float LastGPUBenchmarkMultiplier { get { return this[nameof(LastGPUBenchmarkMultiplier)].GetValue<float>(); } set { this[nameof(LastGPUBenchmarkMultiplier)].SetValue<float>(value); } }
         public bool bUseHDRDisplayOutput { get { return this[nameof(bUseHDRDisplayOutput)].Flag; } set { this[nameof(bUseHDRDisplayOutput)].Flag = value; } }
         public int HDRDisplayOutputNits { get { return this[nameof(HDRDisplayOutputNits)].GetValue<int>(); } set { this[nameof(HDRDisplayOutputNits)].SetValue<int>(value); } }
@@ -2270,12 +2275,12 @@ namespace SDK.Script.EngineSDK
         public bool bShowHitBoxDebugInfo { get { return this[nameof(bShowHitBoxDebugInfo)].Flag; } set { this[nameof(bShowHitBoxDebugInfo)].Flag = value; } }
         public bool bShowOverlays { get { return this[nameof(bShowOverlays)].Flag; } set { this[nameof(bShowOverlays)].Flag = value; } }
         public bool bEnableDebugTextShadow { get { return this[nameof(bEnableDebugTextShadow)].Flag; } set { this[nameof(bEnableDebugTextShadow)].Flag = value; } }
-        public Array<Actor> PostRenderedActors { get { return new Array<Actor>(this[nameof(PostRenderedActors)].Address); } }
-        public Array<Object> DebugDisplay { get { return new Array<Object>(this[nameof(DebugDisplay)].Address); } }
-        public Array<Object> ToggledDebugCategories { get { return new Array<Object>(this[nameof(ToggledDebugCategories)].Address); } }
+        public UArray<Actor> PostRenderedActors { get { return new UArray<Actor>(this[nameof(PostRenderedActors)].Address); } }
+        public UArray<Object> DebugDisplay { get { return new UArray<Object>(this[nameof(DebugDisplay)].Address); } }
+        public UArray<Object> ToggledDebugCategories { get { return new UArray<Object>(this[nameof(ToggledDebugCategories)].Address); } }
         public Canvas Canvas { get { return this[nameof(Canvas)].As<Canvas>(); } set { this["Canvas"] = value; } }
         public Canvas DebugCanvas { get { return this[nameof(DebugCanvas)].As<Canvas>(); } set { this["DebugCanvas"] = value; } }
-        public Array<DebugTextInfo> DebugTextList { get { return new Array<DebugTextInfo>(this[nameof(DebugTextList)].Address); } }
+        public UArray<DebugTextInfo> DebugTextList { get { return new UArray<DebugTextInfo>(this[nameof(DebugTextList)].Address); } }
         public Object ShowDebugTargetDesiredClass { get { return this[nameof(ShowDebugTargetDesiredClass)]; } set { this[nameof(ShowDebugTargetDesiredClass)] = value; } }
         public Actor ShowDebugTargetActor { get { return this[nameof(ShowDebugTargetActor)].As<Actor>(); } set { this["ShowDebugTargetActor"] = value; } }
         public void ShowHUD() { Invoke(nameof(ShowHUD)); }
@@ -2295,7 +2300,7 @@ namespace SDK.Script.EngineSDK
         public void GetTextSize(Object Text, float OutWidth, float OutHeight, Font Font, float Scale) { Invoke(nameof(GetTextSize), Text, OutWidth, OutHeight, Font, Scale); }
         public PlayerController GetOwningPlayerController() { return Invoke<PlayerController>(nameof(GetOwningPlayerController)); }
         public Pawn GetOwningPawn() { return Invoke<Pawn>(nameof(GetOwningPawn)); }
-        public void GetActorsInSelectionRectangle(Object ClassFilter, Vector2D FirstPoint, Vector2D SecondPoint, Array<Actor> OutActors, bool bIncludeNonCollidingComponents, bool bActorMustBeFullyEnclosed) { Invoke(nameof(GetActorsInSelectionRectangle), ClassFilter, FirstPoint, SecondPoint, OutActors, bIncludeNonCollidingComponents, bActorMustBeFullyEnclosed); }
+        public void GetActorsInSelectionRectangle(Object ClassFilter, Vector2D FirstPoint, Vector2D SecondPoint, UArray<Actor> OutActors, bool bIncludeNonCollidingComponents, bool bActorMustBeFullyEnclosed) { Invoke(nameof(GetActorsInSelectionRectangle), ClassFilter, FirstPoint, SecondPoint, OutActors, bIncludeNonCollidingComponents, bActorMustBeFullyEnclosed); }
         public void DrawTextureSimple(Texture Texture, float ScreenX, float ScreenY, float Scale, bool bScalePosition) { Invoke(nameof(DrawTextureSimple), Texture, ScreenX, ScreenY, Scale, bScalePosition); }
         public void DrawTexture(Texture Texture, float ScreenX, float ScreenY, float ScreenW, float ScreenH, float TextureU, float TextureV, float TextureUWidth, float TextureVHeight, LinearColor TintColor, byte BlendMode, float Scale, bool bScalePosition, float Rotation, Vector2D RotPivot) { Invoke(nameof(DrawTexture), Texture, ScreenX, ScreenY, ScreenW, ScreenH, TextureU, TextureV, TextureUWidth, TextureVHeight, TintColor, BlendMode, Scale, bScalePosition, Rotation, RotPivot); }
         public void DrawText(Object Text, LinearColor TextColor, float ScreenX, float ScreenY, Font Font, float Scale, bool bScalePosition) { Invoke(nameof(DrawText), Text, TextColor, ScreenX, ScreenY, Font, Scale, bScalePosition); }
@@ -2311,29 +2316,29 @@ namespace SDK.Script.EngineSDK
     public class KismetArrayLibrary : BlueprintFunctionLibrary
     {
         public KismetArrayLibrary(nint addr) : base(addr) { }
-        public void SetArrayPropertyByName(Object Object, Object PropertyName, Array<int> Value) { Invoke(nameof(SetArrayPropertyByName), Object, PropertyName, Value); }
-        public void FilterArray(Array<Actor> TargetArray, Object FilterClass, Array<Actor> FilteredArray) { Invoke(nameof(FilterArray), TargetArray, FilterClass, FilteredArray); }
-        public void Array_Swap(Array<int> TargetArray, int FirstIndex, int SecondIndex) { Invoke(nameof(Array_Swap), TargetArray, FirstIndex, SecondIndex); }
-        public void Array_Shuffle(Array<int> TargetArray) { Invoke(nameof(Array_Shuffle), TargetArray); }
-        public void Array_Set(Array<int> TargetArray, int Index, int Item, bool bSizeToFit) { Invoke(nameof(Array_Set), TargetArray, Index, Item, bSizeToFit); }
-        public void Array_Reverse(Array<int> TargetArray) { Invoke(nameof(Array_Reverse), TargetArray); }
-        public void Array_Resize(Array<int> TargetArray, int Size) { Invoke(nameof(Array_Resize), TargetArray, Size); }
-        public bool Array_RemoveItem(Array<int> TargetArray, int Item) { return Invoke<bool>(nameof(Array_RemoveItem), TargetArray, Item); }
-        public void Array_Remove(Array<int> TargetArray, int IndexToRemove) { Invoke(nameof(Array_Remove), TargetArray, IndexToRemove); }
-        public void Array_RandomFromStream(Array<int> TargetArray, RandomStream RandomStream, int OutItem, int OutIndex) { Invoke(nameof(Array_RandomFromStream), TargetArray, RandomStream, OutItem, OutIndex); }
-        public void Array_Random(Array<int> TargetArray, int OutItem, int OutIndex) { Invoke(nameof(Array_Random), TargetArray, OutItem, OutIndex); }
-        public int Array_Length(Array<int> TargetArray) { return Invoke<int>(nameof(Array_Length), TargetArray); }
-        public int Array_LastIndex(Array<int> TargetArray) { return Invoke<int>(nameof(Array_LastIndex), TargetArray); }
-        public bool Array_IsValidIndex(Array<int> TargetArray, int IndexToTest) { return Invoke<bool>(nameof(Array_IsValidIndex), TargetArray, IndexToTest); }
-        public void Array_Insert(Array<int> TargetArray, int NewItem, int Index) { Invoke(nameof(Array_Insert), TargetArray, NewItem, Index); }
-        public bool Array_Identical(Array<int> ArrayA, Array<int> ArrayB) { return Invoke<bool>(nameof(Array_Identical), ArrayA, ArrayB); }
-        public void Array_Get(Array<int> TargetArray, int Index, int Item) { Invoke(nameof(Array_Get), TargetArray, Index, Item); }
-        public int Array_Find(Array<int> TargetArray, int ItemToFind) { return Invoke<int>(nameof(Array_Find), TargetArray, ItemToFind); }
-        public bool Array_Contains(Array<int> TargetArray, int ItemToFind) { return Invoke<bool>(nameof(Array_Contains), TargetArray, ItemToFind); }
-        public void Array_Clear(Array<int> TargetArray) { Invoke(nameof(Array_Clear), TargetArray); }
-        public void Array_Append(Array<int> TargetArray, Array<int> SourceArray) { Invoke(nameof(Array_Append), TargetArray, SourceArray); }
-        public int Array_AddUnique(Array<int> TargetArray, int NewItem) { return Invoke<int>(nameof(Array_AddUnique), TargetArray, NewItem); }
-        public int Array_Add(Array<int> TargetArray, int NewItem) { return Invoke<int>(nameof(Array_Add), TargetArray, NewItem); }
+        public void SetArrayPropertyByName(Object Object, Object PropertyName, UArray<int> Value) { Invoke(nameof(SetArrayPropertyByName), Object, PropertyName, Value); }
+        public void FilterArray(UArray<Actor> TargetArray, Object FilterClass, UArray<Actor> FilteredArray) { Invoke(nameof(FilterArray), TargetArray, FilterClass, FilteredArray); }
+        public void Array_Swap(UArray<int> TargetArray, int FirstIndex, int SecondIndex) { Invoke(nameof(Array_Swap), TargetArray, FirstIndex, SecondIndex); }
+        public void Array_Shuffle(UArray<int> TargetArray) { Invoke(nameof(Array_Shuffle), TargetArray); }
+        public void Array_Set(UArray<int> TargetArray, int Index, int Item, bool bSizeToFit) { Invoke(nameof(Array_Set), TargetArray, Index, Item, bSizeToFit); }
+        public void Array_Reverse(UArray<int> TargetArray) { Invoke(nameof(Array_Reverse), TargetArray); }
+        public void Array_Resize(UArray<int> TargetArray, int Size) { Invoke(nameof(Array_Resize), TargetArray, Size); }
+        public bool Array_RemoveItem(UArray<int> TargetArray, int Item) { return Invoke<bool>(nameof(Array_RemoveItem), TargetArray, Item); }
+        public void Array_Remove(UArray<int> TargetArray, int IndexToRemove) { Invoke(nameof(Array_Remove), TargetArray, IndexToRemove); }
+        public void Array_RandomFromStream(UArray<int> TargetArray, RandomStream RandomStream, int OutItem, int OutIndex) { Invoke(nameof(Array_RandomFromStream), TargetArray, RandomStream, OutItem, OutIndex); }
+        public void Array_Random(UArray<int> TargetArray, int OutItem, int OutIndex) { Invoke(nameof(Array_Random), TargetArray, OutItem, OutIndex); }
+        public int Array_Length(UArray<int> TargetArray) { return Invoke<int>(nameof(Array_Length), TargetArray); }
+        public int Array_LastIndex(UArray<int> TargetArray) { return Invoke<int>(nameof(Array_LastIndex), TargetArray); }
+        public bool Array_IsValidIndex(UArray<int> TargetArray, int IndexToTest) { return Invoke<bool>(nameof(Array_IsValidIndex), TargetArray, IndexToTest); }
+        public void Array_Insert(UArray<int> TargetArray, int NewItem, int Index) { Invoke(nameof(Array_Insert), TargetArray, NewItem, Index); }
+        public bool Array_Identical(UArray<int> ArrayA, UArray<int> ArrayB) { return Invoke<bool>(nameof(Array_Identical), ArrayA, ArrayB); }
+        public void Array_Get(UArray<int> TargetArray, int Index, int Item) { Invoke(nameof(Array_Get), TargetArray, Index, Item); }
+        public int Array_Find(UArray<int> TargetArray, int ItemToFind) { return Invoke<int>(nameof(Array_Find), TargetArray, ItemToFind); }
+        public bool Array_Contains(UArray<int> TargetArray, int ItemToFind) { return Invoke<bool>(nameof(Array_Contains), TargetArray, ItemToFind); }
+        public void Array_Clear(UArray<int> TargetArray) { Invoke(nameof(Array_Clear), TargetArray); }
+        public void Array_Append(UArray<int> TargetArray, UArray<int> SourceArray) { Invoke(nameof(Array_Append), TargetArray, SourceArray); }
+        public int Array_AddUnique(UArray<int> TargetArray, int NewItem) { return Invoke<int>(nameof(Array_AddUnique), TargetArray, NewItem); }
+        public int Array_Add(UArray<int> TargetArray, int NewItem) { return Invoke<int>(nameof(Array_Add), TargetArray, NewItem); }
     }
     public class PlayerCameraManager : Actor
     {
@@ -2349,18 +2354,18 @@ namespace SDK.Script.EngineSDK
         public TViewTarget PendingViewTarget { get { return this[nameof(PendingViewTarget)].As<TViewTarget>(); } set { this["PendingViewTarget"] = value; } }
         public CameraCacheEntry CameraCachePrivate { get { return this[nameof(CameraCachePrivate)].As<CameraCacheEntry>(); } set { this["CameraCachePrivate"] = value; } }
         public CameraCacheEntry LastFrameCameraCachePrivate { get { return this[nameof(LastFrameCameraCachePrivate)].As<CameraCacheEntry>(); } set { this["LastFrameCameraCachePrivate"] = value; } }
-        public Array<CameraModifier> ModifierList { get { return new Array<CameraModifier>(this[nameof(ModifierList)].Address); } }
-        public Array<Object> DefaultModifiers { get { return new Array<Object>(this[nameof(DefaultModifiers)].Address); } }
+        public UArray<CameraModifier> ModifierList { get { return new UArray<CameraModifier>(this[nameof(ModifierList)].Address); } }
+        public UArray<Object> DefaultModifiers { get { return new UArray<Object>(this[nameof(DefaultModifiers)].Address); } }
         public float FreeCamDistance { get { return this[nameof(FreeCamDistance)].GetValue<float>(); } set { this[nameof(FreeCamDistance)].SetValue<float>(value); } }
         public Vector FreeCamOffset { get { return this[nameof(FreeCamOffset)].As<Vector>(); } set { this["FreeCamOffset"] = value; } }
         public Vector ViewTargetOffset { get { return this[nameof(ViewTargetOffset)].As<Vector>(); } set { this["ViewTargetOffset"] = value; } }
         public Object OnAudioFadeChangeEvent { get { return this[nameof(OnAudioFadeChangeEvent)]; } set { this[nameof(OnAudioFadeChangeEvent)] = value; } }
-        public Array<EmitterCameraLensEffectBase> CameraLensEffects { get { return new Array<EmitterCameraLensEffectBase>(this[nameof(CameraLensEffects)].Address); } }
+        public UArray<EmitterCameraLensEffectBase> CameraLensEffects { get { return new UArray<EmitterCameraLensEffectBase>(this[nameof(CameraLensEffects)].Address); } }
         public CameraModifier_CameraShake CachedCameraShakeMod { get { return this[nameof(CachedCameraShakeMod)].As<CameraModifier_CameraShake>(); } set { this["CachedCameraShakeMod"] = value; } }
         public CameraAnimInst AnimInstPool { get { return this[nameof(AnimInstPool)].As<CameraAnimInst>(); } set { this["AnimInstPool"] = value; } }
-        public Array<PostProcessSettings> PostProcessBlendCache { get { return new Array<PostProcessSettings>(this[nameof(PostProcessBlendCache)].Address); } }
-        public Array<CameraAnimInst> ActiveAnims { get { return new Array<CameraAnimInst>(this[nameof(ActiveAnims)].Address); } }
-        public Array<CameraAnimInst> FreeAnims { get { return new Array<CameraAnimInst>(this[nameof(FreeAnims)].Address); } }
+        public UArray<PostProcessSettings> PostProcessBlendCache { get { return new UArray<PostProcessSettings>(this[nameof(PostProcessBlendCache)].Address); } }
+        public UArray<CameraAnimInst> ActiveAnims { get { return new UArray<CameraAnimInst>(this[nameof(ActiveAnims)].Address); } }
+        public UArray<CameraAnimInst> FreeAnims { get { return new UArray<CameraAnimInst>(this[nameof(FreeAnims)].Address); } }
         public CameraActor AnimCameraActor { get { return this[nameof(AnimCameraActor)].As<CameraActor>(); } set { this["AnimCameraActor"] = value; } }
         public bool bIsOrthographic { get { return this[nameof(bIsOrthographic)].Flag; } set { this[nameof(bIsOrthographic)].Flag = value; } }
         public bool bDefaultConstrainAspectRatio { get { return this[nameof(bDefaultConstrainAspectRatio)].Flag; } set { this[nameof(bDefaultConstrainAspectRatio)].Flag = value; } }
@@ -2547,12 +2552,12 @@ namespace SDK.Script.EngineSDK
         public float MaxUndilatedFrameTime { get { return this[nameof(MaxUndilatedFrameTime)].GetValue<float>(); } set { this[nameof(MaxUndilatedFrameTime)].SetValue<float>(value); } }
         public BroadphaseSettings BroadphaseSettings { get { return this[nameof(BroadphaseSettings)].As<BroadphaseSettings>(); } set { this["BroadphaseSettings"] = value; } }
         public PlayerState Pauser { get { return this[nameof(Pauser)].As<PlayerState>(); } set { this["Pauser"] = value; } }
-        public Array<NetViewer> ReplicationViewers { get { return new Array<NetViewer>(this[nameof(ReplicationViewers)].Address); } }
-        public Array<AssetUserData> AssetUserData { get { return new Array<AssetUserData>(this[nameof(AssetUserData)].Address); } }
+        public UArray<NetViewer> ReplicationViewers { get { return new UArray<NetViewer>(this[nameof(ReplicationViewers)].Address); } }
+        public UArray<AssetUserData> AssetUserData { get { return new UArray<AssetUserData>(this[nameof(AssetUserData)].Address); } }
         public PlayerState PauserPlayerState { get { return this[nameof(PauserPlayerState)].As<PlayerState>(); } set { this["PauserPlayerState"] = value; } }
         public int MaxNumberOfBookmarks { get { return this[nameof(MaxNumberOfBookmarks)].GetValue<int>(); } set { this[nameof(MaxNumberOfBookmarks)].SetValue<int>(value); } }
         public Object DefaultBookmarkClass { get { return this[nameof(DefaultBookmarkClass)]; } set { this[nameof(DefaultBookmarkClass)] = value; } }
-        public Array<BookmarkBase> BookmarkArray { get { return new Array<BookmarkBase>(this[nameof(BookmarkArray)].Address); } }
+        public UArray<BookmarkBase> BookmarkArray { get { return new UArray<BookmarkBase>(this[nameof(BookmarkArray)].Address); } }
         public Object LastBookmarkClass { get { return this[nameof(LastBookmarkClass)]; } set { this[nameof(LastBookmarkClass)] = value; } }
         public void OnRep_WorldGravityZ() { Invoke(nameof(OnRep_WorldGravityZ)); }
     }
@@ -2595,7 +2600,7 @@ namespace SDK.Script.EngineSDK
         public Object OnCharacterMovementUpdated { get { return this[nameof(OnCharacterMovementUpdated)]; } set { this[nameof(OnCharacterMovementUpdated)] = value; } }
         public RootMotionSourceGroup SavedRootMotion { get { return this[nameof(SavedRootMotion)].As<RootMotionSourceGroup>(); } set { this["SavedRootMotion"] = value; } }
         public RootMotionMovementParams ClientRootMotionParams { get { return this[nameof(ClientRootMotionParams)].As<RootMotionMovementParams>(); } set { this["ClientRootMotionParams"] = value; } }
-        public Array<SimulatedRootMotionReplicatedMove> RootMotionRepMoves { get { return new Array<SimulatedRootMotionReplicatedMove>(this[nameof(RootMotionRepMoves)].Address); } }
+        public UArray<SimulatedRootMotionReplicatedMove> RootMotionRepMoves { get { return new UArray<SimulatedRootMotionReplicatedMove>(this[nameof(RootMotionRepMoves)].Address); } }
         public RepRootMotionMontage RepRootMotion { get { return this[nameof(RepRootMotion)].As<RepRootMotionMontage>(); } set { this["RepRootMotion"] = value; } }
         public void UnCrouch(bool bClientSimulation) { Invoke(nameof(UnCrouch), bClientSimulation); }
         public void StopJumping() { Invoke(nameof(StopJumping)); }
@@ -2848,15 +2853,15 @@ namespace SDK.Script.EngineSDK
         public bool bCaptureEveryFrame { get { return this[nameof(bCaptureEveryFrame)].Flag; } set { this[nameof(bCaptureEveryFrame)].Flag = value; } }
         public bool bCaptureOnMovement { get { return this[nameof(bCaptureOnMovement)].Flag; } set { this[nameof(bCaptureOnMovement)].Flag = value; } }
         public bool bAlwaysPersistRenderingState { get { return this[nameof(bAlwaysPersistRenderingState)].Flag; } set { this[nameof(bAlwaysPersistRenderingState)].Flag = value; } }
-        public Array<Object> HiddenComponents { get { return new Array<Object>(this[nameof(HiddenComponents)].Address); } }
-        public Array<Actor> HiddenActors { get { return new Array<Actor>(this[nameof(HiddenActors)].Address); } }
-        public Array<Object> ShowOnlyComponents { get { return new Array<Object>(this[nameof(ShowOnlyComponents)].Address); } }
-        public Array<Actor> ShowOnlyActors { get { return new Array<Actor>(this[nameof(ShowOnlyActors)].Address); } }
+        public UArray<Object> HiddenComponents { get { return new UArray<Object>(this[nameof(HiddenComponents)].Address); } }
+        public UArray<Actor> HiddenActors { get { return new UArray<Actor>(this[nameof(HiddenActors)].Address); } }
+        public UArray<Object> ShowOnlyComponents { get { return new UArray<Object>(this[nameof(ShowOnlyComponents)].Address); } }
+        public UArray<Actor> ShowOnlyActors { get { return new UArray<Actor>(this[nameof(ShowOnlyActors)].Address); } }
         public float LODDistanceFactor { get { return this[nameof(LODDistanceFactor)].GetValue<float>(); } set { this[nameof(LODDistanceFactor)].SetValue<float>(value); } }
         public float MaxViewDistanceOverride { get { return this[nameof(MaxViewDistanceOverride)].GetValue<float>(); } set { this[nameof(MaxViewDistanceOverride)].SetValue<float>(value); } }
         public int CaptureSortPriority { get { return this[nameof(CaptureSortPriority)].GetValue<int>(); } set { this[nameof(CaptureSortPriority)].SetValue<int>(value); } }
         public bool bUseRayTracingIfEnabled { get { return this[nameof(bUseRayTracingIfEnabled)].Flag; } set { this[nameof(bUseRayTracingIfEnabled)].Flag = value; } }
-        public Array<EngineShowFlagsSetting> ShowFlagSettings { get { return new Array<EngineShowFlagsSetting>(this[nameof(ShowFlagSettings)].Address); } }
+        public UArray<EngineShowFlagsSetting> ShowFlagSettings { get { return new UArray<EngineShowFlagsSetting>(this[nameof(ShowFlagSettings)].Address); } }
         public Object ProfilingEventName { get { return this[nameof(ProfilingEventName)]; } set { this[nameof(ProfilingEventName)] = value; } }
         public void ShowOnlyComponent(PrimitiveComponent InComponent) { Invoke(nameof(ShowOnlyComponent), InComponent); }
         public void ShowOnlyActorComponents(Actor InActor, bool bIncludeFromChildActors) { Invoke(nameof(ShowOnlyActorComponents), InActor, bIncludeFromChildActors); }
@@ -2984,7 +2989,7 @@ namespace SDK.Script.EngineSDK
         public bool CompressionYCoCg { get { return this[nameof(CompressionYCoCg)].Flag; } set { this[nameof(CompressionYCoCg)].Flag = value; } }
         public bool bNotOfflineProcessed { get { return this[nameof(bNotOfflineProcessed)].Flag; } set { this[nameof(bNotOfflineProcessed)].Flag = value; } }
         public bool bAsyncResourceReleaseHasBeenStarted { get { return this[nameof(bAsyncResourceReleaseHasBeenStarted)].Flag; } set { this[nameof(bAsyncResourceReleaseHasBeenStarted)].Flag = value; } }
-        public Array<AssetUserData> AssetUserData { get { return new Array<AssetUserData>(this[nameof(AssetUserData)].Address); } }
+        public UArray<AssetUserData> AssetUserData { get { return new UArray<AssetUserData>(this[nameof(AssetUserData)].Address); } }
     }
     public class TextureCube : Texture
     {
@@ -3011,7 +3016,7 @@ namespace SDK.Script.EngineSDK
         public Model Brush_value { get { return this[nameof(Brush)].As<Model>(); } set { this["Brush"] = value; } }
         public BrushComponent BrushComponent { get { return this[nameof(BrushComponent)].As<BrushComponent>(); } set { this["BrushComponent"] = value; } }
         public bool bInManipulation { get { return this[nameof(bInManipulation)].Flag; } set { this[nameof(bInManipulation)].Flag = value; } }
-        public Array<GeomSelection> SavedSelections { get { return new Array<GeomSelection>(this[nameof(SavedSelections)].Address); } }
+        public UArray<GeomSelection> SavedSelections { get { return new UArray<GeomSelection>(this[nameof(SavedSelections)].Address); } }
     }
     public class Volume : Brush
     {
@@ -3022,8 +3027,8 @@ namespace SDK.Script.EngineSDK
         public MaterialInterface(nint addr) : base(addr) { }
         public SubsurfaceProfile SubsurfaceProfile { get { return this[nameof(SubsurfaceProfile)].As<SubsurfaceProfile>(); } set { this["SubsurfaceProfile"] = value; } }
         public LightmassMaterialInterfaceSettings LightmassSettings { get { return this[nameof(LightmassSettings)].As<LightmassMaterialInterfaceSettings>(); } set { this["LightmassSettings"] = value; } }
-        public Array<MaterialTextureInfo> TextureStreamingData { get { return new Array<MaterialTextureInfo>(this[nameof(TextureStreamingData)].Address); } }
-        public Array<AssetUserData> AssetUserData { get { return new Array<AssetUserData>(this[nameof(AssetUserData)].Address); } }
+        public UArray<MaterialTextureInfo> TextureStreamingData { get { return new UArray<MaterialTextureInfo>(this[nameof(TextureStreamingData)].Address); } }
+        public UArray<AssetUserData> AssetUserData { get { return new UArray<AssetUserData>(this[nameof(AssetUserData)].Address); } }
         public void SetForceMipLevelsToBeResident(bool OverrideForceMiplevelsToBeResident, bool bForceMiplevelsToBeResidentValue, float ForceDuration, int CinematicTextureGroups, bool bFastResponse) { Invoke(nameof(SetForceMipLevelsToBeResident), OverrideForceMiplevelsToBeResident, bForceMiplevelsToBeResidentValue, ForceDuration, CinematicTextureGroups, bFastResponse); }
         public PhysicalMaterialMask GetPhysicalMaterialMask() { return Invoke<PhysicalMaterialMask>(nameof(GetPhysicalMaterialMask)); }
         public PhysicalMaterial GetPhysicalMaterialFromMap(int Index) { return Invoke<PhysicalMaterial>(nameof(GetPhysicalMaterialFromMap), Index); }
@@ -3039,15 +3044,15 @@ namespace SDK.Script.EngineSDK
         public MaterialInterface Parent { get { return this[nameof(Parent)].As<MaterialInterface>(); } set { this["Parent"] = value; } }
         public bool bHasStaticPermutationResource { get { return this[nameof(bHasStaticPermutationResource)].Flag; } set { this[nameof(bHasStaticPermutationResource)].Flag = value; } }
         public bool bOverrideSubsurfaceProfile { get { return this[nameof(bOverrideSubsurfaceProfile)].Flag; } set { this[nameof(bOverrideSubsurfaceProfile)].Flag = value; } }
-        public Array<ScalarParameterValue> ScalarParameterValues { get { return new Array<ScalarParameterValue>(this[nameof(ScalarParameterValues)].Address); } }
-        public Array<VectorParameterValue> VectorParameterValues { get { return new Array<VectorParameterValue>(this[nameof(VectorParameterValues)].Address); } }
-        public Array<TextureParameterValue> TextureParameterValues { get { return new Array<TextureParameterValue>(this[nameof(TextureParameterValues)].Address); } }
-        public Array<RuntimeVirtualTextureParameterValue> RuntimeVirtualTextureParameterValues { get { return new Array<RuntimeVirtualTextureParameterValue>(this[nameof(RuntimeVirtualTextureParameterValues)].Address); } }
-        public Array<FontParameterValue> FontParameterValues { get { return new Array<FontParameterValue>(this[nameof(FontParameterValues)].Address); } }
+        public UArray<ScalarParameterValue> ScalarParameterValues { get { return new UArray<ScalarParameterValue>(this[nameof(ScalarParameterValues)].Address); } }
+        public UArray<VectorParameterValue> VectorParameterValues { get { return new UArray<VectorParameterValue>(this[nameof(VectorParameterValues)].Address); } }
+        public UArray<TextureParameterValue> TextureParameterValues { get { return new UArray<TextureParameterValue>(this[nameof(TextureParameterValues)].Address); } }
+        public UArray<RuntimeVirtualTextureParameterValue> RuntimeVirtualTextureParameterValues { get { return new UArray<RuntimeVirtualTextureParameterValue>(this[nameof(RuntimeVirtualTextureParameterValues)].Address); } }
+        public UArray<FontParameterValue> FontParameterValues { get { return new UArray<FontParameterValue>(this[nameof(FontParameterValues)].Address); } }
         public MaterialInstanceBasePropertyOverrides BasePropertyOverrides { get { return this[nameof(BasePropertyOverrides)].As<MaterialInstanceBasePropertyOverrides>(); } set { this["BasePropertyOverrides"] = value; } }
         public StaticParameterSet StaticParameters { get { return this[nameof(StaticParameters)].As<StaticParameterSet>(); } set { this["StaticParameters"] = value; } }
         public MaterialCachedParameters CachedLayerParameters { get { return this[nameof(CachedLayerParameters)].As<MaterialCachedParameters>(); } set { this["CachedLayerParameters"] = value; } }
-        public Array<Object> CachedReferencedTextures { get { return new Array<Object>(this[nameof(CachedReferencedTextures)].Address); } }
+        public UArray<Object> CachedReferencedTextures { get { return new UArray<Object>(this[nameof(CachedReferencedTextures)].Address); } }
     }
     public class MaterialInstanceConstant : MaterialInstance
     {
@@ -3156,11 +3161,11 @@ namespace SDK.Script.EngineSDK
         public float Priority { get { return this[nameof(Priority)].GetValue<float>(); } set { this[nameof(Priority)].SetValue<float>(value); } }
         public SoundAttenuation AttenuationSettings { get { return this[nameof(AttenuationSettings)].As<SoundAttenuation>(); } set { this["AttenuationSettings"] = value; } }
         public SoundSubmixBase SoundSubmixObject { get { return this[nameof(SoundSubmixObject)].As<SoundSubmixBase>(); } set { this["SoundSubmixObject"] = value; } }
-        public Array<SoundSubmixSendInfo> SoundSubmixSends { get { return new Array<SoundSubmixSendInfo>(this[nameof(SoundSubmixSends)].Address); } }
+        public UArray<SoundSubmixSendInfo> SoundSubmixSends { get { return new UArray<SoundSubmixSendInfo>(this[nameof(SoundSubmixSends)].Address); } }
         public SoundEffectSourcePresetChain SourceEffectChain { get { return this[nameof(SourceEffectChain)].As<SoundEffectSourcePresetChain>(); } set { this["SourceEffectChain"] = value; } }
-        public Array<SoundSourceBusSendInfo> BusSends { get { return new Array<SoundSourceBusSendInfo>(this[nameof(BusSends)].Address); } }
-        public Array<SoundSourceBusSendInfo> PreEffectBusSends { get { return new Array<SoundSourceBusSendInfo>(this[nameof(PreEffectBusSends)].Address); } }
-        public Array<AssetUserData> AssetUserData { get { return new Array<AssetUserData>(this[nameof(AssetUserData)].Address); } }
+        public UArray<SoundSourceBusSendInfo> BusSends { get { return new UArray<SoundSourceBusSendInfo>(this[nameof(BusSends)].Address); } }
+        public UArray<SoundSourceBusSendInfo> PreEffectBusSends { get { return new UArray<SoundSourceBusSendInfo>(this[nameof(PreEffectBusSends)].Address); } }
+        public UArray<AssetUserData> AssetUserData { get { return new UArray<AssetUserData>(this[nameof(AssetUserData)].Address); } }
     }
     public class SoundWave : SoundBase
     {
@@ -3178,9 +3183,9 @@ namespace SDK.Script.EngineSDK
         public bool bSingleLine { get { return this[nameof(bSingleLine)].Flag; } set { this[nameof(bSingleLine)].Flag = value; } }
         public bool bIsAmbisonics { get { return this[nameof(bIsAmbisonics)].Flag; } set { this[nameof(bIsAmbisonics)].Flag = value; } }
         public SoundModulationDefaultRoutingSettings ModulationSettings { get { return this[nameof(ModulationSettings)].As<SoundModulationDefaultRoutingSettings>(); } set { this["ModulationSettings"] = value; } }
-        public Array<float> FrequenciesToAnalyze { get { return new Array<float>(this[nameof(FrequenciesToAnalyze)].Address); } }
-        public Array<SoundWaveSpectralTimeData> CookedSpectralTimeData { get { return new Array<SoundWaveSpectralTimeData>(this[nameof(CookedSpectralTimeData)].Address); } }
-        public Array<SoundWaveEnvelopeTimeData> CookedEnvelopeTimeData { get { return new Array<SoundWaveEnvelopeTimeData>(this[nameof(CookedEnvelopeTimeData)].Address); } }
+        public UArray<float> FrequenciesToAnalyze { get { return new UArray<float>(this[nameof(FrequenciesToAnalyze)].Address); } }
+        public UArray<SoundWaveSpectralTimeData> CookedSpectralTimeData { get { return new UArray<SoundWaveSpectralTimeData>(this[nameof(CookedSpectralTimeData)].Address); } }
+        public UArray<SoundWaveEnvelopeTimeData> CookedEnvelopeTimeData { get { return new UArray<SoundWaveEnvelopeTimeData>(this[nameof(CookedEnvelopeTimeData)].Address); } }
         public int InitialChunkSize { get { return this[nameof(InitialChunkSize)].GetValue<int>(); } set { this[nameof(InitialChunkSize)].SetValue<int>(value); } }
         public Object SpokenText { get { return this[nameof(SpokenText)]; } set { this[nameof(SpokenText)] = value; } }
         public float SubtitlePriority { get { return this[nameof(SubtitlePriority)].GetValue<float>(); } set { this[nameof(SubtitlePriority)].SetValue<float>(value); } }
@@ -3188,7 +3193,7 @@ namespace SDK.Script.EngineSDK
         public float Pitch { get { return this[nameof(Pitch)].GetValue<float>(); } set { this[nameof(Pitch)].SetValue<float>(value); } }
         public int NumChannels { get { return this[nameof(NumChannels)].GetValue<int>(); } set { this[nameof(NumChannels)].SetValue<int>(value); } }
         public int SampleRate { get { return this[nameof(SampleRate)].GetValue<int>(); } set { this[nameof(SampleRate)].SetValue<int>(value); } }
-        public Array<SubtitleCue> Subtitles { get { return new Array<SubtitleCue>(this[nameof(Subtitles)].Address); } }
+        public UArray<SubtitleCue> Subtitles { get { return new UArray<SubtitleCue>(this[nameof(Subtitles)].Address); } }
         public CurveTable Curves { get { return this[nameof(Curves)].As<CurveTable>(); } set { this["Curves"] = value; } }
         public CurveTable InternalCurves { get { return this[nameof(InternalCurves)].As<CurveTable>(); } set { this["InternalCurves"] = value; } }
     }
@@ -3209,14 +3214,14 @@ namespace SDK.Script.EngineSDK
     {
         public ActorChannel(nint addr) : base(addr) { }
         public Actor Actor { get { return this[nameof(Actor)].As<Actor>(); } set { this["Actor"] = value; } }
-        public Array<Object> CreateSubObjects { get { return new Array<Object>(this[nameof(CreateSubObjects)].Address); } }
+        public UArray<Object> CreateSubObjects { get { return new UArray<Object>(this[nameof(CreateSubObjects)].Address); } }
     }
     public class AnimationAsset : Object
     {
         public AnimationAsset(nint addr) : base(addr) { }
         public Skeleton Skeleton { get { return this[nameof(Skeleton)].As<Skeleton>(); } set { this["Skeleton"] = value; } }
-        public Array<AnimMetaData> MetaData { get { return new Array<AnimMetaData>(this[nameof(MetaData)].Address); } }
-        public Array<AssetUserData> AssetUserData { get { return new Array<AssetUserData>(this[nameof(AssetUserData)].Address); } }
+        public UArray<AnimMetaData> MetaData { get { return new UArray<AnimMetaData>(this[nameof(MetaData)].Address); } }
+        public UArray<AssetUserData> AssetUserData { get { return new UArray<AssetUserData>(this[nameof(AssetUserData)].Address); } }
     }
     public class BlendSpaceBase : AnimationAsset
     {
@@ -3226,10 +3231,10 @@ namespace SDK.Script.EngineSDK
         public InterpolationParameter InterpolationParam { get { return this[nameof(InterpolationParam)].As<InterpolationParameter>(); } set { this["InterpolationParam"] = value; } }
         public float TargetWeightInterpolationSpeedPerSec { get { return this[nameof(TargetWeightInterpolationSpeedPerSec)].GetValue<float>(); } set { this[nameof(TargetWeightInterpolationSpeedPerSec)].SetValue<float>(value); } }
         public byte NotifyTriggerMode { get { return this[nameof(NotifyTriggerMode)].GetValue<byte>(); } set { this[nameof(NotifyTriggerMode)].SetValue<byte>(value); } }
-        public Array<PerBoneInterpolation> PerBoneBlend { get { return new Array<PerBoneInterpolation>(this[nameof(PerBoneBlend)].Address); } }
+        public UArray<PerBoneInterpolation> PerBoneBlend { get { return new UArray<PerBoneInterpolation>(this[nameof(PerBoneBlend)].Address); } }
         public int SampleIndexWithMarkers { get { return this[nameof(SampleIndexWithMarkers)].GetValue<int>(); } set { this[nameof(SampleIndexWithMarkers)].SetValue<int>(value); } }
-        public Array<BlendSample> SampleData { get { return new Array<BlendSample>(this[nameof(SampleData)].Address); } }
-        public Array<EditorElement> GridSamples { get { return new Array<EditorElement>(this[nameof(GridSamples)].Address); } }
+        public UArray<BlendSample> SampleData { get { return new UArray<BlendSample>(this[nameof(SampleData)].Address); } }
+        public UArray<EditorElement> GridSamples { get { return new UArray<EditorElement>(this[nameof(GridSamples)].Address); } }
         public BlendParameter BlendParameters { get { return this[nameof(BlendParameters)].As<BlendParameter>(); } set { this["BlendParameters"] = value; } }
     }
     public class BlendSpace : BlendSpaceBase
@@ -3271,7 +3276,7 @@ namespace SDK.Script.EngineSDK
     {
         public AnimationSettings(nint addr) : base(addr) { }
         public int CompressCommandletVersion { get { return this[nameof(CompressCommandletVersion)].GetValue<int>(); } set { this[nameof(CompressCommandletVersion)].SetValue<int>(value); } }
-        public Array<Object> KeyEndEffectorsMatchNameArray { get { return new Array<Object>(this[nameof(KeyEndEffectorsMatchNameArray)].Address); } }
+        public UArray<Object> KeyEndEffectorsMatchNameArray { get { return new UArray<Object>(this[nameof(KeyEndEffectorsMatchNameArray)].Address); } }
         public bool ForceRecompression { get { return this[nameof(ForceRecompression)].Flag; } set { this[nameof(ForceRecompression)].Flag = value; } }
         public bool bForceBelowThreshold { get { return this[nameof(bForceBelowThreshold)].Flag; } set { this[nameof(bForceBelowThreshold)].Flag = value; } }
         public bool bFirstRecompressUsingCurrentOrDefault { get { return this[nameof(bFirstRecompressUsingCurrentOrDefault)].Flag; } set { this[nameof(bFirstRecompressUsingCurrentOrDefault)].Flag = value; } }
@@ -3279,8 +3284,8 @@ namespace SDK.Script.EngineSDK
         public bool bEnablePerformanceLog { get { return this[nameof(bEnablePerformanceLog)].Flag; } set { this[nameof(bEnablePerformanceLog)].Flag = value; } }
         public bool bStripAnimationDataOnDedicatedServer { get { return this[nameof(bStripAnimationDataOnDedicatedServer)].Flag; } set { this[nameof(bStripAnimationDataOnDedicatedServer)].Flag = value; } }
         public bool bTickAnimationOnSkeletalMeshInit { get { return this[nameof(bTickAnimationOnSkeletalMeshInit)].Flag; } set { this[nameof(bTickAnimationOnSkeletalMeshInit)].Flag = value; } }
-        public Array<CustomAttributeSetting> BoneCustomAttributesNames { get { return new Array<CustomAttributeSetting>(this[nameof(BoneCustomAttributesNames)].Address); } }
-        public Array<Object> BoneNamesWithCustomAttributes { get { return new Array<Object>(this[nameof(BoneNamesWithCustomAttributes)].Address); } }
+        public UArray<CustomAttributeSetting> BoneCustomAttributesNames { get { return new UArray<CustomAttributeSetting>(this[nameof(BoneCustomAttributesNames)].Address); } }
+        public UArray<Object> BoneNamesWithCustomAttributes { get { return new UArray<Object>(this[nameof(BoneNamesWithCustomAttributes)].Address); } }
         public Object AttributeBlendModes { get { return this[nameof(AttributeBlendModes)]; } set { this[nameof(AttributeBlendModes)] = value; } }
         public ECustomAttributeBlendType DefaultAttributeBlendMode { get { return (ECustomAttributeBlendType)this[nameof(DefaultAttributeBlendMode)].GetValue<int>(); } set { this[nameof(DefaultAttributeBlendMode)].SetValue<int>((int)value); } }
     }
@@ -3288,19 +3293,19 @@ namespace SDK.Script.EngineSDK
     {
         public AnimBlueprint(nint addr) : base(addr) { }
         public Skeleton TargetSkeleton { get { return this[nameof(TargetSkeleton)].As<Skeleton>(); } set { this["TargetSkeleton"] = value; } }
-        public Array<AnimGroupInfo> Groups { get { return new Array<AnimGroupInfo>(this[nameof(Groups)].Address); } }
+        public UArray<AnimGroupInfo> Groups { get { return new UArray<AnimGroupInfo>(this[nameof(Groups)].Address); } }
         public bool bUseMultiThreadedAnimationUpdate { get { return this[nameof(bUseMultiThreadedAnimationUpdate)].Flag; } set { this[nameof(bUseMultiThreadedAnimationUpdate)].Flag = value; } }
         public bool bWarnAboutBlueprintUsage { get { return this[nameof(bWarnAboutBlueprintUsage)].Flag; } set { this[nameof(bWarnAboutBlueprintUsage)].Flag = value; } }
     }
     public class AnimBlueprintGeneratedClass : BlueprintGeneratedClass
     {
         public AnimBlueprintGeneratedClass(nint addr) : base(addr) { }
-        public Array<BakedAnimationStateMachine> BakedStateMachines { get { return new Array<BakedAnimationStateMachine>(this[nameof(BakedStateMachines)].Address); } }
+        public UArray<BakedAnimationStateMachine> BakedStateMachines { get { return new UArray<BakedAnimationStateMachine>(this[nameof(BakedStateMachines)].Address); } }
         public Skeleton TargetSkeleton { get { return this[nameof(TargetSkeleton)].As<Skeleton>(); } set { this["TargetSkeleton"] = value; } }
-        public Array<AnimNotifyEvent> AnimNotifies { get { return new Array<AnimNotifyEvent>(this[nameof(AnimNotifies)].Address); } }
+        public UArray<AnimNotifyEvent> AnimNotifies { get { return new UArray<AnimNotifyEvent>(this[nameof(AnimNotifies)].Address); } }
         public Object OrderedSavedPoseIndicesMap { get { return this[nameof(OrderedSavedPoseIndicesMap)]; } set { this[nameof(OrderedSavedPoseIndicesMap)] = value; } }
-        public Array<Object> SyncGroupNames { get { return new Array<Object>(this[nameof(SyncGroupNames)].Address); } }
-        public Array<ExposedValueHandler> EvaluateGraphExposedInputs { get { return new Array<ExposedValueHandler>(this[nameof(EvaluateGraphExposedInputs)].Address); } }
+        public UArray<Object> SyncGroupNames { get { return new UArray<Object>(this[nameof(SyncGroupNames)].Address); } }
+        public UArray<ExposedValueHandler> EvaluateGraphExposedInputs { get { return new UArray<ExposedValueHandler>(this[nameof(EvaluateGraphExposedInputs)].Address); } }
         public Object GraphAssetPlayerInformation { get { return this[nameof(GraphAssetPlayerInformation)]; } set { this[nameof(GraphAssetPlayerInformation)] = value; } }
         public Object GraphBlendOptions { get { return this[nameof(GraphBlendOptions)]; } set { this[nameof(GraphBlendOptions)] = value; } }
         public PropertyAccessLibrary PropertyAccessLibrary { get { return this[nameof(PropertyAccessLibrary)].As<PropertyAccessLibrary>(); } set { this["PropertyAccessLibrary"] = value; } }
@@ -3313,27 +3318,27 @@ namespace SDK.Script.EngineSDK
     public class AnimBoneCompressionSettings : Object
     {
         public AnimBoneCompressionSettings(nint addr) : base(addr) { }
-        public Array<AnimBoneCompressionCodec> Codecs { get { return new Array<AnimBoneCompressionCodec>(this[nameof(Codecs)].Address); } }
+        public UArray<AnimBoneCompressionCodec> Codecs { get { return new UArray<AnimBoneCompressionCodec>(this[nameof(Codecs)].Address); } }
     }
     public class AnimClassData : Object
     {
         public AnimClassData(nint addr) : base(addr) { }
-        public Array<BakedAnimationStateMachine> BakedStateMachines { get { return new Array<BakedAnimationStateMachine>(this[nameof(BakedStateMachines)].Address); } }
+        public UArray<BakedAnimationStateMachine> BakedStateMachines { get { return new UArray<BakedAnimationStateMachine>(this[nameof(BakedStateMachines)].Address); } }
         public Skeleton TargetSkeleton { get { return this[nameof(TargetSkeleton)].As<Skeleton>(); } set { this["TargetSkeleton"] = value; } }
-        public Array<AnimNotifyEvent> AnimNotifies { get { return new Array<AnimNotifyEvent>(this[nameof(AnimNotifies)].Address); } }
+        public UArray<AnimNotifyEvent> AnimNotifies { get { return new UArray<AnimNotifyEvent>(this[nameof(AnimNotifies)].Address); } }
         public Object OrderedSavedPoseIndicesMap { get { return this[nameof(OrderedSavedPoseIndicesMap)]; } set { this[nameof(OrderedSavedPoseIndicesMap)] = value; } }
-        public Array<AnimBlueprintFunction> AnimBlueprintFunctions { get { return new Array<AnimBlueprintFunction>(this[nameof(AnimBlueprintFunctions)].Address); } }
-        public Array<AnimBlueprintFunctionData> AnimBlueprintFunctionData { get { return new Array<AnimBlueprintFunctionData>(this[nameof(AnimBlueprintFunctionData)].Address); } }
-        public Array<Object> AnimNodeProperties { get { return new Array<Object>(this[nameof(AnimNodeProperties)].Address); } }
-        public Array<Object> LinkedAnimGraphNodeProperties { get { return new Array<Object>(this[nameof(LinkedAnimGraphNodeProperties)].Address); } }
-        public Array<Object> LinkedAnimLayerNodeProperties { get { return new Array<Object>(this[nameof(LinkedAnimLayerNodeProperties)].Address); } }
-        public Array<Object> PreUpdateNodeProperties { get { return new Array<Object>(this[nameof(PreUpdateNodeProperties)].Address); } }
-        public Array<Object> DynamicResetNodeProperties { get { return new Array<Object>(this[nameof(DynamicResetNodeProperties)].Address); } }
-        public Array<Object> StateMachineNodeProperties { get { return new Array<Object>(this[nameof(StateMachineNodeProperties)].Address); } }
-        public Array<Object> InitializationNodeProperties { get { return new Array<Object>(this[nameof(InitializationNodeProperties)].Address); } }
+        public UArray<AnimBlueprintFunction> AnimBlueprintFunctions { get { return new UArray<AnimBlueprintFunction>(this[nameof(AnimBlueprintFunctions)].Address); } }
+        public UArray<AnimBlueprintFunctionData> AnimBlueprintFunctionData { get { return new UArray<AnimBlueprintFunctionData>(this[nameof(AnimBlueprintFunctionData)].Address); } }
+        public UArray<Object> AnimNodeProperties { get { return new UArray<Object>(this[nameof(AnimNodeProperties)].Address); } }
+        public UArray<Object> LinkedAnimGraphNodeProperties { get { return new UArray<Object>(this[nameof(LinkedAnimGraphNodeProperties)].Address); } }
+        public UArray<Object> LinkedAnimLayerNodeProperties { get { return new UArray<Object>(this[nameof(LinkedAnimLayerNodeProperties)].Address); } }
+        public UArray<Object> PreUpdateNodeProperties { get { return new UArray<Object>(this[nameof(PreUpdateNodeProperties)].Address); } }
+        public UArray<Object> DynamicResetNodeProperties { get { return new UArray<Object>(this[nameof(DynamicResetNodeProperties)].Address); } }
+        public UArray<Object> StateMachineNodeProperties { get { return new UArray<Object>(this[nameof(StateMachineNodeProperties)].Address); } }
+        public UArray<Object> InitializationNodeProperties { get { return new UArray<Object>(this[nameof(InitializationNodeProperties)].Address); } }
         public Object GraphNameAssetPlayers { get { return this[nameof(GraphNameAssetPlayers)]; } set { this[nameof(GraphNameAssetPlayers)] = value; } }
-        public Array<Object> SyncGroupNames { get { return new Array<Object>(this[nameof(SyncGroupNames)].Address); } }
-        public Array<ExposedValueHandler> EvaluateGraphExposedInputs { get { return new Array<ExposedValueHandler>(this[nameof(EvaluateGraphExposedInputs)].Address); } }
+        public UArray<Object> SyncGroupNames { get { return new UArray<Object>(this[nameof(SyncGroupNames)].Address); } }
+        public UArray<ExposedValueHandler> EvaluateGraphExposedInputs { get { return new UArray<ExposedValueHandler>(this[nameof(EvaluateGraphExposedInputs)].Address); } }
         public Object GraphBlendOptions { get { return this[nameof(GraphBlendOptions)]; } set { this[nameof(GraphBlendOptions)] = value; } }
         public PropertyAccessLibrary PropertyAccessLibrary { get { return this[nameof(PropertyAccessLibrary)].As<PropertyAccessLibrary>(); } set { this["PropertyAccessLibrary"] = value; } }
     }
@@ -3344,7 +3349,7 @@ namespace SDK.Script.EngineSDK
     public class AnimSequenceBase : AnimationAsset
     {
         public AnimSequenceBase(nint addr) : base(addr) { }
-        public Array<AnimNotifyEvent> Notifies { get { return new Array<AnimNotifyEvent>(this[nameof(Notifies)].Address); } }
+        public UArray<AnimNotifyEvent> Notifies { get { return new UArray<AnimNotifyEvent>(this[nameof(Notifies)].Address); } }
         public float SequenceLength { get { return this[nameof(SequenceLength)].GetValue<float>(); } set { this[nameof(SequenceLength)].SetValue<float>(value); } }
         public float RateScale { get { return this[nameof(RateScale)].GetValue<float>(); } set { this[nameof(RateScale)].SetValue<float>(value); } }
         public RawCurveTracks RawCurveData { get { return this[nameof(RawCurveData)].As<RawCurveTracks>(); } set { this["RawCurveData"] = value; } }
@@ -3395,9 +3400,9 @@ namespace SDK.Script.EngineSDK
         public float MaxPosDiffBitwise { get { return this[nameof(MaxPosDiffBitwise)].GetValue<float>(); } set { this[nameof(MaxPosDiffBitwise)].SetValue<float>(value); } }
         public float MaxAngleDiffBitwise { get { return this[nameof(MaxAngleDiffBitwise)].GetValue<float>(); } set { this[nameof(MaxAngleDiffBitwise)].SetValue<float>(value); } }
         public float MaxScaleDiffBitwise { get { return this[nameof(MaxScaleDiffBitwise)].GetValue<float>(); } set { this[nameof(MaxScaleDiffBitwise)].SetValue<float>(value); } }
-        public Array<byte> AllowedRotationFormats { get { return new Array<byte>(this[nameof(AllowedRotationFormats)].Address); } }
-        public Array<byte> AllowedTranslationFormats { get { return new Array<byte>(this[nameof(AllowedTranslationFormats)].Address); } }
-        public Array<byte> AllowedScaleFormats { get { return new Array<byte>(this[nameof(AllowedScaleFormats)].Address); } }
+        public UArray<byte> AllowedRotationFormats { get { return new UArray<byte>(this[nameof(AllowedRotationFormats)].Address); } }
+        public UArray<byte> AllowedTranslationFormats { get { return new UArray<byte>(this[nameof(AllowedTranslationFormats)].Address); } }
+        public UArray<byte> AllowedScaleFormats { get { return new UArray<byte>(this[nameof(AllowedScaleFormats)].Address); } }
         public bool bResampleAnimation { get { return this[nameof(bResampleAnimation)].Flag; } set { this[nameof(bResampleAnimation)].Flag = value; } }
         public float ResampledFramerate { get { return this[nameof(ResampledFramerate)].GetValue<float>(); } set { this[nameof(ResampledFramerate)].SetValue<float>(value); } }
         public int MinKeysForResampling { get { return this[nameof(MinKeysForResampling)].GetValue<int>(); } set { this[nameof(MinKeysForResampling)].SetValue<int>(value); } }
@@ -3466,15 +3471,15 @@ namespace SDK.Script.EngineSDK
         public Object SyncGroup { get { return this[nameof(SyncGroup)]; } set { this[nameof(SyncGroup)] = value; } }
         public int SyncSlotIndex { get { return this[nameof(SyncSlotIndex)].GetValue<int>(); } set { this[nameof(SyncSlotIndex)].SetValue<int>(value); } }
         public MarkerSyncData MarkerData { get { return this[nameof(MarkerData)].As<MarkerSyncData>(); } set { this["MarkerData"] = value; } }
-        public Array<CompositeSection> CompositeSections { get { return new Array<CompositeSection>(this[nameof(CompositeSections)].Address); } }
-        public Array<SlotAnimationTrack> SlotAnimTracks { get { return new Array<SlotAnimationTrack>(this[nameof(SlotAnimTracks)].Address); } }
-        public Array<BranchingPoint> BranchingPoints { get { return new Array<BranchingPoint>(this[nameof(BranchingPoints)].Address); } }
+        public UArray<CompositeSection> CompositeSections { get { return new UArray<CompositeSection>(this[nameof(CompositeSections)].Address); } }
+        public UArray<SlotAnimationTrack> SlotAnimTracks { get { return new UArray<SlotAnimationTrack>(this[nameof(SlotAnimTracks)].Address); } }
+        public UArray<BranchingPoint> BranchingPoints { get { return new UArray<BranchingPoint>(this[nameof(BranchingPoints)].Address); } }
         public bool bEnableRootMotionTranslation { get { return this[nameof(bEnableRootMotionTranslation)].Flag; } set { this[nameof(bEnableRootMotionTranslation)].Flag = value; } }
         public bool bEnableRootMotionRotation { get { return this[nameof(bEnableRootMotionRotation)].Flag; } set { this[nameof(bEnableRootMotionRotation)].Flag = value; } }
         public bool bEnableAutoBlendOut { get { return this[nameof(bEnableAutoBlendOut)].Flag; } set { this[nameof(bEnableAutoBlendOut)].Flag = value; } }
         public byte RootMotionRootLock { get { return this[nameof(RootMotionRootLock)].GetValue<byte>(); } set { this[nameof(RootMotionRootLock)].SetValue<byte>(value); } }
-        public Array<BranchingPointMarker> BranchingPointMarkers { get { return new Array<BranchingPointMarker>(this[nameof(BranchingPointMarkers)].Address); } }
-        public Array<int> BranchingPointStateNotifyIndices { get { return new Array<int>(this[nameof(BranchingPointStateNotifyIndices)].Address); } }
+        public UArray<BranchingPointMarker> BranchingPointMarkers { get { return new UArray<BranchingPointMarker>(this[nameof(BranchingPointMarkers)].Address); } }
+        public UArray<int> BranchingPointStateNotifyIndices { get { return new UArray<int>(this[nameof(BranchingPointStateNotifyIndices)].Address); } }
         public TimeStretchCurve TimeStretchCurve { get { return this[nameof(TimeStretchCurve)].As<TimeStretchCurve>(); } set { this["TimeStretchCurve"] = value; } }
         public Object TimeStretchCurveName { get { return this[nameof(TimeStretchCurveName)]; } set { this[nameof(TimeStretchCurveName)] = value; } }
         public float GetDefaultBlendOutTime() { return Invoke<float>(nameof(GetDefaultBlendOutTime)); }
@@ -3524,7 +3529,7 @@ namespace SDK.Script.EngineSDK
     {
         public AnimSequence(nint addr) : base(addr) { }
         public int NumFrames { get { return this[nameof(NumFrames)].GetValue<int>(); } set { this[nameof(NumFrames)].SetValue<int>(value); } }
-        public Array<TrackToSkeletonMap> TrackToSkeletonMapTable { get { return new Array<TrackToSkeletonMap>(this[nameof(TrackToSkeletonMapTable)].Address); } }
+        public UArray<TrackToSkeletonMap> TrackToSkeletonMapTable { get { return new UArray<TrackToSkeletonMap>(this[nameof(TrackToSkeletonMapTable)].Address); } }
         public AnimBoneCompressionSettings BoneCompressionSettings { get { return this[nameof(BoneCompressionSettings)].As<AnimBoneCompressionSettings>(); } set { this["BoneCompressionSettings"] = value; } }
         public AnimCurveCompressionSettings CurveCompressionSettings { get { return this[nameof(CurveCompressionSettings)].As<AnimCurveCompressionSettings>(); } set { this["CurveCompressionSettings"] = value; } }
         public byte AdditiveAnimType { get { return this[nameof(AdditiveAnimType)].GetValue<byte>(); } set { this[nameof(AdditiveAnimType)].SetValue<byte>(value); } }
@@ -3532,26 +3537,26 @@ namespace SDK.Script.EngineSDK
         public AnimSequence RefPoseSeq { get { return this[nameof(RefPoseSeq)].As<AnimSequence>(); } set { this["RefPoseSeq"] = value; } }
         public int RefFrameIndex { get { return this[nameof(RefFrameIndex)].GetValue<int>(); } set { this[nameof(RefFrameIndex)].SetValue<int>(value); } }
         public Object RetargetSource { get { return this[nameof(RetargetSource)]; } set { this[nameof(RetargetSource)] = value; } }
-        public Array<Transform> RetargetSourceAssetReferencePose { get { return new Array<Transform>(this[nameof(RetargetSourceAssetReferencePose)].Address); } }
+        public UArray<Transform> RetargetSourceAssetReferencePose { get { return new UArray<Transform>(this[nameof(RetargetSourceAssetReferencePose)].Address); } }
         public EAnimInterpolationType Interpolation { get { return (EAnimInterpolationType)this[nameof(Interpolation)].GetValue<int>(); } set { this[nameof(Interpolation)].SetValue<int>((int)value); } }
         public bool bEnableRootMotion { get { return this[nameof(bEnableRootMotion)].Flag; } set { this[nameof(bEnableRootMotion)].Flag = value; } }
         public byte RootMotionRootLock { get { return this[nameof(RootMotionRootLock)].GetValue<byte>(); } set { this[nameof(RootMotionRootLock)].SetValue<byte>(value); } }
         public bool bForceRootLock { get { return this[nameof(bForceRootLock)].Flag; } set { this[nameof(bForceRootLock)].Flag = value; } }
         public bool bUseNormalizedRootMotionScale { get { return this[nameof(bUseNormalizedRootMotionScale)].Flag; } set { this[nameof(bUseNormalizedRootMotionScale)].Flag = value; } }
         public bool bRootMotionSettingsCopiedFromMontage { get { return this[nameof(bRootMotionSettingsCopiedFromMontage)].Flag; } set { this[nameof(bRootMotionSettingsCopiedFromMontage)].Flag = value; } }
-        public Array<AnimSyncMarker> AuthoredSyncMarkers { get { return new Array<AnimSyncMarker>(this[nameof(AuthoredSyncMarkers)].Address); } }
-        public Array<BakedCustomAttributePerBoneData> BakedPerBoneCustomAttributeData { get { return new Array<BakedCustomAttributePerBoneData>(this[nameof(BakedPerBoneCustomAttributeData)].Address); } }
+        public UArray<AnimSyncMarker> AuthoredSyncMarkers { get { return new UArray<AnimSyncMarker>(this[nameof(AuthoredSyncMarkers)].Address); } }
+        public UArray<BakedCustomAttributePerBoneData> BakedPerBoneCustomAttributeData { get { return new UArray<BakedCustomAttributePerBoneData>(this[nameof(BakedPerBoneCustomAttributeData)].Address); } }
     }
     public class AnimSet : Object
     {
         public AnimSet(nint addr) : base(addr) { }
         public bool bAnimRotationOnly { get { return this[nameof(bAnimRotationOnly)].Flag; } set { this[nameof(bAnimRotationOnly)].Flag = value; } }
-        public Array<Object> TrackBoneNames { get { return new Array<Object>(this[nameof(TrackBoneNames)].Address); } }
-        public Array<AnimSetMeshLinkup> LinkupCache { get { return new Array<AnimSetMeshLinkup>(this[nameof(LinkupCache)].Address); } }
-        public Array<byte> BoneUseAnimTranslation { get { return new Array<byte>(this[nameof(BoneUseAnimTranslation)].Address); } }
-        public Array<byte> ForceUseMeshTranslation { get { return new Array<byte>(this[nameof(ForceUseMeshTranslation)].Address); } }
-        public Array<Object> UseTranslationBoneNames { get { return new Array<Object>(this[nameof(UseTranslationBoneNames)].Address); } }
-        public Array<Object> ForceMeshTranslationBoneNames { get { return new Array<Object>(this[nameof(ForceMeshTranslationBoneNames)].Address); } }
+        public UArray<Object> TrackBoneNames { get { return new UArray<Object>(this[nameof(TrackBoneNames)].Address); } }
+        public UArray<AnimSetMeshLinkup> LinkupCache { get { return new UArray<AnimSetMeshLinkup>(this[nameof(LinkupCache)].Address); } }
+        public UArray<byte> BoneUseAnimTranslation { get { return new UArray<byte>(this[nameof(BoneUseAnimTranslation)].Address); } }
+        public UArray<byte> ForceUseMeshTranslation { get { return new UArray<byte>(this[nameof(ForceUseMeshTranslation)].Address); } }
+        public UArray<Object> UseTranslationBoneNames { get { return new UArray<Object>(this[nameof(UseTranslationBoneNames)].Address); } }
+        public UArray<Object> ForceMeshTranslationBoneNames { get { return new UArray<Object>(this[nameof(ForceMeshTranslationBoneNames)].Address); } }
         public Object PreviewSkelMeshName { get { return this[nameof(PreviewSkelMeshName)]; } set { this[nameof(PreviewSkelMeshName)] = value; } }
         public Object BestRatioSkelMeshName { get { return this[nameof(BestRatioSkelMeshName)]; } set { this[nameof(BestRatioSkelMeshName)] = value; } }
     }
@@ -3627,30 +3632,30 @@ namespace SDK.Script.EngineSDK
         public bool bAutomated { get { return this[nameof(bAutomated)].Flag; } set { this[nameof(bAutomated)].Flag = value; } }
         public bool bUseFileArchive { get { return this[nameof(bUseFileArchive)].Flag; } set { this[nameof(bUseFileArchive)].Flag = value; } }
         public bool bWriteEmptyFiles { get { return this[nameof(bWriteEmptyFiles)].Flag; } set { this[nameof(bWriteEmptyFiles)].Flag = value; } }
-        public Array<Object> IgnoreObjectList { get { return new Array<Object>(this[nameof(IgnoreObjectList)].Address); } }
+        public UArray<Object> IgnoreObjectList { get { return new UArray<Object>(this[nameof(IgnoreObjectList)].Address); } }
         public Object options { get { return this[nameof(options)].As<Object>(); } set { this["options"] = value; } }
-        public Array<Object> Errors { get { return new Array<Object>(this[nameof(Errors)].Address); } }
+        public UArray<Object> Errors { get { return new UArray<Object>(this[nameof(Errors)].Address); } }
     }
     public class AssetManagerSettings : DeveloperSettings
     {
         public AssetManagerSettings(nint addr) : base(addr) { }
-        public Array<PrimaryAssetTypeInfo> PrimaryAssetTypesToScan { get { return new Array<PrimaryAssetTypeInfo>(this[nameof(PrimaryAssetTypesToScan)].Address); } }
-        public Array<DirectoryPath> DirectoriesToExclude { get { return new Array<DirectoryPath>(this[nameof(DirectoriesToExclude)].Address); } }
-        public Array<PrimaryAssetRulesOverride> PrimaryAssetRules { get { return new Array<PrimaryAssetRulesOverride>(this[nameof(PrimaryAssetRules)].Address); } }
-        public Array<PrimaryAssetRulesCustomOverride> CustomPrimaryAssetRules { get { return new Array<PrimaryAssetRulesCustomOverride>(this[nameof(CustomPrimaryAssetRules)].Address); } }
+        public UArray<PrimaryAssetTypeInfo> PrimaryAssetTypesToScan { get { return new UArray<PrimaryAssetTypeInfo>(this[nameof(PrimaryAssetTypesToScan)].Address); } }
+        public UArray<DirectoryPath> DirectoriesToExclude { get { return new UArray<DirectoryPath>(this[nameof(DirectoriesToExclude)].Address); } }
+        public UArray<PrimaryAssetRulesOverride> PrimaryAssetRules { get { return new UArray<PrimaryAssetRulesOverride>(this[nameof(PrimaryAssetRules)].Address); } }
+        public UArray<PrimaryAssetRulesCustomOverride> CustomPrimaryAssetRules { get { return new UArray<PrimaryAssetRulesCustomOverride>(this[nameof(CustomPrimaryAssetRules)].Address); } }
         public bool bOnlyCookProductionAssets { get { return this[nameof(bOnlyCookProductionAssets)].Flag; } set { this[nameof(bOnlyCookProductionAssets)].Flag = value; } }
         public bool bShouldManagerDetermineTypeAndName { get { return this[nameof(bShouldManagerDetermineTypeAndName)].Flag; } set { this[nameof(bShouldManagerDetermineTypeAndName)].Flag = value; } }
         public bool bShouldGuessTypeAndNameInEditor { get { return this[nameof(bShouldGuessTypeAndNameInEditor)].Flag; } set { this[nameof(bShouldGuessTypeAndNameInEditor)].Flag = value; } }
         public bool bShouldAcquireMissingChunksOnLoad { get { return this[nameof(bShouldAcquireMissingChunksOnLoad)].Flag; } set { this[nameof(bShouldAcquireMissingChunksOnLoad)].Flag = value; } }
-        public Array<AssetManagerRedirect> PrimaryAssetIdRedirects { get { return new Array<AssetManagerRedirect>(this[nameof(PrimaryAssetIdRedirects)].Address); } }
-        public Array<AssetManagerRedirect> PrimaryAssetTypeRedirects { get { return new Array<AssetManagerRedirect>(this[nameof(PrimaryAssetTypeRedirects)].Address); } }
-        public Array<AssetManagerRedirect> AssetPathRedirects { get { return new Array<AssetManagerRedirect>(this[nameof(AssetPathRedirects)].Address); } }
+        public UArray<AssetManagerRedirect> PrimaryAssetIdRedirects { get { return new UArray<AssetManagerRedirect>(this[nameof(PrimaryAssetIdRedirects)].Address); } }
+        public UArray<AssetManagerRedirect> PrimaryAssetTypeRedirects { get { return new UArray<AssetManagerRedirect>(this[nameof(PrimaryAssetTypeRedirects)].Address); } }
+        public UArray<AssetManagerRedirect> AssetPathRedirects { get { return new UArray<AssetManagerRedirect>(this[nameof(AssetPathRedirects)].Address); } }
         public Object MetaDataTagsForAssetRegistry { get { return this[nameof(MetaDataTagsForAssetRegistry)]; } set { this[nameof(MetaDataTagsForAssetRegistry)] = value; } }
     }
     public class AssetMappingTable : Object
     {
         public AssetMappingTable(nint addr) : base(addr) { }
-        public Array<AssetMapping> MappedAssets { get { return new Array<AssetMapping>(this[nameof(MappedAssets)].Address); } }
+        public UArray<AssetMapping> MappedAssets { get { return new UArray<AssetMapping>(this[nameof(MappedAssets)].Address); } }
     }
     public class AsyncActionHandleSaveGame : BlueprintAsyncActionBase
     {
@@ -3668,32 +3673,32 @@ namespace SDK.Script.EngineSDK
     {
         public AsyncActionLoadPrimaryAsset(nint addr) : base(addr) { }
         public Object Completed { get { return this[nameof(Completed)]; } set { this[nameof(Completed)] = value; } }
-        public AsyncActionLoadPrimaryAsset AsyncLoadPrimaryAsset(Object WorldContextObject, PrimaryAssetId PrimaryAsset, Array<Object> LoadBundles) { return Invoke<AsyncActionLoadPrimaryAsset>(nameof(AsyncLoadPrimaryAsset), WorldContextObject, PrimaryAsset, LoadBundles); }
+        public AsyncActionLoadPrimaryAsset AsyncLoadPrimaryAsset(Object WorldContextObject, PrimaryAssetId PrimaryAsset, UArray<Object> LoadBundles) { return Invoke<AsyncActionLoadPrimaryAsset>(nameof(AsyncLoadPrimaryAsset), WorldContextObject, PrimaryAsset, LoadBundles); }
     }
     public class AsyncActionLoadPrimaryAssetClass : AsyncActionLoadPrimaryAssetBase
     {
         public AsyncActionLoadPrimaryAssetClass(nint addr) : base(addr) { }
         public Object Completed { get { return this[nameof(Completed)]; } set { this[nameof(Completed)] = value; } }
-        public AsyncActionLoadPrimaryAssetClass AsyncLoadPrimaryAssetClass(Object WorldContextObject, PrimaryAssetId PrimaryAsset, Array<Object> LoadBundles) { return Invoke<AsyncActionLoadPrimaryAssetClass>(nameof(AsyncLoadPrimaryAssetClass), WorldContextObject, PrimaryAsset, LoadBundles); }
+        public AsyncActionLoadPrimaryAssetClass AsyncLoadPrimaryAssetClass(Object WorldContextObject, PrimaryAssetId PrimaryAsset, UArray<Object> LoadBundles) { return Invoke<AsyncActionLoadPrimaryAssetClass>(nameof(AsyncLoadPrimaryAssetClass), WorldContextObject, PrimaryAsset, LoadBundles); }
     }
     public class AsyncActionLoadPrimaryAssetList : AsyncActionLoadPrimaryAssetBase
     {
         public AsyncActionLoadPrimaryAssetList(nint addr) : base(addr) { }
         public Object Completed { get { return this[nameof(Completed)]; } set { this[nameof(Completed)] = value; } }
-        public AsyncActionLoadPrimaryAssetList AsyncLoadPrimaryAssetList(Object WorldContextObject, Array<PrimaryAssetId> PrimaryAssetList, Array<Object> LoadBundles) { return Invoke<AsyncActionLoadPrimaryAssetList>(nameof(AsyncLoadPrimaryAssetList), WorldContextObject, PrimaryAssetList, LoadBundles); }
+        public AsyncActionLoadPrimaryAssetList AsyncLoadPrimaryAssetList(Object WorldContextObject, UArray<PrimaryAssetId> PrimaryAssetList, UArray<Object> LoadBundles) { return Invoke<AsyncActionLoadPrimaryAssetList>(nameof(AsyncLoadPrimaryAssetList), WorldContextObject, PrimaryAssetList, LoadBundles); }
     }
     public class AsyncActionLoadPrimaryAssetClassList : AsyncActionLoadPrimaryAssetBase
     {
         public AsyncActionLoadPrimaryAssetClassList(nint addr) : base(addr) { }
         public Object Completed { get { return this[nameof(Completed)]; } set { this[nameof(Completed)] = value; } }
-        public AsyncActionLoadPrimaryAssetClassList AsyncLoadPrimaryAssetClassList(Object WorldContextObject, Array<PrimaryAssetId> PrimaryAssetList, Array<Object> LoadBundles) { return Invoke<AsyncActionLoadPrimaryAssetClassList>(nameof(AsyncLoadPrimaryAssetClassList), WorldContextObject, PrimaryAssetList, LoadBundles); }
+        public AsyncActionLoadPrimaryAssetClassList AsyncLoadPrimaryAssetClassList(Object WorldContextObject, UArray<PrimaryAssetId> PrimaryAssetList, UArray<Object> LoadBundles) { return Invoke<AsyncActionLoadPrimaryAssetClassList>(nameof(AsyncLoadPrimaryAssetClassList), WorldContextObject, PrimaryAssetList, LoadBundles); }
     }
     public class AsyncActionChangePrimaryAssetBundles : AsyncActionLoadPrimaryAssetBase
     {
         public AsyncActionChangePrimaryAssetBundles(nint addr) : base(addr) { }
         public Object Completed { get { return this[nameof(Completed)]; } set { this[nameof(Completed)] = value; } }
-        public AsyncActionChangePrimaryAssetBundles AsyncChangeBundleStateForPrimaryAssetList(Object WorldContextObject, Array<PrimaryAssetId> PrimaryAssetList, Array<Object> AddBundles, Array<Object> RemoveBundles) { return Invoke<AsyncActionChangePrimaryAssetBundles>(nameof(AsyncChangeBundleStateForPrimaryAssetList), WorldContextObject, PrimaryAssetList, AddBundles, RemoveBundles); }
-        public AsyncActionChangePrimaryAssetBundles AsyncChangeBundleStateForMatchingPrimaryAssets(Object WorldContextObject, Array<Object> NewBundles, Array<Object> OldBundles) { return Invoke<AsyncActionChangePrimaryAssetBundles>(nameof(AsyncChangeBundleStateForMatchingPrimaryAssets), WorldContextObject, NewBundles, OldBundles); }
+        public AsyncActionChangePrimaryAssetBundles AsyncChangeBundleStateForPrimaryAssetList(Object WorldContextObject, UArray<PrimaryAssetId> PrimaryAssetList, UArray<Object> AddBundles, UArray<Object> RemoveBundles) { return Invoke<AsyncActionChangePrimaryAssetBundles>(nameof(AsyncChangeBundleStateForPrimaryAssetList), WorldContextObject, PrimaryAssetList, AddBundles, RemoveBundles); }
+        public AsyncActionChangePrimaryAssetBundles AsyncChangeBundleStateForMatchingPrimaryAssets(Object WorldContextObject, UArray<Object> NewBundles, UArray<Object> OldBundles) { return Invoke<AsyncActionChangePrimaryAssetBundles>(nameof(AsyncChangeBundleStateForMatchingPrimaryAssets), WorldContextObject, NewBundles, OldBundles); }
     }
     public class AtmosphericFog : Info
     {
@@ -3758,7 +3763,7 @@ namespace SDK.Script.EngineSDK
         public int MaximumConcurrentStreams { get { return this[nameof(MaximumConcurrentStreams)].GetValue<int>(); } set { this[nameof(MaximumConcurrentStreams)].SetValue<int>(value); } }
         public float GlobalMinPitchScale { get { return this[nameof(GlobalMinPitchScale)].GetValue<float>(); } set { this[nameof(GlobalMinPitchScale)].SetValue<float>(value); } }
         public float GlobalMaxPitchScale { get { return this[nameof(GlobalMaxPitchScale)].GetValue<float>(); } set { this[nameof(GlobalMaxPitchScale)].SetValue<float>(value); } }
-        public Array<AudioQualitySettings> QualityLevels { get { return new Array<AudioQualitySettings>(this[nameof(QualityLevels)].Address); } }
+        public UArray<AudioQualitySettings> QualityLevels { get { return new UArray<AudioQualitySettings>(this[nameof(QualityLevels)].Address); } }
         public bool bAllowPlayWhenSilent { get { return this[nameof(bAllowPlayWhenSilent)].Flag; } set { this[nameof(bAllowPlayWhenSilent)].Flag = value; } }
         public bool bDisableMasterEQ { get { return this[nameof(bDisableMasterEQ)].Flag; } set { this[nameof(bDisableMasterEQ)].Flag = value; } }
         public bool bAllowCenterChannel3DPanning { get { return this[nameof(bAllowCenterChannel3DPanning)].Flag; } set { this[nameof(bAllowCenterChannel3DPanning)].Flag = value; } }
@@ -3766,8 +3771,8 @@ namespace SDK.Script.EngineSDK
         public EPanningMethod PanningMethod { get { return (EPanningMethod)this[nameof(PanningMethod)].GetValue<int>(); } set { this[nameof(PanningMethod)].SetValue<int>((int)value); } }
         public EMonoChannelUpmixMethod MonoChannelUpmixMethod { get { return (EMonoChannelUpmixMethod)this[nameof(MonoChannelUpmixMethod)].GetValue<int>(); } set { this[nameof(MonoChannelUpmixMethod)].SetValue<int>((int)value); } }
         public Object DialogueFilenameFormat { get { return this[nameof(DialogueFilenameFormat)]; } set { this[nameof(DialogueFilenameFormat)] = value; } }
-        public Array<SoundDebugEntry> DebugSounds { get { return new Array<SoundDebugEntry>(this[nameof(DebugSounds)].Address); } }
-        public Array<DefaultAudioBusSettings> DefaultAudioBuses { get { return new Array<DefaultAudioBusSettings>(this[nameof(DefaultAudioBuses)].Address); } }
+        public UArray<SoundDebugEntry> DebugSounds { get { return new UArray<SoundDebugEntry>(this[nameof(DebugSounds)].Address); } }
+        public UArray<DefaultAudioBusSettings> DefaultAudioBuses { get { return new UArray<DefaultAudioBusSettings>(this[nameof(DefaultAudioBuses)].Address); } }
         public SoundClass DefaultSoundClass { get { return this[nameof(DefaultSoundClass)].As<SoundClass>(); } set { this["DefaultSoundClass"] = value; } }
         public SoundClass DefaultMediaSoundClass { get { return this[nameof(DefaultMediaSoundClass)].As<SoundClass>(); } set { this["DefaultMediaSoundClass"] = value; } }
         public SoundConcurrency DefaultSoundConcurrency { get { return this[nameof(DefaultSoundConcurrency)].As<SoundConcurrency>(); } set { this["DefaultSoundConcurrency"] = value; } }
@@ -3779,10 +3784,10 @@ namespace SDK.Script.EngineSDK
         public bool bEnabled { get { return this[nameof(bEnabled)].Flag; } set { this[nameof(bEnabled)].Flag = value; } }
         public ReverbSettings Settings { get { return this[nameof(Settings)].As<ReverbSettings>(); } set { this["Settings"] = value; } }
         public InteriorSettings AmbientZoneSettings { get { return this[nameof(AmbientZoneSettings)].As<InteriorSettings>(); } set { this["AmbientZoneSettings"] = value; } }
-        public Array<AudioVolumeSubmixSendSettings> SubmixSendSettings { get { return new Array<AudioVolumeSubmixSendSettings>(this[nameof(SubmixSendSettings)].Address); } }
-        public Array<AudioVolumeSubmixOverrideSettings> SubmixOverrideSettings { get { return new Array<AudioVolumeSubmixOverrideSettings>(this[nameof(SubmixOverrideSettings)].Address); } }
-        public void SetSubmixSendSettings(Array<AudioVolumeSubmixSendSettings> NewSubmixSendSettings) { Invoke(nameof(SetSubmixSendSettings), NewSubmixSendSettings); }
-        public void SetSubmixOverrideSettings(Array<AudioVolumeSubmixOverrideSettings> NewSubmixOverrideSettings) { Invoke(nameof(SetSubmixOverrideSettings), NewSubmixOverrideSettings); }
+        public UArray<AudioVolumeSubmixSendSettings> SubmixSendSettings { get { return new UArray<AudioVolumeSubmixSendSettings>(this[nameof(SubmixSendSettings)].Address); } }
+        public UArray<AudioVolumeSubmixOverrideSettings> SubmixOverrideSettings { get { return new UArray<AudioVolumeSubmixOverrideSettings>(this[nameof(SubmixOverrideSettings)].Address); } }
+        public void SetSubmixSendSettings(UArray<AudioVolumeSubmixSendSettings> NewSubmixSendSettings) { Invoke(nameof(SetSubmixSendSettings), NewSubmixSendSettings); }
+        public void SetSubmixOverrideSettings(UArray<AudioVolumeSubmixOverrideSettings> NewSubmixOverrideSettings) { Invoke(nameof(SetSubmixOverrideSettings), NewSubmixOverrideSettings); }
         public void SetReverbSettings(ReverbSettings NewReverbSettings) { Invoke(nameof(SetReverbSettings), NewReverbSettings); }
         public void SetPriority(float NewPriority) { Invoke(nameof(SetPriority), NewPriority); }
         public void SetInteriorSettings(InteriorSettings NewInteriorSettings) { Invoke(nameof(SetInteriorSettings), NewInteriorSettings); }
@@ -3792,26 +3797,26 @@ namespace SDK.Script.EngineSDK
     public class AutoDestroySubsystem : TickableWorldSubsystem
     {
         public AutoDestroySubsystem(nint addr) : base(addr) { }
-        public Array<Actor> ActorsToPoll { get { return new Array<Actor>(this[nameof(ActorsToPoll)].Address); } }
+        public UArray<Actor> ActorsToPoll { get { return new UArray<Actor>(this[nameof(ActorsToPoll)].Address); } }
         public void OnActorEndPlay(Actor Actor, byte EndPlayReason) { Invoke(nameof(OnActorEndPlay), Actor, EndPlayReason); }
     }
     public class AutomationTestSettings : Object
     {
         public AutomationTestSettings(nint addr) : base(addr) { }
-        public Array<Object> EngineTestModules { get { return new Array<Object>(this[nameof(EngineTestModules)].Address); } }
-        public Array<Object> EditorTestModules { get { return new Array<Object>(this[nameof(EditorTestModules)].Address); } }
+        public UArray<Object> EngineTestModules { get { return new UArray<Object>(this[nameof(EngineTestModules)].Address); } }
+        public UArray<Object> EditorTestModules { get { return new UArray<Object>(this[nameof(EditorTestModules)].Address); } }
         public SoftObjectPath AutomationTestmap { get { return this[nameof(AutomationTestmap)].As<SoftObjectPath>(); } set { this["AutomationTestmap"] = value; } }
-        public Array<EditorMapPerformanceTestDefinition> EditorPerformanceTestMaps { get { return new Array<EditorMapPerformanceTestDefinition>(this[nameof(EditorPerformanceTestMaps)].Address); } }
-        public Array<SoftObjectPath> AssetsToOpen { get { return new Array<SoftObjectPath>(this[nameof(AssetsToOpen)].Address); } }
-        public Array<Object> MapsToPIETest { get { return new Array<Object>(this[nameof(MapsToPIETest)].Address); } }
+        public UArray<EditorMapPerformanceTestDefinition> EditorPerformanceTestMaps { get { return new UArray<EditorMapPerformanceTestDefinition>(this[nameof(EditorPerformanceTestMaps)].Address); } }
+        public UArray<SoftObjectPath> AssetsToOpen { get { return new UArray<SoftObjectPath>(this[nameof(AssetsToOpen)].Address); } }
+        public UArray<Object> MapsToPIETest { get { return new UArray<Object>(this[nameof(MapsToPIETest)].Address); } }
         public BuildPromotionTestSettings BuildPromotionTest { get { return this[nameof(BuildPromotionTest)].As<BuildPromotionTestSettings>(); } set { this["BuildPromotionTest"] = value; } }
         public MaterialEditorPromotionSettings MaterialEditorPromotionTest { get { return this[nameof(MaterialEditorPromotionTest)].As<MaterialEditorPromotionSettings>(); } set { this["MaterialEditorPromotionTest"] = value; } }
         public ParticleEditorPromotionSettings ParticleEditorPromotionTest { get { return this[nameof(ParticleEditorPromotionTest)].As<ParticleEditorPromotionSettings>(); } set { this["ParticleEditorPromotionTest"] = value; } }
         public BlueprintEditorPromotionSettings BlueprintEditorPromotionTest { get { return this[nameof(BlueprintEditorPromotionTest)].As<BlueprintEditorPromotionSettings>(); } set { this["BlueprintEditorPromotionTest"] = value; } }
-        public Array<Object> TestLevelFolders { get { return new Array<Object>(this[nameof(TestLevelFolders)].Address); } }
-        public Array<ExternalToolDefinition> ExternalTools { get { return new Array<ExternalToolDefinition>(this[nameof(ExternalTools)].Address); } }
-        public Array<EditorImportExportTestDefinition> ImportExportTestDefinitions { get { return new Array<EditorImportExportTestDefinition>(this[nameof(ImportExportTestDefinitions)].Address); } }
-        public Array<LaunchOnTestSettings> LaunchOnSettings { get { return new Array<LaunchOnTestSettings>(this[nameof(LaunchOnSettings)].Address); } }
+        public UArray<Object> TestLevelFolders { get { return new UArray<Object>(this[nameof(TestLevelFolders)].Address); } }
+        public UArray<ExternalToolDefinition> ExternalTools { get { return new UArray<ExternalToolDefinition>(this[nameof(ExternalTools)].Address); } }
+        public UArray<EditorImportExportTestDefinition> ImportExportTestDefinitions { get { return new UArray<EditorImportExportTestDefinition>(this[nameof(ImportExportTestDefinitions)].Address); } }
+        public UArray<LaunchOnTestSettings> LaunchOnSettings { get { return new UArray<LaunchOnTestSettings>(this[nameof(LaunchOnSettings)].Address); } }
         public IntPoint DefaultScreenshotResolution { get { return this[nameof(DefaultScreenshotResolution)].As<IntPoint>(); } set { this["DefaultScreenshotResolution"] = value; } }
         public float PIETestDuration { get { return this[nameof(PIETestDuration)].GetValue<float>(); } set { this[nameof(PIETestDuration)].SetValue<float>(value); } }
     }
@@ -3856,21 +3861,21 @@ namespace SDK.Script.EngineSDK
     public class Skeleton : Object
     {
         public Skeleton(nint addr) : base(addr) { }
-        public Array<BoneNode> BoneTree { get { return new Array<BoneNode>(this[nameof(BoneTree)].Address); } }
-        public Array<Transform> RefLocalPoses { get { return new Array<Transform>(this[nameof(RefLocalPoses)].Address); } }
+        public UArray<BoneNode> BoneTree { get { return new UArray<BoneNode>(this[nameof(BoneTree)].Address); } }
+        public UArray<Transform> RefLocalPoses { get { return new UArray<Transform>(this[nameof(RefLocalPoses)].Address); } }
         public Guid VirtualBoneGuid { get { return this[nameof(VirtualBoneGuid)].As<Guid>(); } set { this["VirtualBoneGuid"] = value; } }
-        public Array<VirtualBone> VirtualBones { get { return new Array<VirtualBone>(this[nameof(VirtualBones)].Address); } }
-        public Array<SkeletalMeshSocket> Sockets { get { return new Array<SkeletalMeshSocket>(this[nameof(Sockets)].Address); } }
+        public UArray<VirtualBone> VirtualBones { get { return new UArray<VirtualBone>(this[nameof(VirtualBones)].Address); } }
+        public UArray<SkeletalMeshSocket> Sockets { get { return new UArray<SkeletalMeshSocket>(this[nameof(Sockets)].Address); } }
         public SmartNameContainer SmartNames { get { return this[nameof(SmartNames)].As<SmartNameContainer>(); } set { this["SmartNames"] = value; } }
-        public Array<BlendProfile> BlendProfiles { get { return new Array<BlendProfile>(this[nameof(BlendProfiles)].Address); } }
-        public Array<AnimSlotGroup> SlotGroups { get { return new Array<AnimSlotGroup>(this[nameof(SlotGroups)].Address); } }
-        public Array<AssetUserData> AssetUserData { get { return new Array<AssetUserData>(this[nameof(AssetUserData)].Address); } }
+        public UArray<BlendProfile> BlendProfiles { get { return new UArray<BlendProfile>(this[nameof(BlendProfiles)].Address); } }
+        public UArray<AnimSlotGroup> SlotGroups { get { return new UArray<AnimSlotGroup>(this[nameof(SlotGroups)].Address); } }
+        public UArray<AssetUserData> AssetUserData { get { return new UArray<AssetUserData>(this[nameof(AssetUserData)].Address); } }
     }
     public class BlendProfile : Object
     {
         public BlendProfile(nint addr) : base(addr) { }
         public Skeleton OwningSkeleton { get { return this[nameof(OwningSkeleton)].As<Skeleton>(); } set { this["OwningSkeleton"] = value; } }
-        public Array<BlendProfileBoneEntry> ProfileEntries { get { return new Array<BlendProfileBoneEntry>(this[nameof(ProfileEntries)].Address); } }
+        public UArray<BlendProfileBoneEntry> ProfileEntries { get { return new UArray<BlendProfileBoneEntry>(this[nameof(ProfileEntries)].Address); } }
     }
     public class BlockingVolume : Volume
     {
@@ -3884,10 +3889,10 @@ namespace SDK.Script.EngineSDK
     {
         public BlueprintMapLibrary(nint addr) : base(addr) { }
         public void SetMapPropertyByName(Object Object, Object PropertyName, Object Value) { Invoke(nameof(SetMapPropertyByName), Object, PropertyName, Value); }
-        public void Map_Values(Object TargetMap, Array<int> Values) { Invoke(nameof(Map_Values), TargetMap, Values); }
+        public void Map_Values(Object TargetMap, UArray<int> Values) { Invoke(nameof(Map_Values), TargetMap, Values); }
         public bool Map_Remove(Object TargetMap, int Key) { return Invoke<bool>(nameof(Map_Remove), TargetMap, Key); }
         public int Map_Length(Object TargetMap) { return Invoke<int>(nameof(Map_Length), TargetMap); }
-        public void Map_Keys(Object TargetMap, Array<int> Keys) { Invoke(nameof(Map_Keys), TargetMap, Keys); }
+        public void Map_Keys(Object TargetMap, UArray<int> Keys) { Invoke(nameof(Map_Keys), TargetMap, Keys); }
         public bool Map_Find(Object TargetMap, int Key, int Value) { return Invoke<bool>(nameof(Map_Find), TargetMap, Key, Value); }
         public bool Map_Contains(Object TargetMap, int Key) { return Invoke<bool>(nameof(Map_Contains), TargetMap, Key); }
         public void Map_Clear(Object TargetMap) { Invoke(nameof(Map_Clear), TargetMap); }
@@ -3932,17 +3937,17 @@ namespace SDK.Script.EngineSDK
         public bool IsProjectFilePathSet() { return Invoke<bool>(nameof(IsProjectFilePathSet)); }
         public bool IsDrive(Object InPath) { return Invoke<bool>(nameof(IsDrive), InPath); }
         public bool HasProjectPersistentDownloadDir() { return Invoke<bool>(nameof(HasProjectPersistentDownloadDir)); }
-        public Array<Object> GetToolTipLocalizationPaths() { return Invoke<Array<Object>>(nameof(GetToolTipLocalizationPaths)); }
-        public Array<Object> GetRestrictedFolderNames() { return Invoke<Array<Object>>(nameof(GetRestrictedFolderNames)); }
+        public UArray<Object> GetToolTipLocalizationPaths() { return Invoke<UArray<Object>>(nameof(GetToolTipLocalizationPaths)); }
+        public UArray<Object> GetRestrictedFolderNames() { return Invoke<UArray<Object>>(nameof(GetRestrictedFolderNames)); }
         public Object GetRelativePathToRoot() { return Invoke<Object>(nameof(GetRelativePathToRoot)); }
-        public Array<Object> GetPropertyNameLocalizationPaths() { return Invoke<Array<Object>>(nameof(GetPropertyNameLocalizationPaths)); }
+        public UArray<Object> GetPropertyNameLocalizationPaths() { return Invoke<UArray<Object>>(nameof(GetPropertyNameLocalizationPaths)); }
         public Object GetProjectFilePath() { return Invoke<Object>(nameof(GetProjectFilePath)); }
         public Object GetPath(Object InPath) { return Invoke<Object>(nameof(GetPath), InPath); }
         public Object GetInvalidFileSystemChars() { return Invoke<Object>(nameof(GetInvalidFileSystemChars)); }
-        public Array<Object> GetGameLocalizationPaths() { return Invoke<Array<Object>>(nameof(GetGameLocalizationPaths)); }
+        public UArray<Object> GetGameLocalizationPaths() { return Invoke<UArray<Object>>(nameof(GetGameLocalizationPaths)); }
         public Object GetExtension(Object InPath, bool bIncludeDot) { return Invoke<Object>(nameof(GetExtension), InPath, bIncludeDot); }
-        public Array<Object> GetEngineLocalizationPaths() { return Invoke<Array<Object>>(nameof(GetEngineLocalizationPaths)); }
-        public Array<Object> GetEditorLocalizationPaths() { return Invoke<Array<Object>>(nameof(GetEditorLocalizationPaths)); }
+        public UArray<Object> GetEngineLocalizationPaths() { return Invoke<UArray<Object>>(nameof(GetEngineLocalizationPaths)); }
+        public UArray<Object> GetEditorLocalizationPaths() { return Invoke<UArray<Object>>(nameof(GetEditorLocalizationPaths)); }
         public Object GetCleanFilename(Object InPath) { return Invoke<Object>(nameof(GetCleanFilename), InPath); }
         public Object GetBaseFilename(Object InPath, bool bRemovePath) { return Invoke<Object>(nameof(GetBaseFilename), InPath, bRemovePath); }
         public Object GeneratedConfigDir() { return Invoke<Object>(nameof(GeneratedConfigDir)); }
@@ -3970,7 +3975,7 @@ namespace SDK.Script.EngineSDK
         public Object ConvertToSandboxPath(Object InPath, Object InSandboxName) { return Invoke<Object>(nameof(ConvertToSandboxPath), InPath, InSandboxName); }
         public Object ConvertRelativePathToFull(Object InPath, Object InBasePath) { return Invoke<Object>(nameof(ConvertRelativePathToFull), InPath, InBasePath); }
         public Object ConvertFromSandboxPath(Object InPath, Object InSandboxName) { return Invoke<Object>(nameof(ConvertFromSandboxPath), InPath, InSandboxName); }
-        public Object Combine(Array<Object> InPaths) { return Invoke<Object>(nameof(Combine), InPaths); }
+        public Object Combine(UArray<Object> InPaths) { return Invoke<Object>(nameof(Combine), InPaths); }
         public bool CollapseRelativeDirectories(Object InPath, Object outPath) { return Invoke<bool>(nameof(CollapseRelativeDirectories), InPath, outPath); }
         public Object CloudDir() { return Invoke<Object>(nameof(CloudDir)); }
         public Object ChangeExtension(Object InPath, Object InNewExtension) { return Invoke<Object>(nameof(ChangeExtension), InPath, InNewExtension); }
@@ -4014,15 +4019,15 @@ namespace SDK.Script.EngineSDK
         public BlueprintSetLibrary(nint addr) : base(addr) { }
         public void SetSetPropertyByName(Object Object, Object PropertyName, Object Value) { Invoke(nameof(SetSetPropertyByName), Object, PropertyName, Value); }
         public void Set_Union(Object A, Object B, Object Result) { Invoke(nameof(Set_Union), A, B, Result); }
-        public void Set_ToArray(Object A, Array<int> Result) { Invoke(nameof(Set_ToArray), A, Result); }
-        public void Set_RemoveItems(Object TargetSet, Array<int> Items) { Invoke(nameof(Set_RemoveItems), TargetSet, Items); }
+        public void Set_ToArray(Object A, UArray<int> Result) { Invoke(nameof(Set_ToArray), A, Result); }
+        public void Set_RemoveItems(Object TargetSet, UArray<int> Items) { Invoke(nameof(Set_RemoveItems), TargetSet, Items); }
         public bool Set_Remove(Object TargetSet, int Item) { return Invoke<bool>(nameof(Set_Remove), TargetSet, Item); }
         public int Set_Length(Object TargetSet) { return Invoke<int>(nameof(Set_Length), TargetSet); }
         public void Set_Intersection(Object A, Object B, Object Result) { Invoke(nameof(Set_Intersection), A, B, Result); }
         public void Set_Difference(Object A, Object B, Object Result) { Invoke(nameof(Set_Difference), A, B, Result); }
         public bool Set_Contains(Object TargetSet, int ItemToFind) { return Invoke<bool>(nameof(Set_Contains), TargetSet, ItemToFind); }
         public void Set_Clear(Object TargetSet) { Invoke(nameof(Set_Clear), TargetSet); }
-        public void Set_AddItems(Object TargetSet, Array<int> NewItems) { Invoke(nameof(Set_AddItems), TargetSet, NewItems); }
+        public void Set_AddItems(Object TargetSet, UArray<int> NewItems) { Invoke(nameof(Set_AddItems), TargetSet, NewItems); }
         public void Set_Add(Object TargetSet, int NewItem) { Invoke(nameof(Set_Add), TargetSet, NewItem); }
     }
     public class BodySetup : BodySetupCore
@@ -4045,7 +4050,7 @@ namespace SDK.Script.EngineSDK
     public class BoneMaskFilter : Object
     {
         public BoneMaskFilter(nint addr) : base(addr) { }
-        public Array<InputBlendPose> BlendPoses { get { return new Array<InputBlendPose>(this[nameof(BlendPoses)].Address); } }
+        public UArray<InputBlendPose> BlendPoses { get { return new UArray<InputBlendPose>(this[nameof(BlendPoses)].Address); } }
     }
     public class BookmarkBase : Object
     {
@@ -4056,7 +4061,7 @@ namespace SDK.Script.EngineSDK
         public BookMark(nint addr) : base(addr) { }
         public Vector Location { get { return this[nameof(Location)].As<Vector>(); } set { this["Location"] = value; } }
         public Rotator Rotation { get { return this[nameof(Rotation)].As<Rotator>(); } set { this["Rotation"] = value; } }
-        public Array<Object> HiddenLevels { get { return new Array<Object>(this[nameof(HiddenLevels)].Address); } }
+        public UArray<Object> HiddenLevels { get { return new UArray<Object>(this[nameof(HiddenLevels)].Address); } }
     }
     public class BookMark2D : BookmarkBase
     {
@@ -4122,8 +4127,8 @@ namespace SDK.Script.EngineSDK
         public Object BitmapFilename { get { return this[nameof(BitmapFilename)]; } set { this[nameof(BitmapFilename)] = value; } }
         public Object ToolTip { get { return this[nameof(ToolTip)]; } set { this[nameof(ToolTip)] = value; } }
         public bool NotifyBadParams { get { return this[nameof(NotifyBadParams)].Flag; } set { this[nameof(NotifyBadParams)].Flag = value; } }
-        public Array<Vector> Vertices { get { return new Array<Vector>(this[nameof(Vertices)].Address); } }
-        public Array<BuilderPoly> Polys { get { return new Array<BuilderPoly>(this[nameof(Polys)].Address); } }
+        public UArray<Vector> Vertices { get { return new UArray<Vector>(this[nameof(Vertices)].Address); } }
+        public UArray<BuilderPoly> Polys { get { return new UArray<BuilderPoly>(this[nameof(Polys)].Address); } }
         public Object Layer { get { return this[nameof(Layer)]; } set { this[nameof(Layer)] = value; } }
         public bool MergeCoplanars { get { return this[nameof(MergeCoplanars)].Flag; } set { this[nameof(MergeCoplanars)].Flag = value; } }
     }
@@ -4191,7 +4196,7 @@ namespace SDK.Script.EngineSDK
     public class CameraModifier_CameraShake : CameraModifier
     {
         public CameraModifier_CameraShake(nint addr) : base(addr) { }
-        public Array<ActiveCameraShakeInfo> ActiveShakes { get { return new Array<ActiveCameraShakeInfo>(this[nameof(ActiveShakes)].Address); } }
+        public UArray<ActiveCameraShakeInfo> ActiveShakes { get { return new UArray<ActiveCameraShakeInfo>(this[nameof(ActiveShakes)].Address); } }
         public Object ExpiredPooledShakesMap { get { return this[nameof(ExpiredPooledShakesMap)]; } set { this[nameof(ExpiredPooledShakesMap)] = value; } }
         public float SplitScreenShakeScale { get { return this[nameof(SplitScreenShakeScale)].GetValue<float>(); } set { this[nameof(SplitScreenShakeScale)].SetValue<float>(value); } }
     }
@@ -4234,11 +4239,11 @@ namespace SDK.Script.EngineSDK
         public Vector2D K2_TextSize(Font RenderFont, Object RenderText, Vector2D Scale) { return Invoke<Vector2D>(nameof(K2_TextSize), RenderFont, RenderText, Scale); }
         public Vector2D K2_StrLen(Font RenderFont, Object RenderText) { return Invoke<Vector2D>(nameof(K2_StrLen), RenderFont, RenderText); }
         public Vector K2_Project(Vector WorldLocation) { return Invoke<Vector>(nameof(K2_Project), WorldLocation); }
-        public void K2_DrawTriangle(Texture RenderTexture, Array<CanvasUVTri> Triangles) { Invoke(nameof(K2_DrawTriangle), RenderTexture, Triangles); }
+        public void K2_DrawTriangle(Texture RenderTexture, UArray<CanvasUVTri> Triangles) { Invoke(nameof(K2_DrawTriangle), RenderTexture, Triangles); }
         public void K2_DrawTexture(Texture RenderTexture, Vector2D ScreenPosition, Vector2D ScreenSize, Vector2D CoordinatePosition, Vector2D CoordinateSize, LinearColor RenderColor, byte BlendMode, float Rotation, Vector2D PivotPoint) { Invoke(nameof(K2_DrawTexture), RenderTexture, ScreenPosition, ScreenSize, CoordinatePosition, CoordinateSize, RenderColor, BlendMode, Rotation, PivotPoint); }
         public void K2_DrawText(Font RenderFont, Object RenderText, Vector2D ScreenPosition, Vector2D Scale, LinearColor RenderColor, float Kerning, LinearColor ShadowColor, Vector2D ShadowOffset, bool bCentreX, bool bCentreY, bool bOutlined, LinearColor OutlineColor) { Invoke(nameof(K2_DrawText), RenderFont, RenderText, ScreenPosition, Scale, RenderColor, Kerning, ShadowColor, ShadowOffset, bCentreX, bCentreY, bOutlined, OutlineColor); }
         public void K2_DrawPolygon(Texture RenderTexture, Vector2D ScreenPosition, Vector2D Radius, int NumberOfSides, LinearColor RenderColor) { Invoke(nameof(K2_DrawPolygon), RenderTexture, ScreenPosition, Radius, NumberOfSides, RenderColor); }
-        public void K2_DrawMaterialTriangle(MaterialInterface RenderMaterial, Array<CanvasUVTri> Triangles) { Invoke(nameof(K2_DrawMaterialTriangle), RenderMaterial, Triangles); }
+        public void K2_DrawMaterialTriangle(MaterialInterface RenderMaterial, UArray<CanvasUVTri> Triangles) { Invoke(nameof(K2_DrawMaterialTriangle), RenderMaterial, Triangles); }
         public void K2_DrawMaterial(MaterialInterface RenderMaterial, Vector2D ScreenPosition, Vector2D ScreenSize, Vector2D CoordinatePosition, Vector2D CoordinateSize, float Rotation, Vector2D PivotPoint) { Invoke(nameof(K2_DrawMaterial), RenderMaterial, ScreenPosition, ScreenSize, CoordinatePosition, CoordinateSize, Rotation, PivotPoint); }
         public void K2_DrawLine(Vector2D ScreenPositionA, Vector2D ScreenPositionB, float Thickness, LinearColor RenderColor) { Invoke(nameof(K2_DrawLine), ScreenPositionA, ScreenPositionB, Thickness, RenderColor); }
         public void K2_DrawBox(Vector2D ScreenPosition, Vector2D ScreenSize, float Thickness, LinearColor RenderColor) { Invoke(nameof(K2_DrawBox), ScreenPosition, ScreenSize, Thickness, RenderColor); }
@@ -4304,27 +4309,27 @@ namespace SDK.Script.EngineSDK
     public class PlatformInterfaceBase : Object
     {
         public PlatformInterfaceBase(nint addr) : base(addr) { }
-        public Array<DelegateArray> AllDelegates { get { return new Array<DelegateArray>(this[nameof(AllDelegates)].Address); } }
+        public UArray<DelegateArray> AllDelegates { get { return new UArray<DelegateArray>(this[nameof(AllDelegates)].Address); } }
     }
     public class CloudStorageBase : PlatformInterfaceBase
     {
         public CloudStorageBase(nint addr) : base(addr) { }
-        public Array<Object> LocalCloudFiles { get { return new Array<Object>(this[nameof(LocalCloudFiles)].Address); } }
+        public UArray<Object> LocalCloudFiles { get { return new UArray<Object>(this[nameof(LocalCloudFiles)].Address); } }
         public bool bSuppressDelegateCalls { get { return this[nameof(bSuppressDelegateCalls)].Flag; } set { this[nameof(bSuppressDelegateCalls)].Flag = value; } }
     }
     public class CollisionProfile : DeveloperSettings
     {
         public CollisionProfile(nint addr) : base(addr) { }
-        public Array<CollisionResponseTemplate> Profiles { get { return new Array<CollisionResponseTemplate>(this[nameof(Profiles)].Address); } }
-        public Array<CustomChannelSetup> DefaultChannelResponses { get { return new Array<CustomChannelSetup>(this[nameof(DefaultChannelResponses)].Address); } }
-        public Array<CustomProfile> EditProfiles { get { return new Array<CustomProfile>(this[nameof(EditProfiles)].Address); } }
-        public Array<Redirector> ProfileRedirects { get { return new Array<Redirector>(this[nameof(ProfileRedirects)].Address); } }
-        public Array<Redirector> CollisionChannelRedirects { get { return new Array<Redirector>(this[nameof(CollisionChannelRedirects)].Address); } }
+        public UArray<CollisionResponseTemplate> Profiles { get { return new UArray<CollisionResponseTemplate>(this[nameof(Profiles)].Address); } }
+        public UArray<CustomChannelSetup> DefaultChannelResponses { get { return new UArray<CustomChannelSetup>(this[nameof(DefaultChannelResponses)].Address); } }
+        public UArray<CustomProfile> EditProfiles { get { return new UArray<CustomProfile>(this[nameof(EditProfiles)].Address); } }
+        public UArray<Redirector> ProfileRedirects { get { return new UArray<Redirector>(this[nameof(ProfileRedirects)].Address); } }
+        public UArray<Redirector> CollisionChannelRedirects { get { return new UArray<Redirector>(this[nameof(CollisionChannelRedirects)].Address); } }
     }
     public class ComponentDelegateBinding : DynamicBlueprintBinding
     {
         public ComponentDelegateBinding(nint addr) : base(addr) { }
-        public Array<BlueprintComponentDelegateBinding> ComponentDelegateBindings { get { return new Array<BlueprintComponentDelegateBinding>(this[nameof(ComponentDelegateBindings)].Address); } }
+        public UArray<BlueprintComponentDelegateBinding> ComponentDelegateBindings { get { return new UArray<BlueprintComponentDelegateBinding>(this[nameof(ComponentDelegateBindings)].Address); } }
     }
     public class ActorComponentInstanceDataTransientOuter : Object
     {
@@ -4337,8 +4342,8 @@ namespace SDK.Script.EngineSDK
     public class CompositeCurveTable : CurveTable
     {
         public CompositeCurveTable(nint addr) : base(addr) { }
-        public Array<CurveTable> ParentTables { get { return new Array<CurveTable>(this[nameof(ParentTables)].Address); } }
-        public Array<CurveTable> OldParentTables { get { return new Array<CurveTable>(this[nameof(OldParentTables)].Address); } }
+        public UArray<CurveTable> ParentTables { get { return new UArray<CurveTable>(this[nameof(ParentTables)].Address); } }
+        public UArray<CurveTable> OldParentTables { get { return new UArray<CurveTable>(this[nameof(OldParentTables)].Address); } }
     }
     public class DataTable : Object
     {
@@ -4352,8 +4357,8 @@ namespace SDK.Script.EngineSDK
     public class CompositeDataTable : DataTable
     {
         public CompositeDataTable(nint addr) : base(addr) { }
-        public Array<DataTable> ParentTables { get { return new Array<DataTable>(this[nameof(ParentTables)].Address); } }
-        public Array<DataTable> OldParentTables { get { return new Array<DataTable>(this[nameof(OldParentTables)].Address); } }
+        public UArray<DataTable> ParentTables { get { return new UArray<DataTable>(this[nameof(ParentTables)].Address); } }
+        public UArray<DataTable> OldParentTables { get { return new UArray<DataTable>(this[nameof(OldParentTables)].Address); } }
     }
     public class Engine : Object
     {
@@ -4368,8 +4373,8 @@ namespace SDK.Script.EngineSDK
         public SoftObjectPath LargeFontName { get { return this[nameof(LargeFontName)].As<SoftObjectPath>(); } set { this["LargeFontName"] = value; } }
         public Font SubtitleFont { get { return this[nameof(SubtitleFont)].As<Font>(); } set { this["SubtitleFont"] = value; } }
         public SoftObjectPath SubtitleFontName { get { return this[nameof(SubtitleFontName)].As<SoftObjectPath>(); } set { this["SubtitleFontName"] = value; } }
-        public Array<Font> AdditionalFonts { get { return new Array<Font>(this[nameof(AdditionalFonts)].Address); } }
-        public Array<Object> AdditionalFontNames { get { return new Array<Object>(this[nameof(AdditionalFontNames)].Address); } }
+        public UArray<Font> AdditionalFonts { get { return new UArray<Font>(this[nameof(AdditionalFonts)].Address); } }
+        public UArray<Object> AdditionalFontNames { get { return new UArray<Object>(this[nameof(AdditionalFontNames)].Address); } }
         public Object ConsoleClass { get { return this[nameof(ConsoleClass)]; } set { this[nameof(ConsoleClass)] = value; } }
         public SoftClassPath ConsoleClassName { get { return this[nameof(ConsoleClassName)].As<SoftClassPath>(); } set { this["ConsoleClassName"] = value; } }
         public Object GameViewportClientClass { get { return this[nameof(GameViewportClientClass)]; } set { this[nameof(GameViewportClientClass)] = value; } }
@@ -4456,13 +4461,13 @@ namespace SDK.Script.EngineSDK
         public MaterialInstanceDynamic ArrowMaterialYellow { get { return this[nameof(ArrowMaterialYellow)].As<MaterialInstanceDynamic>(); } set { this["ArrowMaterialYellow"] = value; } }
         public SoftObjectPath ArrowMaterialName { get { return this[nameof(ArrowMaterialName)].As<SoftObjectPath>(); } set { this["ArrowMaterialName"] = value; } }
         public LinearColor LightingOnlyBrightness { get { return this[nameof(LightingOnlyBrightness)].As<LinearColor>(); } set { this["LightingOnlyBrightness"] = value; } }
-        public Array<LinearColor> ShaderComplexityColors { get { return new Array<LinearColor>(this[nameof(ShaderComplexityColors)].Address); } }
-        public Array<LinearColor> QuadComplexityColors { get { return new Array<LinearColor>(this[nameof(QuadComplexityColors)].Address); } }
-        public Array<LinearColor> LightComplexityColors { get { return new Array<LinearColor>(this[nameof(LightComplexityColors)].Address); } }
-        public Array<LinearColor> StationaryLightOverlapColors { get { return new Array<LinearColor>(this[nameof(StationaryLightOverlapColors)].Address); } }
-        public Array<LinearColor> LODColorationColors { get { return new Array<LinearColor>(this[nameof(LODColorationColors)].Address); } }
-        public Array<LinearColor> HLODColorationColors { get { return new Array<LinearColor>(this[nameof(HLODColorationColors)].Address); } }
-        public Array<LinearColor> StreamingAccuracyColors { get { return new Array<LinearColor>(this[nameof(StreamingAccuracyColors)].Address); } }
+        public UArray<LinearColor> ShaderComplexityColors { get { return new UArray<LinearColor>(this[nameof(ShaderComplexityColors)].Address); } }
+        public UArray<LinearColor> QuadComplexityColors { get { return new UArray<LinearColor>(this[nameof(QuadComplexityColors)].Address); } }
+        public UArray<LinearColor> LightComplexityColors { get { return new UArray<LinearColor>(this[nameof(LightComplexityColors)].Address); } }
+        public UArray<LinearColor> StationaryLightOverlapColors { get { return new UArray<LinearColor>(this[nameof(StationaryLightOverlapColors)].Address); } }
+        public UArray<LinearColor> LODColorationColors { get { return new UArray<LinearColor>(this[nameof(LODColorationColors)].Address); } }
+        public UArray<LinearColor> HLODColorationColors { get { return new UArray<LinearColor>(this[nameof(HLODColorationColors)].Address); } }
+        public UArray<LinearColor> StreamingAccuracyColors { get { return new UArray<LinearColor>(this[nameof(StreamingAccuracyColors)].Address); } }
         public float MaxPixelShaderAdditiveComplexityCount { get { return this[nameof(MaxPixelShaderAdditiveComplexityCount)].GetValue<float>(); } set { this[nameof(MaxPixelShaderAdditiveComplexityCount)].SetValue<float>(value); } }
         public float MaxES3PixelShaderAdditiveComplexityCount { get { return this[nameof(MaxES3PixelShaderAdditiveComplexityCount)].GetValue<float>(); } set { this[nameof(MaxES3PixelShaderAdditiveComplexityCount)].SetValue<float>(value); } }
         public float MinLightMapDensity { get { return this[nameof(MinLightMapDensity)].GetValue<float>(); } set { this[nameof(MinLightMapDensity)].SetValue<float>(value); } }
@@ -4473,13 +4478,13 @@ namespace SDK.Script.EngineSDK
         public float RenderLightMapDensityColorScale { get { return this[nameof(RenderLightMapDensityColorScale)].GetValue<float>(); } set { this[nameof(RenderLightMapDensityColorScale)].SetValue<float>(value); } }
         public LinearColor LightMapDensityVertexMappedColor { get { return this[nameof(LightMapDensityVertexMappedColor)].As<LinearColor>(); } set { this["LightMapDensityVertexMappedColor"] = value; } }
         public LinearColor LightMapDensitySelectedColor { get { return this[nameof(LightMapDensitySelectedColor)].As<LinearColor>(); } set { this["LightMapDensitySelectedColor"] = value; } }
-        public Array<StatColorMapping> StatColorMappings { get { return new Array<StatColorMapping>(this[nameof(StatColorMappings)].Address); } }
+        public UArray<StatColorMapping> StatColorMappings { get { return new UArray<StatColorMapping>(this[nameof(StatColorMappings)].Address); } }
         public PhysicalMaterial DefaultPhysMaterial { get { return this[nameof(DefaultPhysMaterial)].As<PhysicalMaterial>(); } set { this["DefaultPhysMaterial"] = value; } }
         public SoftObjectPath DefaultPhysMaterialName { get { return this[nameof(DefaultPhysMaterialName)].As<SoftObjectPath>(); } set { this["DefaultPhysMaterialName"] = value; } }
-        public Array<GameNameRedirect> ActiveGameNameRedirects { get { return new Array<GameNameRedirect>(this[nameof(ActiveGameNameRedirects)].Address); } }
-        public Array<ClassRedirect> ActiveClassRedirects { get { return new Array<ClassRedirect>(this[nameof(ActiveClassRedirects)].Address); } }
-        public Array<PluginRedirect> ActivePluginRedirects { get { return new Array<PluginRedirect>(this[nameof(ActivePluginRedirects)].Address); } }
-        public Array<StructRedirect> ActiveStructRedirects { get { return new Array<StructRedirect>(this[nameof(ActiveStructRedirects)].Address); } }
+        public UArray<GameNameRedirect> ActiveGameNameRedirects { get { return new UArray<GameNameRedirect>(this[nameof(ActiveGameNameRedirects)].Address); } }
+        public UArray<ClassRedirect> ActiveClassRedirects { get { return new UArray<ClassRedirect>(this[nameof(ActiveClassRedirects)].Address); } }
+        public UArray<PluginRedirect> ActivePluginRedirects { get { return new UArray<PluginRedirect>(this[nameof(ActivePluginRedirects)].Address); } }
+        public UArray<StructRedirect> ActiveStructRedirects { get { return new UArray<StructRedirect>(this[nameof(ActiveStructRedirects)].Address); } }
         public Texture2D PreIntegratedSkinBRDFTexture { get { return this[nameof(PreIntegratedSkinBRDFTexture)].As<Texture2D>(); } set { this["PreIntegratedSkinBRDFTexture"] = value; } }
         public SoftObjectPath PreIntegratedSkinBRDFTextureName { get { return this[nameof(PreIntegratedSkinBRDFTextureName)].As<SoftObjectPath>(); } set { this["PreIntegratedSkinBRDFTextureName"] = value; } }
         public Texture2D BlueNoiseTexture { get { return this[nameof(BlueNoiseTexture)].As<Texture2D>(); } set { this["BlueNoiseTexture"] = value; } }
@@ -4491,7 +4496,7 @@ namespace SDK.Script.EngineSDK
         public Texture2D LightMapDensityTexture { get { return this[nameof(LightMapDensityTexture)].As<Texture2D>(); } set { this["LightMapDensityTexture"] = value; } }
         public SoftObjectPath LightMapDensityTextureName { get { return this[nameof(LightMapDensityTextureName)].As<SoftObjectPath>(); } set { this["LightMapDensityTextureName"] = value; } }
         public GameViewportClient GameViewport { get { return this[nameof(GameViewport)].As<GameViewportClient>(); } set { this["GameViewport"] = value; } }
-        public Array<Object> DeferredCommands { get { return new Array<Object>(this[nameof(DeferredCommands)].Address); } }
+        public UArray<Object> DeferredCommands { get { return new UArray<Object>(this[nameof(DeferredCommands)].Address); } }
         public float NearClipPlane { get { return this[nameof(NearClipPlane)].GetValue<float>(); } set { this[nameof(NearClipPlane)].SetValue<float>(value); } }
         public bool bSubtitlesEnabled { get { return this[nameof(bSubtitlesEnabled)].Flag; } set { this[nameof(bSubtitlesEnabled)].Flag = value; } }
         public bool bSubtitlesForcedOff { get { return this[nameof(bSubtitlesForcedOff)].Flag; } set { this[nameof(bSubtitlesForcedOff)].Flag = value; } }
@@ -4540,7 +4545,7 @@ namespace SDK.Script.EngineSDK
         public bool bPauseOnLossOfFocus { get { return this[nameof(bPauseOnLossOfFocus)].Flag; } set { this[nameof(bPauseOnLossOfFocus)].Flag = value; } }
         public int MaxParticleResize { get { return this[nameof(MaxParticleResize)].GetValue<int>(); } set { this[nameof(MaxParticleResize)].SetValue<int>(value); } }
         public int MaxParticleResizeWarn { get { return this[nameof(MaxParticleResizeWarn)].GetValue<int>(); } set { this[nameof(MaxParticleResizeWarn)].SetValue<int>(value); } }
-        public Array<DropNoteInfo> PendingDroppedNotes { get { return new Array<DropNoteInfo>(this[nameof(PendingDroppedNotes)].Address); } }
+        public UArray<DropNoteInfo> PendingDroppedNotes { get { return new UArray<DropNoteInfo>(this[nameof(PendingDroppedNotes)].Address); } }
         public float NetClientTicksPerSecond { get { return this[nameof(NetClientTicksPerSecond)].GetValue<float>(); } set { this[nameof(NetClientTicksPerSecond)].SetValue<float>(value); } }
         public float DisplayGamma { get { return this[nameof(DisplayGamma)].GetValue<float>(); } set { this[nameof(DisplayGamma)].SetValue<float>(value); } }
         public float MinDesiredFrameRate { get { return this[nameof(MinDesiredFrameRate)].GetValue<float>(); } set { this[nameof(MinDesiredFrameRate)].SetValue<float>(value); } }
@@ -4561,9 +4566,9 @@ namespace SDK.Script.EngineSDK
         public float SelectionHighlightIntensity { get { return this[nameof(SelectionHighlightIntensity)].GetValue<float>(); } set { this[nameof(SelectionHighlightIntensity)].SetValue<float>(value); } }
         public float BSPSelectionHighlightIntensity { get { return this[nameof(BSPSelectionHighlightIntensity)].GetValue<float>(); } set { this[nameof(BSPSelectionHighlightIntensity)].SetValue<float>(value); } }
         public float SelectionHighlightIntensityBillboards { get { return this[nameof(SelectionHighlightIntensityBillboards)].GetValue<float>(); } set { this[nameof(SelectionHighlightIntensityBillboards)].SetValue<float>(value); } }
-        public Array<NetDriverDefinition> NetDriverDefinitions { get { return new Array<NetDriverDefinition>(this[nameof(NetDriverDefinitions)].Address); } }
-        public Array<Object> ServerActors { get { return new Array<Object>(this[nameof(ServerActors)].Address); } }
-        public Array<Object> RuntimeServerActors { get { return new Array<Object>(this[nameof(RuntimeServerActors)].Address); } }
+        public UArray<NetDriverDefinition> NetDriverDefinitions { get { return new UArray<NetDriverDefinition>(this[nameof(NetDriverDefinitions)].Address); } }
+        public UArray<Object> ServerActors { get { return new UArray<Object>(this[nameof(ServerActors)].Address); } }
+        public UArray<Object> RuntimeServerActors { get { return new UArray<Object>(this[nameof(RuntimeServerActors)].Address); } }
         public float NetErrorLogInterval { get { return this[nameof(NetErrorLogInterval)].GetValue<float>(); } set { this[nameof(NetErrorLogInterval)].SetValue<float>(value); } }
         public bool bStartedLoadMapMovie { get { return this[nameof(bStartedLoadMapMovie)].Flag; } set { this[nameof(bStartedLoadMapMovie)].Flag = value; } }
         public int NextWorldContextHandle { get { return this[nameof(NextWorldContextHandle)].GetValue<int>(); } set { this[nameof(NextWorldContextHandle)].SetValue<int>(value); } }
@@ -4576,7 +4581,7 @@ namespace SDK.Script.EngineSDK
     {
         public GameViewportClient(nint addr) : base(addr) { }
         public Console ViewportConsole { get { return this[nameof(ViewportConsole)].As<Console>(); } set { this["ViewportConsole"] = value; } }
-        public Array<DebugDisplayProperty> DebugProperties { get { return new Array<DebugDisplayProperty>(this[nameof(DebugProperties)].Address); } }
+        public UArray<DebugDisplayProperty> DebugProperties { get { return new UArray<DebugDisplayProperty>(this[nameof(DebugProperties)].Address); } }
         public int MaxSplitscreenPlayers { get { return this[nameof(MaxSplitscreenPlayers)].GetValue<int>(); } set { this[nameof(MaxSplitscreenPlayers)].SetValue<int>(value); } }
         public World World { get { return this[nameof(World)].As<World>(); } set { this["World"] = value; } }
         public GameInstance GameInstance { get { return this[nameof(GameInstance)].As<GameInstance>(); } set { this["GameInstance"] = value; } }
@@ -4590,7 +4595,7 @@ namespace SDK.Script.EngineSDK
         public LocalPlayer ConsoleTargetPlayer { get { return this[nameof(ConsoleTargetPlayer)].As<LocalPlayer>(); } set { this["ConsoleTargetPlayer"] = value; } }
         public Texture2D DefaultTexture_Black { get { return this[nameof(DefaultTexture_Black)].As<Texture2D>(); } set { this["DefaultTexture_Black"] = value; } }
         public Texture2D DefaultTexture_White { get { return this[nameof(DefaultTexture_White)].As<Texture2D>(); } set { this["DefaultTexture_White"] = value; } }
-        public Array<Object> HistoryBuffer { get { return new Array<Object>(this[nameof(HistoryBuffer)].Address); } }
+        public UArray<Object> HistoryBuffer { get { return new UArray<Object>(this[nameof(HistoryBuffer)].Address); } }
     }
     public class ControlChannel : Channel
     {
@@ -4639,7 +4644,7 @@ namespace SDK.Script.EngineSDK
     public class CullDistanceVolume : Volume
     {
         public CullDistanceVolume(nint addr) : base(addr) { }
-        public Array<CullDistanceSizePair> CullDistances { get { return new Array<CullDistanceSizePair>(this[nameof(CullDistances)].Address); } }
+        public UArray<CullDistanceSizePair> CullDistances { get { return new UArray<CullDistanceSizePair>(this[nameof(CullDistances)].Address); } }
         public bool bEnabled { get { return this[nameof(bEnabled)].Flag; } set { this[nameof(bEnabled)].Flag = value; } }
     }
     public class CurveBase : Object
@@ -4692,14 +4697,14 @@ namespace SDK.Script.EngineSDK
         public uint TextureSize { get { return this[nameof(TextureSize)].GetValue<uint>(); } set { this[nameof(TextureSize)].SetValue<uint>(value); } }
         public bool bSquareResolution { get { return this[nameof(bSquareResolution)].Flag; } set { this[nameof(bSquareResolution)].Flag = value; } }
         public uint TextureHeight { get { return this[nameof(TextureHeight)].GetValue<uint>(); } set { this[nameof(TextureHeight)].SetValue<uint>(value); } }
-        public Array<CurveLinearColor> GradientCurves { get { return new Array<CurveLinearColor>(this[nameof(GradientCurves)].Address); } }
+        public UArray<CurveLinearColor> GradientCurves { get { return new UArray<CurveLinearColor>(this[nameof(GradientCurves)].Address); } }
         public bool GetCurvePosition(CurveLinearColor InCurve, float Position) { return Invoke<bool>(nameof(GetCurvePosition), InCurve, Position); }
     }
     public class CurveSourceInterface : Interface
     {
         public CurveSourceInterface(nint addr) : base(addr) { }
         public float GetCurveValue(Object CurveName) { return Invoke<float>(nameof(GetCurveValue), CurveName); }
-        public void GetCurves(Array<NamedCurveValue> OutValues) { Invoke(nameof(GetCurves), OutValues); }
+        public void GetCurves(UArray<NamedCurveValue> OutValues) { Invoke(nameof(GetCurves), OutValues); }
         public Object GetBindingName() { return Invoke<Object>(nameof(GetBindingName)); }
     }
     public class CurveVector : CurveBase
@@ -4727,14 +4732,14 @@ namespace SDK.Script.EngineSDK
     public class DataDrivenConsoleVariableSettings : DeveloperSettings
     {
         public DataDrivenConsoleVariableSettings(nint addr) : base(addr) { }
-        public Array<DataDrivenConsoleVariable> CVarsArray { get { return new Array<DataDrivenConsoleVariable>(this[nameof(CVarsArray)].Address); } }
+        public UArray<DataDrivenConsoleVariable> CVarsArray { get { return new UArray<DataDrivenConsoleVariable>(this[nameof(CVarsArray)].Address); } }
     }
     public class DataTableFunctionLibrary : BlueprintFunctionLibrary
     {
         public DataTableFunctionLibrary(nint addr) : base(addr) { }
-        public void GetDataTableRowNames(DataTable Table, Array<Object> OutRowNames) { Invoke(nameof(GetDataTableRowNames), Table, OutRowNames); }
+        public void GetDataTableRowNames(DataTable Table, UArray<Object> OutRowNames) { Invoke(nameof(GetDataTableRowNames), Table, OutRowNames); }
         public bool GetDataTableRowFromName(DataTable Table, Object RowName, TableRowBase OutRow) { return Invoke<bool>(nameof(GetDataTableRowFromName), Table, RowName, OutRow); }
-        public Array<Object> GetDataTableColumnAsString(DataTable DataTable, Object PropertyName) { return Invoke<Array<Object>>(nameof(GetDataTableColumnAsString), DataTable, PropertyName); }
+        public UArray<Object> GetDataTableColumnAsString(DataTable DataTable, Object PropertyName) { return Invoke<UArray<Object>>(nameof(GetDataTableColumnAsString), DataTable, PropertyName); }
         public void EvaluateCurveTableRow(CurveTable CurveTable, Object RowName, float InXY, byte OutResult, float OutXY, Object ContextString) { Invoke(nameof(EvaluateCurveTableRow), CurveTable, RowName, InXY, OutResult, OutXY, ContextString); }
         public bool DoesDataTableRowExist(DataTable Table, Object RowName) { return Invoke<bool>(nameof(DoesDataTableRowExist), Table, RowName); }
     }
@@ -4770,7 +4775,7 @@ namespace SDK.Script.EngineSDK
     public class DebugCameraControllerSettings : DeveloperSettings
     {
         public DebugCameraControllerSettings(nint addr) : base(addr) { }
-        public Array<DebugCameraControllerSettingsViewModeIndex> CycleViewModes { get { return new Array<DebugCameraControllerSettingsViewModeIndex>(this[nameof(CycleViewModes)].Address); } }
+        public UArray<DebugCameraControllerSettingsViewModeIndex> CycleViewModes { get { return new UArray<DebugCameraControllerSettingsViewModeIndex>(this[nameof(CycleViewModes)].Address); } }
     }
     public class DebugCameraHUD : HUD
     {
@@ -4849,9 +4854,9 @@ namespace SDK.Script.EngineSDK
         public DemoNetDriver(nint addr) : base(addr) { }
         public Object RollbackNetStartupActors { get { return this[nameof(RollbackNetStartupActors)]; } set { this[nameof(RollbackNetStartupActors)] = value; } }
         public float CheckpointSaveMaxMSPerFrame { get { return this[nameof(CheckpointSaveMaxMSPerFrame)].GetValue<float>(); } set { this[nameof(CheckpointSaveMaxMSPerFrame)].SetValue<float>(value); } }
-        public Array<MulticastRecordOptions> MulticastRecordOptions { get { return new Array<MulticastRecordOptions>(this[nameof(MulticastRecordOptions)].Address); } }
+        public UArray<MulticastRecordOptions> MulticastRecordOptions { get { return new UArray<MulticastRecordOptions>(this[nameof(MulticastRecordOptions)].Address); } }
         public bool bIsLocalReplay { get { return this[nameof(bIsLocalReplay)].Flag; } set { this[nameof(bIsLocalReplay)].Flag = value; } }
-        public Array<PlayerController> SpectatorControllers { get { return new Array<PlayerController>(this[nameof(SpectatorControllers)].Address); } }
+        public UArray<PlayerController> SpectatorControllers { get { return new UArray<PlayerController>(this[nameof(SpectatorControllers)].Address); } }
     }
     public class PendingNetGame : Object
     {
@@ -4870,7 +4875,7 @@ namespace SDK.Script.EngineSDK
     public class TextureLODSettings : Object
     {
         public TextureLODSettings(nint addr) : base(addr) { }
-        public Array<TextureLODGroup> TextureLODGroups { get { return new Array<TextureLODGroup>(this[nameof(TextureLODGroups)].Address); } }
+        public UArray<TextureLODGroup> TextureLODGroups { get { return new UArray<TextureLODGroup>(this[nameof(TextureLODGroups)].Address); } }
     }
     public class DeviceProfile : TextureLODSettings
     {
@@ -4878,7 +4883,7 @@ namespace SDK.Script.EngineSDK
         public Object DeviceType { get { return this[nameof(DeviceType)]; } set { this[nameof(DeviceType)] = value; } }
         public Object BaseProfileName { get { return this[nameof(BaseProfileName)]; } set { this[nameof(BaseProfileName)] = value; } }
         public Object Parent { get { return this[nameof(Parent)].As<Object>(); } set { this["Parent"] = value; } }
-        public Array<Object> CVars { get { return new Array<Object>(this[nameof(CVars)].Address); } }
+        public UArray<Object> CVars { get { return new UArray<Object>(this[nameof(CVars)].Address); } }
     }
     public class DeviceProfileFragment : Object
     {
@@ -4887,7 +4892,7 @@ namespace SDK.Script.EngineSDK
     public class DeviceProfileManager : Object
     {
         public DeviceProfileManager(nint addr) : base(addr) { }
-        public Array<Object> Profiles { get { return new Array<Object>(this[nameof(Profiles)].Address); } }
+        public UArray<Object> Profiles { get { return new UArray<Object>(this[nameof(Profiles)].Address); } }
     }
     public class DialogueSoundWaveProxy : SoundBase
     {
@@ -4907,7 +4912,7 @@ namespace SDK.Script.EngineSDK
         public bool bOverride_SubtitleOverride { get { return this[nameof(bOverride_SubtitleOverride)].Flag; } set { this[nameof(bOverride_SubtitleOverride)].Flag = value; } }
         public Object SpokenText { get { return this[nameof(SpokenText)]; } set { this[nameof(SpokenText)] = value; } }
         public Object SubtitleOverride { get { return this[nameof(SubtitleOverride)]; } set { this[nameof(SubtitleOverride)] = value; } }
-        public Array<DialogueContextMapping> ContextMappings { get { return new Array<DialogueContextMapping>(this[nameof(ContextMappings)].Address); } }
+        public UArray<DialogueContextMapping> ContextMappings { get { return new UArray<DialogueContextMapping>(this[nameof(ContextMappings)].Address); } }
         public Guid LocalizationGUID { get { return this[nameof(LocalizationGUID)].As<Guid>(); } set { this["LocalizationGUID"] = value; } }
     }
     public class Light : Actor
@@ -5110,7 +5115,7 @@ namespace SDK.Script.EngineSDK
     {
         public EdGraph(nint addr) : base(addr) { }
         public Object Schema { get { return this[nameof(Schema)]; } set { this[nameof(Schema)] = value; } }
-        public Array<EdGraphNode> Nodes { get { return new Array<EdGraphNode>(this[nameof(Nodes)].Address); } }
+        public UArray<EdGraphNode> Nodes { get { return new UArray<EdGraphNode>(this[nameof(Nodes)].Address); } }
         public bool bEditable { get { return this[nameof(bEditable)].Flag; } set { this[nameof(bEditable)].Flag = value; } }
         public bool bAllowDeletion { get { return this[nameof(bAllowDeletion)].Flag; } set { this[nameof(bAllowDeletion)].Flag = value; } }
         public bool bAllowRenaming { get { return this[nameof(bAllowRenaming)].Flag; } set { this[nameof(bAllowRenaming)].Flag = value; } }
@@ -5126,7 +5131,7 @@ namespace SDK.Script.EngineSDK
     public class EdGraphNode : Object
     {
         public EdGraphNode(nint addr) : base(addr) { }
-        public Array<EdGraphPin_Deprecated> DeprecatedPins { get { return new Array<EdGraphPin_Deprecated>(this[nameof(DeprecatedPins)].Address); } }
+        public UArray<EdGraphPin_Deprecated> DeprecatedPins { get { return new UArray<EdGraphPin_Deprecated>(this[nameof(DeprecatedPins)].Address); } }
         public int NodePosX { get { return this[nameof(NodePosX)].GetValue<int>(); } set { this[nameof(NodePosX)].SetValue<int>(value); } }
         public int NodePosY { get { return this[nameof(NodePosY)].GetValue<int>(); } set { this[nameof(NodePosY)].SetValue<int>(value); } }
         public int NodeWidth { get { return this[nameof(NodeWidth)].GetValue<int>(); } set { this[nameof(NodeWidth)].SetValue<int>(value); } }
@@ -5159,8 +5164,8 @@ namespace SDK.Script.EngineSDK
         public Object AutogeneratedDefaultValue { get { return this[nameof(AutogeneratedDefaultValue)]; } set { this[nameof(AutogeneratedDefaultValue)] = value; } }
         public Object DefaultObject { get { return this[nameof(DefaultObject)].As<Object>(); } set { this["DefaultObject"] = value; } }
         public Object DefaultTextValue { get { return this[nameof(DefaultTextValue)]; } set { this[nameof(DefaultTextValue)] = value; } }
-        public Array<EdGraphPin_Deprecated> LinkedTo { get { return new Array<EdGraphPin_Deprecated>(this[nameof(LinkedTo)].Address); } }
-        public Array<EdGraphPin_Deprecated> SubPins { get { return new Array<EdGraphPin_Deprecated>(this[nameof(SubPins)].Address); } }
+        public UArray<EdGraphPin_Deprecated> LinkedTo { get { return new UArray<EdGraphPin_Deprecated>(this[nameof(LinkedTo)].Address); } }
+        public UArray<EdGraphPin_Deprecated> SubPins { get { return new UArray<EdGraphPin_Deprecated>(this[nameof(SubPins)].Address); } }
         public EdGraphPin_Deprecated ParentPin { get { return this[nameof(ParentPin)].As<EdGraphPin_Deprecated>(); } set { this["ParentPin"] = value; } }
         public EdGraphPin_Deprecated ReferencePassThroughConnection { get { return this[nameof(ReferencePassThroughConnection)].As<EdGraphPin_Deprecated>(); } set { this["ReferencePassThroughConnection"] = value; } }
     }
@@ -5202,7 +5207,7 @@ namespace SDK.Script.EngineSDK
         public float BaseFOV { get { return this[nameof(BaseFOV)].GetValue<float>(); } set { this[nameof(BaseFOV)].SetValue<float>(value); } }
         public bool bAllowMultipleInstances { get { return this[nameof(bAllowMultipleInstances)].Flag; } set { this[nameof(bAllowMultipleInstances)].Flag = value; } }
         public bool bResetWhenRetriggered { get { return this[nameof(bResetWhenRetriggered)].Flag; } set { this[nameof(bResetWhenRetriggered)].Flag = value; } }
-        public Array<Object> EmittersToTreatAsSame { get { return new Array<Object>(this[nameof(EmittersToTreatAsSame)].Address); } }
+        public UArray<Object> EmittersToTreatAsSame { get { return new UArray<Object>(this[nameof(EmittersToTreatAsSame)].Address); } }
         public float DistFromCamera { get { return this[nameof(DistFromCamera)].GetValue<float>(); } set { this[nameof(DistFromCamera)].SetValue<float>(value); } }
     }
     public class ViewModeUtils : Object
@@ -5296,8 +5301,8 @@ namespace SDK.Script.EngineSDK
         public Exporter(nint addr) : base(addr) { }
         public Object SupportedClass { get { return this[nameof(SupportedClass)]; } set { this[nameof(SupportedClass)] = value; } }
         public Object ExportRootScope { get { return this[nameof(ExportRootScope)].As<Object>(); } set { this["ExportRootScope"] = value; } }
-        public Array<Object> FormatExtension { get { return new Array<Object>(this[nameof(FormatExtension)].Address); } }
-        public Array<Object> FormatDescription { get { return new Array<Object>(this[nameof(FormatDescription)].Address); } }
+        public UArray<Object> FormatExtension { get { return new UArray<Object>(this[nameof(FormatExtension)].Address); } }
+        public UArray<Object> FormatDescription { get { return new UArray<Object>(this[nameof(FormatDescription)].Address); } }
         public int PreferredFormatIndex { get { return this[nameof(PreferredFormatIndex)].GetValue<int>(); } set { this[nameof(PreferredFormatIndex)].SetValue<int>(value); } }
         public int TextIndent { get { return this[nameof(TextIndent)].GetValue<int>(); } set { this[nameof(TextIndent)].SetValue<int>(value); } }
         public bool bText { get { return this[nameof(bText)].Flag; } set { this[nameof(bText)].Flag = value; } }
@@ -5305,7 +5310,7 @@ namespace SDK.Script.EngineSDK
         public bool bForceFileOperations { get { return this[nameof(bForceFileOperations)].Flag; } set { this[nameof(bForceFileOperations)].Flag = value; } }
         public AssetExportTask ExportTask { get { return this[nameof(ExportTask)].As<AssetExportTask>(); } set { this["ExportTask"] = value; } }
         public bool ScriptRunAssetExportTask(AssetExportTask Task) { return Invoke<bool>(nameof(ScriptRunAssetExportTask), Task); }
-        public bool RunAssetExportTasks(Array<AssetExportTask> ExportTasks) { return Invoke<bool>(nameof(RunAssetExportTasks), ExportTasks); }
+        public bool RunAssetExportTasks(UArray<AssetExportTask> ExportTasks) { return Invoke<bool>(nameof(RunAssetExportTasks), ExportTasks); }
         public bool RunAssetExportTask(AssetExportTask Task) { return Invoke<bool>(nameof(RunAssetExportTask), Task); }
     }
     public class FloatingPawnMovement : PawnMovementComponent
@@ -5321,8 +5326,8 @@ namespace SDK.Script.EngineSDK
     {
         public Font(nint addr) : base(addr) { }
         public EFontCacheType FontCacheType { get { return (EFontCacheType)this[nameof(FontCacheType)].GetValue<int>(); } set { this[nameof(FontCacheType)].SetValue<int>((int)value); } }
-        public Array<FontCharacter> Characters { get { return new Array<FontCharacter>(this[nameof(Characters)].Address); } }
-        public Array<Texture2D> Textures { get { return new Array<Texture2D>(this[nameof(Textures)].Address); } }
+        public UArray<FontCharacter> Characters { get { return new UArray<FontCharacter>(this[nameof(Characters)].Address); } }
+        public UArray<Texture2D> Textures { get { return new UArray<Texture2D>(this[nameof(Textures)].Address); } }
         public int IsRemapped { get { return this[nameof(IsRemapped)].GetValue<int>(); } set { this[nameof(IsRemapped)].SetValue<int>(value); } }
         public float EmScale { get { return this[nameof(EmScale)].GetValue<float>(); } set { this[nameof(EmScale)].SetValue<float>(value); } }
         public float Ascent { get { return this[nameof(Ascent)].GetValue<float>(); } set { this[nameof(Ascent)].SetValue<float>(value); } }
@@ -5331,7 +5336,7 @@ namespace SDK.Script.EngineSDK
         public int Kerning { get { return this[nameof(Kerning)].GetValue<int>(); } set { this[nameof(Kerning)].SetValue<int>(value); } }
         public FontImportOptionsData ImportOptions { get { return this[nameof(ImportOptions)].As<FontImportOptionsData>(); } set { this["ImportOptions"] = value; } }
         public int NumCharacters { get { return this[nameof(NumCharacters)].GetValue<int>(); } set { this[nameof(NumCharacters)].SetValue<int>(value); } }
-        public Array<int> MaxCharHeight { get { return new Array<int>(this[nameof(MaxCharHeight)].Address); } }
+        public UArray<int> MaxCharHeight { get { return new UArray<int>(this[nameof(MaxCharHeight)].Address); } }
         public float ScalingFactor { get { return this[nameof(ScalingFactor)].GetValue<float>(); } set { this[nameof(ScalingFactor)].SetValue<float>(value); } }
         public int LegacyFontSize { get { return this[nameof(LegacyFontSize)].GetValue<int>(); } set { this[nameof(LegacyFontSize)].SetValue<int>(value); } }
         public Object LegacyFontName { get { return this[nameof(LegacyFontName)]; } set { this[nameof(LegacyFontName)] = value; } }
@@ -5378,7 +5383,7 @@ namespace SDK.Script.EngineSDK
     public class ForceFeedbackEffect : Object
     {
         public ForceFeedbackEffect(nint addr) : base(addr) { }
-        public Array<ForceFeedbackChannelDetails> ChannelDetails { get { return new Array<ForceFeedbackChannelDetails>(this[nameof(ChannelDetails)].Address); } }
+        public UArray<ForceFeedbackChannelDetails> ChannelDetails { get { return new UArray<ForceFeedbackChannelDetails>(this[nameof(ChannelDetails)].Address); } }
         public float Duration { get { return this[nameof(Duration)].GetValue<float>(); } set { this[nameof(Duration)].SetValue<float>(value); } }
     }
     public class GameEngine : Engine
@@ -5525,17 +5530,17 @@ namespace SDK.Script.EngineSDK
         public Object GetCurrentLevelName(Object WorldContextObject, bool bRemovePrefixString) { return Invoke<Object>(nameof(GetCurrentLevelName), WorldContextObject, bRemovePrefixString); }
         public bool GetClosestListenerLocation(Object WorldContextObject, Vector Location, float MaximumRange, bool bAllowAttenuationOverride, Vector ListenerPosition) { return Invoke<bool>(nameof(GetClosestListenerLocation), WorldContextObject, Location, MaximumRange, bAllowAttenuationOverride, ListenerPosition); }
         public float GetAudioTimeSeconds(Object WorldContextObject) { return Invoke<float>(nameof(GetAudioTimeSeconds), WorldContextObject); }
-        public void GetAllActorsWithTag(Object WorldContextObject, Object Tag, Array<Actor> OutActors) { Invoke(nameof(GetAllActorsWithTag), WorldContextObject, Tag, OutActors); }
-        public void GetAllActorsWithInterface(Object WorldContextObject, Object Interface, Array<Actor> OutActors) { Invoke(nameof(GetAllActorsWithInterface), WorldContextObject, Interface, OutActors); }
-        public void GetAllActorsOfClassWithTag(Object WorldContextObject, Object actorClass, Object Tag, Array<Actor> OutActors) { Invoke(nameof(GetAllActorsOfClassWithTag), WorldContextObject, actorClass, Tag, OutActors); }
-        public void GetAllActorsOfClass(Object WorldContextObject, Object actorClass, Array<Actor> OutActors) { Invoke(nameof(GetAllActorsOfClass), WorldContextObject, actorClass, OutActors); }
+        public void GetAllActorsWithTag(Object WorldContextObject, Object Tag, UArray<Actor> OutActors) { Invoke(nameof(GetAllActorsWithTag), WorldContextObject, Tag, OutActors); }
+        public void GetAllActorsWithInterface(Object WorldContextObject, Object Interface, UArray<Actor> OutActors) { Invoke(nameof(GetAllActorsWithInterface), WorldContextObject, Interface, OutActors); }
+        public void GetAllActorsOfClassWithTag(Object WorldContextObject, Object actorClass, Object Tag, UArray<Actor> OutActors) { Invoke(nameof(GetAllActorsOfClassWithTag), WorldContextObject, actorClass, Tag, OutActors); }
+        public void GetAllActorsOfClass(Object WorldContextObject, Object actorClass, UArray<Actor> OutActors) { Invoke(nameof(GetAllActorsOfClass), WorldContextObject, actorClass, OutActors); }
         public Actor GetActorOfClass(Object WorldContextObject, Object actorClass) { return Invoke<Actor>(nameof(GetActorOfClass), WorldContextObject, actorClass); }
-        public void GetActorArrayBounds(Array<Actor> Actors, bool bOnlyCollidingComponents, Vector Center, Vector BoxExtent) { Invoke(nameof(GetActorArrayBounds), Actors, bOnlyCollidingComponents, Center, BoxExtent); }
-        public Vector GetActorArrayAverageLocation(Array<Actor> Actors) { return Invoke<Vector>(nameof(GetActorArrayAverageLocation), Actors); }
+        public void GetActorArrayBounds(UArray<Actor> Actors, bool bOnlyCollidingComponents, Vector Center, Vector BoxExtent) { Invoke(nameof(GetActorArrayBounds), Actors, bOnlyCollidingComponents, Center, BoxExtent); }
+        public Vector GetActorArrayAverageLocation(UArray<Actor> Actors) { return Invoke<Vector>(nameof(GetActorArrayAverageLocation), Actors); }
         public void GetAccurateRealTime(int Seconds, float PartialSeconds) { Invoke(nameof(GetAccurateRealTime), Seconds, PartialSeconds); }
         public void FlushLevelStreaming(Object WorldContextObject) { Invoke(nameof(FlushLevelStreaming), WorldContextObject); }
         public Actor FinishSpawningActor(Actor Actor, Transform SpawnTransform) { return Invoke<Actor>(nameof(FinishSpawningActor), Actor, SpawnTransform); }
-        public Actor FindNearestActor(Vector Origin, Array<Actor> ActorsToCheck, float Distance) { return Invoke<Actor>(nameof(FindNearestActor), Origin, ActorsToCheck, Distance); }
+        public Actor FindNearestActor(Vector Origin, UArray<Actor> ActorsToCheck, float Distance) { return Invoke<Actor>(nameof(FindNearestActor), Origin, ActorsToCheck, Distance); }
         public bool FindCollisionUV(HitResult Hit, int UVChannel, Vector2D UV) { return Invoke<bool>(nameof(FindCollisionUV), Hit, UVChannel, UV); }
         public void EnableLiveStreaming(bool enable) { Invoke(nameof(EnableLiveStreaming), enable); }
         public bool DoesSaveGameExist(Object slotName, int UserIndex) { return Invoke<bool>(nameof(DoesSaveGameExist), slotName, UserIndex); }
@@ -5550,16 +5555,16 @@ namespace SDK.Script.EngineSDK
         public void CancelAsyncLoading() { Invoke(nameof(CancelAsyncLoading)); }
         public void BreakHitResult(HitResult Hit, bool bBlockingHit, bool bInitialOverlap, float Time, float Distance, Vector Location, Vector ImpactPoint, Vector Normal, Vector ImpactNormal, PhysicalMaterial PhysMat, Actor hitActor, PrimitiveComponent HitComponent, Object HitBoneName, int HitItem, int ElementIndex, int FaceIndex, Vector TraceStart, Vector TraceEnd) { Invoke(nameof(BreakHitResult), Hit, bBlockingHit, bInitialOverlap, Time, Distance, Location, ImpactPoint, Normal, ImpactNormal, PhysMat, hitActor, HitComponent, HitBoneName, HitItem, ElementIndex, FaceIndex, TraceStart, TraceEnd); }
         public bool BlueprintSuggestProjectileVelocity(Object WorldContextObject, Vector TossVelocity, Vector StartLocation, Vector EndLocation, float LaunchSpeed, float OverrideGravityZ, byte TraceOption, float CollisionRadius, bool bFavorHighArc, bool bDrawDebug) { return Invoke<bool>(nameof(BlueprintSuggestProjectileVelocity), WorldContextObject, TossVelocity, StartLocation, EndLocation, LaunchSpeed, OverrideGravityZ, TraceOption, CollisionRadius, bFavorHighArc, bDrawDebug); }
-        public bool Blueprint_PredictProjectilePath_ByTraceChannel(Object WorldContextObject, HitResult OutHit, Array<Vector> OutPathPositions, Vector OutLastTraceDestination, Vector StartPos, Vector LaunchVelocity, bool bTracePath, float ProjectileRadius, byte TraceChannel, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, float DrawDebugTime, float SimFrequency, float MaxSimTime, float OverrideGravityZ) { return Invoke<bool>(nameof(Blueprint_PredictProjectilePath_ByTraceChannel), WorldContextObject, OutHit, OutPathPositions, OutLastTraceDestination, StartPos, LaunchVelocity, bTracePath, ProjectileRadius, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, DrawDebugTime, SimFrequency, MaxSimTime, OverrideGravityZ); }
-        public bool Blueprint_PredictProjectilePath_ByObjectType(Object WorldContextObject, HitResult OutHit, Array<Vector> OutPathPositions, Vector OutLastTraceDestination, Vector StartPos, Vector LaunchVelocity, bool bTracePath, float ProjectileRadius, Array<byte> ObjectTypes, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, float DrawDebugTime, float SimFrequency, float MaxSimTime, float OverrideGravityZ) { return Invoke<bool>(nameof(Blueprint_PredictProjectilePath_ByObjectType), WorldContextObject, OutHit, OutPathPositions, OutLastTraceDestination, StartPos, LaunchVelocity, bTracePath, ProjectileRadius, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, DrawDebugTime, SimFrequency, MaxSimTime, OverrideGravityZ); }
+        public bool Blueprint_PredictProjectilePath_ByTraceChannel(Object WorldContextObject, HitResult OutHit, UArray<Vector> OutPathPositions, Vector OutLastTraceDestination, Vector StartPos, Vector LaunchVelocity, bool bTracePath, float ProjectileRadius, byte TraceChannel, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, float DrawDebugTime, float SimFrequency, float MaxSimTime, float OverrideGravityZ) { return Invoke<bool>(nameof(Blueprint_PredictProjectilePath_ByTraceChannel), WorldContextObject, OutHit, OutPathPositions, OutLastTraceDestination, StartPos, LaunchVelocity, bTracePath, ProjectileRadius, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, DrawDebugTime, SimFrequency, MaxSimTime, OverrideGravityZ); }
+        public bool Blueprint_PredictProjectilePath_ByObjectType(Object WorldContextObject, HitResult OutHit, UArray<Vector> OutPathPositions, Vector OutLastTraceDestination, Vector StartPos, Vector LaunchVelocity, bool bTracePath, float ProjectileRadius, UArray<byte> ObjectTypes, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, float DrawDebugTime, float SimFrequency, float MaxSimTime, float OverrideGravityZ) { return Invoke<bool>(nameof(Blueprint_PredictProjectilePath_ByObjectType), WorldContextObject, OutHit, OutPathPositions, OutLastTraceDestination, StartPos, LaunchVelocity, bTracePath, ProjectileRadius, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, DrawDebugTime, SimFrequency, MaxSimTime, OverrideGravityZ); }
         public bool Blueprint_PredictProjectilePath_Advanced(Object WorldContextObject, PredictProjectilePathParams PredictParams, PredictProjectilePathResult PredictResult) { return Invoke<bool>(nameof(Blueprint_PredictProjectilePath_Advanced), WorldContextObject, PredictParams, PredictResult); }
         public Actor BeginSpawningActorFromClass(Object WorldContextObject, Object actorClass, Transform SpawnTransform, bool bNoCollisionFail, Actor Owner) { return Invoke<Actor>(nameof(BeginSpawningActorFromClass), WorldContextObject, actorClass, SpawnTransform, bNoCollisionFail, Owner); }
         public Actor BeginSpawningActorFromBlueprint(Object WorldContextObject, Blueprint Blueprint, Transform SpawnTransform, bool bNoCollisionFail) { return Invoke<Actor>(nameof(BeginSpawningActorFromBlueprint), WorldContextObject, Blueprint, SpawnTransform, bNoCollisionFail); }
         public Actor BeginDeferredActorSpawnFromClass(Object WorldContextObject, Object actorClass, Transform SpawnTransform, ESpawnActorCollisionHandlingMethod CollisionHandlingOverride, Actor Owner) { return Invoke<Actor>(nameof(BeginDeferredActorSpawnFromClass), WorldContextObject, actorClass, SpawnTransform, CollisionHandlingOverride, Owner); }
         public bool AreSubtitlesEnabled() { return Invoke<bool>(nameof(AreSubtitlesEnabled)); }
         public bool AreAnyListenersWithinRange(Object WorldContextObject, Vector Location, float MaximumRange) { return Invoke<bool>(nameof(AreAnyListenersWithinRange), WorldContextObject, Location, MaximumRange); }
-        public bool ApplyRadialDamageWithFalloff(Object WorldContextObject, float BaseDamage, float MinimumDamage, Vector Origin, float DamageInnerRadius, float DamageOuterRadius, float DamageFalloff, Object DamageTypeClass, Array<Actor> IgnoreActors, Actor DamageCauser, Controller InstigatedByController, byte DamagePreventionChannel) { return Invoke<bool>(nameof(ApplyRadialDamageWithFalloff), WorldContextObject, BaseDamage, MinimumDamage, Origin, DamageInnerRadius, DamageOuterRadius, DamageFalloff, DamageTypeClass, IgnoreActors, DamageCauser, InstigatedByController, DamagePreventionChannel); }
-        public bool ApplyRadialDamage(Object WorldContextObject, float BaseDamage, Vector Origin, float DamageRadius, Object DamageTypeClass, Array<Actor> IgnoreActors, Actor DamageCauser, Controller InstigatedByController, bool bDoFullDamage, byte DamagePreventionChannel) { return Invoke<bool>(nameof(ApplyRadialDamage), WorldContextObject, BaseDamage, Origin, DamageRadius, DamageTypeClass, IgnoreActors, DamageCauser, InstigatedByController, bDoFullDamage, DamagePreventionChannel); }
+        public bool ApplyRadialDamageWithFalloff(Object WorldContextObject, float BaseDamage, float MinimumDamage, Vector Origin, float DamageInnerRadius, float DamageOuterRadius, float DamageFalloff, Object DamageTypeClass, UArray<Actor> IgnoreActors, Actor DamageCauser, Controller InstigatedByController, byte DamagePreventionChannel) { return Invoke<bool>(nameof(ApplyRadialDamageWithFalloff), WorldContextObject, BaseDamage, MinimumDamage, Origin, DamageInnerRadius, DamageOuterRadius, DamageFalloff, DamageTypeClass, IgnoreActors, DamageCauser, InstigatedByController, DamagePreventionChannel); }
+        public bool ApplyRadialDamage(Object WorldContextObject, float BaseDamage, Vector Origin, float DamageRadius, Object DamageTypeClass, UArray<Actor> IgnoreActors, Actor DamageCauser, Controller InstigatedByController, bool bDoFullDamage, byte DamagePreventionChannel) { return Invoke<bool>(nameof(ApplyRadialDamage), WorldContextObject, BaseDamage, Origin, DamageRadius, DamageTypeClass, IgnoreActors, DamageCauser, InstigatedByController, bDoFullDamage, DamagePreventionChannel); }
         public float ApplyPointDamage(Actor DamagedActor, float BaseDamage, Vector HitFromDirection, HitResult HitInfo, Controller EventInstigator, Actor DamageCauser, Object DamageTypeClass) { return Invoke<float>(nameof(ApplyPointDamage), DamagedActor, BaseDamage, HitFromDirection, HitInfo, EventInstigator, DamageCauser, DamageTypeClass); }
         public float ApplyDamage(Actor DamagedActor, float BaseDamage, Controller EventInstigator, Actor DamageCauser, Object DamageTypeClass) { return Invoke<float>(nameof(ApplyDamage), DamagedActor, BaseDamage, EventInstigator, DamageCauser, DamageTypeClass); }
         public void AnnounceAccessibleString(Object AnnouncementString) { Invoke(nameof(AnnounceAccessibleString), AnnouncementString); }
@@ -5583,7 +5588,7 @@ namespace SDK.Script.EngineSDK
     public class HapticFeedbackEffect_Buffer : HapticFeedbackEffect_Base
     {
         public HapticFeedbackEffect_Buffer(nint addr) : base(addr) { }
-        public Array<byte> Amplitudes { get { return new Array<byte>(this[nameof(Amplitudes)].Address); } }
+        public UArray<byte> Amplitudes { get { return new UArray<byte>(this[nameof(Amplitudes)].Address); } }
         public int SampleRate { get { return this[nameof(SampleRate)].GetValue<int>(); } set { this[nameof(SampleRate)].SetValue<int>(value); } }
     }
     public class HapticFeedbackEffect_Curve : HapticFeedbackEffect_Base
@@ -5610,7 +5615,7 @@ namespace SDK.Script.EngineSDK
     public class HLODProxy : Object
     {
         public HLODProxy(nint addr) : base(addr) { }
-        public Array<HLODProxyMesh> ProxyMeshes { get { return new Array<HLODProxyMesh>(this[nameof(ProxyMeshes)].Address); } }
+        public UArray<HLODProxyMesh> ProxyMeshes { get { return new UArray<HLODProxyMesh>(this[nameof(ProxyMeshes)].Address); } }
         public Object HLODActors { get { return this[nameof(HLODActors)]; } set { this[nameof(HLODActors)] = value; } }
     }
     public class HLODProxyDesc : Object
@@ -5638,14 +5643,14 @@ namespace SDK.Script.EngineSDK
     {
         public InGameAdManager(nint addr) : base(addr) { }
         public bool bShouldPauseWhileAdOpen { get { return this[nameof(bShouldPauseWhileAdOpen)].Flag; } set { this[nameof(bShouldPauseWhileAdOpen)].Flag = value; } }
-        public Array<Object> ClickedBannerDelegates { get { return new Array<Object>(this[nameof(ClickedBannerDelegates)].Address); } }
-        public Array<Object> ClosedAdDelegates { get { return new Array<Object>(this[nameof(ClosedAdDelegates)].Address); } }
+        public UArray<Object> ClickedBannerDelegates { get { return new UArray<Object>(this[nameof(ClickedBannerDelegates)].Address); } }
+        public UArray<Object> ClosedAdDelegates { get { return new UArray<Object>(this[nameof(ClosedAdDelegates)].Address); } }
     }
     public class InheritableComponentHandler : Object
     {
         public InheritableComponentHandler(nint addr) : base(addr) { }
-        public Array<ComponentOverrideRecord> Records { get { return new Array<ComponentOverrideRecord>(this[nameof(Records)].Address); } }
-        public Array<ActorComponent> UnnecessaryComponents { get { return new Array<ActorComponent>(this[nameof(UnnecessaryComponents)].Address); } }
+        public UArray<ComponentOverrideRecord> Records { get { return new UArray<ComponentOverrideRecord>(this[nameof(Records)].Address); } }
+        public UArray<ActorComponent> UnnecessaryComponents { get { return new UArray<ActorComponent>(this[nameof(UnnecessaryComponents)].Address); } }
     }
     public class InputDelegateBinding : DynamicBlueprintBinding
     {
@@ -5654,22 +5659,22 @@ namespace SDK.Script.EngineSDK
     public class InputActionDelegateBinding : InputDelegateBinding
     {
         public InputActionDelegateBinding(nint addr) : base(addr) { }
-        public Array<BlueprintInputActionDelegateBinding> InputActionDelegateBindings { get { return new Array<BlueprintInputActionDelegateBinding>(this[nameof(InputActionDelegateBindings)].Address); } }
+        public UArray<BlueprintInputActionDelegateBinding> InputActionDelegateBindings { get { return new UArray<BlueprintInputActionDelegateBinding>(this[nameof(InputActionDelegateBindings)].Address); } }
     }
     public class InputAxisDelegateBinding : InputDelegateBinding
     {
         public InputAxisDelegateBinding(nint addr) : base(addr) { }
-        public Array<BlueprintInputAxisDelegateBinding> InputAxisDelegateBindings { get { return new Array<BlueprintInputAxisDelegateBinding>(this[nameof(InputAxisDelegateBindings)].Address); } }
+        public UArray<BlueprintInputAxisDelegateBinding> InputAxisDelegateBindings { get { return new UArray<BlueprintInputAxisDelegateBinding>(this[nameof(InputAxisDelegateBindings)].Address); } }
     }
     public class InputAxisKeyDelegateBinding : InputDelegateBinding
     {
         public InputAxisKeyDelegateBinding(nint addr) : base(addr) { }
-        public Array<BlueprintInputAxisKeyDelegateBinding> InputAxisKeyDelegateBindings { get { return new Array<BlueprintInputAxisKeyDelegateBinding>(this[nameof(InputAxisKeyDelegateBindings)].Address); } }
+        public UArray<BlueprintInputAxisKeyDelegateBinding> InputAxisKeyDelegateBindings { get { return new UArray<BlueprintInputAxisKeyDelegateBinding>(this[nameof(InputAxisKeyDelegateBindings)].Address); } }
     }
     public class InputComponent : ActorComponent
     {
         public InputComponent(nint addr) : base(addr) { }
-        public Array<CachedKeyToActionInfo> CachedKeyToActionInfo { get { return new Array<CachedKeyToActionInfo>(this[nameof(CachedKeyToActionInfo)].Address); } }
+        public UArray<CachedKeyToActionInfo> CachedKeyToActionInfo { get { return new UArray<CachedKeyToActionInfo>(this[nameof(CachedKeyToActionInfo)].Address); } }
         public bool WasControllerKeyJustReleased(Key Key) { return Invoke<bool>(nameof(WasControllerKeyJustReleased), Key); }
         public bool WasControllerKeyJustPressed(Key Key) { return Invoke<bool>(nameof(WasControllerKeyJustPressed), Key); }
         public bool IsControllerKeyDown(Key Key) { return Invoke<bool>(nameof(IsControllerKeyDown), Key); }
@@ -5683,12 +5688,12 @@ namespace SDK.Script.EngineSDK
     public class InputKeyDelegateBinding : InputDelegateBinding
     {
         public InputKeyDelegateBinding(nint addr) : base(addr) { }
-        public Array<BlueprintInputKeyDelegateBinding> InputKeyDelegateBindings { get { return new Array<BlueprintInputKeyDelegateBinding>(this[nameof(InputKeyDelegateBindings)].Address); } }
+        public UArray<BlueprintInputKeyDelegateBinding> InputKeyDelegateBindings { get { return new UArray<BlueprintInputKeyDelegateBinding>(this[nameof(InputKeyDelegateBindings)].Address); } }
     }
     public class InputSettings : Object
     {
         public InputSettings(nint addr) : base(addr) { }
-        public Array<InputAxisConfigEntry> AxisConfig { get { return new Array<InputAxisConfigEntry>(this[nameof(AxisConfig)].Address); } }
+        public UArray<InputAxisConfigEntry> AxisConfig { get { return new UArray<InputAxisConfigEntry>(this[nameof(AxisConfig)].Address); } }
         public bool bAltEnterTogglesFullscreen { get { return this[nameof(bAltEnterTogglesFullscreen)].Flag; } set { this[nameof(bAltEnterTogglesFullscreen)].Flag = value; } }
         public bool bF11TogglesFullscreen { get { return this[nameof(bF11TogglesFullscreen)].Flag; } set { this[nameof(bF11TogglesFullscreen)].Flag = value; } }
         public bool bUseMouseForTouch { get { return this[nameof(bUseMouseForTouch)].Flag; } set { this[nameof(bUseMouseForTouch)].Flag = value; } }
@@ -5700,29 +5705,29 @@ namespace SDK.Script.EngineSDK
         public bool bShowConsoleOnFourFingerTap { get { return this[nameof(bShowConsoleOnFourFingerTap)].Flag; } set { this[nameof(bShowConsoleOnFourFingerTap)].Flag = value; } }
         public bool bEnableGestureRecognizer { get { return this[nameof(bEnableGestureRecognizer)].Flag; } set { this[nameof(bEnableGestureRecognizer)].Flag = value; } }
         public bool bUseAutocorrect { get { return this[nameof(bUseAutocorrect)].Flag; } set { this[nameof(bUseAutocorrect)].Flag = value; } }
-        public Array<Object> ExcludedAutocorrectOS { get { return new Array<Object>(this[nameof(ExcludedAutocorrectOS)].Address); } }
-        public Array<Object> ExcludedAutocorrectCultures { get { return new Array<Object>(this[nameof(ExcludedAutocorrectCultures)].Address); } }
-        public Array<Object> ExcludedAutocorrectDeviceModels { get { return new Array<Object>(this[nameof(ExcludedAutocorrectDeviceModels)].Address); } }
+        public UArray<Object> ExcludedAutocorrectOS { get { return new UArray<Object>(this[nameof(ExcludedAutocorrectOS)].Address); } }
+        public UArray<Object> ExcludedAutocorrectCultures { get { return new UArray<Object>(this[nameof(ExcludedAutocorrectCultures)].Address); } }
+        public UArray<Object> ExcludedAutocorrectDeviceModels { get { return new UArray<Object>(this[nameof(ExcludedAutocorrectDeviceModels)].Address); } }
         public EMouseCaptureMode DefaultViewportMouseCaptureMode { get { return (EMouseCaptureMode)this[nameof(DefaultViewportMouseCaptureMode)].GetValue<int>(); } set { this[nameof(DefaultViewportMouseCaptureMode)].SetValue<int>((int)value); } }
         public EMouseLockMode DefaultViewportMouseLockMode { get { return (EMouseLockMode)this[nameof(DefaultViewportMouseLockMode)].GetValue<int>(); } set { this[nameof(DefaultViewportMouseLockMode)].SetValue<int>((int)value); } }
         public float FOVScale { get { return this[nameof(FOVScale)].GetValue<float>(); } set { this[nameof(FOVScale)].SetValue<float>(value); } }
         public float DoubleClickTime { get { return this[nameof(DoubleClickTime)].GetValue<float>(); } set { this[nameof(DoubleClickTime)].SetValue<float>(value); } }
-        public Array<InputActionKeyMapping> ActionMappings { get { return new Array<InputActionKeyMapping>(this[nameof(ActionMappings)].Address); } }
-        public Array<InputAxisKeyMapping> AxisMappings { get { return new Array<InputAxisKeyMapping>(this[nameof(AxisMappings)].Address); } }
-        public Array<InputActionSpeechMapping> SpeechMappings { get { return new Array<InputActionSpeechMapping>(this[nameof(SpeechMappings)].Address); } }
+        public UArray<InputActionKeyMapping> ActionMappings { get { return new UArray<InputActionKeyMapping>(this[nameof(ActionMappings)].Address); } }
+        public UArray<InputAxisKeyMapping> AxisMappings { get { return new UArray<InputAxisKeyMapping>(this[nameof(AxisMappings)].Address); } }
+        public UArray<InputActionSpeechMapping> SpeechMappings { get { return new UArray<InputActionSpeechMapping>(this[nameof(SpeechMappings)].Address); } }
         public Object DefaultPlayerInputClass { get { return this[nameof(DefaultPlayerInputClass)]; } set { this[nameof(DefaultPlayerInputClass)] = value; } }
         public Object DefaultInputComponentClass { get { return this[nameof(DefaultInputComponentClass)]; } set { this[nameof(DefaultInputComponentClass)] = value; } }
         public SoftObjectPath DefaultTouchInterface { get { return this[nameof(DefaultTouchInterface)].As<SoftObjectPath>(); } set { this["DefaultTouchInterface"] = value; } }
         public Key ConsoleKey { get { return this[nameof(ConsoleKey)].As<Key>(); } set { this["ConsoleKey"] = value; } }
-        public Array<Key> ConsoleKeys { get { return new Array<Key>(this[nameof(ConsoleKeys)].Address); } }
+        public UArray<Key> ConsoleKeys { get { return new UArray<Key>(this[nameof(ConsoleKeys)].Address); } }
         public void SaveKeyMappings() { Invoke(nameof(SaveKeyMappings)); }
         public void RemoveAxisMapping(InputAxisKeyMapping KeyMapping, bool bForceRebuildKeymaps) { Invoke(nameof(RemoveAxisMapping), KeyMapping, bForceRebuildKeymaps); }
         public void RemoveActionMapping(InputActionKeyMapping KeyMapping, bool bForceRebuildKeymaps) { Invoke(nameof(RemoveActionMapping), KeyMapping, bForceRebuildKeymaps); }
         public InputSettings GetInputSettings() { return Invoke<InputSettings>(nameof(GetInputSettings)); }
-        public void GetAxisNames(Array<Object> AxisNames) { Invoke(nameof(GetAxisNames), AxisNames); }
-        public void GetAxisMappingByName(Object InAxisName, Array<InputAxisKeyMapping> OutMappings) { Invoke(nameof(GetAxisMappingByName), InAxisName, OutMappings); }
-        public void GetActionNames(Array<Object> ActionNames) { Invoke(nameof(GetActionNames), ActionNames); }
-        public void GetActionMappingByName(Object InActionName, Array<InputActionKeyMapping> OutMappings) { Invoke(nameof(GetActionMappingByName), InActionName, OutMappings); }
+        public void GetAxisNames(UArray<Object> AxisNames) { Invoke(nameof(GetAxisNames), AxisNames); }
+        public void GetAxisMappingByName(Object InAxisName, UArray<InputAxisKeyMapping> OutMappings) { Invoke(nameof(GetAxisMappingByName), InAxisName, OutMappings); }
+        public void GetActionNames(UArray<Object> ActionNames) { Invoke(nameof(GetActionNames), ActionNames); }
+        public void GetActionMappingByName(Object InActionName, UArray<InputActionKeyMapping> OutMappings) { Invoke(nameof(GetActionMappingByName), InActionName, OutMappings); }
         public void ForceRebuildKeymaps() { Invoke(nameof(ForceRebuildKeymaps)); }
         public void AddAxisMapping(InputAxisKeyMapping KeyMapping, bool bForceRebuildKeymaps) { Invoke(nameof(AddAxisMapping), KeyMapping, bForceRebuildKeymaps); }
         public void AddActionMapping(InputActionKeyMapping KeyMapping, bool bForceRebuildKeymaps) { Invoke(nameof(AddActionMapping), KeyMapping, bForceRebuildKeymaps); }
@@ -5730,7 +5735,7 @@ namespace SDK.Script.EngineSDK
     public class InputTouchDelegateBinding : InputDelegateBinding
     {
         public InputTouchDelegateBinding(nint addr) : base(addr) { }
-        public Array<BlueprintInputTouchDelegateBinding> InputTouchDelegateBindings { get { return new Array<BlueprintInputTouchDelegateBinding>(this[nameof(InputTouchDelegateBindings)].Address); } }
+        public UArray<BlueprintInputTouchDelegateBinding> InputTouchDelegateBindings { get { return new UArray<BlueprintInputTouchDelegateBinding>(this[nameof(InputTouchDelegateBindings)].Address); } }
     }
     public class InputVectorAxisDelegateBinding : InputAxisKeyDelegateBinding
     {
@@ -5763,7 +5768,7 @@ namespace SDK.Script.EngineSDK
     public class InterpCurveEdSetup : Object
     {
         public InterpCurveEdSetup(nint addr) : base(addr) { }
-        public Array<CurveEdTab> Tabs { get { return new Array<CurveEdTab>(this[nameof(Tabs)].Address); } }
+        public UArray<CurveEdTab> Tabs { get { return new UArray<CurveEdTab>(this[nameof(Tabs)].Address); } }
         public int ActiveTab { get { return this[nameof(ActiveTab)].GetValue<int>(); } set { this[nameof(ActiveTab)].SetValue<int>(value); } }
     }
     public class InterpData : Object
@@ -5771,13 +5776,13 @@ namespace SDK.Script.EngineSDK
         public InterpData(nint addr) : base(addr) { }
         public float InterpLength { get { return this[nameof(InterpLength)].GetValue<float>(); } set { this[nameof(InterpLength)].SetValue<float>(value); } }
         public float PathBuildTime { get { return this[nameof(PathBuildTime)].GetValue<float>(); } set { this[nameof(PathBuildTime)].SetValue<float>(value); } }
-        public Array<InterpGroup> InterpGroups { get { return new Array<InterpGroup>(this[nameof(InterpGroups)].Address); } }
+        public UArray<InterpGroup> InterpGroups { get { return new UArray<InterpGroup>(this[nameof(InterpGroups)].Address); } }
         public InterpCurveEdSetup CurveEdSetup { get { return this[nameof(CurveEdSetup)].As<InterpCurveEdSetup>(); } set { this["CurveEdSetup"] = value; } }
         public float EdSectionStart { get { return this[nameof(EdSectionStart)].GetValue<float>(); } set { this[nameof(EdSectionStart)].SetValue<float>(value); } }
         public float EdSectionEnd { get { return this[nameof(EdSectionEnd)].GetValue<float>(); } set { this[nameof(EdSectionEnd)].SetValue<float>(value); } }
         public bool bShouldBakeAndPrune { get { return this[nameof(bShouldBakeAndPrune)].Flag; } set { this[nameof(bShouldBakeAndPrune)].Flag = value; } }
         public InterpGroupDirector CachedDirectorGroup { get { return this[nameof(CachedDirectorGroup)].As<InterpGroupDirector>(); } set { this["CachedDirectorGroup"] = value; } }
-        public Array<Object> AllEventNames { get { return new Array<Object>(this[nameof(AllEventNames)].Address); } }
+        public UArray<Object> AllEventNames { get { return new UArray<Object>(this[nameof(AllEventNames)].Address); } }
     }
     public class InterpFilter : Object
     {
@@ -5795,7 +5800,7 @@ namespace SDK.Script.EngineSDK
     public class InterpGroup : Object
     {
         public InterpGroup(nint addr) : base(addr) { }
-        public Array<InterpTrack> InterpTracks { get { return new Array<InterpTrack>(this[nameof(InterpTracks)].Address); } }
+        public UArray<InterpTrack> InterpTracks { get { return new UArray<InterpTrack>(this[nameof(InterpTracks)].Address); } }
         public Object GroupName { get { return this[nameof(GroupName)]; } set { this[nameof(GroupName)] = value; } }
         public Color GroupColor { get { return this[nameof(GroupColor)].As<Color>(); } set { this["GroupColor"] = value; } }
         public bool bCollapsed { get { return this[nameof(bCollapsed)].Flag; } set { this[nameof(bCollapsed)].Flag = value; } }
@@ -5819,7 +5824,7 @@ namespace SDK.Script.EngineSDK
         public InterpGroupInst(nint addr) : base(addr) { }
         public InterpGroup Group { get { return this[nameof(Group)].As<InterpGroup>(); } set { this["Group"] = value; } }
         public Actor GroupActor { get { return this[nameof(GroupActor)].As<Actor>(); } set { this["GroupActor"] = value; } }
-        public Array<InterpTrackInst> TrackInst { get { return new Array<InterpTrackInst>(this[nameof(TrackInst)].Address); } }
+        public UArray<InterpTrackInst> TrackInst { get { return new UArray<InterpTrackInst>(this[nameof(TrackInst)].Address); } }
     }
     public class InterpGroupInstCamera : InterpGroupInst
     {
@@ -5846,7 +5851,7 @@ namespace SDK.Script.EngineSDK
         public Object OnResetDelegate { get { return this[nameof(OnResetDelegate)]; } set { this[nameof(OnResetDelegate)] = value; } }
         public float MaxSimulationTimeStep { get { return this[nameof(MaxSimulationTimeStep)].GetValue<float>(); } set { this[nameof(MaxSimulationTimeStep)].SetValue<float>(value); } }
         public int MaxSimulationIterations { get { return this[nameof(MaxSimulationIterations)].GetValue<int>(); } set { this[nameof(MaxSimulationIterations)].SetValue<int>(value); } }
-        public Array<InterpControlPoint> ControlPoints { get { return new Array<InterpControlPoint>(this[nameof(ControlPoints)].Address); } }
+        public UArray<InterpControlPoint> ControlPoints { get { return new UArray<InterpControlPoint>(this[nameof(ControlPoints)].Address); } }
         public void StopSimulating(HitResult HitResult) { Invoke(nameof(StopSimulating), HitResult); }
         public void RestartMovement(float InitialDirection) { Invoke(nameof(RestartMovement), InitialDirection); }
         public void ResetControlPoints() { Invoke(nameof(ResetControlPoints)); }
@@ -5861,7 +5866,7 @@ namespace SDK.Script.EngineSDK
     public class InterpTrack : Object
     {
         public InterpTrack(nint addr) : base(addr) { }
-        public Array<InterpTrack> SubTracks { get { return new Array<InterpTrack>(this[nameof(SubTracks)].Address); } }
+        public UArray<InterpTrack> SubTracks { get { return new UArray<InterpTrack>(this[nameof(SubTracks)].Address); } }
         public Object TrackInstClass { get { return this[nameof(TrackInstClass)]; } set { this[nameof(TrackInstClass)] = value; } }
         public byte ActiveCondition { get { return this[nameof(ActiveCondition)].GetValue<byte>(); } set { this[nameof(ActiveCondition)].SetValue<byte>(value); } }
         public Object TrackTitle { get { return this[nameof(TrackTitle)]; } set { this[nameof(TrackTitle)] = value; } }
@@ -5884,7 +5889,7 @@ namespace SDK.Script.EngineSDK
     {
         public InterpTrackAnimControl(nint addr) : base(addr) { }
         public Object slotName { get { return this[nameof(slotName)]; } set { this[nameof(slotName)] = value; } }
-        public Array<AnimControlTrackKey> AnimSeqs { get { return new Array<AnimControlTrackKey>(this[nameof(AnimSeqs)].Address); } }
+        public UArray<AnimControlTrackKey> AnimSeqs { get { return new UArray<AnimControlTrackKey>(this[nameof(AnimSeqs)].Address); } }
         public bool bSkipAnimNotifiers { get { return this[nameof(bSkipAnimNotifiers)].Flag; } set { this[nameof(bSkipAnimNotifiers)].Flag = value; } }
     }
     public class InterpTrackVectorBase : InterpTrack
@@ -5900,7 +5905,7 @@ namespace SDK.Script.EngineSDK
     public class InterpTrackBoolProp : InterpTrack
     {
         public InterpTrackBoolProp(nint addr) : base(addr) { }
-        public Array<BoolTrackKey> BoolTrack { get { return new Array<BoolTrackKey>(this[nameof(BoolTrack)].Address); } }
+        public UArray<BoolTrackKey> BoolTrack { get { return new UArray<BoolTrackKey>(this[nameof(BoolTrack)].Address); } }
         public Object PropertyName { get { return this[nameof(PropertyName)]; } set { this[nameof(PropertyName)] = value; } }
     }
     public class InterpTrackColorProp : InterpTrackVectorBase
@@ -5915,13 +5920,13 @@ namespace SDK.Script.EngineSDK
     public class InterpTrackDirector : InterpTrack
     {
         public InterpTrackDirector(nint addr) : base(addr) { }
-        public Array<DirectorTrackCut> CutTrack { get { return new Array<DirectorTrackCut>(this[nameof(CutTrack)].Address); } }
+        public UArray<DirectorTrackCut> CutTrack { get { return new UArray<DirectorTrackCut>(this[nameof(CutTrack)].Address); } }
         public bool bSimulateCameraCutsOnClients { get { return this[nameof(bSimulateCameraCutsOnClients)].Flag; } set { this[nameof(bSimulateCameraCutsOnClients)].Flag = value; } }
     }
     public class InterpTrackEvent : InterpTrack
     {
         public InterpTrackEvent(nint addr) : base(addr) { }
-        public Array<EventTrackKey> EventTrack { get { return new Array<EventTrackKey>(this[nameof(EventTrack)].Address); } }
+        public UArray<EventTrackKey> EventTrack { get { return new UArray<EventTrackKey>(this[nameof(EventTrack)].Address); } }
         public bool bFireEventsWhenForwards { get { return this[nameof(bFireEventsWhenForwards)].Flag; } set { this[nameof(bFireEventsWhenForwards)].Flag = value; } }
         public bool bFireEventsWhenBackwards { get { return this[nameof(bFireEventsWhenBackwards)].Flag; } set { this[nameof(bFireEventsWhenBackwards)].Flag = value; } }
         public bool bFireEventsWhenJumpingForwards { get { return this[nameof(bFireEventsWhenJumpingForwards)].Flag; } set { this[nameof(bFireEventsWhenJumpingForwards)].Flag = value; } }
@@ -5944,7 +5949,7 @@ namespace SDK.Script.EngineSDK
     public class InterpTrackFloatMaterialParam : InterpTrackFloatBase
     {
         public InterpTrackFloatMaterialParam(nint addr) : base(addr) { }
-        public Array<MaterialInterface> TargetMaterials { get { return new Array<MaterialInterface>(this[nameof(TargetMaterials)].Address); } }
+        public UArray<MaterialInterface> TargetMaterials { get { return new UArray<MaterialInterface>(this[nameof(TargetMaterials)].Address); } }
         public Object ParamName { get { return this[nameof(ParamName)]; } set { this[nameof(ParamName)] = value; } }
     }
     public class InterpTrackFloatParticleParam : InterpTrackFloatBase
@@ -6013,9 +6018,9 @@ namespace SDK.Script.EngineSDK
     public class InterpTrackInstFloatMaterialParam : InterpTrackInst
     {
         public InterpTrackInstFloatMaterialParam(nint addr) : base(addr) { }
-        public Array<MaterialInstanceDynamic> MaterialInstances { get { return new Array<MaterialInstanceDynamic>(this[nameof(MaterialInstances)].Address); } }
-        public Array<float> ResetFloats { get { return new Array<float>(this[nameof(ResetFloats)].Address); } }
-        public Array<PrimitiveMaterialRef> PrimitiveMaterialRefs { get { return new Array<PrimitiveMaterialRef>(this[nameof(PrimitiveMaterialRefs)].Address); } }
+        public UArray<MaterialInstanceDynamic> MaterialInstances { get { return new UArray<MaterialInstanceDynamic>(this[nameof(MaterialInstances)].Address); } }
+        public UArray<float> ResetFloats { get { return new UArray<float>(this[nameof(ResetFloats)].Address); } }
+        public UArray<PrimitiveMaterialRef> PrimitiveMaterialRefs { get { return new UArray<PrimitiveMaterialRef>(this[nameof(PrimitiveMaterialRefs)].Address); } }
         public InterpTrackFloatMaterialParam InstancedTrack { get { return this[nameof(InstancedTrack)].As<InterpTrackFloatMaterialParam>(); } set { this["InstancedTrack"] = value; } }
     }
     public class InterpTrackInstFloatParticleParam : InterpTrackInst
@@ -6065,9 +6070,9 @@ namespace SDK.Script.EngineSDK
     public class InterpTrackInstVectorMaterialParam : InterpTrackInst
     {
         public InterpTrackInstVectorMaterialParam(nint addr) : base(addr) { }
-        public Array<MaterialInstanceDynamic> MaterialInstances { get { return new Array<MaterialInstanceDynamic>(this[nameof(MaterialInstances)].Address); } }
-        public Array<Vector> ResetVectors { get { return new Array<Vector>(this[nameof(ResetVectors)].Address); } }
-        public Array<PrimitiveMaterialRef> PrimitiveMaterialRefs { get { return new Array<PrimitiveMaterialRef>(this[nameof(PrimitiveMaterialRefs)].Address); } }
+        public UArray<MaterialInstanceDynamic> MaterialInstances { get { return new UArray<MaterialInstanceDynamic>(this[nameof(MaterialInstances)].Address); } }
+        public UArray<Vector> ResetVectors { get { return new UArray<Vector>(this[nameof(ResetVectors)].Address); } }
+        public UArray<PrimitiveMaterialRef> PrimitiveMaterialRefs { get { return new UArray<PrimitiveMaterialRef>(this[nameof(PrimitiveMaterialRefs)].Address); } }
         public InterpTrackVectorMaterialParam InstancedTrack { get { return this[nameof(InstancedTrack)].As<InterpTrackVectorMaterialParam>(); } set { this["InstancedTrack"] = value; } }
     }
     public class InterpTrackInstVectorProp : InterpTrackInstProperty
@@ -6118,7 +6123,7 @@ namespace SDK.Script.EngineSDK
     public class InterpTrackParticleReplay : InterpTrack
     {
         public InterpTrackParticleReplay(nint addr) : base(addr) { }
-        public Array<ParticleReplayTrackKey> TrackKeys { get { return new Array<ParticleReplayTrackKey>(this[nameof(TrackKeys)].Address); } }
+        public UArray<ParticleReplayTrackKey> TrackKeys { get { return new UArray<ParticleReplayTrackKey>(this[nameof(TrackKeys)].Address); } }
     }
     public class InterpTrackSlomo : InterpTrackFloatBase
     {
@@ -6127,7 +6132,7 @@ namespace SDK.Script.EngineSDK
     public class InterpTrackSound : InterpTrackVectorBase
     {
         public InterpTrackSound(nint addr) : base(addr) { }
-        public Array<SoundTrackKey> Sounds { get { return new Array<SoundTrackKey>(this[nameof(Sounds)].Address); } }
+        public UArray<SoundTrackKey> Sounds { get { return new UArray<SoundTrackKey>(this[nameof(Sounds)].Address); } }
         public bool bPlayOnReverse { get { return this[nameof(bPlayOnReverse)].Flag; } set { this[nameof(bPlayOnReverse)].Flag = value; } }
         public bool bContinueSoundOnMatineeEnd { get { return this[nameof(bContinueSoundOnMatineeEnd)].Flag; } set { this[nameof(bContinueSoundOnMatineeEnd)].Flag = value; } }
         public bool bSuppressSubtitles { get { return this[nameof(bSuppressSubtitles)].Flag; } set { this[nameof(bSuppressSubtitles)].Flag = value; } }
@@ -6137,7 +6142,7 @@ namespace SDK.Script.EngineSDK
     public class InterpTrackToggle : InterpTrack
     {
         public InterpTrackToggle(nint addr) : base(addr) { }
-        public Array<ToggleTrackKey> ToggleTrack { get { return new Array<ToggleTrackKey>(this[nameof(ToggleTrack)].Address); } }
+        public UArray<ToggleTrackKey> ToggleTrack { get { return new UArray<ToggleTrackKey>(this[nameof(ToggleTrack)].Address); } }
         public bool bActivateSystemEachUpdate { get { return this[nameof(bActivateSystemEachUpdate)].Flag; } set { this[nameof(bActivateSystemEachUpdate)].Flag = value; } }
         public bool bActivateWithJustAttachedFlag { get { return this[nameof(bActivateWithJustAttachedFlag)].Flag; } set { this[nameof(bActivateWithJustAttachedFlag)].Flag = value; } }
         public bool bFireEventsWhenForwards { get { return this[nameof(bFireEventsWhenForwards)].Flag; } set { this[nameof(bFireEventsWhenForwards)].Flag = value; } }
@@ -6147,7 +6152,7 @@ namespace SDK.Script.EngineSDK
     public class InterpTrackVectorMaterialParam : InterpTrackVectorBase
     {
         public InterpTrackVectorMaterialParam(nint addr) : base(addr) { }
-        public Array<MaterialInterface> TargetMaterials { get { return new Array<MaterialInterface>(this[nameof(TargetMaterials)].Address); } }
+        public UArray<MaterialInterface> TargetMaterials { get { return new UArray<MaterialInterface>(this[nameof(TargetMaterials)].Address); } }
         public Object ParamName { get { return this[nameof(ParamName)]; } set { this[nameof(ParamName)] = value; } }
     }
     public class InterpTrackVectorProp : InterpTrackVectorBase
@@ -6158,7 +6163,7 @@ namespace SDK.Script.EngineSDK
     public class InterpTrackVisibility : InterpTrack
     {
         public InterpTrackVisibility(nint addr) : base(addr) { }
-        public Array<VisibilityTrackKey> VisibilityTrack { get { return new Array<VisibilityTrackKey>(this[nameof(VisibilityTrack)].Address); } }
+        public UArray<VisibilityTrackKey> VisibilityTrack { get { return new UArray<VisibilityTrackKey>(this[nameof(VisibilityTrack)].Address); } }
         public bool bFireEventsWhenForwards { get { return this[nameof(bFireEventsWhenForwards)].Flag; } set { this[nameof(bFireEventsWhenForwards)].Flag = value; } }
         public bool bFireEventsWhenBackwards { get { return this[nameof(bFireEventsWhenBackwards)].Flag; } set { this[nameof(bFireEventsWhenBackwards)].Flag = value; } }
         public bool bFireEventsWhenJumpingForwards { get { return this[nameof(bFireEventsWhenJumpingForwards)].Flag; } set { this[nameof(bFireEventsWhenJumpingForwards)].Flag = value; } }
@@ -6251,9 +6256,9 @@ namespace SDK.Script.EngineSDK
         public bool SetCurrentLanguage(Object Culture, bool SaveToConfig) { return Invoke<bool>(nameof(SetCurrentLanguage), Culture, SaveToConfig); }
         public bool SetCurrentCulture(Object Culture, bool SaveToConfig) { return Invoke<bool>(nameof(SetCurrentCulture), Culture, SaveToConfig); }
         public bool SetCurrentAssetGroupCulture(Object AssetGroup, Object Culture, bool SaveToConfig) { return Invoke<bool>(nameof(SetCurrentAssetGroupCulture), AssetGroup, Culture, SaveToConfig); }
-        public Object GetSuitableCulture(Array<Object> AvailableCultures, Object CultureToMatch, Object FallbackCulture) { return Invoke<Object>(nameof(GetSuitableCulture), AvailableCultures, CultureToMatch, FallbackCulture); }
+        public Object GetSuitableCulture(UArray<Object> AvailableCultures, Object CultureToMatch, Object FallbackCulture) { return Invoke<Object>(nameof(GetSuitableCulture), AvailableCultures, CultureToMatch, FallbackCulture); }
         public Object GetNativeCulture(ELocalizedTextSourceCategory TextCategory) { return Invoke<Object>(nameof(GetNativeCulture), TextCategory); }
-        public Array<Object> GetLocalizedCultures(bool IncludeGame, bool IncludeEngine, bool IncludeEditor, bool IncludeAdditional) { return Invoke<Array<Object>>(nameof(GetLocalizedCultures), IncludeGame, IncludeEngine, IncludeEditor, IncludeAdditional); }
+        public UArray<Object> GetLocalizedCultures(bool IncludeGame, bool IncludeEngine, bool IncludeEditor, bool IncludeAdditional) { return Invoke<UArray<Object>>(nameof(GetLocalizedCultures), IncludeGame, IncludeEngine, IncludeEditor, IncludeAdditional); }
         public Object GetCurrentLocale() { return Invoke<Object>(nameof(GetCurrentLocale)); }
         public Object GetCurrentLanguage() { return Invoke<Object>(nameof(GetCurrentLanguage)); }
         public Object GetCurrentCulture() { return Invoke<Object>(nameof(GetCurrentCulture)); }
@@ -6491,7 +6496,7 @@ namespace SDK.Script.EngineSDK
         public Vector ProjectVectorOnToVector(Vector V, Vector Target) { return Invoke<Vector>(nameof(ProjectVectorOnToVector), V, Target); }
         public Vector ProjectVectorOnToPlane(Vector V, Vector PlaneNormal) { return Invoke<Vector>(nameof(ProjectVectorOnToPlane), V, PlaneNormal); }
         public Vector ProjectPointOnToPlane(Vector Point, Vector PlaneBase, Vector PlaneNormal) { return Invoke<Vector>(nameof(ProjectPointOnToPlane), Point, PlaneBase, PlaneNormal); }
-        public bool PointsAreCoplanar(Array<Vector> Points, float Tolerance) { return Invoke<bool>(nameof(PointsAreCoplanar), Points, Tolerance); }
+        public bool PointsAreCoplanar(UArray<Vector> Points, float Tolerance) { return Invoke<bool>(nameof(PointsAreCoplanar), Points, Tolerance); }
         public float PerlinNoise1D(float Value) { return Invoke<float>(nameof(PerlinNoise1D), Value); }
         public int Percent_IntInt(int A, int B) { return Invoke<int>(nameof(Percent_IntInt), A, B); }
         public float Percent_FloatFloat(float A, float B) { return Invoke<float>(nameof(Percent_FloatFloat), A, B); }
@@ -6559,15 +6564,15 @@ namespace SDK.Script.EngineSDK
         public float Multiply_FloatFloat(float A, float B) { return Invoke<float>(nameof(Multiply_FloatFloat), A, B); }
         public byte Multiply_ByteByte(byte A, byte B) { return Invoke<byte>(nameof(Multiply_ByteByte), A, B); }
         public Vector MirrorVectorByNormal(Vector InVect, Vector InNormal) { return Invoke<Vector>(nameof(MirrorVectorByNormal), InVect, InNormal); }
-        public void MinOfIntArray(Array<int> IntArray, int IndexOfMinValue, int MinValue) { Invoke(nameof(MinOfIntArray), IntArray, IndexOfMinValue, MinValue); }
-        public void MinOfFloatArray(Array<float> FloatArray, int IndexOfMinValue, float MinValue) { Invoke(nameof(MinOfFloatArray), FloatArray, IndexOfMinValue, MinValue); }
-        public void MinOfByteArray(Array<byte> ByteArray, int IndexOfMinValue, byte MinValue) { Invoke(nameof(MinOfByteArray), ByteArray, IndexOfMinValue, MinValue); }
+        public void MinOfIntArray(UArray<int> IntArray, int IndexOfMinValue, int MinValue) { Invoke(nameof(MinOfIntArray), IntArray, IndexOfMinValue, MinValue); }
+        public void MinOfFloatArray(UArray<float> FloatArray, int IndexOfMinValue, float MinValue) { Invoke(nameof(MinOfFloatArray), FloatArray, IndexOfMinValue, MinValue); }
+        public void MinOfByteArray(UArray<byte> ByteArray, int IndexOfMinValue, byte MinValue) { Invoke(nameof(MinOfByteArray), ByteArray, IndexOfMinValue, MinValue); }
         public long MinInt64(long A, long B) { return Invoke<long>(nameof(MinInt64), A, B); }
-        public void MinimumAreaRectangle(Object WorldContextObject, Array<Vector> InVerts, Vector SampleSurfaceNormal, Vector OutRectCenter, Rotator OutRectRotation, float OutSideLengthX, float OutSideLengthY, bool bDebugDraw) { Invoke(nameof(MinimumAreaRectangle), WorldContextObject, InVerts, SampleSurfaceNormal, OutRectCenter, OutRectRotation, OutSideLengthX, OutSideLengthY, bDebugDraw); }
+        public void MinimumAreaRectangle(Object WorldContextObject, UArray<Vector> InVerts, Vector SampleSurfaceNormal, Vector OutRectCenter, Rotator OutRectRotation, float OutSideLengthX, float OutSideLengthY, bool bDebugDraw) { Invoke(nameof(MinimumAreaRectangle), WorldContextObject, InVerts, SampleSurfaceNormal, OutRectCenter, OutRectRotation, OutSideLengthX, OutSideLengthY, bDebugDraw); }
         public int Min(int A, int B) { return Invoke<int>(nameof(Min), A, B); }
-        public void MaxOfIntArray(Array<int> IntArray, int IndexOfMaxValue, int MaxValue) { Invoke(nameof(MaxOfIntArray), IntArray, IndexOfMaxValue, MaxValue); }
-        public void MaxOfFloatArray(Array<float> FloatArray, int IndexOfMaxValue, float MaxValue) { Invoke(nameof(MaxOfFloatArray), FloatArray, IndexOfMaxValue, MaxValue); }
-        public void MaxOfByteArray(Array<byte> ByteArray, int IndexOfMaxValue, byte MaxValue) { Invoke(nameof(MaxOfByteArray), ByteArray, IndexOfMaxValue, MaxValue); }
+        public void MaxOfIntArray(UArray<int> IntArray, int IndexOfMaxValue, int MaxValue) { Invoke(nameof(MaxOfIntArray), IntArray, IndexOfMaxValue, MaxValue); }
+        public void MaxOfFloatArray(UArray<float> FloatArray, int IndexOfMaxValue, float MaxValue) { Invoke(nameof(MaxOfFloatArray), FloatArray, IndexOfMaxValue, MaxValue); }
+        public void MaxOfByteArray(UArray<byte> ByteArray, int IndexOfMaxValue, byte MaxValue) { Invoke(nameof(MaxOfByteArray), ByteArray, IndexOfMaxValue, MaxValue); }
         public long MaxInt64(long A, long B) { return Invoke<long>(nameof(MaxInt64), A, B); }
         public int Max(int A, int B) { return Invoke<int>(nameof(Max), A, B); }
         public Vector4 Matrix_TransformVector4(Matrix M, Vector4 V) { return Invoke<Vector4>(nameof(Matrix_TransformVector4), M, V); }
@@ -6722,7 +6727,7 @@ namespace SDK.Script.EngineSDK
         public bool Greater_ByteByte(byte A, byte B) { return Invoke<bool>(nameof(Greater_ByteByte), A, B); }
         public int GetYear(DateTime A) { return Invoke<int>(nameof(GetYear), A); }
         public void GetYawPitchFromVector(Vector InVec, float Yaw, float Pitch) { Invoke(nameof(GetYawPitchFromVector), InVec, Yaw, Pitch); }
-        public Vector GetVectorArrayAverage(Array<Vector> Vectors) { return Invoke<Vector>(nameof(GetVectorArrayAverage), Vectors); }
+        public Vector GetVectorArrayAverage(UArray<Vector> Vectors) { return Invoke<Vector>(nameof(GetVectorArrayAverage), Vectors); }
         public Vector GetUpVector(Rotator InRot) { return Invoke<Vector>(nameof(GetUpVector), InRot); }
         public float GetTotalSeconds(Timespan A) { return Invoke<float>(nameof(GetTotalSeconds), A); }
         public float GetTotalMinutes(Timespan A) { return Invoke<float>(nameof(GetTotalMinutes), A); }
@@ -6975,7 +6980,7 @@ namespace SDK.Script.EngineSDK
         public Color ReadRenderTargetPixel(Object WorldContextObject, TextureRenderTarget2D TextureRenderTarget, int X, int Y) { return Invoke<Color>(nameof(ReadRenderTargetPixel), WorldContextObject, TextureRenderTarget, X, Y); }
         public SkelMeshSkinWeightInfo MakeSkinWeightInfo(int Bone0, byte Weight0, int Bone1, byte Weight1, int Bone2, byte Weight2, int Bone3, byte Weight3) { return Invoke<SkelMeshSkinWeightInfo>(nameof(MakeSkinWeightInfo), Bone0, Weight0, Bone1, Weight1, Bone2, Weight2, Bone3, Weight3); }
         public Texture2D ImportFileAsTexture2D(Object WorldContextObject, Object Filename) { return Invoke<Texture2D>(nameof(ImportFileAsTexture2D), WorldContextObject, Filename); }
-        public Texture2D ImportBufferAsTexture2D(Object WorldContextObject, Array<byte> Buffer) { return Invoke<Texture2D>(nameof(ImportBufferAsTexture2D), WorldContextObject, Buffer); }
+        public Texture2D ImportBufferAsTexture2D(Object WorldContextObject, UArray<byte> Buffer) { return Invoke<Texture2D>(nameof(ImportBufferAsTexture2D), WorldContextObject, Buffer); }
         public void ExportTexture2D(Object WorldContextObject, Texture2D Texture, Object FilePath, Object Filename) { Invoke(nameof(ExportTexture2D), WorldContextObject, Texture, FilePath, Filename); }
         public void ExportRenderTarget(Object WorldContextObject, TextureRenderTarget2D TextureRenderTarget, Object FilePath, Object Filename) { Invoke(nameof(ExportRenderTarget), WorldContextObject, TextureRenderTarget, FilePath, Filename); }
         public void EndDrawCanvasToRenderTarget(Object WorldContextObject, DrawToRenderTargetContext Context) { Invoke(nameof(EndDrawCanvasToRenderTarget), WorldContextObject, Context); }
@@ -7004,7 +7009,7 @@ namespace SDK.Script.EngineSDK
         public Object Reverse(Object SourceString) { return Invoke<Object>(nameof(Reverse), SourceString); }
         public int ReplaceInline(Object SourceString, Object SearchText, Object ReplacementText, byte SearchCase) { return Invoke<int>(nameof(ReplaceInline), SourceString, SearchText, ReplacementText, SearchCase); }
         public Object Replace(Object SourceString, Object from, Object to, byte SearchCase) { return Invoke<Object>(nameof(Replace), SourceString, from, to, SearchCase); }
-        public Array<Object> ParseIntoArray(Object SourceString, Object Delimiter, bool CullEmptyStrings) { return Invoke<Array<Object>>(nameof(ParseIntoArray), SourceString, Delimiter, CullEmptyStrings); }
+        public UArray<Object> ParseIntoArray(Object SourceString, Object Delimiter, bool CullEmptyStrings) { return Invoke<UArray<Object>>(nameof(ParseIntoArray), SourceString, Delimiter, CullEmptyStrings); }
         public bool NotEqual_StrStr(Object A, Object B) { return Invoke<bool>(nameof(NotEqual_StrStr), A, B); }
         public bool NotEqual_StriStri(Object A, Object B) { return Invoke<bool>(nameof(NotEqual_StriStri), A, B); }
         public Object Mid(Object SourceString, int Start, int Count) { return Invoke<Object>(nameof(Mid), SourceString, Start, Count); }
@@ -7013,17 +7018,17 @@ namespace SDK.Script.EngineSDK
         public Object LeftPad(Object SourceString, int ChCount) { return Invoke<Object>(nameof(LeftPad), SourceString, ChCount); }
         public Object LeftChop(Object SourceString, int Count) { return Invoke<Object>(nameof(LeftChop), SourceString, Count); }
         public Object Left(Object SourceString, int Count) { return Invoke<Object>(nameof(Left), SourceString, Count); }
-        public Object JoinStringArray(Array<Object> SourceArray, Object Separator) { return Invoke<Object>(nameof(JoinStringArray), SourceArray, Separator); }
+        public Object JoinStringArray(UArray<Object> SourceArray, Object Separator) { return Invoke<Object>(nameof(JoinStringArray), SourceArray, Separator); }
         public bool IsNumeric(Object SourceString) { return Invoke<bool>(nameof(IsNumeric), SourceString); }
         public bool isEmpty(Object inString) { return Invoke<bool>(nameof(isEmpty), inString); }
         public Object GetSubstring(Object SourceString, int StartIndex, int Length) { return Invoke<Object>(nameof(GetSubstring), SourceString, StartIndex, Length); }
         public int GetCharacterAsNumber(Object SourceString, int Index) { return Invoke<int>(nameof(GetCharacterAsNumber), SourceString, Index); }
-        public Array<Object> GetCharacterArrayFromString(Object SourceString) { return Invoke<Array<Object>>(nameof(GetCharacterArrayFromString), SourceString); }
+        public UArray<Object> GetCharacterArrayFromString(Object SourceString) { return Invoke<UArray<Object>>(nameof(GetCharacterArrayFromString), SourceString); }
         public int FindSubstring(Object SearchIn, Object Substring, bool bUseCase, bool bSearchFromEnd, int StartPosition) { return Invoke<int>(nameof(FindSubstring), SearchIn, Substring, bUseCase, bSearchFromEnd, StartPosition); }
         public bool EqualEqual_StrStr(Object A, Object B) { return Invoke<bool>(nameof(EqualEqual_StrStr), A, B); }
         public bool EqualEqual_StriStri(Object A, Object B) { return Invoke<bool>(nameof(EqualEqual_StriStri), A, B); }
         public bool EndsWith(Object SourceString, Object InSuffix, byte SearchCase) { return Invoke<bool>(nameof(EndsWith), SourceString, InSuffix, SearchCase); }
-        public int CullArray(Object SourceString, Array<Object> inArray) { return Invoke<int>(nameof(CullArray), SourceString, inArray); }
+        public int CullArray(Object SourceString, UArray<Object> inArray) { return Invoke<int>(nameof(CullArray), SourceString, inArray); }
         public Object Conv_VectorToString(Vector InVec) { return Invoke<Object>(nameof(Conv_VectorToString), InVec); }
         public Object Conv_Vector2dToString(Vector2D InVec) { return Invoke<Object>(nameof(Conv_Vector2dToString), InVec); }
         public Object Conv_TransformToString(Transform InTrans) { return Invoke<Object>(nameof(Conv_TransformToString), InTrans); }
@@ -7066,26 +7071,26 @@ namespace SDK.Script.EngineSDK
         public Object GetTableNamespace(Object TableId) { return Invoke<Object>(nameof(GetTableNamespace), TableId); }
         public Object GetTableEntrySourceString(Object TableId, Object Key) { return Invoke<Object>(nameof(GetTableEntrySourceString), TableId, Key); }
         public Object GetTableEntryMetaData(Object TableId, Object Key, Object MetadataId) { return Invoke<Object>(nameof(GetTableEntryMetaData), TableId, Key, MetadataId); }
-        public Array<Object> GetRegisteredStringTables() { return Invoke<Array<Object>>(nameof(GetRegisteredStringTables)); }
-        public Array<Object> GetMetaDataIdsFromStringTableEntry(Object TableId, Object Key) { return Invoke<Array<Object>>(nameof(GetMetaDataIdsFromStringTableEntry), TableId, Key); }
-        public Array<Object> GetKeysFromStringTable(Object TableId) { return Invoke<Array<Object>>(nameof(GetKeysFromStringTable), TableId); }
+        public UArray<Object> GetRegisteredStringTables() { return Invoke<UArray<Object>>(nameof(GetRegisteredStringTables)); }
+        public UArray<Object> GetMetaDataIdsFromStringTableEntry(Object TableId, Object Key) { return Invoke<UArray<Object>>(nameof(GetMetaDataIdsFromStringTableEntry), TableId, Key); }
+        public UArray<Object> GetKeysFromStringTable(Object TableId) { return Invoke<UArray<Object>>(nameof(GetKeysFromStringTable), TableId); }
     }
     public class KismetSystemLibrary : BlueprintFunctionLibrary
     {
         public KismetSystemLibrary(nint addr) : base(addr) { }
         public void UnregisterForRemoteNotifications() { Invoke(nameof(UnregisterForRemoteNotifications)); }
-        public void UnloadPrimaryAssetList(Array<PrimaryAssetId> PrimaryAssetIdList) { Invoke(nameof(UnloadPrimaryAssetList), PrimaryAssetIdList); }
+        public void UnloadPrimaryAssetList(UArray<PrimaryAssetId> PrimaryAssetIdList) { Invoke(nameof(UnloadPrimaryAssetList), PrimaryAssetIdList); }
         public void UnloadPrimaryAsset(PrimaryAssetId PrimaryAssetId) { Invoke(nameof(UnloadPrimaryAsset), PrimaryAssetId); }
         public void TransactObject(Object Object) { Invoke(nameof(TransactObject), Object); }
         public void StackTrace() { Invoke(nameof(StackTrace)); }
-        public bool SphereTraceSingleForObjects(Object WorldContextObject, Vector Start, Vector End, float Radius, Array<byte> ObjectTypes, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(SphereTraceSingleForObjects), WorldContextObject, Start, End, Radius, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool SphereTraceSingleByProfile(Object WorldContextObject, Vector Start, Vector End, float Radius, Object ProfileName, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(SphereTraceSingleByProfile), WorldContextObject, Start, End, Radius, ProfileName, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool SphereTraceSingle(Object WorldContextObject, Vector Start, Vector End, float Radius, byte TraceChannel, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(SphereTraceSingle), WorldContextObject, Start, End, Radius, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool SphereTraceMultiForObjects(Object WorldContextObject, Vector Start, Vector End, float Radius, Array<byte> ObjectTypes, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, Array<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(SphereTraceMultiForObjects), WorldContextObject, Start, End, Radius, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool SphereTraceMultiByProfile(Object WorldContextObject, Vector Start, Vector End, float Radius, Object ProfileName, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, Array<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(SphereTraceMultiByProfile), WorldContextObject, Start, End, Radius, ProfileName, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool SphereTraceMulti(Object WorldContextObject, Vector Start, Vector End, float Radius, byte TraceChannel, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, Array<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(SphereTraceMulti), WorldContextObject, Start, End, Radius, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool SphereOverlapComponents(Object WorldContextObject, Vector SpherePos, float SphereRadius, Array<byte> ObjectTypes, Object ComponentClassFilter, Array<Actor> ActorsToIgnore, Array<PrimitiveComponent> OutComponents) { return Invoke<bool>(nameof(SphereOverlapComponents), WorldContextObject, SpherePos, SphereRadius, ObjectTypes, ComponentClassFilter, ActorsToIgnore, OutComponents); }
-        public bool SphereOverlapActors(Object WorldContextObject, Vector SpherePos, float SphereRadius, Array<byte> ObjectTypes, Object ActorClassFilter, Array<Actor> ActorsToIgnore, Array<Actor> OutActors) { return Invoke<bool>(nameof(SphereOverlapActors), WorldContextObject, SpherePos, SphereRadius, ObjectTypes, ActorClassFilter, ActorsToIgnore, OutActors); }
+        public bool SphereTraceSingleForObjects(Object WorldContextObject, Vector Start, Vector End, float Radius, UArray<byte> ObjectTypes, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(SphereTraceSingleForObjects), WorldContextObject, Start, End, Radius, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool SphereTraceSingleByProfile(Object WorldContextObject, Vector Start, Vector End, float Radius, Object ProfileName, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(SphereTraceSingleByProfile), WorldContextObject, Start, End, Radius, ProfileName, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool SphereTraceSingle(Object WorldContextObject, Vector Start, Vector End, float Radius, byte TraceChannel, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(SphereTraceSingle), WorldContextObject, Start, End, Radius, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool SphereTraceMultiForObjects(Object WorldContextObject, Vector Start, Vector End, float Radius, UArray<byte> ObjectTypes, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, UArray<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(SphereTraceMultiForObjects), WorldContextObject, Start, End, Radius, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool SphereTraceMultiByProfile(Object WorldContextObject, Vector Start, Vector End, float Radius, Object ProfileName, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, UArray<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(SphereTraceMultiByProfile), WorldContextObject, Start, End, Radius, ProfileName, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool SphereTraceMulti(Object WorldContextObject, Vector Start, Vector End, float Radius, byte TraceChannel, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, UArray<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(SphereTraceMulti), WorldContextObject, Start, End, Radius, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool SphereOverlapComponents(Object WorldContextObject, Vector SpherePos, float SphereRadius, UArray<byte> ObjectTypes, Object ComponentClassFilter, UArray<Actor> ActorsToIgnore, UArray<PrimitiveComponent> OutComponents) { return Invoke<bool>(nameof(SphereOverlapComponents), WorldContextObject, SpherePos, SphereRadius, ObjectTypes, ComponentClassFilter, ActorsToIgnore, OutComponents); }
+        public bool SphereOverlapActors(Object WorldContextObject, Vector SpherePos, float SphereRadius, UArray<byte> ObjectTypes, Object ActorClassFilter, UArray<Actor> ActorsToIgnore, UArray<Actor> OutActors) { return Invoke<bool>(nameof(SphereOverlapActors), WorldContextObject, SpherePos, SphereRadius, ObjectTypes, ActorClassFilter, ActorsToIgnore, OutActors); }
         public void SnapshotObject(Object Object) { Invoke(nameof(SnapshotObject), Object); }
         public void ShowPlatformSpecificLeaderboardScreen(Object CategoryName) { Invoke(nameof(ShowPlatformSpecificLeaderboardScreen), CategoryName); }
         public void ShowPlatformSpecificAchievementsScreen(PlayerController SpecificPlayer) { Invoke(nameof(ShowPlatformSpecificAchievementsScreen), SpecificPlayer); }
@@ -7127,7 +7132,7 @@ namespace SDK.Script.EngineSDK
         public void PrintString(Object WorldContextObject, Object inString, bool bPrintToScreen, bool bPrintToLog, LinearColor TextColor, float Duration) { Invoke(nameof(PrintString), WorldContextObject, inString, bPrintToScreen, bPrintToLog, TextColor, Duration); }
         public bool ParseParamValue(Object inString, Object InParam, Object OutValue) { return Invoke<bool>(nameof(ParseParamValue), inString, InParam, OutValue); }
         public bool ParseParam(Object inString, Object InParam) { return Invoke<bool>(nameof(ParseParam), inString, InParam); }
-        public void ParseCommandLine(Object InCmdLine, Array<Object> OutTokens, Array<Object> OutSwitches, Object OutParams) { Invoke(nameof(ParseCommandLine), InCmdLine, OutTokens, OutSwitches, OutParams); }
+        public void ParseCommandLine(Object InCmdLine, UArray<Object> OutTokens, UArray<Object> OutSwitches, Object OutParams) { Invoke(nameof(ParseCommandLine), InCmdLine, OutTokens, OutSwitches, OutParams); }
         public void OnAssetLoaded__DelegateSignature(Object Loaded) { Invoke(nameof(OnAssetLoaded__DelegateSignature), Loaded); }
         public void OnAssetClassLoaded__DelegateSignature(Object Loaded) { Invoke(nameof(OnAssetClassLoaded__DelegateSignature), Loaded); }
         public bool NotEqual_SoftObjectReference(Object A, Object B) { return Invoke<bool>(nameof(NotEqual_SoftObjectReference), A, B); }
@@ -7150,12 +7155,12 @@ namespace SDK.Script.EngineSDK
         public void LoadAssetClass(Object WorldContextObject, Object AssetClass, Object OnLoaded, LatentActionInfo LatentInfo) { Invoke(nameof(LoadAssetClass), WorldContextObject, AssetClass, OnLoaded, LatentInfo); }
         public Object LoadAsset_Blocking(Object Asset) { return Invoke<Object>(nameof(LoadAsset_Blocking), Asset); }
         public void LoadAsset(Object WorldContextObject, Object Asset, Object OnLoaded, LatentActionInfo LatentInfo) { Invoke(nameof(LoadAsset), WorldContextObject, Asset, OnLoaded, LatentInfo); }
-        public bool LineTraceSingleForObjects(Object WorldContextObject, Vector Start, Vector End, Array<byte> ObjectTypes, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(LineTraceSingleForObjects), WorldContextObject, Start, End, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool LineTraceSingleByProfile(Object WorldContextObject, Vector Start, Vector End, Object ProfileName, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(LineTraceSingleByProfile), WorldContextObject, Start, End, ProfileName, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool LineTraceSingle(Object WorldContextObject, Vector Start, Vector End, byte TraceChannel, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(LineTraceSingle), WorldContextObject, Start, End, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool LineTraceMultiForObjects(Object WorldContextObject, Vector Start, Vector End, Array<byte> ObjectTypes, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, Array<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(LineTraceMultiForObjects), WorldContextObject, Start, End, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool LineTraceMultiByProfile(Object WorldContextObject, Vector Start, Vector End, Object ProfileName, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, Array<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(LineTraceMultiByProfile), WorldContextObject, Start, End, ProfileName, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool LineTraceMulti(Object WorldContextObject, Vector Start, Vector End, byte TraceChannel, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, Array<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(LineTraceMulti), WorldContextObject, Start, End, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool LineTraceSingleForObjects(Object WorldContextObject, Vector Start, Vector End, UArray<byte> ObjectTypes, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(LineTraceSingleForObjects), WorldContextObject, Start, End, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool LineTraceSingleByProfile(Object WorldContextObject, Vector Start, Vector End, Object ProfileName, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(LineTraceSingleByProfile), WorldContextObject, Start, End, ProfileName, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool LineTraceSingle(Object WorldContextObject, Vector Start, Vector End, byte TraceChannel, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(LineTraceSingle), WorldContextObject, Start, End, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool LineTraceMultiForObjects(Object WorldContextObject, Vector Start, Vector End, UArray<byte> ObjectTypes, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, UArray<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(LineTraceMultiForObjects), WorldContextObject, Start, End, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool LineTraceMultiByProfile(Object WorldContextObject, Vector Start, Vector End, Object ProfileName, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, UArray<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(LineTraceMultiByProfile), WorldContextObject, Start, End, ProfileName, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool LineTraceMulti(Object WorldContextObject, Vector Start, Vector End, byte TraceChannel, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, UArray<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(LineTraceMulti), WorldContextObject, Start, End, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
         public void LaunchURL(Object URL) { Invoke(nameof(LaunchURL), URL); }
         public void K2_UnPauseTimerHandle(Object WorldContextObject, TimerHandle Handle) { Invoke(nameof(K2_UnPauseTimerHandle), WorldContextObject, Handle); }
         public void K2_UnPauseTimerDelegate(Object Delegate) { Invoke(nameof(K2_UnPauseTimerDelegate), Delegate); }
@@ -7207,7 +7212,7 @@ namespace SDK.Script.EngineSDK
         public bool GetVolumeButtonsHandledBySystem() { return Invoke<bool>(nameof(GetVolumeButtonsHandledBySystem)); }
         public Object GetUniqueDeviceId() { return Invoke<Object>(nameof(GetUniqueDeviceId)); }
         public Object GetSystemPath(Object Object) { return Invoke<Object>(nameof(GetSystemPath), Object); }
-        public bool GetSupportedFullscreenResolutions(Array<IntPoint> Resolutions) { return Invoke<bool>(nameof(GetSupportedFullscreenResolutions), Resolutions); }
+        public bool GetSupportedFullscreenResolutions(UArray<IntPoint> Resolutions) { return Invoke<bool>(nameof(GetSupportedFullscreenResolutions), Resolutions); }
         public Object GetSoftObjectReferenceFromPrimaryAssetId(PrimaryAssetId PrimaryAssetId) { return Invoke<Object>(nameof(GetSoftObjectReferenceFromPrimaryAssetId), PrimaryAssetId); }
         public Object GetSoftClassReferenceFromPrimaryAssetId(PrimaryAssetId PrimaryAssetId) { return Invoke<Object>(nameof(GetSoftClassReferenceFromPrimaryAssetId), PrimaryAssetId); }
         public int GetRenderingMaterialQualityLevel() { return Invoke<int>(nameof(GetRenderingMaterialQualityLevel)); }
@@ -7215,13 +7220,13 @@ namespace SDK.Script.EngineSDK
         public Object GetProjectSavedDirectory() { return Invoke<Object>(nameof(GetProjectSavedDirectory)); }
         public Object GetProjectDirectory() { return Invoke<Object>(nameof(GetProjectDirectory)); }
         public Object GetProjectContentDirectory() { return Invoke<Object>(nameof(GetProjectContentDirectory)); }
-        public void GetPrimaryAssetsWithBundleState(Array<Object> RequiredBundles, Array<Object> ExcludedBundles, Array<PrimaryAssetType> ValidTypes, bool bForceCurrentState, Array<PrimaryAssetId> OutPrimaryAssetIdList) { Invoke(nameof(GetPrimaryAssetsWithBundleState), RequiredBundles, ExcludedBundles, ValidTypes, bForceCurrentState, OutPrimaryAssetIdList); }
-        public void GetPrimaryAssetIdList(PrimaryAssetType PrimaryAssetType, Array<PrimaryAssetId> OutPrimaryAssetIdList) { Invoke(nameof(GetPrimaryAssetIdList), PrimaryAssetType, OutPrimaryAssetIdList); }
+        public void GetPrimaryAssetsWithBundleState(UArray<Object> RequiredBundles, UArray<Object> ExcludedBundles, UArray<PrimaryAssetType> ValidTypes, bool bForceCurrentState, UArray<PrimaryAssetId> OutPrimaryAssetIdList) { Invoke(nameof(GetPrimaryAssetsWithBundleState), RequiredBundles, ExcludedBundles, ValidTypes, bForceCurrentState, OutPrimaryAssetIdList); }
+        public void GetPrimaryAssetIdList(PrimaryAssetType PrimaryAssetType, UArray<PrimaryAssetId> OutPrimaryAssetIdList) { Invoke(nameof(GetPrimaryAssetIdList), PrimaryAssetType, OutPrimaryAssetIdList); }
         public PrimaryAssetId GetPrimaryAssetIdFromSoftObjectReference(Object SoftObjectReference) { return Invoke<PrimaryAssetId>(nameof(GetPrimaryAssetIdFromSoftObjectReference), SoftObjectReference); }
         public PrimaryAssetId GetPrimaryAssetIdFromSoftClassReference(Object SoftClassReference) { return Invoke<PrimaryAssetId>(nameof(GetPrimaryAssetIdFromSoftClassReference), SoftClassReference); }
         public PrimaryAssetId GetPrimaryAssetIdFromObject(Object Object) { return Invoke<PrimaryAssetId>(nameof(GetPrimaryAssetIdFromObject), Object); }
         public PrimaryAssetId GetPrimaryAssetIdFromClass(Object Class) { return Invoke<PrimaryAssetId>(nameof(GetPrimaryAssetIdFromClass), Class); }
-        public Array<Object> GetPreferredLanguages() { return Invoke<Array<Object>>(nameof(GetPreferredLanguages)); }
+        public UArray<Object> GetPreferredLanguages() { return Invoke<UArray<Object>>(nameof(GetPreferredLanguages)); }
         public Object GetPlatformUserName() { return Invoke<Object>(nameof(GetPlatformUserName)); }
         public Object GetPlatformUserDir() { return Invoke<Object>(nameof(GetPlatformUserDir)); }
         public Object GetPathName(Object Object) { return Invoke<Object>(nameof(GetPathName), Object); }
@@ -7243,8 +7248,8 @@ namespace SDK.Script.EngineSDK
         public Object GetDeviceId() { return Invoke<Object>(nameof(GetDeviceId)); }
         public Object GetDefaultLocale() { return Invoke<Object>(nameof(GetDefaultLocale)); }
         public Object GetDefaultLanguage() { return Invoke<Object>(nameof(GetDefaultLanguage)); }
-        public bool GetCurrentBundleState(PrimaryAssetId PrimaryAssetId, bool bForceCurrentState, Array<Object> OutBundles) { return Invoke<bool>(nameof(GetCurrentBundleState), PrimaryAssetId, bForceCurrentState, OutBundles); }
-        public bool GetConvenientWindowedResolutions(Array<IntPoint> Resolutions) { return Invoke<bool>(nameof(GetConvenientWindowedResolutions), Resolutions); }
+        public bool GetCurrentBundleState(PrimaryAssetId PrimaryAssetId, bool bForceCurrentState, UArray<Object> OutBundles) { return Invoke<bool>(nameof(GetCurrentBundleState), PrimaryAssetId, bForceCurrentState, OutBundles); }
+        public bool GetConvenientWindowedResolutions(UArray<IntPoint> Resolutions) { return Invoke<bool>(nameof(GetConvenientWindowedResolutions), Resolutions); }
         public int GetConsoleVariableIntValue(Object VariableName) { return Invoke<int>(nameof(GetConsoleVariableIntValue), VariableName); }
         public float GetConsoleVariableFloatValue(Object VariableName) { return Invoke<float>(nameof(GetConsoleVariableFloatValue), VariableName); }
         public bool GetConsoleVariableBoolValue(Object VariableName) { return Invoke<bool>(nameof(GetConsoleVariableBoolValue), VariableName); }
@@ -7253,7 +7258,7 @@ namespace SDK.Script.EngineSDK
         public Object GetClassFromPrimaryAssetId(PrimaryAssetId PrimaryAssetId) { return Invoke<Object>(nameof(GetClassFromPrimaryAssetId), PrimaryAssetId); }
         public Object GetClassDisplayName(Object Class) { return Invoke<Object>(nameof(GetClassDisplayName), Class); }
         public int GetAdIDCount() { return Invoke<int>(nameof(GetAdIDCount)); }
-        public void GetActorListFromComponentList(Array<PrimitiveComponent> ComponentList, Object ActorClassFilter, Array<Actor> OutActorList) { Invoke(nameof(GetActorListFromComponentList), ComponentList, ActorClassFilter, OutActorList); }
+        public void GetActorListFromComponentList(UArray<PrimitiveComponent> ComponentList, Object ActorClassFilter, UArray<Actor> OutActorList) { Invoke(nameof(GetActorListFromComponentList), ComponentList, ActorClassFilter, OutActorList); }
         public void GetActorBounds(Actor Actor, Vector Origin, Vector BoxExtent) { Invoke(nameof(GetActorBounds), Actor, Origin, BoxExtent); }
         public void ForceCloseAdBanner() { Invoke(nameof(ForceCloseAdBanner)); }
         public void FlushPersistentDebugLines(Object WorldContextObject) { Invoke(nameof(FlushPersistentDebugLines), WorldContextObject); }
@@ -7298,29 +7303,29 @@ namespace SDK.Script.EngineSDK
         public Object Conv_InterfaceToObject(Object Interface) { return Invoke<Object>(nameof(Conv_InterfaceToObject), Interface); }
         public Object Conv_ClassToSoftClassReference(Object Class) { return Invoke<Object>(nameof(Conv_ClassToSoftClassReference), Class); }
         public void ControlScreensaver(bool bAllowScreenSaver) { Invoke(nameof(ControlScreensaver), bAllowScreenSaver); }
-        public bool ComponentOverlapComponents(PrimitiveComponent Component, Transform ComponentTransform, Array<byte> ObjectTypes, Object ComponentClassFilter, Array<Actor> ActorsToIgnore, Array<PrimitiveComponent> OutComponents) { return Invoke<bool>(nameof(ComponentOverlapComponents), Component, ComponentTransform, ObjectTypes, ComponentClassFilter, ActorsToIgnore, OutComponents); }
-        public bool ComponentOverlapActors(PrimitiveComponent Component, Transform ComponentTransform, Array<byte> ObjectTypes, Object ActorClassFilter, Array<Actor> ActorsToIgnore, Array<Actor> OutActors) { return Invoke<bool>(nameof(ComponentOverlapActors), Component, ComponentTransform, ObjectTypes, ActorClassFilter, ActorsToIgnore, OutActors); }
+        public bool ComponentOverlapComponents(PrimitiveComponent Component, Transform ComponentTransform, UArray<byte> ObjectTypes, Object ComponentClassFilter, UArray<Actor> ActorsToIgnore, UArray<PrimitiveComponent> OutComponents) { return Invoke<bool>(nameof(ComponentOverlapComponents), Component, ComponentTransform, ObjectTypes, ComponentClassFilter, ActorsToIgnore, OutComponents); }
+        public bool ComponentOverlapActors(PrimitiveComponent Component, Transform ComponentTransform, UArray<byte> ObjectTypes, Object ActorClassFilter, UArray<Actor> ActorsToIgnore, UArray<Actor> OutActors) { return Invoke<bool>(nameof(ComponentOverlapActors), Component, ComponentTransform, ObjectTypes, ActorClassFilter, ActorsToIgnore, OutActors); }
         public void CollectGarbage() { Invoke(nameof(CollectGarbage)); }
-        public bool CapsuleTraceSingleForObjects(Object WorldContextObject, Vector Start, Vector End, float Radius, float HalfHeight, Array<byte> ObjectTypes, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(CapsuleTraceSingleForObjects), WorldContextObject, Start, End, Radius, HalfHeight, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool CapsuleTraceSingleByProfile(Object WorldContextObject, Vector Start, Vector End, float Radius, float HalfHeight, Object ProfileName, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(CapsuleTraceSingleByProfile), WorldContextObject, Start, End, Radius, HalfHeight, ProfileName, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool CapsuleTraceSingle(Object WorldContextObject, Vector Start, Vector End, float Radius, float HalfHeight, byte TraceChannel, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(CapsuleTraceSingle), WorldContextObject, Start, End, Radius, HalfHeight, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool CapsuleTraceMultiForObjects(Object WorldContextObject, Vector Start, Vector End, float Radius, float HalfHeight, Array<byte> ObjectTypes, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, Array<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(CapsuleTraceMultiForObjects), WorldContextObject, Start, End, Radius, HalfHeight, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool CapsuleTraceMultiByProfile(Object WorldContextObject, Vector Start, Vector End, float Radius, float HalfHeight, Object ProfileName, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, Array<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(CapsuleTraceMultiByProfile), WorldContextObject, Start, End, Radius, HalfHeight, ProfileName, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool CapsuleTraceMulti(Object WorldContextObject, Vector Start, Vector End, float Radius, float HalfHeight, byte TraceChannel, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, Array<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(CapsuleTraceMulti), WorldContextObject, Start, End, Radius, HalfHeight, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool CapsuleOverlapComponents(Object WorldContextObject, Vector CapsulePos, float Radius, float HalfHeight, Array<byte> ObjectTypes, Object ComponentClassFilter, Array<Actor> ActorsToIgnore, Array<PrimitiveComponent> OutComponents) { return Invoke<bool>(nameof(CapsuleOverlapComponents), WorldContextObject, CapsulePos, Radius, HalfHeight, ObjectTypes, ComponentClassFilter, ActorsToIgnore, OutComponents); }
-        public bool CapsuleOverlapActors(Object WorldContextObject, Vector CapsulePos, float Radius, float HalfHeight, Array<byte> ObjectTypes, Object ActorClassFilter, Array<Actor> ActorsToIgnore, Array<Actor> OutActors) { return Invoke<bool>(nameof(CapsuleOverlapActors), WorldContextObject, CapsulePos, Radius, HalfHeight, ObjectTypes, ActorClassFilter, ActorsToIgnore, OutActors); }
+        public bool CapsuleTraceSingleForObjects(Object WorldContextObject, Vector Start, Vector End, float Radius, float HalfHeight, UArray<byte> ObjectTypes, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(CapsuleTraceSingleForObjects), WorldContextObject, Start, End, Radius, HalfHeight, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool CapsuleTraceSingleByProfile(Object WorldContextObject, Vector Start, Vector End, float Radius, float HalfHeight, Object ProfileName, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(CapsuleTraceSingleByProfile), WorldContextObject, Start, End, Radius, HalfHeight, ProfileName, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool CapsuleTraceSingle(Object WorldContextObject, Vector Start, Vector End, float Radius, float HalfHeight, byte TraceChannel, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(CapsuleTraceSingle), WorldContextObject, Start, End, Radius, HalfHeight, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool CapsuleTraceMultiForObjects(Object WorldContextObject, Vector Start, Vector End, float Radius, float HalfHeight, UArray<byte> ObjectTypes, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, UArray<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(CapsuleTraceMultiForObjects), WorldContextObject, Start, End, Radius, HalfHeight, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool CapsuleTraceMultiByProfile(Object WorldContextObject, Vector Start, Vector End, float Radius, float HalfHeight, Object ProfileName, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, UArray<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(CapsuleTraceMultiByProfile), WorldContextObject, Start, End, Radius, HalfHeight, ProfileName, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool CapsuleTraceMulti(Object WorldContextObject, Vector Start, Vector End, float Radius, float HalfHeight, byte TraceChannel, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, UArray<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(CapsuleTraceMulti), WorldContextObject, Start, End, Radius, HalfHeight, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool CapsuleOverlapComponents(Object WorldContextObject, Vector CapsulePos, float Radius, float HalfHeight, UArray<byte> ObjectTypes, Object ComponentClassFilter, UArray<Actor> ActorsToIgnore, UArray<PrimitiveComponent> OutComponents) { return Invoke<bool>(nameof(CapsuleOverlapComponents), WorldContextObject, CapsulePos, Radius, HalfHeight, ObjectTypes, ComponentClassFilter, ActorsToIgnore, OutComponents); }
+        public bool CapsuleOverlapActors(Object WorldContextObject, Vector CapsulePos, float Radius, float HalfHeight, UArray<byte> ObjectTypes, Object ActorClassFilter, UArray<Actor> ActorsToIgnore, UArray<Actor> OutActors) { return Invoke<bool>(nameof(CapsuleOverlapActors), WorldContextObject, CapsulePos, Radius, HalfHeight, ObjectTypes, ActorClassFilter, ActorsToIgnore, OutActors); }
         public bool CanLaunchURL(Object URL) { return Invoke<bool>(nameof(CanLaunchURL), URL); }
         public void CancelTransaction(int Index) { Invoke(nameof(CancelTransaction), Index); }
         public void BreakSoftObjectPath(SoftObjectPath InSoftObjectPath, Object PathString) { Invoke(nameof(BreakSoftObjectPath), InSoftObjectPath, PathString); }
         public void BreakSoftClassPath(SoftClassPath InSoftClassPath, Object PathString) { Invoke(nameof(BreakSoftClassPath), InSoftClassPath, PathString); }
-        public bool BoxTraceSingleForObjects(Object WorldContextObject, Vector Start, Vector End, Vector HalfSize, Rotator Orientation, Array<byte> ObjectTypes, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(BoxTraceSingleForObjects), WorldContextObject, Start, End, HalfSize, Orientation, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool BoxTraceSingleByProfile(Object WorldContextObject, Vector Start, Vector End, Vector HalfSize, Rotator Orientation, Object ProfileName, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(BoxTraceSingleByProfile), WorldContextObject, Start, End, HalfSize, Orientation, ProfileName, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool BoxTraceSingle(Object WorldContextObject, Vector Start, Vector End, Vector HalfSize, Rotator Orientation, byte TraceChannel, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(BoxTraceSingle), WorldContextObject, Start, End, HalfSize, Orientation, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool BoxTraceMultiForObjects(Object WorldContextObject, Vector Start, Vector End, Vector HalfSize, Rotator Orientation, Array<byte> ObjectTypes, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, Array<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(BoxTraceMultiForObjects), WorldContextObject, Start, End, HalfSize, Orientation, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool BoxTraceMultiByProfile(Object WorldContextObject, Vector Start, Vector End, Vector HalfSize, Rotator Orientation, Object ProfileName, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, Array<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(BoxTraceMultiByProfile), WorldContextObject, Start, End, HalfSize, Orientation, ProfileName, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool BoxTraceMulti(Object WorldContextObject, Vector Start, Vector End, Vector HalfSize, Rotator Orientation, byte TraceChannel, bool bTraceComplex, Array<Actor> ActorsToIgnore, byte DrawDebugType, Array<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(BoxTraceMulti), WorldContextObject, Start, End, HalfSize, Orientation, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
-        public bool BoxOverlapComponents(Object WorldContextObject, Vector BoxPos, Vector Extent, Array<byte> ObjectTypes, Object ComponentClassFilter, Array<Actor> ActorsToIgnore, Array<PrimitiveComponent> OutComponents) { return Invoke<bool>(nameof(BoxOverlapComponents), WorldContextObject, BoxPos, Extent, ObjectTypes, ComponentClassFilter, ActorsToIgnore, OutComponents); }
-        public bool BoxOverlapActors(Object WorldContextObject, Vector BoxPos, Vector BoxExtent, Array<byte> ObjectTypes, Object ActorClassFilter, Array<Actor> ActorsToIgnore, Array<Actor> OutActors) { return Invoke<bool>(nameof(BoxOverlapActors), WorldContextObject, BoxPos, BoxExtent, ObjectTypes, ActorClassFilter, ActorsToIgnore, OutActors); }
+        public bool BoxTraceSingleForObjects(Object WorldContextObject, Vector Start, Vector End, Vector HalfSize, Rotator Orientation, UArray<byte> ObjectTypes, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(BoxTraceSingleForObjects), WorldContextObject, Start, End, HalfSize, Orientation, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool BoxTraceSingleByProfile(Object WorldContextObject, Vector Start, Vector End, Vector HalfSize, Rotator Orientation, Object ProfileName, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(BoxTraceSingleByProfile), WorldContextObject, Start, End, HalfSize, Orientation, ProfileName, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool BoxTraceSingle(Object WorldContextObject, Vector Start, Vector End, Vector HalfSize, Rotator Orientation, byte TraceChannel, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, HitResult OutHit, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(BoxTraceSingle), WorldContextObject, Start, End, HalfSize, Orientation, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHit, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool BoxTraceMultiForObjects(Object WorldContextObject, Vector Start, Vector End, Vector HalfSize, Rotator Orientation, UArray<byte> ObjectTypes, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, UArray<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(BoxTraceMultiForObjects), WorldContextObject, Start, End, HalfSize, Orientation, ObjectTypes, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool BoxTraceMultiByProfile(Object WorldContextObject, Vector Start, Vector End, Vector HalfSize, Rotator Orientation, Object ProfileName, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, UArray<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(BoxTraceMultiByProfile), WorldContextObject, Start, End, HalfSize, Orientation, ProfileName, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool BoxTraceMulti(Object WorldContextObject, Vector Start, Vector End, Vector HalfSize, Rotator Orientation, byte TraceChannel, bool bTraceComplex, UArray<Actor> ActorsToIgnore, byte DrawDebugType, UArray<HitResult> OutHits, bool bIgnoreSelf, LinearColor TraceColor, LinearColor TraceHitColor, float DrawTime) { return Invoke<bool>(nameof(BoxTraceMulti), WorldContextObject, Start, End, HalfSize, Orientation, TraceChannel, bTraceComplex, ActorsToIgnore, DrawDebugType, OutHits, bIgnoreSelf, TraceColor, TraceHitColor, DrawTime); }
+        public bool BoxOverlapComponents(Object WorldContextObject, Vector BoxPos, Vector Extent, UArray<byte> ObjectTypes, Object ComponentClassFilter, UArray<Actor> ActorsToIgnore, UArray<PrimitiveComponent> OutComponents) { return Invoke<bool>(nameof(BoxOverlapComponents), WorldContextObject, BoxPos, Extent, ObjectTypes, ComponentClassFilter, ActorsToIgnore, OutComponents); }
+        public bool BoxOverlapActors(Object WorldContextObject, Vector BoxPos, Vector BoxExtent, UArray<byte> ObjectTypes, Object ActorClassFilter, UArray<Actor> ActorsToIgnore, UArray<Actor> OutActors) { return Invoke<bool>(nameof(BoxOverlapActors), WorldContextObject, BoxPos, BoxExtent, ObjectTypes, ActorClassFilter, ActorsToIgnore, OutActors); }
         public int BeginTransaction(Object Context, Object Description, Object PrimaryObject) { return Invoke<int>(nameof(BeginTransaction), Context, Description, PrimaryObject); }
         public DebugFloatHistory AddFloatHistorySample(float Value, DebugFloatHistory FloatHistory) { return Invoke<DebugFloatHistory>(nameof(AddFloatHistorySample), Value, FloatHistory); }
     }
@@ -7343,7 +7348,7 @@ namespace SDK.Script.EngineSDK
         public bool NotEqual_IgnoreCase_TextText(Object A, Object B) { return Invoke<bool>(nameof(NotEqual_IgnoreCase_TextText), A, B); }
         public void IsPolyglotDataValid(PolyglotTextData PolyglotData, bool IsValid, Object errorMessage) { Invoke(nameof(IsPolyglotDataValid), PolyglotData, IsValid, errorMessage); }
         public Object GetEmptyText() { return Invoke<Object>(nameof(GetEmptyText)); }
-        public Object Format(Object InPattern, Array<FormatArgumentData> InArgs) { return Invoke<Object>(nameof(Format), InPattern, InArgs); }
+        public Object Format(Object InPattern, UArray<FormatArgumentData> InArgs) { return Invoke<Object>(nameof(Format), InPattern, InArgs); }
         public bool FindTextInLocalizationTable(Object Namespace, Object Key, Object OutText) { return Invoke<bool>(nameof(FindTextInLocalizationTable), Namespace, Key, OutText); }
         public bool EqualEqual_TextText(Object A, Object B) { return Invoke<bool>(nameof(EqualEqual_TextText), A, B); }
         public bool EqualEqual_IgnoreCase_TextText(Object A, Object B) { return Invoke<bool>(nameof(EqualEqual_IgnoreCase_TextText), A, B); }
@@ -7378,7 +7383,7 @@ namespace SDK.Script.EngineSDK
         public Layer(nint addr) : base(addr) { }
         public Object LayerName { get { return this[nameof(LayerName)]; } set { this[nameof(LayerName)] = value; } }
         public bool bIsVisible { get { return this[nameof(bIsVisible)].Flag; } set { this[nameof(bIsVisible)].Flag = value; } }
-        public Array<LayerActorStats> ActorStats { get { return new Array<LayerActorStats>(this[nameof(ActorStats)].Address); } }
+        public UArray<LayerActorStats> ActorStats { get { return new UArray<LayerActorStats>(this[nameof(ActorStats)].Address); } }
     }
     public class LevelPartitionInterface : Interface
     {
@@ -7389,18 +7394,18 @@ namespace SDK.Script.EngineSDK
         public Level(nint addr) : base(addr) { }
         public World OwningWorld { get { return this[nameof(OwningWorld)].As<World>(); } set { this["OwningWorld"] = value; } }
         public Model Model { get { return this[nameof(Model)].As<Model>(); } set { this["Model"] = value; } }
-        public Array<ModelComponent> ModelComponents { get { return new Array<ModelComponent>(this[nameof(ModelComponents)].Address); } }
+        public UArray<ModelComponent> ModelComponents { get { return new UArray<ModelComponent>(this[nameof(ModelComponents)].Address); } }
         public LevelActorContainer ActorCluster { get { return this[nameof(ActorCluster)].As<LevelActorContainer>(); } set { this["ActorCluster"] = value; } }
         public int NumTextureStreamingUnbuiltComponents { get { return this[nameof(NumTextureStreamingUnbuiltComponents)].GetValue<int>(); } set { this[nameof(NumTextureStreamingUnbuiltComponents)].SetValue<int>(value); } }
         public int NumTextureStreamingDirtyResources { get { return this[nameof(NumTextureStreamingDirtyResources)].GetValue<int>(); } set { this[nameof(NumTextureStreamingDirtyResources)].SetValue<int>(value); } }
         public LevelScriptActor LevelScriptActor { get { return this[nameof(LevelScriptActor)].As<LevelScriptActor>(); } set { this["LevelScriptActor"] = value; } }
         public NavigationObjectBase NavListStart { get { return this[nameof(NavListStart)].As<NavigationObjectBase>(); } set { this["NavListStart"] = value; } }
         public NavigationObjectBase NavListEnd { get { return this[nameof(NavListEnd)].As<NavigationObjectBase>(); } set { this["NavListEnd"] = value; } }
-        public Array<NavigationDataChunk> NavDataChunks { get { return new Array<NavigationDataChunk>(this[nameof(NavDataChunks)].Address); } }
+        public UArray<NavigationDataChunk> NavDataChunks { get { return new UArray<NavigationDataChunk>(this[nameof(NavDataChunks)].Address); } }
         public float LightmapTotalSize { get { return this[nameof(LightmapTotalSize)].GetValue<float>(); } set { this[nameof(LightmapTotalSize)].SetValue<float>(value); } }
         public float ShadowmapTotalSize { get { return this[nameof(ShadowmapTotalSize)].GetValue<float>(); } set { this[nameof(ShadowmapTotalSize)].SetValue<float>(value); } }
-        public Array<Vector> StaticNavigableGeometry { get { return new Array<Vector>(this[nameof(StaticNavigableGeometry)].Address); } }
-        public Array<Guid> StreamingTextureGuids { get { return new Array<Guid>(this[nameof(StreamingTextureGuids)].Address); } }
+        public UArray<Vector> StaticNavigableGeometry { get { return new UArray<Vector>(this[nameof(StaticNavigableGeometry)].Address); } }
+        public UArray<Guid> StreamingTextureGuids { get { return new UArray<Guid>(this[nameof(StreamingTextureGuids)].Address); } }
         public Guid LevelBuildDataId { get { return this[nameof(LevelBuildDataId)].As<Guid>(); } set { this["LevelBuildDataId"] = value; } }
         public MapBuildDataRegistry MapBuildData { get { return this[nameof(MapBuildData)].As<MapBuildDataRegistry>(); } set { this["MapBuildData"] = value; } }
         public IntVector LightBuildLevelOffset { get { return this[nameof(LightBuildLevelOffset)].As<IntVector>(); } set { this["LightBuildLevelOffset"] = value; } }
@@ -7409,13 +7414,13 @@ namespace SDK.Script.EngineSDK
         public bool bStaticComponentsRegisteredInStreamingManager { get { return this[nameof(bStaticComponentsRegisteredInStreamingManager)].Flag; } set { this[nameof(bStaticComponentsRegisteredInStreamingManager)].Flag = value; } }
         public bool bIsVisible { get { return this[nameof(bIsVisible)].Flag; } set { this[nameof(bIsVisible)].Flag = value; } }
         public WorldSettings WorldSettings { get { return this[nameof(WorldSettings)].As<WorldSettings>(); } set { this["WorldSettings"] = value; } }
-        public Array<AssetUserData> AssetUserData { get { return new Array<AssetUserData>(this[nameof(AssetUserData)].Address); } }
-        public Array<ReplicatedStaticActorDestructionInfo> DestroyedReplicatedStaticActors { get { return new Array<ReplicatedStaticActorDestructionInfo>(this[nameof(DestroyedReplicatedStaticActors)].Address); } }
+        public UArray<AssetUserData> AssetUserData { get { return new UArray<AssetUserData>(this[nameof(AssetUserData)].Address); } }
+        public UArray<ReplicatedStaticActorDestructionInfo> DestroyedReplicatedStaticActors { get { return new UArray<ReplicatedStaticActorDestructionInfo>(this[nameof(DestroyedReplicatedStaticActors)].Address); } }
     }
     public class LevelActorContainer : Object
     {
         public LevelActorContainer(nint addr) : base(addr) { }
-        public Array<Actor> Actors { get { return new Array<Actor>(this[nameof(Actors)].Address); } }
+        public UArray<Actor> Actors { get { return new UArray<Actor>(this[nameof(Actors)].Address); } }
     }
     public class LevelBounds : Actor
     {
@@ -7446,9 +7451,9 @@ namespace SDK.Script.EngineSDK
         public LineBatchComponent ForegroundLineBatcher { get { return this[nameof(ForegroundLineBatcher)].As<LineBatchComponent>(); } set { this["ForegroundLineBatcher"] = value; } }
         public GameNetworkManager NetworkManager { get { return this[nameof(NetworkManager)].As<GameNetworkManager>(); } set { this["NetworkManager"] = value; } }
         public PhysicsCollisionHandler PhysicsCollisionHandler { get { return this[nameof(PhysicsCollisionHandler)].As<PhysicsCollisionHandler>(); } set { this["PhysicsCollisionHandler"] = value; } }
-        public Array<Object> ExtraReferencedObjects { get { return new Array<Object>(this[nameof(ExtraReferencedObjects)].Address); } }
-        public Array<Object> PerModuleDataObjects { get { return new Array<Object>(this[nameof(PerModuleDataObjects)].Address); } }
-        public Array<LevelStreaming> StreamingLevels { get { return new Array<LevelStreaming>(this[nameof(StreamingLevels)].Address); } }
+        public UArray<Object> ExtraReferencedObjects { get { return new UArray<Object>(this[nameof(ExtraReferencedObjects)].Address); } }
+        public UArray<Object> PerModuleDataObjects { get { return new UArray<Object>(this[nameof(PerModuleDataObjects)].Address); } }
+        public UArray<LevelStreaming> StreamingLevels { get { return new UArray<LevelStreaming>(this[nameof(StreamingLevels)].Address); } }
         public StreamingLevelsToConsider StreamingLevelsToConsider { get { return this[nameof(StreamingLevelsToConsider)].As<StreamingLevelsToConsider>(); } set { this["StreamingLevelsToConsider"] = value; } }
         public Object StreamingLevelsPrefix { get { return this[nameof(StreamingLevelsPrefix)]; } set { this[nameof(StreamingLevelsPrefix)] = value; } }
         public Level CurrentLevelPendingVisibility { get { return this[nameof(CurrentLevelPendingVisibility)].As<Level>(); } set { this["CurrentLevelPendingVisibility"] = value; } }
@@ -7462,16 +7467,16 @@ namespace SDK.Script.EngineSDK
         public GameStateBase GameState { get { return this[nameof(GameState)].As<GameStateBase>(); } set { this["GameState"] = value; } }
         public AISystemBase AISystem { get { return this[nameof(AISystem)].As<AISystemBase>(); } set { this["AISystem"] = value; } }
         public AvoidanceManager AvoidanceManager { get { return this[nameof(AvoidanceManager)].As<AvoidanceManager>(); } set { this["AvoidanceManager"] = value; } }
-        public Array<Level> Levels { get { return new Array<Level>(this[nameof(Levels)].Address); } }
-        public Array<LevelCollection> LevelCollections { get { return new Array<LevelCollection>(this[nameof(LevelCollections)].Address); } }
+        public UArray<Level> Levels { get { return new UArray<Level>(this[nameof(Levels)].Address); } }
+        public UArray<LevelCollection> LevelCollections { get { return new UArray<LevelCollection>(this[nameof(LevelCollections)].Address); } }
         public GameInstance OwningGameInstance { get { return this[nameof(OwningGameInstance)].As<GameInstance>(); } set { this["OwningGameInstance"] = value; } }
-        public Array<MaterialParameterCollectionInstance> ParameterCollectionInstances { get { return new Array<MaterialParameterCollectionInstance>(this[nameof(ParameterCollectionInstances)].Address); } }
+        public UArray<MaterialParameterCollectionInstance> ParameterCollectionInstances { get { return new UArray<MaterialParameterCollectionInstance>(this[nameof(ParameterCollectionInstances)].Address); } }
         public Canvas CanvasForRenderingToTarget { get { return this[nameof(CanvasForRenderingToTarget)].As<Canvas>(); } set { this["CanvasForRenderingToTarget"] = value; } }
         public Canvas CanvasForDrawMaterialToRenderTarget { get { return this[nameof(CanvasForDrawMaterialToRenderTarget)].As<Canvas>(); } set { this["CanvasForDrawMaterialToRenderTarget"] = value; } }
         public PhysicsFieldComponent PhysicsField { get { return this[nameof(PhysicsField)].As<PhysicsFieldComponent>(); } set { this["PhysicsField"] = value; } }
         public Object ComponentsThatNeedPreEndOfFrameSync { get { return this[nameof(ComponentsThatNeedPreEndOfFrameSync)]; } set { this[nameof(ComponentsThatNeedPreEndOfFrameSync)] = value; } }
-        public Array<ActorComponent> ComponentsThatNeedEndOfFrameUpdate { get { return new Array<ActorComponent>(this[nameof(ComponentsThatNeedEndOfFrameUpdate)].Address); } }
-        public Array<ActorComponent> ComponentsThatNeedEndOfFrameUpdate_OnGameThread { get { return new Array<ActorComponent>(this[nameof(ComponentsThatNeedEndOfFrameUpdate_OnGameThread)].Address); } }
+        public UArray<ActorComponent> ComponentsThatNeedEndOfFrameUpdate { get { return new UArray<ActorComponent>(this[nameof(ComponentsThatNeedEndOfFrameUpdate)].Address); } }
+        public UArray<ActorComponent> ComponentsThatNeedEndOfFrameUpdate_OnGameThread { get { return new UArray<ActorComponent>(this[nameof(ComponentsThatNeedEndOfFrameUpdate_OnGameThread)].Address); } }
         public WorldComposition WorldComposition { get { return this[nameof(WorldComposition)].As<WorldComposition>(); } set { this["WorldComposition"] = value; } }
         public WorldPSCPool PSCPool { get { return this[nameof(PSCPool)].As<WorldPSCPool>(); } set { this["PSCPool"] = value; } }
         public WorldSettings K2_GetWorldSettings() { return Invoke<WorldSettings>(nameof(K2_GetWorldSettings)); }
@@ -7482,7 +7487,7 @@ namespace SDK.Script.EngineSDK
         public LevelStreaming(nint addr) : base(addr) { }
         public Object WorldAsset { get { return this[nameof(WorldAsset)]; } set { this[nameof(WorldAsset)] = value; } }
         public Object PackageNameToLoad { get { return this[nameof(PackageNameToLoad)]; } set { this[nameof(PackageNameToLoad)] = value; } }
-        public Array<Object> LODPackageNames { get { return new Array<Object>(this[nameof(LODPackageNames)].Address); } }
+        public UArray<Object> LODPackageNames { get { return new UArray<Object>(this[nameof(LODPackageNames)].Address); } }
         public Transform LevelTransform { get { return this[nameof(LevelTransform)].As<Transform>(); } set { this["LevelTransform"] = value; } }
         public int LevelLODIndex { get { return this[nameof(LevelLODIndex)].GetValue<int>(); } set { this[nameof(LevelLODIndex)].SetValue<int>(value); } }
         public int StreamingPriority { get { return this[nameof(StreamingPriority)].GetValue<int>(); } set { this[nameof(StreamingPriority)].SetValue<int>(value); } }
@@ -7495,7 +7500,7 @@ namespace SDK.Script.EngineSDK
         public bool bDisableDistanceStreaming { get { return this[nameof(bDisableDistanceStreaming)].Flag; } set { this[nameof(bDisableDistanceStreaming)].Flag = value; } }
         public bool bDrawOnLevelStatusMap { get { return this[nameof(bDrawOnLevelStatusMap)].Flag; } set { this[nameof(bDrawOnLevelStatusMap)].Flag = value; } }
         public LinearColor LevelColor { get { return this[nameof(LevelColor)].As<LinearColor>(); } set { this["LevelColor"] = value; } }
-        public Array<LevelStreamingVolume> EditorStreamingVolumes { get { return new Array<LevelStreamingVolume>(this[nameof(EditorStreamingVolumes)].Address); } }
+        public UArray<LevelStreamingVolume> EditorStreamingVolumes { get { return new UArray<LevelStreamingVolume>(this[nameof(EditorStreamingVolumes)].Address); } }
         public float MinTimeBetweenVolumeUnloadRequests { get { return this[nameof(MinTimeBetweenVolumeUnloadRequests)].GetValue<float>(); } set { this[nameof(MinTimeBetweenVolumeUnloadRequests)].SetValue<float>(value); } }
         public Object OnLevelLoaded { get { return this[nameof(OnLevelLoaded)]; } set { this[nameof(OnLevelLoaded)] = value; } }
         public Object OnLevelUnloaded { get { return this[nameof(OnLevelUnloaded)]; } set { this[nameof(OnLevelUnloaded)] = value; } }
@@ -7537,7 +7542,7 @@ namespace SDK.Script.EngineSDK
     public class LevelStreamingVolume : Volume
     {
         public LevelStreamingVolume(nint addr) : base(addr) { }
-        public Array<Object> StreamingLevelNames { get { return new Array<Object>(this[nameof(StreamingLevelNames)].Address); } }
+        public UArray<Object> StreamingLevelNames { get { return new UArray<Object>(this[nameof(StreamingLevelNames)].Address); } }
         public bool bEditorPreVisOnly { get { return this[nameof(bEditorPreVisOnly)].Flag; } set { this[nameof(bEditorPreVisOnly)].Flag = value; } }
         public bool bDisabled { get { return this[nameof(bDisabled)].Flag; } set { this[nameof(bDisabled)].Flag = value; } }
         public byte StreamingUsage { get { return this[nameof(StreamingUsage)].GetValue<byte>(); } set { this[nameof(StreamingUsage)].SetValue<byte>(value); } }
@@ -7546,7 +7551,7 @@ namespace SDK.Script.EngineSDK
     {
         public LightmappedSurfaceCollection(nint addr) : base(addr) { }
         public Model SourceModel { get { return this[nameof(SourceModel)].As<Model>(); } set { this["SourceModel"] = value; } }
-        public Array<int> Surfaces { get { return new Array<int>(this[nameof(Surfaces)].Address); } }
+        public UArray<int> Surfaces { get { return new UArray<int>(this[nameof(Surfaces)].Address); } }
     }
     public class LightMapTexture2D : Texture2D
     {
@@ -7555,7 +7560,7 @@ namespace SDK.Script.EngineSDK
     public class LightMapVirtualTexture2D : Texture2D
     {
         public LightMapVirtualTexture2D(nint addr) : base(addr) { }
-        public Array<byte> TypeToLayer { get { return new Array<byte>(this[nameof(TypeToLayer)].Address); } }
+        public UArray<byte> TypeToLayer { get { return new UArray<byte>(this[nameof(TypeToLayer)].Address); } }
     }
     public class LightmassCharacterIndirectDetailVolume : Volume
     {
@@ -7606,7 +7611,7 @@ namespace SDK.Script.EngineSDK
         public Object Key { get { return this[nameof(Key)]; } set { this[nameof(Key)] = value; } }
         public float LODDrawDistance { get { return this[nameof(LODDrawDistance)].GetValue<float>(); } set { this[nameof(LODDrawDistance)].SetValue<float>(value); } }
         public int LODLevel { get { return this[nameof(LODLevel)].GetValue<int>(); } set { this[nameof(LODLevel)].SetValue<int>(value); } }
-        public Array<Actor> SubActors { get { return new Array<Actor>(this[nameof(SubActors)].Address); } }
+        public UArray<Actor> SubActors { get { return new UArray<Actor>(this[nameof(SubActors)].Address); } }
         public byte CachedNumHLODLevels { get { return this[nameof(CachedNumHLODLevels)].GetValue<byte>(); } set { this[nameof(CachedNumHLODLevels)].SetValue<byte>(value); } }
     }
     public class LODSyncComponent : ActorComponent
@@ -7614,12 +7619,12 @@ namespace SDK.Script.EngineSDK
         public LODSyncComponent(nint addr) : base(addr) { }
         public int NumLODs { get { return this[nameof(NumLODs)].GetValue<int>(); } set { this[nameof(NumLODs)].SetValue<int>(value); } }
         public int ForcedLOD { get { return this[nameof(ForcedLOD)].GetValue<int>(); } set { this[nameof(ForcedLOD)].SetValue<int>(value); } }
-        public Array<ComponentSync> ComponentsToSync { get { return new Array<ComponentSync>(this[nameof(ComponentsToSync)].Address); } }
+        public UArray<ComponentSync> ComponentsToSync { get { return new UArray<ComponentSync>(this[nameof(ComponentsToSync)].Address); } }
         public Object CustomLODMapping { get { return this[nameof(CustomLODMapping)]; } set { this[nameof(CustomLODMapping)] = value; } }
         public int CurrentLOD { get { return this[nameof(CurrentLOD)].GetValue<int>(); } set { this[nameof(CurrentLOD)].SetValue<int>(value); } }
         public int CurrentNumLODs { get { return this[nameof(CurrentNumLODs)].GetValue<int>(); } set { this[nameof(CurrentNumLODs)].SetValue<int>(value); } }
-        public Array<PrimitiveComponent> DriveComponents { get { return new Array<PrimitiveComponent>(this[nameof(DriveComponents)].Address); } }
-        public Array<PrimitiveComponent> SubComponents { get { return new Array<PrimitiveComponent>(this[nameof(SubComponents)].Address); } }
+        public UArray<PrimitiveComponent> DriveComponents { get { return new UArray<PrimitiveComponent>(this[nameof(DriveComponents)].Address); } }
+        public UArray<PrimitiveComponent> SubComponents { get { return new UArray<PrimitiveComponent>(this[nameof(SubComponents)].Address); } }
         public Object GetLODSyncDebugText() { return Invoke<Object>(nameof(GetLODSyncDebugText)); }
     }
     public class LODSyncInterface : Interface
@@ -7750,8 +7755,8 @@ namespace SDK.Script.EngineSDK
     public class MaterialBillboardComponent : PrimitiveComponent
     {
         public MaterialBillboardComponent(nint addr) : base(addr) { }
-        public Array<MaterialSpriteElement> Elements { get { return new Array<MaterialSpriteElement>(this[nameof(Elements)].Address); } }
-        public void SetElements(Array<MaterialSpriteElement> NewElements) { Invoke(nameof(SetElements), NewElements); }
+        public UArray<MaterialSpriteElement> Elements { get { return new UArray<MaterialSpriteElement>(this[nameof(Elements)].Address); } }
+        public void SetElements(UArray<MaterialSpriteElement> NewElements) { Invoke(nameof(SetElements), NewElements); }
         public void AddElement(MaterialInterface Material, CurveFloat DistanceToOpacityCurve, bool bSizeIsInScreenSpace, float BaseSizeX, float BaseSizeY, CurveFloat DistanceToSizeCurve) { Invoke(nameof(AddElement), Material, DistanceToOpacityCurve, bSizeIsInScreenSpace, BaseSizeX, BaseSizeY, DistanceToSizeCurve); }
     }
     public class MaterialExpressionAbs : MaterialExpression
@@ -8028,10 +8033,10 @@ namespace SDK.Script.EngineSDK
         public Object code { get { return this[nameof(code)]; } set { this[nameof(code)] = value; } }
         public byte OutputType { get { return this[nameof(OutputType)].GetValue<byte>(); } set { this[nameof(OutputType)].SetValue<byte>(value); } }
         public Object Description { get { return this[nameof(Description)]; } set { this[nameof(Description)] = value; } }
-        public Array<CustomInput> Inputs { get { return new Array<CustomInput>(this[nameof(Inputs)].Address); } }
-        public Array<CustomOutput> AdditionalOutputs { get { return new Array<CustomOutput>(this[nameof(AdditionalOutputs)].Address); } }
-        public Array<CustomDefine> AdditionalDefines { get { return new Array<CustomDefine>(this[nameof(AdditionalDefines)].Address); } }
-        public Array<Object> IncludeFilePaths { get { return new Array<Object>(this[nameof(IncludeFilePaths)].Address); } }
+        public UArray<CustomInput> Inputs { get { return new UArray<CustomInput>(this[nameof(Inputs)].Address); } }
+        public UArray<CustomOutput> AdditionalOutputs { get { return new UArray<CustomOutput>(this[nameof(AdditionalOutputs)].Address); } }
+        public UArray<CustomDefine> AdditionalDefines { get { return new UArray<CustomDefine>(this[nameof(AdditionalDefines)].Address); } }
+        public UArray<Object> IncludeFilePaths { get { return new UArray<Object>(this[nameof(IncludeFilePaths)].Address); } }
     }
     public class MaterialExpressionDDX : MaterialExpression
     {
@@ -8131,7 +8136,7 @@ namespace SDK.Script.EngineSDK
     public class MaterialExpressionDynamicParameter : MaterialExpression
     {
         public MaterialExpressionDynamicParameter(nint addr) : base(addr) { }
-        public Array<Object> ParamNames { get { return new Array<Object>(this[nameof(ParamNames)].Address); } }
+        public UArray<Object> ParamNames { get { return new UArray<Object>(this[nameof(ParamNames)].Address); } }
         public LinearColor DefaultValue { get { return this[nameof(DefaultValue)].As<LinearColor>(); } set { this["DefaultValue"] = value; } }
         public uint ParameterIndex { get { return this[nameof(ParameterIndex)].GetValue<uint>(); } set { this[nameof(ParameterIndex)].SetValue<uint>(value); } }
     }
@@ -8209,7 +8214,7 @@ namespace SDK.Script.EngineSDK
     {
         public MaterialExpressionGetMaterialAttributes(nint addr) : base(addr) { }
         public MaterialAttributesInput MaterialAttributes { get { return this[nameof(MaterialAttributes)].As<MaterialAttributesInput>(); } set { this["MaterialAttributes"] = value; } }
-        public Array<Guid> AttributeGetTypes { get { return new Array<Guid>(this[nameof(AttributeGetTypes)].Address); } }
+        public UArray<Guid> AttributeGetTypes { get { return new UArray<Guid>(this[nameof(AttributeGetTypes)].Address); } }
     }
     public class MaterialExpressionGIReplace : MaterialExpression
     {
@@ -8324,9 +8329,9 @@ namespace SDK.Script.EngineSDK
         public Guid ExpressionGUID { get { return this[nameof(ExpressionGUID)].As<Guid>(); } set { this["ExpressionGUID"] = value; } }
         public MaterialAttributesInput Input { get { return this[nameof(Input)].As<MaterialAttributesInput>(); } set { this["Input"] = value; } }
         public MaterialLayersFunctions DefaultLayers { get { return this[nameof(DefaultLayers)].As<MaterialLayersFunctions>(); } set { this["DefaultLayers"] = value; } }
-        public Array<MaterialExpressionMaterialFunctionCall> LayerCallers { get { return new Array<MaterialExpressionMaterialFunctionCall>(this[nameof(LayerCallers)].Address); } }
+        public UArray<MaterialExpressionMaterialFunctionCall> LayerCallers { get { return new UArray<MaterialExpressionMaterialFunctionCall>(this[nameof(LayerCallers)].Address); } }
         public int NumActiveLayerCallers { get { return this[nameof(NumActiveLayerCallers)].GetValue<int>(); } set { this[nameof(NumActiveLayerCallers)].SetValue<int>(value); } }
-        public Array<MaterialExpressionMaterialFunctionCall> BlendCallers { get { return new Array<MaterialExpressionMaterialFunctionCall>(this[nameof(BlendCallers)].Address); } }
+        public UArray<MaterialExpressionMaterialFunctionCall> BlendCallers { get { return new UArray<MaterialExpressionMaterialFunctionCall>(this[nameof(BlendCallers)].Address); } }
         public int NumActiveBlendCallers { get { return this[nameof(NumActiveBlendCallers)].GetValue<int>(); } set { this[nameof(NumActiveBlendCallers)].SetValue<int>(value); } }
         public bool bIsLayerGraphBuilt { get { return this[nameof(bIsLayerGraphBuilt)].Flag; } set { this[nameof(bIsLayerGraphBuilt)].Flag = value; } }
     }
@@ -8700,8 +8705,8 @@ namespace SDK.Script.EngineSDK
     public class MaterialExpressionSetMaterialAttributes : MaterialExpression
     {
         public MaterialExpressionSetMaterialAttributes(nint addr) : base(addr) { }
-        public Array<ExpressionInput> Inputs { get { return new Array<ExpressionInput>(this[nameof(Inputs)].Address); } }
-        public Array<Guid> AttributeSetTypes { get { return new Array<Guid>(this[nameof(AttributeSetTypes)].Address); } }
+        public UArray<ExpressionInput> Inputs { get { return new UArray<ExpressionInput>(this[nameof(Inputs)].Address); } }
+        public UArray<Guid> AttributeSetTypes { get { return new UArray<Guid>(this[nameof(AttributeSetTypes)].Address); } }
     }
     public class MaterialExpressionShaderStageSwitch : MaterialExpression
     {
@@ -9061,13 +9066,13 @@ namespace SDK.Script.EngineSDK
         public MaterialFunctionInstance(nint addr) : base(addr) { }
         public MaterialFunctionInterface Parent { get { return this[nameof(Parent)].As<MaterialFunctionInterface>(); } set { this["Parent"] = value; } }
         public MaterialFunctionInterface Base { get { return this[nameof(Base)].As<MaterialFunctionInterface>(); } set { this["Base"] = value; } }
-        public Array<ScalarParameterValue> ScalarParameterValues { get { return new Array<ScalarParameterValue>(this[nameof(ScalarParameterValues)].Address); } }
-        public Array<VectorParameterValue> VectorParameterValues { get { return new Array<VectorParameterValue>(this[nameof(VectorParameterValues)].Address); } }
-        public Array<TextureParameterValue> TextureParameterValues { get { return new Array<TextureParameterValue>(this[nameof(TextureParameterValues)].Address); } }
-        public Array<FontParameterValue> FontParameterValues { get { return new Array<FontParameterValue>(this[nameof(FontParameterValues)].Address); } }
-        public Array<StaticSwitchParameter> StaticSwitchParameterValues { get { return new Array<StaticSwitchParameter>(this[nameof(StaticSwitchParameterValues)].Address); } }
-        public Array<StaticComponentMaskParameter> StaticComponentMaskParameterValues { get { return new Array<StaticComponentMaskParameter>(this[nameof(StaticComponentMaskParameterValues)].Address); } }
-        public Array<RuntimeVirtualTextureParameterValue> RuntimeVirtualTextureParameterValues { get { return new Array<RuntimeVirtualTextureParameterValue>(this[nameof(RuntimeVirtualTextureParameterValues)].Address); } }
+        public UArray<ScalarParameterValue> ScalarParameterValues { get { return new UArray<ScalarParameterValue>(this[nameof(ScalarParameterValues)].Address); } }
+        public UArray<VectorParameterValue> VectorParameterValues { get { return new UArray<VectorParameterValue>(this[nameof(VectorParameterValues)].Address); } }
+        public UArray<TextureParameterValue> TextureParameterValues { get { return new UArray<TextureParameterValue>(this[nameof(TextureParameterValues)].Address); } }
+        public UArray<FontParameterValue> FontParameterValues { get { return new UArray<FontParameterValue>(this[nameof(FontParameterValues)].Address); } }
+        public UArray<StaticSwitchParameter> StaticSwitchParameterValues { get { return new UArray<StaticSwitchParameter>(this[nameof(StaticSwitchParameterValues)].Address); } }
+        public UArray<StaticComponentMaskParameter> StaticComponentMaskParameterValues { get { return new UArray<StaticComponentMaskParameter>(this[nameof(StaticComponentMaskParameterValues)].Address); } }
+        public UArray<RuntimeVirtualTextureParameterValue> RuntimeVirtualTextureParameterValues { get { return new UArray<RuntimeVirtualTextureParameterValue>(this[nameof(RuntimeVirtualTextureParameterValues)].Address); } }
     }
     public class MaterialFunctionMaterialLayer : MaterialFunction
     {
@@ -9088,7 +9093,7 @@ namespace SDK.Script.EngineSDK
     public class MaterialInstanceActor : Actor
     {
         public MaterialInstanceActor(nint addr) : base(addr) { }
-        public Array<Actor> TargetActors { get { return new Array<Actor>(this[nameof(TargetActors)].Address); } }
+        public UArray<Actor> TargetActors { get { return new UArray<Actor>(this[nameof(TargetActors)].Address); } }
     }
     public class MaterialInstanceDynamic : MaterialInstance
     {
@@ -9114,8 +9119,8 @@ namespace SDK.Script.EngineSDK
     {
         public MaterialParameterCollection(nint addr) : base(addr) { }
         public Guid StateId { get { return this[nameof(StateId)].As<Guid>(); } set { this["StateId"] = value; } }
-        public Array<CollectionScalarParameter> ScalarParameters { get { return new Array<CollectionScalarParameter>(this[nameof(ScalarParameters)].Address); } }
-        public Array<CollectionVectorParameter> VectorParameters { get { return new Array<CollectionVectorParameter>(this[nameof(VectorParameters)].Address); } }
+        public UArray<CollectionScalarParameter> ScalarParameters { get { return new UArray<CollectionScalarParameter>(this[nameof(ScalarParameters)].Address); } }
+        public UArray<CollectionVectorParameter> VectorParameters { get { return new UArray<CollectionVectorParameter>(this[nameof(VectorParameters)].Address); } }
     }
     public class MaterialParameterCollectionInstance : Object
     {
@@ -9144,10 +9149,10 @@ namespace SDK.Script.EngineSDK
         public bool bDisableLookAtInput { get { return this[nameof(bDisableLookAtInput)].Flag; } set { this[nameof(bDisableLookAtInput)].Flag = value; } }
         public bool bHidePlayer { get { return this[nameof(bHidePlayer)].Flag; } set { this[nameof(bHidePlayer)].Flag = value; } }
         public bool bHideHud { get { return this[nameof(bHideHud)].Flag; } set { this[nameof(bHideHud)].Flag = value; } }
-        public Array<InterpGroupActorInfo> GroupActorInfos { get { return new Array<InterpGroupActorInfo>(this[nameof(GroupActorInfos)].Address); } }
+        public UArray<InterpGroupActorInfo> GroupActorInfos { get { return new UArray<InterpGroupActorInfo>(this[nameof(GroupActorInfos)].Address); } }
         public bool bShouldShowGore { get { return this[nameof(bShouldShowGore)].Flag; } set { this[nameof(bShouldShowGore)].Flag = value; } }
-        public Array<InterpGroupInst> GroupInst { get { return new Array<InterpGroupInst>(this[nameof(GroupInst)].Address); } }
-        public Array<CameraCutInfo> CameraCuts { get { return new Array<CameraCutInfo>(this[nameof(CameraCuts)].Address); } }
+        public UArray<InterpGroupInst> GroupInst { get { return new UArray<InterpGroupInst>(this[nameof(GroupInst)].Address); } }
+        public UArray<CameraCutInfo> CameraCuts { get { return new UArray<CameraCutInfo>(this[nameof(CameraCuts)].Address); } }
         public bool bIsPlaying { get { return this[nameof(bIsPlaying)].Flag; } set { this[nameof(bIsPlaying)].Flag = value; } }
         public bool bReversePlayback { get { return this[nameof(bReversePlayback)].Flag; } set { this[nameof(bReversePlayback)].Flag = value; } }
         public bool bPaused { get { return this[nameof(bPaused)].Flag; } set { this[nameof(bPaused)].Flag = value; } }
@@ -9198,7 +9203,7 @@ namespace SDK.Script.EngineSDK
     public class MicroTransactionBase : PlatformInterfaceBase
     {
         public MicroTransactionBase(nint addr) : base(addr) { }
-        public Array<PurchaseInfo> AvailableProducts { get { return new Array<PurchaseInfo>(this[nameof(AvailableProducts)].Address); } }
+        public UArray<PurchaseInfo> AvailableProducts { get { return new UArray<PurchaseInfo>(this[nameof(AvailableProducts)].Address); } }
         public Object LastError { get { return this[nameof(LastError)]; } set { this[nameof(LastError)] = value; } }
         public Object LastErrorSolution { get { return this[nameof(LastErrorSolution)]; } set { this[nameof(LastErrorSolution)] = value; } }
     }
@@ -9257,8 +9262,8 @@ namespace SDK.Script.EngineSDK
     public class NavLinkDefinition : Object
     {
         public NavLinkDefinition(nint addr) : base(addr) { }
-        public Array<NavigationLink> Links { get { return new Array<NavigationLink>(this[nameof(Links)].Address); } }
-        public Array<NavigationSegmentLink> SegmentLinks { get { return new Array<NavigationSegmentLink>(this[nameof(SegmentLinks)].Address); } }
+        public UArray<NavigationLink> Links { get { return new UArray<NavigationLink>(this[nameof(Links)].Address); } }
+        public UArray<NavigationSegmentLink> SegmentLinks { get { return new UArray<NavigationSegmentLink>(this[nameof(SegmentLinks)].Address); } }
     }
     public class NavPathObserverInterface : Interface
     {
@@ -9289,7 +9294,7 @@ namespace SDK.Script.EngineSDK
         public bool bEnableMultiplayerWorldOriginRebasing { get { return this[nameof(bEnableMultiplayerWorldOriginRebasing)].Flag; } set { this[nameof(bEnableMultiplayerWorldOriginRebasing)].Flag = value; } }
         public int MaxRepArraySize { get { return this[nameof(MaxRepArraySize)].GetValue<int>(); } set { this[nameof(MaxRepArraySize)].SetValue<int>(value); } }
         public int MaxRepArrayMemory { get { return this[nameof(MaxRepArrayMemory)].GetValue<int>(); } set { this[nameof(MaxRepArrayMemory)].SetValue<int>(value); } }
-        public Array<NetworkEmulationProfileDescription> NetworkEmulationProfiles { get { return new Array<NetworkEmulationProfileDescription>(this[nameof(NetworkEmulationProfiles)].Address); } }
+        public UArray<NetworkEmulationProfileDescription> NetworkEmulationProfiles { get { return new UArray<NetworkEmulationProfileDescription>(this[nameof(NetworkEmulationProfiles)].Address); } }
     }
     public class NodeMappingContainer : Object
     {
@@ -9313,15 +9318,15 @@ namespace SDK.Script.EngineSDK
         public ObjectLibrary(nint addr) : base(addr) { }
         public Object ObjectBaseClass { get { return this[nameof(ObjectBaseClass)]; } set { this[nameof(ObjectBaseClass)] = value; } }
         public bool bHasBlueprintClasses { get { return this[nameof(bHasBlueprintClasses)].Flag; } set { this[nameof(bHasBlueprintClasses)].Flag = value; } }
-        public Array<Object> Objects { get { return new Array<Object>(this[nameof(Objects)].Address); } }
-        public Array<Object> WeakObjects { get { return new Array<Object>(this[nameof(WeakObjects)].Address); } }
+        public UArray<Object> Objects { get { return new UArray<Object>(this[nameof(Objects)].Address); } }
+        public UArray<Object> WeakObjects { get { return new UArray<Object>(this[nameof(WeakObjects)].Address); } }
         public bool bUseWeakReferences { get { return this[nameof(bUseWeakReferences)].Flag; } set { this[nameof(bUseWeakReferences)].Flag = value; } }
         public bool bIsFullyLoaded { get { return this[nameof(bIsFullyLoaded)].Flag; } set { this[nameof(bIsFullyLoaded)].Flag = value; } }
     }
     public class ObjectReferencer : Object
     {
         public ObjectReferencer(nint addr) : base(addr) { }
-        public Array<Object> ReferencedObjects { get { return new Array<Object>(this[nameof(ReferencedObjects)].Address); } }
+        public UArray<Object> ReferencedObjects { get { return new UArray<Object>(this[nameof(ReferencedObjects)].Address); } }
     }
     public class ObjectTraceWorldSubsystem : WorldSubsystem
     {
@@ -9355,7 +9360,7 @@ namespace SDK.Script.EngineSDK
         public bool bCookedOut { get { return this[nameof(bCookedOut)].Flag; } set { this[nameof(bCookedOut)].Flag = value; } }
         public bool bDisabledLODsKeepEmitterAlive { get { return this[nameof(bDisabledLODsKeepEmitterAlive)].Flag; } set { this[nameof(bDisabledLODsKeepEmitterAlive)].Flag = value; } }
         public bool bDisableWhenInsignficant { get { return this[nameof(bDisableWhenInsignficant)].Flag; } set { this[nameof(bDisableWhenInsignficant)].Flag = value; } }
-        public Array<ParticleLODLevel> LODLevels { get { return new Array<ParticleLODLevel>(this[nameof(LODLevels)].Address); } }
+        public UArray<ParticleLODLevel> LODLevels { get { return new UArray<ParticleLODLevel>(this[nameof(LODLevels)].Address); } }
         public int PeakActiveParticles { get { return this[nameof(PeakActiveParticles)].GetValue<int>(); } set { this[nameof(PeakActiveParticles)].SetValue<int>(value); } }
         public int InitialAllocationCount { get { return this[nameof(InitialAllocationCount)].GetValue<int>(); } set { this[nameof(InitialAllocationCount)].SetValue<int>(value); } }
         public float QualityLevelSpawnRateScale { get { return this[nameof(QualityLevelSpawnRateScale)].GetValue<float>(); } set { this[nameof(QualityLevelSpawnRateScale)].SetValue<float>(value); } }
@@ -9371,15 +9376,15 @@ namespace SDK.Script.EngineSDK
         public int Level { get { return this[nameof(Level)].GetValue<int>(); } set { this[nameof(Level)].SetValue<int>(value); } }
         public bool bEnabled { get { return this[nameof(bEnabled)].Flag; } set { this[nameof(bEnabled)].Flag = value; } }
         public ParticleModuleRequired RequiredModule { get { return this[nameof(RequiredModule)].As<ParticleModuleRequired>(); } set { this["RequiredModule"] = value; } }
-        public Array<ParticleModule> Modules { get { return new Array<ParticleModule>(this[nameof(Modules)].Address); } }
+        public UArray<ParticleModule> Modules { get { return new UArray<ParticleModule>(this[nameof(Modules)].Address); } }
         public ParticleModuleTypeDataBase TypeDataModule { get { return this[nameof(TypeDataModule)].As<ParticleModuleTypeDataBase>(); } set { this["TypeDataModule"] = value; } }
         public ParticleModuleSpawn SpawnModule { get { return this[nameof(SpawnModule)].As<ParticleModuleSpawn>(); } set { this["SpawnModule"] = value; } }
         public ParticleModuleEventGenerator EventGenerator { get { return this[nameof(EventGenerator)].As<ParticleModuleEventGenerator>(); } set { this["EventGenerator"] = value; } }
-        public Array<ParticleModuleSpawnBase> SpawningModules { get { return new Array<ParticleModuleSpawnBase>(this[nameof(SpawningModules)].Address); } }
-        public Array<ParticleModule> SpawnModules { get { return new Array<ParticleModule>(this[nameof(SpawnModules)].Address); } }
-        public Array<ParticleModule> UpdateModules { get { return new Array<ParticleModule>(this[nameof(UpdateModules)].Address); } }
-        public Array<ParticleModuleOrbit> OrbitModules { get { return new Array<ParticleModuleOrbit>(this[nameof(OrbitModules)].Address); } }
-        public Array<ParticleModuleEventReceiverBase> EventReceiverModules { get { return new Array<ParticleModuleEventReceiverBase>(this[nameof(EventReceiverModules)].Address); } }
+        public UArray<ParticleModuleSpawnBase> SpawningModules { get { return new UArray<ParticleModuleSpawnBase>(this[nameof(SpawningModules)].Address); } }
+        public UArray<ParticleModule> SpawnModules { get { return new UArray<ParticleModule>(this[nameof(SpawnModules)].Address); } }
+        public UArray<ParticleModule> UpdateModules { get { return new UArray<ParticleModule>(this[nameof(UpdateModules)].Address); } }
+        public UArray<ParticleModuleOrbit> OrbitModules { get { return new UArray<ParticleModuleOrbit>(this[nameof(OrbitModules)].Address); } }
+        public UArray<ParticleModuleEventReceiverBase> EventReceiverModules { get { return new UArray<ParticleModuleEventReceiverBase>(this[nameof(EventReceiverModules)].Address); } }
         public bool ConvertedModules { get { return this[nameof(ConvertedModules)].Flag; } set { this[nameof(ConvertedModules)].Flag = value; } }
         public int PeakActiveParticles { get { return this[nameof(PeakActiveParticles)].GetValue<int>(); } set { this[nameof(PeakActiveParticles)].SetValue<int>(value); } }
     }
@@ -9390,13 +9395,13 @@ namespace SDK.Script.EngineSDK
         public float UpdateTime_Delta { get { return this[nameof(UpdateTime_Delta)].GetValue<float>(); } set { this[nameof(UpdateTime_Delta)].SetValue<float>(value); } }
         public float WarmupTime { get { return this[nameof(WarmupTime)].GetValue<float>(); } set { this[nameof(WarmupTime)].SetValue<float>(value); } }
         public float WarmupTickRate { get { return this[nameof(WarmupTickRate)].GetValue<float>(); } set { this[nameof(WarmupTickRate)].SetValue<float>(value); } }
-        public Array<ParticleEmitter> Emitters { get { return new Array<ParticleEmitter>(this[nameof(Emitters)].Address); } }
+        public UArray<ParticleEmitter> Emitters { get { return new UArray<ParticleEmitter>(this[nameof(Emitters)].Address); } }
         public ParticleSystemComponent PreviewComponent { get { return this[nameof(PreviewComponent)].As<ParticleSystemComponent>(); } set { this["PreviewComponent"] = value; } }
         public InterpCurveEdSetup CurveEdSetup { get { return this[nameof(CurveEdSetup)].As<InterpCurveEdSetup>(); } set { this["CurveEdSetup"] = value; } }
         public float LODDistanceCheckTime { get { return this[nameof(LODDistanceCheckTime)].GetValue<float>(); } set { this[nameof(LODDistanceCheckTime)].SetValue<float>(value); } }
         public float MacroUVRadius { get { return this[nameof(MacroUVRadius)].GetValue<float>(); } set { this[nameof(MacroUVRadius)].SetValue<float>(value); } }
-        public Array<float> LODDistances { get { return new Array<float>(this[nameof(LODDistances)].Address); } }
-        public Array<ParticleSystemLOD> LODSettings { get { return new Array<ParticleSystemLOD>(this[nameof(LODSettings)].Address); } }
+        public UArray<float> LODDistances { get { return new UArray<float>(this[nameof(LODDistances)].Address); } }
+        public UArray<ParticleSystemLOD> LODSettings { get { return new UArray<ParticleSystemLOD>(this[nameof(LODSettings)].Address); } }
         public Box FixedRelativeBoundingBox { get { return this[nameof(FixedRelativeBoundingBox)].As<Box>(); } set { this["FixedRelativeBoundingBox"] = value; } }
         public float SecondsBeforeInactive { get { return this[nameof(SecondsBeforeInactive)].GetValue<float>(); } set { this[nameof(SecondsBeforeInactive)].SetValue<float>(value); } }
         public float Delay { get { return this[nameof(Delay)].GetValue<float>(); } set { this[nameof(Delay)].SetValue<float>(value); } }
@@ -9420,8 +9425,8 @@ namespace SDK.Script.EngineSDK
         public float InsignificanceDelay { get { return this[nameof(InsignificanceDelay)].GetValue<float>(); } set { this[nameof(InsignificanceDelay)].SetValue<float>(value); } }
         public Vector MacroUVPosition { get { return this[nameof(MacroUVPosition)].As<Vector>(); } set { this["MacroUVPosition"] = value; } }
         public Box CustomOcclusionBounds { get { return this[nameof(CustomOcclusionBounds)].As<Box>(); } set { this["CustomOcclusionBounds"] = value; } }
-        public Array<LODSoloTrack> SoloTracking { get { return new Array<LODSoloTrack>(this[nameof(SoloTracking)].Address); } }
-        public Array<NamedEmitterMaterial> NamedMaterialSlots { get { return new Array<NamedEmitterMaterial>(this[nameof(NamedMaterialSlots)].Address); } }
+        public UArray<LODSoloTrack> SoloTracking { get { return new UArray<LODSoloTrack>(this[nameof(SoloTracking)].Address); } }
+        public UArray<NamedEmitterMaterial> NamedMaterialSlots { get { return new UArray<NamedEmitterMaterial>(this[nameof(NamedMaterialSlots)].Address); } }
         public bool ContainsEmitterType(Object TypeData) { return Invoke<bool>(nameof(ContainsEmitterType), TypeData); }
     }
     public class ParticleModule : Object
@@ -9615,7 +9620,7 @@ namespace SDK.Script.EngineSDK
         public RawDistributionVector DampingFactorRotation { get { return this[nameof(DampingFactorRotation)].As<RawDistributionVector>(); } set { this["DampingFactorRotation"] = value; } }
         public RawDistributionFloat MaxCollisions { get { return this[nameof(MaxCollisions)].As<RawDistributionFloat>(); } set { this["MaxCollisions"] = value; } }
         public byte CollisionCompletionOption { get { return this[nameof(CollisionCompletionOption)].GetValue<byte>(); } set { this[nameof(CollisionCompletionOption)].SetValue<byte>(value); } }
-        public Array<byte> CollisionTypes { get { return new Array<byte>(this[nameof(CollisionTypes)].Address); } }
+        public UArray<byte> CollisionTypes { get { return new UArray<byte>(this[nameof(CollisionTypes)].Address); } }
         public bool bApplyPhysics { get { return this[nameof(bApplyPhysics)].Flag; } set { this[nameof(bApplyPhysics)].Flag = value; } }
         public bool bIgnoreTriggerVolumes { get { return this[nameof(bIgnoreTriggerVolumes)].Flag; } set { this[nameof(bIgnoreTriggerVolumes)].Flag = value; } }
         public RawDistributionFloat ParticleMass { get { return this[nameof(ParticleMass)].As<RawDistributionFloat>(); } set { this["ParticleMass"] = value; } }
@@ -9679,7 +9684,7 @@ namespace SDK.Script.EngineSDK
     public class ParticleModuleEventGenerator : ParticleModuleEventBase
     {
         public ParticleModuleEventGenerator(nint addr) : base(addr) { }
-        public Array<ParticleEvent_GenerateInfo> Events { get { return new Array<ParticleEvent_GenerateInfo>(this[nameof(Events)].Address); } }
+        public UArray<ParticleEvent_GenerateInfo> Events { get { return new UArray<ParticleEvent_GenerateInfo>(this[nameof(Events)].Address); } }
     }
     public class ParticleModuleEventReceiverBase : ParticleModuleEventBase
     {
@@ -9700,7 +9705,7 @@ namespace SDK.Script.EngineSDK
         public bool bUsePSysLocation { get { return this[nameof(bUsePSysLocation)].Flag; } set { this[nameof(bUsePSysLocation)].Flag = value; } }
         public bool bInheritVelocity { get { return this[nameof(bInheritVelocity)].Flag; } set { this[nameof(bInheritVelocity)].Flag = value; } }
         public RawDistributionVector InheritVelocityScale { get { return this[nameof(InheritVelocityScale)].As<RawDistributionVector>(); } set { this["InheritVelocityScale"] = value; } }
-        public Array<PhysicalMaterial> PhysicalMaterials { get { return new Array<PhysicalMaterial>(this[nameof(PhysicalMaterials)].Address); } }
+        public UArray<PhysicalMaterial> PhysicalMaterials { get { return new UArray<PhysicalMaterial>(this[nameof(PhysicalMaterials)].Address); } }
         public bool bBanPhysicalMaterials { get { return this[nameof(bBanPhysicalMaterials)].Flag; } set { this[nameof(bBanPhysicalMaterials)].Flag = value; } }
     }
     public class ParticleModuleEventSendToGame : Object
@@ -9788,7 +9793,7 @@ namespace SDK.Script.EngineSDK
         public ParticleModuleLocationBoneSocket(nint addr) : base(addr) { }
         public byte SourceType { get { return this[nameof(SourceType)].GetValue<byte>(); } set { this[nameof(SourceType)].SetValue<byte>(value); } }
         public Vector UniversalOffset { get { return this[nameof(UniversalOffset)].As<Vector>(); } set { this["UniversalOffset"] = value; } }
-        public Array<LocationBoneSocketInfo> SourceLocations { get { return new Array<LocationBoneSocketInfo>(this[nameof(SourceLocations)].Address); } }
+        public UArray<LocationBoneSocketInfo> SourceLocations { get { return new UArray<LocationBoneSocketInfo>(this[nameof(SourceLocations)].Address); } }
         public byte SelectionMethod { get { return this[nameof(SelectionMethod)].GetValue<byte>(); } set { this[nameof(SelectionMethod)].SetValue<byte>(value); } }
         public bool bUpdatePositionEachFrame { get { return this[nameof(bUpdatePositionEachFrame)].Flag; } set { this[nameof(bUpdatePositionEachFrame)].Flag = value; } }
         public bool bOrientMeshEmitters { get { return this[nameof(bOrientMeshEmitters)].Flag; } set { this[nameof(bOrientMeshEmitters)].Flag = value; } }
@@ -9875,12 +9880,12 @@ namespace SDK.Script.EngineSDK
         public bool bInheritBoneVelocity { get { return this[nameof(bInheritBoneVelocity)].Flag; } set { this[nameof(bInheritBoneVelocity)].Flag = value; } }
         public float InheritVelocityScale { get { return this[nameof(InheritVelocityScale)].GetValue<float>(); } set { this[nameof(InheritVelocityScale)].SetValue<float>(value); } }
         public Object SkelMeshActorParamName { get { return this[nameof(SkelMeshActorParamName)]; } set { this[nameof(SkelMeshActorParamName)] = value; } }
-        public Array<Object> ValidAssociatedBones { get { return new Array<Object>(this[nameof(ValidAssociatedBones)].Address); } }
+        public UArray<Object> ValidAssociatedBones { get { return new UArray<Object>(this[nameof(ValidAssociatedBones)].Address); } }
         public bool bEnforceNormalCheck { get { return this[nameof(bEnforceNormalCheck)].Flag; } set { this[nameof(bEnforceNormalCheck)].Flag = value; } }
         public Vector NormalToCompare { get { return this[nameof(NormalToCompare)].As<Vector>(); } set { this["NormalToCompare"] = value; } }
         public float NormalCheckToleranceDegrees { get { return this[nameof(NormalCheckToleranceDegrees)].GetValue<float>(); } set { this[nameof(NormalCheckToleranceDegrees)].SetValue<float>(value); } }
         public float NormalCheckTolerance { get { return this[nameof(NormalCheckTolerance)].GetValue<float>(); } set { this[nameof(NormalCheckTolerance)].SetValue<float>(value); } }
-        public Array<int> ValidMaterialIndices { get { return new Array<int>(this[nameof(ValidMaterialIndices)].Address); } }
+        public UArray<int> ValidMaterialIndices { get { return new UArray<int>(this[nameof(ValidMaterialIndices)].Address); } }
         public bool bInheritVertexColor { get { return this[nameof(bInheritVertexColor)].Flag; } set { this[nameof(bInheritVertexColor)].Flag = value; } }
         public bool bInheritUV { get { return this[nameof(bInheritUV)].Flag; } set { this[nameof(bInheritUV)].Flag = value; } }
         public uint InheritUVChannel { get { return this[nameof(InheritUVChannel)].GetValue<uint>(); } set { this[nameof(InheritUVChannel)].SetValue<uint>(value); } }
@@ -9901,7 +9906,7 @@ namespace SDK.Script.EngineSDK
     public class ParticleModuleMeshMaterial : ParticleModuleMaterialBase
     {
         public ParticleModuleMeshMaterial(nint addr) : base(addr) { }
-        public Array<MaterialInterface> MeshMaterials { get { return new Array<MaterialInterface>(this[nameof(MeshMaterials)].Address); } }
+        public UArray<MaterialInterface> MeshMaterials { get { return new UArray<MaterialInterface>(this[nameof(MeshMaterials)].Address); } }
     }
     public class ParticleModuleRotationBase : ParticleModule
     {
@@ -9975,7 +9980,7 @@ namespace SDK.Script.EngineSDK
     public class ParticleModuleParameterDynamic : ParticleModuleParameterBase
     {
         public ParticleModuleParameterDynamic(nint addr) : base(addr) { }
-        public Array<EmitterDynamicParameter> DynamicParams { get { return new Array<EmitterDynamicParameter>(this[nameof(DynamicParams)].Address); } }
+        public UArray<EmitterDynamicParameter> DynamicParams { get { return new UArray<EmitterDynamicParameter>(this[nameof(DynamicParams)].Address); } }
         public int UpdateFlags { get { return this[nameof(UpdateFlags)].GetValue<int>(); } set { this[nameof(UpdateFlags)].SetValue<int>(value); } }
         public bool bUsesVelocity { get { return this[nameof(bUsesVelocity)].Flag; } set { this[nameof(bUsesVelocity)].Flag = value; } }
     }
@@ -10007,7 +10012,7 @@ namespace SDK.Script.EngineSDK
         public bool bEmitterDurationUseRange { get { return this[nameof(bEmitterDurationUseRange)].Flag; } set { this[nameof(bEmitterDurationUseRange)].Flag = value; } }
         public float EmitterDuration { get { return this[nameof(EmitterDuration)].GetValue<float>(); } set { this[nameof(EmitterDuration)].SetValue<float>(value); } }
         public RawDistributionFloat SpawnRate { get { return this[nameof(SpawnRate)].As<RawDistributionFloat>(); } set { this["SpawnRate"] = value; } }
-        public Array<ParticleBurst> BurstList { get { return new Array<ParticleBurst>(this[nameof(BurstList)].Address); } }
+        public UArray<ParticleBurst> BurstList { get { return new UArray<ParticleBurst>(this[nameof(BurstList)].Address); } }
         public float EmitterDelay { get { return this[nameof(EmitterDelay)].GetValue<float>(); } set { this[nameof(EmitterDelay)].SetValue<float>(value); } }
         public float EmitterDelayLow { get { return this[nameof(EmitterDelayLow)].GetValue<float>(); } set { this[nameof(EmitterDelayLow)].SetValue<float>(value); } }
         public bool bDelayFirstLoopOnly { get { return this[nameof(bDelayFirstLoopOnly)].Flag; } set { this[nameof(bDelayFirstLoopOnly)].Flag = value; } }
@@ -10036,7 +10041,7 @@ namespace SDK.Script.EngineSDK
         public int MaxDrawCount { get { return this[nameof(MaxDrawCount)].GetValue<int>(); } set { this[nameof(MaxDrawCount)].SetValue<int>(value); } }
         public float EmitterDurationLow { get { return this[nameof(EmitterDurationLow)].GetValue<float>(); } set { this[nameof(EmitterDurationLow)].SetValue<float>(value); } }
         public Vector NormalsCylinderDirection { get { return this[nameof(NormalsCylinderDirection)].As<Vector>(); } set { this["NormalsCylinderDirection"] = value; } }
-        public Array<Object> NamedMaterialOverrides { get { return new Array<Object>(this[nameof(NamedMaterialOverrides)].Address); } }
+        public UArray<Object> NamedMaterialOverrides { get { return new UArray<Object>(this[nameof(NamedMaterialOverrides)].Address); } }
     }
     public class ParticleModuleRotation : ParticleModuleRotationBase
     {
@@ -10122,7 +10127,7 @@ namespace SDK.Script.EngineSDK
         public RawDistributionFloat Rate { get { return this[nameof(Rate)].As<RawDistributionFloat>(); } set { this["Rate"] = value; } }
         public RawDistributionFloat RateScale { get { return this[nameof(RateScale)].As<RawDistributionFloat>(); } set { this["RateScale"] = value; } }
         public byte ParticleBurstMethod { get { return this[nameof(ParticleBurstMethod)].GetValue<byte>(); } set { this[nameof(ParticleBurstMethod)].SetValue<byte>(value); } }
-        public Array<ParticleBurst> BurstList { get { return new Array<ParticleBurst>(this[nameof(BurstList)].Address); } }
+        public UArray<ParticleBurst> BurstList { get { return new UArray<ParticleBurst>(this[nameof(BurstList)].Address); } }
         public RawDistributionFloat BurstScale { get { return this[nameof(BurstScale)].As<RawDistributionFloat>(); } set { this["BurstScale"] = value; } }
         public bool bApplyGlobalSpawnRateScale { get { return this[nameof(bApplyGlobalSpawnRateScale)].Flag; } set { this[nameof(bApplyGlobalSpawnRateScale)].Flag = value; } }
     }
@@ -10168,7 +10173,7 @@ namespace SDK.Script.EngineSDK
         public RawDistributionFloat SourceStrength { get { return this[nameof(SourceStrength)].As<RawDistributionFloat>(); } set { this["SourceStrength"] = value; } }
         public bool bLockSourceStength { get { return this[nameof(bLockSourceStength)].Flag; } set { this[nameof(bLockSourceStength)].Flag = value; } }
         public int SourceOffsetCount { get { return this[nameof(SourceOffsetCount)].GetValue<int>(); } set { this[nameof(SourceOffsetCount)].SetValue<int>(value); } }
-        public Array<Vector> SourceOffsetDefaults { get { return new Array<Vector>(this[nameof(SourceOffsetDefaults)].Address); } }
+        public UArray<Vector> SourceOffsetDefaults { get { return new UArray<Vector>(this[nameof(SourceOffsetDefaults)].Address); } }
         public byte SelectionMethod { get { return this[nameof(SelectionMethod)].GetValue<byte>(); } set { this[nameof(SelectionMethod)].SetValue<byte>(value); } }
         public bool bInheritRotation { get { return this[nameof(bInheritRotation)].Flag; } set { this[nameof(bInheritRotation)].Flag = value; } }
     }
@@ -10393,20 +10398,20 @@ namespace SDK.Script.EngineSDK
     public class PhysicsAsset : Object
     {
         public PhysicsAsset(nint addr) : base(addr) { }
-        public Array<int> BoundsBodies { get { return new Array<int>(this[nameof(BoundsBodies)].Address); } }
-        public Array<SkeletalBodySetup> SkeletalBodySetups { get { return new Array<SkeletalBodySetup>(this[nameof(SkeletalBodySetups)].Address); } }
-        public Array<PhysicsConstraintTemplate> ConstraintSetup { get { return new Array<PhysicsConstraintTemplate>(this[nameof(ConstraintSetup)].Address); } }
+        public UArray<int> BoundsBodies { get { return new UArray<int>(this[nameof(BoundsBodies)].Address); } }
+        public UArray<SkeletalBodySetup> SkeletalBodySetups { get { return new UArray<SkeletalBodySetup>(this[nameof(SkeletalBodySetups)].Address); } }
+        public UArray<PhysicsConstraintTemplate> ConstraintSetup { get { return new UArray<PhysicsConstraintTemplate>(this[nameof(ConstraintSetup)].Address); } }
         public SolverIterations SolverIterations { get { return this[nameof(SolverIterations)].As<SolverIterations>(); } set { this["SolverIterations"] = value; } }
         public EPhysicsAssetSolverType SolverType { get { return (EPhysicsAssetSolverType)this[nameof(SolverType)].GetValue<int>(); } set { this[nameof(SolverType)].SetValue<int>((int)value); } }
         public bool bNotForDedicatedServer { get { return this[nameof(bNotForDedicatedServer)].Flag; } set { this[nameof(bNotForDedicatedServer)].Flag = value; } }
         public ThumbnailInfo ThumbnailInfo { get { return this[nameof(ThumbnailInfo)].As<ThumbnailInfo>(); } set { this["ThumbnailInfo"] = value; } }
-        public Array<BodySetup> BodySetup { get { return new Array<BodySetup>(this[nameof(BodySetup)].Address); } }
+        public UArray<BodySetup> BodySetup { get { return new UArray<BodySetup>(this[nameof(BodySetup)].Address); } }
     }
     public class SkeletalBodySetup : BodySetup
     {
         public SkeletalBodySetup(nint addr) : base(addr) { }
         public bool bSkipScaleFromAnimation { get { return this[nameof(bSkipScaleFromAnimation)].Flag; } set { this[nameof(bSkipScaleFromAnimation)].Flag = value; } }
-        public Array<PhysicalAnimationProfile> PhysicalAnimationData { get { return new Array<PhysicalAnimationProfile>(this[nameof(PhysicalAnimationData)].Address); } }
+        public UArray<PhysicalAnimationProfile> PhysicalAnimationData { get { return new UArray<PhysicalAnimationProfile>(this[nameof(PhysicalAnimationData)].Address); } }
     }
     public class PhysicsCollisionHandler : Object
     {
@@ -10479,7 +10484,7 @@ namespace SDK.Script.EngineSDK
     {
         public PhysicsConstraintTemplate(nint addr) : base(addr) { }
         public ConstraintInstance DefaultInstance { get { return this[nameof(DefaultInstance)].As<ConstraintInstance>(); } set { this["DefaultInstance"] = value; } }
-        public Array<PhysicsConstraintProfileHandle> ProfileHandles { get { return new Array<PhysicsConstraintProfileHandle>(this[nameof(ProfileHandles)].Address); } }
+        public UArray<PhysicsConstraintProfileHandle> ProfileHandles { get { return new UArray<PhysicsConstraintProfileHandle>(this[nameof(ProfileHandles)].Address); } }
         public ConstraintProfileProperties DefaultProfile { get { return this[nameof(DefaultProfile)].As<ConstraintProfileProperties>(); } set { this["DefaultProfile"] = value; } }
     }
     public class PhysicsFieldComponent : SceneComponent
@@ -10536,7 +10541,7 @@ namespace SDK.Script.EngineSDK
         public float SyncSceneSmoothingFactor { get { return this[nameof(SyncSceneSmoothingFactor)].GetValue<float>(); } set { this[nameof(SyncSceneSmoothingFactor)].SetValue<float>(value); } }
         public float InitialAverageFrameRate { get { return this[nameof(InitialAverageFrameRate)].GetValue<float>(); } set { this[nameof(InitialAverageFrameRate)].SetValue<float>(value); } }
         public int PhysXTreeRebuildRate { get { return this[nameof(PhysXTreeRebuildRate)].GetValue<int>(); } set { this[nameof(PhysXTreeRebuildRate)].SetValue<int>(value); } }
-        public Array<PhysicalSurfaceName> PhysicalSurfaces { get { return new Array<PhysicalSurfaceName>(this[nameof(PhysicalSurfaces)].Address); } }
+        public UArray<PhysicalSurfaceName> PhysicalSurfaces { get { return new UArray<PhysicalSurfaceName>(this[nameof(PhysicalSurfaces)].Address); } }
         public BroadphaseSettings DefaultBroadphaseSettings { get { return this[nameof(DefaultBroadphaseSettings)].As<BroadphaseSettings>(); } set { this["DefaultBroadphaseSettings"] = value; } }
         public float MinDeltaVelocityForHitEvents { get { return this[nameof(MinDeltaVelocityForHitEvents)].GetValue<float>(); } set { this[nameof(MinDeltaVelocityForHitEvents)].SetValue<float>(value); } }
         public ChaosPhysicsSettings ChaosSettings { get { return this[nameof(ChaosSettings)].As<ChaosPhysicsSettings>(); } set { this["ChaosSettings"] = value; } }
@@ -10619,7 +10624,7 @@ namespace SDK.Script.EngineSDK
         public int ResponseCode { get { return this[nameof(ResponseCode)].GetValue<int>(); } set { this[nameof(ResponseCode)].SetValue<int>(value); } }
         public int Tag { get { return this[nameof(Tag)].GetValue<int>(); } set { this[nameof(Tag)].SetValue<int>(value); } }
         public Object StringResponse { get { return this[nameof(StringResponse)]; } set { this[nameof(StringResponse)] = value; } }
-        public Array<byte> BinaryResponse { get { return new Array<byte>(this[nameof(BinaryResponse)].Address); } }
+        public UArray<byte> BinaryResponse { get { return new UArray<byte>(this[nameof(BinaryResponse)].Address); } }
         public int GetNumHeaders() { return Invoke<int>(nameof(GetNumHeaders)); }
         public Object GetHeaderValue(Object HeaderName) { return Invoke<Object>(nameof(GetHeaderValue), HeaderName); }
         public void GetHeader(int HeaderIndex, Object Header, Object Value) { Invoke(nameof(GetHeader), HeaderIndex, Header, Value); }
@@ -10627,8 +10632,8 @@ namespace SDK.Script.EngineSDK
     public class PlayerInput : Object
     {
         public PlayerInput(nint addr) : base(addr) { }
-        public Array<KeyBind> DebugExecBindings { get { return new Array<KeyBind>(this[nameof(DebugExecBindings)].Address); } }
-        public Array<Object> InvertedAxis { get { return new Array<Object>(this[nameof(InvertedAxis)].Address); } }
+        public UArray<KeyBind> DebugExecBindings { get { return new UArray<KeyBind>(this[nameof(DebugExecBindings)].Address); } }
+        public UArray<Object> InvertedAxis { get { return new UArray<Object>(this[nameof(InvertedAxis)].Address); } }
         public void SetMouseSensitivity(float Sensitivity) { Invoke(nameof(SetMouseSensitivity), Sensitivity); }
         public void SetBind(Object BindName, Object Command) { Invoke(nameof(SetBind), BindName, Command); }
         public void InvertAxisKey(Key AxisKey) { Invoke(nameof(InvertAxisKey), AxisKey); }
@@ -10661,7 +10666,7 @@ namespace SDK.Script.EngineSDK
         public bool bAdditivePose { get { return this[nameof(bAdditivePose)].Flag; } set { this[nameof(bAdditivePose)].Flag = value; } }
         public int BasePoseIndex { get { return this[nameof(BasePoseIndex)].GetValue<int>(); } set { this[nameof(BasePoseIndex)].SetValue<int>(value); } }
         public Object RetargetSource { get { return this[nameof(RetargetSource)]; } set { this[nameof(RetargetSource)] = value; } }
-        public Array<Transform> RetargetSourceAssetReferencePose { get { return new Array<Transform>(this[nameof(RetargetSourceAssetReferencePose)].Address); } }
+        public UArray<Transform> RetargetSourceAssetReferencePose { get { return new UArray<Transform>(this[nameof(RetargetSourceAssetReferencePose)].Address); } }
     }
     public class PoseWatch : Object
     {
@@ -10694,9 +10699,9 @@ namespace SDK.Script.EngineSDK
     public class PrecomputedVisibilityOverrideVolume : Volume
     {
         public PrecomputedVisibilityOverrideVolume(nint addr) : base(addr) { }
-        public Array<Actor> OverrideVisibleActors { get { return new Array<Actor>(this[nameof(OverrideVisibleActors)].Address); } }
-        public Array<Actor> OverrideInvisibleActors { get { return new Array<Actor>(this[nameof(OverrideInvisibleActors)].Address); } }
-        public Array<Object> OverrideInvisibleLevels { get { return new Array<Object>(this[nameof(OverrideInvisibleLevels)].Address); } }
+        public UArray<Actor> OverrideVisibleActors { get { return new UArray<Actor>(this[nameof(OverrideVisibleActors)].Address); } }
+        public UArray<Actor> OverrideInvisibleActors { get { return new UArray<Actor>(this[nameof(OverrideInvisibleActors)].Address); } }
+        public UArray<Object> OverrideInvisibleLevels { get { return new UArray<Object>(this[nameof(OverrideInvisibleLevels)].Address); } }
     }
     public class PrecomputedVisibilityVolume : Volume
     {
@@ -10710,7 +10715,7 @@ namespace SDK.Script.EngineSDK
     {
         public PreviewMeshCollection(nint addr) : base(addr) { }
         public Skeleton Skeleton { get { return this[nameof(Skeleton)].As<Skeleton>(); } set { this["Skeleton"] = value; } }
-        public Array<PreviewMeshCollectionEntry> SkeletalMeshes { get { return new Array<PreviewMeshCollectionEntry>(this[nameof(SkeletalMeshes)].Address); } }
+        public UArray<PreviewMeshCollectionEntry> SkeletalMeshes { get { return new UArray<PreviewMeshCollectionEntry>(this[nameof(SkeletalMeshes)].Address); } }
     }
     public class PrimaryAssetLabel : PrimaryDataAsset
     {
@@ -10718,8 +10723,8 @@ namespace SDK.Script.EngineSDK
         public PrimaryAssetRules Rules { get { return this[nameof(Rules)].As<PrimaryAssetRules>(); } set { this["Rules"] = value; } }
         public bool bLabelAssetsInMyDirectory { get { return this[nameof(bLabelAssetsInMyDirectory)].Flag; } set { this[nameof(bLabelAssetsInMyDirectory)].Flag = value; } }
         public bool bIsRuntimeLabel { get { return this[nameof(bIsRuntimeLabel)].Flag; } set { this[nameof(bIsRuntimeLabel)].Flag = value; } }
-        public Array<Object> ExplicitAssets { get { return new Array<Object>(this[nameof(ExplicitAssets)].Address); } }
-        public Array<Object> ExplicitBlueprints { get { return new Array<Object>(this[nameof(ExplicitBlueprints)].Address); } }
+        public UArray<Object> ExplicitAssets { get { return new UArray<Object>(this[nameof(ExplicitAssets)].Address); } }
+        public UArray<Object> ExplicitBlueprints { get { return new UArray<Object>(this[nameof(ExplicitBlueprints)].Address); } }
         public CollectionReference AssetCollection { get { return this[nameof(AssetCollection)].As<CollectionReference>(); } set { this["AssetCollection"] = value; } }
     }
     public class ProxyLODMeshSimplificationSettings : DeveloperSettings
@@ -10746,7 +10751,7 @@ namespace SDK.Script.EngineSDK
         public bool bIgnoreOwningActor { get { return this[nameof(bIgnoreOwningActor)].Flag; } set { this[nameof(bIgnoreOwningActor)].Flag = value; } }
         public float ForceStrength { get { return this[nameof(ForceStrength)].GetValue<float>(); } set { this[nameof(ForceStrength)].SetValue<float>(value); } }
         public float DestructibleDamage { get { return this[nameof(DestructibleDamage)].GetValue<float>(); } set { this[nameof(DestructibleDamage)].SetValue<float>(value); } }
-        public Array<byte> ObjectTypesToAffect { get { return new Array<byte>(this[nameof(ObjectTypesToAffect)].Address); } }
+        public UArray<byte> ObjectTypesToAffect { get { return new UArray<byte>(this[nameof(ObjectTypesToAffect)].Address); } }
         public void RemoveObjectTypeToAffect(byte ObjectType) { Invoke(nameof(RemoveObjectTypeToAffect), ObjectType); }
         public void FireImpulse() { Invoke(nameof(FireImpulse)); }
         public void AddObjectTypeToAffect(byte ObjectType) { Invoke(nameof(AddObjectTypeToAffect), ObjectType); }
@@ -10943,8 +10948,8 @@ namespace SDK.Script.EngineSDK
     public class Rig : Object
     {
         public Rig(nint addr) : base(addr) { }
-        public Array<TransformBase> TransformBases { get { return new Array<TransformBase>(this[nameof(TransformBases)].Address); } }
-        public Array<Node> Nodes { get { return new Array<Node>(this[nameof(Nodes)].Address); } }
+        public UArray<TransformBase> TransformBases { get { return new UArray<TransformBase>(this[nameof(TransformBases)].Address); } }
+        public UArray<Node> Nodes { get { return new UArray<Node>(this[nameof(Nodes)].Address); } }
     }
     public class RotatingMovementComponent : MovementComponent
     {
@@ -11038,8 +11043,8 @@ namespace SDK.Script.EngineSDK
         public Object ParentComponentOrVariableName { get { return this[nameof(ParentComponentOrVariableName)]; } set { this[nameof(ParentComponentOrVariableName)] = value; } }
         public Object ParentComponentOwnerClassName { get { return this[nameof(ParentComponentOwnerClassName)]; } set { this[nameof(ParentComponentOwnerClassName)] = value; } }
         public bool bIsParentComponentNative { get { return this[nameof(bIsParentComponentNative)].Flag; } set { this[nameof(bIsParentComponentNative)].Flag = value; } }
-        public Array<SCS_Node> ChildNodes { get { return new Array<SCS_Node>(this[nameof(ChildNodes)].Address); } }
-        public Array<BPVariableMetaDataEntry> MetaDataArray { get { return new Array<BPVariableMetaDataEntry>(this[nameof(MetaDataArray)].Address); } }
+        public UArray<SCS_Node> ChildNodes { get { return new UArray<SCS_Node>(this[nameof(ChildNodes)].Address); } }
+        public UArray<BPVariableMetaDataEntry> MetaDataArray { get { return new UArray<BPVariableMetaDataEntry>(this[nameof(MetaDataArray)].Address); } }
         public Guid VariableGuid { get { return this[nameof(VariableGuid)].As<Guid>(); } set { this["VariableGuid"] = value; } }
         public Object InternalVariableName { get { return this[nameof(InternalVariableName)]; } set { this[nameof(InternalVariableName)] = value; } }
     }
@@ -11108,8 +11113,8 @@ namespace SDK.Script.EngineSDK
     public class SimpleConstructionScript : Object
     {
         public SimpleConstructionScript(nint addr) : base(addr) { }
-        public Array<SCS_Node> RootNodes { get { return new Array<SCS_Node>(this[nameof(RootNodes)].Address); } }
-        public Array<SCS_Node> AllNodes { get { return new Array<SCS_Node>(this[nameof(AllNodes)].Address); } }
+        public UArray<SCS_Node> RootNodes { get { return new UArray<SCS_Node>(this[nameof(RootNodes)].Address); } }
+        public UArray<SCS_Node> AllNodes { get { return new UArray<SCS_Node>(this[nameof(AllNodes)].Address); } }
         public SCS_Node DefaultSceneRootNode { get { return this[nameof(DefaultSceneRootNode)].As<SCS_Node>(); } set { this["DefaultSceneRootNode"] = value; } }
     }
     public class SkeletalMesh : StreamableRenderAsset
@@ -11120,9 +11125,9 @@ namespace SDK.Script.EngineSDK
         public BoxSphereBounds ExtendedBounds { get { return this[nameof(ExtendedBounds)].As<BoxSphereBounds>(); } set { this["ExtendedBounds"] = value; } }
         public Vector PositiveBoundsExtension { get { return this[nameof(PositiveBoundsExtension)].As<Vector>(); } set { this["PositiveBoundsExtension"] = value; } }
         public Vector NegativeBoundsExtension { get { return this[nameof(NegativeBoundsExtension)].As<Vector>(); } set { this["NegativeBoundsExtension"] = value; } }
-        public Array<SkeletalMaterial> Materials { get { return new Array<SkeletalMaterial>(this[nameof(Materials)].Address); } }
-        public Array<BoneMirrorInfo> SkelMirrorTable { get { return new Array<BoneMirrorInfo>(this[nameof(SkelMirrorTable)].Address); } }
-        public Array<SkeletalMeshLODInfo> LODInfo { get { return new Array<SkeletalMeshLODInfo>(this[nameof(LODInfo)].Address); } }
+        public UArray<SkeletalMaterial> Materials { get { return new UArray<SkeletalMaterial>(this[nameof(Materials)].Address); } }
+        public UArray<BoneMirrorInfo> SkelMirrorTable { get { return new UArray<BoneMirrorInfo>(this[nameof(SkelMirrorTable)].Address); } }
+        public UArray<SkeletalMeshLODInfo> LODInfo { get { return new UArray<SkeletalMeshLODInfo>(this[nameof(LODInfo)].Address); } }
         public PerPlatformInt MinLOD { get { return this[nameof(MinLOD)].As<PerPlatformInt>(); } set { this["MinLOD"] = value; } }
         public PerPlatformBool DisableBelowMinLodStripping { get { return this[nameof(DisableBelowMinLodStripping)].As<PerPlatformBool>(); } set { this["DisableBelowMinLodStripping"] = value; } }
         public byte SkelMirrorAxis { get { return this[nameof(SkelMirrorAxis)].GetValue<byte>(); } set { this[nameof(SkelMirrorAxis)].SetValue<byte>(value); } }
@@ -11135,32 +11140,32 @@ namespace SDK.Script.EngineSDK
         public BodySetup BodySetup { get { return this[nameof(BodySetup)].As<BodySetup>(); } set { this["BodySetup"] = value; } }
         public PhysicsAsset PhysicsAsset { get { return this[nameof(PhysicsAsset)].As<PhysicsAsset>(); } set { this["PhysicsAsset"] = value; } }
         public PhysicsAsset ShadowPhysicsAsset { get { return this[nameof(ShadowPhysicsAsset)].As<PhysicsAsset>(); } set { this["ShadowPhysicsAsset"] = value; } }
-        public Array<NodeMappingContainer> NodeMappingData { get { return new Array<NodeMappingContainer>(this[nameof(NodeMappingData)].Address); } }
+        public UArray<NodeMappingContainer> NodeMappingData { get { return new UArray<NodeMappingContainer>(this[nameof(NodeMappingData)].Address); } }
         public bool bSupportRayTracing { get { return this[nameof(bSupportRayTracing)].Flag; } set { this[nameof(bSupportRayTracing)].Flag = value; } }
-        public Array<MorphTarget> MorphTargets { get { return new Array<MorphTarget>(this[nameof(MorphTargets)].Address); } }
+        public UArray<MorphTarget> MorphTargets { get { return new UArray<MorphTarget>(this[nameof(MorphTargets)].Address); } }
         public Object PostProcessAnimBlueprint { get { return this[nameof(PostProcessAnimBlueprint)]; } set { this[nameof(PostProcessAnimBlueprint)] = value; } }
-        public Array<ClothingAssetBase> MeshClothingAssets { get { return new Array<ClothingAssetBase>(this[nameof(MeshClothingAssets)].Address); } }
+        public UArray<ClothingAssetBase> MeshClothingAssets { get { return new UArray<ClothingAssetBase>(this[nameof(MeshClothingAssets)].Address); } }
         public SkeletalMeshSamplingInfo SamplingInfo { get { return this[nameof(SamplingInfo)].As<SkeletalMeshSamplingInfo>(); } set { this["SamplingInfo"] = value; } }
-        public Array<AssetUserData> AssetUserData { get { return new Array<AssetUserData>(this[nameof(AssetUserData)].Address); } }
-        public Array<SkeletalMeshSocket> Sockets { get { return new Array<SkeletalMeshSocket>(this[nameof(Sockets)].Address); } }
-        public Array<SkinWeightProfileInfo> SkinWeightProfiles { get { return new Array<SkinWeightProfileInfo>(this[nameof(SkinWeightProfiles)].Address); } }
-        public void SetMorphTargets(Array<MorphTarget> InMorphTargets) { Invoke(nameof(SetMorphTargets), InMorphTargets); }
-        public void SetMeshClothingAssets(Array<ClothingAssetBase> InMeshClothingAssets) { Invoke(nameof(SetMeshClothingAssets), InMeshClothingAssets); }
-        public void SetMaterials(Array<SkeletalMaterial> InMaterials) { Invoke(nameof(SetMaterials), InMaterials); }
+        public UArray<AssetUserData> AssetUserData { get { return new UArray<AssetUserData>(this[nameof(AssetUserData)].Address); } }
+        public UArray<SkeletalMeshSocket> Sockets { get { return new UArray<SkeletalMeshSocket>(this[nameof(Sockets)].Address); } }
+        public UArray<SkinWeightProfileInfo> SkinWeightProfiles { get { return new UArray<SkinWeightProfileInfo>(this[nameof(SkinWeightProfiles)].Address); } }
+        public void SetMorphTargets(UArray<MorphTarget> InMorphTargets) { Invoke(nameof(SetMorphTargets), InMorphTargets); }
+        public void SetMeshClothingAssets(UArray<ClothingAssetBase> InMeshClothingAssets) { Invoke(nameof(SetMeshClothingAssets), InMeshClothingAssets); }
+        public void SetMaterials(UArray<SkeletalMaterial> InMaterials) { Invoke(nameof(SetMaterials), InMaterials); }
         public void SetLODSettings(SkeletalMeshLODSettings InLODSettings) { Invoke(nameof(SetLODSettings), InLODSettings); }
         public void SetDefaultAnimatingRig(Object InAnimatingRig) { Invoke(nameof(SetDefaultAnimatingRig), InAnimatingRig); }
         public int NumSockets() { return Invoke<int>(nameof(NumSockets)); }
-        public Array<Object> K2_GetAllMorphTargetNames() { return Invoke<Array<Object>>(nameof(K2_GetAllMorphTargetNames)); }
+        public UArray<Object> K2_GetAllMorphTargetNames() { return Invoke<UArray<Object>>(nameof(K2_GetAllMorphTargetNames)); }
         public bool IsSectionUsingCloth(int InSectionIndex, bool bCheckCorrespondingSections) { return Invoke<bool>(nameof(IsSectionUsingCloth), InSectionIndex, bCheckCorrespondingSections); }
         public SkeletalMeshSocket GetSocketByIndex(int Index) { return Invoke<SkeletalMeshSocket>(nameof(GetSocketByIndex), Index); }
         public Skeleton GetSkeleton() { return Invoke<Skeleton>(nameof(GetSkeleton)); }
         public PhysicsAsset GetShadowPhysicsAsset() { return Invoke<PhysicsAsset>(nameof(GetShadowPhysicsAsset)); }
         public PhysicsAsset GetPhysicsAsset() { return Invoke<PhysicsAsset>(nameof(GetPhysicsAsset)); }
-        public Array<NodeMappingContainer> GetNodeMappingData() { return Invoke<Array<NodeMappingContainer>>(nameof(GetNodeMappingData)); }
+        public UArray<NodeMappingContainer> GetNodeMappingData() { return Invoke<UArray<NodeMappingContainer>>(nameof(GetNodeMappingData)); }
         public NodeMappingContainer GetNodeMappingContainer(Blueprint SourceAsset) { return Invoke<NodeMappingContainer>(nameof(GetNodeMappingContainer), SourceAsset); }
-        public Array<MorphTarget> GetMorphTargets() { return Invoke<Array<MorphTarget>>(nameof(GetMorphTargets)); }
-        public Array<ClothingAssetBase> GetMeshClothingAssets() { return Invoke<Array<ClothingAssetBase>>(nameof(GetMeshClothingAssets)); }
-        public Array<SkeletalMaterial> GetMaterials() { return Invoke<Array<SkeletalMaterial>>(nameof(GetMaterials)); }
+        public UArray<MorphTarget> GetMorphTargets() { return Invoke<UArray<MorphTarget>>(nameof(GetMorphTargets)); }
+        public UArray<ClothingAssetBase> GetMeshClothingAssets() { return Invoke<UArray<ClothingAssetBase>>(nameof(GetMeshClothingAssets)); }
+        public UArray<SkeletalMaterial> GetMaterials() { return Invoke<UArray<SkeletalMaterial>>(nameof(GetMaterials)); }
         public SkeletalMeshLODSettings GetLODSettings() { return Invoke<SkeletalMeshLODSettings>(nameof(GetLODSettings)); }
         public BoxSphereBounds GetImportedBounds() { return Invoke<BoxSphereBounds>(nameof(GetImportedBounds)); }
         public Object GetDefaultAnimatingRig() { return Invoke<Object>(nameof(GetDefaultAnimatingRig)); }
@@ -11197,7 +11202,7 @@ namespace SDK.Script.EngineSDK
         public PerPlatformBool bSupportLODStreaming { get { return this[nameof(bSupportLODStreaming)].As<PerPlatformBool>(); } set { this["bSupportLODStreaming"] = value; } }
         public PerPlatformInt MaxNumStreamedLODs { get { return this[nameof(MaxNumStreamedLODs)].As<PerPlatformInt>(); } set { this["MaxNumStreamedLODs"] = value; } }
         public PerPlatformInt MaxNumOptionalLODs { get { return this[nameof(MaxNumOptionalLODs)].As<PerPlatformInt>(); } set { this["MaxNumOptionalLODs"] = value; } }
-        public Array<SkeletalMeshLODGroupSettings> LODGroups { get { return new Array<SkeletalMeshLODGroupSettings>(this[nameof(LODGroups)].Address); } }
+        public UArray<SkeletalMeshLODGroupSettings> LODGroups { get { return new UArray<SkeletalMeshLODGroupSettings>(this[nameof(LODGroups)].Address); } }
     }
     public class SkeletalMeshSimplificationSettings : DeveloperSettings
     {
@@ -11326,8 +11331,8 @@ namespace SDK.Script.EngineSDK
     {
         public SoundClass(nint addr) : base(addr) { }
         public SoundClassProperties Properties { get { return this[nameof(Properties)].As<SoundClassProperties>(); } set { this["Properties"] = value; } }
-        public Array<SoundClass> ChildClasses { get { return new Array<SoundClass>(this[nameof(ChildClasses)].Address); } }
-        public Array<PassiveSoundMixModifier> PassiveSoundMixModifiers { get { return new Array<PassiveSoundMixModifier>(this[nameof(PassiveSoundMixModifiers)].Address); } }
+        public UArray<SoundClass> ChildClasses { get { return new UArray<SoundClass>(this[nameof(ChildClasses)].Address); } }
+        public UArray<PassiveSoundMixModifier> PassiveSoundMixModifiers { get { return new UArray<PassiveSoundMixModifier>(this[nameof(PassiveSoundMixModifiers)].Address); } }
         public SoundClass ParentClass { get { return this[nameof(ParentClass)].As<SoundClass>(); } set { this["ParentClass"] = value; } }
     }
     public class SoundConcurrency : Object
@@ -11352,13 +11357,13 @@ namespace SDK.Script.EngineSDK
     public class SoundEffectSourcePresetChain : Object
     {
         public SoundEffectSourcePresetChain(nint addr) : base(addr) { }
-        public Array<SourceEffectChainEntry> Chain { get { return new Array<SourceEffectChainEntry>(this[nameof(Chain)].Address); } }
+        public UArray<SourceEffectChainEntry> Chain { get { return new UArray<SourceEffectChainEntry>(this[nameof(Chain)].Address); } }
         public bool bPlayEffectChainTails { get { return this[nameof(bPlayEffectChainTails)].Flag; } set { this[nameof(bPlayEffectChainTails)].Flag = value; } }
     }
     public class SoundGroups : Object
     {
         public SoundGroups(nint addr) : base(addr) { }
-        public Array<SoundGroup> SoundGroupProfiles { get { return new Array<SoundGroup>(this[nameof(SoundGroupProfiles)].Address); } }
+        public UArray<SoundGroup> SoundGroupProfiles { get { return new UArray<SoundGroup>(this[nameof(SoundGroupProfiles)].Address); } }
     }
     public class SoundMix : Object
     {
@@ -11366,7 +11371,7 @@ namespace SDK.Script.EngineSDK
         public bool bApplyEQ { get { return this[nameof(bApplyEQ)].Flag; } set { this[nameof(bApplyEQ)].Flag = value; } }
         public float EQPriority { get { return this[nameof(EQPriority)].GetValue<float>(); } set { this[nameof(EQPriority)].SetValue<float>(value); } }
         public AudioEQEffect EQSettings { get { return this[nameof(EQSettings)].As<AudioEQEffect>(); } set { this["EQSettings"] = value; } }
-        public Array<SoundClassAdjuster> SoundClassEffects { get { return new Array<SoundClassAdjuster>(this[nameof(SoundClassEffects)].Address); } }
+        public UArray<SoundClassAdjuster> SoundClassEffects { get { return new UArray<SoundClassAdjuster>(this[nameof(SoundClassEffects)].Address); } }
         public float InitialDelay { get { return this[nameof(InitialDelay)].GetValue<float>(); } set { this[nameof(InitialDelay)].SetValue<float>(value); } }
         public float FadeInTime { get { return this[nameof(FadeInTime)].GetValue<float>(); } set { this[nameof(FadeInTime)].SetValue<float>(value); } }
         public float Duration { get { return this[nameof(Duration)].GetValue<float>(); } set { this[nameof(Duration)].SetValue<float>(value); } }
@@ -11375,7 +11380,7 @@ namespace SDK.Script.EngineSDK
     public class SoundNode : Object
     {
         public SoundNode(nint addr) : base(addr) { }
-        public Array<SoundNode> ChildNodes { get { return new Array<SoundNode>(this[nameof(ChildNodes)].Address); } }
+        public UArray<SoundNode> ChildNodes { get { return new UArray<SoundNode>(this[nameof(ChildNodes)].Address); } }
     }
     public class SoundNodeAssetReferencer : SoundNode
     {
@@ -11396,7 +11401,7 @@ namespace SDK.Script.EngineSDK
     public class SoundNodeConcatenator : SoundNode
     {
         public SoundNodeConcatenator(nint addr) : base(addr) { }
-        public Array<float> InputVolume { get { return new Array<float>(this[nameof(InputVolume)].Address); } }
+        public UArray<float> InputVolume { get { return new UArray<float>(this[nameof(InputVolume)].Address); } }
     }
     public class SoundNodeDelay : SoundNode
     {
@@ -11413,7 +11418,7 @@ namespace SDK.Script.EngineSDK
     public class SoundNodeDistanceCrossFade : SoundNode
     {
         public SoundNodeDistanceCrossFade(nint addr) : base(addr) { }
-        public Array<DistanceDatum> CrossFadeInput { get { return new Array<DistanceDatum>(this[nameof(CrossFadeInput)].Address); } }
+        public UArray<DistanceDatum> CrossFadeInput { get { return new UArray<DistanceDatum>(this[nameof(CrossFadeInput)].Address); } }
     }
     public class SoundNodeDoppler : SoundNode
     {
@@ -11443,7 +11448,7 @@ namespace SDK.Script.EngineSDK
     public class SoundNodeGroupControl : SoundNode
     {
         public SoundNodeGroupControl(nint addr) : base(addr) { }
-        public Array<int> GroupSizes { get { return new Array<int>(this[nameof(GroupSizes)].Address); } }
+        public UArray<int> GroupSizes { get { return new UArray<int>(this[nameof(GroupSizes)].Address); } }
     }
     public class SoundNodeLooping : SoundNode
     {
@@ -11458,7 +11463,7 @@ namespace SDK.Script.EngineSDK
     public class SoundNodeMixer : SoundNode
     {
         public SoundNodeMixer(nint addr) : base(addr) { }
-        public Array<float> InputVolume { get { return new Array<float>(this[nameof(InputVolume)].Address); } }
+        public UArray<float> InputVolume { get { return new UArray<float>(this[nameof(InputVolume)].Address); } }
     }
     public class SoundNodeModulator : SoundNode
     {
@@ -11501,8 +11506,8 @@ namespace SDK.Script.EngineSDK
     public class SoundNodeRandom : SoundNode
     {
         public SoundNodeRandom(nint addr) : base(addr) { }
-        public Array<float> Weights { get { return new Array<float>(this[nameof(Weights)].Address); } }
-        public Array<bool> HasBeenUsed { get { return new Array<bool>(this[nameof(HasBeenUsed)].Address); } }
+        public UArray<float> Weights { get { return new UArray<float>(this[nameof(Weights)].Address); } }
+        public UArray<bool> HasBeenUsed { get { return new UArray<bool>(this[nameof(HasBeenUsed)].Address); } }
         public int NumRandomUsed { get { return this[nameof(NumRandomUsed)].GetValue<int>(); } set { this[nameof(NumRandomUsed)].SetValue<int>(value); } }
         public int PreselectAtLevelLoad { get { return this[nameof(PreselectAtLevelLoad)].GetValue<int>(); } set { this[nameof(PreselectAtLevelLoad)].SetValue<int>(value); } }
         public bool bShouldExcludeFromBranchCulling { get { return this[nameof(bShouldExcludeFromBranchCulling)].Flag; } set { this[nameof(bShouldExcludeFromBranchCulling)].Flag = value; } }
@@ -11542,7 +11547,7 @@ namespace SDK.Script.EngineSDK
     public class SoundSubmixBase : Object
     {
         public SoundSubmixBase(nint addr) : base(addr) { }
-        public Array<SoundSubmixBase> ChildSubmixes { get { return new Array<SoundSubmixBase>(this[nameof(ChildSubmixes)].Address); } }
+        public UArray<SoundSubmixBase> ChildSubmixes { get { return new UArray<SoundSubmixBase>(this[nameof(ChildSubmixes)].Address); } }
     }
     public class SoundSubmixWithParentBase : SoundSubmixBase
     {
@@ -11553,7 +11558,7 @@ namespace SDK.Script.EngineSDK
     {
         public SoundSubmix(nint addr) : base(addr) { }
         public bool bMuteWhenBackgrounded { get { return this[nameof(bMuteWhenBackgrounded)].Flag; } set { this[nameof(bMuteWhenBackgrounded)].Flag = value; } }
-        public Array<SoundEffectSubmixPreset> SubmixEffectChain { get { return new Array<SoundEffectSubmixPreset>(this[nameof(SubmixEffectChain)].Address); } }
+        public UArray<SoundEffectSubmixPreset> SubmixEffectChain { get { return new UArray<SoundEffectSubmixPreset>(this[nameof(SubmixEffectChain)].Address); } }
         public SoundfieldEncodingSettingsBase AmbisonicsPluginSettings { get { return this[nameof(AmbisonicsPluginSettings)].As<SoundfieldEncodingSettingsBase>(); } set { this["AmbisonicsPluginSettings"] = value; } }
         public int EnvelopeFollowerAttackTime { get { return this[nameof(EnvelopeFollowerAttackTime)].GetValue<int>(); } set { this[nameof(EnvelopeFollowerAttackTime)].SetValue<int>(value); } }
         public int EnvelopeFollowerReleaseTime { get { return this[nameof(EnvelopeFollowerReleaseTime)].GetValue<int>(); } set { this[nameof(EnvelopeFollowerReleaseTime)].SetValue<int>(value); } }
@@ -11573,7 +11578,7 @@ namespace SDK.Script.EngineSDK
         public void StartEnvelopeFollowing(Object WorldContextObject) { Invoke(nameof(StartEnvelopeFollowing), WorldContextObject); }
         public void SetSubmixOutputVolume(Object WorldContextObject, float InOutputVolume) { Invoke(nameof(SetSubmixOutputVolume), WorldContextObject, InOutputVolume); }
         public void RemoveSpectralAnalysisDelegate(Object WorldContextObject, Object OnSubmixSpectralAnalysisBP) { Invoke(nameof(RemoveSpectralAnalysisDelegate), WorldContextObject, OnSubmixSpectralAnalysisBP); }
-        public void AddSpectralAnalysisDelegate(Object WorldContextObject, Array<SoundSubmixSpectralAnalysisBandSettings> InBandSettings, Object OnSubmixSpectralAnalysisBP, float UpdateRate, float DecibelNoiseFloor, bool bDoNormalize, bool bDoAutoRange, float AutoRangeAttackTime, float AutoRangeReleaseTime) { Invoke(nameof(AddSpectralAnalysisDelegate), WorldContextObject, InBandSettings, OnSubmixSpectralAnalysisBP, UpdateRate, DecibelNoiseFloor, bDoNormalize, bDoAutoRange, AutoRangeAttackTime, AutoRangeReleaseTime); }
+        public void AddSpectralAnalysisDelegate(Object WorldContextObject, UArray<SoundSubmixSpectralAnalysisBandSettings> InBandSettings, Object OnSubmixSpectralAnalysisBP, float UpdateRate, float DecibelNoiseFloor, bool bDoNormalize, bool bDoAutoRange, float AutoRangeAttackTime, float AutoRangeReleaseTime) { Invoke(nameof(AddSpectralAnalysisDelegate), WorldContextObject, InBandSettings, OnSubmixSpectralAnalysisBP, UpdateRate, DecibelNoiseFloor, bDoNormalize, bDoAutoRange, AutoRangeAttackTime, AutoRangeReleaseTime); }
         public void AddEnvelopeFollowerDelegate(Object WorldContextObject, Object OnSubmixEnvelopeBP) { Invoke(nameof(AddEnvelopeFollowerDelegate), WorldContextObject, OnSubmixEnvelopeBP); }
     }
     public class SoundfieldSubmix : SoundSubmixWithParentBase
@@ -11581,7 +11586,7 @@ namespace SDK.Script.EngineSDK
         public SoundfieldSubmix(nint addr) : base(addr) { }
         public Object SoundfieldEncodingFormat { get { return this[nameof(SoundfieldEncodingFormat)]; } set { this[nameof(SoundfieldEncodingFormat)] = value; } }
         public SoundfieldEncodingSettingsBase EncodingSettings { get { return this[nameof(EncodingSettings)].As<SoundfieldEncodingSettingsBase>(); } set { this["EncodingSettings"] = value; } }
-        public Array<SoundfieldEffectBase> SoundfieldEffectChain { get { return new Array<SoundfieldEffectBase>(this[nameof(SoundfieldEffectChain)].Address); } }
+        public UArray<SoundfieldEffectBase> SoundfieldEffectChain { get { return new UArray<SoundfieldEffectBase>(this[nameof(SoundfieldEffectChain)].Address); } }
         public Object EncodingSettingsClass { get { return this[nameof(EncodingSettingsClass)]; } set { this[nameof(EncodingSettingsClass)] = value; } }
     }
     public class EndpointSubmix : SoundSubmixBase
@@ -11599,7 +11604,7 @@ namespace SDK.Script.EngineSDK
         public SoundfieldEndpointSettingsBase EndpointSettings { get { return this[nameof(EndpointSettings)].As<SoundfieldEndpointSettingsBase>(); } set { this["EndpointSettings"] = value; } }
         public Object EncodingSettingsClass { get { return this[nameof(EncodingSettingsClass)]; } set { this[nameof(EncodingSettingsClass)] = value; } }
         public SoundfieldEncodingSettingsBase EncodingSettings { get { return this[nameof(EncodingSettings)].As<SoundfieldEncodingSettingsBase>(); } set { this["EncodingSettings"] = value; } }
-        public Array<SoundfieldEffectBase> SoundfieldEffectChain { get { return new Array<SoundfieldEffectBase>(this[nameof(SoundfieldEffectChain)].Address); } }
+        public UArray<SoundfieldEffectBase> SoundfieldEffectChain { get { return new UArray<SoundfieldEffectBase>(this[nameof(SoundfieldEffectChain)].Address); } }
     }
     public class SpectatorPawn : DefaultPawn
     {
@@ -11653,10 +11658,10 @@ namespace SDK.Script.EngineSDK
         public void SetTangentsAtSplinePoint(int PointIndex, Vector InArriveTangent, Vector InLeaveTangent, byte CoordinateSpace, bool bUpdateSpline) { Invoke(nameof(SetTangentsAtSplinePoint), PointIndex, InArriveTangent, InLeaveTangent, CoordinateSpace, bUpdateSpline); }
         public void SetTangentColor(LinearColor TangentColor) { Invoke(nameof(SetTangentColor), TangentColor); }
         public void SetTangentAtSplinePoint(int PointIndex, Vector InTangent, byte CoordinateSpace, bool bUpdateSpline) { Invoke(nameof(SetTangentAtSplinePoint), PointIndex, InTangent, CoordinateSpace, bUpdateSpline); }
-        public void SetSplineWorldPoints(Array<Vector> Points) { Invoke(nameof(SetSplineWorldPoints), Points); }
+        public void SetSplineWorldPoints(UArray<Vector> Points) { Invoke(nameof(SetSplineWorldPoints), Points); }
         public void SetSplinePointType(int PointIndex, byte Type, bool bUpdateSpline) { Invoke(nameof(SetSplinePointType), PointIndex, Type, bUpdateSpline); }
-        public void SetSplinePoints(Array<Vector> Points, byte CoordinateSpace, bool bUpdateSpline) { Invoke(nameof(SetSplinePoints), Points, CoordinateSpace, bUpdateSpline); }
-        public void SetSplineLocalPoints(Array<Vector> Points) { Invoke(nameof(SetSplineLocalPoints), Points); }
+        public void SetSplinePoints(UArray<Vector> Points, byte CoordinateSpace, bool bUpdateSpline) { Invoke(nameof(SetSplinePoints), Points, CoordinateSpace, bUpdateSpline); }
+        public void SetSplineLocalPoints(UArray<Vector> Points) { Invoke(nameof(SetSplineLocalPoints), Points); }
         public void SetSelectedSplineSegmentColor(LinearColor SegmentColor) { Invoke(nameof(SetSelectedSplineSegmentColor), SegmentColor); }
         public void SetScaleAtSplinePoint(int PointIndex, Vector InScaleVector, bool bUpdateSpline) { Invoke(nameof(SetScaleAtSplinePoint), PointIndex, InScaleVector, bUpdateSpline); }
         public void SetRotationAtSplinePoint(int PointIndex, Rotator InRotation, byte CoordinateSpace, bool bUpdateSpline) { Invoke(nameof(SetRotationAtSplinePoint), PointIndex, InRotation, CoordinateSpace, bUpdateSpline); }
@@ -11742,7 +11747,7 @@ namespace SDK.Script.EngineSDK
         public void AddSplinePointAtIndex(Vector Position, int Index, byte CoordinateSpace, bool bUpdateSpline) { Invoke(nameof(AddSplinePointAtIndex), Position, Index, CoordinateSpace, bUpdateSpline); }
         public void AddSplinePoint(Vector Position, byte CoordinateSpace, bool bUpdateSpline) { Invoke(nameof(AddSplinePoint), Position, CoordinateSpace, bUpdateSpline); }
         public void AddSplineLocalPoint(Vector Position) { Invoke(nameof(AddSplineLocalPoint), Position); }
-        public void AddPoints(Array<SplinePoint> Points, bool bUpdateSpline) { Invoke(nameof(AddPoints), Points, bUpdateSpline); }
+        public void AddPoints(UArray<SplinePoint> Points, bool bUpdateSpline) { Invoke(nameof(AddPoints), Points, bUpdateSpline); }
         public void AddPoint(SplinePoint Point, bool bUpdateSpline) { Invoke(nameof(AddPoint), Point, bUpdateSpline); }
     }
     public class SplineMeshActor : Actor
@@ -11788,7 +11793,7 @@ namespace SDK.Script.EngineSDK
         public StaticMesh(nint addr) : base(addr) { }
         public PerPlatformInt MinLOD { get { return this[nameof(MinLOD)].As<PerPlatformInt>(); } set { this["MinLOD"] = value; } }
         public float LpvBiasMultiplier { get { return this[nameof(LpvBiasMultiplier)].GetValue<float>(); } set { this[nameof(LpvBiasMultiplier)].SetValue<float>(value); } }
-        public Array<StaticMaterial> StaticMaterials { get { return new Array<StaticMaterial>(this[nameof(StaticMaterials)].Address); } }
+        public UArray<StaticMaterial> StaticMaterials { get { return new UArray<StaticMaterial>(this[nameof(StaticMaterials)].Address); } }
         public float LightmapUVDensity { get { return this[nameof(LightmapUVDensity)].GetValue<float>(); } set { this[nameof(LightmapUVDensity)].SetValue<float>(value); } }
         public int LightMapResolution { get { return this[nameof(LightMapResolution)].GetValue<int>(); } set { this[nameof(LightMapResolution)].SetValue<int>(value); } }
         public int LightMapCoordinateIndex { get { return this[nameof(LightMapCoordinateIndex)].GetValue<int>(); } set { this[nameof(LightMapCoordinateIndex)].SetValue<int>(value); } }
@@ -11804,17 +11809,17 @@ namespace SDK.Script.EngineSDK
         public bool bIsBuiltAtRuntime { get { return this[nameof(bIsBuiltAtRuntime)].Flag; } set { this[nameof(bIsBuiltAtRuntime)].Flag = value; } }
         public bool bAllowCPUAccess { get { return this[nameof(bAllowCPUAccess)].Flag; } set { this[nameof(bAllowCPUAccess)].Flag = value; } }
         public bool bSupportGpuUniformlyDistributedSampling { get { return this[nameof(bSupportGpuUniformlyDistributedSampling)].Flag; } set { this[nameof(bSupportGpuUniformlyDistributedSampling)].Flag = value; } }
-        public Array<StaticMeshSocket> Sockets { get { return new Array<StaticMeshSocket>(this[nameof(Sockets)].Address); } }
+        public UArray<StaticMeshSocket> Sockets { get { return new UArray<StaticMeshSocket>(this[nameof(Sockets)].Address); } }
         public Vector PositiveBoundsExtension { get { return this[nameof(PositiveBoundsExtension)].As<Vector>(); } set { this["PositiveBoundsExtension"] = value; } }
         public Vector NegativeBoundsExtension { get { return this[nameof(NegativeBoundsExtension)].As<Vector>(); } set { this["NegativeBoundsExtension"] = value; } }
         public BoxSphereBounds ExtendedBounds { get { return this[nameof(ExtendedBounds)].As<BoxSphereBounds>(); } set { this["ExtendedBounds"] = value; } }
         public int ElementToIgnoreForTexFactor { get { return this[nameof(ElementToIgnoreForTexFactor)].GetValue<int>(); } set { this[nameof(ElementToIgnoreForTexFactor)].SetValue<int>(value); } }
-        public Array<AssetUserData> AssetUserData { get { return new Array<AssetUserData>(this[nameof(AssetUserData)].Address); } }
+        public UArray<AssetUserData> AssetUserData { get { return new UArray<AssetUserData>(this[nameof(AssetUserData)].Address); } }
         public Object EditableMesh { get { return this[nameof(EditableMesh)].As<Object>(); } set { this["EditableMesh"] = value; } }
         public NavCollisionBase NavCollision { get { return this[nameof(NavCollision)].As<NavCollisionBase>(); } set { this["NavCollision"] = value; } }
-        public void SetStaticMaterials(Array<StaticMaterial> InStaticMaterials) { Invoke(nameof(SetStaticMaterials), InStaticMaterials); }
+        public void SetStaticMaterials(UArray<StaticMaterial> InStaticMaterials) { Invoke(nameof(SetStaticMaterials), InStaticMaterials); }
         public void RemoveSocket(StaticMeshSocket Socket) { Invoke(nameof(RemoveSocket), Socket); }
-        public Array<StaticMaterial> GetStaticMaterials() { return Invoke<Array<StaticMaterial>>(nameof(GetStaticMaterials)); }
+        public UArray<StaticMaterial> GetStaticMaterials() { return Invoke<UArray<StaticMaterial>>(nameof(GetStaticMaterials)); }
         public int GetNumSections(int InLOD) { return Invoke<int>(nameof(GetNumSections), InLOD); }
         public int GetNumLODs() { return Invoke<int>(nameof(GetNumLODs)); }
         public void GetMinimumLODForPlatforms(Object PlatformMinimumLODs) { Invoke(nameof(GetMinimumLODForPlatforms), PlatformMinimumLODs); }
@@ -11825,7 +11830,7 @@ namespace SDK.Script.EngineSDK
         public Box GetBoundingBox() { return Invoke<Box>(nameof(GetBoundingBox)); }
         public StaticMeshSocket FindSocket(Object InSocketName) { return Invoke<StaticMeshSocket>(nameof(FindSocket), InSocketName); }
         public StaticMeshDescription CreateStaticMeshDescription(Object Outer) { return Invoke<StaticMeshDescription>(nameof(CreateStaticMeshDescription), Outer); }
-        public void BuildFromStaticMeshDescriptions(Array<StaticMeshDescription> StaticMeshDescriptions, bool bBuildSimpleCollision) { Invoke(nameof(BuildFromStaticMeshDescriptions), StaticMeshDescriptions, bBuildSimpleCollision); }
+        public void BuildFromStaticMeshDescriptions(UArray<StaticMeshDescription> StaticMeshDescriptions, bool bBuildSimpleCollision) { Invoke(nameof(BuildFromStaticMeshDescriptions), StaticMeshDescriptions, bBuildSimpleCollision); }
         public void AddSocket(StaticMeshSocket Socket) { Invoke(nameof(AddSocket), Socket); }
         public Object AddMaterial(MaterialInterface Material) { return Invoke<Object>(nameof(AddMaterial), Material); }
     }
@@ -12080,11 +12085,11 @@ namespace SDK.Script.EngineSDK
         public bool bLoop { get { return this[nameof(bLoop)].Flag; } set { this[nameof(bLoop)].Flag = value; } }
         public bool bReplicated { get { return this[nameof(bReplicated)].Flag; } set { this[nameof(bReplicated)].Flag = value; } }
         public bool bIgnoreTimeDilation { get { return this[nameof(bIgnoreTimeDilation)].Flag; } set { this[nameof(bIgnoreTimeDilation)].Flag = value; } }
-        public Array<TTEventTrack> EventTracks { get { return new Array<TTEventTrack>(this[nameof(EventTracks)].Address); } }
-        public Array<TTFloatTrack> FloatTracks { get { return new Array<TTFloatTrack>(this[nameof(FloatTracks)].Address); } }
-        public Array<TTVectorTrack> VectorTracks { get { return new Array<TTVectorTrack>(this[nameof(VectorTracks)].Address); } }
-        public Array<TTLinearColorTrack> LinearColorTracks { get { return new Array<TTLinearColorTrack>(this[nameof(LinearColorTracks)].Address); } }
-        public Array<BPVariableMetaDataEntry> MetaDataArray { get { return new Array<BPVariableMetaDataEntry>(this[nameof(MetaDataArray)].Address); } }
+        public UArray<TTEventTrack> EventTracks { get { return new UArray<TTEventTrack>(this[nameof(EventTracks)].Address); } }
+        public UArray<TTFloatTrack> FloatTracks { get { return new UArray<TTFloatTrack>(this[nameof(FloatTracks)].Address); } }
+        public UArray<TTVectorTrack> VectorTracks { get { return new UArray<TTVectorTrack>(this[nameof(VectorTracks)].Address); } }
+        public UArray<TTLinearColorTrack> LinearColorTracks { get { return new UArray<TTLinearColorTrack>(this[nameof(LinearColorTracks)].Address); } }
+        public UArray<BPVariableMetaDataEntry> MetaDataArray { get { return new UArray<BPVariableMetaDataEntry>(this[nameof(MetaDataArray)].Address); } }
         public Guid TimelineGuid { get { return this[nameof(TimelineGuid)].As<Guid>(); } set { this["TimelineGuid"] = value; } }
         public byte TimelineTickGroup { get { return this[nameof(TimelineTickGroup)].GetValue<byte>(); } set { this[nameof(TimelineTickGroup)].SetValue<byte>(value); } }
         public Object VariableName { get { return this[nameof(VariableName)]; } set { this[nameof(VariableName)] = value; } }
@@ -12100,7 +12105,7 @@ namespace SDK.Script.EngineSDK
     public class TouchInterface : Object
     {
         public TouchInterface(nint addr) : base(addr) { }
-        public Array<TouchInputControl> Controls { get { return new Array<TouchInputControl>(this[nameof(Controls)].Address); } }
+        public UArray<TouchInputControl> Controls { get { return new UArray<TouchInputControl>(this[nameof(Controls)].Address); } }
         public float ActiveOpacity { get { return this[nameof(ActiveOpacity)].GetValue<float>(); } set { this[nameof(ActiveOpacity)].SetValue<float>(value); } }
         public float InactiveOpacity { get { return this[nameof(InactiveOpacity)].GetValue<float>(); } set { this[nameof(InactiveOpacity)].SetValue<float>(value); } }
         public float TimeUntilDeactive { get { return this[nameof(TimeUntilDeactive)].GetValue<float>(); } set { this[nameof(TimeUntilDeactive)].SetValue<float>(value); } }
@@ -12133,7 +12138,7 @@ namespace SDK.Script.EngineSDK
     public class TwitterIntegrationBase : PlatformInterfaceBase
     {
         public TwitterIntegrationBase(nint addr) : base(addr) { }
-        public bool TwitterRequest(Object URL, Array<Object> ParamKeysAndValues, byte RequestMethod, int AccountIndex) { return Invoke<bool>(nameof(TwitterRequest), URL, ParamKeysAndValues, RequestMethod, AccountIndex); }
+        public bool TwitterRequest(Object URL, UArray<Object> ParamKeysAndValues, byte RequestMethod, int AccountIndex) { return Invoke<bool>(nameof(TwitterRequest), URL, ParamKeysAndValues, RequestMethod, AccountIndex); }
         public bool ShowTweetUI(Object InitialMessage, Object URL, Object Picture) { return Invoke<bool>(nameof(ShowTweetUI), InitialMessage, URL, Picture); }
         public void Init() { Invoke(nameof(Init)); }
         public int GetNumAccounts() { return Invoke<int>(nameof(GetNumAccounts)); }
@@ -12172,7 +12177,7 @@ namespace SDK.Script.EngineSDK
         public bool bAllowHighDPIInGameMode { get { return this[nameof(bAllowHighDPIInGameMode)].Flag; } set { this[nameof(bAllowHighDPIInGameMode)].Flag = value; } }
         public IntPoint DesignScreenSize { get { return this[nameof(DesignScreenSize)].As<IntPoint>(); } set { this["DesignScreenSize"] = value; } }
         public bool bLoadWidgetsOnDedicatedServer { get { return this[nameof(bLoadWidgetsOnDedicatedServer)].Flag; } set { this[nameof(bLoadWidgetsOnDedicatedServer)].Flag = value; } }
-        public Array<Object> CursorClasses { get { return new Array<Object>(this[nameof(CursorClasses)].Address); } }
+        public UArray<Object> CursorClasses { get { return new UArray<Object>(this[nameof(CursorClasses)].Address); } }
         public Object CustomScalingRuleClassInstance { get { return this[nameof(CustomScalingRuleClassInstance)]; } set { this[nameof(CustomScalingRuleClassInstance)] = value; } }
         public DPICustomScalingRule CustomScalingRule { get { return this[nameof(CustomScalingRule)].As<DPICustomScalingRule>(); } set { this["CustomScalingRule"] = value; } }
     }
@@ -12257,7 +12262,7 @@ namespace SDK.Script.EngineSDK
     {
         public VirtualTexturePoolConfig(nint addr) : base(addr) { }
         public int DefaultSizeInMegabyte { get { return this[nameof(DefaultSizeInMegabyte)].GetValue<int>(); } set { this[nameof(DefaultSizeInMegabyte)].SetValue<int>(value); } }
-        public Array<VirtualTextureSpacePoolConfig> Pools { get { return new Array<VirtualTextureSpacePoolConfig>(this[nameof(Pools)].Address); } }
+        public UArray<VirtualTextureSpacePoolConfig> Pools { get { return new UArray<VirtualTextureSpacePoolConfig>(this[nameof(Pools)].Address); } }
     }
     public class VisualLoggerAutomationTests : Object
     {
@@ -12368,7 +12373,7 @@ namespace SDK.Script.EngineSDK
     public class WorldComposition : Object
     {
         public WorldComposition(nint addr) : base(addr) { }
-        public Array<LevelStreaming> TilesStreaming { get { return new Array<LevelStreaming>(this[nameof(TilesStreaming)].Address); } }
+        public UArray<LevelStreaming> TilesStreaming { get { return new UArray<LevelStreaming>(this[nameof(TilesStreaming)].Address); } }
         public double TilesStreamingTimeThreshold { get { return this[nameof(TilesStreamingTimeThreshold)].GetValue<double>(); } set { this[nameof(TilesStreamingTimeThreshold)].SetValue<double>(value); } }
         public bool bLoadAllTilesDuringCinematic { get { return this[nameof(bLoadAllTilesDuringCinematic)].Flag; } set { this[nameof(bLoadAllTilesDuringCinematic)].Flag = value; } }
         public bool bRebaseOriginIn3DSpace { get { return this[nameof(bRebaseOriginIn3DSpace)].Flag; } set { this[nameof(bRebaseOriginIn3DSpace)].Flag = value; } }
@@ -12377,7 +12382,7 @@ namespace SDK.Script.EngineSDK
     public class HierarchicalLODSetup : Object
     {
         public HierarchicalLODSetup(nint addr) : base(addr) { }
-        public Array<HierarchicalSimplification> HierarchicalLODSetup_value { get { return new Array<HierarchicalSimplification>(this[nameof(HierarchicalLODSetup)].Address); } }
+        public UArray<HierarchicalSimplification> HierarchicalLODSetup_value { get { return new UArray<HierarchicalSimplification>(this[nameof(HierarchicalLODSetup)].Address); } }
         public Object OverrideBaseMaterial { get { return this[nameof(OverrideBaseMaterial)]; } set { this[nameof(OverrideBaseMaterial)] = value; } }
     }
     public class DistributionLookupTable : Object
@@ -12385,7 +12390,7 @@ namespace SDK.Script.EngineSDK
         public DistributionLookupTable(nint addr) : base(addr) { }
         public float TimeScale { get { return this[nameof(TimeScale)].GetValue<float>(); } set { this[nameof(TimeScale)].SetValue<float>(value); } }
         public float TimeBias { get { return this[nameof(TimeBias)].GetValue<float>(); } set { this[nameof(TimeBias)].SetValue<float>(value); } }
-        public Array<float> Values { get { return new Array<float>(this[nameof(Values)].Address); } }
+        public UArray<float> Values { get { return new UArray<float>(this[nameof(Values)].Address); } }
         public byte Op { get { return this[nameof(Op)].GetValue<byte>(); } set { this[nameof(Op)].SetValue<byte>(value); } }
         public byte EntryCount { get { return this[nameof(EntryCount)].GetValue<byte>(); } set { this[nameof(EntryCount)].SetValue<byte>(value); } }
         public byte EntryStride { get { return this[nameof(EntryStride)].GetValue<byte>(); } set { this[nameof(EntryStride)].SetValue<byte>(value); } }
@@ -12761,7 +12766,7 @@ namespace SDK.Script.EngineSDK
     public class DebugFloatHistory : Object
     {
         public DebugFloatHistory(nint addr) : base(addr) { }
-        public Array<float> Samples { get { return new Array<float>(this[nameof(Samples)].Address); } }
+        public UArray<float> Samples { get { return new UArray<float>(this[nameof(Samples)].Address); } }
         public float MaxSamples { get { return this[nameof(MaxSamples)].GetValue<float>(); } set { this[nameof(MaxSamples)].SetValue<float>(value); } }
         public float MinValue { get { return this[nameof(MinValue)].GetValue<float>(); } set { this[nameof(MinValue)].SetValue<float>(value); } }
         public float MaxValue { get { return this[nameof(MaxValue)].GetValue<float>(); } set { this[nameof(MaxValue)].SetValue<float>(value); } }
@@ -13121,7 +13126,7 @@ namespace SDK.Script.EngineSDK
     public class UniqueNetIdRepl : UniqueNetIdWrapper
     {
         public UniqueNetIdRepl(nint addr) : base(addr) { }
-        public Array<byte> ReplicationBytes { get { return new Array<byte>(this[nameof(ReplicationBytes)].Address); } }
+        public UArray<byte> ReplicationBytes { get { return new UArray<byte>(this[nameof(ReplicationBytes)].Address); } }
     }
     public enum ECameraShakePlaySpace : int
     {
@@ -13341,7 +13346,7 @@ namespace SDK.Script.EngineSDK
     {
         public CollisionResponse(nint addr) : base(addr) { }
         public CollisionResponseContainer ResponseToChannels { get { return this[nameof(ResponseToChannels)].As<CollisionResponseContainer>(); } set { this["ResponseToChannels"] = value; } }
-        public Array<ResponseChannel> ResponseArray { get { return new Array<ResponseChannel>(this[nameof(ResponseArray)].Address); } }
+        public UArray<ResponseChannel> ResponseArray { get { return new UArray<ResponseChannel>(this[nameof(ResponseArray)].Address); } }
     }
     public class ResponseChannel : Object
     {
@@ -13395,7 +13400,7 @@ namespace SDK.Script.EngineSDK
     public class CustomPrimitiveData : Object
     {
         public CustomPrimitiveData(nint addr) : base(addr) { }
-        public Array<float> Data { get { return new Array<float>(this[nameof(Data)].Address); } }
+        public UArray<float> Data { get { return new UArray<float>(this[nameof(Data)].Address); } }
     }
     public class LightingChannels : Object
     {
@@ -13523,7 +13528,7 @@ namespace SDK.Script.EngineSDK
     public class RichCurve : RealCurve
     {
         public RichCurve(nint addr) : base(addr) { }
-        public Array<RichCurveKey> Keys { get { return new Array<RichCurveKey>(this[nameof(Keys)].Address); } }
+        public UArray<RichCurveKey> Keys { get { return new UArray<RichCurveKey>(this[nameof(Keys)].Address); } }
     }
     public class RichCurveKey : Object
     {
@@ -16716,8 +16721,8 @@ namespace SDK.Script.EngineSDK
     public class AnimNode_CustomProperty : AnimNode_Base
     {
         public AnimNode_CustomProperty(nint addr) : base(addr) { }
-        public Array<Object> SourcePropertyNames { get { return new Array<Object>(this[nameof(SourcePropertyNames)].Address); } }
-        public Array<Object> DestPropertyNames { get { return new Array<Object>(this[nameof(DestPropertyNames)].Address); } }
+        public UArray<Object> SourcePropertyNames { get { return new UArray<Object>(this[nameof(SourcePropertyNames)].Address); } }
+        public UArray<Object> DestPropertyNames { get { return new UArray<Object>(this[nameof(DestPropertyNames)].Address); } }
         public Object TargetInstance { get { return this[nameof(TargetInstance)].As<Object>(); } set { this["TargetInstance"] = value; } }
     }
     public class InputScaleBiasClamp : Object
@@ -16778,7 +16783,7 @@ namespace SDK.Script.EngineSDK
     public class InputBlendPose : Object
     {
         public InputBlendPose(nint addr) : base(addr) { }
-        public Array<BranchFilter> BranchFilters { get { return new Array<BranchFilter>(this[nameof(BranchFilters)].Address); } }
+        public UArray<BranchFilter> BranchFilters { get { return new UArray<BranchFilter>(this[nameof(BranchFilters)].Address); } }
     }
     public class BranchFilter : Object
     {
@@ -16829,8 +16834,8 @@ namespace SDK.Script.EngineSDK
     public class PoseSnapshot : Object
     {
         public PoseSnapshot(nint addr) : base(addr) { }
-        public Array<Transform> LocalTransforms { get { return new Array<Transform>(this[nameof(LocalTransforms)].Address); } }
-        public Array<Object> BoneNames { get { return new Array<Object>(this[nameof(BoneNames)].Address); } }
+        public UArray<Transform> LocalTransforms { get { return new UArray<Transform>(this[nameof(LocalTransforms)].Address); } }
+        public UArray<Object> BoneNames { get { return new UArray<Object>(this[nameof(BoneNames)].Address); } }
         public Object SkeletalMeshName { get { return this[nameof(SkeletalMeshName)]; } set { this[nameof(SkeletalMeshName)] = value; } }
         public Object SnapshotName { get { return this[nameof(SnapshotName)]; } set { this[nameof(SnapshotName)] = value; } }
         public bool bIsValid { get { return this[nameof(bIsValid)].Flag; } set { this[nameof(bIsValid)].Flag = value; } }
@@ -16853,11 +16858,11 @@ namespace SDK.Script.EngineSDK
         public Object SourceComponentTemplate { get { return this[nameof(SourceComponentTemplate)].As<Object>(); } set { this["SourceComponentTemplate"] = value; } }
         public EComponentCreationMethod SourceComponentCreationMethod { get { return (EComponentCreationMethod)this[nameof(SourceComponentCreationMethod)].GetValue<int>(); } set { this[nameof(SourceComponentCreationMethod)].SetValue<int>((int)value); } }
         public int SourceComponentTypeSerializedIndex { get { return this[nameof(SourceComponentTypeSerializedIndex)].GetValue<int>(); } set { this[nameof(SourceComponentTypeSerializedIndex)].SetValue<int>(value); } }
-        public Array<byte> SavedProperties { get { return new Array<byte>(this[nameof(SavedProperties)].Address); } }
+        public UArray<byte> SavedProperties { get { return new UArray<byte>(this[nameof(SavedProperties)].Address); } }
         public ActorComponentDuplicatedObjectData UniqueTransientPackage { get { return this[nameof(UniqueTransientPackage)].As<ActorComponentDuplicatedObjectData>(); } set { this["UniqueTransientPackage"] = value; } }
-        public Array<ActorComponentDuplicatedObjectData> DuplicatedObjects { get { return new Array<ActorComponentDuplicatedObjectData>(this[nameof(DuplicatedObjects)].Address); } }
-        public Array<Object> ReferencedObjects { get { return new Array<Object>(this[nameof(ReferencedObjects)].Address); } }
-        public Array<Object> ReferencedNames { get { return new Array<Object>(this[nameof(ReferencedNames)].Address); } }
+        public UArray<ActorComponentDuplicatedObjectData> DuplicatedObjects { get { return new UArray<ActorComponentDuplicatedObjectData>(this[nameof(DuplicatedObjects)].Address); } }
+        public UArray<Object> ReferencedObjects { get { return new UArray<Object>(this[nameof(ReferencedObjects)].Address); } }
+        public UArray<Object> ReferencedNames { get { return new UArray<Object>(this[nameof(ReferencedNames)].Address); } }
     }
     public class ActorComponentDuplicatedObjectData : Object
     {
@@ -16876,11 +16881,11 @@ namespace SDK.Script.EngineSDK
     public class KAggregateGeom : Object
     {
         public KAggregateGeom(nint addr) : base(addr) { }
-        public Array<KSphereElem> SphereElems { get { return new Array<KSphereElem>(this[nameof(SphereElems)].Address); } }
-        public Array<KBoxElem> BoxElems { get { return new Array<KBoxElem>(this[nameof(BoxElems)].Address); } }
-        public Array<KSphylElem> SphylElems { get { return new Array<KSphylElem>(this[nameof(SphylElems)].Address); } }
-        public Array<KConvexElem> ConvexElems { get { return new Array<KConvexElem>(this[nameof(ConvexElems)].Address); } }
-        public Array<KTaperedCapsuleElem> TaperedCapsuleElems { get { return new Array<KTaperedCapsuleElem>(this[nameof(TaperedCapsuleElems)].Address); } }
+        public UArray<KSphereElem> SphereElems { get { return new UArray<KSphereElem>(this[nameof(SphereElems)].Address); } }
+        public UArray<KBoxElem> BoxElems { get { return new UArray<KBoxElem>(this[nameof(BoxElems)].Address); } }
+        public UArray<KSphylElem> SphylElems { get { return new UArray<KSphylElem>(this[nameof(SphylElems)].Address); } }
+        public UArray<KConvexElem> ConvexElems { get { return new UArray<KConvexElem>(this[nameof(ConvexElems)].Address); } }
+        public UArray<KTaperedCapsuleElem> TaperedCapsuleElems { get { return new UArray<KTaperedCapsuleElem>(this[nameof(TaperedCapsuleElems)].Address); } }
     }
     public class KShapeElem : Object
     {
@@ -16902,8 +16907,8 @@ namespace SDK.Script.EngineSDK
     public class KConvexElem : KShapeElem
     {
         public KConvexElem(nint addr) : base(addr) { }
-        public Array<Vector> VertexData { get { return new Array<Vector>(this[nameof(VertexData)].Address); } }
-        public Array<int> IndexData { get { return new Array<int>(this[nameof(IndexData)].Address); } }
+        public UArray<Vector> VertexData { get { return new UArray<Vector>(this[nameof(VertexData)].Address); } }
+        public UArray<int> IndexData { get { return new UArray<int>(this[nameof(IndexData)].Address); } }
         public Box ElemBox { get { return this[nameof(ElemBox)].As<Box>(); } set { this["ElemBox"] = value; } }
         public Transform Transform { get { return this[nameof(Transform)].As<Transform>(); } set { this["Transform"] = value; } }
     }
@@ -16983,14 +16988,14 @@ namespace SDK.Script.EngineSDK
     public class ComponentSpacePose : Object
     {
         public ComponentSpacePose(nint addr) : base(addr) { }
-        public Array<Transform> Transforms { get { return new Array<Transform>(this[nameof(Transforms)].Address); } }
-        public Array<Object> Names { get { return new Array<Object>(this[nameof(Names)].Address); } }
+        public UArray<Transform> Transforms { get { return new UArray<Transform>(this[nameof(Transforms)].Address); } }
+        public UArray<Object> Names { get { return new UArray<Object>(this[nameof(Names)].Address); } }
     }
     public class LocalSpacePose : Object
     {
         public LocalSpacePose(nint addr) : base(addr) { }
-        public Array<Transform> Transforms { get { return new Array<Transform>(this[nameof(Transforms)].Address); } }
-        public Array<Object> Names { get { return new Array<Object>(this[nameof(Names)].Address); } }
+        public UArray<Transform> Transforms { get { return new UArray<Transform>(this[nameof(Transforms)].Address); } }
+        public UArray<Object> Names { get { return new UArray<Object>(this[nameof(Names)].Address); } }
     }
     public class NamedTransform : Object
     {
@@ -17048,8 +17053,8 @@ namespace SDK.Script.EngineSDK
     {
         public AnimBlueprintFunctionData(nint addr) : base(addr) { }
         public Object OutputPoseNodeProperty { get { return this[nameof(OutputPoseNodeProperty)]; } set { this[nameof(OutputPoseNodeProperty)] = value; } }
-        public Array<Object> InputPoseNodeProperties { get { return new Array<Object>(this[nameof(InputPoseNodeProperties)].Address); } }
-        public Array<Object> InputProperties { get { return new Array<Object>(this[nameof(InputProperties)].Address); } }
+        public UArray<Object> InputPoseNodeProperties { get { return new UArray<Object>(this[nameof(InputPoseNodeProperties)].Address); } }
+        public UArray<Object> InputProperties { get { return new UArray<Object>(this[nameof(InputProperties)].Address); } }
     }
     public class AnimGraphBlendOptions : Object
     {
@@ -17060,12 +17065,12 @@ namespace SDK.Script.EngineSDK
     public class GraphAssetPlayerInformation : Object
     {
         public GraphAssetPlayerInformation(nint addr) : base(addr) { }
-        public Array<int> PlayerNodeIndices { get { return new Array<int>(this[nameof(PlayerNodeIndices)].Address); } }
+        public UArray<int> PlayerNodeIndices { get { return new UArray<int>(this[nameof(PlayerNodeIndices)].Address); } }
     }
     public class CachedPoseIndices : Object
     {
         public CachedPoseIndices(nint addr) : base(addr) { }
-        public Array<int> OrderedSavedPoseNodeIndices { get { return new Array<int>(this[nameof(OrderedSavedPoseNodeIndices)].Address); } }
+        public UArray<int> OrderedSavedPoseNodeIndices { get { return new UArray<int>(this[nameof(OrderedSavedPoseNodeIndices)].Address); } }
     }
     public class AnimBlueprintFunction : Object
     {
@@ -17073,14 +17078,14 @@ namespace SDK.Script.EngineSDK
         public Object Name { get { return this[nameof(Name)]; } set { this[nameof(Name)] = value; } }
         public Object Group { get { return this[nameof(Group)]; } set { this[nameof(Group)] = value; } }
         public int OutputPoseNodeIndex { get { return this[nameof(OutputPoseNodeIndex)].GetValue<int>(); } set { this[nameof(OutputPoseNodeIndex)].SetValue<int>(value); } }
-        public Array<Object> InputPoseNames { get { return new Array<Object>(this[nameof(InputPoseNames)].Address); } }
-        public Array<int> InputPoseNodeIndices { get { return new Array<int>(this[nameof(InputPoseNodeIndices)].Address); } }
+        public UArray<Object> InputPoseNames { get { return new UArray<Object>(this[nameof(InputPoseNames)].Address); } }
+        public UArray<int> InputPoseNodeIndices { get { return new UArray<int>(this[nameof(InputPoseNodeIndices)].Address); } }
         public bool bImplemented { get { return this[nameof(bImplemented)].Flag; } set { this[nameof(bImplemented)].Flag = value; } }
     }
     public class AnimTrack : Object
     {
         public AnimTrack(nint addr) : base(addr) { }
-        public Array<AnimSegment> AnimSegments { get { return new Array<AnimSegment>(this[nameof(AnimSegments)].Address); } }
+        public UArray<AnimSegment> AnimSegments { get { return new UArray<AnimSegment>(this[nameof(AnimSegments)].Address); } }
     }
     public class AnimSegment : Object
     {
@@ -17106,7 +17111,7 @@ namespace SDK.Script.EngineSDK
     public class RawCurveTracks : Object
     {
         public RawCurveTracks(nint addr) : base(addr) { }
-        public Array<FloatCurve> FloatCurves { get { return new Array<FloatCurve>(this[nameof(FloatCurves)].Address); } }
+        public UArray<FloatCurve> FloatCurves { get { return new UArray<FloatCurve>(this[nameof(FloatCurves)].Address); } }
     }
     public class AnimCurveBase : Object
     {
@@ -17146,12 +17151,12 @@ namespace SDK.Script.EngineSDK
     public class A2Pose : Object
     {
         public A2Pose(nint addr) : base(addr) { }
-        public Array<Transform> Bones { get { return new Array<Transform>(this[nameof(Bones)].Address); } }
+        public UArray<Transform> Bones { get { return new UArray<Transform>(this[nameof(Bones)].Address); } }
     }
     public class A2CSPose : A2Pose
     {
         public A2CSPose(nint addr) : base(addr) { }
-        public Array<byte> ComponentSpaceFlags { get { return new Array<byte>(this[nameof(ComponentSpaceFlags)].Address); } }
+        public UArray<byte> ComponentSpaceFlags { get { return new UArray<byte>(this[nameof(ComponentSpaceFlags)].Address); } }
     }
     public class QueuedDrawDebugItem : Object
     {
@@ -17194,9 +17199,9 @@ namespace SDK.Script.EngineSDK
         public AnimMontage Montage { get { return this[nameof(Montage)].As<AnimMontage>(); } set { this["Montage"] = value; } }
         public bool bPlaying { get { return this[nameof(bPlaying)].Flag; } set { this[nameof(bPlaying)].Flag = value; } }
         public float DefaultBlendTimeMultiplier { get { return this[nameof(DefaultBlendTimeMultiplier)].GetValue<float>(); } set { this[nameof(DefaultBlendTimeMultiplier)].SetValue<float>(value); } }
-        public Array<int> NextSections { get { return new Array<int>(this[nameof(NextSections)].Address); } }
-        public Array<int> PrevSections { get { return new Array<int>(this[nameof(PrevSections)].Address); } }
-        public Array<AnimNotifyEvent> ActiveStateBranchingPoints { get { return new Array<AnimNotifyEvent>(this[nameof(ActiveStateBranchingPoints)].Address); } }
+        public UArray<int> NextSections { get { return new UArray<int>(this[nameof(NextSections)].Address); } }
+        public UArray<int> PrevSections { get { return new UArray<int>(this[nameof(PrevSections)].Address); } }
+        public UArray<AnimNotifyEvent> ActiveStateBranchingPoints { get { return new UArray<AnimNotifyEvent>(this[nameof(ActiveStateBranchingPoints)].Address); } }
         public float Position { get { return this[nameof(Position)].GetValue<float>(); } set { this[nameof(Position)].SetValue<float>(value); } }
         public float PlayRate { get { return this[nameof(PlayRate)].GetValue<float>(); } set { this[nameof(PlayRate)].SetValue<float>(value); } }
         public AlphaBlend Blend { get { return this[nameof(Blend)].As<AlphaBlend>(); } set { this["Blend"] = value; } }
@@ -17249,7 +17254,7 @@ namespace SDK.Script.EngineSDK
         public Object SectionName { get { return this[nameof(SectionName)]; } set { this[nameof(SectionName)] = value; } }
         public float StartTime { get { return this[nameof(StartTime)].GetValue<float>(); } set { this[nameof(StartTime)].SetValue<float>(value); } }
         public Object NextSectionName { get { return this[nameof(NextSectionName)]; } set { this[nameof(NextSectionName)] = value; } }
-        public Array<AnimMetaData> MetaData { get { return new Array<AnimMetaData>(this[nameof(MetaData)].Address); } }
+        public UArray<AnimMetaData> MetaData { get { return new UArray<AnimMetaData>(this[nameof(MetaData)].Address); } }
     }
     public class AnimNode_ApplyMeshSpaceAdditive : AnimNode_Base
     {
@@ -17289,8 +17294,8 @@ namespace SDK.Script.EngineSDK
     public class AnimNode_LinkedAnimGraph : AnimNode_CustomProperty
     {
         public AnimNode_LinkedAnimGraph(nint addr) : base(addr) { }
-        public Array<PoseLink> InputPoses { get { return new Array<PoseLink>(this[nameof(InputPoses)].Address); } }
-        public Array<Object> InputPoseNames { get { return new Array<Object>(this[nameof(InputPoseNames)].Address); } }
+        public UArray<PoseLink> InputPoses { get { return new UArray<PoseLink>(this[nameof(InputPoses)].Address); } }
+        public UArray<Object> InputPoseNames { get { return new UArray<Object>(this[nameof(InputPoseNames)].Address); } }
         public Object InstanceClass { get { return this[nameof(InstanceClass)]; } set { this[nameof(InstanceClass)] = value; } }
         public Object Tag { get { return this[nameof(Tag)]; } set { this[nameof(Tag)] = value; } }
         public bool bReceiveNotifiesFromLinkedInstances { get { return this[nameof(bReceiveNotifiesFromLinkedInstances)].Flag; } set { this[nameof(bReceiveNotifiesFromLinkedInstances)].Flag = value; } }
@@ -17364,7 +17369,7 @@ namespace SDK.Script.EngineSDK
     {
         public ExposedValueHandler(nint addr) : base(addr) { }
         public Object BoundFunction { get { return this[nameof(BoundFunction)]; } set { this[nameof(BoundFunction)] = value; } }
-        public Array<ExposedValueCopyRecord> CopyRecords { get { return new Array<ExposedValueCopyRecord>(this[nameof(CopyRecords)].Address); } }
+        public UArray<ExposedValueCopyRecord> CopyRecords { get { return new UArray<ExposedValueCopyRecord>(this[nameof(CopyRecords)].Address); } }
         public Function Function { get { return this[nameof(Function)].As<Function>(); } set { this["Function"] = value; } }
         public Object ValueHandlerNodeProperty { get { return this[nameof(ValueHandlerNodeProperty)]; } set { this[nameof(ValueHandlerNodeProperty)] = value; } }
     }
@@ -17387,13 +17392,13 @@ namespace SDK.Script.EngineSDK
     public class AnimNotifyQueue : Object
     {
         public AnimNotifyQueue(nint addr) : base(addr) { }
-        public Array<AnimNotifyEventReference> AnimNotifies { get { return new Array<AnimNotifyEventReference>(this[nameof(AnimNotifies)].Address); } }
+        public UArray<AnimNotifyEventReference> AnimNotifies { get { return new UArray<AnimNotifyEventReference>(this[nameof(AnimNotifies)].Address); } }
         public Object UnfilteredMontageAnimNotifies { get { return this[nameof(UnfilteredMontageAnimNotifies)]; } set { this[nameof(UnfilteredMontageAnimNotifies)] = value; } }
     }
     public class AnimNotifyArray : Object
     {
         public AnimNotifyArray(nint addr) : base(addr) { }
-        public Array<AnimNotifyEventReference> Notifies { get { return new Array<AnimNotifyEventReference>(this[nameof(Notifies)].Address); } }
+        public UArray<AnimNotifyEventReference> Notifies { get { return new UArray<AnimNotifyEventReference>(this[nameof(Notifies)].Address); } }
     }
     public class AnimNotifyEventReference : Object
     {
@@ -17403,8 +17408,8 @@ namespace SDK.Script.EngineSDK
     public class CompressedTrack : Object
     {
         public CompressedTrack(nint addr) : base(addr) { }
-        public Array<byte> ByteStream { get { return new Array<byte>(this[nameof(ByteStream)].Address); } }
-        public Array<float> Times { get { return new Array<float>(this[nameof(Times)].Address); } }
+        public UArray<byte> ByteStream { get { return new UArray<byte>(this[nameof(ByteStream)].Address); } }
+        public UArray<float> Times { get { return new UArray<float>(this[nameof(Times)].Address); } }
         public float Mins { get { return this[nameof(Mins)].GetValue<float>(); } set { this[nameof(Mins)].SetValue<float>(value); } }
         public float Ranges { get { return this[nameof(Ranges)].GetValue<float>(); } set { this[nameof(Ranges)].SetValue<float>(value); } }
     }
@@ -17412,43 +17417,43 @@ namespace SDK.Script.EngineSDK
     {
         public CurveTrack(nint addr) : base(addr) { }
         public Object CurveName { get { return this[nameof(CurveName)]; } set { this[nameof(CurveName)] = value; } }
-        public Array<float> CurveWeights { get { return new Array<float>(this[nameof(CurveWeights)].Address); } }
+        public UArray<float> CurveWeights { get { return new UArray<float>(this[nameof(CurveWeights)].Address); } }
     }
     public class ScaleTrack : Object
     {
         public ScaleTrack(nint addr) : base(addr) { }
-        public Array<Vector> ScaleKeys { get { return new Array<Vector>(this[nameof(ScaleKeys)].Address); } }
-        public Array<float> Times { get { return new Array<float>(this[nameof(Times)].Address); } }
+        public UArray<Vector> ScaleKeys { get { return new UArray<Vector>(this[nameof(ScaleKeys)].Address); } }
+        public UArray<float> Times { get { return new UArray<float>(this[nameof(Times)].Address); } }
     }
     public class RotationTrack : Object
     {
         public RotationTrack(nint addr) : base(addr) { }
-        public Array<Quat> RotKeys { get { return new Array<Quat>(this[nameof(RotKeys)].Address); } }
-        public Array<float> Times { get { return new Array<float>(this[nameof(Times)].Address); } }
+        public UArray<Quat> RotKeys { get { return new UArray<Quat>(this[nameof(RotKeys)].Address); } }
+        public UArray<float> Times { get { return new UArray<float>(this[nameof(Times)].Address); } }
     }
     public class TranslationTrack : Object
     {
         public TranslationTrack(nint addr) : base(addr) { }
-        public Array<Vector> PosKeys { get { return new Array<Vector>(this[nameof(PosKeys)].Address); } }
-        public Array<float> Times { get { return new Array<float>(this[nameof(Times)].Address); } }
+        public UArray<Vector> PosKeys { get { return new UArray<Vector>(this[nameof(PosKeys)].Address); } }
+        public UArray<float> Times { get { return new UArray<float>(this[nameof(Times)].Address); } }
     }
     public class AnimSequenceTrackContainer : Object
     {
         public AnimSequenceTrackContainer(nint addr) : base(addr) { }
-        public Array<RawAnimSequenceTrack> AnimationTracks { get { return new Array<RawAnimSequenceTrack>(this[nameof(AnimationTracks)].Address); } }
-        public Array<Object> TrackNames { get { return new Array<Object>(this[nameof(TrackNames)].Address); } }
+        public UArray<RawAnimSequenceTrack> AnimationTracks { get { return new UArray<RawAnimSequenceTrack>(this[nameof(AnimationTracks)].Address); } }
+        public UArray<Object> TrackNames { get { return new UArray<Object>(this[nameof(TrackNames)].Address); } }
     }
     public class RawAnimSequenceTrack : Object
     {
         public RawAnimSequenceTrack(nint addr) : base(addr) { }
-        public Array<Vector> PosKeys { get { return new Array<Vector>(this[nameof(PosKeys)].Address); } }
-        public Array<Quat> RotKeys { get { return new Array<Quat>(this[nameof(RotKeys)].Address); } }
-        public Array<Vector> ScaleKeys { get { return new Array<Vector>(this[nameof(ScaleKeys)].Address); } }
+        public UArray<Vector> PosKeys { get { return new UArray<Vector>(this[nameof(PosKeys)].Address); } }
+        public UArray<Quat> RotKeys { get { return new UArray<Quat>(this[nameof(RotKeys)].Address); } }
+        public UArray<Vector> ScaleKeys { get { return new UArray<Vector>(this[nameof(ScaleKeys)].Address); } }
     }
     public class AnimSetMeshLinkup : Object
     {
         public AnimSetMeshLinkup(nint addr) : base(addr) { }
-        public Array<int> BoneToTrackTable { get { return new Array<int>(this[nameof(BoneToTrackTable)].Address); } }
+        public UArray<int> BoneToTrackTable { get { return new UArray<int>(this[nameof(BoneToTrackTable)].Address); } }
     }
     public class AnimSingleNodeInstanceProxy : AnimInstanceProxy
     {
@@ -17464,8 +17469,8 @@ namespace SDK.Script.EngineSDK
         public BakedAnimationStateMachine(nint addr) : base(addr) { }
         public Object MachineName { get { return this[nameof(MachineName)]; } set { this[nameof(MachineName)] = value; } }
         public int InitialState { get { return this[nameof(InitialState)].GetValue<int>(); } set { this[nameof(InitialState)].SetValue<int>(value); } }
-        public Array<BakedAnimationState> States { get { return new Array<BakedAnimationState>(this[nameof(States)].Address); } }
-        public Array<AnimationTransitionBetweenStates> Transitions { get { return new Array<AnimationTransitionBetweenStates>(this[nameof(Transitions)].Address); } }
+        public UArray<BakedAnimationState> States { get { return new UArray<BakedAnimationState>(this[nameof(States)].Address); } }
+        public UArray<AnimationTransitionBetweenStates> Transitions { get { return new UArray<AnimationTransitionBetweenStates>(this[nameof(Transitions)].Address); } }
     }
     public class AnimationStateBase : Object
     {
@@ -17490,15 +17495,15 @@ namespace SDK.Script.EngineSDK
     {
         public BakedAnimationState(nint addr) : base(addr) { }
         public Object StateName { get { return this[nameof(StateName)]; } set { this[nameof(StateName)] = value; } }
-        public Array<BakedStateExitTransition> Transitions { get { return new Array<BakedStateExitTransition>(this[nameof(Transitions)].Address); } }
+        public UArray<BakedStateExitTransition> Transitions { get { return new UArray<BakedStateExitTransition>(this[nameof(Transitions)].Address); } }
         public int StateRootNodeIndex { get { return this[nameof(StateRootNodeIndex)].GetValue<int>(); } set { this[nameof(StateRootNodeIndex)].SetValue<int>(value); } }
         public int StartNotify { get { return this[nameof(StartNotify)].GetValue<int>(); } set { this[nameof(StartNotify)].SetValue<int>(value); } }
         public int EndNotify { get { return this[nameof(EndNotify)].GetValue<int>(); } set { this[nameof(EndNotify)].SetValue<int>(value); } }
         public int FullyBlendedNotify { get { return this[nameof(FullyBlendedNotify)].GetValue<int>(); } set { this[nameof(FullyBlendedNotify)].SetValue<int>(value); } }
         public bool bIsAConduit { get { return this[nameof(bIsAConduit)].Flag; } set { this[nameof(bIsAConduit)].Flag = value; } }
         public int EntryRuleNodeIndex { get { return this[nameof(EntryRuleNodeIndex)].GetValue<int>(); } set { this[nameof(EntryRuleNodeIndex)].SetValue<int>(value); } }
-        public Array<int> PlayerNodeIndices { get { return new Array<int>(this[nameof(PlayerNodeIndices)].Address); } }
-        public Array<int> LayerNodeIndices { get { return new Array<int>(this[nameof(LayerNodeIndices)].Address); } }
+        public UArray<int> PlayerNodeIndices { get { return new UArray<int>(this[nameof(PlayerNodeIndices)].Address); } }
+        public UArray<int> LayerNodeIndices { get { return new UArray<int>(this[nameof(LayerNodeIndices)].Address); } }
         public bool bAlwaysResetOnEntry { get { return this[nameof(bAlwaysResetOnEntry)].Flag; } set { this[nameof(bAlwaysResetOnEntry)].Flag = value; } }
     }
     public class BakedStateExitTransition : Object
@@ -17509,12 +17514,12 @@ namespace SDK.Script.EngineSDK
         public int TransitionIndex { get { return this[nameof(TransitionIndex)].GetValue<int>(); } set { this[nameof(TransitionIndex)].SetValue<int>(value); } }
         public bool bDesiredTransitionReturnValue { get { return this[nameof(bDesiredTransitionReturnValue)].Flag; } set { this[nameof(bDesiredTransitionReturnValue)].Flag = value; } }
         public bool bAutomaticRemainingTimeRule { get { return this[nameof(bAutomaticRemainingTimeRule)].Flag; } set { this[nameof(bAutomaticRemainingTimeRule)].Flag = value; } }
-        public Array<int> PoseEvaluatorLinks { get { return new Array<int>(this[nameof(PoseEvaluatorLinks)].Address); } }
+        public UArray<int> PoseEvaluatorLinks { get { return new UArray<int>(this[nameof(PoseEvaluatorLinks)].Address); } }
     }
     public class AnimationState : AnimationStateBase
     {
         public AnimationState(nint addr) : base(addr) { }
-        public Array<AnimationTransitionRule> Transitions { get { return new Array<AnimationTransitionRule>(this[nameof(Transitions)].Address); } }
+        public UArray<AnimationTransitionRule> Transitions { get { return new UArray<AnimationTransitionRule>(this[nameof(Transitions)].Address); } }
         public int StateRootNodeIndex { get { return this[nameof(StateRootNodeIndex)].GetValue<int>(); } set { this[nameof(StateRootNodeIndex)].SetValue<int>(value); } }
         public int StartNotify { get { return this[nameof(StartNotify)].GetValue<int>(); } set { this[nameof(StartNotify)].SetValue<int>(value); } }
         public int EndNotify { get { return this[nameof(EndNotify)].GetValue<int>(); } set { this[nameof(EndNotify)].SetValue<int>(value); } }
@@ -17535,7 +17540,7 @@ namespace SDK.Script.EngineSDK
     public class MarkerSyncData : Object
     {
         public MarkerSyncData(nint addr) : base(addr) { }
-        public Array<AnimSyncMarker> AuthoredSyncMarkers { get { return new Array<AnimSyncMarker>(this[nameof(AuthoredSyncMarkers)].Address); } }
+        public UArray<AnimSyncMarker> AuthoredSyncMarkers { get { return new UArray<AnimSyncMarker>(this[nameof(AuthoredSyncMarkers)].Address); } }
     }
     public class AnimSyncMarker : Object
     {
@@ -17552,7 +17557,7 @@ namespace SDK.Script.EngineSDK
     public class PerBoneBlendWeights : Object
     {
         public PerBoneBlendWeights(nint addr) : base(addr) { }
-        public Array<PerBoneBlendWeight> BoneBlendWeights { get { return new Array<PerBoneBlendWeight>(this[nameof(BoneBlendWeights)].Address); } }
+        public UArray<PerBoneBlendWeight> BoneBlendWeights { get { return new UArray<PerBoneBlendWeight>(this[nameof(BoneBlendWeights)].Address); } }
     }
     public class AssetImportInfo : Object
     {
@@ -17589,9 +17594,9 @@ namespace SDK.Script.EngineSDK
     public class AssetManagerSearchRules : Object
     {
         public AssetManagerSearchRules(nint addr) : base(addr) { }
-        public Array<Object> AssetScanPaths { get { return new Array<Object>(this[nameof(AssetScanPaths)].Address); } }
-        public Array<Object> IncludePatterns { get { return new Array<Object>(this[nameof(IncludePatterns)].Address); } }
-        public Array<Object> ExcludePatterns { get { return new Array<Object>(this[nameof(ExcludePatterns)].Address); } }
+        public UArray<Object> AssetScanPaths { get { return new UArray<Object>(this[nameof(AssetScanPaths)].Address); } }
+        public UArray<Object> IncludePatterns { get { return new UArray<Object>(this[nameof(IncludePatterns)].Address); } }
+        public UArray<Object> ExcludePatterns { get { return new UArray<Object>(this[nameof(ExcludePatterns)].Address); } }
         public Object AssetBaseClass { get { return this[nameof(AssetBaseClass)]; } set { this[nameof(AssetBaseClass)] = value; } }
         public bool bHasBlueprintClasses { get { return this[nameof(bHasBlueprintClasses)].Flag; } set { this[nameof(bHasBlueprintClasses)].Flag = value; } }
         public bool bForceSynchronousScan { get { return this[nameof(bForceSynchronousScan)].Flag; } set { this[nameof(bForceSynchronousScan)].Flag = value; } }
@@ -17606,10 +17611,10 @@ namespace SDK.Script.EngineSDK
         public Object AssetBaseClassLoaded { get { return this[nameof(AssetBaseClassLoaded)]; } set { this[nameof(AssetBaseClassLoaded)] = value; } }
         public bool bHasBlueprintClasses { get { return this[nameof(bHasBlueprintClasses)].Flag; } set { this[nameof(bHasBlueprintClasses)].Flag = value; } }
         public bool bIsEditorOnly { get { return this[nameof(bIsEditorOnly)].Flag; } set { this[nameof(bIsEditorOnly)].Flag = value; } }
-        public Array<DirectoryPath> Directories { get { return new Array<DirectoryPath>(this[nameof(Directories)].Address); } }
-        public Array<SoftObjectPath> SpecificAssets { get { return new Array<SoftObjectPath>(this[nameof(SpecificAssets)].Address); } }
+        public UArray<DirectoryPath> Directories { get { return new UArray<DirectoryPath>(this[nameof(Directories)].Address); } }
+        public UArray<SoftObjectPath> SpecificAssets { get { return new UArray<SoftObjectPath>(this[nameof(SpecificAssets)].Address); } }
         public PrimaryAssetRules Rules { get { return this[nameof(Rules)].As<PrimaryAssetRules>(); } set { this["Rules"] = value; } }
-        public Array<Object> AssetScanPaths { get { return new Array<Object>(this[nameof(AssetScanPaths)].Address); } }
+        public UArray<Object> AssetScanPaths { get { return new UArray<Object>(this[nameof(AssetScanPaths)].Address); } }
         public bool bIsDynamicAsset { get { return this[nameof(bIsDynamicAsset)].Flag; } set { this[nameof(bIsDynamicAsset)].Flag = value; } }
         public int NumberOfAssets { get { return this[nameof(NumberOfAssets)].GetValue<int>(); } set { this[nameof(NumberOfAssets)].SetValue<int>(value); } }
     }
@@ -17701,7 +17706,7 @@ namespace SDK.Script.EngineSDK
     {
         public AudioVolumeSubmixOverrideSettings(nint addr) : base(addr) { }
         public SoundSubmix Submix { get { return this[nameof(Submix)].As<SoundSubmix>(); } set { this["Submix"] = value; } }
-        public Array<SoundEffectSubmixPreset> SubmixEffectChain { get { return new Array<SoundEffectSubmixPreset>(this[nameof(SubmixEffectChain)].Address); } }
+        public UArray<SoundEffectSubmixPreset> SubmixEffectChain { get { return new UArray<SoundEffectSubmixPreset>(this[nameof(SubmixEffectChain)].Address); } }
         public float CrossfadeTime { get { return this[nameof(CrossfadeTime)].GetValue<float>(); } set { this[nameof(CrossfadeTime)].SetValue<float>(value); } }
     }
     public class AudioVolumeSubmixSendSettings : Object
@@ -17709,7 +17714,7 @@ namespace SDK.Script.EngineSDK
         public AudioVolumeSubmixSendSettings(nint addr) : base(addr) { }
         public EAudioVolumeLocationState ListenerLocationState { get { return (EAudioVolumeLocationState)this[nameof(ListenerLocationState)].GetValue<int>(); } set { this[nameof(ListenerLocationState)].SetValue<int>((int)value); } }
         public EAudioVolumeLocationState SourceLocationState { get { return (EAudioVolumeLocationState)this[nameof(SourceLocationState)].GetValue<int>(); } set { this[nameof(SourceLocationState)].SetValue<int>((int)value); } }
-        public Array<SoundSubmixSendInfo> SubmixSends { get { return new Array<SoundSubmixSendInfo>(this[nameof(SubmixSends)].Address); } }
+        public UArray<SoundSubmixSendInfo> SubmixSends { get { return new UArray<SoundSubmixSendInfo>(this[nameof(SubmixSends)].Address); } }
     }
     public class SoundSubmixSendInfo : Object
     {
@@ -17779,13 +17784,13 @@ namespace SDK.Script.EngineSDK
         public EditorImportWorkflowDefinition Animation { get { return this[nameof(Animation)].As<EditorImportWorkflowDefinition>(); } set { this["Animation"] = value; } }
         public EditorImportWorkflowDefinition Sound { get { return this[nameof(Sound)].As<EditorImportWorkflowDefinition>(); } set { this["Sound"] = value; } }
         public EditorImportWorkflowDefinition SurroundSound { get { return this[nameof(SurroundSound)].As<EditorImportWorkflowDefinition>(); } set { this["SurroundSound"] = value; } }
-        public Array<EditorImportWorkflowDefinition> OtherAssetsToImport { get { return new Array<EditorImportWorkflowDefinition>(this[nameof(OtherAssetsToImport)].Address); } }
+        public UArray<EditorImportWorkflowDefinition> OtherAssetsToImport { get { return new UArray<EditorImportWorkflowDefinition>(this[nameof(OtherAssetsToImport)].Address); } }
     }
     public class EditorImportWorkflowDefinition : Object
     {
         public EditorImportWorkflowDefinition(nint addr) : base(addr) { }
         public FilePath ImportFilePath { get { return this[nameof(ImportFilePath)].As<FilePath>(); } set { this["ImportFilePath"] = value; } }
-        public Array<ImportFactorySettingValues> FactorySettings { get { return new Array<ImportFactorySettingValues>(this[nameof(FactorySettings)].Address); } }
+        public UArray<ImportFactorySettingValues> FactorySettings { get { return new UArray<ImportFactorySettingValues>(this[nameof(FactorySettings)].Address); } }
     }
     public class ImportFactorySettingValues : Object
     {
@@ -17818,7 +17823,7 @@ namespace SDK.Script.EngineSDK
         public FilePath ImportFilePath { get { return this[nameof(ImportFilePath)].As<FilePath>(); } set { this["ImportFilePath"] = value; } }
         public Object ExportFileExtension { get { return this[nameof(ExportFileExtension)]; } set { this[nameof(ExportFileExtension)] = value; } }
         public bool bSkipExport { get { return this[nameof(bSkipExport)].Flag; } set { this[nameof(bSkipExport)].Flag = value; } }
-        public Array<ImportFactorySettingValues> FactorySettings { get { return new Array<ImportFactorySettingValues>(this[nameof(FactorySettings)].Address); } }
+        public UArray<ImportFactorySettingValues> FactorySettings { get { return new UArray<ImportFactorySettingValues>(this[nameof(FactorySettings)].Address); } }
     }
     public class ExternalToolDefinition : Object
     {
@@ -17837,12 +17842,12 @@ namespace SDK.Script.EngineSDK
     public class BandwidthTestGenerator : Object
     {
         public BandwidthTestGenerator(nint addr) : base(addr) { }
-        public Array<BandwidthTestItem> ReplicatedBuffers { get { return new Array<BandwidthTestItem>(this[nameof(ReplicatedBuffers)].Address); } }
+        public UArray<BandwidthTestItem> ReplicatedBuffers { get { return new UArray<BandwidthTestItem>(this[nameof(ReplicatedBuffers)].Address); } }
     }
     public class BandwidthTestItem : Object
     {
         public BandwidthTestItem(nint addr) : base(addr) { }
-        public Array<byte> Kilobyte { get { return new Array<byte>(this[nameof(Kilobyte)].Address); } }
+        public UArray<byte> Kilobyte { get { return new UArray<byte>(this[nameof(Kilobyte)].Address); } }
     }
     public class BlendProfileBoneEntry : Object
     {
@@ -17908,7 +17913,7 @@ namespace SDK.Script.EngineSDK
     {
         public BPInterfaceDescription(nint addr) : base(addr) { }
         public Object Interface { get { return this[nameof(Interface)]; } set { this[nameof(Interface)] = value; } }
-        public Array<EdGraph> Graphs { get { return new Array<EdGraph>(this[nameof(Graphs)].Address); } }
+        public UArray<EdGraph> Graphs { get { return new UArray<EdGraph>(this[nameof(Graphs)].Address); } }
     }
     public class BPVariableDescription : Object
     {
@@ -17921,7 +17926,7 @@ namespace SDK.Script.EngineSDK
         public ulong PropertyFlags { get { return this[nameof(PropertyFlags)].GetValue<ulong>(); } set { this[nameof(PropertyFlags)].SetValue<ulong>(value); } }
         public Object RepNotifyFunc { get { return this[nameof(RepNotifyFunc)]; } set { this[nameof(RepNotifyFunc)] = value; } }
         public byte ReplicationCondition { get { return this[nameof(ReplicationCondition)].GetValue<byte>(); } set { this[nameof(ReplicationCondition)].SetValue<byte>(value); } }
-        public Array<BPVariableMetaDataEntry> MetaDataArray { get { return new Array<BPVariableMetaDataEntry>(this[nameof(MetaDataArray)].Address); } }
+        public UArray<BPVariableMetaDataEntry> MetaDataArray { get { return new UArray<BPVariableMetaDataEntry>(this[nameof(MetaDataArray)].Address); } }
         public Object DefaultValue { get { return this[nameof(DefaultValue)]; } set { this[nameof(DefaultValue)] = value; } }
     }
     public class BPVariableMetaDataEntry : Object
@@ -17966,9 +17971,9 @@ namespace SDK.Script.EngineSDK
         public bool ServerOnlyPlatform { get { return this[nameof(ServerOnlyPlatform)].Flag; } set { this[nameof(ServerOnlyPlatform)].Flag = value; } }
         public bool ClientOnlyPlatform { get { return this[nameof(ClientOnlyPlatform)].Flag; } set { this[nameof(ClientOnlyPlatform)].Flag = value; } }
         public bool bExcludeMonolithicHeaders { get { return this[nameof(bExcludeMonolithicHeaders)].Flag; } set { this[nameof(bExcludeMonolithicHeaders)].Flag = value; } }
-        public Array<Object> ExcludedModules { get { return new Array<Object>(this[nameof(ExcludedModules)].Address); } }
+        public UArray<Object> ExcludedModules { get { return new UArray<Object>(this[nameof(ExcludedModules)].Address); } }
         public Object ExcludedAssets { get { return this[nameof(ExcludedAssets)]; } set { this[nameof(ExcludedAssets)] = value; } }
-        public Array<Object> ExcludedFolderPaths { get { return new Array<Object>(this[nameof(ExcludedFolderPaths)].Address); } }
+        public UArray<Object> ExcludedFolderPaths { get { return new UArray<Object>(this[nameof(ExcludedFolderPaths)].Address); } }
     }
     public class BPComponentClassOverride : Object
     {
@@ -17979,7 +17984,7 @@ namespace SDK.Script.EngineSDK
     public class BlueprintCookedComponentInstancingData : Object
     {
         public BlueprintCookedComponentInstancingData(nint addr) : base(addr) { }
-        public Array<BlueprintComponentChangedPropertyInfo> ChangedPropertyList { get { return new Array<BlueprintComponentChangedPropertyInfo>(this[nameof(ChangedPropertyList)].Address); } }
+        public UArray<BlueprintComponentChangedPropertyInfo> ChangedPropertyList { get { return new UArray<BlueprintComponentChangedPropertyInfo>(this[nameof(ChangedPropertyList)].Address); } }
         public bool bHasValidCookedData { get { return this[nameof(bHasValidCookedData)].Flag; } set { this[nameof(bHasValidCookedData)].Flag = value; } }
     }
     public class BlueprintComponentChangedPropertyInfo : Object
@@ -18037,7 +18042,7 @@ namespace SDK.Script.EngineSDK
     public class BuilderPoly : Object
     {
         public BuilderPoly(nint addr) : base(addr) { }
-        public Array<int> VertexIndices { get { return new Array<int>(this[nameof(VertexIndices)].Address); } }
+        public UArray<int> VertexIndices { get { return new UArray<int>(this[nameof(VertexIndices)].Address); } }
         public int Direction { get { return this[nameof(Direction)].GetValue<int>(); } set { this[nameof(Direction)].SetValue<int>(value); } }
         public Object ItemName { get { return this[nameof(ItemName)]; } set { this[nameof(ItemName)] = value; } }
         public int PolyFlags { get { return this[nameof(PolyFlags)].GetValue<int>(); } set { this[nameof(PolyFlags)].SetValue<int>(value); } }
@@ -18064,7 +18069,7 @@ namespace SDK.Script.EngineSDK
     public class CachedAnimStateArray : Object
     {
         public CachedAnimStateArray(nint addr) : base(addr) { }
-        public Array<CachedAnimStateData> States { get { return new Array<CachedAnimStateData>(this[nameof(States)].Address); } }
+        public UArray<CachedAnimStateData> States { get { return new UArray<CachedAnimStateData>(this[nameof(States)].Address); } }
     }
     public class CachedAnimStateData : Object
     {
@@ -18082,7 +18087,7 @@ namespace SDK.Script.EngineSDK
     public class PooledCameraShakes : Object
     {
         public PooledCameraShakes(nint addr) : base(addr) { }
-        public Array<CameraShakeBase> PooledShakes { get { return new Array<CameraShakeBase>(this[nameof(PooledShakes)].Address); } }
+        public UArray<CameraShakeBase> PooledShakes { get { return new UArray<CameraShakeBase>(this[nameof(PooledShakes)].Address); } }
     }
     public class CameraShakeInfo : Object
     {
@@ -18514,7 +18519,7 @@ namespace SDK.Script.EngineSDK
     public class WeightedBlendables : Object
     {
         public WeightedBlendables(nint addr) : base(addr) { }
-        public Array<WeightedBlendable> Array { get { return new Array<WeightedBlendable>(this[nameof(Array)].Address); } }
+        public UArray<WeightedBlendable> Array { get { return new UArray<WeightedBlendable>(this[nameof(Array)].Address); } }
     }
     public class WeightedBlendable : Object
     {
@@ -18585,7 +18590,7 @@ namespace SDK.Script.EngineSDK
         public ChildActorComponentInstanceData(nint addr) : base(addr) { }
         public Object ChildActorClass { get { return this[nameof(ChildActorClass)]; } set { this[nameof(ChildActorClass)] = value; } }
         public Object ChildActorName { get { return this[nameof(ChildActorName)]; } set { this[nameof(ChildActorName)] = value; } }
-        public Array<ChildActorAttachedActorInfo> AttachedActors { get { return new Array<ChildActorAttachedActorInfo>(this[nameof(AttachedActors)].Address); } }
+        public UArray<ChildActorAttachedActorInfo> AttachedActors { get { return new UArray<ChildActorAttachedActorInfo>(this[nameof(AttachedActors)].Address); } }
     }
     public class ChildActorAttachedActorInfo : Object
     {
@@ -18598,7 +18603,7 @@ namespace SDK.Script.EngineSDK
     {
         public CustomProfile(nint addr) : base(addr) { }
         public Object Name { get { return this[nameof(Name)]; } set { this[nameof(Name)] = value; } }
-        public Array<ResponseChannel> CustomResponses { get { return new Array<ResponseChannel>(this[nameof(CustomResponses)].Address); } }
+        public UArray<ResponseChannel> CustomResponses { get { return new UArray<ResponseChannel>(this[nameof(CustomResponses)].Address); } }
     }
     public class CustomChannelSetup : Object
     {
@@ -18616,7 +18621,7 @@ namespace SDK.Script.EngineSDK
         public byte CollisionEnabled { get { return this[nameof(CollisionEnabled)].GetValue<byte>(); } set { this[nameof(CollisionEnabled)].SetValue<byte>(value); } }
         public bool bCanModify { get { return this[nameof(bCanModify)].Flag; } set { this[nameof(bCanModify)].Flag = value; } }
         public Object ObjectTypeName { get { return this[nameof(ObjectTypeName)]; } set { this[nameof(ObjectTypeName)] = value; } }
-        public Array<ResponseChannel> CustomResponses { get { return new Array<ResponseChannel>(this[nameof(CustomResponses)].Address); } }
+        public UArray<ResponseChannel> CustomResponses { get { return new UArray<ResponseChannel>(this[nameof(CustomResponses)].Address); } }
     }
     public class BlueprintComponentDelegateBinding : Object
     {
@@ -18636,7 +18641,7 @@ namespace SDK.Script.EngineSDK
     {
         public AutoCompleteNode(nint addr) : base(addr) { }
         public int IndexChar { get { return this[nameof(IndexChar)].GetValue<int>(); } set { this[nameof(IndexChar)].SetValue<int>(value); } }
-        public Array<int> AutoCompleteListIndices { get { return new Array<int>(this[nameof(AutoCompleteListIndices)].Address); } }
+        public UArray<int> AutoCompleteListIndices { get { return new UArray<int>(this[nameof(AutoCompleteListIndices)].Address); } }
     }
     public class AngularDriveConstraint : Object
     {
@@ -18784,9 +18789,9 @@ namespace SDK.Script.EngineSDK
     {
         public BakedCustomAttributePerBoneData(nint addr) : base(addr) { }
         public int BoneTreeIndex { get { return this[nameof(BoneTreeIndex)].GetValue<int>(); } set { this[nameof(BoneTreeIndex)].SetValue<int>(value); } }
-        public Array<BakedStringCustomAttribute> StringAttributes { get { return new Array<BakedStringCustomAttribute>(this[nameof(StringAttributes)].Address); } }
-        public Array<BakedIntegerCustomAttribute> IntAttributes { get { return new Array<BakedIntegerCustomAttribute>(this[nameof(IntAttributes)].Address); } }
-        public Array<BakedFloatCustomAttribute> FloatAttributes { get { return new Array<BakedFloatCustomAttribute>(this[nameof(FloatAttributes)].Address); } }
+        public UArray<BakedStringCustomAttribute> StringAttributes { get { return new UArray<BakedStringCustomAttribute>(this[nameof(StringAttributes)].Address); } }
+        public UArray<BakedIntegerCustomAttribute> IntAttributes { get { return new UArray<BakedIntegerCustomAttribute>(this[nameof(IntAttributes)].Address); } }
+        public UArray<BakedFloatCustomAttribute> FloatAttributes { get { return new UArray<BakedFloatCustomAttribute>(this[nameof(FloatAttributes)].Address); } }
     }
     public class BakedFloatCustomAttribute : Object
     {
@@ -18798,7 +18803,7 @@ namespace SDK.Script.EngineSDK
     {
         public SimpleCurve(nint addr) : base(addr) { }
         public byte InterpMode { get { return this[nameof(InterpMode)].GetValue<byte>(); } set { this[nameof(InterpMode)].SetValue<byte>(value); } }
-        public Array<SimpleCurveKey> Keys { get { return new Array<SimpleCurveKey>(this[nameof(Keys)].Address); } }
+        public UArray<SimpleCurveKey> Keys { get { return new UArray<SimpleCurveKey>(this[nameof(Keys)].Address); } }
     }
     public class SimpleCurveKey : Object
     {
@@ -18815,7 +18820,7 @@ namespace SDK.Script.EngineSDK
     public class IntegralCurve : IndexedCurve
     {
         public IntegralCurve(nint addr) : base(addr) { }
-        public Array<IntegralKey> Keys { get { return new Array<IntegralKey>(this[nameof(Keys)].Address); } }
+        public UArray<IntegralKey> Keys { get { return new UArray<IntegralKey>(this[nameof(Keys)].Address); } }
         public int DefaultValue { get { return this[nameof(DefaultValue)].GetValue<int>(); } set { this[nameof(DefaultValue)].SetValue<int>(value); } }
         public bool bUseDefaultValueBeforeFirstKey { get { return this[nameof(bUseDefaultValueBeforeFirstKey)].Flag; } set { this[nameof(bUseDefaultValueBeforeFirstKey)].Flag = value; } }
     }
@@ -18835,7 +18840,7 @@ namespace SDK.Script.EngineSDK
     {
         public StringCurve(nint addr) : base(addr) { }
         public Object DefaultValue { get { return this[nameof(DefaultValue)]; } set { this[nameof(DefaultValue)] = value; } }
-        public Array<StringCurveKey> Keys { get { return new Array<StringCurveKey>(this[nameof(Keys)].Address); } }
+        public UArray<StringCurveKey> Keys { get { return new UArray<StringCurveKey>(this[nameof(Keys)].Address); } }
     }
     public class StringCurveKey : Object
     {
@@ -18847,14 +18852,14 @@ namespace SDK.Script.EngineSDK
     {
         public CustomAttributePerBoneData(nint addr) : base(addr) { }
         public int BoneTreeIndex { get { return this[nameof(BoneTreeIndex)].GetValue<int>(); } set { this[nameof(BoneTreeIndex)].SetValue<int>(value); } }
-        public Array<CustomAttribute> Attributes { get { return new Array<CustomAttribute>(this[nameof(Attributes)].Address); } }
+        public UArray<CustomAttribute> Attributes { get { return new UArray<CustomAttribute>(this[nameof(Attributes)].Address); } }
     }
     public class CustomAttribute : Object
     {
         public CustomAttribute(nint addr) : base(addr) { }
         public Object Name { get { return this[nameof(Name)]; } set { this[nameof(Name)] = value; } }
         public int VariantType { get { return this[nameof(VariantType)].GetValue<int>(); } set { this[nameof(VariantType)].SetValue<int>(value); } }
-        public Array<float> Times { get { return new Array<float>(this[nameof(Times)].Address); } }
+        public UArray<float> Times { get { return new UArray<float>(this[nameof(Times)].Address); } }
     }
     public class CustomAttributeSetting : Object
     {
@@ -18908,7 +18913,7 @@ namespace SDK.Script.EngineSDK
         public RollbackNetStartupActorInfo(nint addr) : base(addr) { }
         public Object Archetype { get { return this[nameof(Archetype)].As<Object>(); } set { this["Archetype"] = value; } }
         public Level Level { get { return this[nameof(Level)].As<Level>(); } set { this["Level"] = value; } }
-        public Array<Object> ObjReferences { get { return new Array<Object>(this[nameof(ObjReferences)].Address); } }
+        public UArray<Object> ObjReferences { get { return new UArray<Object>(this[nameof(ObjReferences)].Address); } }
     }
     public class DialogueWaveParameter : Object
     {
@@ -18920,7 +18925,7 @@ namespace SDK.Script.EngineSDK
     {
         public DialogueContext(nint addr) : base(addr) { }
         public DialogueVoice Speaker { get { return this[nameof(Speaker)].As<DialogueVoice>(); } set { this["Speaker"] = value; } }
-        public Array<DialogueVoice> Targets { get { return new Array<DialogueVoice>(this[nameof(Targets)].Address); } }
+        public UArray<DialogueVoice> Targets { get { return new UArray<DialogueVoice>(this[nameof(Targets)].Address); } }
     }
     public class DialogueContextMapping : Object
     {
@@ -18968,14 +18973,14 @@ namespace SDK.Script.EngineSDK
         public Object Keywords { get { return this[nameof(Keywords)]; } set { this[nameof(Keywords)] = value; } }
         public int Grouping { get { return this[nameof(Grouping)].GetValue<int>(); } set { this[nameof(Grouping)].SetValue<int>(value); } }
         public int SectionID { get { return this[nameof(SectionID)].GetValue<int>(); } set { this[nameof(SectionID)].SetValue<int>(value); } }
-        public Array<Object> MenuDescriptionArray { get { return new Array<Object>(this[nameof(MenuDescriptionArray)].Address); } }
-        public Array<Object> FullSearchTitlesArray { get { return new Array<Object>(this[nameof(FullSearchTitlesArray)].Address); } }
-        public Array<Object> FullSearchKeywordsArray { get { return new Array<Object>(this[nameof(FullSearchKeywordsArray)].Address); } }
-        public Array<Object> FullSearchCategoryArray { get { return new Array<Object>(this[nameof(FullSearchCategoryArray)].Address); } }
-        public Array<Object> LocalizedMenuDescriptionArray { get { return new Array<Object>(this[nameof(LocalizedMenuDescriptionArray)].Address); } }
-        public Array<Object> LocalizedFullSearchTitlesArray { get { return new Array<Object>(this[nameof(LocalizedFullSearchTitlesArray)].Address); } }
-        public Array<Object> LocalizedFullSearchKeywordsArray { get { return new Array<Object>(this[nameof(LocalizedFullSearchKeywordsArray)].Address); } }
-        public Array<Object> LocalizedFullSearchCategoryArray { get { return new Array<Object>(this[nameof(LocalizedFullSearchCategoryArray)].Address); } }
+        public UArray<Object> MenuDescriptionArray { get { return new UArray<Object>(this[nameof(MenuDescriptionArray)].Address); } }
+        public UArray<Object> FullSearchTitlesArray { get { return new UArray<Object>(this[nameof(FullSearchTitlesArray)].Address); } }
+        public UArray<Object> FullSearchKeywordsArray { get { return new UArray<Object>(this[nameof(FullSearchKeywordsArray)].Address); } }
+        public UArray<Object> FullSearchCategoryArray { get { return new UArray<Object>(this[nameof(FullSearchCategoryArray)].Address); } }
+        public UArray<Object> LocalizedMenuDescriptionArray { get { return new UArray<Object>(this[nameof(LocalizedMenuDescriptionArray)].Address); } }
+        public UArray<Object> LocalizedFullSearchTitlesArray { get { return new UArray<Object>(this[nameof(LocalizedFullSearchTitlesArray)].Address); } }
+        public UArray<Object> LocalizedFullSearchKeywordsArray { get { return new UArray<Object>(this[nameof(LocalizedFullSearchKeywordsArray)].Address); } }
+        public UArray<Object> LocalizedFullSearchCategoryArray { get { return new UArray<Object>(this[nameof(LocalizedFullSearchCategoryArray)].Address); } }
         public Object SearchText { get { return this[nameof(SearchText)]; } set { this[nameof(SearchText)] = value; } }
     }
     public class EdGraphSchemaAction_NewNode : EdGraphSchemaAction
@@ -19034,7 +19039,7 @@ namespace SDK.Script.EngineSDK
     {
         public StatColorMapping(nint addr) : base(addr) { }
         public Object StatName { get { return this[nameof(StatName)]; } set { this[nameof(StatName)] = value; } }
-        public Array<StatColorMapEntry> ColorMap { get { return new Array<StatColorMapEntry>(this[nameof(ColorMap)].Address); } }
+        public UArray<StatColorMapEntry> ColorMap { get { return new UArray<StatColorMapEntry>(this[nameof(ColorMap)].Address); } }
         public bool DisableBlend { get { return this[nameof(DisableBlend)].Flag; } set { this[nameof(DisableBlend)].Flag = value; } }
     }
     public class StatColorMapEntry : Object
@@ -19049,13 +19054,13 @@ namespace SDK.Script.EngineSDK
         public URL LastURL { get { return this[nameof(LastURL)].As<URL>(); } set { this["LastURL"] = value; } }
         public URL LastRemoteURL { get { return this[nameof(LastRemoteURL)].As<URL>(); } set { this["LastRemoteURL"] = value; } }
         public PendingNetGame PendingNetGame { get { return this[nameof(PendingNetGame)].As<PendingNetGame>(); } set { this["PendingNetGame"] = value; } }
-        public Array<FullyLoadedPackagesInfo> PackagesToFullyLoad { get { return new Array<FullyLoadedPackagesInfo>(this[nameof(PackagesToFullyLoad)].Address); } }
-        public Array<Level> LoadedLevelsForPendingMapChange { get { return new Array<Level>(this[nameof(LoadedLevelsForPendingMapChange)].Address); } }
-        public Array<ObjectReferencer> ObjectReferencers { get { return new Array<ObjectReferencer>(this[nameof(ObjectReferencers)].Address); } }
-        public Array<LevelStreamingStatus> PendingLevelStreamingStatusUpdates { get { return new Array<LevelStreamingStatus>(this[nameof(PendingLevelStreamingStatusUpdates)].Address); } }
+        public UArray<FullyLoadedPackagesInfo> PackagesToFullyLoad { get { return new UArray<FullyLoadedPackagesInfo>(this[nameof(PackagesToFullyLoad)].Address); } }
+        public UArray<Level> LoadedLevelsForPendingMapChange { get { return new UArray<Level>(this[nameof(LoadedLevelsForPendingMapChange)].Address); } }
+        public UArray<ObjectReferencer> ObjectReferencers { get { return new UArray<ObjectReferencer>(this[nameof(ObjectReferencers)].Address); } }
+        public UArray<LevelStreamingStatus> PendingLevelStreamingStatusUpdates { get { return new UArray<LevelStreamingStatus>(this[nameof(PendingLevelStreamingStatusUpdates)].Address); } }
         public GameViewportClient GameViewport { get { return this[nameof(GameViewport)].As<GameViewportClient>(); } set { this["GameViewport"] = value; } }
         public GameInstance OwningGameInstance { get { return this[nameof(OwningGameInstance)].As<GameInstance>(); } set { this["OwningGameInstance"] = value; } }
-        public Array<NamedNetDriver> ActiveNetDrivers { get { return new Array<NamedNetDriver>(this[nameof(ActiveNetDrivers)].Address); } }
+        public UArray<NamedNetDriver> ActiveNetDrivers { get { return new UArray<NamedNetDriver>(this[nameof(ActiveNetDrivers)].Address); } }
     }
     public class NamedNetDriver : Object
     {
@@ -19075,8 +19080,8 @@ namespace SDK.Script.EngineSDK
         public FullyLoadedPackagesInfo(nint addr) : base(addr) { }
         public byte FullyLoadType { get { return this[nameof(FullyLoadType)].GetValue<byte>(); } set { this[nameof(FullyLoadType)].SetValue<byte>(value); } }
         public Object Tag { get { return this[nameof(Tag)]; } set { this[nameof(Tag)] = value; } }
-        public Array<Object> PackagesToLoad { get { return new Array<Object>(this[nameof(PackagesToLoad)].Address); } }
-        public Array<Object> LoadedObjects { get { return new Array<Object>(this[nameof(LoadedObjects)].Address); } }
+        public UArray<Object> PackagesToLoad { get { return new UArray<Object>(this[nameof(PackagesToLoad)].Address); } }
+        public UArray<Object> LoadedObjects { get { return new UArray<Object>(this[nameof(LoadedObjects)].Address); } }
     }
     public class URL : Object
     {
@@ -19087,7 +19092,7 @@ namespace SDK.Script.EngineSDK
         public int Valid { get { return this[nameof(Valid)].GetValue<int>(); } set { this[nameof(Valid)].SetValue<int>(value); } }
         public Object Map { get { return this[nameof(Map)]; } set { this[nameof(Map)] = value; } }
         public Object RedirectURL { get { return this[nameof(RedirectURL)]; } set { this[nameof(RedirectURL)] = value; } }
-        public Array<Object> Op { get { return new Array<Object>(this[nameof(Op)].Address); } }
+        public UArray<Object> Op { get { return new UArray<Object>(this[nameof(Op)].Address); } }
         public Object Portal { get { return this[nameof(Portal)]; } set { this[nameof(Portal)] = value; } }
     }
     public class NetDriverDefinition : Object
@@ -19161,7 +19166,7 @@ namespace SDK.Script.EngineSDK
         public RadialDamageEvent(nint addr) : base(addr) { }
         public RadialDamageParams Params { get { return this[nameof(Params)].As<RadialDamageParams>(); } set { this["Params"] = value; } }
         public Vector Origin { get { return this[nameof(Origin)].As<Vector>(); } set { this["Origin"] = value; } }
-        public Array<HitResult> ComponentHits { get { return new Array<HitResult>(this[nameof(ComponentHits)].Address); } }
+        public UArray<HitResult> ComponentHits { get { return new UArray<HitResult>(this[nameof(ComponentHits)].Address); } }
     }
     public class RadialDamageParams : Object
     {
@@ -19240,7 +19245,7 @@ namespace SDK.Script.EngineSDK
         public float AdditionalTime { get { return this[nameof(AdditionalTime)].GetValue<float>(); } set { this[nameof(AdditionalTime)].SetValue<float>(value); } }
         public int BaseNonRenderedUpdateRate { get { return this[nameof(BaseNonRenderedUpdateRate)].GetValue<int>(); } set { this[nameof(BaseNonRenderedUpdateRate)].SetValue<int>(value); } }
         public int MaxEvalRateForInterpolation { get { return this[nameof(MaxEvalRateForInterpolation)].GetValue<int>(); } set { this[nameof(MaxEvalRateForInterpolation)].SetValue<int>(value); } }
-        public Array<float> BaseVisibleDistanceFactorThesholds { get { return new Array<float>(this[nameof(BaseVisibleDistanceFactorThesholds)].Address); } }
+        public UArray<float> BaseVisibleDistanceFactorThesholds { get { return new UArray<float>(this[nameof(BaseVisibleDistanceFactorThesholds)].Address); } }
         public Object LODToFrameSkipMap { get { return this[nameof(LODToFrameSkipMap)]; } set { this[nameof(LODToFrameSkipMap)] = value; } }
         public int SkippedUpdateFrames { get { return this[nameof(SkippedUpdateFrames)].GetValue<int>(); } set { this[nameof(SkippedUpdateFrames)].SetValue<int>(value); } }
         public int SkippedEvalFrames { get { return this[nameof(SkippedEvalFrames)].GetValue<int>(); } set { this[nameof(SkippedEvalFrames)].SetValue<int>(value); } }
@@ -19255,7 +19260,7 @@ namespace SDK.Script.EngineSDK
     {
         public AnimSlotInfo(nint addr) : base(addr) { }
         public Object slotName { get { return this[nameof(slotName)]; } set { this[nameof(slotName)] = value; } }
-        public Array<float> ChannelWeights { get { return new Array<float>(this[nameof(ChannelWeights)].Address); } }
+        public UArray<float> ChannelWeights { get { return new UArray<float>(this[nameof(ChannelWeights)].Address); } }
     }
     public class MTDResult : Object
     {
@@ -19344,7 +19349,7 @@ namespace SDK.Script.EngineSDK
     public class CollisionImpactData : Object
     {
         public CollisionImpactData(nint addr) : base(addr) { }
-        public Array<RigidBodyContactInfo> ContactInfos { get { return new Array<RigidBodyContactInfo>(this[nameof(ContactInfos)].Address); } }
+        public UArray<RigidBodyContactInfo> ContactInfos { get { return new UArray<RigidBodyContactInfo>(this[nameof(ContactInfos)].Address); } }
         public Vector TotalNormalImpulse { get { return this[nameof(TotalNormalImpulse)].As<Vector>(); } set { this["TotalNormalImpulse"] = value; } }
         public Vector TotalFrictionImpulse { get { return this[nameof(TotalFrictionImpulse)].As<Vector>(); } set { this["TotalFrictionImpulse"] = value; } }
         public bool bIsVelocityDeltaUnderThreshold { get { return this[nameof(bIsVelocityDeltaUnderThreshold)].Flag; } set { this[nameof(bIsVelocityDeltaUnderThreshold)].Flag = value; } }
@@ -19454,7 +19459,7 @@ namespace SDK.Script.EngineSDK
     public class PredictProjectilePathResult : Object
     {
         public PredictProjectilePathResult(nint addr) : base(addr) { }
-        public Array<PredictProjectilePathPointData> PathData { get { return new Array<PredictProjectilePathPointData>(this[nameof(PathData)].Address); } }
+        public UArray<PredictProjectilePathPointData> PathData { get { return new UArray<PredictProjectilePathPointData>(this[nameof(PathData)].Address); } }
         public PredictProjectilePathPointData LastTraceDestination { get { return this[nameof(LastTraceDestination)].As<PredictProjectilePathPointData>(); } set { this["LastTraceDestination"] = value; } }
         public HitResult HitResult { get { return this[nameof(HitResult)].As<HitResult>(); } set { this["HitResult"] = value; } }
     }
@@ -19475,8 +19480,8 @@ namespace SDK.Script.EngineSDK
         public float MaxSimTime { get { return this[nameof(MaxSimTime)].GetValue<float>(); } set { this[nameof(MaxSimTime)].SetValue<float>(value); } }
         public bool bTraceWithChannel { get { return this[nameof(bTraceWithChannel)].Flag; } set { this[nameof(bTraceWithChannel)].Flag = value; } }
         public byte TraceChannel { get { return this[nameof(TraceChannel)].GetValue<byte>(); } set { this[nameof(TraceChannel)].SetValue<byte>(value); } }
-        public Array<byte> ObjectTypes { get { return new Array<byte>(this[nameof(ObjectTypes)].Address); } }
-        public Array<Actor> ActorsToIgnore { get { return new Array<Actor>(this[nameof(ActorsToIgnore)].Address); } }
+        public UArray<byte> ObjectTypes { get { return new UArray<byte>(this[nameof(ObjectTypes)].Address); } }
+        public UArray<Actor> ActorsToIgnore { get { return new UArray<Actor>(this[nameof(ActorsToIgnore)].Address); } }
         public float SimFrequency { get { return this[nameof(SimFrequency)].GetValue<float>(); } set { this[nameof(SimFrequency)].SetValue<float>(value); } }
         public float OverrideGravityZ { get { return this[nameof(OverrideGravityZ)].GetValue<float>(); } set { this[nameof(OverrideGravityZ)].SetValue<float>(value); } }
         public byte DrawDebugType { get { return this[nameof(DrawDebugType)].GetValue<byte>(); } set { this[nameof(DrawDebugType)].SetValue<byte>(value); } }
@@ -19521,7 +19526,7 @@ namespace SDK.Script.EngineSDK
         public HLODISMComponentDesc(nint addr) : base(addr) { }
         public StaticMesh StaticMesh { get { return this[nameof(StaticMesh)].As<StaticMesh>(); } set { this["StaticMesh"] = value; } }
         public MaterialInterface Material { get { return this[nameof(Material)].As<MaterialInterface>(); } set { this["Material"] = value; } }
-        public Array<Transform> Instances { get { return new Array<Transform>(this[nameof(Instances)].Address); } }
+        public UArray<Transform> Instances { get { return new UArray<Transform>(this[nameof(Instances)].Address); } }
     }
     public class HLODProxyMesh : Object
     {
@@ -19535,9 +19540,9 @@ namespace SDK.Script.EngineSDK
         public ImportanceTexture(nint addr) : base(addr) { }
         public IntPoint Size { get { return this[nameof(Size)].As<IntPoint>(); } set { this["Size"] = value; } }
         public int NumMips { get { return this[nameof(NumMips)].GetValue<int>(); } set { this[nameof(NumMips)].SetValue<int>(value); } }
-        public Array<float> MarginalCDF { get { return new Array<float>(this[nameof(MarginalCDF)].Address); } }
-        public Array<float> ConditionalCDF { get { return new Array<float>(this[nameof(ConditionalCDF)].Address); } }
-        public Array<Color> TextureData { get { return new Array<Color>(this[nameof(TextureData)].Address); } }
+        public UArray<float> MarginalCDF { get { return new UArray<float>(this[nameof(MarginalCDF)].Address); } }
+        public UArray<float> ConditionalCDF { get { return new UArray<float>(this[nameof(ConditionalCDF)].Address); } }
+        public UArray<Color> TextureData { get { return new UArray<Color>(this[nameof(TextureData)].Address); } }
         public Object Texture { get { return this[nameof(Texture)]; } set { this[nameof(Texture)] = value; } }
         public byte Weighting { get { return this[nameof(Weighting)].GetValue<byte>(); } set { this[nameof(Weighting)].SetValue<byte>(value); } }
     }
@@ -19605,8 +19610,8 @@ namespace SDK.Script.EngineSDK
         public InstancedStaticMeshComponentInstanceData(nint addr) : base(addr) { }
         public StaticMesh StaticMesh { get { return this[nameof(StaticMesh)].As<StaticMesh>(); } set { this["StaticMesh"] = value; } }
         public InstancedStaticMeshLightMapInstanceData CachedStaticLighting { get { return this[nameof(CachedStaticLighting)].As<InstancedStaticMeshLightMapInstanceData>(); } set { this["CachedStaticLighting"] = value; } }
-        public Array<InstancedStaticMeshInstanceData> PerInstanceSMData { get { return new Array<InstancedStaticMeshInstanceData>(this[nameof(PerInstanceSMData)].Address); } }
-        public Array<float> PerInstanceSMCustomData { get { return new Array<float>(this[nameof(PerInstanceSMCustomData)].Address); } }
+        public UArray<InstancedStaticMeshInstanceData> PerInstanceSMData { get { return new UArray<InstancedStaticMeshInstanceData>(this[nameof(PerInstanceSMData)].Address); } }
+        public UArray<float> PerInstanceSMCustomData { get { return new UArray<float>(this[nameof(PerInstanceSMCustomData)].Address); } }
         public int InstancingRandomSeed { get { return this[nameof(InstancingRandomSeed)].GetValue<int>(); } set { this[nameof(InstancingRandomSeed)].SetValue<int>(value); } }
     }
     public class InstancedStaticMeshInstanceData : Object
@@ -19618,7 +19623,7 @@ namespace SDK.Script.EngineSDK
     {
         public InstancedStaticMeshLightMapInstanceData(nint addr) : base(addr) { }
         public Transform Transform { get { return this[nameof(Transform)].As<Transform>(); } set { this["Transform"] = value; } }
-        public Array<Guid> MapBuildDataIds { get { return new Array<Guid>(this[nameof(MapBuildDataIds)].Address); } }
+        public UArray<Guid> MapBuildDataIds { get { return new UArray<Guid>(this[nameof(MapBuildDataIds)].Address); } }
     }
     public class InstancedStaticMeshMappingInfo : Object
     {
@@ -19628,7 +19633,7 @@ namespace SDK.Script.EngineSDK
     {
         public CurveEdTab(nint addr) : base(addr) { }
         public Object TabName { get { return this[nameof(TabName)]; } set { this[nameof(TabName)] = value; } }
-        public Array<CurveEdEntry> Curves { get { return new Array<CurveEdEntry>(this[nameof(Curves)].Address); } }
+        public UArray<CurveEdEntry> Curves { get { return new UArray<CurveEdEntry>(this[nameof(Curves)].Address); } }
         public float ViewStartInput { get { return this[nameof(ViewStartInput)].GetValue<float>(); } set { this[nameof(ViewStartInput)].SetValue<float>(value); } }
         public float ViewEndInput { get { return this[nameof(ViewEndInput)].GetValue<float>(); } set { this[nameof(ViewEndInput)].SetValue<float>(value); } }
         public float ViewStartOutput { get { return this[nameof(ViewStartOutput)].GetValue<float>(); } set { this[nameof(ViewStartOutput)].SetValue<float>(value); } }
@@ -19668,7 +19673,7 @@ namespace SDK.Script.EngineSDK
     {
         public SubTrackGroup(nint addr) : base(addr) { }
         public Object GroupName { get { return this[nameof(GroupName)]; } set { this[nameof(GroupName)] = value; } }
-        public Array<int> TrackIndices { get { return new Array<int>(this[nameof(TrackIndices)].Address); } }
+        public UArray<int> TrackIndices { get { return new UArray<int>(this[nameof(TrackIndices)].Address); } }
         public bool bIsCollapsed { get { return this[nameof(bIsCollapsed)].Flag; } set { this[nameof(bIsCollapsed)].Flag = value; } }
         public bool bIsSelected { get { return this[nameof(bIsSelected)].Flag; } set { this[nameof(bIsSelected)].Flag = value; } }
     }
@@ -19713,7 +19718,7 @@ namespace SDK.Script.EngineSDK
     public class InterpLookupTrack : Object
     {
         public InterpLookupTrack(nint addr) : base(addr) { }
-        public Array<InterpLookupPoint> Points { get { return new Array<InterpLookupPoint>(this[nameof(Points)].Address); } }
+        public UArray<InterpLookupPoint> Points { get { return new UArray<InterpLookupPoint>(this[nameof(Points)].Address); } }
     }
     public class InterpLookupPoint : Object
     {
@@ -19896,8 +19901,8 @@ namespace SDK.Script.EngineSDK
     public class LODMappingData : Object
     {
         public LODMappingData(nint addr) : base(addr) { }
-        public Array<int> Mapping { get { return new Array<int>(this[nameof(Mapping)].Address); } }
-        public Array<int> InverseMapping { get { return new Array<int>(this[nameof(InverseMapping)].Address); } }
+        public UArray<int> Mapping { get { return new UArray<int>(this[nameof(Mapping)].Address); } }
+        public UArray<int> InverseMapping { get { return new UArray<int>(this[nameof(InverseMapping)].Address); } }
     }
     public class ParameterGroupData : Object
     {
@@ -19919,14 +19924,14 @@ namespace SDK.Script.EngineSDK
     {
         public MaterialCachedExpressionData(nint addr) : base(addr) { }
         public MaterialCachedParameters Parameters { get { return this[nameof(Parameters)].As<MaterialCachedParameters>(); } set { this["Parameters"] = value; } }
-        public Array<Object> ReferencedTextures { get { return new Array<Object>(this[nameof(ReferencedTextures)].Address); } }
-        public Array<MaterialFunctionInfo> FunctionInfos { get { return new Array<MaterialFunctionInfo>(this[nameof(FunctionInfos)].Address); } }
-        public Array<MaterialParameterCollectionInfo> ParameterCollectionInfos { get { return new Array<MaterialParameterCollectionInfo>(this[nameof(ParameterCollectionInfos)].Address); } }
-        public Array<MaterialFunctionInterface> DefaultLayers { get { return new Array<MaterialFunctionInterface>(this[nameof(DefaultLayers)].Address); } }
-        public Array<MaterialFunctionInterface> DefaultLayerBlends { get { return new Array<MaterialFunctionInterface>(this[nameof(DefaultLayerBlends)].Address); } }
-        public Array<LandscapeGrassType> GrassTypes { get { return new Array<LandscapeGrassType>(this[nameof(GrassTypes)].Address); } }
-        public Array<Object> DynamicParameterNames { get { return new Array<Object>(this[nameof(DynamicParameterNames)].Address); } }
-        public Array<bool> QualityLevelsUsed { get { return new Array<bool>(this[nameof(QualityLevelsUsed)].Address); } }
+        public UArray<Object> ReferencedTextures { get { return new UArray<Object>(this[nameof(ReferencedTextures)].Address); } }
+        public UArray<MaterialFunctionInfo> FunctionInfos { get { return new UArray<MaterialFunctionInfo>(this[nameof(FunctionInfos)].Address); } }
+        public UArray<MaterialParameterCollectionInfo> ParameterCollectionInfos { get { return new UArray<MaterialParameterCollectionInfo>(this[nameof(ParameterCollectionInfos)].Address); } }
+        public UArray<MaterialFunctionInterface> DefaultLayers { get { return new UArray<MaterialFunctionInterface>(this[nameof(DefaultLayers)].Address); } }
+        public UArray<MaterialFunctionInterface> DefaultLayerBlends { get { return new UArray<MaterialFunctionInterface>(this[nameof(DefaultLayerBlends)].Address); } }
+        public UArray<LandscapeGrassType> GrassTypes { get { return new UArray<LandscapeGrassType>(this[nameof(GrassTypes)].Address); } }
+        public UArray<Object> DynamicParameterNames { get { return new UArray<Object>(this[nameof(DynamicParameterNames)].Address); } }
+        public UArray<bool> QualityLevelsUsed { get { return new UArray<bool>(this[nameof(QualityLevelsUsed)].Address); } }
         public bool bHasRuntimeVirtualTextureOutput { get { return this[nameof(bHasRuntimeVirtualTextureOutput)].Flag; } set { this[nameof(bHasRuntimeVirtualTextureOutput)].Flag = value; } }
         public bool bHasSceneColor { get { return this[nameof(bHasSceneColor)].Flag; } set { this[nameof(bHasSceneColor)].Flag = value; } }
     }
@@ -19946,19 +19951,19 @@ namespace SDK.Script.EngineSDK
     {
         public MaterialCachedParameters(nint addr) : base(addr) { }
         public MaterialCachedParameterEntry RuntimeEntries { get { return this[nameof(RuntimeEntries)].As<MaterialCachedParameterEntry>(); } set { this["RuntimeEntries"] = value; } }
-        public Array<float> ScalarValues { get { return new Array<float>(this[nameof(ScalarValues)].Address); } }
-        public Array<LinearColor> VectorValues { get { return new Array<LinearColor>(this[nameof(VectorValues)].Address); } }
-        public Array<Texture> TextureValues { get { return new Array<Texture>(this[nameof(TextureValues)].Address); } }
-        public Array<Font> FontValues { get { return new Array<Font>(this[nameof(FontValues)].Address); } }
-        public Array<int> FontPageValues { get { return new Array<int>(this[nameof(FontPageValues)].Address); } }
-        public Array<RuntimeVirtualTexture> RuntimeVirtualTextureValues { get { return new Array<RuntimeVirtualTexture>(this[nameof(RuntimeVirtualTextureValues)].Address); } }
+        public UArray<float> ScalarValues { get { return new UArray<float>(this[nameof(ScalarValues)].Address); } }
+        public UArray<LinearColor> VectorValues { get { return new UArray<LinearColor>(this[nameof(VectorValues)].Address); } }
+        public UArray<Texture> TextureValues { get { return new UArray<Texture>(this[nameof(TextureValues)].Address); } }
+        public UArray<Font> FontValues { get { return new UArray<Font>(this[nameof(FontValues)].Address); } }
+        public UArray<int> FontPageValues { get { return new UArray<int>(this[nameof(FontPageValues)].Address); } }
+        public UArray<RuntimeVirtualTexture> RuntimeVirtualTextureValues { get { return new UArray<RuntimeVirtualTexture>(this[nameof(RuntimeVirtualTextureValues)].Address); } }
     }
     public class MaterialCachedParameterEntry : Object
     {
         public MaterialCachedParameterEntry(nint addr) : base(addr) { }
-        public Array<ulong> NameHashes { get { return new Array<ulong>(this[nameof(NameHashes)].Address); } }
-        public Array<MaterialParameterInfo> ParameterInfos { get { return new Array<MaterialParameterInfo>(this[nameof(ParameterInfos)].Address); } }
-        public Array<Guid> ExpressionGuids { get { return new Array<Guid>(this[nameof(ExpressionGuids)].Address); } }
+        public UArray<ulong> NameHashes { get { return new UArray<ulong>(this[nameof(NameHashes)].Address); } }
+        public UArray<MaterialParameterInfo> ParameterInfos { get { return new UArray<MaterialParameterInfo>(this[nameof(ParameterInfos)].Address); } }
+        public UArray<Guid> ExpressionGuids { get { return new UArray<Guid>(this[nameof(ExpressionGuids)].Address); } }
     }
     public class MaterialParameterInfo : Object
     {
@@ -20096,9 +20101,9 @@ namespace SDK.Script.EngineSDK
     public class MaterialLayersFunctions : Object
     {
         public MaterialLayersFunctions(nint addr) : base(addr) { }
-        public Array<MaterialFunctionInterface> Layers { get { return new Array<MaterialFunctionInterface>(this[nameof(Layers)].Address); } }
-        public Array<MaterialFunctionInterface> Blends { get { return new Array<MaterialFunctionInterface>(this[nameof(Blends)].Address); } }
-        public Array<bool> LayerStates { get { return new Array<bool>(this[nameof(LayerStates)].Address); } }
+        public UArray<MaterialFunctionInterface> Layers { get { return new UArray<MaterialFunctionInterface>(this[nameof(Layers)].Address); } }
+        public UArray<MaterialFunctionInterface> Blends { get { return new UArray<MaterialFunctionInterface>(this[nameof(Blends)].Address); } }
+        public UArray<bool> LayerStates { get { return new UArray<bool>(this[nameof(LayerStates)].Address); } }
         public Object KeyString { get { return this[nameof(KeyString)]; } set { this[nameof(KeyString)] = value; } }
     }
     public class CollectionParameterBase : Object
@@ -20121,7 +20126,7 @@ namespace SDK.Script.EngineSDK
     {
         public InterpGroupActorInfo(nint addr) : base(addr) { }
         public Object ObjectName { get { return this[nameof(ObjectName)]; } set { this[nameof(ObjectName)] = value; } }
-        public Array<Actor> Actors { get { return new Array<Actor>(this[nameof(Actors)].Address); } }
+        public UArray<Actor> Actors { get { return new UArray<Actor>(this[nameof(Actors)].Address); } }
     }
     public class CameraCutInfo : Object
     {
@@ -20233,7 +20238,7 @@ namespace SDK.Script.EngineSDK
     public class NameCurve : IndexedCurve
     {
         public NameCurve(nint addr) : base(addr) { }
-        public Array<NameCurveKey> Keys { get { return new Array<NameCurveKey>(this[nameof(Keys)].Address); } }
+        public UArray<NameCurveKey> Keys { get { return new UArray<NameCurveKey>(this[nameof(Keys)].Address); } }
     }
     public class NameCurveKey : Object
     {
@@ -20432,7 +20437,7 @@ namespace SDK.Script.EngineSDK
         public bool bInstanceSeedIsIndex { get { return this[nameof(bInstanceSeedIsIndex)].Flag; } set { this[nameof(bInstanceSeedIsIndex)].Flag = value; } }
         public bool bResetSeedOnEmitterLooping { get { return this[nameof(bResetSeedOnEmitterLooping)].Flag; } set { this[nameof(bResetSeedOnEmitterLooping)].Flag = value; } }
         public bool bRandomlySelectSeedArray { get { return this[nameof(bRandomlySelectSeedArray)].Flag; } set { this[nameof(bRandomlySelectSeedArray)].Flag = value; } }
-        public Array<int> RandomSeeds { get { return new Array<int>(this[nameof(RandomSeeds)].Address); } }
+        public UArray<int> RandomSeeds { get { return new UArray<int>(this[nameof(RandomSeeds)].Address); } }
     }
     public class ParticleCurvePair : Object
     {
@@ -20458,7 +20463,7 @@ namespace SDK.Script.EngineSDK
         public bool UseReflectedImpactVector { get { return this[nameof(UseReflectedImpactVector)].Flag; } set { this[nameof(UseReflectedImpactVector)].Flag = value; } }
         public bool bUseOrbitOffset { get { return this[nameof(bUseOrbitOffset)].Flag; } set { this[nameof(bUseOrbitOffset)].Flag = value; } }
         public Object CustomName { get { return this[nameof(CustomName)]; } set { this[nameof(CustomName)] = value; } }
-        public Array<ParticleModuleEventSendToGame> ParticleModuleEventsToSendToGame { get { return new Array<ParticleModuleEventSendToGame>(this[nameof(ParticleModuleEventsToSendToGame)].Address); } }
+        public UArray<ParticleModuleEventSendToGame> ParticleModuleEventsToSendToGame { get { return new UArray<ParticleModuleEventSendToGame>(this[nameof(ParticleModuleEventsToSendToGame)].Address); } }
     }
     public class LocationBoneSocketInfo : Object
     {
@@ -20492,9 +20497,9 @@ namespace SDK.Script.EngineSDK
     public class GPUSpriteResourceData : Object
     {
         public GPUSpriteResourceData(nint addr) : base(addr) { }
-        public Array<Color> QuantizedColorSamples { get { return new Array<Color>(this[nameof(QuantizedColorSamples)].Address); } }
-        public Array<Color> QuantizedMiscSamples { get { return new Array<Color>(this[nameof(QuantizedMiscSamples)].Address); } }
-        public Array<Color> QuantizedSimulationAttrSamples { get { return new Array<Color>(this[nameof(QuantizedSimulationAttrSamples)].Address); } }
+        public UArray<Color> QuantizedColorSamples { get { return new UArray<Color>(this[nameof(QuantizedColorSamples)].Address); } }
+        public UArray<Color> QuantizedMiscSamples { get { return new UArray<Color>(this[nameof(QuantizedMiscSamples)].Address); } }
+        public UArray<Color> QuantizedSimulationAttrSamples { get { return new UArray<Color>(this[nameof(QuantizedSimulationAttrSamples)].Address); } }
         public Vector4 ColorScale { get { return this[nameof(ColorScale)].As<Vector4>(); } set { this["ColorScale"] = value; } }
         public Vector4 ColorBias { get { return this[nameof(ColorBias)].As<Vector4>(); } set { this["ColorBias"] = value; } }
         public Vector4 MiscScale { get { return this[nameof(MiscScale)].As<Vector4>(); } set { this["MiscScale"] = value; } }
@@ -20539,7 +20544,7 @@ namespace SDK.Script.EngineSDK
         public ParticleModuleRequired RequiredModule { get { return this[nameof(RequiredModule)].As<ParticleModuleRequired>(); } set { this["RequiredModule"] = value; } }
         public ParticleModuleSpawn SpawnModule { get { return this[nameof(SpawnModule)].As<ParticleModuleSpawn>(); } set { this["SpawnModule"] = value; } }
         public ParticleModuleSpawnPerUnit SpawnPerUnitModule { get { return this[nameof(SpawnPerUnitModule)].As<ParticleModuleSpawnPerUnit>(); } set { this["SpawnPerUnitModule"] = value; } }
-        public Array<ParticleModule> SpawnModules { get { return new Array<ParticleModule>(this[nameof(SpawnModules)].Address); } }
+        public UArray<ParticleModule> SpawnModules { get { return new UArray<ParticleModule>(this[nameof(SpawnModules)].Address); } }
         public GPUSpriteLocalVectorFieldInfo LocalVectorField { get { return this[nameof(LocalVectorField)].As<GPUSpriteLocalVectorFieldInfo>(); } set { this["LocalVectorField"] = value; } }
         public FloatDistribution VectorFieldScale { get { return this[nameof(VectorFieldScale)].As<FloatDistribution>(); } set { this["VectorFieldScale"] = value; } }
         public FloatDistribution DragCoefficient { get { return this[nameof(DragCoefficient)].As<FloatDistribution>(); } set { this["DragCoefficient"] = value; } }
@@ -20591,7 +20596,7 @@ namespace SDK.Script.EngineSDK
     public class LODSoloTrack : Object
     {
         public LODSoloTrack(nint addr) : base(addr) { }
-        public Array<byte> SoloEnableSetting { get { return new Array<byte>(this[nameof(SoloEnableSetting)].Address); } }
+        public UArray<byte> SoloEnableSetting { get { return new UArray<byte>(this[nameof(SoloEnableSetting)].Address); } }
     }
     public class ParticleSystemLOD : Object
     {
@@ -20677,7 +20682,7 @@ namespace SDK.Script.EngineSDK
     public class DelegateArray : Object
     {
         public DelegateArray(nint addr) : base(addr) { }
-        public Array<Object> Delegates { get { return new Array<Object>(this[nameof(Delegates)].Address); } }
+        public UArray<Object> Delegates { get { return new UArray<Object>(this[nameof(Delegates)].Address); } }
     }
     public class TViewTarget : Object
     {
@@ -20753,23 +20758,23 @@ namespace SDK.Script.EngineSDK
     public class PoseDataContainer : Object
     {
         public PoseDataContainer(nint addr) : base(addr) { }
-        public Array<SmartName> PoseNames { get { return new Array<SmartName>(this[nameof(PoseNames)].Address); } }
-        public Array<Object> Tracks { get { return new Array<Object>(this[nameof(Tracks)].Address); } }
+        public UArray<SmartName> PoseNames { get { return new UArray<SmartName>(this[nameof(PoseNames)].Address); } }
+        public UArray<Object> Tracks { get { return new UArray<Object>(this[nameof(Tracks)].Address); } }
         public Object TrackMap { get { return this[nameof(TrackMap)]; } set { this[nameof(TrackMap)] = value; } }
-        public Array<PoseData> Poses { get { return new Array<PoseData>(this[nameof(Poses)].Address); } }
-        public Array<AnimCurveBase> Curves { get { return new Array<AnimCurveBase>(this[nameof(Curves)].Address); } }
+        public UArray<PoseData> Poses { get { return new UArray<PoseData>(this[nameof(Poses)].Address); } }
+        public UArray<AnimCurveBase> Curves { get { return new UArray<AnimCurveBase>(this[nameof(Curves)].Address); } }
     }
     public class PoseData : Object
     {
         public PoseData(nint addr) : base(addr) { }
-        public Array<Transform> LocalSpacePose { get { return new Array<Transform>(this[nameof(LocalSpacePose)].Address); } }
+        public UArray<Transform> LocalSpacePose { get { return new UArray<Transform>(this[nameof(LocalSpacePose)].Address); } }
         public Object TrackToBufferIndex { get { return this[nameof(TrackToBufferIndex)]; } set { this[nameof(TrackToBufferIndex)] = value; } }
-        public Array<float> CurveData { get { return new Array<float>(this[nameof(CurveData)].Address); } }
+        public UArray<float> CurveData { get { return new UArray<float>(this[nameof(CurveData)].Address); } }
     }
     public class PreviewAssetAttachContainer : Object
     {
         public PreviewAssetAttachContainer(nint addr) : base(addr) { }
-        public Array<PreviewAttachedObjectPair> AttachedObjects { get { return new Array<PreviewAttachedObjectPair>(this[nameof(AttachedObjects)].Address); } }
+        public UArray<PreviewAttachedObjectPair> AttachedObjects { get { return new UArray<PreviewAttachedObjectPair>(this[nameof(AttachedObjects)].Address); } }
     }
     public class PreviewAttachedObjectPair : Object
     {
@@ -20808,7 +20813,7 @@ namespace SDK.Script.EngineSDK
         public QuartzTimeSignature(nint addr) : base(addr) { }
         public int NumBeats { get { return this[nameof(NumBeats)].GetValue<int>(); } set { this[nameof(NumBeats)].SetValue<int>(value); } }
         public EQuartzTimeSignatureQuantization BeatType { get { return (EQuartzTimeSignatureQuantization)this[nameof(BeatType)].GetValue<int>(); } set { this[nameof(BeatType)].SetValue<int>((int)value); } }
-        public Array<QuartzPulseOverrideStep> OptionalPulseOverride { get { return new Array<QuartzPulseOverrideStep>(this[nameof(OptionalPulseOverride)].Address); } }
+        public UArray<QuartzPulseOverrideStep> OptionalPulseOverride { get { return new UArray<QuartzPulseOverrideStep>(this[nameof(OptionalPulseOverride)].Address); } }
     }
     public class QuartzPulseOverrideStep : Object
     {
@@ -20860,7 +20865,7 @@ namespace SDK.Script.EngineSDK
     public class TransformBaseConstraint : Object
     {
         public TransformBaseConstraint(nint addr) : base(addr) { }
-        public Array<RigTransformConstraint> TransformConstraints { get { return new Array<RigTransformConstraint>(this[nameof(TransformConstraints)].Address); } }
+        public UArray<RigTransformConstraint> TransformConstraints { get { return new UArray<RigTransformConstraint>(this[nameof(TransformConstraints)].Address); } }
     }
     public class RigTransformConstraint : Object
     {
@@ -21115,11 +21120,11 @@ namespace SDK.Script.EngineSDK
         public SkeletalMeshLODInfo(nint addr) : base(addr) { }
         public PerPlatformFloat ScreenSize { get { return this[nameof(ScreenSize)].As<PerPlatformFloat>(); } set { this["ScreenSize"] = value; } }
         public float LODHysteresis { get { return this[nameof(LODHysteresis)].GetValue<float>(); } set { this[nameof(LODHysteresis)].SetValue<float>(value); } }
-        public Array<int> LODMaterialMap { get { return new Array<int>(this[nameof(LODMaterialMap)].Address); } }
+        public UArray<int> LODMaterialMap { get { return new UArray<int>(this[nameof(LODMaterialMap)].Address); } }
         public SkeletalMeshBuildSettings BuildSettings { get { return this[nameof(BuildSettings)].As<SkeletalMeshBuildSettings>(); } set { this["BuildSettings"] = value; } }
         public SkeletalMeshOptimizationSettings ReductionSettings { get { return this[nameof(ReductionSettings)].As<SkeletalMeshOptimizationSettings>(); } set { this["ReductionSettings"] = value; } }
-        public Array<BoneReference> BonesToRemove { get { return new Array<BoneReference>(this[nameof(BonesToRemove)].Address); } }
-        public Array<BoneReference> BonesToPrioritize { get { return new Array<BoneReference>(this[nameof(BonesToPrioritize)].Address); } }
+        public UArray<BoneReference> BonesToRemove { get { return new UArray<BoneReference>(this[nameof(BonesToRemove)].Address); } }
+        public UArray<BoneReference> BonesToPrioritize { get { return new UArray<BoneReference>(this[nameof(BonesToPrioritize)].Address); } }
         public float WeightOfPrioritization { get { return this[nameof(WeightOfPrioritization)].GetValue<float>(); } set { this[nameof(WeightOfPrioritization)].SetValue<float>(value); } }
         public AnimSequence BakePose { get { return this[nameof(BakePose)].As<AnimSequence>(); } set { this["BakePose"] = value; } }
         public AnimSequence BakePoseOverride { get { return this[nameof(BakePoseOverride)].As<AnimSequence>(); } set { this["BakePoseOverride"] = value; } }
@@ -21194,8 +21199,8 @@ namespace SDK.Script.EngineSDK
         public PerPlatformFloat ScreenSize { get { return this[nameof(ScreenSize)].As<PerPlatformFloat>(); } set { this["ScreenSize"] = value; } }
         public float LODHysteresis { get { return this[nameof(LODHysteresis)].GetValue<float>(); } set { this[nameof(LODHysteresis)].SetValue<float>(value); } }
         public EBoneFilterActionOption BoneFilterActionOption { get { return (EBoneFilterActionOption)this[nameof(BoneFilterActionOption)].GetValue<int>(); } set { this[nameof(BoneFilterActionOption)].SetValue<int>((int)value); } }
-        public Array<BoneFilter> BoneList { get { return new Array<BoneFilter>(this[nameof(BoneList)].Address); } }
-        public Array<Object> BonesToPrioritize { get { return new Array<Object>(this[nameof(BonesToPrioritize)].Address); } }
+        public UArray<BoneFilter> BoneList { get { return new UArray<BoneFilter>(this[nameof(BoneList)].Address); } }
+        public UArray<Object> BonesToPrioritize { get { return new UArray<Object>(this[nameof(BonesToPrioritize)].Address); } }
         public float WeightOfPrioritization { get { return this[nameof(WeightOfPrioritization)].GetValue<float>(); } set { this[nameof(WeightOfPrioritization)].SetValue<float>(value); } }
         public AnimSequence BakePose { get { return this[nameof(BakePose)].As<AnimSequence>(); } set { this["BakePose"] = value; } }
         public SkeletalMeshOptimizationSettings ReductionSettings { get { return this[nameof(ReductionSettings)].As<SkeletalMeshOptimizationSettings>(); } set { this["ReductionSettings"] = value; } }
@@ -21209,14 +21214,14 @@ namespace SDK.Script.EngineSDK
     public class SkeletalMeshSamplingInfo : Object
     {
         public SkeletalMeshSamplingInfo(nint addr) : base(addr) { }
-        public Array<SkeletalMeshSamplingRegion> Regions { get { return new Array<SkeletalMeshSamplingRegion>(this[nameof(Regions)].Address); } }
+        public UArray<SkeletalMeshSamplingRegion> Regions { get { return new UArray<SkeletalMeshSamplingRegion>(this[nameof(Regions)].Address); } }
         public SkeletalMeshSamplingBuiltData BuiltData { get { return this[nameof(BuiltData)].As<SkeletalMeshSamplingBuiltData>(); } set { this["BuiltData"] = value; } }
     }
     public class SkeletalMeshSamplingBuiltData : Object
     {
         public SkeletalMeshSamplingBuiltData(nint addr) : base(addr) { }
-        public Array<SkeletalMeshSamplingLODBuiltData> WholeMeshBuiltData { get { return new Array<SkeletalMeshSamplingLODBuiltData>(this[nameof(WholeMeshBuiltData)].Address); } }
-        public Array<SkeletalMeshSamplingRegionBuiltData> RegionBuiltData { get { return new Array<SkeletalMeshSamplingRegionBuiltData>(this[nameof(RegionBuiltData)].Address); } }
+        public UArray<SkeletalMeshSamplingLODBuiltData> WholeMeshBuiltData { get { return new UArray<SkeletalMeshSamplingLODBuiltData>(this[nameof(WholeMeshBuiltData)].Address); } }
+        public UArray<SkeletalMeshSamplingRegionBuiltData> RegionBuiltData { get { return new UArray<SkeletalMeshSamplingRegionBuiltData>(this[nameof(RegionBuiltData)].Address); } }
     }
     public class SkeletalMeshSamplingRegionBuiltData : Object
     {
@@ -21232,8 +21237,8 @@ namespace SDK.Script.EngineSDK
         public Object Name { get { return this[nameof(Name)]; } set { this[nameof(Name)] = value; } }
         public int LODIndex { get { return this[nameof(LODIndex)].GetValue<int>(); } set { this[nameof(LODIndex)].SetValue<int>(value); } }
         public bool bSupportUniformlyDistributedSampling { get { return this[nameof(bSupportUniformlyDistributedSampling)].Flag; } set { this[nameof(bSupportUniformlyDistributedSampling)].Flag = value; } }
-        public Array<SkeletalMeshSamplingRegionMaterialFilter> MaterialFilters { get { return new Array<SkeletalMeshSamplingRegionMaterialFilter>(this[nameof(MaterialFilters)].Address); } }
-        public Array<SkeletalMeshSamplingRegionBoneFilter> BoneFilters { get { return new Array<SkeletalMeshSamplingRegionBoneFilter>(this[nameof(BoneFilters)].Address); } }
+        public UArray<SkeletalMeshSamplingRegionMaterialFilter> MaterialFilters { get { return new UArray<SkeletalMeshSamplingRegionMaterialFilter>(this[nameof(MaterialFilters)].Address); } }
+        public UArray<SkeletalMeshSamplingRegionBoneFilter> BoneFilters { get { return new UArray<SkeletalMeshSamplingRegionBoneFilter>(this[nameof(BoneFilters)].Address); } }
     }
     public class SkeletalMeshSamplingRegionBoneFilter : Object
     {
@@ -21258,13 +21263,13 @@ namespace SDK.Script.EngineSDK
     {
         public AnimSlotGroup(nint addr) : base(addr) { }
         public Object GroupName { get { return this[nameof(GroupName)]; } set { this[nameof(GroupName)] = value; } }
-        public Array<Object> SlotNames { get { return new Array<Object>(this[nameof(SlotNames)].Address); } }
+        public UArray<Object> SlotNames { get { return new UArray<Object>(this[nameof(SlotNames)].Address); } }
     }
     public class RigConfiguration : Object
     {
         public RigConfiguration(nint addr) : base(addr) { }
         public Rig Rig { get { return this[nameof(Rig)].As<Rig>(); } set { this["Rig"] = value; } }
-        public Array<NameMapping> BoneMappingTable { get { return new Array<NameMapping>(this[nameof(BoneMappingTable)].Address); } }
+        public UArray<NameMapping> BoneMappingTable { get { return new UArray<NameMapping>(this[nameof(BoneMappingTable)].Address); } }
     }
     public class NameMapping : Object
     {
@@ -21275,13 +21280,13 @@ namespace SDK.Script.EngineSDK
     public class BoneReductionSetting : Object
     {
         public BoneReductionSetting(nint addr) : base(addr) { }
-        public Array<Object> BonesToRemove { get { return new Array<Object>(this[nameof(BonesToRemove)].Address); } }
+        public UArray<Object> BonesToRemove { get { return new UArray<Object>(this[nameof(BonesToRemove)].Address); } }
     }
     public class ReferencePose : Object
     {
         public ReferencePose(nint addr) : base(addr) { }
         public Object PoseName { get { return this[nameof(PoseName)]; } set { this[nameof(PoseName)] = value; } }
-        public Array<Transform> ReferencePose_value { get { return new Array<Transform>(this[nameof(ReferencePose)].Address); } }
+        public UArray<Transform> ReferencePose_value { get { return new UArray<Transform>(this[nameof(ReferencePose)].Address); } }
     }
     public class BoneNode : Object
     {
@@ -21293,8 +21298,8 @@ namespace SDK.Script.EngineSDK
     public class SkeletonToMeshLinkup : Object
     {
         public SkeletonToMeshLinkup(nint addr) : base(addr) { }
-        public Array<int> SkeletonToMeshTable { get { return new Array<int>(this[nameof(SkeletonToMeshTable)].Address); } }
-        public Array<int> MeshToSkeletonTable { get { return new Array<int>(this[nameof(MeshToSkeletonTable)].Address); } }
+        public UArray<int> SkeletonToMeshTable { get { return new UArray<int>(this[nameof(SkeletonToMeshTable)].Address); } }
+        public UArray<int> MeshToSkeletonTable { get { return new UArray<int>(this[nameof(MeshToSkeletonTable)].Address); } }
     }
     public class VertexOffsetUsage : Object
     {
@@ -21304,7 +21309,7 @@ namespace SDK.Script.EngineSDK
     public class SkelMeshComponentLODInfo : Object
     {
         public SkelMeshComponentLODInfo(nint addr) : base(addr) { }
-        public Array<bool> HiddenMaterials { get { return new Array<bool>(this[nameof(HiddenMaterials)].Address); } }
+        public UArray<bool> HiddenMaterials { get { return new UArray<bool>(this[nameof(HiddenMaterials)].Address); } }
     }
     public class SkelMeshSkinWeightInfo : Object
     {
@@ -21398,7 +21403,7 @@ namespace SDK.Script.EngineSDK
         public float ReverbDistanceMax { get { return this[nameof(ReverbDistanceMax)].GetValue<float>(); } set { this[nameof(ReverbDistanceMax)].SetValue<float>(value); } }
         public float ManualReverbSendLevel { get { return this[nameof(ManualReverbSendLevel)].GetValue<float>(); } set { this[nameof(ManualReverbSendLevel)].SetValue<float>(value); } }
         public RuntimeFloatCurve CustomReverbSendCurve { get { return this[nameof(CustomReverbSendCurve)].As<RuntimeFloatCurve>(); } set { this["CustomReverbSendCurve"] = value; } }
-        public Array<AttenuationSubmixSendSettings> SubmixSendSettings { get { return new Array<AttenuationSubmixSendSettings>(this[nameof(SubmixSendSettings)].Address); } }
+        public UArray<AttenuationSubmixSendSettings> SubmixSendSettings { get { return new UArray<AttenuationSubmixSendSettings>(this[nameof(SubmixSendSettings)].Address); } }
         public float PriorityAttenuationMin { get { return this[nameof(PriorityAttenuationMin)].GetValue<float>(); } set { this[nameof(PriorityAttenuationMin)].SetValue<float>(value); } }
         public float PriorityAttenuationMax { get { return this[nameof(PriorityAttenuationMax)].GetValue<float>(); } set { this[nameof(PriorityAttenuationMax)].SetValue<float>(value); } }
         public float PriorityAttenuationDistanceMin { get { return this[nameof(PriorityAttenuationDistanceMin)].GetValue<float>(); } set { this[nameof(PriorityAttenuationDistanceMin)].SetValue<float>(value); } }
@@ -21410,9 +21415,9 @@ namespace SDK.Script.EngineSDK
     public class SoundAttenuationPluginSettings : Object
     {
         public SoundAttenuationPluginSettings(nint addr) : base(addr) { }
-        public Array<SpatializationPluginSourceSettingsBase> SpatializationPluginSettingsArray { get { return new Array<SpatializationPluginSourceSettingsBase>(this[nameof(SpatializationPluginSettingsArray)].Address); } }
-        public Array<OcclusionPluginSourceSettingsBase> OcclusionPluginSettingsArray { get { return new Array<OcclusionPluginSourceSettingsBase>(this[nameof(OcclusionPluginSettingsArray)].Address); } }
-        public Array<ReverbPluginSourceSettingsBase> ReverbPluginSettingsArray { get { return new Array<ReverbPluginSourceSettingsBase>(this[nameof(ReverbPluginSettingsArray)].Address); } }
+        public UArray<SpatializationPluginSourceSettingsBase> SpatializationPluginSettingsArray { get { return new UArray<SpatializationPluginSourceSettingsBase>(this[nameof(SpatializationPluginSettingsArray)].Address); } }
+        public UArray<OcclusionPluginSourceSettingsBase> OcclusionPluginSettingsArray { get { return new UArray<OcclusionPluginSourceSettingsBase>(this[nameof(OcclusionPluginSettingsArray)].Address); } }
+        public UArray<ReverbPluginSourceSettingsBase> ReverbPluginSettingsArray { get { return new UArray<ReverbPluginSourceSettingsBase>(this[nameof(ReverbPluginSettingsArray)].Address); } }
     }
     public class AttenuationSubmixSendSettings : Object
     {
@@ -21585,7 +21590,7 @@ namespace SDK.Script.EngineSDK
     public class SoundWaveSpectralTimeData : Object
     {
         public SoundWaveSpectralTimeData(nint addr) : base(addr) { }
-        public Array<SoundWaveSpectralDataEntry> Data { get { return new Array<SoundWaveSpectralDataEntry>(this[nameof(Data)].Address); } }
+        public UArray<SoundWaveSpectralDataEntry> Data { get { return new UArray<SoundWaveSpectralDataEntry>(this[nameof(Data)].Address); } }
         public float TimeSec { get { return this[nameof(TimeSec)].GetValue<float>(); } set { this[nameof(TimeSec)].SetValue<float>(value); } }
     }
     public class SoundWaveSpectralDataEntry : Object
@@ -21604,7 +21609,7 @@ namespace SDK.Script.EngineSDK
     public class SoundWaveSpectralDataPerSound : Object
     {
         public SoundWaveSpectralDataPerSound(nint addr) : base(addr) { }
-        public Array<SoundWaveSpectralData> SpectralData { get { return new Array<SoundWaveSpectralData>(this[nameof(SpectralData)].Address); } }
+        public UArray<SoundWaveSpectralData> SpectralData { get { return new UArray<SoundWaveSpectralData>(this[nameof(SpectralData)].Address); } }
         public float PlaybackTime { get { return this[nameof(PlaybackTime)].GetValue<float>(); } set { this[nameof(PlaybackTime)].SetValue<float>(value); } }
         public SoundWave SoundWave { get { return this[nameof(SoundWave)].As<SoundWave>(); } set { this["SoundWave"] = value; } }
     }
@@ -21673,7 +21678,7 @@ namespace SDK.Script.EngineSDK
     {
         public MaterialRemapIndex(nint addr) : base(addr) { }
         public uint ImportVersionKey { get { return this[nameof(ImportVersionKey)].GetValue<uint>(); } set { this[nameof(ImportVersionKey)].SetValue<uint>(value); } }
-        public Array<int> MaterialRemap { get { return new Array<int>(this[nameof(MaterialRemap)].Address); } }
+        public UArray<int> MaterialRemap { get { return new UArray<int>(this[nameof(MaterialRemap)].Address); } }
     }
     public class StaticMaterial : Object
     {
@@ -21731,9 +21736,9 @@ namespace SDK.Script.EngineSDK
     {
         public StaticMeshComponentInstanceData(nint addr) : base(addr) { }
         public StaticMesh StaticMesh { get { return this[nameof(StaticMesh)].As<StaticMesh>(); } set { this["StaticMesh"] = value; } }
-        public Array<StaticMeshVertexColorLODData> VertexColorLODs { get { return new Array<StaticMeshVertexColorLODData>(this[nameof(VertexColorLODs)].Address); } }
-        public Array<Guid> CachedStaticLighting { get { return new Array<Guid>(this[nameof(CachedStaticLighting)].Address); } }
-        public Array<StreamingTextureBuildInfo> StreamingTextureData { get { return new Array<StreamingTextureBuildInfo>(this[nameof(StreamingTextureData)].Address); } }
+        public UArray<StaticMeshVertexColorLODData> VertexColorLODs { get { return new UArray<StaticMeshVertexColorLODData>(this[nameof(VertexColorLODs)].Address); } }
+        public UArray<Guid> CachedStaticLighting { get { return new UArray<Guid>(this[nameof(CachedStaticLighting)].Address); } }
+        public UArray<StreamingTextureBuildInfo> StreamingTextureData { get { return new UArray<StreamingTextureBuildInfo>(this[nameof(StreamingTextureData)].Address); } }
     }
     public class StreamingTextureBuildInfo : Object
     {
@@ -21745,8 +21750,8 @@ namespace SDK.Script.EngineSDK
     public class StaticMeshVertexColorLODData : Object
     {
         public StaticMeshVertexColorLODData(nint addr) : base(addr) { }
-        public Array<PaintedVertex> PaintedVertices { get { return new Array<PaintedVertex>(this[nameof(PaintedVertices)].Address); } }
-        public Array<Color> VertexBufferColors { get { return new Array<Color>(this[nameof(VertexBufferColors)].Address); } }
+        public UArray<PaintedVertex> PaintedVertices { get { return new UArray<PaintedVertex>(this[nameof(PaintedVertices)].Address); } }
+        public UArray<Color> VertexBufferColors { get { return new UArray<Color>(this[nameof(VertexBufferColors)].Address); } }
         public uint LODIndex { get { return this[nameof(LODIndex)].GetValue<uint>(); } set { this[nameof(LODIndex)].SetValue<uint>(value); } }
     }
     public class PaintedVertex : Object
@@ -21763,10 +21768,10 @@ namespace SDK.Script.EngineSDK
     public class StaticParameterSet : Object
     {
         public StaticParameterSet(nint addr) : base(addr) { }
-        public Array<StaticSwitchParameter> StaticSwitchParameters { get { return new Array<StaticSwitchParameter>(this[nameof(StaticSwitchParameters)].Address); } }
-        public Array<StaticComponentMaskParameter> StaticComponentMaskParameters { get { return new Array<StaticComponentMaskParameter>(this[nameof(StaticComponentMaskParameters)].Address); } }
-        public Array<StaticTerrainLayerWeightParameter> TerrainLayerWeightParameters { get { return new Array<StaticTerrainLayerWeightParameter>(this[nameof(TerrainLayerWeightParameters)].Address); } }
-        public Array<StaticMaterialLayersParameter> MaterialLayersParameters { get { return new Array<StaticMaterialLayersParameter>(this[nameof(MaterialLayersParameters)].Address); } }
+        public UArray<StaticSwitchParameter> StaticSwitchParameters { get { return new UArray<StaticSwitchParameter>(this[nameof(StaticSwitchParameters)].Address); } }
+        public UArray<StaticComponentMaskParameter> StaticComponentMaskParameters { get { return new UArray<StaticComponentMaskParameter>(this[nameof(StaticComponentMaskParameters)].Address); } }
+        public UArray<StaticTerrainLayerWeightParameter> TerrainLayerWeightParameters { get { return new UArray<StaticTerrainLayerWeightParameter>(this[nameof(TerrainLayerWeightParameters)].Address); } }
+        public UArray<StaticMaterialLayersParameter> MaterialLayersParameters { get { return new UArray<StaticMaterialLayersParameter>(this[nameof(MaterialLayersParameters)].Address); } }
     }
     public class StaticParameterBase : Object
     {
@@ -21902,10 +21907,10 @@ namespace SDK.Script.EngineSDK
         public float Length { get { return this[nameof(Length)].GetValue<float>(); } set { this[nameof(Length)].SetValue<float>(value); } }
         public float PlayRate { get { return this[nameof(PlayRate)].GetValue<float>(); } set { this[nameof(PlayRate)].SetValue<float>(value); } }
         public float Position { get { return this[nameof(Position)].GetValue<float>(); } set { this[nameof(Position)].SetValue<float>(value); } }
-        public Array<TimelineEventEntry> Events { get { return new Array<TimelineEventEntry>(this[nameof(Events)].Address); } }
-        public Array<TimelineVectorTrack> InterpVectors { get { return new Array<TimelineVectorTrack>(this[nameof(InterpVectors)].Address); } }
-        public Array<TimelineFloatTrack> InterpFloats { get { return new Array<TimelineFloatTrack>(this[nameof(InterpFloats)].Address); } }
-        public Array<TimelineLinearColorTrack> InterpLinearColors { get { return new Array<TimelineLinearColorTrack>(this[nameof(InterpLinearColors)].Address); } }
+        public UArray<TimelineEventEntry> Events { get { return new UArray<TimelineEventEntry>(this[nameof(Events)].Address); } }
+        public UArray<TimelineVectorTrack> InterpVectors { get { return new UArray<TimelineVectorTrack>(this[nameof(InterpVectors)].Address); } }
+        public UArray<TimelineFloatTrack> InterpFloats { get { return new UArray<TimelineFloatTrack>(this[nameof(InterpFloats)].Address); } }
+        public UArray<TimelineLinearColorTrack> InterpLinearColors { get { return new UArray<TimelineLinearColorTrack>(this[nameof(InterpLinearColors)].Address); } }
         public Object TimelinePostUpdateFunc { get { return this[nameof(TimelinePostUpdateFunc)]; } set { this[nameof(TimelinePostUpdateFunc)] = value; } }
         public Object TimelineFinishedFunc { get { return this[nameof(TimelineFinishedFunc)]; } set { this[nameof(TimelineFinishedFunc)] = value; } }
         public Object PropertySetObject { get { return this[nameof(PropertySetObject)]; } set { this[nameof(PropertySetObject)] = value; } }
@@ -21989,7 +21994,7 @@ namespace SDK.Script.EngineSDK
         public TimeStretchCurve(nint addr) : base(addr) { }
         public float SamplingRate { get { return this[nameof(SamplingRate)].GetValue<float>(); } set { this[nameof(SamplingRate)].SetValue<float>(value); } }
         public float CurveValueMinPrecision { get { return this[nameof(CurveValueMinPrecision)].GetValue<float>(); } set { this[nameof(CurveValueMinPrecision)].SetValue<float>(value); } }
-        public Array<TimeStretchCurveMarker> Markers { get { return new Array<TimeStretchCurveMarker>(this[nameof(Markers)].Address); } }
+        public UArray<TimeStretchCurveMarker> Markers { get { return new UArray<TimeStretchCurveMarker>(this[nameof(Markers)].Address); } }
         public float Sum_dT_i_by_C_i { get { return this[nameof(Sum_dT_i_by_C_i)].GetValue<float>(); } set { this[nameof(Sum_dT_i_by_C_i)].SetValue<float>(value); } }
     }
     public class TimeStretchCurveMarker : Object
@@ -22030,7 +22035,7 @@ namespace SDK.Script.EngineSDK
         public VirtualTextureSpacePoolConfig(nint addr) : base(addr) { }
         public int MinTileSize { get { return this[nameof(MinTileSize)].GetValue<int>(); } set { this[nameof(MinTileSize)].SetValue<int>(value); } }
         public int MaxTileSize { get { return this[nameof(MaxTileSize)].GetValue<int>(); } set { this[nameof(MaxTileSize)].SetValue<int>(value); } }
-        public Array<byte> Formats { get { return new Array<byte>(this[nameof(Formats)].Address); } }
+        public UArray<byte> Formats { get { return new UArray<byte>(this[nameof(Formats)].Address); } }
         public int SizeInMegabyte { get { return this[nameof(SizeInMegabyte)].GetValue<int>(); } set { this[nameof(SizeInMegabyte)].SetValue<int>(value); } }
         public bool bAllowSizeScale { get { return this[nameof(bAllowSizeScale)].Flag; } set { this[nameof(bAllowSizeScale)].Flag = value; } }
         public uint ScalabilityGroup { get { return this[nameof(ScalabilityGroup)].GetValue<uint>(); } set { this[nameof(ScalabilityGroup)].SetValue<uint>(value); } }
@@ -22045,7 +22050,7 @@ namespace SDK.Script.EngineSDK
     public class StreamingLevelsToConsider : Object
     {
         public StreamingLevelsToConsider(nint addr) : base(addr) { }
-        public Array<LevelStreaming> StreamingLevels { get { return new Array<LevelStreaming>(this[nameof(StreamingLevels)].Address); } }
+        public UArray<LevelStreaming> StreamingLevels { get { return new UArray<LevelStreaming>(this[nameof(StreamingLevels)].Address); } }
     }
     public class LevelCollection : Object
     {
@@ -22080,7 +22085,7 @@ namespace SDK.Script.EngineSDK
     public class PSCPool : Object
     {
         public PSCPool(nint addr) : base(addr) { }
-        public Array<PSCPoolElem> FreeElements { get { return new Array<PSCPoolElem>(this[nameof(FreeElements)].Address); } }
+        public UArray<PSCPoolElem> FreeElements { get { return new UArray<PSCPoolElem>(this[nameof(FreeElements)].Address); } }
     }
     public class PSCPoolElem : Object
     {

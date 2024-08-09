@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -22,7 +24,7 @@ namespace SDK.Script.FieldSystemEngineSDK
         public FieldSystem FieldSystem { get { return this[nameof(FieldSystem)].As<FieldSystem>(); } set { this["FieldSystem"] = value; } }
         public bool bIsWorldField { get { return this[nameof(bIsWorldField)].Flag; } set { this[nameof(bIsWorldField)].Flag = value; } }
         public bool bIsChaosField { get { return this[nameof(bIsChaosField)].Flag; } set { this[nameof(bIsChaosField)].Flag = value; } }
-        public Array<Object> SupportedSolvers { get { return new Array<Object>(this[nameof(SupportedSolvers)].Address); } }
+        public UArray<Object> SupportedSolvers { get { return new UArray<Object>(this[nameof(SupportedSolvers)].Address); } }
         public FieldObjectCommands ConstructionCommands { get { return this[nameof(ConstructionCommands)].As<FieldObjectCommands>(); } set { this["ConstructionCommands"] = value; } }
         public FieldObjectCommands BufferCommands { get { return this[nameof(BufferCommands)].As<FieldObjectCommands>(); } set { this["BufferCommands"] = value; } }
         public void ResetFieldSystem() { Invoke(nameof(ResetFieldSystem)); }
@@ -209,8 +211,8 @@ namespace SDK.Script.FieldSystemEngineSDK
     public class FieldObjectCommands : Object
     {
         public FieldObjectCommands(nint addr) : base(addr) { }
-        public Array<Object> TargetNames { get { return new Array<Object>(this[nameof(TargetNames)].Address); } }
-        public Array<FieldNodeBase> RootNodes { get { return new Array<FieldNodeBase>(this[nameof(RootNodes)].Address); } }
-        public Array<FieldSystemMetaData> MetaDatas { get { return new Array<FieldSystemMetaData>(this[nameof(MetaDatas)].Address); } }
+        public UArray<Object> TargetNames { get { return new UArray<Object>(this[nameof(TargetNames)].Address); } }
+        public UArray<FieldNodeBase> RootNodes { get { return new UArray<FieldNodeBase>(this[nameof(RootNodes)].Address); } }
+        public UArray<FieldSystemMetaData> MetaDatas { get { return new UArray<FieldSystemMetaData>(this[nameof(MetaDatas)].Address); } }
     }
 }

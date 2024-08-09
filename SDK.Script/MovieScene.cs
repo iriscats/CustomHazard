@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -17,7 +19,7 @@ namespace SDK.Script.MovieSceneSDK
         public MovieSceneTrack(nint addr) : base(addr) { }
         public MovieSceneTrackEvalOptions EvalOptions { get { return this[nameof(EvalOptions)].As<MovieSceneTrackEvalOptions>(); } set { this["EvalOptions"] = value; } }
         public bool bIsEvalDisabled { get { return this[nameof(bIsEvalDisabled)].Flag; } set { this[nameof(bIsEvalDisabled)].Flag = value; } }
-        public Array<int> RowsDisabled { get { return new Array<int>(this[nameof(RowsDisabled)].Address); } }
+        public UArray<int> RowsDisabled { get { return new UArray<int>(this[nameof(RowsDisabled)].Address); } }
         public Guid EvaluationFieldGuid { get { return this[nameof(EvaluationFieldGuid)].As<Guid>(); } set { this["EvaluationFieldGuid"] = value; } }
         public MovieSceneTrackEvaluationField EvaluationField { get { return this[nameof(EvaluationField)].As<MovieSceneTrackEvaluationField>(); } set { this["EvaluationField"] = value; } }
     }
@@ -69,7 +71,7 @@ namespace SDK.Script.MovieSceneSDK
         public bool bParentContextsAreSignificant { get { return this[nameof(bParentContextsAreSignificant)].Flag; } set { this[nameof(bParentContextsAreSignificant)].Flag = value; } }
         public bool bPlayableDirectly { get { return this[nameof(bPlayableDirectly)].Flag; } set { this[nameof(bPlayableDirectly)].Flag = value; } }
         public EMovieSceneSequenceFlags SequenceFlags { get { return (EMovieSceneSequenceFlags)this[nameof(SequenceFlags)].GetValue<int>(); } set { this[nameof(SequenceFlags)].SetValue<int>((int)value); } }
-        public Array<MovieSceneObjectBindingID> FindBindingsByTag(Object InBindingName) { return Invoke<Array<MovieSceneObjectBindingID>>(nameof(FindBindingsByTag), InBindingName); }
+        public UArray<MovieSceneObjectBindingID> FindBindingsByTag(Object InBindingName) { return Invoke<UArray<MovieSceneObjectBindingID>>(nameof(FindBindingsByTag), InBindingName); }
         public MovieSceneObjectBindingID FindBindingByTag(Object InBindingName) { return Invoke<MovieSceneObjectBindingID>(nameof(FindBindingByTag), InBindingName); }
     }
     public class MovieSceneSequencePlayer : Object
@@ -125,14 +127,14 @@ namespace SDK.Script.MovieSceneSDK
         public QualifiedFrameTime GetStartTime() { return Invoke<QualifiedFrameTime>(nameof(GetStartTime)); }
         public MovieSceneSequence GetSequence() { return Invoke<MovieSceneSequence>(nameof(GetSequence)); }
         public float GetPlayRate() { return Invoke<float>(nameof(GetPlayRate)); }
-        public Array<MovieSceneObjectBindingID> GetObjectBindings(Object InObject) { return Invoke<Array<MovieSceneObjectBindingID>>(nameof(GetObjectBindings), InObject); }
+        public UArray<MovieSceneObjectBindingID> GetObjectBindings(Object InObject) { return Invoke<UArray<MovieSceneObjectBindingID>>(nameof(GetObjectBindings), InObject); }
         public FrameRate GetFrameRate() { return Invoke<FrameRate>(nameof(GetFrameRate)); }
         public int GetFrameDuration() { return Invoke<int>(nameof(GetFrameDuration)); }
         public QualifiedFrameTime GetEndTime() { return Invoke<QualifiedFrameTime>(nameof(GetEndTime)); }
         public QualifiedFrameTime GetDuration() { return Invoke<QualifiedFrameTime>(nameof(GetDuration)); }
         public bool GetDisableCameraCuts() { return Invoke<bool>(nameof(GetDisableCameraCuts)); }
         public QualifiedFrameTime GetCurrentTime() { return Invoke<QualifiedFrameTime>(nameof(GetCurrentTime)); }
-        public Array<Object> GetBoundObjects(MovieSceneObjectBindingID ObjectBinding) { return Invoke<Array<Object>>(nameof(GetBoundObjects), ObjectBinding); }
+        public UArray<Object> GetBoundObjects(MovieSceneObjectBindingID ObjectBinding) { return Invoke<UArray<Object>>(nameof(GetBoundObjects), ObjectBinding); }
         public void ChangePlaybackDirection() { Invoke(nameof(ChangePlaybackDirection)); }
     }
     public class MovieSceneSubSection : MovieSceneSection
@@ -158,7 +160,7 @@ namespace SDK.Script.MovieSceneSDK
     public class MovieSceneSubTrack : MovieSceneNameableTrack
     {
         public MovieSceneSubTrack(nint addr) : base(addr) { }
-        public Array<MovieSceneSection> Sections { get { return new Array<MovieSceneSection>(this[nameof(Sections)].Address); } }
+        public UArray<MovieSceneSection> Sections { get { return new UArray<MovieSceneSection>(this[nameof(Sections)].Address); } }
     }
     public class MovieSceneCustomClockSource : Interface
     {
@@ -203,11 +205,11 @@ namespace SDK.Script.MovieSceneSDK
     public class MovieScene : MovieSceneSignedObject
     {
         public MovieScene(nint addr) : base(addr) { }
-        public Array<MovieSceneSpawnable> Spawnables { get { return new Array<MovieSceneSpawnable>(this[nameof(Spawnables)].Address); } }
-        public Array<MovieScenePossessable> Possessables { get { return new Array<MovieScenePossessable>(this[nameof(Possessables)].Address); } }
-        public Array<MovieSceneBinding> ObjectBindings { get { return new Array<MovieSceneBinding>(this[nameof(ObjectBindings)].Address); } }
+        public UArray<MovieSceneSpawnable> Spawnables { get { return new UArray<MovieSceneSpawnable>(this[nameof(Spawnables)].Address); } }
+        public UArray<MovieScenePossessable> Possessables { get { return new UArray<MovieScenePossessable>(this[nameof(Possessables)].Address); } }
+        public UArray<MovieSceneBinding> ObjectBindings { get { return new UArray<MovieSceneBinding>(this[nameof(ObjectBindings)].Address); } }
         public Object BindingGroups { get { return this[nameof(BindingGroups)]; } set { this[nameof(BindingGroups)] = value; } }
-        public Array<MovieSceneTrack> MasterTracks { get { return new Array<MovieSceneTrack>(this[nameof(MasterTracks)].Address); } }
+        public UArray<MovieSceneTrack> MasterTracks { get { return new UArray<MovieSceneTrack>(this[nameof(MasterTracks)].Address); } }
         public MovieSceneTrack CameraCutTrack { get { return this[nameof(CameraCutTrack)].As<MovieSceneTrack>(); } set { this["CameraCutTrack"] = value; } }
         public MovieSceneFrameRange SelectionRange { get { return this[nameof(SelectionRange)].As<MovieSceneFrameRange>(); } set { this["SelectionRange"] = value; } }
         public MovieSceneFrameRange PlaybackRange { get { return this[nameof(PlaybackRange)].As<MovieSceneFrameRange>(); } set { this["PlaybackRange"] = value; } }
@@ -216,12 +218,12 @@ namespace SDK.Script.MovieSceneSDK
         public EMovieSceneEvaluationType EvaluationType { get { return (EMovieSceneEvaluationType)this[nameof(EvaluationType)].GetValue<int>(); } set { this[nameof(EvaluationType)].SetValue<int>((int)value); } }
         public EUpdateClockSource ClockSource { get { return (EUpdateClockSource)this[nameof(ClockSource)].GetValue<int>(); } set { this[nameof(ClockSource)].SetValue<int>((int)value); } }
         public SoftObjectPath CustomClockSourcePath { get { return this[nameof(CustomClockSourcePath)].As<SoftObjectPath>(); } set { this["CustomClockSourcePath"] = value; } }
-        public Array<MovieSceneMarkedFrame> MarkedFrames { get { return new Array<MovieSceneMarkedFrame>(this[nameof(MarkedFrames)].Address); } }
+        public UArray<MovieSceneMarkedFrame> MarkedFrames { get { return new UArray<MovieSceneMarkedFrame>(this[nameof(MarkedFrames)].Address); } }
     }
     public class MovieSceneBindingOverrides : Object
     {
         public MovieSceneBindingOverrides(nint addr) : base(addr) { }
-        public Array<MovieSceneBindingOverrideData> BindingData { get { return new Array<MovieSceneBindingOverrideData>(this[nameof(BindingData)].Address); } }
+        public UArray<MovieSceneBindingOverrideData> BindingData { get { return new UArray<MovieSceneBindingOverrideData>(this[nameof(BindingData)].Address); } }
     }
     public class MovieSceneBindingOwnerInterface : Interface
     {
@@ -260,7 +262,7 @@ namespace SDK.Script.MovieSceneSDK
         public MovieSceneSequenceHierarchy Hierarchy { get { return this[nameof(Hierarchy)].As<MovieSceneSequenceHierarchy>(); } set { this["Hierarchy"] = value; } }
         public MovieSceneEntityComponentField EntityComponentField { get { return this[nameof(EntityComponentField)].As<MovieSceneEntityComponentField>(); } set { this["EntityComponentField"] = value; } }
         public MovieSceneEvaluationField TrackTemplateField { get { return this[nameof(TrackTemplateField)].As<MovieSceneEvaluationField>(); } set { this["TrackTemplateField"] = value; } }
-        public Array<FrameTime> DeterminismFences { get { return new Array<FrameTime>(this[nameof(DeterminismFences)].Address); } }
+        public UArray<FrameTime> DeterminismFences { get { return new UArray<FrameTime>(this[nameof(DeterminismFences)].Address); } }
         public Guid CompiledSignature { get { return this[nameof(CompiledSignature)].As<Guid>(); } set { this["CompiledSignature"] = value; } }
         public Guid CompilerVersion { get { return this[nameof(CompilerVersion)].As<Guid>(); } set { this["CompilerVersion"] = value; } }
         public MovieSceneSequenceCompilerMaskStruct AccumulatedMask { get { return this[nameof(AccumulatedMask)].As<MovieSceneSequenceCompilerMaskStruct>(); } set { this["AccumulatedMask"] = value; } }
@@ -312,9 +314,9 @@ namespace SDK.Script.MovieSceneSDK
     {
         public MovieSceneFolder(nint addr) : base(addr) { }
         public Object FolderName { get { return this[nameof(FolderName)]; } set { this[nameof(FolderName)] = value; } }
-        public Array<MovieSceneFolder> ChildFolders { get { return new Array<MovieSceneFolder>(this[nameof(ChildFolders)].Address); } }
-        public Array<MovieSceneTrack> ChildMasterTracks { get { return new Array<MovieSceneTrack>(this[nameof(ChildMasterTracks)].Address); } }
-        public Array<Object> ChildObjectBindingStrings { get { return new Array<Object>(this[nameof(ChildObjectBindingStrings)].Address); } }
+        public UArray<MovieSceneFolder> ChildFolders { get { return new UArray<MovieSceneFolder>(this[nameof(ChildFolders)].Address); } }
+        public UArray<MovieSceneTrack> ChildMasterTracks { get { return new UArray<MovieSceneTrack>(this[nameof(ChildMasterTracks)].Address); } }
+        public UArray<Object> ChildObjectBindingStrings { get { return new UArray<Object>(this[nameof(ChildObjectBindingStrings)].Address); } }
     }
     public class MovieSceneHookSection : MovieSceneSection
     {
@@ -349,7 +351,7 @@ namespace SDK.Script.MovieSceneSDK
     public class MovieSceneSequenceTickManager : Object
     {
         public MovieSceneSequenceTickManager(nint addr) : base(addr) { }
-        public Array<MovieSceneSequenceActorPointers> SequenceActors { get { return new Array<MovieSceneSequenceActorPointers>(this[nameof(SequenceActors)].Address); } }
+        public UArray<MovieSceneSequenceActorPointers> SequenceActors { get { return new UArray<MovieSceneSequenceActorPointers>(this[nameof(SequenceActors)].Address); } }
         public MovieSceneEntitySystemLinker Linker { get { return this[nameof(Linker)].As<MovieSceneEntitySystemLinker>(); } set { this["Linker"] = value; } }
     }
     public class MovieSceneSpawnablesSystem : MovieSceneEntitySystem
@@ -363,14 +365,14 @@ namespace SDK.Script.MovieSceneSDK
     public class MovieSceneSpawnTrack : MovieSceneTrack
     {
         public MovieSceneSpawnTrack(nint addr) : base(addr) { }
-        public Array<MovieSceneSection> Sections { get { return new Array<MovieSceneSection>(this[nameof(Sections)].Address); } }
+        public UArray<MovieSceneSection> Sections { get { return new UArray<MovieSceneSection>(this[nameof(Sections)].Address); } }
         public Guid ObjectGuid { get { return this[nameof(ObjectGuid)].As<Guid>(); } set { this["ObjectGuid"] = value; } }
     }
     public class TestMovieSceneTrack : MovieSceneTrack
     {
         public TestMovieSceneTrack(nint addr) : base(addr) { }
         public bool bHighPassFilter { get { return this[nameof(bHighPassFilter)].Flag; } set { this[nameof(bHighPassFilter)].Flag = value; } }
-        public Array<MovieSceneSection> SectionArray { get { return new Array<MovieSceneSection>(this[nameof(SectionArray)].Address); } }
+        public UArray<MovieSceneSection> SectionArray { get { return new UArray<MovieSceneSection>(this[nameof(SectionArray)].Address); } }
     }
     public class TestMovieSceneSection : MovieSceneSection
     {
@@ -384,7 +386,7 @@ namespace SDK.Script.MovieSceneSDK
     public class TestMovieSceneSubTrack : MovieSceneSubTrack
     {
         public TestMovieSceneSubTrack(nint addr) : base(addr) { }
-        public Array<MovieSceneSection> SectionArray { get { return new Array<MovieSceneSection>(this[nameof(SectionArray)].Address); } }
+        public UArray<MovieSceneSection> SectionArray { get { return new UArray<MovieSceneSection>(this[nameof(SectionArray)].Address); } }
     }
     public class TestMovieSceneSubSection : MovieSceneSubSection
     {
@@ -393,7 +395,7 @@ namespace SDK.Script.MovieSceneSDK
     public class TestMovieSceneEvalHookTrack : MovieSceneTrack
     {
         public TestMovieSceneEvalHookTrack(nint addr) : base(addr) { }
-        public Array<MovieSceneSection> SectionArray { get { return new Array<MovieSceneSection>(this[nameof(SectionArray)].Address); } }
+        public UArray<MovieSceneSection> SectionArray { get { return new UArray<MovieSceneSection>(this[nameof(SectionArray)].Address); } }
     }
     public class TestMovieSceneEvalHookSection : MovieSceneHookSection
     {
@@ -405,7 +407,7 @@ namespace SDK.Script.MovieSceneSDK
         public Object AnimatedObject { get { return this[nameof(AnimatedObject)].As<Object>(); } set { this["AnimatedObject"] = value; } }
         public bool bIsMasterTrackInstance { get { return this[nameof(bIsMasterTrackInstance)].Flag; } set { this[nameof(bIsMasterTrackInstance)].Flag = value; } }
         public MovieSceneEntitySystemLinker Linker { get { return this[nameof(Linker)].As<MovieSceneEntitySystemLinker>(); } set { this["Linker"] = value; } }
-        public Array<MovieSceneTrackInstanceInput> Inputs { get { return new Array<MovieSceneTrackInstanceInput>(this[nameof(Inputs)].Address); } }
+        public UArray<MovieSceneTrackInstanceInput> Inputs { get { return new UArray<MovieSceneTrackInstanceInput>(this[nameof(Inputs)].Address); } }
     }
     public class MovieSceneTrackInstanceInstantiator : MovieSceneEntityInstantiatorSystem
     {
@@ -567,18 +569,18 @@ namespace SDK.Script.MovieSceneSDK
     public class MovieSceneBoolChannel : MovieSceneChannel
     {
         public MovieSceneBoolChannel(nint addr) : base(addr) { }
-        public Array<FrameNumber> Times { get { return new Array<FrameNumber>(this[nameof(Times)].Address); } }
+        public UArray<FrameNumber> Times { get { return new UArray<FrameNumber>(this[nameof(Times)].Address); } }
         public bool DefaultValue { get { return this[nameof(DefaultValue)].Flag; } set { this[nameof(DefaultValue)].Flag = value; } }
         public bool bHasDefaultValue { get { return this[nameof(bHasDefaultValue)].Flag; } set { this[nameof(bHasDefaultValue)].Flag = value; } }
-        public Array<bool> Values { get { return new Array<bool>(this[nameof(Values)].Address); } }
+        public UArray<bool> Values { get { return new UArray<bool>(this[nameof(Values)].Address); } }
     }
     public class MovieSceneFloatChannel : MovieSceneChannel
     {
         public MovieSceneFloatChannel(nint addr) : base(addr) { }
         public byte PreInfinityExtrap { get { return this[nameof(PreInfinityExtrap)].GetValue<byte>(); } set { this[nameof(PreInfinityExtrap)].SetValue<byte>(value); } }
         public byte PostInfinityExtrap { get { return this[nameof(PostInfinityExtrap)].GetValue<byte>(); } set { this[nameof(PostInfinityExtrap)].SetValue<byte>(value); } }
-        public Array<FrameNumber> Times { get { return new Array<FrameNumber>(this[nameof(Times)].Address); } }
-        public Array<MovieSceneFloatValue> Values { get { return new Array<MovieSceneFloatValue>(this[nameof(Values)].Address); } }
+        public UArray<FrameNumber> Times { get { return new UArray<FrameNumber>(this[nameof(Times)].Address); } }
+        public UArray<MovieSceneFloatValue> Values { get { return new UArray<MovieSceneFloatValue>(this[nameof(Values)].Address); } }
         public float DefaultValue { get { return this[nameof(DefaultValue)].GetValue<float>(); } set { this[nameof(DefaultValue)].SetValue<float>(value); } }
         public bool bHasDefaultValue { get { return this[nameof(bHasDefaultValue)].Flag; } set { this[nameof(bHasDefaultValue)].Flag = value; } }
         public MovieSceneKeyHandleMap KeyHandles { get { return this[nameof(KeyHandles)].As<MovieSceneKeyHandleMap>(); } set { this["KeyHandles"] = value; } }
@@ -609,10 +611,10 @@ namespace SDK.Script.MovieSceneSDK
     public class MovieSceneIntegerChannel : MovieSceneChannel
     {
         public MovieSceneIntegerChannel(nint addr) : base(addr) { }
-        public Array<FrameNumber> Times { get { return new Array<FrameNumber>(this[nameof(Times)].Address); } }
+        public UArray<FrameNumber> Times { get { return new UArray<FrameNumber>(this[nameof(Times)].Address); } }
         public int DefaultValue { get { return this[nameof(DefaultValue)].GetValue<int>(); } set { this[nameof(DefaultValue)].SetValue<int>(value); } }
         public bool bHasDefaultValue { get { return this[nameof(bHasDefaultValue)].Flag; } set { this[nameof(bHasDefaultValue)].Flag = value; } }
-        public Array<int> Values { get { return new Array<int>(this[nameof(Values)].Address); } }
+        public UArray<int> Values { get { return new UArray<int>(this[nameof(Values)].Address); } }
     }
     public class MovieSceneTrackImplementation : MovieSceneEvalTemplateBase
     {
@@ -636,10 +638,10 @@ namespace SDK.Script.MovieSceneSDK
     public class MovieSceneByteChannel : MovieSceneChannel
     {
         public MovieSceneByteChannel(nint addr) : base(addr) { }
-        public Array<FrameNumber> Times { get { return new Array<FrameNumber>(this[nameof(Times)].Address); } }
+        public UArray<FrameNumber> Times { get { return new UArray<FrameNumber>(this[nameof(Times)].Address); } }
         public byte DefaultValue { get { return this[nameof(DefaultValue)].GetValue<byte>(); } set { this[nameof(DefaultValue)].SetValue<byte>(value); } }
         public bool bHasDefaultValue { get { return this[nameof(bHasDefaultValue)].Flag; } set { this[nameof(bHasDefaultValue)].Flag = value; } }
-        public Array<byte> Values { get { return new Array<byte>(this[nameof(Values)].Address); } }
+        public UArray<byte> Values { get { return new UArray<byte>(this[nameof(Values)].Address); } }
         public Enum Enum { get { return this[nameof(Enum)].As<Enum>(); } set { this["Enum"] = value; } }
     }
     public class MovieScenePropertyBinding : Object
@@ -685,19 +687,19 @@ namespace SDK.Script.MovieSceneSDK
     public class MovieSceneDeterminismData : Object
     {
         public MovieSceneDeterminismData(nint addr) : base(addr) { }
-        public Array<FrameTime> Fences { get { return new Array<FrameTime>(this[nameof(Fences)].Address); } }
+        public UArray<FrameTime> Fences { get { return new UArray<FrameTime>(this[nameof(Fences)].Address); } }
         public bool bParentSequenceRequiresLowerFence { get { return this[nameof(bParentSequenceRequiresLowerFence)].Flag; } set { this[nameof(bParentSequenceRequiresLowerFence)].Flag = value; } }
         public bool bParentSequenceRequiresUpperFence { get { return this[nameof(bParentSequenceRequiresUpperFence)].Flag; } set { this[nameof(bParentSequenceRequiresUpperFence)].Flag = value; } }
     }
     public class MovieSceneSectionGroup : Object
     {
         public MovieSceneSectionGroup(nint addr) : base(addr) { }
-        public Array<Object> Sections { get { return new Array<Object>(this[nameof(Sections)].Address); } }
+        public UArray<Object> Sections { get { return new UArray<Object>(this[nameof(Sections)].Address); } }
     }
     public class MovieSceneObjectBindingIDs : Object
     {
         public MovieSceneObjectBindingIDs(nint addr) : base(addr) { }
-        public Array<MovieSceneObjectBindingID> IDs { get { return new Array<MovieSceneObjectBindingID>(this[nameof(IDs)].Address); } }
+        public UArray<MovieSceneObjectBindingID> IDs { get { return new UArray<MovieSceneObjectBindingID>(this[nameof(IDs)].Address); } }
     }
     public class MovieSceneObjectBindingID : Object
     {
@@ -709,13 +711,13 @@ namespace SDK.Script.MovieSceneSDK
     public class MovieSceneTrackLabels : Object
     {
         public MovieSceneTrackLabels(nint addr) : base(addr) { }
-        public Array<Object> Strings { get { return new Array<Object>(this[nameof(Strings)].Address); } }
+        public UArray<Object> Strings { get { return new UArray<Object>(this[nameof(Strings)].Address); } }
     }
     public class MovieSceneEditorData : Object
     {
         public MovieSceneEditorData(nint addr) : base(addr) { }
         public Object ExpansionStates { get { return this[nameof(ExpansionStates)]; } set { this[nameof(ExpansionStates)] = value; } }
-        public Array<Object> PinnedNodes { get { return new Array<Object>(this[nameof(PinnedNodes)].Address); } }
+        public UArray<Object> PinnedNodes { get { return new UArray<Object>(this[nameof(PinnedNodes)].Address); } }
         public double ViewStart { get { return this[nameof(ViewStart)].GetValue<double>(); } set { this[nameof(ViewStart)].SetValue<double>(value); } }
         public double ViewEnd { get { return this[nameof(ViewEnd)].GetValue<double>(); } set { this[nameof(ViewEnd)].SetValue<double>(value); } }
         public double WorkStart { get { return this[nameof(WorkStart)].GetValue<double>(); } set { this[nameof(WorkStart)].SetValue<double>(value); } }
@@ -747,7 +749,7 @@ namespace SDK.Script.MovieSceneSDK
         public MovieSceneBinding(nint addr) : base(addr) { }
         public Guid ObjectGuid { get { return this[nameof(ObjectGuid)].As<Guid>(); } set { this["ObjectGuid"] = value; } }
         public Object BindingName { get { return this[nameof(BindingName)]; } set { this[nameof(BindingName)] = value; } }
-        public Array<MovieSceneTrack> Tracks { get { return new Array<MovieSceneTrack>(this[nameof(Tracks)].Address); } }
+        public UArray<MovieSceneTrack> Tracks { get { return new UArray<MovieSceneTrack>(this[nameof(Tracks)].Address); } }
     }
     public class MovieSceneBindingOverrideData : Object
     {
@@ -801,15 +803,15 @@ namespace SDK.Script.MovieSceneSDK
     public class MovieSceneEvaluationField : Object
     {
         public MovieSceneEvaluationField(nint addr) : base(addr) { }
-        public Array<MovieSceneFrameRange> Ranges { get { return new Array<MovieSceneFrameRange>(this[nameof(Ranges)].Address); } }
-        public Array<MovieSceneEvaluationGroup> Groups { get { return new Array<MovieSceneEvaluationGroup>(this[nameof(Groups)].Address); } }
-        public Array<MovieSceneEvaluationMetaData> MetaData { get { return new Array<MovieSceneEvaluationMetaData>(this[nameof(MetaData)].Address); } }
+        public UArray<MovieSceneFrameRange> Ranges { get { return new UArray<MovieSceneFrameRange>(this[nameof(Ranges)].Address); } }
+        public UArray<MovieSceneEvaluationGroup> Groups { get { return new UArray<MovieSceneEvaluationGroup>(this[nameof(Groups)].Address); } }
+        public UArray<MovieSceneEvaluationMetaData> MetaData { get { return new UArray<MovieSceneEvaluationMetaData>(this[nameof(MetaData)].Address); } }
     }
     public class MovieSceneEvaluationMetaData : Object
     {
         public MovieSceneEvaluationMetaData(nint addr) : base(addr) { }
-        public Array<MovieSceneSequenceID> ActiveSequences { get { return new Array<MovieSceneSequenceID>(this[nameof(ActiveSequences)].Address); } }
-        public Array<MovieSceneOrderedEvaluationKey> ActiveEntities { get { return new Array<MovieSceneOrderedEvaluationKey>(this[nameof(ActiveEntities)].Address); } }
+        public UArray<MovieSceneSequenceID> ActiveSequences { get { return new UArray<MovieSceneSequenceID>(this[nameof(ActiveSequences)].Address); } }
+        public UArray<MovieSceneOrderedEvaluationKey> ActiveEntities { get { return new UArray<MovieSceneOrderedEvaluationKey>(this[nameof(ActiveEntities)].Address); } }
     }
     public class MovieSceneOrderedEvaluationKey : Object
     {
@@ -833,9 +835,9 @@ namespace SDK.Script.MovieSceneSDK
     public class MovieSceneEvaluationGroup : Object
     {
         public MovieSceneEvaluationGroup(nint addr) : base(addr) { }
-        public Array<MovieSceneEvaluationGroupLUTIndex> LUTIndices { get { return new Array<MovieSceneEvaluationGroupLUTIndex>(this[nameof(LUTIndices)].Address); } }
-        public Array<MovieSceneFieldEntry_EvaluationTrack> TrackLUT { get { return new Array<MovieSceneFieldEntry_EvaluationTrack>(this[nameof(TrackLUT)].Address); } }
-        public Array<MovieSceneFieldEntry_ChildTemplate> SectionLUT { get { return new Array<MovieSceneFieldEntry_ChildTemplate>(this[nameof(SectionLUT)].Address); } }
+        public UArray<MovieSceneEvaluationGroupLUTIndex> LUTIndices { get { return new UArray<MovieSceneEvaluationGroupLUTIndex>(this[nameof(LUTIndices)].Address); } }
+        public UArray<MovieSceneFieldEntry_EvaluationTrack> TrackLUT { get { return new UArray<MovieSceneFieldEntry_EvaluationTrack>(this[nameof(TrackLUT)].Address); } }
+        public UArray<MovieSceneFieldEntry_ChildTemplate> SectionLUT { get { return new UArray<MovieSceneFieldEntry_ChildTemplate>(this[nameof(SectionLUT)].Address); } }
     }
     public class MovieSceneFieldEntry_ChildTemplate : Object
     {
@@ -881,9 +883,9 @@ namespace SDK.Script.MovieSceneSDK
         public MovieSceneEntityComponentField(nint addr) : base(addr) { }
         public MovieSceneEvaluationFieldEntityTree PersistentEntityTree { get { return this[nameof(PersistentEntityTree)].As<MovieSceneEvaluationFieldEntityTree>(); } set { this["PersistentEntityTree"] = value; } }
         public MovieSceneEvaluationFieldEntityTree OneShotEntityTree { get { return this[nameof(OneShotEntityTree)].As<MovieSceneEvaluationFieldEntityTree>(); } set { this["OneShotEntityTree"] = value; } }
-        public Array<MovieSceneEvaluationFieldEntity> Entities { get { return new Array<MovieSceneEvaluationFieldEntity>(this[nameof(Entities)].Address); } }
-        public Array<MovieSceneEvaluationFieldEntityMetaData> EntityMetaData { get { return new Array<MovieSceneEvaluationFieldEntityMetaData>(this[nameof(EntityMetaData)].Address); } }
-        public Array<MovieSceneEvaluationFieldSharedEntityMetaData> SharedMetaData { get { return new Array<MovieSceneEvaluationFieldSharedEntityMetaData>(this[nameof(SharedMetaData)].Address); } }
+        public UArray<MovieSceneEvaluationFieldEntity> Entities { get { return new UArray<MovieSceneEvaluationFieldEntity>(this[nameof(Entities)].Address); } }
+        public UArray<MovieSceneEvaluationFieldEntityMetaData> EntityMetaData { get { return new UArray<MovieSceneEvaluationFieldEntityMetaData>(this[nameof(EntityMetaData)].Address); } }
+        public UArray<MovieSceneEvaluationFieldSharedEntityMetaData> SharedMetaData { get { return new UArray<MovieSceneEvaluationFieldSharedEntityMetaData>(this[nameof(SharedMetaData)].Address); } }
     }
     public class MovieSceneEvaluationFieldSharedEntityMetaData : Object
     {
@@ -922,7 +924,7 @@ namespace SDK.Script.MovieSceneSDK
     public class MovieSceneEvaluationHookEventContainer : Object
     {
         public MovieSceneEvaluationHookEventContainer(nint addr) : base(addr) { }
-        public Array<MovieSceneEvaluationHookEvent> Events { get { return new Array<MovieSceneEvaluationHookEvent>(this[nameof(Events)].Address); } }
+        public UArray<MovieSceneEvaluationHookEvent> Events { get { return new UArray<MovieSceneEvaluationHookEvent>(this[nameof(Events)].Address); } }
     }
     public class MovieSceneEvaluationHookEvent : Object
     {
@@ -956,7 +958,7 @@ namespace SDK.Script.MovieSceneSDK
         public ushort EvaluationPriority { get { return this[nameof(EvaluationPriority)].GetValue<ushort>(); } set { this[nameof(EvaluationPriority)].SetValue<ushort>(value); } }
         public EEvaluationMethod EvaluationMethod { get { return (EEvaluationMethod)this[nameof(EvaluationMethod)].GetValue<int>(); } set { this[nameof(EvaluationMethod)].SetValue<int>((int)value); } }
         public Object SourceTrack { get { return this[nameof(SourceTrack)]; } set { this[nameof(SourceTrack)] = value; } }
-        public Array<MovieSceneEvalTemplatePtr> ChildTemplates { get { return new Array<MovieSceneEvalTemplatePtr>(this[nameof(ChildTemplates)].Address); } }
+        public UArray<MovieSceneEvalTemplatePtr> ChildTemplates { get { return new UArray<MovieSceneEvalTemplatePtr>(this[nameof(ChildTemplates)].Address); } }
         public MovieSceneTrackImplementationPtr TrackTemplate { get { return this[nameof(TrackTemplate)].As<MovieSceneTrackImplementationPtr>(); } set { this["TrackTemplate"] = value; } }
         public Object EvaluationGroup { get { return this[nameof(EvaluationGroup)]; } set { this[nameof(EvaluationGroup)] = value; } }
         public bool bEvaluateInPreroll { get { return this[nameof(bEvaluateInPreroll)].Flag; } set { this[nameof(bEvaluateInPreroll)].Flag = value; } }
@@ -999,8 +1001,8 @@ namespace SDK.Script.MovieSceneSDK
     {
         public MovieSceneObjectPathChannel(nint addr) : base(addr) { }
         public Object PropertyClass { get { return this[nameof(PropertyClass)]; } set { this[nameof(PropertyClass)] = value; } }
-        public Array<FrameNumber> Times { get { return new Array<FrameNumber>(this[nameof(Times)].Address); } }
-        public Array<MovieSceneObjectPathChannelKeyValue> Values { get { return new Array<MovieSceneObjectPathChannelKeyValue>(this[nameof(Values)].Address); } }
+        public UArray<FrameNumber> Times { get { return new UArray<FrameNumber>(this[nameof(Times)].Address); } }
+        public UArray<MovieSceneObjectPathChannelKeyValue> Values { get { return new UArray<MovieSceneObjectPathChannelKeyValue>(this[nameof(Values)].Address); } }
         public MovieSceneObjectPathChannelKeyValue DefaultValue { get { return this[nameof(DefaultValue)].As<MovieSceneObjectPathChannelKeyValue>(); } set { this["DefaultValue"] = value; } }
     }
     public class MovieSceneObjectPathChannelKeyValue : Object
@@ -1012,7 +1014,7 @@ namespace SDK.Script.MovieSceneSDK
     public class MovieScenePossessable : Object
     {
         public MovieScenePossessable(nint addr) : base(addr) { }
-        public Array<Object> Tags { get { return new Array<Object>(this[nameof(Tags)].Address); } }
+        public UArray<Object> Tags { get { return new UArray<Object>(this[nameof(Tags)].Address); } }
         public Guid Guid { get { return this[nameof(Guid)].As<Guid>(); } set { this["Guid"] = value; } }
         public Object Name { get { return this[nameof(Name)]; } set { this[nameof(Name)] = value; } }
         public Object PossessedObjectClass { get { return this[nameof(PossessedObjectClass)]; } set { this[nameof(PossessedObjectClass)] = value; } }
@@ -1072,7 +1074,7 @@ namespace SDK.Script.MovieSceneSDK
     {
         public MovieSceneSequenceHierarchyNode(nint addr) : base(addr) { }
         public MovieSceneSequenceID ParentID { get { return this[nameof(ParentID)].As<MovieSceneSequenceID>(); } set { this["ParentID"] = value; } }
-        public Array<MovieSceneSequenceID> Children { get { return new Array<MovieSceneSequenceID>(this[nameof(Children)].Address); } }
+        public UArray<MovieSceneSequenceID> Children { get { return new UArray<MovieSceneSequenceID>(this[nameof(Children)].Address); } }
     }
     public class MovieSceneSubSequenceData : Object
     {
@@ -1105,7 +1107,7 @@ namespace SDK.Script.MovieSceneSDK
     {
         public MovieSceneSequenceTransform(nint addr) : base(addr) { }
         public MovieSceneTimeTransform LinearTransform { get { return this[nameof(LinearTransform)].As<MovieSceneTimeTransform>(); } set { this["LinearTransform"] = value; } }
-        public Array<MovieSceneNestedSequenceTransform> NestedTransforms { get { return new Array<MovieSceneNestedSequenceTransform>(this[nameof(NestedTransforms)].Address); } }
+        public UArray<MovieSceneNestedSequenceTransform> NestedTransforms { get { return new UArray<MovieSceneNestedSequenceTransform>(this[nameof(NestedTransforms)].Address); } }
     }
     public class MovieSceneNestedSequenceTransform : Object
     {
@@ -1179,20 +1181,20 @@ namespace SDK.Script.MovieSceneSDK
     public class MovieSceneWarpCounter : Object
     {
         public MovieSceneWarpCounter(nint addr) : base(addr) { }
-        public Array<uint> WarpCounts { get { return new Array<uint>(this[nameof(WarpCounts)].Address); } }
+        public UArray<uint> WarpCounts { get { return new UArray<uint>(this[nameof(WarpCounts)].Address); } }
     }
     public class MovieSceneSpawnable : Object
     {
         public MovieSceneSpawnable(nint addr) : base(addr) { }
         public Transform SpawnTransform { get { return this[nameof(SpawnTransform)].As<Transform>(); } set { this["SpawnTransform"] = value; } }
-        public Array<Object> Tags { get { return new Array<Object>(this[nameof(Tags)].Address); } }
+        public UArray<Object> Tags { get { return new UArray<Object>(this[nameof(Tags)].Address); } }
         public bool bContinuouslyRespawn { get { return this[nameof(bContinuouslyRespawn)].Flag; } set { this[nameof(bContinuouslyRespawn)].Flag = value; } }
         public bool bNetAddressableName { get { return this[nameof(bNetAddressableName)].Flag; } set { this[nameof(bNetAddressableName)].Flag = value; } }
         public bool bEvaluateTracksWhenNotSpawned { get { return this[nameof(bEvaluateTracksWhenNotSpawned)].Flag; } set { this[nameof(bEvaluateTracksWhenNotSpawned)].Flag = value; } }
         public Guid Guid { get { return this[nameof(Guid)].As<Guid>(); } set { this["Guid"] = value; } }
         public Object Name { get { return this[nameof(Name)]; } set { this[nameof(Name)] = value; } }
         public Object ObjectTemplate { get { return this[nameof(ObjectTemplate)].As<Object>(); } set { this["ObjectTemplate"] = value; } }
-        public Array<Guid> ChildPossessables { get { return new Array<Guid>(this[nameof(ChildPossessables)].Address); } }
+        public UArray<Guid> ChildPossessables { get { return new UArray<Guid>(this[nameof(ChildPossessables)].Address); } }
         public ESpawnOwnership Ownership { get { return (ESpawnOwnership)this[nameof(Ownership)].GetValue<int>(); } set { this[nameof(Ownership)].SetValue<int>((int)value); } }
         public Object LevelName { get { return this[nameof(LevelName)]; } set { this[nameof(LevelName)] = value; } }
     }
@@ -1217,7 +1219,7 @@ namespace SDK.Script.MovieSceneSDK
     public class MovieSceneTrackEvaluationField : Object
     {
         public MovieSceneTrackEvaluationField(nint addr) : base(addr) { }
-        public Array<MovieSceneTrackEvaluationFieldEntry> Entries { get { return new Array<MovieSceneTrackEvaluationFieldEntry>(this[nameof(Entries)].Address); } }
+        public UArray<MovieSceneTrackEvaluationFieldEntry> Entries { get { return new UArray<MovieSceneTrackEvaluationFieldEntry>(this[nameof(Entries)].Address); } }
     }
     public class MovieSceneTrackEvaluationFieldEntry : Object
     {

@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -14,7 +16,7 @@ namespace SDK.Script.AssetRegistrySDK
     {
         public AssetRegistryHelpers(nint addr) : base(addr) { }
         public SoftObjectPath ToSoftObjectPath(AssetData InAssetData) { return Invoke<SoftObjectPath>(nameof(ToSoftObjectPath), InAssetData); }
-        public ARFilter SetFilterTagsAndValues(ARFilter InFilter, Array<TagAndValue> InTagsAndValues) { return Invoke<ARFilter>(nameof(SetFilterTagsAndValues), InFilter, InTagsAndValues); }
+        public ARFilter SetFilterTagsAndValues(ARFilter InFilter, UArray<TagAndValue> InTagsAndValues) { return Invoke<ARFilter>(nameof(SetFilterTagsAndValues), InFilter, InTagsAndValues); }
         public bool IsValid(AssetData InAssetData) { return Invoke<bool>(nameof(IsValid), InAssetData); }
         public bool IsUAsset(AssetData InAssetData) { return Invoke<bool>(nameof(IsUAsset), InAssetData); }
         public bool IsRedirector(AssetData InAssetData) { return Invoke<bool>(nameof(IsRedirector), InAssetData); }
@@ -31,25 +33,25 @@ namespace SDK.Script.AssetRegistrySDK
     {
         public AssetRegistry(nint addr) : base(addr) { }
         public void WaitForCompletion() { Invoke(nameof(WaitForCompletion)); }
-        public void UseFilterToExcludeAssets(Array<AssetData> AssetDataList, ARFilter Filter) { Invoke(nameof(UseFilterToExcludeAssets), AssetDataList, Filter); }
+        public void UseFilterToExcludeAssets(UArray<AssetData> AssetDataList, ARFilter Filter) { Invoke(nameof(UseFilterToExcludeAssets), AssetDataList, Filter); }
         public void SearchAllAssets(bool bSynchronousSearch) { Invoke(nameof(SearchAllAssets), bSynchronousSearch); }
-        public void ScanPathsSynchronous(Array<Object> InPaths, bool bForceRescan) { Invoke(nameof(ScanPathsSynchronous), InPaths, bForceRescan); }
-        public void ScanModifiedAssetFiles(Array<Object> InFilePaths) { Invoke(nameof(ScanModifiedAssetFiles), InFilePaths); }
-        public void ScanFilesSynchronous(Array<Object> InFilePaths, bool bForceRescan) { Invoke(nameof(ScanFilesSynchronous), InFilePaths, bForceRescan); }
-        public void RunAssetsThroughFilter(Array<AssetData> AssetDataList, ARFilter Filter) { Invoke(nameof(RunAssetsThroughFilter), AssetDataList, Filter); }
+        public void ScanPathsSynchronous(UArray<Object> InPaths, bool bForceRescan) { Invoke(nameof(ScanPathsSynchronous), InPaths, bForceRescan); }
+        public void ScanModifiedAssetFiles(UArray<Object> InFilePaths) { Invoke(nameof(ScanModifiedAssetFiles), InFilePaths); }
+        public void ScanFilesSynchronous(UArray<Object> InFilePaths, bool bForceRescan) { Invoke(nameof(ScanFilesSynchronous), InFilePaths, bForceRescan); }
+        public void RunAssetsThroughFilter(UArray<AssetData> AssetDataList, ARFilter Filter) { Invoke(nameof(RunAssetsThroughFilter), AssetDataList, Filter); }
         public void PrioritizeSearchPath(Object PathToPrioritize) { Invoke(nameof(PrioritizeSearchPath), PathToPrioritize); }
-        public bool K2_GetReferencers(Object PackageName, AssetRegistryDependencyOptions ReferenceOptions, Array<Object> OutReferencers) { return Invoke<bool>(nameof(K2_GetReferencers), PackageName, ReferenceOptions, OutReferencers); }
-        public bool K2_GetDependencies(Object PackageName, AssetRegistryDependencyOptions DependencyOptions, Array<Object> OutDependencies) { return Invoke<bool>(nameof(K2_GetDependencies), PackageName, DependencyOptions, OutDependencies); }
+        public bool K2_GetReferencers(Object PackageName, AssetRegistryDependencyOptions ReferenceOptions, UArray<Object> OutReferencers) { return Invoke<bool>(nameof(K2_GetReferencers), PackageName, ReferenceOptions, OutReferencers); }
+        public bool K2_GetDependencies(Object PackageName, AssetRegistryDependencyOptions DependencyOptions, UArray<Object> OutDependencies) { return Invoke<bool>(nameof(K2_GetDependencies), PackageName, DependencyOptions, OutDependencies); }
         public bool IsLoadingAssets() { return Invoke<bool>(nameof(IsLoadingAssets)); }
         public bool HasAssets(Object PackagePath, bool bRecursive) { return Invoke<bool>(nameof(HasAssets), PackagePath, bRecursive); }
-        public void GetSubPaths(Object InBasePath, Array<Object> OutPathList, bool bInRecurse) { Invoke(nameof(GetSubPaths), InBasePath, OutPathList, bInRecurse); }
-        public bool GetAssetsByPath(Object PackagePath, Array<AssetData> OutAssetData, bool bRecursive, bool bIncludeOnlyOnDiskAssets) { return Invoke<bool>(nameof(GetAssetsByPath), PackagePath, OutAssetData, bRecursive, bIncludeOnlyOnDiskAssets); }
-        public bool GetAssetsByPackageName(Object PackageName, Array<AssetData> OutAssetData, bool bIncludeOnlyOnDiskAssets) { return Invoke<bool>(nameof(GetAssetsByPackageName), PackageName, OutAssetData, bIncludeOnlyOnDiskAssets); }
-        public bool GetAssetsByClass(Object ClassName, Array<AssetData> OutAssetData, bool bSearchSubClasses) { return Invoke<bool>(nameof(GetAssetsByClass), ClassName, OutAssetData, bSearchSubClasses); }
-        public bool GetAssets(ARFilter Filter, Array<AssetData> OutAssetData) { return Invoke<bool>(nameof(GetAssets), Filter, OutAssetData); }
+        public void GetSubPaths(Object InBasePath, UArray<Object> OutPathList, bool bInRecurse) { Invoke(nameof(GetSubPaths), InBasePath, OutPathList, bInRecurse); }
+        public bool GetAssetsByPath(Object PackagePath, UArray<AssetData> OutAssetData, bool bRecursive, bool bIncludeOnlyOnDiskAssets) { return Invoke<bool>(nameof(GetAssetsByPath), PackagePath, OutAssetData, bRecursive, bIncludeOnlyOnDiskAssets); }
+        public bool GetAssetsByPackageName(Object PackageName, UArray<AssetData> OutAssetData, bool bIncludeOnlyOnDiskAssets) { return Invoke<bool>(nameof(GetAssetsByPackageName), PackageName, OutAssetData, bIncludeOnlyOnDiskAssets); }
+        public bool GetAssetsByClass(Object ClassName, UArray<AssetData> OutAssetData, bool bSearchSubClasses) { return Invoke<bool>(nameof(GetAssetsByClass), ClassName, OutAssetData, bSearchSubClasses); }
+        public bool GetAssets(ARFilter Filter, UArray<AssetData> OutAssetData) { return Invoke<bool>(nameof(GetAssets), Filter, OutAssetData); }
         public AssetData GetAssetByObjectPath(Object ObjectPath, bool bIncludeOnlyOnDiskAssets) { return Invoke<AssetData>(nameof(GetAssetByObjectPath), ObjectPath, bIncludeOnlyOnDiskAssets); }
-        public void GetAllCachedPaths(Array<Object> OutPathList) { Invoke(nameof(GetAllCachedPaths), OutPathList); }
-        public bool GetAllAssets(Array<AssetData> OutAssetData, bool bIncludeOnlyOnDiskAssets) { return Invoke<bool>(nameof(GetAllAssets), OutAssetData, bIncludeOnlyOnDiskAssets); }
+        public void GetAllCachedPaths(UArray<Object> OutPathList) { Invoke(nameof(GetAllCachedPaths), OutPathList); }
+        public bool GetAllAssets(UArray<AssetData> OutAssetData, bool bIncludeOnlyOnDiskAssets) { return Invoke<bool>(nameof(GetAllAssets), OutAssetData, bIncludeOnlyOnDiskAssets); }
     }
     public class TagAndValue : Object
     {

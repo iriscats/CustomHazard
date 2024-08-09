@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace UnrealSharp
+namespace UnrealDotNet
 {
     public class Hotkeys
     {

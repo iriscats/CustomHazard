@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -11,15 +13,15 @@ namespace SDK.Script.ProceduralMeshComponentSDK
     {
         public KismetProceduralMeshLibrary(nint addr) : base(addr) { }
         public void SliceProceduralMesh(ProceduralMeshComponent InProcMesh, Vector PlanePosition, Vector PlaneNormal, bool bCreateOtherHalf, ProceduralMeshComponent OutOtherHalfProcMesh, EProcMeshSliceCapOption CapOption, MaterialInterface CapMaterial) { Invoke(nameof(SliceProceduralMesh), InProcMesh, PlanePosition, PlaneNormal, bCreateOtherHalf, OutOtherHalfProcMesh, CapOption, CapMaterial); }
-        public void GetSectionFromStaticMesh(StaticMesh InMesh, int LODIndex, int SectionIndex, Array<Vector> Vertices, Array<int> Triangles, Array<Vector> Normals, Array<Vector2D> UVs, Array<ProcMeshTangent> Tangents) { Invoke(nameof(GetSectionFromStaticMesh), InMesh, LODIndex, SectionIndex, Vertices, Triangles, Normals, UVs, Tangents); }
-        public void GetSectionFromProceduralMesh(ProceduralMeshComponent InProcMesh, int SectionIndex, Array<Vector> Vertices, Array<int> Triangles, Array<Vector> Normals, Array<Vector2D> UVs, Array<ProcMeshTangent> Tangents) { Invoke(nameof(GetSectionFromProceduralMesh), InProcMesh, SectionIndex, Vertices, Triangles, Normals, UVs, Tangents); }
-        public void GenerateBoxMesh(Vector BoxRadius, Array<Vector> Vertices, Array<int> Triangles, Array<Vector> Normals, Array<Vector2D> UVs, Array<ProcMeshTangent> Tangents) { Invoke(nameof(GenerateBoxMesh), BoxRadius, Vertices, Triangles, Normals, UVs, Tangents); }
-        public void CreateGridMeshWelded(int NumX, int NumY, Array<int> Triangles, Array<Vector> Vertices, Array<Vector2D> UVs, float GridSpacing) { Invoke(nameof(CreateGridMeshWelded), NumX, NumY, Triangles, Vertices, UVs, GridSpacing); }
-        public void CreateGridMeshTriangles(int NumX, int NumY, bool bWinding, Array<int> Triangles) { Invoke(nameof(CreateGridMeshTriangles), NumX, NumY, bWinding, Triangles); }
-        public void CreateGridMeshSplit(int NumX, int NumY, Array<int> Triangles, Array<Vector> Vertices, Array<Vector2D> UVs, Array<Vector2D> UV1s, float GridSpacing) { Invoke(nameof(CreateGridMeshSplit), NumX, NumY, Triangles, Vertices, UVs, UV1s, GridSpacing); }
+        public void GetSectionFromStaticMesh(StaticMesh InMesh, int LODIndex, int SectionIndex, UArray<Vector> Vertices, UArray<int> Triangles, UArray<Vector> Normals, UArray<Vector2D> UVs, UArray<ProcMeshTangent> Tangents) { Invoke(nameof(GetSectionFromStaticMesh), InMesh, LODIndex, SectionIndex, Vertices, Triangles, Normals, UVs, Tangents); }
+        public void GetSectionFromProceduralMesh(ProceduralMeshComponent InProcMesh, int SectionIndex, UArray<Vector> Vertices, UArray<int> Triangles, UArray<Vector> Normals, UArray<Vector2D> UVs, UArray<ProcMeshTangent> Tangents) { Invoke(nameof(GetSectionFromProceduralMesh), InProcMesh, SectionIndex, Vertices, Triangles, Normals, UVs, Tangents); }
+        public void GenerateBoxMesh(Vector BoxRadius, UArray<Vector> Vertices, UArray<int> Triangles, UArray<Vector> Normals, UArray<Vector2D> UVs, UArray<ProcMeshTangent> Tangents) { Invoke(nameof(GenerateBoxMesh), BoxRadius, Vertices, Triangles, Normals, UVs, Tangents); }
+        public void CreateGridMeshWelded(int NumX, int NumY, UArray<int> Triangles, UArray<Vector> Vertices, UArray<Vector2D> UVs, float GridSpacing) { Invoke(nameof(CreateGridMeshWelded), NumX, NumY, Triangles, Vertices, UVs, GridSpacing); }
+        public void CreateGridMeshTriangles(int NumX, int NumY, bool bWinding, UArray<int> Triangles) { Invoke(nameof(CreateGridMeshTriangles), NumX, NumY, bWinding, Triangles); }
+        public void CreateGridMeshSplit(int NumX, int NumY, UArray<int> Triangles, UArray<Vector> Vertices, UArray<Vector2D> UVs, UArray<Vector2D> UV1s, float GridSpacing) { Invoke(nameof(CreateGridMeshSplit), NumX, NumY, Triangles, Vertices, UVs, UV1s, GridSpacing); }
         public void CopyProceduralMeshFromStaticMeshComponent(StaticMeshComponent StaticMeshComponent, int LODIndex, ProceduralMeshComponent ProcMeshComponent, bool bCreateCollision) { Invoke(nameof(CopyProceduralMeshFromStaticMeshComponent), StaticMeshComponent, LODIndex, ProcMeshComponent, bCreateCollision); }
-        public void ConvertQuadToTriangles(Array<int> Triangles, int Vert0, int Vert1, int Vert2, int Vert3) { Invoke(nameof(ConvertQuadToTriangles), Triangles, Vert0, Vert1, Vert2, Vert3); }
-        public void CalculateTangentsForMesh(Array<Vector> Vertices, Array<int> Triangles, Array<Vector2D> UVs, Array<Vector> Normals, Array<ProcMeshTangent> Tangents) { Invoke(nameof(CalculateTangentsForMesh), Vertices, Triangles, UVs, Normals, Tangents); }
+        public void ConvertQuadToTriangles(UArray<int> Triangles, int Vert0, int Vert1, int Vert2, int Vert3) { Invoke(nameof(ConvertQuadToTriangles), Triangles, Vert0, Vert1, Vert2, Vert3); }
+        public void CalculateTangentsForMesh(UArray<Vector> Vertices, UArray<int> Triangles, UArray<Vector2D> UVs, UArray<Vector> Normals, UArray<ProcMeshTangent> Tangents) { Invoke(nameof(CalculateTangentsForMesh), Vertices, Triangles, UVs, Normals, Tangents); }
     }
     public class ProceduralMeshComponent : MeshComponent
     {
@@ -27,21 +29,21 @@ namespace SDK.Script.ProceduralMeshComponentSDK
         public bool bUseComplexAsSimpleCollision { get { return this[nameof(bUseComplexAsSimpleCollision)].Flag; } set { this[nameof(bUseComplexAsSimpleCollision)].Flag = value; } }
         public bool bUseAsyncCooking { get { return this[nameof(bUseAsyncCooking)].Flag; } set { this[nameof(bUseAsyncCooking)].Flag = value; } }
         public BodySetup ProcMeshBodySetup { get { return this[nameof(ProcMeshBodySetup)].As<BodySetup>(); } set { this["ProcMeshBodySetup"] = value; } }
-        public Array<ProcMeshSection> ProcMeshSections { get { return new Array<ProcMeshSection>(this[nameof(ProcMeshSections)].Address); } }
-        public Array<KConvexElem> CollisionConvexElems { get { return new Array<KConvexElem>(this[nameof(CollisionConvexElems)].Address); } }
+        public UArray<ProcMeshSection> ProcMeshSections { get { return new UArray<ProcMeshSection>(this[nameof(ProcMeshSections)].Address); } }
+        public UArray<KConvexElem> CollisionConvexElems { get { return new UArray<KConvexElem>(this[nameof(CollisionConvexElems)].Address); } }
         public BoxSphereBounds LocalBounds { get { return this[nameof(LocalBounds)].As<BoxSphereBounds>(); } set { this["LocalBounds"] = value; } }
-        public Array<BodySetup> AsyncBodySetupQueue { get { return new Array<BodySetup>(this[nameof(AsyncBodySetupQueue)].Address); } }
-        public void UpdateMeshSection_LinearColor(int SectionIndex, Array<Vector> Vertices, Array<Vector> Normals, Array<Vector2D> UV0, Array<Vector2D> UV1, Array<Vector2D> UV2, Array<Vector2D> UV3, Array<LinearColor> VertexColors, Array<ProcMeshTangent> Tangents) { Invoke(nameof(UpdateMeshSection_LinearColor), SectionIndex, Vertices, Normals, UV0, UV1, UV2, UV3, VertexColors, Tangents); }
-        public void UpdateMeshSection(int SectionIndex, Array<Vector> Vertices, Array<Vector> Normals, Array<Vector2D> UV0, Array<Color> VertexColors, Array<ProcMeshTangent> Tangents) { Invoke(nameof(UpdateMeshSection), SectionIndex, Vertices, Normals, UV0, VertexColors, Tangents); }
+        public UArray<BodySetup> AsyncBodySetupQueue { get { return new UArray<BodySetup>(this[nameof(AsyncBodySetupQueue)].Address); } }
+        public void UpdateMeshSection_LinearColor(int SectionIndex, UArray<Vector> Vertices, UArray<Vector> Normals, UArray<Vector2D> UV0, UArray<Vector2D> UV1, UArray<Vector2D> UV2, UArray<Vector2D> UV3, UArray<LinearColor> VertexColors, UArray<ProcMeshTangent> Tangents) { Invoke(nameof(UpdateMeshSection_LinearColor), SectionIndex, Vertices, Normals, UV0, UV1, UV2, UV3, VertexColors, Tangents); }
+        public void UpdateMeshSection(int SectionIndex, UArray<Vector> Vertices, UArray<Vector> Normals, UArray<Vector2D> UV0, UArray<Color> VertexColors, UArray<ProcMeshTangent> Tangents) { Invoke(nameof(UpdateMeshSection), SectionIndex, Vertices, Normals, UV0, VertexColors, Tangents); }
         public void SetMeshSectionVisible(int SectionIndex, bool bNewVisibility) { Invoke(nameof(SetMeshSectionVisible), SectionIndex, bNewVisibility); }
         public bool IsMeshSectionVisible(int SectionIndex) { return Invoke<bool>(nameof(IsMeshSectionVisible), SectionIndex); }
         public int GetNumSections() { return Invoke<int>(nameof(GetNumSections)); }
-        public void CreateMeshSection_LinearColor(int SectionIndex, Array<Vector> Vertices, Array<int> Triangles, Array<Vector> Normals, Array<Vector2D> UV0, Array<Vector2D> UV1, Array<Vector2D> UV2, Array<Vector2D> UV3, Array<LinearColor> VertexColors, Array<ProcMeshTangent> Tangents, bool bCreateCollision) { Invoke(nameof(CreateMeshSection_LinearColor), SectionIndex, Vertices, Triangles, Normals, UV0, UV1, UV2, UV3, VertexColors, Tangents, bCreateCollision); }
-        public void CreateMeshSection(int SectionIndex, Array<Vector> Vertices, Array<int> Triangles, Array<Vector> Normals, Array<Vector2D> UV0, Array<Color> VertexColors, Array<ProcMeshTangent> Tangents, bool bCreateCollision) { Invoke(nameof(CreateMeshSection), SectionIndex, Vertices, Triangles, Normals, UV0, VertexColors, Tangents, bCreateCollision); }
+        public void CreateMeshSection_LinearColor(int SectionIndex, UArray<Vector> Vertices, UArray<int> Triangles, UArray<Vector> Normals, UArray<Vector2D> UV0, UArray<Vector2D> UV1, UArray<Vector2D> UV2, UArray<Vector2D> UV3, UArray<LinearColor> VertexColors, UArray<ProcMeshTangent> Tangents, bool bCreateCollision) { Invoke(nameof(CreateMeshSection_LinearColor), SectionIndex, Vertices, Triangles, Normals, UV0, UV1, UV2, UV3, VertexColors, Tangents, bCreateCollision); }
+        public void CreateMeshSection(int SectionIndex, UArray<Vector> Vertices, UArray<int> Triangles, UArray<Vector> Normals, UArray<Vector2D> UV0, UArray<Color> VertexColors, UArray<ProcMeshTangent> Tangents, bool bCreateCollision) { Invoke(nameof(CreateMeshSection), SectionIndex, Vertices, Triangles, Normals, UV0, VertexColors, Tangents, bCreateCollision); }
         public void ClearMeshSection(int SectionIndex) { Invoke(nameof(ClearMeshSection), SectionIndex); }
         public void ClearCollisionConvexMeshes() { Invoke(nameof(ClearCollisionConvexMeshes)); }
         public void ClearAllMeshSections() { Invoke(nameof(ClearAllMeshSections)); }
-        public void AddCollisionConvexMesh(Array<Vector> ConvexVerts) { Invoke(nameof(AddCollisionConvexMesh), ConvexVerts); }
+        public void AddCollisionConvexMesh(UArray<Vector> ConvexVerts) { Invoke(nameof(AddCollisionConvexMesh), ConvexVerts); }
     }
     public enum EProcMeshSliceCapOption : int
     {
@@ -53,8 +55,8 @@ namespace SDK.Script.ProceduralMeshComponentSDK
     public class ProcMeshSection : Object
     {
         public ProcMeshSection(nint addr) : base(addr) { }
-        public Array<ProcMeshVertex> ProcVertexBuffer { get { return new Array<ProcMeshVertex>(this[nameof(ProcVertexBuffer)].Address); } }
-        public Array<uint> ProcIndexBuffer { get { return new Array<uint>(this[nameof(ProcIndexBuffer)].Address); } }
+        public UArray<ProcMeshVertex> ProcVertexBuffer { get { return new UArray<ProcMeshVertex>(this[nameof(ProcVertexBuffer)].Address); } }
+        public UArray<uint> ProcIndexBuffer { get { return new UArray<uint>(this[nameof(ProcIndexBuffer)].Address); } }
         public Box SectionLocalBox { get { return this[nameof(SectionLocalBox)].As<Box>(); } set { this["SectionLocalBox"] = value; } }
         public bool bEnableCollision { get { return this[nameof(bEnableCollision)].Flag; } set { this[nameof(bEnableCollision)].Flag = value; } }
         public bool bSectionVisible { get { return this[nameof(bSectionVisible)].Flag; } set { this[nameof(bSectionVisible)].Flag = value; } }

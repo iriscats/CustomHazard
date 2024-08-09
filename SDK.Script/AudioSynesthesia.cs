@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -34,8 +36,8 @@ namespace SDK.Script.AudioSynesthesiaSDK
     {
         public ConstantQNRT(nint addr) : base(addr) { }
         public ConstantQNRTSettings Settings { get { return this[nameof(Settings)].As<ConstantQNRTSettings>(); } set { this["Settings"] = value; } }
-        public void GetNormalizedChannelConstantQAtTime(float InSeconds, int InChannel, Array<float> OutConstantQ) { Invoke(nameof(GetNormalizedChannelConstantQAtTime), InSeconds, InChannel, OutConstantQ); }
-        public void GetChannelConstantQAtTime(float InSeconds, int InChannel, Array<float> OutConstantQ) { Invoke(nameof(GetChannelConstantQAtTime), InSeconds, InChannel, OutConstantQ); }
+        public void GetNormalizedChannelConstantQAtTime(float InSeconds, int InChannel, UArray<float> OutConstantQ) { Invoke(nameof(GetNormalizedChannelConstantQAtTime), InSeconds, InChannel, OutConstantQ); }
+        public void GetChannelConstantQAtTime(float InSeconds, int InChannel, UArray<float> OutConstantQ) { Invoke(nameof(GetChannelConstantQAtTime), InSeconds, InChannel, OutConstantQ); }
     }
     public class LoudnessNRTSettings : AudioSynesthesiaNRTSettings
     {
@@ -68,8 +70,8 @@ namespace SDK.Script.AudioSynesthesiaSDK
     {
         public OnsetNRT(nint addr) : base(addr) { }
         public OnsetNRTSettings Settings { get { return this[nameof(Settings)].As<OnsetNRTSettings>(); } set { this["Settings"] = value; } }
-        public void GetNormalizedChannelOnsetsBetweenTimes(float InStartSeconds, float InEndSeconds, int InChannel, Array<float> OutOnsetTimestamps, Array<float> OutOnsetStrengths) { Invoke(nameof(GetNormalizedChannelOnsetsBetweenTimes), InStartSeconds, InEndSeconds, InChannel, OutOnsetTimestamps, OutOnsetStrengths); }
-        public void GetChannelOnsetsBetweenTimes(float InStartSeconds, float InEndSeconds, int InChannel, Array<float> OutOnsetTimestamps, Array<float> OutOnsetStrengths) { Invoke(nameof(GetChannelOnsetsBetweenTimes), InStartSeconds, InEndSeconds, InChannel, OutOnsetTimestamps, OutOnsetStrengths); }
+        public void GetNormalizedChannelOnsetsBetweenTimes(float InStartSeconds, float InEndSeconds, int InChannel, UArray<float> OutOnsetTimestamps, UArray<float> OutOnsetStrengths) { Invoke(nameof(GetNormalizedChannelOnsetsBetweenTimes), InStartSeconds, InEndSeconds, InChannel, OutOnsetTimestamps, OutOnsetStrengths); }
+        public void GetChannelOnsetsBetweenTimes(float InStartSeconds, float InEndSeconds, int InChannel, UArray<float> OutOnsetTimestamps, UArray<float> OutOnsetStrengths) { Invoke(nameof(GetChannelOnsetsBetweenTimes), InStartSeconds, InEndSeconds, InChannel, OutOnsetTimestamps, OutOnsetStrengths); }
     }
     public enum EConstantQFFTSizeEnum : int
     {

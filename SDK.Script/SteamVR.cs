@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -14,12 +16,12 @@ namespace SDK.Script.SteamVRSDK
         public Object OnLeaveBounds { get { return this[nameof(OnLeaveBounds)]; } set { this[nameof(OnLeaveBounds)] = value; } }
         public Object OnReturnToBounds { get { return this[nameof(OnReturnToBounds)]; } set { this[nameof(OnReturnToBounds)] = value; } }
         public void SteamVRChaperoneEvent__DelegateSignature() { Invoke(nameof(SteamVRChaperoneEvent__DelegateSignature)); }
-        public Array<Vector> GetBounds() { return Invoke<Array<Vector>>(nameof(GetBounds)); }
+        public UArray<Vector> GetBounds() { return Invoke<UArray<Vector>>(nameof(GetBounds)); }
     }
     public class SteamVRFunctionLibrary : BlueprintFunctionLibrary
     {
         public SteamVRFunctionLibrary(nint addr) : base(addr) { }
-        public void GetValidTrackedDeviceIds(ESteamVRTrackedDeviceType DeviceType, Array<int> OutTrackedDeviceIds) { Invoke(nameof(GetValidTrackedDeviceIds), DeviceType, OutTrackedDeviceIds); }
+        public void GetValidTrackedDeviceIds(ESteamVRTrackedDeviceType DeviceType, UArray<int> OutTrackedDeviceIds) { Invoke(nameof(GetValidTrackedDeviceIds), DeviceType, OutTrackedDeviceIds); }
         public bool GetTrackedDevicePositionAndOrientation(int DeviceID, Vector OutPosition, Rotator OutOrientation) { return Invoke<bool>(nameof(GetTrackedDevicePositionAndOrientation), DeviceID, OutPosition, OutOrientation); }
         public bool GetHandPositionAndOrientation(int ControllerIndex, EControllerHand hand, Vector OutPosition, Rotator OutOrientation) { return Invoke<bool>(nameof(GetHandPositionAndOrientation), ControllerIndex, hand, OutPosition, OutOrientation); }
     }

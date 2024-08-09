@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -22,19 +24,19 @@ namespace SDK.Script.OculusMRSDK
         public MaterialInstanceDynamic CameraFrameMaterialInstance { get { return this[nameof(CameraFrameMaterialInstance)].As<MaterialInstanceDynamic>(); } set { this["CameraFrameMaterialInstance"] = value; } }
         public MaterialInstanceDynamic BackdropMaterialInstance { get { return this[nameof(BackdropMaterialInstance)].As<MaterialInstanceDynamic>(); } set { this["BackdropMaterialInstance"] = value; } }
         public Texture2D DefaultTexture_White { get { return this[nameof(DefaultTexture_White)].As<Texture2D>(); } set { this["DefaultTexture_White"] = value; } }
-        public Array<TextureRenderTarget2D> BackgroundRenderTargets { get { return new Array<TextureRenderTarget2D>(this[nameof(BackgroundRenderTargets)].Address); } }
+        public UArray<TextureRenderTarget2D> BackgroundRenderTargets { get { return new UArray<TextureRenderTarget2D>(this[nameof(BackgroundRenderTargets)].Address); } }
         public SceneCapture2D ForegroundCaptureActor { get { return this[nameof(ForegroundCaptureActor)].As<SceneCapture2D>(); } set { this["ForegroundCaptureActor"] = value; } }
-        public Array<TextureRenderTarget2D> ForegroundRenderTargets { get { return new Array<TextureRenderTarget2D>(this[nameof(ForegroundRenderTargets)].Address); } }
-        public Array<double> PoseTimes { get { return new Array<double>(this[nameof(PoseTimes)].Address); } }
+        public UArray<TextureRenderTarget2D> ForegroundRenderTargets { get { return new UArray<TextureRenderTarget2D>(this[nameof(ForegroundRenderTargets)].Address); } }
+        public UArray<double> PoseTimes { get { return new UArray<double>(this[nameof(PoseTimes)].Address); } }
         public OculusMR_Settings MRSettings { get { return this[nameof(MRSettings)].As<OculusMR_Settings>(); } set { this["MRSettings"] = value; } }
         public OculusMR_State MRState { get { return this[nameof(MRState)].As<OculusMR_State>(); } set { this["MRState"] = value; } }
     }
     public class OculusMR_PlaneMeshComponent : MeshComponent
     {
         public OculusMR_PlaneMeshComponent(nint addr) : base(addr) { }
-        public bool SetCustomMeshTriangles(Array<OculusMR_PlaneMeshTriangle> Triangles) { return Invoke<bool>(nameof(SetCustomMeshTriangles), Triangles); }
+        public bool SetCustomMeshTriangles(UArray<OculusMR_PlaneMeshTriangle> Triangles) { return Invoke<bool>(nameof(SetCustomMeshTriangles), Triangles); }
         public void ClearCustomMeshTriangles() { Invoke(nameof(ClearCustomMeshTriangles)); }
-        public void AddCustomMeshTriangles(Array<OculusMR_PlaneMeshTriangle> Triangles) { Invoke(nameof(AddCustomMeshTriangles), Triangles); }
+        public void AddCustomMeshTriangles(UArray<OculusMR_PlaneMeshTriangle> Triangles) { Invoke(nameof(AddCustomMeshTriangles), Triangles); }
     }
     public class OculusMR_Settings : Object
     {

@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -25,9 +27,9 @@ namespace SDK.Script.GeometryCollectionEngineSDK
         public Object OnCollisionEvents { get { return this[nameof(OnCollisionEvents)]; } set { this[nameof(OnCollisionEvents)] = value; } }
         public Object OnBreakingEvents { get { return this[nameof(OnBreakingEvents)]; } set { this[nameof(OnBreakingEvents)] = value; } }
         public Object OnTrailingEvents { get { return this[nameof(OnTrailingEvents)]; } set { this[nameof(OnTrailingEvents)] = value; } }
-        public void SortTrailingEvents(Array<ChaosTrailingEventData> TrailingEvents, EChaosTrailingSortMethod SortMethod) { Invoke(nameof(SortTrailingEvents), TrailingEvents, SortMethod); }
-        public void SortCollisionEvents(Array<ChaosCollisionEventData> CollisionEvents, EChaosCollisionSortMethod SortMethod) { Invoke(nameof(SortCollisionEvents), CollisionEvents, SortMethod); }
-        public void SortBreakingEvents(Array<ChaosBreakingEventData> BreakingEvents, EChaosBreakingSortMethod SortMethod) { Invoke(nameof(SortBreakingEvents), BreakingEvents, SortMethod); }
+        public void SortTrailingEvents(UArray<ChaosTrailingEventData> TrailingEvents, EChaosTrailingSortMethod SortMethod) { Invoke(nameof(SortTrailingEvents), TrailingEvents, SortMethod); }
+        public void SortCollisionEvents(UArray<ChaosCollisionEventData> CollisionEvents, EChaosCollisionSortMethod SortMethod) { Invoke(nameof(SortCollisionEvents), CollisionEvents, SortMethod); }
+        public void SortBreakingEvents(UArray<ChaosBreakingEventData> BreakingEvents, EChaosBreakingSortMethod SortMethod) { Invoke(nameof(SortBreakingEvents), BreakingEvents, SortMethod); }
         public void SetTrailingEventRequestSettings(ChaosTrailingEventRequestSettings InSettings) { Invoke(nameof(SetTrailingEventRequestSettings), InSettings); }
         public void SetTrailingEventEnabled(bool bIsEnabled) { Invoke(nameof(SetTrailingEventEnabled), bIsEnabled); }
         public void SetCollisionEventRequestSettings(ChaosCollisionEventRequestSettings InSettings) { Invoke(nameof(SetCollisionEventRequestSettings), InSettings); }
@@ -59,13 +61,13 @@ namespace SDK.Script.GeometryCollectionEngineSDK
         public GeometryCollectionComponent(nint addr) : base(addr) { }
         public ChaosSolverActor ChaosSolverActor { get { return this[nameof(ChaosSolverActor)].As<ChaosSolverActor>(); } set { this["ChaosSolverActor"] = value; } }
         public GeometryCollection RestCollection { get { return this[nameof(RestCollection)].As<GeometryCollection>(); } set { this["RestCollection"] = value; } }
-        public Array<FieldSystemActor> InitializationFields { get { return new Array<FieldSystemActor>(this[nameof(InitializationFields)].Address); } }
+        public UArray<FieldSystemActor> InitializationFields { get { return new UArray<FieldSystemActor>(this[nameof(InitializationFields)].Address); } }
         public bool Simulating { get { return this[nameof(Simulating)].Flag; } set { this[nameof(Simulating)].Flag = value; } }
         public EObjectStateTypeEnum ObjectType { get { return (EObjectStateTypeEnum)this[nameof(ObjectType)].GetValue<int>(); } set { this[nameof(ObjectType)].SetValue<int>((int)value); } }
         public bool EnableClustering { get { return this[nameof(EnableClustering)].Flag; } set { this[nameof(EnableClustering)].Flag = value; } }
         public int ClusterGroupIndex { get { return this[nameof(ClusterGroupIndex)].GetValue<int>(); } set { this[nameof(ClusterGroupIndex)].SetValue<int>(value); } }
         public int MaxClusterLevel { get { return this[nameof(MaxClusterLevel)].GetValue<int>(); } set { this[nameof(MaxClusterLevel)].SetValue<int>(value); } }
-        public Array<float> DamageThreshold { get { return new Array<float>(this[nameof(DamageThreshold)].Address); } }
+        public UArray<float> DamageThreshold { get { return new UArray<float>(this[nameof(DamageThreshold)].Address); } }
         public EClusterConnectionTypeEnum ClusterConnectionType { get { return (EClusterConnectionTypeEnum)this[nameof(ClusterConnectionType)].GetValue<int>(); } set { this[nameof(ClusterConnectionType)].SetValue<int>((int)value); } }
         public int CollisionGroup { get { return this[nameof(CollisionGroup)].GetValue<int>(); } set { this[nameof(CollisionGroup)].SetValue<int>(value); } }
         public float CollisionSampleFraction { get { return this[nameof(CollisionSampleFraction)].GetValue<float>(); } set { this[nameof(CollisionSampleFraction)].SetValue<float>(value); } }
@@ -176,10 +178,10 @@ namespace SDK.Script.GeometryCollectionEngineSDK
         public bool EnableClustering { get { return this[nameof(EnableClustering)].Flag; } set { this[nameof(EnableClustering)].Flag = value; } }
         public int ClusterGroupIndex { get { return this[nameof(ClusterGroupIndex)].GetValue<int>(); } set { this[nameof(ClusterGroupIndex)].SetValue<int>(value); } }
         public int MaxClusterLevel { get { return this[nameof(MaxClusterLevel)].GetValue<int>(); } set { this[nameof(MaxClusterLevel)].SetValue<int>(value); } }
-        public Array<float> DamageThreshold { get { return new Array<float>(this[nameof(DamageThreshold)].Address); } }
+        public UArray<float> DamageThreshold { get { return new UArray<float>(this[nameof(DamageThreshold)].Address); } }
         public EClusterConnectionTypeEnum ClusterConnectionType { get { return (EClusterConnectionTypeEnum)this[nameof(ClusterConnectionType)].GetValue<int>(); } set { this[nameof(ClusterConnectionType)].SetValue<int>((int)value); } }
-        public Array<GeometryCollectionSource> GeometrySource { get { return new Array<GeometryCollectionSource>(this[nameof(GeometrySource)].Address); } }
-        public Array<MaterialInterface> Materials { get { return new Array<MaterialInterface>(this[nameof(Materials)].Address); } }
+        public UArray<GeometryCollectionSource> GeometrySource { get { return new UArray<GeometryCollectionSource>(this[nameof(GeometrySource)].Address); } }
+        public UArray<MaterialInterface> Materials { get { return new UArray<MaterialInterface>(this[nameof(Materials)].Address); } }
         public ECollisionTypeEnum CollisionType { get { return (ECollisionTypeEnum)this[nameof(CollisionType)].GetValue<int>(); } set { this[nameof(CollisionType)].SetValue<int>((int)value); } }
         public EImplicitTypeEnum ImplicitType { get { return (EImplicitTypeEnum)this[nameof(ImplicitType)].GetValue<int>(); } set { this[nameof(ImplicitType)].SetValue<int>((int)value); } }
         public int MinLevelSetResolution { get { return this[nameof(MinLevelSetResolution)].GetValue<int>(); } set { this[nameof(MinLevelSetResolution)].SetValue<int>(value); } }
@@ -192,9 +194,9 @@ namespace SDK.Script.GeometryCollectionEngineSDK
         public float MinimumMassClamp { get { return this[nameof(MinimumMassClamp)].GetValue<float>(); } set { this[nameof(MinimumMassClamp)].SetValue<float>(value); } }
         public float CollisionParticlesFraction { get { return this[nameof(CollisionParticlesFraction)].GetValue<float>(); } set { this[nameof(CollisionParticlesFraction)].SetValue<float>(value); } }
         public int MaximumCollisionParticles { get { return this[nameof(MaximumCollisionParticles)].GetValue<int>(); } set { this[nameof(MaximumCollisionParticles)].SetValue<int>(value); } }
-        public Array<GeometryCollectionSizeSpecificData> SizeSpecificData { get { return new Array<GeometryCollectionSizeSpecificData>(this[nameof(SizeSpecificData)].Address); } }
+        public UArray<GeometryCollectionSizeSpecificData> SizeSpecificData { get { return new UArray<GeometryCollectionSizeSpecificData>(this[nameof(SizeSpecificData)].Address); } }
         public bool EnableRemovePiecesOnFracture { get { return this[nameof(EnableRemovePiecesOnFracture)].Flag; } set { this[nameof(EnableRemovePiecesOnFracture)].Flag = value; } }
-        public Array<MaterialInterface> RemoveOnFractureMaterials { get { return new Array<MaterialInterface>(this[nameof(RemoveOnFractureMaterials)].Address); } }
+        public UArray<MaterialInterface> RemoveOnFractureMaterials { get { return new UArray<MaterialInterface>(this[nameof(RemoveOnFractureMaterials)].Address); } }
         public Guid PersistentGuid { get { return this[nameof(PersistentGuid)].As<Guid>(); } set { this["PersistentGuid"] = value; } }
         public Guid StateGuid { get { return this[nameof(StateGuid)].As<Guid>(); } set { this["StateGuid"] = value; } }
         public int BoneSelectedMaterialIndex { get { return this[nameof(BoneSelectedMaterialIndex)].GetValue<int>(); } set { this[nameof(BoneSelectedMaterialIndex)].SetValue<int>(value); } }
@@ -252,7 +254,7 @@ namespace SDK.Script.GeometryCollectionEngineSDK
         public ChaosPhysicalMaterial PhysicalMaterial { get { return this[nameof(PhysicalMaterial)].As<ChaosPhysicalMaterial>(); } set { this["PhysicalMaterial"] = value; } }
         public ChaosSolverActor ChaosSolverActor { get { return this[nameof(ChaosSolverActor)].As<ChaosSolverActor>(); } set { this["ChaosSolverActor"] = value; } }
         public Object OnChaosPhysicsCollision { get { return this[nameof(OnChaosPhysicsCollision)]; } set { this[nameof(OnChaosPhysicsCollision)] = value; } }
-        public Array<PrimitiveComponent> SimulatedComponents { get { return new Array<PrimitiveComponent>(this[nameof(SimulatedComponents)].Address); } }
+        public UArray<PrimitiveComponent> SimulatedComponents { get { return new UArray<PrimitiveComponent>(this[nameof(SimulatedComponents)].Address); } }
         public void ReceivePhysicsCollision(ChaosPhysicsCollisionInfo CollisionInfo) { Invoke(nameof(ReceivePhysicsCollision), CollisionInfo); }
         public void ForceRecreatePhysicsState() { Invoke(nameof(ForceRecreatePhysicsState)); }
     }
@@ -420,6 +422,6 @@ namespace SDK.Script.GeometryCollectionEngineSDK
         public GeometryCollectionSource(nint addr) : base(addr) { }
         public SoftObjectPath SourceGeometryObject { get { return this[nameof(SourceGeometryObject)].As<SoftObjectPath>(); } set { this["SourceGeometryObject"] = value; } }
         public Transform LocalTransform { get { return this[nameof(LocalTransform)].As<Transform>(); } set { this["LocalTransform"] = value; } }
-        public Array<MaterialInterface> SourceMaterial { get { return new Array<MaterialInterface>(this[nameof(SourceMaterial)].Address); } }
+        public UArray<MaterialInterface> SourceMaterial { get { return new UArray<MaterialInterface>(this[nameof(SourceMaterial)].Address); } }
     }
 }

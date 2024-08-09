@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -33,7 +35,7 @@ namespace SDK.Script.OculusHMDSDK
         public Transform GetPlayAreaTransform() { return Invoke<Transform>(nameof(GetPlayAreaTransform)); }
         public GuardianTestResult GetNodeGuardianIntersection(ETrackedDeviceType DeviceType, EBoundaryType BoundaryType) { return Invoke<GuardianTestResult>(nameof(GetNodeGuardianIntersection), DeviceType, BoundaryType); }
         public EColorSpace GetHmdColorDesc() { return Invoke<EColorSpace>(nameof(GetHmdColorDesc)); }
-        public Array<Vector> GetGuardianPoints(EBoundaryType BoundaryType, bool UsePawnSpace) { return Invoke<Array<Vector>>(nameof(GetGuardianPoints), BoundaryType, UsePawnSpace); }
+        public UArray<Vector> GetGuardianPoints(EBoundaryType BoundaryType, bool UsePawnSpace) { return Invoke<UArray<Vector>>(nameof(GetGuardianPoints), BoundaryType, UsePawnSpace); }
         public Vector GetGuardianDimensions(EBoundaryType BoundaryType) { return Invoke<Vector>(nameof(GetGuardianDimensions), BoundaryType); }
         public void GetGPUUtilization(bool IsGPUAvailable, float GPUUtilization) { Invoke(nameof(GetGPUUtilization), IsGPUAvailable, GPUUtilization); }
         public float GetGPUFrameTime() { return Invoke<float>(nameof(GetGPUFrameTime)); }
@@ -43,7 +45,7 @@ namespace SDK.Script.OculusHMDSDK
         public float GetCurrentDisplayFrequency() { return Invoke<float>(nameof(GetCurrentDisplayFrequency)); }
         public void GetBaseRotationAndPositionOffset(Rotator OutRot, Vector OutPosOffset) { Invoke(nameof(GetBaseRotationAndPositionOffset), OutRot, OutPosOffset); }
         public void GetBaseRotationAndBaseOffsetInMeters(Rotator OutRotation, Vector OutBaseOffsetInMeters) { Invoke(nameof(GetBaseRotationAndBaseOffsetInMeters), OutRotation, OutBaseOffsetInMeters); }
-        public Array<float> GetAvailableDisplayFrequencies() { return Invoke<Array<float>>(nameof(GetAvailableDisplayFrequencies)); }
+        public UArray<float> GetAvailableDisplayFrequencies() { return Invoke<UArray<float>>(nameof(GetAvailableDisplayFrequencies)); }
         public void EnablePositionTracking(bool bPositionTracking) { Invoke(nameof(EnablePositionTracking), bPositionTracking); }
         public void EnableOrientationTracking(bool bOrientationTracking) { Invoke(nameof(EnableOrientationTracking), bOrientationTracking); }
         public void ClearLoadingSplashScreens() { Invoke(nameof(ClearLoadingSplashScreens)); }
@@ -53,7 +55,7 @@ namespace SDK.Script.OculusHMDSDK
     {
         public OculusHMDRuntimeSettings(nint addr) : base(addr) { }
         public bool bAutoEnabled { get { return this[nameof(bAutoEnabled)].Flag; } set { this[nameof(bAutoEnabled)].Flag = value; } }
-        public Array<OculusSplashDesc> SplashDescs { get { return new Array<OculusSplashDesc>(this[nameof(SplashDescs)].Address); } }
+        public UArray<OculusSplashDesc> SplashDescs { get { return new UArray<OculusSplashDesc>(this[nameof(SplashDescs)].Address); } }
         public bool bEnableSpecificColorGamut { get { return this[nameof(bEnableSpecificColorGamut)].Flag; } set { this[nameof(bEnableSpecificColorGamut)].Flag = value; } }
         public EColorSpace ColorSpace { get { return (EColorSpace)this[nameof(ColorSpace)].GetValue<int>(); } set { this[nameof(ColorSpace)].SetValue<int>((int)value); } }
         public bool bSupportsDash { get { return this[nameof(bSupportsDash)].Flag; } set { this[nameof(bSupportsDash)].Flag = value; } }
@@ -81,7 +83,7 @@ namespace SDK.Script.OculusHMDSDK
     public class OculusSceneCaptureCubemap : Object
     {
         public OculusSceneCaptureCubemap(nint addr) : base(addr) { }
-        public Array<SceneCaptureComponent2D> CaptureComponents { get { return new Array<SceneCaptureComponent2D>(this[nameof(CaptureComponents)].Address); } }
+        public UArray<SceneCaptureComponent2D> CaptureComponents { get { return new UArray<SceneCaptureComponent2D>(this[nameof(CaptureComponents)].Address); } }
     }
     public enum EOculusDeviceType : int
     {
@@ -159,7 +161,7 @@ namespace SDK.Script.OculusHMDSDK
         public float EyeHeight { get { return this[nameof(EyeHeight)].GetValue<float>(); } set { this[nameof(EyeHeight)].SetValue<float>(value); } }
         public float IPD { get { return this[nameof(IPD)].GetValue<float>(); } set { this[nameof(IPD)].SetValue<float>(value); } }
         public Vector2D NeckToEyeDistance { get { return this[nameof(NeckToEyeDistance)].As<Vector2D>(); } set { this["NeckToEyeDistance"] = value; } }
-        public Array<HmdUserProfileField> ExtraFields { get { return new Array<HmdUserProfileField>(this[nameof(ExtraFields)].Address); } }
+        public UArray<HmdUserProfileField> ExtraFields { get { return new UArray<HmdUserProfileField>(this[nameof(ExtraFields)].Address); } }
     }
     public class HmdUserProfileField : Object
     {

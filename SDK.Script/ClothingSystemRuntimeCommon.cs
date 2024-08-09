@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -25,10 +27,10 @@ namespace SDK.Script.ClothingSystemRuntimeCommonSDK
         public ClothingAssetCommon(nint addr) : base(addr) { }
         public PhysicsAsset PhysicsAsset { get { return this[nameof(PhysicsAsset)].As<PhysicsAsset>(); } set { this["PhysicsAsset"] = value; } }
         public Object ClothConfigs { get { return this[nameof(ClothConfigs)]; } set { this[nameof(ClothConfigs)] = value; } }
-        public Array<ClothLODDataCommon> LODData { get { return new Array<ClothLODDataCommon>(this[nameof(LODData)].Address); } }
-        public Array<int> LodMap { get { return new Array<int>(this[nameof(LodMap)].Address); } }
-        public Array<Object> UsedBoneNames { get { return new Array<Object>(this[nameof(UsedBoneNames)].Address); } }
-        public Array<int> UsedBoneIndices { get { return new Array<int>(this[nameof(UsedBoneIndices)].Address); } }
+        public UArray<ClothLODDataCommon> LODData { get { return new UArray<ClothLODDataCommon>(this[nameof(LODData)].Address); } }
+        public UArray<int> LodMap { get { return new UArray<int>(this[nameof(LodMap)].Address); } }
+        public UArray<Object> UsedBoneNames { get { return new UArray<Object>(this[nameof(UsedBoneNames)].Address); } }
+        public UArray<int> UsedBoneIndices { get { return new UArray<int>(this[nameof(UsedBoneIndices)].Address); } }
         public int ReferenceBoneIndex { get { return this[nameof(ReferenceBoneIndex)].GetValue<int>(); } set { this[nameof(ReferenceBoneIndex)].SetValue<int>(value); } }
         public ClothingAssetCustomData CustomData { get { return this[nameof(CustomData)].As<ClothingAssetCustomData>(); } set { this["CustomData"] = value; } }
     }
@@ -113,24 +115,24 @@ namespace SDK.Script.ClothingSystemRuntimeCommonSDK
     public class ClothPhysicalMeshData : Object
     {
         public ClothPhysicalMeshData(nint addr) : base(addr) { }
-        public Array<Vector> Vertices { get { return new Array<Vector>(this[nameof(Vertices)].Address); } }
-        public Array<Vector> Normals { get { return new Array<Vector>(this[nameof(Normals)].Address); } }
-        public Array<uint> Indices { get { return new Array<uint>(this[nameof(Indices)].Address); } }
+        public UArray<Vector> Vertices { get { return new UArray<Vector>(this[nameof(Vertices)].Address); } }
+        public UArray<Vector> Normals { get { return new UArray<Vector>(this[nameof(Normals)].Address); } }
+        public UArray<uint> Indices { get { return new UArray<uint>(this[nameof(Indices)].Address); } }
         public Object WeightMaps { get { return this[nameof(WeightMaps)]; } set { this[nameof(WeightMaps)] = value; } }
-        public Array<float> InverseMasses { get { return new Array<float>(this[nameof(InverseMasses)].Address); } }
-        public Array<ClothVertBoneData> BoneData { get { return new Array<ClothVertBoneData>(this[nameof(BoneData)].Address); } }
+        public UArray<float> InverseMasses { get { return new UArray<float>(this[nameof(InverseMasses)].Address); } }
+        public UArray<ClothVertBoneData> BoneData { get { return new UArray<ClothVertBoneData>(this[nameof(BoneData)].Address); } }
         public int MaxBoneWeights { get { return this[nameof(MaxBoneWeights)].GetValue<int>(); } set { this[nameof(MaxBoneWeights)].SetValue<int>(value); } }
         public int NumFixedVerts { get { return this[nameof(NumFixedVerts)].GetValue<int>(); } set { this[nameof(NumFixedVerts)].SetValue<int>(value); } }
-        public Array<uint> SelfCollisionIndices { get { return new Array<uint>(this[nameof(SelfCollisionIndices)].Address); } }
-        public Array<float> MaxDistances { get { return new Array<float>(this[nameof(MaxDistances)].Address); } }
-        public Array<float> BackstopDistances { get { return new Array<float>(this[nameof(BackstopDistances)].Address); } }
-        public Array<float> BackstopRadiuses { get { return new Array<float>(this[nameof(BackstopRadiuses)].Address); } }
-        public Array<float> AnimDriveMultipliers { get { return new Array<float>(this[nameof(AnimDriveMultipliers)].Address); } }
+        public UArray<uint> SelfCollisionIndices { get { return new UArray<uint>(this[nameof(SelfCollisionIndices)].Address); } }
+        public UArray<float> MaxDistances { get { return new UArray<float>(this[nameof(MaxDistances)].Address); } }
+        public UArray<float> BackstopDistances { get { return new UArray<float>(this[nameof(BackstopDistances)].Address); } }
+        public UArray<float> BackstopRadiuses { get { return new UArray<float>(this[nameof(BackstopRadiuses)].Address); } }
+        public UArray<float> AnimDriveMultipliers { get { return new UArray<float>(this[nameof(AnimDriveMultipliers)].Address); } }
     }
     public class PointWeightMap : Object
     {
         public PointWeightMap(nint addr) : base(addr) { }
-        public Array<float> Values { get { return new Array<float>(this[nameof(Values)].Address); } }
+        public UArray<float> Values { get { return new UArray<float>(this[nameof(Values)].Address); } }
     }
     public class ClothParameterMask_Legacy : Object
     {
@@ -139,7 +141,7 @@ namespace SDK.Script.ClothingSystemRuntimeCommonSDK
         public EWeightMapTargetCommon CurrentTarget { get { return (EWeightMapTargetCommon)this[nameof(CurrentTarget)].GetValue<int>(); } set { this[nameof(CurrentTarget)].SetValue<int>((int)value); } }
         public float MaxValue { get { return this[nameof(MaxValue)].GetValue<float>(); } set { this[nameof(MaxValue)].SetValue<float>(value); } }
         public float MinValue { get { return this[nameof(MinValue)].GetValue<float>(); } set { this[nameof(MinValue)].SetValue<float>(value); } }
-        public Array<float> Values { get { return new Array<float>(this[nameof(Values)].Address); } }
+        public UArray<float> Values { get { return new UArray<float>(this[nameof(Values)].Address); } }
         public bool bEnabled { get { return this[nameof(bEnabled)].Flag; } set { this[nameof(bEnabled)].Flag = value; } }
     }
 }

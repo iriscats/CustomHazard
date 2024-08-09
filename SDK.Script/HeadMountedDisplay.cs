@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -47,7 +49,7 @@ namespace SDK.Script.HeadMountedDisplaySDK
         public void GetDeviceWorldPose(Object WorldContext, XRDeviceId XRDeviceId, bool bIsTracked, Rotator Orientation, bool bHasPositionalTracking, Vector Position) { Invoke(nameof(GetDeviceWorldPose), WorldContext, XRDeviceId, bIsTracked, Orientation, bHasPositionalTracking, Position); }
         public void GetDevicePose(XRDeviceId XRDeviceId, bool bIsTracked, Rotator Orientation, bool bHasPositionalTracking, Vector Position) { Invoke(nameof(GetDevicePose), XRDeviceId, bIsTracked, Orientation, bHasPositionalTracking, Position); }
         public bool GetControllerTransformForTime(Object WorldContext, int ControllerIndex, Object MotionSource, Timespan Time, bool bTimeWasUsed, Rotator Orientation, Vector Position, bool bProvidedLinearVelocity, Vector LinearVelocity, bool bProvidedAngularVelocity, Vector AngularVelocityRadPerSec) { return Invoke<bool>(nameof(GetControllerTransformForTime), WorldContext, ControllerIndex, MotionSource, Time, bTimeWasUsed, Orientation, Position, bProvidedLinearVelocity, LinearVelocity, bProvidedAngularVelocity, AngularVelocityRadPerSec); }
-        public Array<XRDeviceId> EnumerateTrackedDevices(Object SystemId, EXRTrackedDeviceType DeviceType) { return Invoke<Array<XRDeviceId>>(nameof(EnumerateTrackedDevices), SystemId, DeviceType); }
+        public UArray<XRDeviceId> EnumerateTrackedDevices(Object SystemId, EXRTrackedDeviceType DeviceType) { return Invoke<UArray<XRDeviceId>>(nameof(EnumerateTrackedDevices), SystemId, DeviceType); }
         public void EnableLowPersistenceMode(bool bEnable) { Invoke(nameof(EnableLowPersistenceMode), bEnable); }
         public bool EnableHMD(bool bEnable) { return Invoke<bool>(nameof(EnableHMD), bEnable); }
         public void DisconnectRemoteXRDevice() { Invoke(nameof(DisconnectRemoteXRDevice)); }
@@ -73,7 +75,7 @@ namespace SDK.Script.HeadMountedDisplaySDK
         public bool bDisplayDeviceModel { get { return this[nameof(bDisplayDeviceModel)].Flag; } set { this[nameof(bDisplayDeviceModel)].Flag = value; } }
         public Object DisplayModelSource { get { return this[nameof(DisplayModelSource)]; } set { this[nameof(DisplayModelSource)] = value; } }
         public StaticMesh CustomDisplayMesh { get { return this[nameof(CustomDisplayMesh)].As<StaticMesh>(); } set { this["CustomDisplayMesh"] = value; } }
-        public Array<MaterialInterface> DisplayMeshMaterialOverrides { get { return new Array<MaterialInterface>(this[nameof(DisplayMeshMaterialOverrides)].Address); } }
+        public UArray<MaterialInterface> DisplayMeshMaterialOverrides { get { return new UArray<MaterialInterface>(this[nameof(DisplayMeshMaterialOverrides)].Address); } }
         public PrimitiveComponent DisplayComponent { get { return this[nameof(DisplayComponent)].As<PrimitiveComponent>(); } set { this["DisplayComponent"] = value; } }
         public void SetTrackingSource(EControllerHand NewSource) { Invoke(nameof(SetTrackingSource), NewSource); }
         public void SetTrackingMotionSource(Object NewSource) { Invoke(nameof(SetTrackingMotionSource), NewSource); }
@@ -99,7 +101,7 @@ namespace SDK.Script.HeadMountedDisplaySDK
         public int GetMotionTrackingEnabledControllerCount() { return Invoke<int>(nameof(GetMotionTrackingEnabledControllerCount)); }
         public int GetMaximumMotionTrackedControllerCount() { return Invoke<int>(nameof(GetMaximumMotionTrackedControllerCount)); }
         public Object GetActiveTrackingSystemName() { return Invoke<Object>(nameof(GetActiveTrackingSystemName)); }
-        public Array<Object> EnumerateMotionSources() { return Invoke<Array<Object>>(nameof(EnumerateMotionSources)); }
+        public UArray<Object> EnumerateMotionSources() { return Invoke<UArray<Object>>(nameof(EnumerateMotionSources)); }
         public bool EnableMotionTrackingOfSource(int PlayerIndex, Object SourceName) { return Invoke<bool>(nameof(EnableMotionTrackingOfSource), PlayerIndex, SourceName); }
         public bool EnableMotionTrackingOfDevice(int PlayerIndex, EControllerHand hand) { return Invoke<bool>(nameof(EnableMotionTrackingOfDevice), PlayerIndex, hand); }
         public bool EnableMotionTrackingForComponent(MotionControllerComponent MotionControllerComponent) { return Invoke<bool>(nameof(EnableMotionTrackingForComponent), MotionControllerComponent); }
@@ -271,9 +273,9 @@ namespace SDK.Script.HeadMountedDisplaySDK
         public Quat GripRotation { get { return this[nameof(GripRotation)].As<Quat>(); } set { this["GripRotation"] = value; } }
         public Vector AimPosition { get { return this[nameof(AimPosition)].As<Vector>(); } set { this["AimPosition"] = value; } }
         public Quat AimRotation { get { return this[nameof(AimRotation)].As<Quat>(); } set { this["AimRotation"] = value; } }
-        public Array<Vector> HandKeyPositions { get { return new Array<Vector>(this[nameof(HandKeyPositions)].Address); } }
-        public Array<Quat> HandKeyRotations { get { return new Array<Quat>(this[nameof(HandKeyRotations)].Address); } }
-        public Array<float> HandKeyRadii { get { return new Array<float>(this[nameof(HandKeyRadii)].Address); } }
+        public UArray<Vector> HandKeyPositions { get { return new UArray<Vector>(this[nameof(HandKeyPositions)].Address); } }
+        public UArray<Quat> HandKeyRotations { get { return new UArray<Quat>(this[nameof(HandKeyRotations)].Address); } }
+        public UArray<float> HandKeyRadii { get { return new UArray<float>(this[nameof(HandKeyRadii)].Address); } }
         public bool bIsGrasped { get { return this[nameof(bIsGrasped)].Flag; } set { this[nameof(bIsGrasped)].Flag = value; } }
     }
     public class XRHMDData : Object

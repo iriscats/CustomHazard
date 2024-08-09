@@ -1,5 +1,8 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using UnrealDotNet.Types;
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -21,6 +24,7 @@ using SDK.Script.DLSSBlueprintSDK;
 using SDK.Script.SlateSDK;
 using SDK.Script.MediaAssetsSDK;
 using SDK.Script.AnimGraphRuntimeSDK;
+
 namespace SDK.Script.FSDSDK
 {
     public class AcceptInviteBlueprintCallProxy : OnlineBlueprintCallProxyBase
@@ -49,7 +53,7 @@ namespace SDK.Script.FSDSDK
         public int IsPrimaryObjective { get { return this[nameof(IsPrimaryObjective)].GetValue<int>(); } set { this[nameof(IsPrimaryObjective)].SetValue<int>(value); } }
         public bool bIsNeededForMissionCompletion { get { return this[nameof(bIsNeededForMissionCompletion)].Flag; } set { this[nameof(bIsNeededForMissionCompletion)].Flag = value; } }
         public float MissionScale { get { return this[nameof(MissionScale)].GetValue<float>(); } set { this[nameof(MissionScale)].SetValue<float>(value); } }
-        public Array<Biome> BannedInBiomes { get { return new Array<Biome>(this[nameof(BannedInBiomes)].Address); } }
+        public UArray<Biome> BannedInBiomes { get { return new UArray<Biome>(this[nameof(BannedInBiomes)].Address); } }
         public void SignalObjectiveUpdated() { Invoke(nameof(SignalObjectiveUpdated)); }
         public void Receive_StartTracking() { Invoke(nameof(Receive_StartTracking)); }
         public void OnRep_IsPrimaryObjective() { Invoke(nameof(OnRep_IsPrimaryObjective)); }
@@ -106,7 +110,7 @@ namespace SDK.Script.FSDSDK
         public GameActivityType(nint addr) : base(addr) { }
         public Object ActivityId { get { return this[nameof(ActivityId)]; } set { this[nameof(ActivityId)] = value; } }
         public EActivityType ActivityType { get { return (EActivityType)this[nameof(ActivityType)].GetValue<int>(); } set { this[nameof(ActivityType)].SetValue<int>((int)value); } }
-        public Array<GameActivitySubTask> SubTasks { get { return new Array<GameActivitySubTask>(this[nameof(SubTasks)].Address); } }
+        public UArray<GameActivitySubTask> SubTasks { get { return new UArray<GameActivitySubTask>(this[nameof(SubTasks)].Address); } }
     }
     public class GameActivityMissionType : GameActivityType
     {
@@ -124,7 +128,7 @@ namespace SDK.Script.FSDSDK
     public class GameActivitySettings : DataAsset
     {
         public GameActivitySettings(nint addr) : base(addr) { }
-        public Array<Object> GameActivites { get { return new Array<Object>(this[nameof(GameActivites)].Address); } }
+        public UArray<Object> GameActivites { get { return new UArray<Object>(this[nameof(GameActivites)].Address); } }
     }
     public class GameActivityAssignmentType : GameActivityType
     {
@@ -133,16 +137,16 @@ namespace SDK.Script.FSDSDK
     public class ActorFunctionLibrary : BlueprintFunctionLibrary
     {
         public ActorFunctionLibrary(nint addr) : base(addr) { }
-        public void UnlockSpecificCharacters(Array<PlayerCharacter> Characters, ECharacterState UnlockIf, ECharacterState UnlockTo) { Invoke(nameof(UnlockSpecificCharacters), Characters, UnlockIf, UnlockTo); }
+        public void UnlockSpecificCharacters(UArray<PlayerCharacter> Characters, ECharacterState UnlockIf, ECharacterState UnlockTo) { Invoke(nameof(UnlockSpecificCharacters), Characters, UnlockIf, UnlockTo); }
         public void UnlockCharacters(Object WorldContextObject) { Invoke(nameof(UnlockCharacters), WorldContextObject); }
         public float TimeSince(Object WorldContextObject, float Time) { return Invoke<float>(nameof(TimeSince), WorldContextObject, Time); }
-        public void SetScalarParameters(Object ParameterName, float Value, Array<MaterialInstanceDynamic> Materials) { Invoke(nameof(SetScalarParameters), ParameterName, Value, Materials); }
+        public void SetScalarParameters(Object ParameterName, float Value, UArray<MaterialInstanceDynamic> Materials) { Invoke(nameof(SetScalarParameters), ParameterName, Value, Materials); }
         public void PlayCueOnClient(PlayerController Target, SoundCue cue) { Invoke(nameof(PlayCueOnClient), Target, cue); }
         public void PlayCueOnAll(Object WorldContextObject, SoundCue cue) { Invoke(nameof(PlayCueOnAll), WorldContextObject, cue); }
         public float PingPong(float Time, float Length, bool normalize) { return Invoke<float>(nameof(PingPong), Time, Length, normalize); }
         public float MoveTowards(float Current, float End, float step) { return Invoke<float>(nameof(MoveTowards), Current, End, step); }
-        public void LockSpecificCharactersIfState(Array<PlayerCharacter> Characters, ECharacterState stateToLock) { Invoke(nameof(LockSpecificCharactersIfState), Characters, stateToLock); }
-        public void LockSpecificCharacters(Array<PlayerCharacter> Characters) { Invoke(nameof(LockSpecificCharacters), Characters); }
+        public void LockSpecificCharactersIfState(UArray<PlayerCharacter> Characters, ECharacterState stateToLock) { Invoke(nameof(LockSpecificCharactersIfState), Characters, stateToLock); }
+        public void LockSpecificCharacters(UArray<PlayerCharacter> Characters) { Invoke(nameof(LockSpecificCharacters), Characters); }
         public bool LockSpecificCharacterIfState(PlayerCharacter Character, ECharacterState LockIf, ECharacterState LockTo) { return Invoke<bool>(nameof(LockSpecificCharacterIfState), Character, LockIf, LockTo); }
         public void LockCharacters(Object WorldContextObject) { Invoke(nameof(LockCharacters), WorldContextObject); }
         public Object LoadWindowWidgetClass(Object WidgetClass) { return Invoke<Object>(nameof(LoadWindowWidgetClass), WidgetClass); }
@@ -157,7 +161,7 @@ namespace SDK.Script.FSDSDK
         public int GetTotalHeroLevels(Object WorldContextObject, PlayerCharacterID characterID) { return Invoke<int>(nameof(GetTotalHeroLevels), WorldContextObject, characterID); }
         public Guid GetSaveGameIDFromCharacterID(PlayerCharacterID characterID) { return Invoke<Guid>(nameof(GetSaveGameIDFromCharacterID), characterID); }
         public Guid GetSavegameID(Object objectClass) { return Invoke<Guid>(nameof(GetSavegameID), objectClass); }
-        public Array<PlayerCharacter> GetPlayersInRange(Object WorldContextObject, Vector Origin, float Radius, bool MustBeAlive) { return Invoke<Array<PlayerCharacter>>(nameof(GetPlayersInRange), WorldContextObject, Origin, Radius, MustBeAlive); }
+        public UArray<PlayerCharacter> GetPlayersInRange(Object WorldContextObject, Vector Origin, float Radius, bool MustBeAlive) { return Invoke<UArray<PlayerCharacter>>(nameof(GetPlayersInRange), WorldContextObject, Origin, Radius, MustBeAlive); }
         public ItemID GetItemID(Object itemClass) { return Invoke<ItemID>(nameof(GetItemID), itemClass); }
         public float GetHeroXP(Object WorldContextObject, PlayerCharacterID characterID) { return Invoke<float>(nameof(GetHeroXP), WorldContextObject, characterID); }
         public Object GetHeroSwitchToMessage(Object playerClass) { return Invoke<Object>(nameof(GetHeroSwitchToMessage), playerClass); }
@@ -175,21 +179,21 @@ namespace SDK.Script.FSDSDK
         public ActorComponent GetComponentByClass(Actor Actor, Object ComponentClass) { return Invoke<ActorComponent>(nameof(GetComponentByClass), Actor, ComponentClass); }
         public PlayerCharacterID GetCharacterIDFromCharacter(PlayerCharacter Character) { return Invoke<PlayerCharacterID>(nameof(GetCharacterIDFromCharacter), Character); }
         public PlayerCharacterID GetCharacterID(Object playerClass) { return Invoke<PlayerCharacterID>(nameof(GetCharacterID), playerClass); }
-        public Array<PlayerCharacter> GetAllPlayerCharacters(Object WorldContext) { return Invoke<Array<PlayerCharacter>>(nameof(GetAllPlayerCharacters), WorldContext); }
+        public UArray<PlayerCharacter> GetAllPlayerCharacters(Object WorldContext) { return Invoke<UArray<PlayerCharacter>>(nameof(GetAllPlayerCharacters), WorldContext); }
         public Vector GetActorTargetCenter(Actor TargetActor) { return Invoke<Vector>(nameof(GetActorTargetCenter), TargetActor); }
         public void FSDRemoveBlendable(PostProcessComponent PostProcessComponent, Object InBlendableObject) { Invoke(nameof(FSDRemoveBlendable), PostProcessComponent, InBlendableObject); }
         public void FSDRemoveAllWidgets(Object WorldContextObject) { Invoke(nameof(FSDRemoveAllWidgets), WorldContextObject); }
         public void FSDDumpCallStack(Object Msg) { Invoke(nameof(FSDDumpCallStack), Msg); }
         public PlayerCharacter FindNearestPlayerCharacter(Object WorldContextObject, Vector fromLocation, float MaxRadius, bool MustBeAlive, bool MustBeUnparalyzed, bool MustHaveLineOfSight) { return Invoke<PlayerCharacter>(nameof(FindNearestPlayerCharacter), WorldContextObject, fromLocation, MaxRadius, MustBeAlive, MustBeUnparalyzed, MustHaveLineOfSight); }
         public Vector FindLatejoinDroppodLocation(FSDGameMode GameMode) { return Invoke<Vector>(nameof(FindLatejoinDroppodLocation), GameMode); }
-        public Actor FindClosestEnemyFromLocation(Vector fromLocation, float range, bool LineOfSightCheck, Object WorldContextObject, Array<Actor> IgnoredActors, Vector Offset, bool onlyTargetable) { return Invoke<Actor>(nameof(FindClosestEnemyFromLocation), fromLocation, range, LineOfSightCheck, WorldContextObject, IgnoredActors, Offset, onlyTargetable); }
+        public Actor FindClosestEnemyFromLocation(Vector fromLocation, float range, bool LineOfSightCheck, Object WorldContextObject, UArray<Actor> IgnoredActors, Vector Offset, bool onlyTargetable) { return Invoke<Actor>(nameof(FindClosestEnemyFromLocation), fromLocation, range, LineOfSightCheck, WorldContextObject, IgnoredActors, Offset, onlyTargetable); }
         public Actor FindClosestEnemyFromActorWithSkipChance(Actor FromActor, float range, float SkipChance, bool LineOfSightCheck, GameplayTagQuery tagQuery, Vector Offset) { return Invoke<Actor>(nameof(FindClosestEnemyFromActorWithSkipChance), FromActor, range, SkipChance, LineOfSightCheck, tagQuery, Offset); }
         public Actor FindClosestEnemyFromActor(Actor FromActor, float range, bool LineOfSightCheck, GameplayTagQuery tagQuery, Vector Offset) { return Invoke<Actor>(nameof(FindClosestEnemyFromActor), FromActor, range, LineOfSightCheck, tagQuery, Offset); }
         public Vector FindCharacterTeleportLocation(Object WorldContextObject, Vector closeToLocation, float desiredDistance) { return Invoke<Vector>(nameof(FindCharacterTeleportLocation), WorldContextObject, closeToLocation, desiredDistance); }
         public void FadeMaterials(Object WorldContextObject, MeshComponent Mesh, float Duration) { Invoke(nameof(FadeMaterials), WorldContextObject, Mesh, Duration); }
         public float EvaluateRuntimeCurve(Object WorldContextObject, RuntimeFloatCurve Curve, float Time) { return Invoke<float>(nameof(EvaluateRuntimeCurve), WorldContextObject, Curve, Time); }
         public void DissolveMaterials(Object WorldContextObject, MeshComponent Mesh, float Duration) { Invoke(nameof(DissolveMaterials), WorldContextObject, Mesh, Duration); }
-        public Array<MaterialInstanceDynamic> CreateDynamicMaterialInstances(MeshComponent Mesh) { return Invoke<Array<MaterialInstanceDynamic>>(nameof(CreateDynamicMaterialInstances), Mesh); }
+        public UArray<MaterialInstanceDynamic> CreateDynamicMaterialInstances(MeshComponent Mesh) { return Invoke<UArray<MaterialInstanceDynamic>>(nameof(CreateDynamicMaterialInstances), Mesh); }
         public float AddHeroXP(Object WorldContextObject, PlayerCharacterID characterID, float amount) { return Invoke<float>(nameof(AddHeroXP), WorldContextObject, characterID, amount); }
         public void AddEnemyKill(PlayerCharacter Instigator, EnemyComponent EnemyComponent, FSDGameState GameState) { Invoke(nameof(AddEnemyKill), Instigator, EnemyComponent, GameState); }
         public bool ActorMatchesTagQuery(GameplayTagQuery Query, Actor InActor) { return Invoke<bool>(nameof(ActorMatchesTagQuery), Query, InActor); }
@@ -291,7 +295,7 @@ namespace SDK.Script.FSDSDK
     public class OverlapTrackingSubsystem : WorldSubsystem
     {
         public OverlapTrackingSubsystem(nint addr) : base(addr) { }
-        public Array<OverlapPair> Overlaps { get { return new Array<OverlapPair>(this[nameof(Overlaps)].Address); } }
+        public UArray<OverlapPair> Overlaps { get { return new UArray<OverlapPair>(this[nameof(Overlaps)].Address); } }
     }
     public class AdventureObjective : Objective
     {
@@ -326,7 +330,7 @@ namespace SDK.Script.FSDSDK
     {
         public AttachedParticlesAfflictionEffect(nint addr) : base(addr) { }
         public FXSystemAsset ParticleEffect { get { return this[nameof(ParticleEffect)].As<FXSystemAsset>(); } set { this["ParticleEffect"] = value; } }
-        public Array<FXSystemAsset> ParticleEffects { get { return new Array<FXSystemAsset>(this[nameof(ParticleEffects)].Address); } }
+        public UArray<FXSystemAsset> ParticleEffects { get { return new UArray<FXSystemAsset>(this[nameof(ParticleEffects)].Address); } }
         public EAfflictionSocket Socket { get { return (EAfflictionSocket)this[nameof(Socket)].GetValue<int>(); } set { this[nameof(Socket)].SetValue<int>((int)value); } }
         public bool ScaleToActor { get { return this[nameof(ScaleToActor)].Flag; } set { this[nameof(ScaleToActor)].Flag = value; } }
         public bool UseVisibilityHack { get { return this[nameof(UseVisibilityHack)].Flag; } set { this[nameof(UseVisibilityHack)].Flag = value; } }
@@ -358,17 +362,17 @@ namespace SDK.Script.FSDSDK
     public class AttachMeshesAfflictionEffect : AfflictionEffect
     {
         public AttachMeshesAfflictionEffect(nint addr) : base(addr) { }
-        public Array<AttachMeshesAfflictionItem> AttachItems { get { return new Array<AttachMeshesAfflictionItem>(this[nameof(AttachItems)].Address); } }
+        public UArray<AttachMeshesAfflictionItem> AttachItems { get { return new UArray<AttachMeshesAfflictionItem>(this[nameof(AttachItems)].Address); } }
         public ParticleSystem OnRemoveEffect { get { return this[nameof(OnRemoveEffect)].As<ParticleSystem>(); } set { this["OnRemoveEffect"] = value; } }
     }
     public class ScalingMeshAfflictionEffect : AfflictionEffect
     {
         public ScalingMeshAfflictionEffect(nint addr) : base(addr) { }
         public EFrozenAfflictionType AfflictionType { get { return (EFrozenAfflictionType)this[nameof(AfflictionType)].GetValue<int>(); } set { this[nameof(AfflictionType)].SetValue<int>((int)value); } }
-        public Array<ScalingMeshAfflictionItem> IceParts { get { return new Array<ScalingMeshAfflictionItem>(this[nameof(IceParts)].Address); } }
+        public UArray<ScalingMeshAfflictionItem> IceParts { get { return new UArray<ScalingMeshAfflictionItem>(this[nameof(IceParts)].Address); } }
         public MaterialInterface MaterialOverride { get { return this[nameof(MaterialOverride)].As<MaterialInterface>(); } set { this["MaterialOverride"] = value; } }
         public Object ParticleBone { get { return this[nameof(ParticleBone)]; } set { this[nameof(ParticleBone)] = value; } }
-        public Array<MaterialInterface> IceMaterials { get { return new Array<MaterialInterface>(this[nameof(IceMaterials)].Address); } }
+        public UArray<MaterialInterface> IceMaterials { get { return new UArray<MaterialInterface>(this[nameof(IceMaterials)].Address); } }
     }
     public class BurningAfflictionEffect : AfflictionEffect
     {
@@ -383,7 +387,7 @@ namespace SDK.Script.FSDSDK
     public class BoneParticlesAfflictionEffect : AfflictionEffect
     {
         public BoneParticlesAfflictionEffect(nint addr) : base(addr) { }
-        public Array<ParticleSystem> Particles { get { return new Array<ParticleSystem>(this[nameof(Particles)].Address); } }
+        public UArray<ParticleSystem> Particles { get { return new UArray<ParticleSystem>(this[nameof(Particles)].Address); } }
         public SoundCue Sound { get { return this[nameof(Sound)].As<SoundCue>(); } set { this["Sound"] = value; } }
     }
     public class AnimatedItemParticleAfflictionEffect : AfflictionEffect
@@ -399,12 +403,12 @@ namespace SDK.Script.FSDSDK
         public AnimMontage FP_Montage { get { return this[nameof(FP_Montage)].As<AnimMontage>(); } set { this["FP_Montage"] = value; } }
         public AnimMontage TP_Montage { get { return this[nameof(TP_Montage)].As<AnimMontage>(); } set { this["TP_Montage"] = value; } }
         public float BlendOut { get { return this[nameof(BlendOut)].GetValue<float>(); } set { this[nameof(BlendOut)].SetValue<float>(value); } }
-        public Array<Object> RandomStarts { get { return new Array<Object>(this[nameof(RandomStarts)].Address); } }
+        public UArray<Object> RandomStarts { get { return new UArray<Object>(this[nameof(RandomStarts)].Address); } }
     }
     public class EnemySkinAfflictionEffect : AfflictionEffect
     {
         public EnemySkinAfflictionEffect(nint addr) : base(addr) { }
-        public Array<MaterialInterface> NewMaterials { get { return new Array<MaterialInterface>(this[nameof(NewMaterials)].Address); } }
+        public UArray<MaterialInterface> NewMaterials { get { return new UArray<MaterialInterface>(this[nameof(NewMaterials)].Address); } }
     }
     public class EnemyScaleAfflictionEffect : AfflictionEffect
     {
@@ -429,10 +433,10 @@ namespace SDK.Script.FSDSDK
         public PawnAffliction MediumStaggerAffliction { get { return this[nameof(MediumStaggerAffliction)].As<PawnAffliction>(); } set { this["MediumStaggerAffliction"] = value; } }
         public PawnAffliction ShortStaggerAffliction { get { return this[nameof(ShortStaggerAffliction)].As<PawnAffliction>(); } set { this["ShortStaggerAffliction"] = value; } }
         public PawnAffliction EliteAffliction { get { return this[nameof(EliteAffliction)].As<PawnAffliction>(); } set { this["EliteAffliction"] = value; } }
-        public Array<Object> BurningParticles { get { return new Array<Object>(this[nameof(BurningParticles)].Address); } }
-        public Array<Object> EletrocutedParticles { get { return new Array<Object>(this[nameof(EletrocutedParticles)].Address); } }
-        public Array<Object> ExplodingParticles { get { return new Array<Object>(this[nameof(ExplodingParticles)].Address); } }
-        public Array<Object> ExplodingSounds { get { return new Array<Object>(this[nameof(ExplodingSounds)].Address); } }
+        public UArray<Object> BurningParticles { get { return new UArray<Object>(this[nameof(BurningParticles)].Address); } }
+        public UArray<Object> EletrocutedParticles { get { return new UArray<Object>(this[nameof(EletrocutedParticles)].Address); } }
+        public UArray<Object> ExplodingParticles { get { return new UArray<Object>(this[nameof(ExplodingParticles)].Address); } }
+        public UArray<Object> ExplodingSounds { get { return new UArray<Object>(this[nameof(ExplodingSounds)].Address); } }
     }
     public class FSDPawn : Pawn
     {
@@ -493,7 +497,7 @@ namespace SDK.Script.FSDSDK
         public bool FrozenPauseLogic { get { return this[nameof(FrozenPauseLogic)].Flag; } set { this[nameof(FrozenPauseLogic)].Flag = value; } }
         public PawnAffliction CurrentStaggerAffliction { get { return this[nameof(CurrentStaggerAffliction)].As<PawnAffliction>(); } set { this["CurrentStaggerAffliction"] = value; } }
         public float AttackerRadius { get { return this[nameof(AttackerRadius)].GetValue<float>(); } set { this[nameof(AttackerRadius)].SetValue<float>(value); } }
-        public Array<MaterialInterface> CachedMaterials { get { return new Array<MaterialInterface>(this[nameof(CachedMaterials)].Address); } }
+        public UArray<MaterialInterface> CachedMaterials { get { return new UArray<MaterialInterface>(this[nameof(CachedMaterials)].Address); } }
         public float AllowedInFormationChance { get { return this[nameof(AllowedInFormationChance)].GetValue<float>(); } set { this[nameof(AllowedInFormationChance)].SetValue<float>(value); } }
         public bool TryJoinFormation() { return Invoke<bool>(nameof(TryJoinFormation)); }
         public void SetHidden(bool shouldHide) { Invoke(nameof(SetHidden), shouldHide); }
@@ -546,7 +550,7 @@ namespace SDK.Script.FSDSDK
         public bool GetIsInAttackStance() { return Invoke<bool>(nameof(GetIsInAttackStance)); }
         public void All_Ragdoll(Vector_NetQuantize Location, Vector_NetQuantize Impulse, byte BoneIndex) { Invoke(nameof(All_Ragdoll), Location, Impulse, BoneIndex); }
         public void AlertNearbyEnemies() { Invoke(nameof(AlertNearbyEnemies)); }
-        public void AddImpulseAndRagdoll(HealthComponent Health, float damageAmount, DamageData DamageData, Array<DamageTag> damageTags) { Invoke(nameof(AddImpulseAndRagdoll), Health, damageAmount, DamageData, damageTags); }
+        public void AddImpulseAndRagdoll(HealthComponent Health, float damageAmount, DamageData DamageData, UArray<DamageTag> damageTags) { Invoke(nameof(AddImpulseAndRagdoll), Health, damageAmount, DamageData, damageTags); }
     }
     public class EnemyAnimInstance : AnimInstance
     {
@@ -556,7 +560,7 @@ namespace SDK.Script.FSDSDK
         public Object OnStopLeadingNotify { get { return this[nameof(OnStopLeadingNotify)]; } set { this[nameof(OnStopLeadingNotify)] = value; } }
         public Object OnIsAttackingChanged { get { return this[nameof(OnIsAttackingChanged)]; } set { this[nameof(OnIsAttackingChanged)] = value; } }
         public bool IsAttacking { get { return this[nameof(IsAttacking)].Flag; } set { this[nameof(IsAttacking)].Flag = value; } }
-        public Array<EndEffector> EndEffectors { get { return new Array<EndEffector>(this[nameof(EndEffectors)].Address); } }
+        public UArray<EndEffector> EndEffectors { get { return new UArray<EndEffector>(this[nameof(EndEffectors)].Address); } }
         public Vector BodyPoseCorrectionLocation { get { return this[nameof(BodyPoseCorrectionLocation)].As<Vector>(); } set { this["BodyPoseCorrectionLocation"] = value; } }
         public Rotator BodyPoseCorrectionRotation { get { return this[nameof(BodyPoseCorrectionRotation)].As<Rotator>(); } set { this["BodyPoseCorrectionRotation"] = value; } }
         public float IKBlend { get { return this[nameof(IKBlend)].GetValue<float>(); } set { this[nameof(IKBlend)].SetValue<float>(value); } }
@@ -606,7 +610,7 @@ namespace SDK.Script.FSDSDK
         public void MakeEnemiesBackOutOfArea(Object WorldContextObject, Vector Center, float Radius) { Invoke(nameof(MakeEnemiesBackOutOfArea), WorldContextObject, Center, Radius); }
         public bool IsEnemyAlertet(Pawn enemy) { return Invoke<bool>(nameof(IsEnemyAlertet), enemy); }
         public PlayerCharacter GetPlayerTarget(Actor from, float MaxDistance, bool MustBeAlive, bool MustBeUnparalyzed, bool accountForAttackers, Actor ignoreTarget, bool IsFlying) { return Invoke<PlayerCharacter>(nameof(GetPlayerTarget), from, MaxDistance, MustBeAlive, MustBeUnparalyzed, accountForAttackers, ignoreTarget, IsFlying); }
-        public bool GetAttackableTargetsInRange(Actor from, Array<AttackerPositioningComponent> outArray, float MaxDistance, bool MustBeAlive, bool MustBeUnparalyzed, bool accountForAttackers, Actor ignoreTarget, bool IsFlying) { return Invoke<bool>(nameof(GetAttackableTargetsInRange), from, outArray, MaxDistance, MustBeAlive, MustBeUnparalyzed, accountForAttackers, ignoreTarget, IsFlying); }
+        public bool GetAttackableTargetsInRange(Actor from, UArray<AttackerPositioningComponent> outArray, float MaxDistance, bool MustBeAlive, bool MustBeUnparalyzed, bool accountForAttackers, Actor ignoreTarget, bool IsFlying) { return Invoke<bool>(nameof(GetAttackableTargetsInRange), from, outArray, MaxDistance, MustBeAlive, MustBeUnparalyzed, accountForAttackers, ignoreTarget, IsFlying); }
         public AttackerPositioningComponent GetAttackableTarget(Actor from, float MaxDistance, bool MustBeAlive, bool MustBeUnparalyzed, bool accountForAttackers, Actor ignoreTarget, bool IsFlying) { return Invoke<AttackerPositioningComponent>(nameof(GetAttackableTarget), from, MaxDistance, MustBeAlive, MustBeUnparalyzed, accountForAttackers, ignoreTarget, IsFlying); }
         public PlayerCharacter ConsiderChangingTarget_WithLineOfSight(PlayerCharacter CurrentTarget, Actor from, float MaxDistance, Object TraceSocketName, bool MustBeAlive, bool MustBeUnparalyzed, bool CurrentTargetMustBeAlive, bool IsFlying) { return Invoke<PlayerCharacter>(nameof(ConsiderChangingTarget_WithLineOfSight), CurrentTarget, from, MaxDistance, TraceSocketName, MustBeAlive, MustBeUnparalyzed, CurrentTargetMustBeAlive, IsFlying); }
         public PlayerCharacter ConsiderChangingTarget(PlayerCharacter CurrentTarget, Actor from, float MaxDistance, bool MustBeAlive, bool MustBeUnparalyzed, bool CurrentTargetMustBeAlive, bool IsFlying) { return Invoke<PlayerCharacter>(nameof(ConsiderChangingTarget), CurrentTarget, from, MaxDistance, MustBeAlive, MustBeUnparalyzed, CurrentTargetMustBeAlive, IsFlying); }
@@ -648,7 +652,7 @@ namespace SDK.Script.FSDSDK
     public class EnemyGroupDescriptor : DataAsset
     {
         public EnemyGroupDescriptor(nint addr) : base(addr) { }
-        public Array<EnemyGroupDescriptorItem> Enemies { get { return new Array<EnemyGroupDescriptorItem>(this[nameof(Enemies)].Address); } }
+        public UArray<EnemyGroupDescriptorItem> Enemies { get { return new UArray<EnemyGroupDescriptorItem>(this[nameof(Enemies)].Address); } }
         public bool UseCustomDiversity { get { return this[nameof(UseCustomDiversity)].Flag; } set { this[nameof(UseCustomDiversity)].Flag = value; } }
         public RandInterval Diversity { get { return this[nameof(Diversity)].As<RandInterval>(); } set { this["Diversity"] = value; } }
     }
@@ -671,7 +675,7 @@ namespace SDK.Script.FSDSDK
         public Object OnProgressBarChanged { get { return this[nameof(OnProgressBarChanged)]; } set { this[nameof(OnProgressBarChanged)] = value; } }
         public Object TimeProgressChanged { get { return this[nameof(TimeProgressChanged)]; } set { this[nameof(TimeProgressChanged)] = value; } }
         public Object ObjectivesPerStageChanged { get { return this[nameof(ObjectivesPerStageChanged)]; } set { this[nameof(ObjectivesPerStageChanged)] = value; } }
-        public Array<EventStarterButton> StarterObjects { get { return new Array<EventStarterButton>(this[nameof(StarterObjects)].Address); } }
+        public UArray<EventStarterButton> StarterObjects { get { return new UArray<EventStarterButton>(this[nameof(StarterObjects)].Address); } }
         public bool bGameEventSetup { get { return this[nameof(bGameEventSetup)].Flag; } set { this[nameof(bGameEventSetup)].Flag = value; } }
         public Object EventName { get { return this[nameof(EventName)]; } set { this[nameof(EventName)] = value; } }
         public Object ObjectiveText { get { return this[nameof(ObjectiveText)]; } set { this[nameof(ObjectiveText)] = value; } }
@@ -697,7 +701,7 @@ namespace SDK.Script.FSDSDK
         public bool ShowProgressBar { get { return this[nameof(ShowProgressBar)].Flag; } set { this[nameof(ShowProgressBar)].Flag = value; } }
         public float ProgressBarPct { get { return this[nameof(ProgressBarPct)].GetValue<float>(); } set { this[nameof(ProgressBarPct)].SetValue<float>(value); } }
         public bool SkipEventStarters { get { return this[nameof(SkipEventStarters)].Flag; } set { this[nameof(SkipEventStarters)].Flag = value; } }
-        public Array<Actor> EventParticipants { get { return new Array<Actor>(this[nameof(EventParticipants)].Address); } }
+        public UArray<Actor> EventParticipants { get { return new UArray<Actor>(this[nameof(EventParticipants)].Address); } }
         public void TrySetupGameEvent() { Invoke(nameof(TrySetupGameEvent)); }
         public void TriggerEvent() { Invoke(nameof(TriggerEvent)); }
         public void StartShout() { Invoke(nameof(StartShout)); }
@@ -740,8 +744,8 @@ namespace SDK.Script.FSDSDK
     {
         public AmberEvent(nint addr) : base(addr) { }
         public DamageComponent EndExplosionDamage { get { return this[nameof(EndExplosionDamage)].As<DamageComponent>(); } set { this["EndExplosionDamage"] = value; } }
-        public Array<AmberEventEnemyPool> EnemyPools { get { return new Array<AmberEventEnemyPool>(this[nameof(EnemyPools)].Address); } }
-        public Array<FSDPawn> spawnedEnemies { get { return new Array<FSDPawn>(this[nameof(spawnedEnemies)].Address); } }
+        public UArray<AmberEventEnemyPool> EnemyPools { get { return new UArray<AmberEventEnemyPool>(this[nameof(EnemyPools)].Address); } }
+        public UArray<FSDPawn> spawnedEnemies { get { return new UArray<FSDPawn>(this[nameof(spawnedEnemies)].Address); } }
         public Object CurrentPool { get { return this[nameof(CurrentPool)]; } set { this[nameof(CurrentPool)] = value; } }
         public float InitialDelayBeforeSpawn { get { return this[nameof(InitialDelayBeforeSpawn)].GetValue<float>(); } set { this[nameof(InitialDelayBeforeSpawn)].SetValue<float>(value); } }
         public float MaxSpawnRange { get { return this[nameof(MaxSpawnRange)].GetValue<float>(); } set { this[nameof(MaxSpawnRange)].SetValue<float>(value); } }
@@ -882,7 +886,7 @@ namespace SDK.Script.FSDSDK
         public AnimMontage TP_FireAnimation { get { return this[nameof(TP_FireAnimation)].As<AnimMontage>(); } set { this["TP_FireAnimation"] = value; } }
         public AnimMontage FP_ReloadAnimation { get { return this[nameof(FP_ReloadAnimation)].As<AnimMontage>(); } set { this["FP_ReloadAnimation"] = value; } }
         public ItemAnimationItem OverheatAnimation { get { return this[nameof(OverheatAnimation)].As<ItemAnimationItem>(); } set { this["OverheatAnimation"] = value; } }
-        public Array<ItemAnimationItem> GunslingAnimations { get { return new Array<ItemAnimationItem>(this[nameof(GunslingAnimations)].Address); } }
+        public UArray<ItemAnimationItem> GunslingAnimations { get { return new UArray<ItemAnimationItem>(this[nameof(GunslingAnimations)].Address); } }
         public AnimMontage TP_ReloadAnimation { get { return this[nameof(TP_ReloadAnimation)].As<AnimMontage>(); } set { this["TP_ReloadAnimation"] = value; } }
         public AnimMontage WPN_Fire { get { return this[nameof(WPN_Fire)].As<AnimMontage>(); } set { this["WPN_Fire"] = value; } }
         public AnimMontage WPN_FireLastBullet { get { return this[nameof(WPN_FireLastBullet)].As<AnimMontage>(); } set { this["WPN_FireLastBullet"] = value; } }
@@ -947,7 +951,7 @@ namespace SDK.Script.FSDSDK
         public int MaxManualHeatReductionCharges { get { return this[nameof(MaxManualHeatReductionCharges)].GetValue<int>(); } set { this[nameof(MaxManualHeatReductionCharges)].SetValue<int>(value); } }
         public float ManualHeatReductionValue { get { return this[nameof(ManualHeatReductionValue)].GetValue<float>(); } set { this[nameof(ManualHeatReductionValue)].SetValue<float>(value); } }
         public EAmmoWeaponState WeaponState { get { return (EAmmoWeaponState)this[nameof(WeaponState)].GetValue<int>(); } set { this[nameof(WeaponState)].SetValue<int>((int)value); } }
-        public void Upgraded_Blueprint_Implementation(Array<ItemUpgrade> Upgrades) { Invoke(nameof(Upgraded_Blueprint_Implementation), Upgrades); }
+        public void Upgraded_Blueprint_Implementation(UArray<ItemUpgrade> Upgrades) { Invoke(nameof(Upgraded_Blueprint_Implementation), Upgrades); }
         public void UpdateHoldToFire() { Invoke(nameof(UpdateHoldToFire)); }
         public void Server_StopReload(float BlendOutTime) { Invoke(nameof(Server_StopReload), BlendOutTime); }
         public void Server_ReloadWeapon(float CurrentReloadDuration) { Invoke(nameof(Server_ReloadWeapon), CurrentReloadDuration); }
@@ -1034,7 +1038,7 @@ namespace SDK.Script.FSDSDK
         public SphereComponent PushCollider4 { get { return this[nameof(PushCollider4)].As<SphereComponent>(); } set { this["PushCollider4"] = value; } }
         public Object OnSpunUp { get { return this[nameof(OnSpunUp)]; } set { this[nameof(OnSpunUp)] = value; } }
         public Vector AttatchmentOffset { get { return this[nameof(AttatchmentOffset)].As<Vector>(); } set { this["AttatchmentOffset"] = value; } }
-        public Array<Object> AttachmentPoints { get { return new Array<Object>(this[nameof(AttachmentPoints)].Address); } }
+        public UArray<Object> AttachmentPoints { get { return new UArray<Object>(this[nameof(AttachmentPoints)].Address); } }
         public float PerPlayerMultiplier { get { return this[nameof(PerPlayerMultiplier)].GetValue<float>(); } set { this[nameof(PerPlayerMultiplier)].SetValue<float>(value); } }
         public float TurnSpeed { get { return this[nameof(TurnSpeed)].GetValue<float>(); } set { this[nameof(TurnSpeed)].SetValue<float>(value); } }
         public float Progress { get { return this[nameof(Progress)].GetValue<float>(); } set { this[nameof(Progress)].SetValue<float>(value); } }
@@ -1079,7 +1083,7 @@ namespace SDK.Script.FSDSDK
         public SchematicAquisition(nint addr) : base(addr) { }
         public SchematicPricingTier PricingTier { get { return this[nameof(PricingTier)].As<SchematicPricingTier>(); } set { this["PricingTier"] = value; } }
         public SchematicRarity Rarity { get { return this[nameof(Rarity)].As<SchematicRarity>(); } set { this["Rarity"] = value; } }
-        public Array<Schematic> Schematics { get { return new Array<Schematic>(this[nameof(Schematics)].Address); } }
+        public UArray<Schematic> Schematics { get { return new UArray<Schematic>(this[nameof(Schematics)].Address); } }
     }
     public class TreassureAquisition : ItemAquisitionBase
     {
@@ -1092,7 +1096,7 @@ namespace SDK.Script.FSDSDK
         public bool ArmorDamageEnabled { get { return this[nameof(ArmorDamageEnabled)].Flag; } set { this[nameof(ArmorDamageEnabled)].Flag = value; } }
         public Object OnArmorShatteredEvent { get { return this[nameof(OnArmorShatteredEvent)]; } set { this[nameof(OnArmorShatteredEvent)] = value; } }
         public ArmorDamageEffects ArmorBreakEffects { get { return this[nameof(ArmorBreakEffects)].As<ArmorDamageEffects>(); } set { this["ArmorBreakEffects"] = value; } }
-        public Array<FSDPhysicalMaterial> ArmorPhysMats { get { return new Array<FSDPhysicalMaterial>(this[nameof(ArmorPhysMats)].Address); } }
+        public UArray<FSDPhysicalMaterial> ArmorPhysMats { get { return new UArray<FSDPhysicalMaterial>(this[nameof(ArmorPhysMats)].Address); } }
         public SkeletalMeshComponent Mesh { get { return this[nameof(Mesh)].As<SkeletalMeshComponent>(); } set { this["Mesh"] = value; } }
     }
     public class SimpleArmorDamageComponent : BaseArmorDamageComponent
@@ -1130,7 +1134,7 @@ namespace SDK.Script.FSDSDK
         public Object OnArmorPartDamagedEvent { get { return this[nameof(OnArmorPartDamagedEvent)]; } set { this[nameof(OnArmorPartDamagedEvent)] = value; } }
         public FXSystemAsset BreakParticle { get { return this[nameof(BreakParticle)].As<FXSystemAsset>(); } set { this["BreakParticle"] = value; } }
         public bool AffectedByAmorBreak { get { return this[nameof(AffectedByAmorBreak)].Flag; } set { this[nameof(AffectedByAmorBreak)].Flag = value; } }
-        public Array<CompositeArmorItem> ArmorItems { get { return new Array<CompositeArmorItem>(this[nameof(ArmorItems)].Address); } }
+        public UArray<CompositeArmorItem> ArmorItems { get { return new UArray<CompositeArmorItem>(this[nameof(ArmorItems)].Address); } }
         public ArmorDamageInfo ArmorDamageInfo { get { return this[nameof(ArmorDamageInfo)].As<ArmorDamageInfo>(); } set { this["ArmorDamageInfo"] = value; } }
         public void OnRep_ArmorDamageInfo(ArmorDamageInfo OldValue) { Invoke(nameof(OnRep_ArmorDamageInfo), OldValue); }
         public void AddArmorPart(PrimitiveComponent Primitive, float Health, bool overrideAffectedByArmomrBreak, bool NewAffectedByArmorBreak) { Invoke(nameof(AddArmorPart), Primitive, Health, overrideAffectedByArmomrBreak, NewAffectedByArmorBreak); }
@@ -1166,7 +1170,7 @@ namespace SDK.Script.FSDSDK
         public DetailedTagSet GetVanityTags() { return Invoke<DetailedTagSet>(nameof(GetVanityTags)); }
         public EVanitySlot GetVanitySlot() { return Invoke<EVanitySlot>(nameof(GetVanitySlot)); }
         public Object GetRestrictedCharacters() { return Invoke<Object>(nameof(GetRestrictedCharacters)); }
-        public Array<CraftingCost> GetResourceCost() { return Invoke<Array<CraftingCost>>(nameof(GetResourceCost)); }
+        public UArray<CraftingCost> GetResourceCost() { return Invoke<UArray<CraftingCost>>(nameof(GetResourceCost)); }
         public int GetRequiredPlayerRank() { return Invoke<int>(nameof(GetRequiredPlayerRank)); }
         public bool GetIsUnLockedFromStart() { return Invoke<bool>(nameof(GetIsUnLockedFromStart)); }
         public Texture GetIcon() { return Invoke<Texture>(nameof(GetIcon)); }
@@ -1189,7 +1193,7 @@ namespace SDK.Script.FSDSDK
         public Object Material { get { return this[nameof(Material)]; } set { this[nameof(Material)] = value; } }
         public DynamicIcon DynamicIcon { get { return this[nameof(DynamicIcon)].As<DynamicIcon>(); } set { this["DynamicIcon"] = value; } }
         public ArmorVanityItem LockedToArmor { get { return this[nameof(LockedToArmor)].As<ArmorVanityItem>(); } set { this["LockedToArmor"] = value; } }
-        public Array<ArmorVanityItem> BannedArmors { get { return new Array<ArmorVanityItem>(this[nameof(BannedArmors)].Address); } }
+        public UArray<ArmorVanityItem> BannedArmors { get { return new UArray<ArmorVanityItem>(this[nameof(BannedArmors)].Address); } }
         public Object ClothMaterial { get { return this[nameof(ClothMaterial)]; } set { this[nameof(ClothMaterial)] = value; } }
         public MaterialInstanceConstant SetArmorMaterialToTwoSided(MaterialInstance Parent) { return Invoke<MaterialInstanceConstant>(nameof(SetArmorMaterialToTwoSided), Parent); }
         public MaterialInstanceDynamic CreateIcon(Object Owner) { return Invoke<MaterialInstanceDynamic>(nameof(CreateIcon), Owner); }
@@ -1218,7 +1222,7 @@ namespace SDK.Script.FSDSDK
         public Object MaterialOverride { get { return this[nameof(MaterialOverride)]; } set { this[nameof(MaterialOverride)] = value; } }
         public bool CanOnlyUseDefaultArmorMaterial { get { return this[nameof(CanOnlyUseDefaultArmorMaterial)].Flag; } set { this[nameof(CanOnlyUseDefaultArmorMaterial)].Flag = value; } }
         public ArmorMaterialVanityItem DefaultArmorMaterial { get { return this[nameof(DefaultArmorMaterial)].As<ArmorMaterialVanityItem>(); } set { this["DefaultArmorMaterial"] = value; } }
-        public Array<TattooArmorItem> Tattoos { get { return new Array<TattooArmorItem>(this[nameof(Tattoos)].Address); } }
+        public UArray<TattooArmorItem> Tattoos { get { return new UArray<TattooArmorItem>(this[nameof(Tattoos)].Address); } }
         public void PreviewArmor(FSDPlayerState PlayerState, bool Show, bool useDefaultArmorMaterial) { Invoke(nameof(PreviewArmor), PlayerState, Show, useDefaultArmorMaterial); }
         public bool HasSleevelessArmorType() { return Invoke<bool>(nameof(HasSleevelessArmorType)); }
     }
@@ -1229,22 +1233,22 @@ namespace SDK.Script.FSDSDK
     public class AsyncLevelPersistanceActor : Actor
     {
         public AsyncLevelPersistanceActor(nint addr) : base(addr) { }
-        public Array<Object> References { get { return new Array<Object>(this[nameof(References)].Address); } }
+        public UArray<Object> References { get { return new UArray<Object>(this[nameof(References)].Address); } }
     }
     public class AsyncManager : GameInstanceSubsystem
     {
         public AsyncManager(nint addr) : base(addr) { }
-        public Array<Object> PermanentReferences { get { return new Array<Object>(this[nameof(PermanentReferences)].Address); } }
+        public UArray<Object> PermanentReferences { get { return new UArray<Object>(this[nameof(PermanentReferences)].Address); } }
         public Object SyncLoadClass(Object Asset) { return Invoke<Object>(nameof(SyncLoadClass), Asset); }
         public Object SyncLoadAsset(Object Asset) { return Invoke<Object>(nameof(SyncLoadAsset), Asset); }
         public void ReleaseAllHandles() { Invoke(nameof(ReleaseAllHandles)); }
-        public Array<Object> Receive_SyncLoadClasses(Array<Object> assets) { return Invoke<Array<Object>>(nameof(Receive_SyncLoadClasses), assets); }
+        public UArray<Object> Receive_SyncLoadClasses(UArray<Object> assets) { return Invoke<UArray<Object>>(nameof(Receive_SyncLoadClasses), assets); }
         public Object Receive_SyncLoadClass(Object Asset) { return Invoke<Object>(nameof(Receive_SyncLoadClass), Asset); }
-        public void AsyncLoadSoftObjects(Array<Object> Items, EAsyncPersistence persistence, Object OnLoadComplete, EAsyncLoadPriority Priority) { Invoke(nameof(AsyncLoadSoftObjects), Items, persistence, OnLoadComplete, Priority); }
+        public void AsyncLoadSoftObjects(UArray<Object> Items, EAsyncPersistence persistence, Object OnLoadComplete, EAsyncLoadPriority Priority) { Invoke(nameof(AsyncLoadSoftObjects), Items, persistence, OnLoadComplete, Priority); }
         public void AsyncLoadSoftObject(Object Item, EAsyncPersistence persistence, Object OnLoadComplete, EAsyncLoadPriority Priority) { Invoke(nameof(AsyncLoadSoftObject), Item, persistence, OnLoadComplete, Priority); }
-        public void AsyncLoadSoftClasses(Array<Object> Items, EAsyncPersistence persistence, Object OnLoadComplete, EAsyncLoadPriority Priority) { Invoke(nameof(AsyncLoadSoftClasses), Items, persistence, OnLoadComplete, Priority); }
+        public void AsyncLoadSoftClasses(UArray<Object> Items, EAsyncPersistence persistence, Object OnLoadComplete, EAsyncLoadPriority Priority) { Invoke(nameof(AsyncLoadSoftClasses), Items, persistence, OnLoadComplete, Priority); }
         public void AsyncLoadSoftClass(Object Item, EAsyncPersistence persistence, Object OnLoadComplete, EAsyncLoadPriority Priority) { Invoke(nameof(AsyncLoadSoftClass), Item, persistence, OnLoadComplete, Priority); }
-        public void AsyncLoadAssets(Array<SoftObjectPath> Items, EAsyncPersistence persistence, Object OnLoadComplete, EAsyncLoadPriority Priority) { Invoke(nameof(AsyncLoadAssets), Items, persistence, OnLoadComplete, Priority); }
+        public void AsyncLoadAssets(UArray<SoftObjectPath> Items, EAsyncPersistence persistence, Object OnLoadComplete, EAsyncLoadPriority Priority) { Invoke(nameof(AsyncLoadAssets), Items, persistence, OnLoadComplete, Priority); }
         public void AsyncLoadAsset(SoftObjectPath Item, EAsyncPersistence persistence, Object OnLoadComplete, EAsyncLoadPriority Priority) { Invoke(nameof(AsyncLoadAsset), Item, persistence, OnLoadComplete, Priority); }
     }
     public class AttackBaseComponent : ActorComponent
@@ -1272,7 +1276,7 @@ namespace SDK.Script.FSDSDK
     public class AttackCooldownComponent : ActorComponent
     {
         public AttackCooldownComponent(nint addr) : base(addr) { }
-        public Array<AttackCooldown> AttackCooldowns { get { return new Array<AttackCooldown>(this[nameof(AttackCooldowns)].Address); } }
+        public UArray<AttackCooldown> AttackCooldowns { get { return new UArray<AttackCooldown>(this[nameof(AttackCooldowns)].Address); } }
         public void SetCooldown(Object AttackName, float cooldownSeconds) { Invoke(nameof(SetCooldown), AttackName, cooldownSeconds); }
         public bool IsAttackOffCooldown(Object AttackName) { return Invoke<bool>(nameof(IsAttackOffCooldown), AttackName); }
         public bool IsAnyAttackOffCooldown() { return Invoke<bool>(nameof(IsAnyAttackOffCooldown)); }
@@ -1281,17 +1285,17 @@ namespace SDK.Script.FSDSDK
     public class AttackerManagerComponent : ActorComponent
     {
         public AttackerManagerComponent(nint addr) : base(addr) { }
-        public Array<AttackerPositioningComponent> Components { get { return new Array<AttackerPositioningComponent>(this[nameof(Components)].Address); } }
+        public UArray<AttackerPositioningComponent> Components { get { return new UArray<AttackerPositioningComponent>(this[nameof(Components)].Address); } }
     }
     public class AttackerPositioningComponent : ActorComponent
     {
         public AttackerPositioningComponent(nint addr) : base(addr) { }
         public bool DebugPositions { get { return this[nameof(DebugPositions)].Flag; } set { this[nameof(DebugPositions)].Flag = value; } }
         public int MaxAttackers { get { return this[nameof(MaxAttackers)].GetValue<int>(); } set { this[nameof(MaxAttackers)].SetValue<int>(value); } }
-        public Array<AttackerInfo> Attackers { get { return new Array<AttackerInfo>(this[nameof(Attackers)].Address); } }
-        public Array<int> FreePositions { get { return new Array<int>(this[nameof(FreePositions)].Address); } }
-        public Array<AttackerInfo> FlyingAttackers { get { return new Array<AttackerInfo>(this[nameof(FlyingAttackers)].Address); } }
-        public Array<int> FlyingFreePositions { get { return new Array<int>(this[nameof(FlyingFreePositions)].Address); } }
+        public UArray<AttackerInfo> Attackers { get { return new UArray<AttackerInfo>(this[nameof(Attackers)].Address); } }
+        public UArray<int> FreePositions { get { return new UArray<int>(this[nameof(FreePositions)].Address); } }
+        public UArray<AttackerInfo> FlyingAttackers { get { return new UArray<AttackerInfo>(this[nameof(FlyingAttackers)].Address); } }
+        public UArray<int> FlyingFreePositions { get { return new UArray<int>(this[nameof(FlyingFreePositions)].Address); } }
         public float CharacterPersonalSphere { get { return this[nameof(CharacterPersonalSphere)].GetValue<float>(); } set { this[nameof(CharacterPersonalSphere)].SetValue<float>(value); } }
         public float CharacterHalfHeight { get { return this[nameof(CharacterHalfHeight)].GetValue<float>(); } set { this[nameof(CharacterHalfHeight)].SetValue<float>(value); } }
         public float CostModifier { get { return this[nameof(CostModifier)].GetValue<float>(); } set { this[nameof(CostModifier)].SetValue<float>(value); } }
@@ -1318,7 +1322,7 @@ namespace SDK.Script.FSDSDK
     {
         public CustomObjectAttackerPositioning(nint addr) : base(addr) { }
         public HealthComponentBase Health { get { return this[nameof(Health)].As<HealthComponentBase>(); } set { this["Health"] = value; } }
-        public Array<Vector> AttackerPositions { get { return new Array<Vector>(this[nameof(AttackerPositions)].Address); } }
+        public UArray<Vector> AttackerPositions { get { return new UArray<Vector>(this[nameof(AttackerPositions)].Address); } }
     }
     public class EnemyAttackerPositioningComponent : AttackerPositioningComponent
     {
@@ -1328,7 +1332,7 @@ namespace SDK.Script.FSDSDK
     {
         public EscortMuleAttackerPositioning(nint addr) : base(addr) { }
         public HealthComponentBase Health { get { return this[nameof(Health)].As<HealthComponentBase>(); } set { this["Health"] = value; } }
-        public Array<Vector> AttackerPositions { get { return new Array<Vector>(this[nameof(AttackerPositions)].Address); } }
+        public UArray<Vector> AttackerPositions { get { return new UArray<Vector>(this[nameof(AttackerPositions)].Address); } }
         public void SetNewMaxAttackers(int newMaxAttackers) { Invoke(nameof(SetNewMaxAttackers), newMaxAttackers); }
         public void SetCostModifier(float newModifier) { Invoke(nameof(SetCostModifier), newModifier); }
     }
@@ -1422,9 +1426,9 @@ namespace SDK.Script.FSDSDK
     public class RandomizedInstantMeshCarver : Actor
     {
         public RandomizedInstantMeshCarver(nint addr) : base(addr) { }
-        public Array<StaticMesh> CarvingMeshes { get { return new Array<StaticMesh>(this[nameof(CarvingMeshes)].Address); } }
-        public Array<STLMeshCarver> STLCarvingMeshes { get { return new Array<STLMeshCarver>(this[nameof(STLCarvingMeshes)].Address); } }
-        public Array<StaticMeshCarver> StaticMeshCarvers { get { return new Array<StaticMeshCarver>(this[nameof(StaticMeshCarvers)].Address); } }
+        public UArray<StaticMesh> CarvingMeshes { get { return new UArray<StaticMesh>(this[nameof(CarvingMeshes)].Address); } }
+        public UArray<STLMeshCarver> STLCarvingMeshes { get { return new UArray<STLMeshCarver>(this[nameof(STLCarvingMeshes)].Address); } }
+        public UArray<StaticMeshCarver> StaticMeshCarvers { get { return new UArray<StaticMeshCarver>(this[nameof(StaticMeshCarvers)].Address); } }
         public RandRange RandomScale { get { return this[nameof(RandomScale)].As<RandRange>(); } set { this["RandomScale"] = value; } }
         public TerrainMaterialBase TerrainMaterial { get { return this[nameof(TerrainMaterial)].As<TerrainMaterialBase>(); } set { this["TerrainMaterial"] = value; } }
         public ECarveFilterType Filter { get { return (ECarveFilterType)this[nameof(Filter)].GetValue<int>(); } set { this[nameof(Filter)].SetValue<int>((int)value); } }
@@ -1599,8 +1603,8 @@ namespace SDK.Script.FSDSDK
     {
         public BEEMissionTemplate(nint addr) : base(addr) { }
         public int MissionCount { get { return this[nameof(MissionCount)].GetValue<int>(); } set { this[nameof(MissionCount)].SetValue<int>(value); } }
-        public Array<DifficultySetting> Difficulties { get { return new Array<DifficultySetting>(this[nameof(Difficulties)].Address); } }
-        public Array<BEETemplateItem> missions { get { return new Array<BEETemplateItem>(this[nameof(missions)].Address); } }
+        public UArray<DifficultySetting> Difficulties { get { return new UArray<DifficultySetting>(this[nameof(Difficulties)].Address); } }
+        public UArray<BEETemplateItem> missions { get { return new UArray<BEETemplateItem>(this[nameof(missions)].Address); } }
         public int CreditsPerPrimaryObjective { get { return this[nameof(CreditsPerPrimaryObjective)].GetValue<int>(); } set { this[nameof(CreditsPerPrimaryObjective)].SetValue<int>(value); } }
         public int CreditsPerSecondaryObjective { get { return this[nameof(CreditsPerSecondaryObjective)].GetValue<int>(); } set { this[nameof(CreditsPerSecondaryObjective)].SetValue<int>(value); } }
         public int XPPerPrimaryObjective { get { return this[nameof(XPPerPrimaryObjective)].GetValue<int>(); } set { this[nameof(XPPerPrimaryObjective)].SetValue<int>(value); } }
@@ -1615,11 +1619,11 @@ namespace SDK.Script.FSDSDK
     {
         public BEESettings(nint addr) : base(addr) { }
         public BEEMissionTemplate MissionTemplate { get { return this[nameof(MissionTemplate)].As<BEEMissionTemplate>(); } set { this["MissionTemplate"] = value; } }
-        public Array<Mutator> BaseMutators { get { return new Array<Mutator>(this[nameof(BaseMutators)].Address); } }
-        public Array<MissionMutator> Mutators { get { return new Array<MissionMutator>(this[nameof(Mutators)].Address); } }
-        public Array<MissionWarning> Warnings { get { return new Array<MissionWarning>(this[nameof(Warnings)].Address); } }
-        public Array<DialogDataAsset> BEEMissionCompleteShouts { get { return new Array<DialogDataAsset>(this[nameof(BEEMissionCompleteShouts)].Address); } }
-        public Array<BEELoaderSequence> LoaderSequnces { get { return new Array<BEELoaderSequence>(this[nameof(LoaderSequnces)].Address); } }
+        public UArray<Mutator> BaseMutators { get { return new UArray<Mutator>(this[nameof(BaseMutators)].Address); } }
+        public UArray<MissionMutator> Mutators { get { return new UArray<MissionMutator>(this[nameof(Mutators)].Address); } }
+        public UArray<MissionWarning> Warnings { get { return new UArray<MissionWarning>(this[nameof(Warnings)].Address); } }
+        public UArray<DialogDataAsset> BEEMissionCompleteShouts { get { return new UArray<DialogDataAsset>(this[nameof(BEEMissionCompleteShouts)].Address); } }
+        public UArray<BEELoaderSequence> LoaderSequnces { get { return new UArray<BEELoaderSequence>(this[nameof(LoaderSequnces)].Address); } }
         public MissionNameBank DeepDiveNameBank { get { return this[nameof(DeepDiveNameBank)].As<MissionNameBank>(); } set { this["DeepDiveNameBank"] = value; } }
         public Object MissionBar { get { return this[nameof(MissionBar)]; } set { this[nameof(MissionBar)] = value; } }
         public Object MissionEndScreen { get { return this[nameof(MissionEndScreen)]; } set { this[nameof(MissionEndScreen)] = value; } }
@@ -1704,16 +1708,16 @@ namespace SDK.Script.FSDSDK
         public HeatSource BiomeHeatSource { get { return this[nameof(BiomeHeatSource)].As<HeatSource>(); } set { this["BiomeHeatSource"] = value; } }
         public RandRange DepthRange { get { return this[nameof(DepthRange)].As<RandRange>(); } set { this["DepthRange"] = value; } }
         public Object AtmosphericParticles { get { return this[nameof(AtmosphericParticles)]; } set { this[nameof(AtmosphericParticles)] = value; } }
-        public Array<Object> CaveScriptComponents { get { return new Array<Object>(this[nameof(CaveScriptComponents)].Address); } }
+        public UArray<Object> CaveScriptComponents { get { return new UArray<Object>(this[nameof(CaveScriptComponents)].Address); } }
         public float ExtraCaveSize { get { return this[nameof(ExtraCaveSize)].GetValue<float>(); } set { this[nameof(ExtraCaveSize)].SetValue<float>(value); } }
-        public Array<DebrisSet> Debris { get { return new Array<DebrisSet>(this[nameof(Debris)].Address); } }
+        public UArray<DebrisSet> Debris { get { return new UArray<DebrisSet>(this[nameof(Debris)].Address); } }
         public Object DebrisActor { get { return this[nameof(DebrisActor)]; } set { this[nameof(DebrisActor)] = value; } }
         public Object PostProcessActorClass { get { return this[nameof(PostProcessActorClass)]; } set { this[nameof(PostProcessActorClass)] = value; } }
         public TerrainMaterial RockMaterial { get { return this[nameof(RockMaterial)].As<TerrainMaterial>(); } set { this["RockMaterial"] = value; } }
         public TerrainMaterial DirtMaterial { get { return this[nameof(DirtMaterial)].As<TerrainMaterial>(); } set { this["DirtMaterial"] = value; } }
         public TerrainMaterial BurnedMaterialOverride { get { return this[nameof(BurnedMaterialOverride)].As<TerrainMaterial>(); } set { this["BurnedMaterialOverride"] = value; } }
-        public Array<Object> FlavorMaterials { get { return new Array<Object>(this[nameof(FlavorMaterials)].Address); } }
-        public Array<BiomeNoiseItem> RoomNoises { get { return new Array<BiomeNoiseItem>(this[nameof(RoomNoises)].Address); } }
+        public UArray<Object> FlavorMaterials { get { return new UArray<Object>(this[nameof(FlavorMaterials)].Address); } }
+        public UArray<BiomeNoiseItem> RoomNoises { get { return new UArray<BiomeNoiseItem>(this[nameof(RoomNoises)].Address); } }
         public MissionStat MissionCompleted { get { return this[nameof(MissionCompleted)].As<MissionStat>(); } set { this["MissionCompleted"] = value; } }
         public FloodFillSettings CeilingNoise { get { return this[nameof(CeilingNoise)].As<FloodFillSettings>(); } set { this["CeilingNoise"] = value; } }
         public DetailNoise CeilingDetailNoise { get { return this[nameof(CeilingDetailNoise)].As<DetailNoise>(); } set { this["CeilingDetailNoise"] = value; } }
@@ -1724,15 +1728,15 @@ namespace SDK.Script.FSDSDK
         public FloodFillSettings PillarNoise { get { return this[nameof(PillarNoise)].As<FloodFillSettings>(); } set { this["PillarNoise"] = value; } }
         public DetailNoise PillarDetailNoise { get { return this[nameof(PillarDetailNoise)].As<DetailNoise>(); } set { this["PillarDetailNoise"] = value; } }
         public PillarSettings PillarSettings { get { return this[nameof(PillarSettings)].As<PillarSettings>(); } set { this["PillarSettings"] = value; } }
-        public Array<TunnelSetting> TunnelSettings { get { return new Array<TunnelSetting>(this[nameof(TunnelSettings)].Address); } }
+        public UArray<TunnelSetting> TunnelSettings { get { return new UArray<TunnelSetting>(this[nameof(TunnelSettings)].Address); } }
         public FloodFillSettings TunnelCeilingNoise { get { return this[nameof(TunnelCeilingNoise)].As<FloodFillSettings>(); } set { this["TunnelCeilingNoise"] = value; } }
         public FloodFillSettings TunnelWallNoise { get { return this[nameof(TunnelWallNoise)].As<FloodFillSettings>(); } set { this["TunnelWallNoise"] = value; } }
         public FloodFillSettings TunnelFloorNoise { get { return this[nameof(TunnelFloorNoise)].As<FloodFillSettings>(); } set { this["TunnelFloorNoise"] = value; } }
-        public Array<ResourceSpawner> Resources { get { return new Array<ResourceSpawner>(this[nameof(Resources)].Address); } }
-        public Array<BiomeEnemyEntry> Enemies { get { return new Array<BiomeEnemyEntry>(this[nameof(Enemies)].Address); } }
-        public Array<EnemyDescriptor> BannedEnemies { get { return new Array<EnemyDescriptor>(this[nameof(BannedEnemies)].Address); } }
-        public Array<EnemyDescriptor> StationaryEnemies { get { return new Array<EnemyDescriptor>(this[nameof(StationaryEnemies)].Address); } }
-        public Array<CritterDescriptor> Critters { get { return new Array<CritterDescriptor>(this[nameof(Critters)].Address); } }
+        public UArray<ResourceSpawner> Resources { get { return new UArray<ResourceSpawner>(this[nameof(Resources)].Address); } }
+        public UArray<BiomeEnemyEntry> Enemies { get { return new UArray<BiomeEnemyEntry>(this[nameof(Enemies)].Address); } }
+        public UArray<EnemyDescriptor> BannedEnemies { get { return new UArray<EnemyDescriptor>(this[nameof(BannedEnemies)].Address); } }
+        public UArray<EnemyDescriptor> StationaryEnemies { get { return new UArray<EnemyDescriptor>(this[nameof(StationaryEnemies)].Address); } }
+        public UArray<CritterDescriptor> Critters { get { return new UArray<CritterDescriptor>(this[nameof(Critters)].Address); } }
         public Object AmbientSounds { get { return this[nameof(AmbientSounds)]; } set { this[nameof(AmbientSounds)] = value; } }
         public bool Use3DAmbient { get { return this[nameof(Use3DAmbient)].Flag; } set { this[nameof(Use3DAmbient)].Flag = value; } }
         public ReverbSettings ReverbSettings { get { return this[nameof(ReverbSettings)].As<ReverbSettings>(); } set { this["ReverbSettings"] = value; } }
@@ -1745,7 +1749,7 @@ namespace SDK.Script.FSDSDK
         public Object TunnelAmbience { get { return this[nameof(TunnelAmbience)]; } set { this[nameof(TunnelAmbience)] = value; } }
         public Object BiomeLoaderLevelSequence { get { return this[nameof(BiomeLoaderLevelSequence)]; } set { this[nameof(BiomeLoaderLevelSequence)] = value; } }
         public Object BiomeLoaderLevelName { get { return this[nameof(BiomeLoaderLevelName)]; } set { this[nameof(BiomeLoaderLevelName)] = value; } }
-        public Array<Object> Quotes { get { return new Array<Object>(this[nameof(Quotes)].Address); } }
+        public UArray<Object> Quotes { get { return new UArray<Object>(this[nameof(Quotes)].Address); } }
         public float PlanetZoneSelectionWeight { get { return this[nameof(PlanetZoneSelectionWeight)].GetValue<float>(); } set { this[nameof(PlanetZoneSelectionWeight)].SetValue<float>(value); } }
         public void StartPreload(Object WorldContext) { Invoke(nameof(StartPreload), WorldContext); }
         public TerrainMaterial GetRockMaterial() { return Invoke<TerrainMaterial>(nameof(GetRockMaterial)); }
@@ -1758,7 +1762,7 @@ namespace SDK.Script.FSDSDK
         public Object GetBiomeName() { return Invoke<Object>(nameof(GetBiomeName)); }
         public Texture2D GetBiomeMissionBar() { return Invoke<Texture2D>(nameof(GetBiomeMissionBar)); }
         public Object GetBiomeMapWidget() { return Invoke<Object>(nameof(GetBiomeMapWidget)); }
-        public Array<SoftObjectPath> GetBiomeMapAssetList() { return Invoke<Array<SoftObjectPath>>(nameof(GetBiomeMapAssetList)); }
+        public UArray<SoftObjectPath> GetBiomeMapAssetList() { return Invoke<UArray<SoftObjectPath>>(nameof(GetBiomeMapAssetList)); }
         public Texture2D GetBiomeLargeImage() { return Invoke<Texture2D>(nameof(GetBiomeLargeImage)); }
         public int GetBiomeIndex() { return Invoke<int>(nameof(GetBiomeIndex)); }
         public Texture2D GetBiomeIcon() { return Invoke<Texture2D>(nameof(GetBiomeIcon)); }
@@ -1807,8 +1811,8 @@ namespace SDK.Script.FSDSDK
     {
         public PuddleTrackerComponent(nint addr) : base(addr) { }
         public void OnPuddleDestroyed(Actor DestroyedActor) { Invoke(nameof(OnPuddleDestroyed), DestroyedActor); }
-        public void GetPuddles(Array<Actor> Locations) { Invoke(nameof(GetPuddles), Locations); }
-        public void GetPuddleLocations(Array<Vector> Locations) { Invoke(nameof(GetPuddleLocations), Locations); }
+        public void GetPuddles(UArray<Actor> Locations) { Invoke(nameof(GetPuddles), Locations); }
+        public void GetPuddleLocations(UArray<Vector> Locations) { Invoke(nameof(GetPuddleLocations), Locations); }
         public void AddPuddle(Actor puddle) { Invoke(nameof(AddPuddle), puddle); }
     }
     public class TentacleManagerComponent : ActorComponent
@@ -1942,7 +1946,7 @@ namespace SDK.Script.FSDSDK
         public HealthComponent HealthComponent { get { return this[nameof(HealthComponent)].As<HealthComponent>(); } set { this["HealthComponent"] = value; } }
         public BoscoAbillityComponent PrimaryAbility { get { return this[nameof(PrimaryAbility)].As<BoscoAbillityComponent>(); } set { this["PrimaryAbility"] = value; } }
         public BoscoAbillityComponent SecondaryAbility { get { return this[nameof(SecondaryAbility)].As<BoscoAbillityComponent>(); } set { this["SecondaryAbility"] = value; } }
-        public Array<BoscoAbillityComponent> Abilities { get { return new Array<BoscoAbillityComponent>(this[nameof(Abilities)].Address); } }
+        public UArray<BoscoAbillityComponent> Abilities { get { return new UArray<BoscoAbillityComponent>(this[nameof(Abilities)].Address); } }
         public DamageComponent Damage { get { return this[nameof(Damage)].As<DamageComponent>(); } set { this["Damage"] = value; } }
         public PawnSensingComponent Senses { get { return this[nameof(Senses)].As<PawnSensingComponent>(); } set { this["Senses"] = value; } }
         public DroneMiningToolBase MiningTool { get { return this[nameof(MiningTool)].As<DroneMiningToolBase>(); } set { this["MiningTool"] = value; } }
@@ -1982,7 +1986,7 @@ namespace SDK.Script.FSDSDK
         public float INcreasedMiningArea { get { return this[nameof(INcreasedMiningArea)].GetValue<float>(); } set { this[nameof(INcreasedMiningArea)].SetValue<float>(value); } }
         public float TimeToResetMiningBoost { get { return this[nameof(TimeToResetMiningBoost)].GetValue<float>(); } set { this[nameof(TimeToResetMiningBoost)].SetValue<float>(value); } }
         public float MiningBoosMultiplier { get { return this[nameof(MiningBoosMultiplier)].GetValue<float>(); } set { this[nameof(MiningBoosMultiplier)].SetValue<float>(value); } }
-        public Array<ItemUpgrade> Upgrades { get { return new Array<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
+        public UArray<ItemUpgrade> Upgrades { get { return new UArray<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
         public BoscoProjectileAbillity RocketAbillity { get { return this[nameof(RocketAbillity)].As<BoscoProjectileAbillity>(); } set { this["RocketAbillity"] = value; } }
         public BoscoProjectileAbillity CryoGrenadeAbillity { get { return this[nameof(CryoGrenadeAbillity)].As<BoscoProjectileAbillity>(); } set { this["CryoGrenadeAbillity"] = value; } }
         public Guid SavegameID { get { return this[nameof(SavegameID)].As<Guid>(); } set { this["SavegameID"] = value; } }
@@ -1991,12 +1995,12 @@ namespace SDK.Script.FSDSDK
         public AnimSequenceBase SaluteAnimation { get { return this[nameof(SaluteAnimation)].As<AnimSequenceBase>(); } set { this["SaluteAnimation"] = value; } }
         public AnimSequenceBase PickupGemAnimation { get { return this[nameof(PickupGemAnimation)].As<AnimSequenceBase>(); } set { this["PickupGemAnimation"] = value; } }
         public AnimSequenceBase DropGemAnimation { get { return this[nameof(DropGemAnimation)].As<AnimSequenceBase>(); } set { this["DropGemAnimation"] = value; } }
-        public Array<AnimSequenceBase> HitReaction { get { return new Array<AnimSequenceBase>(this[nameof(HitReaction)].Address); } }
+        public UArray<AnimSequenceBase> HitReaction { get { return new UArray<AnimSequenceBase>(this[nameof(HitReaction)].Address); } }
         public float SaluteDuration { get { return this[nameof(SaluteDuration)].GetValue<float>(); } set { this[nameof(SaluteDuration)].SetValue<float>(value); } }
         public DroneSkinnableComponent Skinnable { get { return this[nameof(Skinnable)].As<DroneSkinnableComponent>(); } set { this["Skinnable"] = value; } }
-        public Array<BoscoLightSetting> LightSettings { get { return new Array<BoscoLightSetting>(this[nameof(LightSettings)].Address); } }
+        public UArray<BoscoLightSetting> LightSettings { get { return new UArray<BoscoLightSetting>(this[nameof(LightSettings)].Address); } }
         public int TargetLightSetting { get { return this[nameof(TargetLightSetting)].GetValue<int>(); } set { this[nameof(TargetLightSetting)].SetValue<int>(value); } }
-        public Array<BoscoAbillity> CombatAbillities { get { return new Array<BoscoAbillity>(this[nameof(CombatAbillities)].Address); } }
+        public UArray<BoscoAbillity> CombatAbillities { get { return new UArray<BoscoAbillity>(this[nameof(CombatAbillities)].Address); } }
         public Actor RotateTarget { get { return this[nameof(RotateTarget)].As<Actor>(); } set { this["RotateTarget"] = value; } }
         public Vector LookAtLocation { get { return this[nameof(LookAtLocation)].As<Vector>(); } set { this["LookAtLocation"] = value; } }
         public SoundCue ShootSound { get { return this[nameof(ShootSound)].As<SoundCue>(); } set { this["ShootSound"] = value; } }
@@ -2129,11 +2133,11 @@ namespace SDK.Script.FSDSDK
         public Object OnAbillityChargeUsed { get { return this[nameof(OnAbillityChargeUsed)]; } set { this[nameof(OnAbillityChargeUsed)] = value; } }
         public Object OnAbilityDataUpdated { get { return this[nameof(OnAbilityDataUpdated)]; } set { this[nameof(OnAbilityDataUpdated)] = value; } }
         public BoscoAbilityTarget Target { get { return this[nameof(Target)].As<BoscoAbilityTarget>(); } set { this["Target"] = value; } }
-        public Array<ItemUpgrade> Upgrades { get { return new Array<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
+        public UArray<ItemUpgrade> Upgrades { get { return new UArray<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
         public Object ProjectileClass { get { return this[nameof(ProjectileClass)]; } set { this[nameof(ProjectileClass)] = value; } }
         public Object StreamClass { get { return this[nameof(StreamClass)]; } set { this[nameof(StreamClass)] = value; } }
         public Object AbillityOwner { get { return this[nameof(AbillityOwner)]; } set { this[nameof(AbillityOwner)] = value; } }
-        public Array<ItemUpgrade> ProjectileUpgrades { get { return new Array<ItemUpgrade>(this[nameof(ProjectileUpgrades)].Address); } }
+        public UArray<ItemUpgrade> ProjectileUpgrades { get { return new UArray<ItemUpgrade>(this[nameof(ProjectileUpgrades)].Address); } }
         public BoscoProjectileAbillity AbilityData { get { return this[nameof(AbilityData)].As<BoscoProjectileAbillity>(); } set { this["AbilityData"] = value; } }
         public bool InitializeAtBeginPlay { get { return this[nameof(InitializeAtBeginPlay)].Flag; } set { this[nameof(InitializeAtBeginPlay)].Flag = value; } }
         public int GetMaxCharges(bool Total) { return Invoke<int>(nameof(GetMaxCharges), Total); }
@@ -2168,10 +2172,10 @@ namespace SDK.Script.FSDSDK
         public float DistCountAsSameHit { get { return this[nameof(DistCountAsSameHit)].GetValue<float>(); } set { this[nameof(DistCountAsSameHit)].SetValue<float>(value); } }
         public Object OnFollowTargetChangedDelegate { get { return this[nameof(OnFollowTargetChangedDelegate)]; } set { this[nameof(OnFollowTargetChangedDelegate)] = value; } }
         public TerrainMaterial HearthstoneCrystalMaterial { get { return this[nameof(HearthstoneCrystalMaterial)].As<TerrainMaterial>(); } set { this["HearthstoneCrystalMaterial"] = value; } }
-        public Array<TerrainMaterial> PlagueMaterials { get { return new Array<TerrainMaterial>(this[nameof(PlagueMaterials)].Address); } }
+        public UArray<TerrainMaterial> PlagueMaterials { get { return new UArray<TerrainMaterial>(this[nameof(PlagueMaterials)].Address); } }
         public TerrainMaterial RiftCrystalMaterial { get { return this[nameof(RiftCrystalMaterial)].As<TerrainMaterial>(); } set { this["RiftCrystalMaterial"] = value; } }
-        public Array<Object> VacuumableTypes { get { return new Array<Object>(this[nameof(VacuumableTypes)].Address); } }
-        public Array<Object> VacuumTargets { get { return new Array<Object>(this[nameof(VacuumTargets)].Address); } }
+        public UArray<Object> VacuumableTypes { get { return new UArray<Object>(this[nameof(VacuumableTypes)].Address); } }
+        public UArray<Object> VacuumTargets { get { return new UArray<Object>(this[nameof(VacuumTargets)].Address); } }
         public float SearchForEnemiesInterval { get { return this[nameof(SearchForEnemiesInterval)].GetValue<float>(); } set { this[nameof(SearchForEnemiesInterval)].SetValue<float>(value); } }
         public float SaluteDelay { get { return this[nameof(SaluteDelay)].GetValue<float>(); } set { this[nameof(SaluteDelay)].SetValue<float>(value); } }
         public float SaluteCooldown { get { return this[nameof(SaluteCooldown)].GetValue<float>(); } set { this[nameof(SaluteCooldown)].SetValue<float>(value); } }
@@ -2220,7 +2224,7 @@ namespace SDK.Script.FSDSDK
         public Object OnBossFightRemoved { get { return this[nameof(OnBossFightRemoved)]; } set { this[nameof(OnBossFightRemoved)] = value; } }
         public Object OnCustomWidgetAdded { get { return this[nameof(OnCustomWidgetAdded)]; } set { this[nameof(OnCustomWidgetAdded)] = value; } }
         public Object OnCustomWidgetRemoved { get { return this[nameof(OnCustomWidgetRemoved)]; } set { this[nameof(OnCustomWidgetRemoved)] = value; } }
-        public Array<Object> ActiveBossFights { get { return new Array<Object>(this[nameof(ActiveBossFights)].Address); } }
+        public UArray<Object> ActiveBossFights { get { return new UArray<Object>(this[nameof(ActiveBossFights)].Address); } }
         public void RemoveCustomBossFightWidget(UserWidget InWidget) { Invoke(nameof(RemoveCustomBossFightWidget), InWidget); }
         public void RegisterBossFight(Object BossFight) { Invoke(nameof(RegisterBossFight), BossFight); }
         public void DeregisterBossFight(Actor boss) { Invoke(nameof(DeregisterBossFight), boss); }
@@ -2249,7 +2253,7 @@ namespace SDK.Script.FSDSDK
         public float Duration { get { return this[nameof(Duration)].GetValue<float>(); } set { this[nameof(Duration)].SetValue<float>(value); } }
         public bool CanCook { get { return this[nameof(CanCook)].Flag; } set { this[nameof(CanCook)].Flag = value; } }
         public float cookTime { get { return this[nameof(cookTime)].GetValue<float>(); } set { this[nameof(cookTime)].SetValue<float>(value); } }
-        public Array<Vector2D> CookTickTimeline { get { return new Array<Vector2D>(this[nameof(CookTickTimeline)].Address); } }
+        public UArray<Vector2D> CookTickTimeline { get { return new UArray<Vector2D>(this[nameof(CookTickTimeline)].Address); } }
         public SoundCue CookingSound { get { return this[nameof(CookingSound)].As<SoundCue>(); } set { this["CookingSound"] = value; } }
         public float ExplosionDelay { get { return this[nameof(ExplosionDelay)].GetValue<float>(); } set { this[nameof(ExplosionDelay)].SetValue<float>(value); } }
         public bool ExplodeOnImpact { get { return this[nameof(ExplodeOnImpact)].Flag; } set { this[nameof(ExplodeOnImpact)].Flag = value; } }
@@ -2296,7 +2300,7 @@ namespace SDK.Script.FSDSDK
         public float CatchSoundRange { get { return this[nameof(CatchSoundRange)].GetValue<float>(); } set { this[nameof(CatchSoundRange)].SetValue<float>(value); } }
         public float HitTerrainRange { get { return this[nameof(HitTerrainRange)].GetValue<float>(); } set { this[nameof(HitTerrainRange)].SetValue<float>(value); } }
         public Vector CatchLocationOffset { get { return this[nameof(CatchLocationOffset)].As<Vector>(); } set { this["CatchLocationOffset"] = value; } }
-        public Array<Object> OnDamageStatusEffects { get { return new Array<Object>(this[nameof(OnDamageStatusEffects)].Address); } }
+        public UArray<Object> OnDamageStatusEffects { get { return new UArray<Object>(this[nameof(OnDamageStatusEffects)].Address); } }
         public NiagaraSystem EnemyHitNiagaraSystem { get { return this[nameof(EnemyHitNiagaraSystem)].As<NiagaraSystem>(); } set { this["EnemyHitNiagaraSystem"] = value; } }
         public ParticleSystem EnemyHitParticleSystem { get { return this[nameof(EnemyHitParticleSystem)].As<ParticleSystem>(); } set { this["EnemyHitParticleSystem"] = value; } }
         public SoundCue ImpactSound { get { return this[nameof(ImpactSound)].As<SoundCue>(); } set { this["ImpactSound"] = value; } }
@@ -2754,14 +2758,14 @@ namespace SDK.Script.FSDSDK
     {
         public Campaign(nint addr) : base(addr) { }
         public bool HasMissions { get { return this[nameof(HasMissions)].Flag; } set { this[nameof(HasMissions)].Flag = value; } }
-        public Array<CampaignMission> missions { get { return new Array<CampaignMission>(this[nameof(missions)].Address); } }
-        public Array<Reward> RewardsOnCampaignStart { get { return new Array<Reward>(this[nameof(RewardsOnCampaignStart)].Address); } }
-        public Array<Reward> RewardsOnCompletion { get { return new Array<Reward>(this[nameof(RewardsOnCompletion)].Address); } }
+        public UArray<CampaignMission> missions { get { return new UArray<CampaignMission>(this[nameof(missions)].Address); } }
+        public UArray<Reward> RewardsOnCampaignStart { get { return new UArray<Reward>(this[nameof(RewardsOnCampaignStart)].Address); } }
+        public UArray<Reward> RewardsOnCompletion { get { return new UArray<Reward>(this[nameof(RewardsOnCompletion)].Address); } }
         public DialogDataAsset CampaignCompleteShout { get { return this[nameof(CampaignCompleteShout)].As<DialogDataAsset>(); } set { this["CampaignCompleteShout"] = value; } }
-        public Array<CampaignRequirement> Requirements { get { return new Array<CampaignRequirement>(this[nameof(Requirements)].Address); } }
-        public Array<CampaignRequirement> VisibilityRequirements { get { return new Array<CampaignRequirement>(this[nameof(VisibilityRequirements)].Address); } }
+        public UArray<CampaignRequirement> Requirements { get { return new UArray<CampaignRequirement>(this[nameof(Requirements)].Address); } }
+        public UArray<CampaignRequirement> VisibilityRequirements { get { return new UArray<CampaignRequirement>(this[nameof(VisibilityRequirements)].Address); } }
         public PlayerCharacterID RequiredCharacterID { get { return this[nameof(RequiredCharacterID)].As<PlayerCharacterID>(); } set { this["RequiredCharacterID"] = value; } }
-        public Array<DifficultySetting> RestrictedToDifficulties { get { return new Array<DifficultySetting>(this[nameof(RestrictedToDifficulties)].Address); } }
+        public UArray<DifficultySetting> RestrictedToDifficulties { get { return new UArray<DifficultySetting>(this[nameof(RestrictedToDifficulties)].Address); } }
         public int Progress { get { return this[nameof(Progress)].GetValue<int>(); } set { this[nameof(Progress)].SetValue<int>(value); } }
         public int Seed { get { return this[nameof(Seed)].GetValue<int>(); } set { this[nameof(Seed)].SetValue<int>(value); } }
         public Guid SavegameID { get { return this[nameof(SavegameID)].As<Guid>(); } set { this["SavegameID"] = value; } }
@@ -2779,7 +2783,7 @@ namespace SDK.Script.FSDSDK
         public GameActivityAssignmentType CampaignActivity { get { return this[nameof(CampaignActivity)].As<GameActivityAssignmentType>(); } set { this["CampaignActivity"] = value; } }
         public Object ReplacesOldCampaignCampaign { get { return this[nameof(ReplacesOldCampaignCampaign)]; } set { this[nameof(ReplacesOldCampaignCampaign)] = value; } }
         public ECampaignMutators Mutators { get { return (ECampaignMutators)this[nameof(Mutators)].GetValue<int>(); } set { this[nameof(Mutators)].SetValue<int>((int)value); } }
-        public Array<MissionWarning> BannedWarnings { get { return new Array<MissionWarning>(this[nameof(BannedWarnings)].Address); } }
+        public UArray<MissionWarning> BannedWarnings { get { return new UArray<MissionWarning>(this[nameof(BannedWarnings)].Address); } }
         public bool IsComplete() { return Invoke<bool>(nameof(IsComplete)); }
         public bool IsCampaignComplete(Object WorldContext, Object Campaign) { return Invoke<bool>(nameof(IsCampaignComplete), WorldContext, Campaign); }
         public Campaign GetReference(Object Campaign) { return Invoke<Campaign>(nameof(GetReference), Campaign); }
@@ -2797,10 +2801,10 @@ namespace SDK.Script.FSDSDK
         public Object OnCampaignCompleted { get { return this[nameof(OnCampaignCompleted)]; } set { this[nameof(OnCampaignCompleted)] = value; } }
         public Object OnCampaignChanged { get { return this[nameof(OnCampaignChanged)]; } set { this[nameof(OnCampaignChanged)] = value; } }
         public Object MainCampaign { get { return this[nameof(MainCampaign)]; } set { this[nameof(MainCampaign)] = value; } }
-        public Array<Object> WeeklyCampaigns { get { return new Array<Object>(this[nameof(WeeklyCampaigns)].Address); } }
-        public Array<Object> MatrixCoreHuntCampaigns { get { return new Array<Object>(this[nameof(MatrixCoreHuntCampaigns)].Address); } }
-        public Array<Object> SideCampaigns { get { return new Array<Object>(this[nameof(SideCampaigns)].Address); } }
-        public Array<Object> EventCampaigns { get { return new Array<Object>(this[nameof(EventCampaigns)].Address); } }
+        public UArray<Object> WeeklyCampaigns { get { return new UArray<Object>(this[nameof(WeeklyCampaigns)].Address); } }
+        public UArray<Object> MatrixCoreHuntCampaigns { get { return new UArray<Object>(this[nameof(MatrixCoreHuntCampaigns)].Address); } }
+        public UArray<Object> SideCampaigns { get { return new UArray<Object>(this[nameof(SideCampaigns)].Address); } }
+        public UArray<Object> EventCampaigns { get { return new UArray<Object>(this[nameof(EventCampaigns)].Address); } }
         public Campaign ActiveCampaign { get { return this[nameof(ActiveCampaign)].As<Campaign>(); } set { this["ActiveCampaign"] = value; } }
         public int NumFailedRequests { get { return this[nameof(NumFailedRequests)].GetValue<int>(); } set { this[nameof(NumFailedRequests)].SetValue<int>(value); } }
         public bool WeeklyBackendDataValid { get { return this[nameof(WeeklyBackendDataValid)].Flag; } set { this[nameof(WeeklyBackendDataValid)].Flag = value; } }
@@ -2815,9 +2819,9 @@ namespace SDK.Script.FSDSDK
         public bool IsCampaignRestrictionsMet(Object WorldContextObject, GeneratedMission mission, DifficultySetting optionalDifficulty) { return Invoke<bool>(nameof(IsCampaignRestrictionsMet), WorldContextObject, mission, optionalDifficulty); }
         public bool IsCampaignMission(Object WorldContextObject, GeneratedMission mission) { return Invoke<bool>(nameof(IsCampaignMission), WorldContextObject, mission); }
         public bool IsActiveCampaign(Campaign Campaign) { return Invoke<bool>(nameof(IsActiveCampaign), Campaign); }
-        public Array<Object> GetUncompletedCampaigns(FSDPlayerController Player) { return Invoke<Array<Object>>(nameof(GetUncompletedCampaigns), Player); }
-        public Array<Object> GetCompletedSideCampaigns(FSDPlayerController Player) { return Invoke<Array<Object>>(nameof(GetCompletedSideCampaigns), Player); }
-        public GeneratedMission GetCampaingMission(Array<GeneratedMission> missions, GlobalMissionSeed GlobalSeed) { return Invoke<GeneratedMission>(nameof(GetCampaingMission), missions, GlobalSeed); }
+        public UArray<Object> GetUncompletedCampaigns(FSDPlayerController Player) { return Invoke<UArray<Object>>(nameof(GetUncompletedCampaigns), Player); }
+        public UArray<Object> GetCompletedSideCampaigns(FSDPlayerController Player) { return Invoke<UArray<Object>>(nameof(GetCompletedSideCampaigns), Player); }
+        public GeneratedMission GetCampaingMission(UArray<GeneratedMission> missions, GlobalMissionSeed GlobalSeed) { return Invoke<GeneratedMission>(nameof(GetCampaingMission), missions, GlobalSeed); }
         public void CompleteCampaignWithNoMissions(Object campaignClass, FSDSaveGame SaveGame) { Invoke(nameof(CompleteCampaignWithNoMissions), campaignClass, SaveGame); }
         public void CampaignCompletedDelegate__DelegateSignature() { Invoke(nameof(CampaignCompletedDelegate__DelegateSignature)); }
         public void CampaignChangedDelegate__DelegateSignature() { Invoke(nameof(CampaignChangedDelegate__DelegateSignature)); }
@@ -2828,11 +2832,11 @@ namespace SDK.Script.FSDSDK
         public CampaignMission(nint addr) : base(addr) { }
         public PlanetZone PlanetZone { get { return this[nameof(PlanetZone)].As<PlanetZone>(); } set { this["PlanetZone"] = value; } }
         public RequiredMissionItem mission { get { return this[nameof(mission)].As<RequiredMissionItem>(); } set { this["mission"] = value; } }
-        public Array<Reward> Rewards { get { return new Array<Reward>(this[nameof(Rewards)].Address); } }
+        public UArray<Reward> Rewards { get { return new UArray<Reward>(this[nameof(Rewards)].Address); } }
         public DialogDataAsset MissionCompleteShout { get { return this[nameof(MissionCompleteShout)].As<DialogDataAsset>(); } set { this["MissionCompleteShout"] = value; } }
         public bool OverrideMutators { get { return this[nameof(OverrideMutators)].Flag; } set { this[nameof(OverrideMutators)].Flag = value; } }
         public ECampaignMutators MutatorOverride { get { return (ECampaignMutators)this[nameof(MutatorOverride)].GetValue<int>(); } set { this[nameof(MutatorOverride)].SetValue<int>((int)value); } }
-        public Array<MissionWarning> AllowedWarnings { get { return new Array<MissionWarning>(this[nameof(AllowedWarnings)].Address); } }
+        public UArray<MissionWarning> AllowedWarnings { get { return new UArray<MissionWarning>(this[nameof(AllowedWarnings)].Address); } }
         public MissionTemplate GetMissionTemplate() { return Invoke<MissionTemplate>(nameof(GetMissionTemplate)); }
     }
     public class CampaignRequirement : Object
@@ -2948,7 +2952,7 @@ namespace SDK.Script.FSDSDK
         public EImpactDecalSize ImpactDecalSize { get { return (EImpactDecalSize)this[nameof(ImpactDecalSize)].GetValue<int>(); } set { this[nameof(ImpactDecalSize)].SetValue<int>((int)value); } }
         public float FriendlyFireModifier { get { return this[nameof(FriendlyFireModifier)].GetValue<float>(); } set { this[nameof(FriendlyFireModifier)].SetValue<float>(value); } }
         public bool UseDynamicSpread { get { return this[nameof(UseDynamicSpread)].Flag; } set { this[nameof(UseDynamicSpread)].Flag = value; } }
-        public Array<Actor> IgnoredActorsInTrace { get { return new Array<Actor>(this[nameof(IgnoredActorsInTrace)].Address); } }
+        public UArray<Actor> IgnoredActorsInTrace { get { return new UArray<Actor>(this[nameof(IgnoredActorsInTrace)].Address); } }
         public float MinSpread { get { return this[nameof(MinSpread)].GetValue<float>(); } set { this[nameof(MinSpread)].SetValue<float>(value); } }
         public float MinSpreadWhenMoving { get { return this[nameof(MinSpreadWhenMoving)].GetValue<float>(); } set { this[nameof(MinSpreadWhenMoving)].SetValue<float>(value); } }
         public float MinSpreadWhenSprinting { get { return this[nameof(MinSpreadWhenSprinting)].GetValue<float>(); } set { this[nameof(MinSpreadWhenSprinting)].SetValue<float>(value); } }
@@ -2980,8 +2984,8 @@ namespace SDK.Script.FSDSDK
         public bool ShowPhysMatDecal { get { return this[nameof(ShowPhysMatDecal)].Flag; } set { this[nameof(ShowPhysMatDecal)].Flag = value; } }
         public bool PlayPhysMatSound { get { return this[nameof(PlayPhysMatSound)].Flag; } set { this[nameof(PlayPhysMatSound)].Flag = value; } }
         public Object ActorsInCapsule { get { return this[nameof(ActorsInCapsule)]; } set { this[nameof(ActorsInCapsule)] = value; } }
-        public Array<Actor> DamagedActorCache { get { return new Array<Actor>(this[nameof(DamagedActorCache)].Address); } }
-        public Array<Actor> ActorsHit { get { return new Array<Actor>(this[nameof(ActorsHit)].Address); } }
+        public UArray<Actor> DamagedActorCache { get { return new UArray<Actor>(this[nameof(DamagedActorCache)].Address); } }
+        public UArray<Actor> ActorsHit { get { return new UArray<Actor>(this[nameof(ActorsHit)].Address); } }
         public MultiHitScanHits Hits { get { return this[nameof(Hits)].As<MultiHitScanHits>(); } set { this["Hits"] = value; } }
         public void Server_RegisterHit(MultiHitScanHits hitResults) { Invoke(nameof(Server_RegisterHit), hitResults); }
         public void All_ShowHit(MultiHitScanHits hitResults) { Invoke(nameof(All_ShowHit), hitResults); }
@@ -2991,17 +2995,17 @@ namespace SDK.Script.FSDSDK
         public Caretaker(nint addr) : base(addr) { }
         public SceneComponent Root { get { return this[nameof(Root)].As<SceneComponent>(); } set { this["Root"] = value; } }
         public SkeletalMeshComponent Body { get { return this[nameof(Body)].As<SkeletalMeshComponent>(); } set { this["Body"] = value; } }
-        public Array<SkeletalMeshComponent> Eyes { get { return new Array<SkeletalMeshComponent>(this[nameof(Eyes)].Address); } }
-        public Array<PassthroughSubHealthComponent> subHealth { get { return new Array<PassthroughSubHealthComponent>(this[nameof(subHealth)].Address); } }
+        public UArray<SkeletalMeshComponent> Eyes { get { return new UArray<SkeletalMeshComponent>(this[nameof(Eyes)].Address); } }
+        public UArray<PassthroughSubHealthComponent> subHealth { get { return new UArray<PassthroughSubHealthComponent>(this[nameof(subHealth)].Address); } }
         public HealthDamageTracker DamageTracker { get { return this[nameof(DamageTracker)].As<HealthDamageTracker>(); } set { this["DamageTracker"] = value; } }
         public EnemyHealthComponent Health { get { return this[nameof(Health)].As<EnemyHealthComponent>(); } set { this["Health"] = value; } }
         public PawnStatsComponent PawnStats { get { return this[nameof(PawnStats)].As<PawnStatsComponent>(); } set { this["PawnStats"] = value; } }
-        public Array<CaretakerActionComponent> Actions { get { return new Array<CaretakerActionComponent>(this[nameof(Actions)].Address); } }
+        public UArray<CaretakerActionComponent> Actions { get { return new UArray<CaretakerActionComponent>(this[nameof(Actions)].Address); } }
         public CaretakerActionComponent CurrentAction { get { return this[nameof(CurrentAction)].As<CaretakerActionComponent>(); } set { this["CurrentAction"] = value; } }
-        public Array<AnimSequenceBase> HitReactions { get { return new Array<AnimSequenceBase>(this[nameof(HitReactions)].Address); } }
+        public UArray<AnimSequenceBase> HitReactions { get { return new UArray<AnimSequenceBase>(this[nameof(HitReactions)].Address); } }
         public int CurrentStage { get { return this[nameof(CurrentStage)].GetValue<int>(); } set { this[nameof(CurrentStage)].SetValue<int>(value); } }
         public int TargetRotationRate { get { return this[nameof(TargetRotationRate)].GetValue<int>(); } set { this[nameof(TargetRotationRate)].SetValue<int>(value); } }
-        public Array<float> RotationRates { get { return new Array<float>(this[nameof(RotationRates)].Address); } }
+        public UArray<float> RotationRates { get { return new UArray<float>(this[nameof(RotationRates)].Address); } }
         public float Server_Rotation { get { return this[nameof(Server_Rotation)].GetValue<float>(); } set { this[nameof(Server_Rotation)].SetValue<float>(value); } }
         public bool IsInStageCooldown { get { return this[nameof(IsInStageCooldown)].Flag; } set { this[nameof(IsInStageCooldown)].Flag = value; } }
         public bool IsWeakpointAVisible { get { return this[nameof(IsWeakpointAVisible)].Flag; } set { this[nameof(IsWeakpointAVisible)].Flag = value; } }
@@ -3025,7 +3029,7 @@ namespace SDK.Script.FSDSDK
         public bool IsAwake() { return Invoke<bool>(nameof(IsAwake)); }
         public bool IsAnyEyeOpen() { return Invoke<bool>(nameof(IsAnyEyeOpen)); }
         public void InitiateNextStage() { Invoke(nameof(InitiateNextStage)); }
-        public void InitCaretakerActions(Array<CaretakerActionComponent> carettakeractions) { Invoke(nameof(InitCaretakerActions), carettakeractions); }
+        public void InitCaretakerActions(UArray<CaretakerActionComponent> carettakeractions) { Invoke(nameof(InitCaretakerActions), carettakeractions); }
         public void CloseAllEyes() { Invoke(nameof(CloseAllEyes)); }
     }
     public class CaretagerBodyAnimInstance : EnemyAnimInstance
@@ -3152,8 +3156,8 @@ namespace SDK.Script.FSDSDK
         public TerrainMaterial TerrainMaterial { get { return this[nameof(TerrainMaterial)].As<TerrainMaterial>(); } set { this["TerrainMaterial"] = value; } }
         public ECarveFilterType Filter { get { return (ECarveFilterType)this[nameof(Filter)].GetValue<int>(); } set { this[nameof(Filter)].SetValue<int>((int)value); } }
         public CarveOptionsCellSize CarveCellSize { get { return (CarveOptionsCellSize)this[nameof(CarveCellSize)].GetValue<int>(); } set { this[nameof(CarveCellSize)].SetValue<int>((int)value); } }
-        public Array<UDebrisCarveMesh> Meshes { get { return new Array<UDebrisCarveMesh>(this[nameof(Meshes)].Address); } }
-        public Array<ResourceDebris> Debris { get { return new Array<ResourceDebris>(this[nameof(Debris)].Address); } }
+        public UArray<UDebrisCarveMesh> Meshes { get { return new UArray<UDebrisCarveMesh>(this[nameof(Meshes)].Address); } }
+        public UArray<ResourceDebris> Debris { get { return new UArray<ResourceDebris>(this[nameof(Debris)].Address); } }
     }
     public class ResourceData : DataAsset
     {
@@ -3263,7 +3267,7 @@ namespace SDK.Script.FSDSDK
         public bool SpawnEncounters { get { return this[nameof(SpawnEncounters)].Flag; } set { this[nameof(SpawnEncounters)].Flag = value; } }
         public Object TestEnemies { get { return this[nameof(TestEnemies)]; } set { this[nameof(TestEnemies)] = value; } }
         public MissionMutator TestMutator { get { return this[nameof(TestMutator)].As<MissionMutator>(); } set { this["TestMutator"] = value; } }
-        public Array<MissionWarning> TestWarnings { get { return new Array<MissionWarning>(this[nameof(TestWarnings)].Address); } }
+        public UArray<MissionWarning> TestWarnings { get { return new UArray<MissionWarning>(this[nameof(TestWarnings)].Address); } }
         public MissionChallenge TestChallenge { get { return this[nameof(TestChallenge)].As<MissionChallenge>(); } set { this["TestChallenge"] = value; } }
         public SpecialEvent TestSpecialEvent { get { return this[nameof(TestSpecialEvent)].As<SpecialEvent>(); } set { this["TestSpecialEvent"] = value; } }
         public SpecialEvent TestTreasure { get { return this[nameof(TestTreasure)].As<SpecialEvent>(); } set { this["TestTreasure"] = value; } }
@@ -3291,7 +3295,7 @@ namespace SDK.Script.FSDSDK
         public EnemyComponent enemy { get { return this[nameof(enemy)].As<EnemyComponent>(); } set { this["enemy"] = value; } }
         public Object CenterMassSocketName { get { return this[nameof(CenterMassSocketName)]; } set { this[nameof(CenterMassSocketName)] = value; } }
         public QueuedMontage QueuedMontage { get { return this[nameof(QueuedMontage)].As<QueuedMontage>(); } set { this["QueuedMontage"] = value; } }
-        public Array<MaterialInterface> CachedMaterials { get { return new Array<MaterialInterface>(this[nameof(CachedMaterials)].Address); } }
+        public UArray<MaterialInterface> CachedMaterials { get { return new UArray<MaterialInterface>(this[nameof(CachedMaterials)].Address); } }
         public MeshComponent Receive_GetMeshComponent() { return Invoke<MeshComponent>(nameof(Receive_GetMeshComponent)); }
         public void OnRep_QueuedMontage() { Invoke(nameof(OnRep_QueuedMontage)); }
         public SkeletalMeshComponent GetMesh() { return Invoke<SkeletalMeshComponent>(nameof(GetMesh)); }
@@ -3459,12 +3463,12 @@ namespace SDK.Script.FSDSDK
     public class CharacterSettings : DataAsset
     {
         public CharacterSettings(nint addr) : base(addr) { }
-        public Array<Object> RankedHeroClasses { get { return new Array<Object>(this[nameof(RankedHeroClasses)].Address); } }
-        public Array<Object> PlayerRankNames { get { return new Array<Object>(this[nameof(PlayerRankNames)].Address); } }
+        public UArray<Object> RankedHeroClasses { get { return new UArray<Object>(this[nameof(RankedHeroClasses)].Address); } }
+        public UArray<Object> PlayerRankNames { get { return new UArray<Object>(this[nameof(PlayerRankNames)].Address); } }
         public Object InventoryLists { get { return this[nameof(InventoryLists)]; } set { this[nameof(InventoryLists)] = value; } }
-        public Array<int> CharacterXPLevels { get { return new Array<int>(this[nameof(CharacterXPLevels)].Address); } }
+        public UArray<int> CharacterXPLevels { get { return new UArray<int>(this[nameof(CharacterXPLevels)].Address); } }
         public Object PlayerCharacterIDMap { get { return this[nameof(PlayerCharacterIDMap)]; } set { this[nameof(PlayerCharacterIDMap)] = value; } }
-        public Array<PlayerCharacterID> PlayerCharacterIDs { get { return new Array<PlayerCharacterID>(this[nameof(PlayerCharacterIDs)].Address); } }
+        public UArray<PlayerCharacterID> PlayerCharacterIDs { get { return new UArray<PlayerCharacterID>(this[nameof(PlayerCharacterIDs)].Address); } }
         public PlayerCharacterID BoscoID { get { return this[nameof(BoscoID)].As<PlayerCharacterID>(); } set { this["BoscoID"] = value; } }
         public PlayerCharacterID DefaultCharacterID { get { return this[nameof(DefaultCharacterID)].As<PlayerCharacterID>(); } set { this["DefaultCharacterID"] = value; } }
         public PlayerCharacterID DefaultEditorCharacterID { get { return this[nameof(DefaultEditorCharacterID)].As<PlayerCharacterID>(); } set { this["DefaultEditorCharacterID"] = value; } }
@@ -3494,7 +3498,7 @@ namespace SDK.Script.FSDSDK
         public Object OnTargetChanged { get { return this[nameof(OnTargetChanged)]; } set { this[nameof(OnTargetChanged)] = value; } }
         public float TargetMaxDistance { get { return this[nameof(TargetMaxDistance)].GetValue<float>(); } set { this[nameof(TargetMaxDistance)].SetValue<float>(value); } }
         public byte TraceChannel { get { return this[nameof(TraceChannel)].GetValue<byte>(); } set { this[nameof(TraceChannel)].SetValue<byte>(value); } }
-        public Array<Object> IgnoredActors { get { return new Array<Object>(this[nameof(IgnoredActors)].Address); } }
+        public UArray<Object> IgnoredActors { get { return new UArray<Object>(this[nameof(IgnoredActors)].Address); } }
         public PlayerCharacter Character { get { return this[nameof(Character)].As<PlayerCharacter>(); } set { this["Character"] = value; } }
         public Object TargetActor { get { return this[nameof(TargetActor)]; } set { this[nameof(TargetActor)] = value; } }
         public Object TargetPrimitive { get { return this[nameof(TargetPrimitive)]; } set { this[nameof(TargetPrimitive)] = value; } }
@@ -3504,7 +3508,7 @@ namespace SDK.Script.FSDSDK
         public Object TargetHealth { get { return this[nameof(TargetHealth)]; } set { this[nameof(TargetHealth)] = value; } }
         public Object TargetTargetable { get { return this[nameof(TargetTargetable)]; } set { this[nameof(TargetTargetable)] = value; } }
         public float TargetTime { get { return this[nameof(TargetTime)].GetValue<float>(); } set { this[nameof(TargetTime)].SetValue<float>(value); } }
-        public Array<Object> TargetSensors { get { return new Array<Object>(this[nameof(TargetSensors)].Address); } }
+        public UArray<Object> TargetSensors { get { return new UArray<Object>(this[nameof(TargetSensors)].Address); } }
         public ReplicatedCharacterData ReplicatedData { get { return this[nameof(ReplicatedData)].As<ReplicatedCharacterData>(); } set { this["ReplicatedData"] = value; } }
         public void TargetChangedSignature__DelegateSignature(Actor NewTarget, PrimitiveComponent NewPrimitive) { Invoke(nameof(TargetChangedSignature__DelegateSignature), NewTarget, NewPrimitive); }
         public void Server_UpdateTarget(Actor NewActor, PrimitiveComponent NewPrimitive) { Invoke(nameof(Server_UpdateTarget), NewActor, NewPrimitive); }
@@ -3525,7 +3529,7 @@ namespace SDK.Script.FSDSDK
         public float SensorActiveForMinDuration { get { return this[nameof(SensorActiveForMinDuration)].GetValue<float>(); } set { this[nameof(SensorActiveForMinDuration)].SetValue<float>(value); } }
         public float MinimumDistance { get { return this[nameof(MinimumDistance)].GetValue<float>(); } set { this[nameof(MinimumDistance)].SetValue<float>(value); } }
         public float MaximumDistance { get { return this[nameof(MaximumDistance)].GetValue<float>(); } set { this[nameof(MaximumDistance)].SetValue<float>(value); } }
-        public Array<PrimitiveComponent> RestrictToColliders { get { return new Array<PrimitiveComponent>(this[nameof(RestrictToColliders)].Address); } }
+        public UArray<PrimitiveComponent> RestrictToColliders { get { return new UArray<PrimitiveComponent>(this[nameof(RestrictToColliders)].Address); } }
         public bool bSensorActivated { get { return this[nameof(bSensorActivated)].Flag; } set { this[nameof(bSensorActivated)].Flag = value; } }
         public float TimeActive { get { return this[nameof(TimeActive)].GetValue<float>(); } set { this[nameof(TimeActive)].SetValue<float>(value); } }
         public float LastSeenTime { get { return this[nameof(LastSeenTime)].GetValue<float>(); } set { this[nameof(LastSeenTime)].SetValue<float>(value); } }
@@ -3563,7 +3567,7 @@ namespace SDK.Script.FSDSDK
         public CharacterUseState LocalState { get { return this[nameof(LocalState)].As<CharacterUseState>(); } set { this["LocalState"] = value; } }
         public CharacterUseState LastRequestedState { get { return this[nameof(LastRequestedState)].As<CharacterUseState>(); } set { this["LastRequestedState"] = value; } }
         public UsableComponentBase LastBeginUseUsable { get { return this[nameof(LastBeginUseUsable)].As<UsableComponentBase>(); } set { this["LastBeginUseUsable"] = value; } }
-        public Array<UsableComponentBase> UsableComponentsCache { get { return new Array<UsableComponentBase>(this[nameof(UsableComponentsCache)].Address); } }
+        public UArray<UsableComponentBase> UsableComponentsCache { get { return new UArray<UsableComponentBase>(this[nameof(UsableComponentsCache)].Address); } }
         public UsableComponentBase HoveringUsable { get { return this[nameof(HoveringUsable)].As<UsableComponentBase>(); } set { this["HoveringUsable"] = value; } }
         public void Server_SetState(CharacterUseState NewState) { Invoke(nameof(Server_SetState), NewState); }
         public void RemoveCustomUsableComponent(UsableComponentBase Usable) { Invoke(nameof(RemoveCustomUsableComponent), Usable); }
@@ -3592,8 +3596,8 @@ namespace SDK.Script.FSDSDK
         public VanityItem PreviewedItem { get { return this[nameof(PreviewedItem)].As<VanityItem>(); } set { this["PreviewedItem"] = value; } }
         public ArmorMaterialVanityItem PreviewedArmorMaterial { get { return this[nameof(PreviewedArmorMaterial)].As<ArmorMaterialVanityItem>(); } set { this["PreviewedArmorMaterial"] = value; } }
         public MaterialInterface SkinMaterial { get { return this[nameof(SkinMaterial)].As<MaterialInterface>(); } set { this["SkinMaterial"] = value; } }
-        public Array<TattooArmorItem> Tattoos { get { return new Array<TattooArmorItem>(this[nameof(Tattoos)].Address); } }
-        public Array<MaterialInterface> CachedMaterials { get { return new Array<MaterialInterface>(this[nameof(CachedMaterials)].Address); } }
+        public UArray<TattooArmorItem> Tattoos { get { return new UArray<TattooArmorItem>(this[nameof(Tattoos)].Address); } }
+        public UArray<MaterialInterface> CachedMaterials { get { return new UArray<MaterialInterface>(this[nameof(CachedMaterials)].Address); } }
         public Object VanityMeshes { get { return this[nameof(VanityMeshes)]; } set { this[nameof(VanityMeshes)] = value; } }
         public void UpdateMeshes() { Invoke(nameof(UpdateMeshes)); }
         public void UpdateEquippedVanity(bool applyItems) { Invoke(nameof(UpdateEquippedVanity), applyItems); }
@@ -3619,12 +3623,12 @@ namespace SDK.Script.FSDSDK
         public CharacterVanityItems(nint addr) : base(addr) { }
         public Object DefaultItems { get { return this[nameof(DefaultItems)]; } set { this[nameof(DefaultItems)] = value; } }
         public PlayerCharacterID OwningCharacter { get { return this[nameof(OwningCharacter)].As<PlayerCharacterID>(); } set { this["OwningCharacter"] = value; } }
-        public void SortVanityItems(Object WorldContextObject, PlayerCharacterID characterID, Array<VanityItem> VanityItems) { Invoke(nameof(SortVanityItems), WorldContextObject, characterID, VanityItems); }
-        public Array<VanityItem> GetVanityItems(Object WorldContextObject, EVanitySlot Slot, bool onlyStoreItems, PlayerCharacterID characterID) { return Invoke<Array<VanityItem>>(nameof(GetVanityItems), WorldContextObject, Slot, onlyStoreItems, characterID); }
+        public void SortVanityItems(Object WorldContextObject, PlayerCharacterID characterID, UArray<VanityItem> VanityItems) { Invoke(nameof(SortVanityItems), WorldContextObject, characterID, VanityItems); }
+        public UArray<VanityItem> GetVanityItems(Object WorldContextObject, EVanitySlot Slot, bool onlyStoreItems, PlayerCharacterID characterID) { return Invoke<UArray<VanityItem>>(nameof(GetVanityItems), WorldContextObject, Slot, onlyStoreItems, characterID); }
         public VanityItem GetVanityItem(Guid VanityID) { return Invoke<VanityItem>(nameof(GetVanityItem), VanityID); }
-        public Array<VanityItem> GetUnLockedVanityItems(Object WorldContextObject, EVanitySlot Slot, bool onlyStoreItems, PlayerCharacterID characterID) { return Invoke<Array<VanityItem>>(nameof(GetUnLockedVanityItems), WorldContextObject, Slot, onlyStoreItems, characterID); }
-        public Array<VanityItem> GetLockedVanityItems(Object WorldContextObject, EVanitySlot Slot, PlayerCharacterID characterID) { return Invoke<Array<VanityItem>>(nameof(GetLockedVanityItems), WorldContextObject, Slot, characterID); }
-        public Array<VanityItem> GetItems(EVanitySlot Slot, bool onlyStoreItems) { return Invoke<Array<VanityItem>>(nameof(GetItems), Slot, onlyStoreItems); }
+        public UArray<VanityItem> GetUnLockedVanityItems(Object WorldContextObject, EVanitySlot Slot, bool onlyStoreItems, PlayerCharacterID characterID) { return Invoke<UArray<VanityItem>>(nameof(GetUnLockedVanityItems), WorldContextObject, Slot, onlyStoreItems, characterID); }
+        public UArray<VanityItem> GetLockedVanityItems(Object WorldContextObject, EVanitySlot Slot, PlayerCharacterID characterID) { return Invoke<UArray<VanityItem>>(nameof(GetLockedVanityItems), WorldContextObject, Slot, characterID); }
+        public UArray<VanityItem> GetItems(EVanitySlot Slot, bool onlyStoreItems) { return Invoke<UArray<VanityItem>>(nameof(GetItems), Slot, onlyStoreItems); }
         public VanityItem GetDefaultVanityItem(Object WorldContext, EVanitySlot Slot, PlayerCharacterID characterID) { return Invoke<VanityItem>(nameof(GetDefaultVanityItem), WorldContext, Slot, characterID); }
         public bool DoesVanitySlotAllowStyleTags(EVanitySlot Slot) { return Invoke<bool>(nameof(DoesVanitySlotAllowStyleTags), Slot); }
     }
@@ -3738,7 +3742,7 @@ namespace SDK.Script.FSDSDK
         public Projectile(nint addr) : base(addr) { }
         public ProjectileState State { get { return this[nameof(State)].As<ProjectileState>(); } set { this["State"] = value; } }
         public bool UseArmorDamageBoneCheck { get { return this[nameof(UseArmorDamageBoneCheck)].Flag; } set { this[nameof(UseArmorDamageBoneCheck)].Flag = value; } }
-        public Array<Object> IgnoreActorClasses { get { return new Array<Object>(this[nameof(IgnoreActorClasses)].Address); } }
+        public UArray<Object> IgnoreActorClasses { get { return new UArray<Object>(this[nameof(IgnoreActorClasses)].Address); } }
         public FSDProjectileMovementComponent MovementComponent { get { return this[nameof(MovementComponent)].As<FSDProjectileMovementComponent>(); } set { this["MovementComponent"] = value; } }
         public ProjectileBase SpawnProjectileFromSelf(Object WorldContextObject, Object ProjectileClass, Vector Origin, Rotator velocityDirection) { return Invoke<ProjectileBase>(nameof(SpawnProjectileFromSelf), WorldContextObject, ProjectileClass, Origin, velocityDirection); }
         public ProjectileBase SpawnProjectile(Object WorldContextObject, Object ProjectileClass, Pawn projectileOwner, Vector Origin, Rotator velocityDirection) { return Invoke<ProjectileBase>(nameof(SpawnProjectile), WorldContextObject, ProjectileClass, projectileOwner, Origin, velocityDirection); }
@@ -3878,7 +3882,7 @@ namespace SDK.Script.FSDSDK
         public bool SpawnFireTrail { get { return this[nameof(SpawnFireTrail)].Flag; } set { this[nameof(SpawnFireTrail)].Flag = value; } }
         public Object FireEffect { get { return this[nameof(FireEffect)]; } set { this[nameof(FireEffect)] = value; } }
         public Object ElectricEffect { get { return this[nameof(ElectricEffect)]; } set { this[nameof(ElectricEffect)] = value; } }
-        public Array<Object> EffectsToApply { get { return new Array<Object>(this[nameof(EffectsToApply)].Address); } }
+        public UArray<Object> EffectsToApply { get { return new UArray<Object>(this[nameof(EffectsToApply)].Address); } }
         public Object HitActors { get { return this[nameof(HitActors)]; } set { this[nameof(HitActors)] = value; } }
         public void OnRep_TrailHalfLength() { Invoke(nameof(OnRep_TrailHalfLength)); }
         public void OnRep_SpawnFireTrail() { Invoke(nameof(OnRep_SpawnFireTrail)); }
@@ -3903,13 +3907,13 @@ namespace SDK.Script.FSDSDK
         public NiagaraSystem N_ImpactParticles { get { return this[nameof(N_ImpactParticles)].As<NiagaraSystem>(); } set { this["N_ImpactParticles"] = value; } }
         public Object ChargeResistanceStatusEffect { get { return this[nameof(ChargeResistanceStatusEffect)]; } set { this[nameof(ChargeResistanceStatusEffect)] = value; } }
         public Object ChargeWeaknessStatusEffect { get { return this[nameof(ChargeWeaknessStatusEffect)]; } set { this[nameof(ChargeWeaknessStatusEffect)] = value; } }
-        public Array<Object> TrailClasses { get { return new Array<Object>(this[nameof(TrailClasses)].Address); } }
+        public UArray<Object> TrailClasses { get { return new UArray<Object>(this[nameof(TrailClasses)].Address); } }
         public NiagaraSystem CustomMuzzleFlash { get { return this[nameof(CustomMuzzleFlash)].As<NiagaraSystem>(); } set { this["CustomMuzzleFlash"] = value; } }
         public Object HitActorCache { get { return this[nameof(HitActorCache)]; } set { this[nameof(HitActorCache)] = value; } }
         public Object CoilParamName { get { return this[nameof(CoilParamName)]; } set { this[nameof(CoilParamName)] = value; } }
-        public Array<CoilMaterial> DynamicCoilMaterials { get { return new Array<CoilMaterial>(this[nameof(DynamicCoilMaterials)].Address); } }
+        public UArray<CoilMaterial> DynamicCoilMaterials { get { return new UArray<CoilMaterial>(this[nameof(DynamicCoilMaterials)].Address); } }
         public RuntimeFloatCurve CoilColorCurve { get { return this[nameof(CoilColorCurve)].As<RuntimeFloatCurve>(); } set { this["CoilColorCurve"] = value; } }
-        public Array<StatusEffect> RecordedAilments { get { return new Array<StatusEffect>(this[nameof(RecordedAilments)].Address); } }
+        public UArray<StatusEffect> RecordedAilments { get { return new UArray<StatusEffect>(this[nameof(RecordedAilments)].Address); } }
         public float MaxAfflictionTime { get { return this[nameof(MaxAfflictionTime)].GetValue<float>(); } set { this[nameof(MaxAfflictionTime)].SetValue<float>(value); } }
         public float ShotWidth { get { return this[nameof(ShotWidth)].GetValue<float>(); } set { this[nameof(ShotWidth)].SetValue<float>(value); } }
         public float BonusShotWidth { get { return this[nameof(BonusShotWidth)].GetValue<float>(); } set { this[nameof(BonusShotWidth)].SetValue<float>(value); } }
@@ -3945,7 +3949,7 @@ namespace SDK.Script.FSDSDK
         public void OnEnemyKilled(Actor Target, FSDPhysicalMaterial PhysicalMaterial, bool wasDirectHit) { Invoke(nameof(OnEnemyKilled), Target, PhysicalMaterial, wasDirectHit); }
         public void OnDamageTarget(HealthComponentBase Health, float amount, PrimitiveComponent Component, FSDPhysicalMaterial PhysicalMaterial) { Invoke(nameof(OnDamageTarget), Health, amount, Component, PhysicalMaterial); }
         public void OnCharacterShieldBroke(Actor brokeChar) { Invoke(nameof(OnCharacterShieldBroke), brokeChar); }
-        public void OnBulletPathComplete(Array<BulletPathSegment> Path) { Invoke(nameof(OnBulletPathComplete), Path); }
+        public void OnBulletPathComplete(UArray<BulletPathSegment> Path) { Invoke(nameof(OnBulletPathComplete), Path); }
         public void All_ShowHit(Vector_NetQuantize Location, Vector_NetQuantize Rotation) { Invoke(nameof(All_ShowHit), Location, Rotation); }
         public void All_ShieldBroken() { Invoke(nameof(All_ShieldBroken)); }
         public void All_AdjustTrail(CoilgunWeaponTrail Trail, float Length) { Invoke(nameof(All_AdjustTrail), Trail, Length); }
@@ -3992,10 +3996,10 @@ namespace SDK.Script.FSDSDK
         public DebrisPositioning Positioning { get { return this[nameof(Positioning)].As<DebrisPositioning>(); } set { this["Positioning"] = value; } }
         public float Rarity { get { return this[nameof(Rarity)].GetValue<float>(); } set { this[nameof(Rarity)].SetValue<float>(value); } }
         public float InfluenceRadius { get { return this[nameof(InfluenceRadius)].GetValue<float>(); } set { this[nameof(InfluenceRadius)].SetValue<float>(value); } }
-        public Array<Object> Debris { get { return new Array<Object>(this[nameof(Debris)].Address); } }
+        public UArray<Object> Debris { get { return new UArray<Object>(this[nameof(Debris)].Address); } }
         public bool UseTerrainPlacement { get { return this[nameof(UseTerrainPlacement)].Flag; } set { this[nameof(UseTerrainPlacement)].Flag = value; } }
-        public Array<Object> CollectableClasses { get { return new Array<Object>(this[nameof(CollectableClasses)].Address); } }
-        public Array<Object> CollectableClassesLoaded { get { return new Array<Object>(this[nameof(CollectableClassesLoaded)].Address); } }
+        public UArray<Object> CollectableClasses { get { return new UArray<Object>(this[nameof(CollectableClasses)].Address); } }
+        public UArray<Object> CollectableClassesLoaded { get { return new UArray<Object>(this[nameof(CollectableClassesLoaded)].Address); } }
     }
     public class CharacterShoutsData : DataAsset
     {
@@ -4028,13 +4032,13 @@ namespace SDK.Script.FSDSDK
         public GameplayTagContainer KillShoutAllowedTags { get { return this[nameof(KillShoutAllowedTags)].As<GameplayTagContainer>(); } set { this["KillShoutAllowedTags"] = value; } }
         public bool bMissionControlPaused { get { return this[nameof(bMissionControlPaused)].Flag; } set { this[nameof(bMissionControlPaused)].Flag = value; } }
         public AudioComponent MissionControlAudioComponent { get { return this[nameof(MissionControlAudioComponent)].As<AudioComponent>(); } set { this["MissionControlAudioComponent"] = value; } }
-        public Array<ShoutWidget> ActiveShouts { get { return new Array<ShoutWidget>(this[nameof(ActiveShouts)].Address); } }
-        public Array<ActiveOutline> ActiveOutlines { get { return new Array<ActiveOutline>(this[nameof(ActiveOutlines)].Address); } }
+        public UArray<ShoutWidget> ActiveShouts { get { return new UArray<ShoutWidget>(this[nameof(ActiveShouts)].Address); } }
+        public UArray<ActiveOutline> ActiveOutlines { get { return new UArray<ActiveOutline>(this[nameof(ActiveOutlines)].Address); } }
         public PlayerCharacter Character { get { return this[nameof(Character)].As<PlayerCharacter>(); } set { this["Character"] = value; } }
         public DialogDataAsset LastShout { get { return this[nameof(LastShout)].As<DialogDataAsset>(); } set { this["LastShout"] = value; } }
         public Object ShoutAudioComponent { get { return this[nameof(ShoutAudioComponent)]; } set { this[nameof(ShoutAudioComponent)] = value; } }
         public Object ShoutHistory { get { return this[nameof(ShoutHistory)]; } set { this[nameof(ShoutHistory)] = value; } }
-        public Array<MissionShoutQueueItem> MissionShoutQueue { get { return new Array<MissionShoutQueueItem>(this[nameof(MissionShoutQueue)].Address); } }
+        public UArray<MissionShoutQueueItem> MissionShoutQueue { get { return new UArray<MissionShoutQueueItem>(this[nameof(MissionShoutQueue)].Address); } }
         public void ShoutDelegate__DelegateSignature(PlayerCharacter InSender, Object InText, float InDuration) { Invoke(nameof(ShoutDelegate__DelegateSignature), InSender, InText, InDuration); }
         public void ShoutCustomOrDefault(DialogDataAsset CustomShout, EShoutType DefaultShout) { Invoke(nameof(ShoutCustomOrDefault), CustomShout, DefaultShout); }
         public void ShoutCustomLocalOnly(DialogDataAsset Shout) { Invoke(nameof(ShoutCustomLocalOnly), Shout); }
@@ -4056,13 +4060,13 @@ namespace SDK.Script.FSDSDK
     public class CommnuityRewardBundle : DataAsset
     {
         public CommnuityRewardBundle(nint addr) : base(addr) { }
-        public Array<CommunityReward> Rewards { get { return new Array<CommunityReward>(this[nameof(Rewards)].Address); } }
+        public UArray<CommunityReward> Rewards { get { return new UArray<CommunityReward>(this[nameof(Rewards)].Address); } }
         public void AwardRewards(Object WorldContext) { Invoke(nameof(AwardRewards), WorldContext); }
     }
     public class CommnuityRewardSetup : DataAsset
     {
         public CommnuityRewardSetup(nint addr) : base(addr) { }
-        public Array<CommnuityRewardBundle> TierRewards { get { return new Array<CommnuityRewardBundle>(this[nameof(TierRewards)].Address); } }
+        public UArray<CommnuityRewardBundle> TierRewards { get { return new UArray<CommnuityRewardBundle>(this[nameof(TierRewards)].Address); } }
         public Object GetResourcesTierOnlyReward(int Tier) { return Invoke<Object>(nameof(GetResourcesTierOnlyReward), Tier); }
         public Object GetResourcesReward(int Tier) { return Invoke<Object>(nameof(GetResourcesReward), Tier); }
         public void AwardTierRewards(Object WorldContext, int Tier) { Invoke(nameof(AwardTierRewards), WorldContext, Tier); }
@@ -4112,8 +4116,8 @@ namespace SDK.Script.FSDSDK
     public class CommunityGoalSettings : DataAsset
     {
         public CommunityGoalSettings(nint addr) : base(addr) { }
-        public Array<CommunityGoalFaction> ActiveCommunityFactions { get { return new Array<CommunityGoalFaction>(this[nameof(ActiveCommunityFactions)].Address); } }
-        public Array<CommunityGoal> ActiveCommunityGoals { get { return new Array<CommunityGoal>(this[nameof(ActiveCommunityGoals)].Address); } }
+        public UArray<CommunityGoalFaction> ActiveCommunityFactions { get { return new UArray<CommunityGoalFaction>(this[nameof(ActiveCommunityFactions)].Address); } }
+        public UArray<CommunityGoal> ActiveCommunityGoals { get { return new UArray<CommunityGoal>(this[nameof(ActiveCommunityGoals)].Address); } }
         public CommunityGoal DSMUGoal { get { return this[nameof(DSMUGoal)].As<CommunityGoal>(); } set { this["DSMUGoal"] = value; } }
         public CommunityGoal GetGoal(ECommunityGoalIndex Goal) { return Invoke<CommunityGoal>(nameof(GetGoal), Goal); }
         public CommunityGoal FindGoal(Object Goal) { return Invoke<CommunityGoal>(nameof(FindGoal), Goal); }
@@ -4149,10 +4153,10 @@ namespace SDK.Script.FSDSDK
     {
         public ControllerIconSettings(nint addr) : base(addr) { }
         public InputTranslationTable InputTranslationTable { get { return this[nameof(InputTranslationTable)].As<InputTranslationTable>(); } set { this["InputTranslationTable"] = value; } }
-        public Array<ActionIconMapping> Xbox_KeyIcons { get { return new Array<ActionIconMapping>(this[nameof(Xbox_KeyIcons)].Address); } }
-        public Array<ActionIconMapping> Playstation_KeyIcons { get { return new Array<ActionIconMapping>(this[nameof(Playstation_KeyIcons)].Address); } }
-        public Array<ActionIconMapping> Playstation5_KeyIcons { get { return new Array<ActionIconMapping>(this[nameof(Playstation5_KeyIcons)].Address); } }
-        public Array<ActionIconMapping> MouseKeyboard_KeyIcons { get { return new Array<ActionIconMapping>(this[nameof(MouseKeyboard_KeyIcons)].Address); } }
+        public UArray<ActionIconMapping> Xbox_KeyIcons { get { return new UArray<ActionIconMapping>(this[nameof(Xbox_KeyIcons)].Address); } }
+        public UArray<ActionIconMapping> Playstation_KeyIcons { get { return new UArray<ActionIconMapping>(this[nameof(Playstation_KeyIcons)].Address); } }
+        public UArray<ActionIconMapping> Playstation5_KeyIcons { get { return new UArray<ActionIconMapping>(this[nameof(Playstation5_KeyIcons)].Address); } }
+        public UArray<ActionIconMapping> MouseKeyboard_KeyIcons { get { return new UArray<ActionIconMapping>(this[nameof(MouseKeyboard_KeyIcons)].Address); } }
         public bool FindMouseKeyboardKeyIcon(Key Key, ActionIconMapping KeyIcon) { return Invoke<bool>(nameof(FindMouseKeyboardKeyIcon), Key, KeyIcon); }
         public bool FindKeyIcon(Key Key, ActionIconMapping KeyIcon) { return Invoke<bool>(nameof(FindKeyIcon), Key, KeyIcon); }
         public bool FindControllerKeyIcon(Key Key, ActionIconMapping KeyIcon) { return Invoke<bool>(nameof(FindControllerKeyIcon), Key, KeyIcon); }
@@ -4208,7 +4212,7 @@ namespace SDK.Script.FSDSDK
         public ParticleSystem GrenadeFireParticle { get { return this[nameof(GrenadeFireParticle)].As<ParticleSystem>(); } set { this["GrenadeFireParticle"] = value; } }
         public bool IsFiring { get { return this[nameof(IsFiring)].Flag; } set { this[nameof(IsFiring)].Flag = value; } }
         public float TurretSpinSpeed { get { return this[nameof(TurretSpinSpeed)].GetValue<float>(); } set { this[nameof(TurretSpinSpeed)].SetValue<float>(value); } }
-        public Array<Actor> Parasites { get { return new Array<Actor>(this[nameof(Parasites)].Address); } }
+        public UArray<Actor> Parasites { get { return new UArray<Actor>(this[nameof(Parasites)].Address); } }
         public int SpawnParasiteNumer { get { return this[nameof(SpawnParasiteNumer)].GetValue<int>(); } set { this[nameof(SpawnParasiteNumer)].SetValue<int>(value); } }
         public int MaxParasiteSlots { get { return this[nameof(MaxParasiteSlots)].GetValue<int>(); } set { this[nameof(MaxParasiteSlots)].SetValue<int>(value); } }
         public float ChanceToSpawnParasite { get { return this[nameof(ChanceToSpawnParasite)].GetValue<float>(); } set { this[nameof(ChanceToSpawnParasite)].SetValue<float>(value); } }
@@ -4257,7 +4261,7 @@ namespace SDK.Script.FSDSDK
         public void OnParasiteDeath(Actor AParasiteEnemy) { Invoke(nameof(OnParasiteDeath), AParasiteEnemy); }
         public ERobotState GetTeamState() { return Invoke<ERobotState>(nameof(GetTeamState)); }
         public Vector GetPlayerMediumPoint() { return Invoke<Vector>(nameof(GetPlayerMediumPoint)); }
-        public Array<Actor> GetParasites() { return Invoke<Array<Actor>>(nameof(GetParasites)); }
+        public UArray<Actor> GetParasites() { return Invoke<UArray<Actor>>(nameof(GetParasites)); }
         public bool GetHasPoweredDown() { return Invoke<bool>(nameof(GetHasPoweredDown)); }
         public void DestroyAttatchPoint(SceneComponent aComponent) { Invoke(nameof(DestroyAttatchPoint), aComponent); }
         public void CannonEffects() { Invoke(nameof(CannonEffects)); }
@@ -4345,7 +4349,7 @@ namespace SDK.Script.FSDSDK
         public SceneComponent Root { get { return this[nameof(Root)].As<SceneComponent>(); } set { this["Root"] = value; } }
         public SceneComponent InitialRotationPoint { get { return this[nameof(InitialRotationPoint)].As<SceneComponent>(); } set { this["InitialRotationPoint"] = value; } }
         public SceneComponent InstancedSpikesRoot { get { return this[nameof(InstancedSpikesRoot)].As<SceneComponent>(); } set { this["InstancedSpikesRoot"] = value; } }
-        public Array<InstancedStaticMeshComponent> SpikeMeshes { get { return new Array<InstancedStaticMeshComponent>(this[nameof(SpikeMeshes)].Address); } }
+        public UArray<InstancedStaticMeshComponent> SpikeMeshes { get { return new UArray<InstancedStaticMeshComponent>(this[nameof(SpikeMeshes)].Address); } }
         public SplineComponent SpikeLocationSpline { get { return this[nameof(SpikeLocationSpline)].As<SplineComponent>(); } set { this["SpikeLocationSpline"] = value; } }
         public TerrainPlacementComponent terrainPlacement { get { return this[nameof(terrainPlacement)].As<TerrainPlacementComponent>(); } set { this["terrainPlacement"] = value; } }
         public CurveVector ScaleCurve { get { return this[nameof(ScaleCurve)].As<CurveVector>(); } set { this["ScaleCurve"] = value; } }
@@ -4373,7 +4377,7 @@ namespace SDK.Script.FSDSDK
     public class CraftingCostLibrary : BlueprintFunctionLibrary
     {
         public CraftingCostLibrary(nint addr) : base(addr) { }
-        public CraftingCost ConvertResourcesToFashionite(Array<CraftingCost> InResources) { return Invoke<CraftingCost>(nameof(ConvertResourcesToFashionite), InResources); }
+        public CraftingCost ConvertResourcesToFashionite(UArray<CraftingCost> InResources) { return Invoke<CraftingCost>(nameof(ConvertResourcesToFashionite), InResources); }
     }
     public class PricingTier : DataAsset
     {
@@ -4418,7 +4422,7 @@ namespace SDK.Script.FSDSDK
         public Object PlaySoundByKeyMap { get { return this[nameof(PlaySoundByKeyMap)]; } set { this[nameof(PlaySoundByKeyMap)] = value; } }
         public Object SpawnEffectsByKeyMap { get { return this[nameof(SpawnEffectsByKeyMap)]; } set { this[nameof(SpawnEffectsByKeyMap)] = value; } }
         public int RandomWalkCycleIndex { get { return this[nameof(RandomWalkCycleIndex)].GetValue<int>(); } set { this[nameof(RandomWalkCycleIndex)].SetValue<int>(value); } }
-        public Array<RandomWalkCycleEntry> RandomWalkCycles { get { return new Array<RandomWalkCycleEntry>(this[nameof(RandomWalkCycles)].Address); } }
+        public UArray<RandomWalkCycleEntry> RandomWalkCycles { get { return new UArray<RandomWalkCycleEntry>(this[nameof(RandomWalkCycles)].Address); } }
         public bool TurnToIdle { get { return this[nameof(TurnToIdle)].Flag; } set { this[nameof(TurnToIdle)].Flag = value; } }
         public bool IdleToTurnLeft { get { return this[nameof(IdleToTurnLeft)].Flag; } set { this[nameof(IdleToTurnLeft)].Flag = value; } }
         public bool IdleToTurnRight { get { return this[nameof(IdleToTurnRight)].Flag; } set { this[nameof(IdleToTurnRight)].Flag = value; } }
@@ -4446,7 +4450,7 @@ namespace SDK.Script.FSDSDK
         public float BallisticPitch { get { return this[nameof(BallisticPitch)].GetValue<float>(); } set { this[nameof(BallisticPitch)].SetValue<float>(value); } }
         public float ProgressionTime { get { return this[nameof(ProgressionTime)].GetValue<float>(); } set { this[nameof(ProgressionTime)].SetValue<float>(value); } }
         public float AttackMoveBlend { get { return this[nameof(AttackMoveBlend)].GetValue<float>(); } set { this[nameof(AttackMoveBlend)].SetValue<float>(value); } }
-        public Array<AnimMontage> HeadIdleBreakMontages { get { return new Array<AnimMontage>(this[nameof(HeadIdleBreakMontages)].Address); } }
+        public UArray<AnimMontage> HeadIdleBreakMontages { get { return new UArray<AnimMontage>(this[nameof(HeadIdleBreakMontages)].Address); } }
         public Vector2D IdleBreakTimeRange { get { return this[nameof(IdleBreakTimeRange)].As<Vector2D>(); } set { this["IdleBreakTimeRange"] = value; } }
     }
     public class CrawlerEnemy : CoreSpawnEnemyBase
@@ -4511,14 +4515,14 @@ namespace SDK.Script.FSDSDK
         public float SwitchTimeCof { get { return this[nameof(SwitchTimeCof)].GetValue<float>(); } set { this[nameof(SwitchTimeCof)].SetValue<float>(value); } }
         public StaticMesh TriforkArrowMesh { get { return this[nameof(TriforkArrowMesh)].As<StaticMesh>(); } set { this["TriforkArrowMesh"] = value; } }
         public StaticMesh QuintPackArrowMesh { get { return this[nameof(QuintPackArrowMesh)].As<StaticMesh>(); } set { this["QuintPackArrowMesh"] = value; } }
-        public Array<ProjectileSwitch> GearStatArrows { get { return new Array<ProjectileSwitch>(this[nameof(GearStatArrows)].Address); } }
+        public UArray<ProjectileSwitch> GearStatArrows { get { return new UArray<ProjectileSwitch>(this[nameof(GearStatArrows)].Address); } }
         public AnimMontage SwitchMontage { get { return this[nameof(SwitchMontage)].As<AnimMontage>(); } set { this["SwitchMontage"] = value; } }
         public AnimMontage SwitchMontage_TP { get { return this[nameof(SwitchMontage_TP)].As<AnimMontage>(); } set { this["SwitchMontage_TP"] = value; } }
         public AnimMontage CharacterSwitchMontage { get { return this[nameof(CharacterSwitchMontage)].As<AnimMontage>(); } set { this["CharacterSwitchMontage"] = value; } }
         public AnimMontage ReloadMontage { get { return this[nameof(ReloadMontage)].As<AnimMontage>(); } set { this["ReloadMontage"] = value; } }
         public AnimMontage ReloadMontage_TP { get { return this[nameof(ReloadMontage_TP)].As<AnimMontage>(); } set { this["ReloadMontage_TP"] = value; } }
         public AnimMontage CharacterReloadMontage { get { return this[nameof(CharacterReloadMontage)].As<AnimMontage>(); } set { this["CharacterReloadMontage"] = value; } }
-        public Array<SoundCue> ReloadSoundCues { get { return new Array<SoundCue>(this[nameof(ReloadSoundCues)].Address); } }
+        public UArray<SoundCue> ReloadSoundCues { get { return new UArray<SoundCue>(this[nameof(ReloadSoundCues)].Address); } }
         public void UpdateRecallProgress() { Invoke(nameof(UpdateRecallProgress)); }
         public void StartAmmoSwitch() { Invoke(nameof(StartAmmoSwitch)); }
         public void SetAnimatedTPMeshComponentFromBP(Actor animatedArrow) { Invoke(nameof(SetAnimatedTPMeshComponentFromBP), animatedArrow); }
@@ -4592,7 +4596,7 @@ namespace SDK.Script.FSDSDK
     public class CrossbowProjectileMagnetic : ActorComponent
     {
         public CrossbowProjectileMagnetic(nint addr) : base(addr) { }
-        public Array<Object> ElectricEffects { get { return new Array<Object>(this[nameof(ElectricEffects)].Address); } }
+        public UArray<Object> ElectricEffects { get { return new UArray<Object>(this[nameof(ElectricEffects)].Address); } }
         public Object TargetEnemy { get { return this[nameof(TargetEnemy)]; } set { this[nameof(TargetEnemy)] = value; } }
         public float OverlapCheckSize { get { return this[nameof(OverlapCheckSize)].GetValue<float>(); } set { this[nameof(OverlapCheckSize)].SetValue<float>(value); } }
     }
@@ -4713,7 +4717,7 @@ namespace SDK.Script.FSDSDK
         public float DecalDelay { get { return this[nameof(DecalDelay)].GetValue<float>(); } set { this[nameof(DecalDelay)].SetValue<float>(value); } }
         public ParticleSystem ImpactParticles { get { return this[nameof(ImpactParticles)].As<ParticleSystem>(); } set { this["ImpactParticles"] = value; } }
         public ParticleSystemComponent ImpactParticleInstance { get { return this[nameof(ImpactParticleInstance)].As<ParticleSystemComponent>(); } set { this["ImpactParticleInstance"] = value; } }
-        public Array<Object> FlameParameterNames { get { return new Array<Object>(this[nameof(FlameParameterNames)].Address); } }
+        public UArray<Object> FlameParameterNames { get { return new UArray<Object>(this[nameof(FlameParameterNames)].Address); } }
         public float DamageSphereRadius { get { return this[nameof(DamageSphereRadius)].GetValue<float>(); } set { this[nameof(DamageSphereRadius)].SetValue<float>(value); } }
         public float MaxFlameDistance { get { return this[nameof(MaxFlameDistance)].GetValue<float>(); } set { this[nameof(MaxFlameDistance)].SetValue<float>(value); } }
         public float FlameGrowthPerSecond { get { return this[nameof(FlameGrowthPerSecond)].GetValue<float>(); } set { this[nameof(FlameGrowthPerSecond)].SetValue<float>(value); } }
@@ -4732,7 +4736,7 @@ namespace SDK.Script.FSDSDK
         public float CurrentPressure { get { return this[nameof(CurrentPressure)].GetValue<float>(); } set { this[nameof(CurrentPressure)].SetValue<float>(value); } }
         public float RePressureDuration { get { return this[nameof(RePressureDuration)].GetValue<float>(); } set { this[nameof(RePressureDuration)].SetValue<float>(value); } }
         public float RePressureProgress { get { return this[nameof(RePressureProgress)].GetValue<float>(); } set { this[nameof(RePressureProgress)].SetValue<float>(value); } }
-        public Array<ItemUpgrade> Upgrades { get { return new Array<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
+        public UArray<ItemUpgrade> Upgrades { get { return new UArray<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
         public bool LongReachEnabled { get { return this[nameof(LongReachEnabled)].Flag; } set { this[nameof(LongReachEnabled)].Flag = value; } }
         public bool AoEColdEnabled { get { return this[nameof(AoEColdEnabled)].Flag; } set { this[nameof(AoEColdEnabled)].Flag = value; } }
         public Object HitActorCache { get { return this[nameof(HitActorCache)]; } set { this[nameof(HitActorCache)] = value; } }
@@ -4765,8 +4769,8 @@ namespace SDK.Script.FSDSDK
     public class KeyBindingSettings : DataAsset
     {
         public KeyBindingSettings(nint addr) : base(addr) { }
-        public Array<CustomKeySetting> KeyboardMouseButtons { get { return new Array<CustomKeySetting>(this[nameof(KeyboardMouseButtons)].Address); } }
-        public Array<CustomKeySetting> ControllerButtons { get { return new Array<CustomKeySetting>(this[nameof(ControllerButtons)].Address); } }
+        public UArray<CustomKeySetting> KeyboardMouseButtons { get { return new UArray<CustomKeySetting>(this[nameof(KeyboardMouseButtons)].Address); } }
+        public UArray<CustomKeySetting> ControllerButtons { get { return new UArray<CustomKeySetting>(this[nameof(ControllerButtons)].Address); } }
     }
     public class CustomRichTextDecorator : RichTextBlockDecorator
     {
@@ -4776,7 +4780,7 @@ namespace SDK.Script.FSDSDK
     public class DailyDealSettings : DataAsset
     {
         public DailyDealSettings(nint addr) : base(addr) { }
-        public Array<DailyDealSetup> DailyDeals { get { return new Array<DailyDealSetup>(this[nameof(DailyDeals)].Address); } }
+        public UArray<DailyDealSetup> DailyDeals { get { return new UArray<DailyDealSetup>(this[nameof(DailyDeals)].Address); } }
         public bool IsDailyDealBought(Object WorldContextObject) { return Invoke<bool>(nameof(IsDailyDealBought), WorldContextObject); }
         public int GetDailyDealSeed() { return Invoke<int>(nameof(GetDailyDealSeed)); }
         public void GetDailyDeal(DailyDeal outDeal) { Invoke(nameof(GetDailyDeal), outDeal); }
@@ -4835,15 +4839,15 @@ namespace SDK.Script.FSDSDK
     public class StatusDamageBonus : DamageBonusBase
     {
         public StatusDamageBonus(nint addr) : base(addr) { }
-        public Array<Object> StatusEffects { get { return new Array<Object>(this[nameof(StatusEffects)].Address); } }
+        public UArray<Object> StatusEffects { get { return new UArray<Object>(this[nameof(StatusEffects)].Address); } }
         public float Bonus { get { return this[nameof(Bonus)].GetValue<float>(); } set { this[nameof(Bonus)].SetValue<float>(value); } }
         public DamageClass DamageClass { get { return this[nameof(DamageClass)].As<DamageClass>(); } set { this["DamageClass"] = value; } }
     }
     public class StatusAndStateDamageBonus : DamageBonusBase
     {
         public StatusAndStateDamageBonus(nint addr) : base(addr) { }
-        public Array<Object> StatusEffects { get { return new Array<Object>(this[nameof(StatusEffects)].Address); } }
-        public Array<ETargetStateDamageBonusType> TargetStates { get { return new Array<ETargetStateDamageBonusType>(this[nameof(TargetStates)].Address); } }
+        public UArray<Object> StatusEffects { get { return new UArray<Object>(this[nameof(StatusEffects)].Address); } }
+        public UArray<ETargetStateDamageBonusType> TargetStates { get { return new UArray<ETargetStateDamageBonusType>(this[nameof(TargetStates)].Address); } }
         public float Bonus { get { return this[nameof(Bonus)].GetValue<float>(); } set { this[nameof(Bonus)].SetValue<float>(value); } }
         public DamageClass DamageClass { get { return this[nameof(DamageClass)].As<DamageClass>(); } set { this["DamageClass"] = value; } }
     }
@@ -4927,7 +4931,7 @@ namespace SDK.Script.FSDSDK
     public class TagDamageBonus : DamageBonusBase
     {
         public TagDamageBonus(nint addr) : base(addr) { }
-        public Array<DamageTag> Tags { get { return new Array<DamageTag>(this[nameof(Tags)].Address); } }
+        public UArray<DamageTag> Tags { get { return new UArray<DamageTag>(this[nameof(Tags)].Address); } }
     }
     public class SetImpulseDamageBonus : DamageBonusBase
     {
@@ -4987,9 +4991,9 @@ namespace SDK.Script.FSDSDK
         public float StaggerChance { get { return this[nameof(StaggerChance)].GetValue<float>(); } set { this[nameof(StaggerChance)].SetValue<float>(value); } }
         public float StaggerDuration { get { return this[nameof(StaggerDuration)].GetValue<float>(); } set { this[nameof(StaggerDuration)].SetValue<float>(value); } }
         public float FearFactor { get { return this[nameof(FearFactor)].GetValue<float>(); } set { this[nameof(FearFactor)].SetValue<float>(value); } }
-        public Array<DamageBonusBase> DamageBonuses { get { return new Array<DamageBonusBase>(this[nameof(DamageBonuses)].Address); } }
-        public Array<DamageModifier> DamageModifiers { get { return new Array<DamageModifier>(this[nameof(DamageModifiers)].Address); } }
-        public Array<DamageTag> damageTags { get { return new Array<DamageTag>(this[nameof(damageTags)].Address); } }
+        public UArray<DamageBonusBase> DamageBonuses { get { return new UArray<DamageBonusBase>(this[nameof(DamageBonuses)].Address); } }
+        public UArray<DamageModifier> DamageModifiers { get { return new UArray<DamageModifier>(this[nameof(DamageModifiers)].Address); } }
+        public UArray<DamageTag> damageTags { get { return new UArray<DamageTag>(this[nameof(damageTags)].Address); } }
         public bool UseAreaOfEffect { get { return this[nameof(UseAreaOfEffect)].Flag; } set { this[nameof(UseAreaOfEffect)].Flag = value; } }
         public float RadialDamage { get { return this[nameof(RadialDamage)].GetValue<float>(); } set { this[nameof(RadialDamage)].SetValue<float>(value); } }
         public bool NoFriendlyFireFromRadial { get { return this[nameof(NoFriendlyFireFromRadial)].Flag; } set { this[nameof(NoFriendlyFireFromRadial)].Flag = value; } }
@@ -5018,7 +5022,7 @@ namespace SDK.Script.FSDSDK
     public class MultiDamageCondition : DamageCondition
     {
         public MultiDamageCondition(nint addr) : base(addr) { }
-        public Array<DamageCondition> Conditions { get { return new Array<DamageCondition>(this[nameof(Conditions)].Address); } }
+        public UArray<DamageCondition> Conditions { get { return new UArray<DamageCondition>(this[nameof(Conditions)].Address); } }
         public bool RequireAllTrue { get { return this[nameof(RequireAllTrue)].Flag; } set { this[nameof(RequireAllTrue)].Flag = value; } }
     }
     public class RandomDamageCondition : DamageCondition
@@ -5045,7 +5049,7 @@ namespace SDK.Script.FSDSDK
     public class TargetSTEDamageCondition : DamageCondition
     {
         public TargetSTEDamageCondition(nint addr) : base(addr) { }
-        public Array<Object> StatusEffects { get { return new Array<Object>(this[nameof(StatusEffects)].Address); } }
+        public UArray<Object> StatusEffects { get { return new UArray<Object>(this[nameof(StatusEffects)].Address); } }
     }
     public class TargetTagsDamageCondition : DamageCondition
     {
@@ -5143,11 +5147,11 @@ namespace SDK.Script.FSDSDK
     {
         public DamageFunctionLibrary(nint addr) : base(addr) { }
         public void SetPhysicalMaterialOnHit(FSDPhysicalMaterial PhysMat, HitResult Hit) { Invoke(nameof(SetPhysicalMaterialOnHit), PhysMat, Hit); }
-        public bool IsGibbedDeath(Array<DamageTag> Tags) { return Invoke<bool>(nameof(IsGibbedDeath), Tags); }
-        public bool IsExplosiveDeath(Object WorldContext, PawnStatsComponent PawnStats, Array<DamageTag> Tags) { return Invoke<bool>(nameof(IsExplosiveDeath), WorldContext, PawnStats, Tags); }
-        public bool IsCorrosiveDeath(DamageClass DamageClass, Array<DamageTag> Tags) { return Invoke<bool>(nameof(IsCorrosiveDeath), DamageClass, Tags); }
-        public bool IsCookedDeath(Array<DamageTag> Tags) { return Invoke<bool>(nameof(IsCookedDeath), Tags); }
-        public bool IsBurnDeath(DamageClass DamageClass, Array<DamageTag> Tags) { return Invoke<bool>(nameof(IsBurnDeath), DamageClass, Tags); }
+        public bool IsGibbedDeath(UArray<DamageTag> Tags) { return Invoke<bool>(nameof(IsGibbedDeath), Tags); }
+        public bool IsExplosiveDeath(Object WorldContext, PawnStatsComponent PawnStats, UArray<DamageTag> Tags) { return Invoke<bool>(nameof(IsExplosiveDeath), WorldContext, PawnStats, Tags); }
+        public bool IsCorrosiveDeath(DamageClass DamageClass, UArray<DamageTag> Tags) { return Invoke<bool>(nameof(IsCorrosiveDeath), DamageClass, Tags); }
+        public bool IsCookedDeath(UArray<DamageTag> Tags) { return Invoke<bool>(nameof(IsCookedDeath), Tags); }
+        public bool IsBurnDeath(DamageClass DamageClass, UArray<DamageTag> Tags) { return Invoke<bool>(nameof(IsBurnDeath), DamageClass, Tags); }
         public Vector GetForceFromDamageImpulse(Actor Target, DamageData DamageData) { return Invoke<Vector>(nameof(GetForceFromDamageImpulse), Target, DamageData); }
         public DamageImpulse GetDamageImpulse(DamageData DamageData) { return Invoke<DamageImpulse>(nameof(GetDamageImpulse), DamageData); }
         public int FindClosestBoneIndex(SkeletalMeshComponent Mesh, Vector Location, LimbDismembermentList dismembermentList, float MaxDistance) { return Invoke<int>(nameof(FindClosestBoneIndex), Mesh, Location, dismembermentList, MaxDistance); }
@@ -5165,7 +5169,7 @@ namespace SDK.Script.FSDSDK
     {
         public DamageModifier(nint addr) : base(addr) { }
         public DamageCondition Condition { get { return this[nameof(Condition)].As<DamageCondition>(); } set { this["Condition"] = value; } }
-        public Array<DamageModifierItem> Modifiers { get { return new Array<DamageModifierItem>(this[nameof(Modifiers)].Address); } }
+        public UArray<DamageModifierItem> Modifiers { get { return new UArray<DamageModifierItem>(this[nameof(Modifiers)].Address); } }
     }
     public class DamageSettings : DataAsset
     {
@@ -5185,7 +5189,7 @@ namespace SDK.Script.FSDSDK
         public DamageComponent ChemicalExplosionDamage { get { return this[nameof(ChemicalExplosionDamage)].As<DamageComponent>(); } set { this["ChemicalExplosionDamage"] = value; } }
         public NiagaraSystem ArmorShatterEmitter { get { return this[nameof(ArmorShatterEmitter)].As<NiagaraSystem>(); } set { this["ArmorShatterEmitter"] = value; } }
         public SoundCue ArmorShatterSound { get { return this[nameof(ArmorShatterSound)].As<SoundCue>(); } set { this["ArmorShatterSound"] = value; } }
-        public Array<DecalData> ImpactDecals { get { return new Array<DecalData>(this[nameof(ImpactDecals)].Address); } }
+        public UArray<DecalData> ImpactDecals { get { return new UArray<DecalData>(this[nameof(ImpactDecals)].Address); } }
         public RuntimeFloatCurve ArmorToArmorDamageBreakingCurve { get { return this[nameof(ArmorToArmorDamageBreakingCurve)].As<RuntimeFloatCurve>(); } set { this["ArmorToArmorDamageBreakingCurve"] = value; } }
         public float RadialHealthArmorDamageFalloff { get { return this[nameof(RadialHealthArmorDamageFalloff)].GetValue<float>(); } set { this[nameof(RadialHealthArmorDamageFalloff)].SetValue<float>(value); } }
         public int HealthArmorBonesAffectedByRadialDamage { get { return this[nameof(HealthArmorBonesAffectedByRadialDamage)].GetValue<int>(); } set { this[nameof(HealthArmorBonesAffectedByRadialDamage)].SetValue<int>(value); } }
@@ -5204,7 +5208,7 @@ namespace SDK.Script.FSDSDK
     public class DamageSubsystem : GameInstanceSubsystem
     {
         public DamageSubsystem(nint addr) : base(addr) { }
-        public Array<DamageSubsystemItem> Items { get { return new Array<DamageSubsystemItem>(this[nameof(Items)].Address); } }
+        public UArray<DamageSubsystemItem> Items { get { return new UArray<DamageSubsystemItem>(this[nameof(Items)].Address); } }
     }
     public class DamageTag : DataAsset
     {
@@ -5213,7 +5217,7 @@ namespace SDK.Script.FSDSDK
     public class DanceSettings : DataAsset
     {
         public DanceSettings(nint addr) : base(addr) { }
-        public Array<DanceItem> DanceMoves { get { return new Array<DanceItem>(this[nameof(DanceMoves)].Address); } }
+        public UArray<DanceItem> DanceMoves { get { return new UArray<DanceItem>(this[nameof(DanceMoves)].Address); } }
     }
     public class DashPoints : ActorComponent
     {
@@ -5270,7 +5274,7 @@ namespace SDK.Script.FSDSDK
         public Object PlasmaExplosionDOTStatusEffect { get { return this[nameof(PlasmaExplosionDOTStatusEffect)]; } set { this[nameof(PlasmaExplosionDOTStatusEffect)] = value; } }
         public NiagaraSystem GibParticles { get { return this[nameof(GibParticles)].As<NiagaraSystem>(); } set { this["GibParticles"] = value; } }
         public StaticMesh GoreMesh { get { return this[nameof(GoreMesh)].As<StaticMesh>(); } set { this["GoreMesh"] = value; } }
-        public Array<Object> HeadGoreBoneNames { get { return new Array<Object>(this[nameof(HeadGoreBoneNames)].Address); } }
+        public UArray<Object> HeadGoreBoneNames { get { return new UArray<Object>(this[nameof(HeadGoreBoneNames)].Address); } }
         public FXSystemAsset deathParticles { get { return this[nameof(deathParticles)].As<FXSystemAsset>(); } set { this["deathParticles"] = value; } }
         public FXSystemAsset BloodSquirtParticles { get { return this[nameof(BloodSquirtParticles)].As<FXSystemAsset>(); } set { this["BloodSquirtParticles"] = value; } }
         public FXSystemAsset HeadshotParticles { get { return this[nameof(HeadshotParticles)].As<FXSystemAsset>(); } set { this["HeadshotParticles"] = value; } }
@@ -5305,7 +5309,7 @@ namespace SDK.Script.FSDSDK
         public EnemyDeepPathfinderCharacter PFCharacter { get { return this[nameof(PFCharacter)].As<EnemyDeepPathfinderCharacter>(); } set { this["PFCharacter"] = value; } }
         public SpiderAnimInstance AnimInstance { get { return this[nameof(AnimInstance)].As<SpiderAnimInstance>(); } set { this["AnimInstance"] = value; } }
         public void OnRep_DeathType() { Invoke(nameof(OnRep_DeathType)); }
-        public void OnDeathDetailed(HealthComponent HealthComponent, float damageAmount, DamageData DamageData, Array<DamageTag> Tags) { Invoke(nameof(OnDeathDetailed), HealthComponent, damageAmount, DamageData, Tags); }
+        public void OnDeathDetailed(HealthComponent HealthComponent, float damageAmount, DamageData DamageData, UArray<DamageTag> Tags) { Invoke(nameof(OnDeathDetailed), HealthComponent, damageAmount, DamageData, Tags); }
         public StaticMeshComponent CreateHeadGore() { return Invoke<StaticMeshComponent>(nameof(CreateHeadGore)); }
         public void AllRagdoll(Vector Impulse, Vector Location, int BoneIndex) { Invoke(nameof(AllRagdoll), Impulse, Location, BoneIndex); }
     }
@@ -5320,7 +5324,7 @@ namespace SDK.Script.FSDSDK
         public CSGTriangleMapper(nint addr) : base(addr) { }
         public bool Enabled { get { return this[nameof(Enabled)].Flag; } set { this[nameof(Enabled)].Flag = value; } }
         public TerrainMaterial AttachToMaterial { get { return this[nameof(AttachToMaterial)].As<TerrainMaterial>(); } set { this["AttachToMaterial"] = value; } }
-        public Array<TerrainType> AttachToTypes { get { return new Array<TerrainType>(this[nameof(AttachToTypes)].Address); } }
+        public UArray<TerrainType> AttachToTypes { get { return new UArray<TerrainType>(this[nameof(AttachToTypes)].Address); } }
         public int CellCategories { get { return this[nameof(CellCategories)].GetValue<int>(); } set { this[nameof(CellCategories)].SetValue<int>(value); } }
         public float DensityInM2 { get { return this[nameof(DensityInM2)].GetValue<float>(); } set { this[nameof(DensityInM2)].SetValue<float>(value); } }
         public float MinVerticalAngle { get { return this[nameof(MinVerticalAngle)].GetValue<float>(); } set { this[nameof(MinVerticalAngle)].SetValue<float>(value); } }
@@ -5337,7 +5341,7 @@ namespace SDK.Script.FSDSDK
         public float RotationMaxAngle { get { return this[nameof(RotationMaxAngle)].GetValue<float>(); } set { this[nameof(RotationMaxAngle)].SetValue<float>(value); } }
         public float PosOffset { get { return this[nameof(PosOffset)].GetValue<float>(); } set { this[nameof(PosOffset)].SetValue<float>(value); } }
         public float PosOffsetSurface { get { return this[nameof(PosOffsetSurface)].GetValue<float>(); } set { this[nameof(PosOffsetSurface)].SetValue<float>(value); } }
-        public Array<CellNoise> NoiseLayers { get { return new Array<CellNoise>(this[nameof(NoiseLayers)].Address); } }
+        public UArray<CellNoise> NoiseLayers { get { return new UArray<CellNoise>(this[nameof(NoiseLayers)].Address); } }
         public DebrisCellNoiseParameters CellNoiseParameters { get { return this[nameof(CellNoiseParameters)].As<DebrisCellNoiseParameters>(); } set { this["CellNoiseParameters"] = value; } }
     }
     public class DebrisBase : CSGTriangleMapper
@@ -5353,7 +5357,7 @@ namespace SDK.Script.FSDSDK
     {
         public DebrisCarved(nint addr) : base(addr) { }
         public EDebrisCarvedType CarverType { get { return (EDebrisCarvedType)this[nameof(CarverType)].GetValue<int>(); } set { this[nameof(CarverType)].SetValue<int>((int)value); } }
-        public Array<UDebrisCarveMesh> Meshes { get { return new Array<UDebrisCarveMesh>(this[nameof(Meshes)].Address); } }
+        public UArray<UDebrisCarveMesh> Meshes { get { return new UArray<UDebrisCarveMesh>(this[nameof(Meshes)].Address); } }
         public TerrainMaterial TerrainMaterial { get { return this[nameof(TerrainMaterial)].As<TerrainMaterial>(); } set { this["TerrainMaterial"] = value; } }
         public DebrisInfluence CaveInfluenceToAdd { get { return this[nameof(CaveInfluenceToAdd)].As<DebrisInfluence>(); } set { this["CaveInfluenceToAdd"] = value; } }
         public ECarveFilterType Filter { get { return (ECarveFilterType)this[nameof(Filter)].GetValue<int>(); } set { this[nameof(Filter)].SetValue<int>((int)value); } }
@@ -5374,7 +5378,7 @@ namespace SDK.Script.FSDSDK
     {
         public DebrisItemComponent(nint addr) : base(addr) { }
         public DebrisPositioning Debris { get { return this[nameof(Debris)].As<DebrisPositioning>(); } set { this["Debris"] = value; } }
-        public Array<DebrisItemActorItem> Actors { get { return new Array<DebrisItemActorItem>(this[nameof(Actors)].Address); } }
+        public UArray<DebrisItemActorItem> Actors { get { return new UArray<DebrisItemActorItem>(this[nameof(Actors)].Address); } }
         public EDebrisItemPass ItemPass { get { return (EDebrisItemPass)this[nameof(ItemPass)].GetValue<int>(); } set { this[nameof(ItemPass)].SetValue<int>((int)value); } }
         public float InfluenceRange { get { return this[nameof(InfluenceRange)].GetValue<float>(); } set { this[nameof(InfluenceRange)].SetValue<float>(value); } }
         public float MinDistanceToImportantLocations { get { return this[nameof(MinDistanceToImportantLocations)].GetValue<float>(); } set { this[nameof(MinDistanceToImportantLocations)].SetValue<float>(value); } }
@@ -5435,7 +5439,7 @@ namespace SDK.Script.FSDSDK
     public class DebrisMesh : DebrisBase
     {
         public DebrisMesh(nint addr) : base(addr) { }
-        public Array<DebrisStaticMesh> Meshes { get { return new Array<DebrisStaticMesh>(this[nameof(Meshes)].Address); } }
+        public UArray<DebrisStaticMesh> Meshes { get { return new UArray<DebrisStaticMesh>(this[nameof(Meshes)].Address); } }
         public MaterialInterface CommonMaterial { get { return this[nameof(CommonMaterial)].As<MaterialInterface>(); } set { this["CommonMaterial"] = value; } }
         public Object InGameName { get { return this[nameof(InGameName)]; } set { this[nameof(InGameName)] = value; } }
         public Object GemTrackerName { get { return this[nameof(GemTrackerName)]; } set { this[nameof(GemTrackerName)] = value; } }
@@ -5459,13 +5463,13 @@ namespace SDK.Script.FSDSDK
     public class DebrisSet : DataAsset
     {
         public DebrisSet(nint addr) : base(addr) { }
-        public Array<Object> Debris { get { return new Array<Object>(this[nameof(Debris)].Address); } }
+        public UArray<Object> Debris { get { return new UArray<Object>(this[nameof(Debris)].Address); } }
     }
     public class DebrisStaticCarved : DebrisBase
     {
         public DebrisStaticCarved(nint addr) : base(addr) { }
         public EDebrisCarvedType CarverType { get { return (EDebrisCarvedType)this[nameof(CarverType)].GetValue<int>(); } set { this[nameof(CarverType)].SetValue<int>((int)value); } }
-        public Array<UDebrisStaticCarveMesh> Meshes { get { return new Array<UDebrisStaticCarveMesh>(this[nameof(Meshes)].Address); } }
+        public UArray<UDebrisStaticCarveMesh> Meshes { get { return new UArray<UDebrisStaticCarveMesh>(this[nameof(Meshes)].Address); } }
         public TerrainMaterial TerrainMaterial { get { return this[nameof(TerrainMaterial)].As<TerrainMaterial>(); } set { this["TerrainMaterial"] = value; } }
         public DebrisInfluence CaveInfluenceToAdd { get { return this[nameof(CaveInfluenceToAdd)].As<DebrisInfluence>(); } set { this["CaveInfluenceToAdd"] = value; } }
         public ECarveFilterType Filter { get { return (ECarveFilterType)this[nameof(Filter)].GetValue<int>(); } set { this[nameof(Filter)].SetValue<int>((int)value); } }
@@ -5509,33 +5513,33 @@ namespace SDK.Script.FSDSDK
         public TerrainType DirtTerrainType { get { return this[nameof(DirtTerrainType)].As<TerrainType>(); } set { this["DirtTerrainType"] = value; } }
         public TerrainType DefaultBurntTerrainType { get { return this[nameof(DefaultBurntTerrainType)].As<TerrainType>(); } set { this["DefaultBurntTerrainType"] = value; } }
         public TerrainMaterialsCollection TerrainMaterials { get { return this[nameof(TerrainMaterials)].As<TerrainMaterialsCollection>(); } set { this["TerrainMaterials"] = value; } }
-        public Array<DebrisSet> StandardDebrisSets { get { return new Array<DebrisSet>(this[nameof(StandardDebrisSets)].Address); } }
-        public Array<DebrisBase> DebrisLevelGenerationCarved { get { return new Array<DebrisBase>(this[nameof(DebrisLevelGenerationCarved)].Address); } }
-        public Array<DebrisBase> DebrisLargeCarved { get { return new Array<DebrisBase>(this[nameof(DebrisLargeCarved)].Address); } }
-        public Array<DebrisBase> DebrisSmallCarved { get { return new Array<DebrisBase>(this[nameof(DebrisSmallCarved)].Address); } }
-        public Array<DebrisBase> DebrisMeshes { get { return new Array<DebrisBase>(this[nameof(DebrisMeshes)].Address); } }
+        public UArray<DebrisSet> StandardDebrisSets { get { return new UArray<DebrisSet>(this[nameof(StandardDebrisSets)].Address); } }
+        public UArray<DebrisBase> DebrisLevelGenerationCarved { get { return new UArray<DebrisBase>(this[nameof(DebrisLevelGenerationCarved)].Address); } }
+        public UArray<DebrisBase> DebrisLargeCarved { get { return new UArray<DebrisBase>(this[nameof(DebrisLargeCarved)].Address); } }
+        public UArray<DebrisBase> DebrisSmallCarved { get { return new UArray<DebrisBase>(this[nameof(DebrisSmallCarved)].Address); } }
+        public UArray<DebrisBase> DebrisMeshes { get { return new UArray<DebrisBase>(this[nameof(DebrisMeshes)].Address); } }
         public MaterialInterface DefaultScannerMaterial { get { return this[nameof(DefaultScannerMaterial)].As<MaterialInterface>(); } set { this["DefaultScannerMaterial"] = value; } }
         public Object TestLevelCarver { get { return this[nameof(TestLevelCarver)]; } set { this[nameof(TestLevelCarver)] = value; } }
         public Box TestLevelCarverBoundingBox { get { return this[nameof(TestLevelCarverBoundingBox)].As<Box>(); } set { this["TestLevelCarverBoundingBox"] = value; } }
         public DebrisDataActor DebrisActorInstance { get { return this[nameof(DebrisActorInstance)].As<DebrisDataActor>(); } set { this["DebrisActorInstance"] = value; } }
         public int DebrisActorIndex { get { return this[nameof(DebrisActorIndex)].GetValue<int>(); } set { this[nameof(DebrisActorIndex)].SetValue<int>(value); } }
         public ProceduralSetup ProceduralSetup { get { return this[nameof(ProceduralSetup)].As<ProceduralSetup>(); } set { this["ProceduralSetup"] = value; } }
-        public Array<Object> TerrainMaterialAssets { get { return new Array<Object>(this[nameof(TerrainMaterialAssets)].Address); } }
+        public UArray<Object> TerrainMaterialAssets { get { return new UArray<Object>(this[nameof(TerrainMaterialAssets)].Address); } }
         public AsyncPathRequests AsyncPathRequests { get { return this[nameof(AsyncPathRequests)].As<AsyncPathRequests>(); } set { this["AsyncPathRequests"] = value; } }
         public Object OnBaseLayerCommitDone { get { return this[nameof(OnBaseLayerCommitDone)]; } set { this[nameof(OnBaseLayerCommitDone)] = value; } }
         public Object OnBaseLayerFinalCommitDone { get { return this[nameof(OnBaseLayerFinalCommitDone)]; } set { this[nameof(OnBaseLayerFinalCommitDone)] = value; } }
-        public Array<Actor> TerrainAttachedActors { get { return new Array<Actor>(this[nameof(TerrainAttachedActors)].Address); } }
-        public Array<Object> TerrainListeners { get { return new Array<Object>(this[nameof(TerrainListeners)].Address); } }
-        public Array<DebrisBase> RegisteredDebrisList { get { return new Array<DebrisBase>(this[nameof(RegisteredDebrisList)].Address); } }
-        public Array<DebrisWhenCarving> DebrisWhenCarvingList { get { return new Array<DebrisWhenCarving>(this[nameof(DebrisWhenCarvingList)].Address); } }
-        public Array<DebrisInstances> DebrisInstanceList { get { return new Array<DebrisInstances>(this[nameof(DebrisInstanceList)].Address); } }
-        public Array<RuntimeSpawnedDebris> RuntimeSpawnedDebris { get { return new Array<RuntimeSpawnedDebris>(this[nameof(RuntimeSpawnedDebris)].Address); } }
-        public Array<Object> ShowAlwaysScannerComponents { get { return new Array<Object>(this[nameof(ShowAlwaysScannerComponents)].Address); } }
-        public Array<Object> FogOfWarScannerComponents { get { return new Array<Object>(this[nameof(FogOfWarScannerComponents)].Address); } }
-        public Array<DebrisBase> DebrisHandles { get { return new Array<DebrisBase>(this[nameof(DebrisHandles)].Address); } }
-        public Array<Vector> PointsToIncludeInBoudingSphere { get { return new Array<Vector>(this[nameof(PointsToIncludeInBoudingSphere)].Address); } }
+        public UArray<Actor> TerrainAttachedActors { get { return new UArray<Actor>(this[nameof(TerrainAttachedActors)].Address); } }
+        public UArray<Object> TerrainListeners { get { return new UArray<Object>(this[nameof(TerrainListeners)].Address); } }
+        public UArray<DebrisBase> RegisteredDebrisList { get { return new UArray<DebrisBase>(this[nameof(RegisteredDebrisList)].Address); } }
+        public UArray<DebrisWhenCarving> DebrisWhenCarvingList { get { return new UArray<DebrisWhenCarving>(this[nameof(DebrisWhenCarvingList)].Address); } }
+        public UArray<DebrisInstances> DebrisInstanceList { get { return new UArray<DebrisInstances>(this[nameof(DebrisInstanceList)].Address); } }
+        public UArray<RuntimeSpawnedDebris> RuntimeSpawnedDebris { get { return new UArray<RuntimeSpawnedDebris>(this[nameof(RuntimeSpawnedDebris)].Address); } }
+        public UArray<Object> ShowAlwaysScannerComponents { get { return new UArray<Object>(this[nameof(ShowAlwaysScannerComponents)].Address); } }
+        public UArray<Object> FogOfWarScannerComponents { get { return new UArray<Object>(this[nameof(FogOfWarScannerComponents)].Address); } }
+        public UArray<DebrisBase> DebrisHandles { get { return new UArray<DebrisBase>(this[nameof(DebrisHandles)].Address); } }
+        public UArray<Vector> PointsToIncludeInBoudingSphere { get { return new UArray<Vector>(this[nameof(PointsToIncludeInBoudingSphere)].Address); } }
         public TerrainLateJoinData LateJoinData { get { return this[nameof(LateJoinData)].As<TerrainLateJoinData>(); } set { this["LateJoinData"] = value; } }
-        public Array<EncodedChunkId> VisibleChunks { get { return new Array<EncodedChunkId>(this[nameof(VisibleChunks)].Address); } }
+        public UArray<EncodedChunkId> VisibleChunks { get { return new UArray<EncodedChunkId>(this[nameof(VisibleChunks)].Address); } }
         public void UnRegisterScannerComponent(PrimitiveComponent Component) { Invoke(nameof(UnRegisterScannerComponent), Component); }
         public void TerrainOp_SpawnDebris(TerrainSpawnDebrisOperationData Data) { Invoke(nameof(TerrainOp_SpawnDebris), Data); }
         public void TerrainOp_RemoveFloating(RemoveFloatingIslandOperationData Data) { Invoke(nameof(TerrainOp_RemoveFloating), Data); }
@@ -5565,7 +5569,7 @@ namespace SDK.Script.FSDSDK
         public int GetTerrainHash() { return Invoke<int>(nameof(GetTerrainHash)); }
         public int GetShadowQuality() { return Invoke<int>(nameof(GetShadowQuality)); }
         public DebrisDataActor GetDebrisDataActor() { return Invoke<DebrisDataActor>(nameof(GetDebrisDataActor)); }
-        public void GetAllTerrainActorsAroundPoint(Vector Center, Vector range, Array<Actor> TerrainActors) { Invoke(nameof(GetAllTerrainActorsAroundPoint), Center, range, TerrainActors); }
+        public void GetAllTerrainActorsAroundPoint(Vector Center, Vector range, UArray<Actor> TerrainActors) { Invoke(nameof(GetAllTerrainActorsAroundPoint), Center, range, TerrainActors); }
         public void GenerateAllMeshes() { Invoke(nameof(GenerateAllMeshes)); }
         public void FinishGeneration_Blocking() { Invoke(nameof(FinishGeneration_Blocking)); }
         public float FindTotalVolumeOfMaterialInWorld(TerrainMaterial Material) { return Invoke<float>(nameof(FindTotalVolumeOfMaterialInWorld), Material); }
@@ -5576,7 +5580,7 @@ namespace SDK.Script.FSDSDK
         public void CarveWithStaticMeshUsingTransform_Wait(DeepCSGWorld CSGWorld, StaticMeshCarver MeshCarver, TerrainMaterial Material, ECarveFilterType CarveFilter, Transform Transform, EPreciousMaterialOptions Precious, LatentActionInfo LatentInfo) { Invoke(nameof(CarveWithStaticMeshUsingTransform_Wait), CSGWorld, MeshCarver, Material, CarveFilter, Transform, Precious, LatentInfo); }
         public void CarveWithStaticMeshUsingTransform(StaticMeshCarver MeshCarver, TerrainMaterial Material, ECarveFilterType CarveFilter, Transform Transform, EPreciousMaterialOptions Precious) { Invoke(nameof(CarveWithStaticMeshUsingTransform), MeshCarver, Material, CarveFilter, Transform, Precious); }
         public void CarveWithStaticMesh(StaticMeshCarver MeshCarver, TerrainMaterial Material, ECarveFilterType CarveFilter, Vector Pos, Quat Orientation, Vector Scale, EPreciousMaterialOptions Precious) { Invoke(nameof(CarveWithStaticMesh), MeshCarver, Material, CarveFilter, Pos, Orientation, Scale, Precious); }
-        public void CarveWithSplineSegments(Array<CarveSplineSegment> Segments, TerrainMaterial Material, ECarveFilterType CarveFilter, EPreciousMaterialOptions Precious) { Invoke(nameof(CarveWithSplineSegments), Segments, Material, CarveFilter, Precious); }
+        public void CarveWithSplineSegments(UArray<CarveSplineSegment> Segments, TerrainMaterial Material, ECarveFilterType CarveFilter, EPreciousMaterialOptions Precious) { Invoke(nameof(CarveWithSplineSegments), Segments, Material, CarveFilter, Precious); }
         public void CarveWithSplineSegment(Vector SplineStart, Vector SplineStartTangent, Vector SplineEnd, Vector SplineEndTangent, float Radius, TerrainMaterial Material, ECarveFilterType CarveFilter, EPreciousMaterialOptions Precious) { Invoke(nameof(CarveWithSplineSegment), SplineStart, SplineStartTangent, SplineEnd, SplineEndTangent, Radius, Material, CarveFilter, Precious); }
         public void CarveWithMeshUsingTransform_Wait(DeepCSGWorld CSGWorld, StaticMesh StaticMesh, TerrainMaterial Material, ECarveFilterType CarveFilter, Transform Transform, float ExpensiveNoise, EPreciousMaterialOptions Precious, LatentActionInfo LatentInfo) { Invoke(nameof(CarveWithMeshUsingTransform_Wait), CSGWorld, StaticMesh, Material, CarveFilter, Transform, ExpensiveNoise, Precious, LatentInfo); }
         public void CarveWithMeshUsingTransform(StaticMesh StaticMesh, TerrainMaterial Material, ECarveFilterType CarveFilter, Transform Transform, float ExpensiveNoise, EPreciousMaterialOptions Precious, CarveOptionsCellSize CarverSize) { Invoke(nameof(CarveWithMeshUsingTransform), StaticMesh, Material, CarveFilter, Transform, ExpensiveNoise, Precious, CarverSize); }
@@ -5588,16 +5592,16 @@ namespace SDK.Script.FSDSDK
         public void BaseLayerCommitFinal(bool blocking) { Invoke(nameof(BaseLayerCommitFinal), blocking); }
         public void BaseLayerCommit(bool blocking, bool scheduleTesselation) { Invoke(nameof(BaseLayerCommit), blocking, scheduleTesselation); }
         public void AttachActorToTerrain(Actor Actor, Vector Pos) { Invoke(nameof(AttachActorToTerrain), Actor, Pos); }
-        public void ApplyBaseDebrisCarvers(Array<DebrisBase> Carvers) { Invoke(nameof(ApplyBaseDebrisCarvers), Carvers); }
+        public void ApplyBaseDebrisCarvers(UArray<DebrisBase> Carvers) { Invoke(nameof(ApplyBaseDebrisCarvers), Carvers); }
     }
     public class DeepDive : Object
     {
         public DeepDive(nint addr) : base(addr) { }
-        public Array<GeneratedMission> missions { get { return new Array<GeneratedMission>(this[nameof(missions)].Address); } }
+        public UArray<GeneratedMission> missions { get { return new UArray<GeneratedMission>(this[nameof(missions)].Address); } }
         public Biome Biome { get { return this[nameof(Biome)].As<Biome>(); } set { this["Biome"] = value; } }
-        public Array<DeepDiveRewardItem> GivenRewards { get { return new Array<DeepDiveRewardItem>(this[nameof(GivenRewards)].Address); } }
+        public UArray<DeepDiveRewardItem> GivenRewards { get { return new UArray<DeepDiveRewardItem>(this[nameof(GivenRewards)].Address); } }
         public int MissionsCompleted { get { return this[nameof(MissionsCompleted)].GetValue<int>(); } set { this[nameof(MissionsCompleted)].SetValue<int>(value); } }
-        public Array<int> StagesCompleted { get { return new Array<int>(this[nameof(StagesCompleted)].Address); } }
+        public UArray<int> StagesCompleted { get { return new UArray<int>(this[nameof(StagesCompleted)].Address); } }
         public int CurrentMissionIndex { get { return this[nameof(CurrentMissionIndex)].GetValue<int>(); } set { this[nameof(CurrentMissionIndex)].SetValue<int>(value); } }
         public DeepDiveTemplate Template { get { return this[nameof(Template)].As<DeepDiveTemplate>(); } set { this["Template"] = value; } }
         public Object DeepDiveName { get { return this[nameof(DeepDiveName)]; } set { this[nameof(DeepDiveName)] = value; } }
@@ -5638,7 +5642,7 @@ namespace SDK.Script.FSDSDK
         public DeepDive GetActiveNormalDeepDive() { return Invoke<DeepDive>(nameof(GetActiveNormalDeepDive)); }
         public DeepDive GetActiveHardDeepDive() { return Invoke<DeepDive>(nameof(GetActiveHardDeepDive)); }
         public DeepDive GetActiveDeepDive() { return Invoke<DeepDive>(nameof(GetActiveDeepDive)); }
-        public DeepDive GenerateDebugDeepDive(Array<DeepDiveTesterItem> stages, Biome Biome, bool IsElite) { return Invoke<DeepDive>(nameof(GenerateDebugDeepDive), stages, Biome, IsElite); }
+        public DeepDive GenerateDebugDeepDive(UArray<DeepDiveTesterItem> stages, Biome Biome, bool IsElite) { return Invoke<DeepDive>(nameof(GenerateDebugDeepDive), stages, Biome, IsElite); }
         public int FindDeepDiveSeed(DeepDive DeepDive) { return Invoke<int>(nameof(FindDeepDiveSeed), DeepDive); }
         public void DeepDiveRefreshDelegate__DelegateSignature() { Invoke(nameof(DeepDiveRefreshDelegate__DelegateSignature)); }
         public bool CompleteCurrentSingleMission() { return Invoke<bool>(nameof(CompleteCurrentSingleMission)); }
@@ -5648,11 +5652,11 @@ namespace SDK.Script.FSDSDK
         public DeepDiveSettings(nint addr) : base(addr) { }
         public DeepDiveTemplate NormalTemplate { get { return this[nameof(NormalTemplate)].As<DeepDiveTemplate>(); } set { this["NormalTemplate"] = value; } }
         public DeepDiveTemplate HardTemplate { get { return this[nameof(HardTemplate)].As<DeepDiveTemplate>(); } set { this["HardTemplate"] = value; } }
-        public Array<Mutator> BaseMutators { get { return new Array<Mutator>(this[nameof(BaseMutators)].Address); } }
-        public Array<MissionMutator> Mutators { get { return new Array<MissionMutator>(this[nameof(Mutators)].Address); } }
-        public Array<MissionWarning> Warnings { get { return new Array<MissionWarning>(this[nameof(Warnings)].Address); } }
-        public Array<DialogDataAsset> DeepDiveMissionCompleteShouts { get { return new Array<DialogDataAsset>(this[nameof(DeepDiveMissionCompleteShouts)].Address); } }
-        public Array<DeepDiveLoaderSequence> LoaderSequnces { get { return new Array<DeepDiveLoaderSequence>(this[nameof(LoaderSequnces)].Address); } }
+        public UArray<Mutator> BaseMutators { get { return new UArray<Mutator>(this[nameof(BaseMutators)].Address); } }
+        public UArray<MissionMutator> Mutators { get { return new UArray<MissionMutator>(this[nameof(Mutators)].Address); } }
+        public UArray<MissionWarning> Warnings { get { return new UArray<MissionWarning>(this[nameof(Warnings)].Address); } }
+        public UArray<DialogDataAsset> DeepDiveMissionCompleteShouts { get { return new UArray<DialogDataAsset>(this[nameof(DeepDiveMissionCompleteShouts)].Address); } }
+        public UArray<DeepDiveLoaderSequence> LoaderSequnces { get { return new UArray<DeepDiveLoaderSequence>(this[nameof(LoaderSequnces)].Address); } }
         public MissionNameBank DeepDiveNameBank { get { return this[nameof(DeepDiveNameBank)].As<MissionNameBank>(); } set { this["DeepDiveNameBank"] = value; } }
         public Object MissionBar { get { return this[nameof(MissionBar)]; } set { this[nameof(MissionBar)] = value; } }
         public Object MissionEndScreen_Success { get { return this[nameof(MissionEndScreen_Success)]; } set { this[nameof(MissionEndScreen_Success)] = value; } }
@@ -5661,9 +5665,9 @@ namespace SDK.Script.FSDSDK
     public class DeepDiveTemplate : SavableDataAsset
     {
         public DeepDiveTemplate(nint addr) : base(addr) { }
-        public Array<DifficultySetting> Difficulties { get { return new Array<DifficultySetting>(this[nameof(Difficulties)].Address); } }
-        public Array<DeepDiveTemplateItem> missions { get { return new Array<DeepDiveTemplateItem>(this[nameof(missions)].Address); } }
-        public Array<ESchematicType> Rewards { get { return new Array<ESchematicType>(this[nameof(Rewards)].Address); } }
+        public UArray<DifficultySetting> Difficulties { get { return new UArray<DifficultySetting>(this[nameof(Difficulties)].Address); } }
+        public UArray<DeepDiveTemplateItem> missions { get { return new UArray<DeepDiveTemplateItem>(this[nameof(missions)].Address); } }
+        public UArray<ESchematicType> Rewards { get { return new UArray<ESchematicType>(this[nameof(Rewards)].Address); } }
         public int CreditsPerPrimaryObjective { get { return this[nameof(CreditsPerPrimaryObjective)].GetValue<int>(); } set { this[nameof(CreditsPerPrimaryObjective)].SetValue<int>(value); } }
         public int CreditsPerSecondaryObjective { get { return this[nameof(CreditsPerSecondaryObjective)].GetValue<int>(); } set { this[nameof(CreditsPerSecondaryObjective)].SetValue<int>(value); } }
         public int XPPerPrimaryObjective { get { return this[nameof(XPPerPrimaryObjective)].GetValue<int>(); } set { this[nameof(XPPerPrimaryObjective)].SetValue<int>(value); } }
@@ -5682,7 +5686,7 @@ namespace SDK.Script.FSDSDK
     public class AsyncPathRequests : ActorComponent
     {
         public AsyncPathRequests(nint addr) : base(addr) { }
-        public Array<Object> RequestListeners { get { return new Array<Object>(this[nameof(RequestListeners)].Address); } }
+        public UArray<Object> RequestListeners { get { return new UArray<Object>(this[nameof(RequestListeners)].Address); } }
     }
     public class DeepPathfinderSceneComponent : SceneComponent
     {
@@ -5841,7 +5845,7 @@ namespace SDK.Script.FSDSDK
     {
         public DeepScanObjectiveBase(nint addr) : base(addr) { }
         public GemResourceData HiddenItemResource { get { return this[nameof(HiddenItemResource)].As<GemResourceData>(); } set { this["HiddenItemResource"] = value; } }
-        public Array<DeepScanHiddenCrystal> HiddenItemInstances { get { return new Array<DeepScanHiddenCrystal>(this[nameof(HiddenItemInstances)].Address); } }
+        public UArray<DeepScanHiddenCrystal> HiddenItemInstances { get { return new UArray<DeepScanHiddenCrystal>(this[nameof(HiddenItemInstances)].Address); } }
         public DeepScanPlayerComponent UIComponent { get { return this[nameof(UIComponent)].As<DeepScanPlayerComponent>(); } set { this["UIComponent"] = value; } }
         public Object PlayerComponentClass { get { return this[nameof(PlayerComponentClass)]; } set { this[nameof(PlayerComponentClass)] = value; } }
         public void OnPlayerRegistered(PlayerCharacter Player) { Invoke(nameof(OnPlayerRegistered), Player); }
@@ -5917,8 +5921,8 @@ namespace SDK.Script.FSDSDK
         public DefenseObjective(nint addr) : base(addr) { }
         public int DefensePoints { get { return this[nameof(DefensePoints)].GetValue<int>(); } set { this[nameof(DefensePoints)].SetValue<int>(value); } }
         public int PointsDefended { get { return this[nameof(PointsDefended)].GetValue<int>(); } set { this[nameof(PointsDefended)].SetValue<int>(value); } }
-        public Array<Object> ObjectiveDefenseClasses { get { return new Array<Object>(this[nameof(ObjectiveDefenseClasses)].Address); } }
-        public Array<DefensePointActor> ActiveObjectiveDefenseActors { get { return new Array<DefensePointActor>(this[nameof(ActiveObjectiveDefenseActors)].Address); } }
+        public UArray<Object> ObjectiveDefenseClasses { get { return new UArray<Object>(this[nameof(ObjectiveDefenseClasses)].Address); } }
+        public UArray<DefensePointActor> ActiveObjectiveDefenseActors { get { return new UArray<DefensePointActor>(this[nameof(ActiveObjectiveDefenseActors)].Address); } }
         public DebrisPositioning DebrisPositioning { get { return this[nameof(DebrisPositioning)].As<DebrisPositioning>(); } set { this["DebrisPositioning"] = value; } }
         public void PointDefended() { Invoke(nameof(PointDefended)); }
         public void OnRep_PointsRepaired() { Invoke(nameof(OnRep_PointsRepaired)); }
@@ -5958,16 +5962,16 @@ namespace SDK.Script.FSDSDK
         public bool TagsMatch(Object SearchExpr, DetailedTagSet Tags) { return Invoke<bool>(nameof(TagsMatch), SearchExpr, Tags); }
         public Object TagSetToText(DetailedTagSet InSet) { return Invoke<Object>(nameof(TagSetToText), InSet); }
         public bool TagQueryMatches(DetailedTagQuery InQuery, DetailedTagSet InTags) { return Invoke<bool>(nameof(TagQueryMatches), InQuery, InTags); }
-        public DetailedTagQuery MakeTagQueryFromArray(Array<DetailedTag> InTags) { return Invoke<DetailedTagQuery>(nameof(MakeTagQueryFromArray), InTags); }
+        public DetailedTagQuery MakeTagQueryFromArray(UArray<DetailedTag> InTags) { return Invoke<DetailedTagQuery>(nameof(MakeTagQueryFromArray), InTags); }
         public DetailedTagQuery MakeTagQuery(DetailedTagSet InTags) { return Invoke<DetailedTagQuery>(nameof(MakeTagQuery), InTags); }
-        public DetailedTagSet MakeDetailedTagSet(Array<DetailedTag> InTags) { return Invoke<DetailedTagSet>(nameof(MakeDetailedTagSet), InTags); }
+        public DetailedTagSet MakeDetailedTagSet(UArray<DetailedTag> InTags) { return Invoke<DetailedTagSet>(nameof(MakeDetailedTagSet), InTags); }
         public bool IsSetEmpty(DetailedTagSet InSet) { return Invoke<bool>(nameof(IsSetEmpty), InSet); }
         public Object GetCategoryMap(DetailedTagSet InSet) { return Invoke<Object>(nameof(GetCategoryMap), InSet); }
-        public Array<DetailedTag> GetArraySorted(DetailedTagSet InSet, bool InSortByCategory) { return Invoke<Array<DetailedTag>>(nameof(GetArraySorted), InSet, InSortByCategory); }
-        public Array<DetailedTag> GetArray(DetailedTagSet InSet) { return Invoke<Array<DetailedTag>>(nameof(GetArray), InSet); }
+        public UArray<DetailedTag> GetArraySorted(DetailedTagSet InSet, bool InSortByCategory) { return Invoke<UArray<DetailedTag>>(nameof(GetArraySorted), InSet, InSortByCategory); }
+        public UArray<DetailedTag> GetArray(DetailedTagSet InSet) { return Invoke<UArray<DetailedTag>>(nameof(GetArray), InSet); }
         public bool Contains(DetailedTagSet InSet, DetailedTag InTag) { return Invoke<bool>(nameof(Contains), InSet, InTag); }
         public void AppendSet(DetailedTagSet InSet1, DetailedTagSet InSet2) { Invoke(nameof(AppendSet), InSet1, InSet2); }
-        public void AppendArray(DetailedTagSet InSet, Array<DetailedTag> inArray) { Invoke(nameof(AppendArray), InSet, inArray); }
+        public void AppendArray(DetailedTagSet InSet, UArray<DetailedTag> inArray) { Invoke(nameof(AppendArray), InSet, inArray); }
     }
     public class DetPack : Actor
     {
@@ -6022,8 +6026,8 @@ namespace SDK.Script.FSDSDK
         public DialogDataAsset ShoutDetPackPlaced { get { return this[nameof(ShoutDetPackPlaced)].As<DialogDataAsset>(); } set { this["ShoutDetPackPlaced"] = value; } }
         public DialogDataAsset ShoutOutOfAmmo { get { return this[nameof(ShoutOutOfAmmo)].As<DialogDataAsset>(); } set { this["ShoutOutOfAmmo"] = value; } }
         public float CooldownLeft { get { return this[nameof(CooldownLeft)].GetValue<float>(); } set { this[nameof(CooldownLeft)].SetValue<float>(value); } }
-        public Array<DetPack> ThrownPacks { get { return new Array<DetPack>(this[nameof(ThrownPacks)].Address); } }
-        public Array<ItemUpgrade> DetPackUpgrades { get { return new Array<ItemUpgrade>(this[nameof(DetPackUpgrades)].Address); } }
+        public UArray<DetPack> ThrownPacks { get { return new UArray<DetPack>(this[nameof(ThrownPacks)].Address); } }
+        public UArray<ItemUpgrade> DetPackUpgrades { get { return new UArray<ItemUpgrade>(this[nameof(DetPackUpgrades)].Address); } }
         public bool IsDetonatorOut { get { return this[nameof(IsDetonatorOut)].Flag; } set { this[nameof(IsDetonatorOut)].Flag = value; } }
         public bool HasThrownPack { get { return this[nameof(HasThrownPack)].Flag; } set { this[nameof(HasThrownPack)].Flag = value; } }
         public void Simulate_ThrowGrenade() { Invoke(nameof(Simulate_ThrowGrenade)); }
@@ -6044,9 +6048,9 @@ namespace SDK.Script.FSDSDK
         public float ShoutDelay { get { return this[nameof(ShoutDelay)].GetValue<float>(); } set { this[nameof(ShoutDelay)].SetValue<float>(value); } }
         public float ShoutCoolDown { get { return this[nameof(ShoutCoolDown)].GetValue<float>(); } set { this[nameof(ShoutCoolDown)].SetValue<float>(value); } }
         public float ShoutChance { get { return this[nameof(ShoutChance)].GetValue<float>(); } set { this[nameof(ShoutChance)].SetValue<float>(value); } }
-        public Array<DialogStruct> Entries { get { return new Array<DialogStruct>(this[nameof(Entries)].Address); } }
-        public Array<SoundSubmixBase> SubmixSends { get { return new Array<SoundSubmixBase>(this[nameof(SubmixSends)].Address); } }
-        public Array<int> Playlist { get { return new Array<int>(this[nameof(Playlist)].Address); } }
+        public UArray<DialogStruct> Entries { get { return new UArray<DialogStruct>(this[nameof(Entries)].Address); } }
+        public UArray<SoundSubmixBase> SubmixSends { get { return new UArray<SoundSubmixBase>(this[nameof(SubmixSends)].Address); } }
+        public UArray<int> Playlist { get { return new UArray<int>(this[nameof(Playlist)].Address); } }
         public int SelectIndex(Object WorldContext) { return Invoke<int>(nameof(SelectIndex), WorldContext); }
         public bool SelectEntry(Object WorldContext, DialogStruct Dialog) { return Invoke<bool>(nameof(SelectEntry), WorldContext, Dialog); }
         public DialogStruct GetShout(int Index) { return Invoke<DialogStruct>(nameof(GetShout), Index); }
@@ -6061,7 +6065,7 @@ namespace SDK.Script.FSDSDK
         public int ForcedPlayerCount { get { return this[nameof(ForcedPlayerCount)].GetValue<int>(); } set { this[nameof(ForcedPlayerCount)].SetValue<int>(value); } }
         public FSDGameMode GameMode { get { return this[nameof(GameMode)].As<FSDGameMode>(); } set { this["GameMode"] = value; } }
         public FSDGameState GameState { get { return this[nameof(GameState)].As<FSDGameState>(); } set { this["GameState"] = value; } }
-        public GameDifficulty SelectGameDifficulty(int Index, Array<DifficultyMutatorItem> Mutators) { return Invoke<GameDifficulty>(nameof(SelectGameDifficulty), Index, Mutators); }
+        public GameDifficulty SelectGameDifficulty(int Index, UArray<DifficultyMutatorItem> Mutators) { return Invoke<GameDifficulty>(nameof(SelectGameDifficulty), Index, Mutators); }
         public DifficultySetting SelectDifficulty(int Index) { return Invoke<DifficultySetting>(nameof(SelectDifficulty), Index); }
         public float GetSpeedModifier() { return Invoke<float>(nameof(GetSpeedModifier)); }
         public float GetSmallEnemyDamageResistance() { return Invoke<float>(nameof(GetSmallEnemyDamageResistance)); }
@@ -6086,16 +6090,16 @@ namespace SDK.Script.FSDSDK
         public Object CampaignRequirement { get { return this[nameof(CampaignRequirement)]; } set { this[nameof(CampaignRequirement)] = value; } }
         public Object SelectedByDefaultCampaignRequirement { get { return this[nameof(SelectedByDefaultCampaignRequirement)]; } set { this[nameof(SelectedByDefaultCampaignRequirement)] = value; } }
         public float EnvironmentalDamageModifier { get { return this[nameof(EnvironmentalDamageModifier)].GetValue<float>(); } set { this[nameof(EnvironmentalDamageModifier)].SetValue<float>(value); } }
-        public Array<float> ExtraLargeEnemyDamageResistance { get { return new Array<float>(this[nameof(ExtraLargeEnemyDamageResistance)].Address); } }
-        public Array<float> ExtraLargeEnemyDamageResistanceB { get { return new Array<float>(this[nameof(ExtraLargeEnemyDamageResistanceB)].Address); } }
-        public Array<float> ExtraLargeEnemyDamageResistanceC { get { return new Array<float>(this[nameof(ExtraLargeEnemyDamageResistanceC)].Address); } }
-        public Array<float> ExtraLargeEnemyDamageResistanceD { get { return new Array<float>(this[nameof(ExtraLargeEnemyDamageResistanceD)].Address); } }
-        public Array<float> EnemyDamageResistance { get { return new Array<float>(this[nameof(EnemyDamageResistance)].Address); } }
-        public Array<float> SmallEnemyDamageResistance { get { return new Array<float>(this[nameof(SmallEnemyDamageResistance)].Address); } }
-        public Array<float> EnemyDamageModifier { get { return new Array<float>(this[nameof(EnemyDamageModifier)].Address); } }
+        public UArray<float> ExtraLargeEnemyDamageResistance { get { return new UArray<float>(this[nameof(ExtraLargeEnemyDamageResistance)].Address); } }
+        public UArray<float> ExtraLargeEnemyDamageResistanceB { get { return new UArray<float>(this[nameof(ExtraLargeEnemyDamageResistanceB)].Address); } }
+        public UArray<float> ExtraLargeEnemyDamageResistanceC { get { return new UArray<float>(this[nameof(ExtraLargeEnemyDamageResistanceC)].Address); } }
+        public UArray<float> ExtraLargeEnemyDamageResistanceD { get { return new UArray<float>(this[nameof(ExtraLargeEnemyDamageResistanceD)].Address); } }
+        public UArray<float> EnemyDamageResistance { get { return new UArray<float>(this[nameof(EnemyDamageResistance)].Address); } }
+        public UArray<float> SmallEnemyDamageResistance { get { return new UArray<float>(this[nameof(SmallEnemyDamageResistance)].Address); } }
+        public UArray<float> EnemyDamageModifier { get { return new UArray<float>(this[nameof(EnemyDamageModifier)].Address); } }
         public float EnemyToEnemyDamageModifier { get { return this[nameof(EnemyToEnemyDamageModifier)].GetValue<float>(); } set { this[nameof(EnemyToEnemyDamageModifier)].SetValue<float>(value); } }
         public bool SupportsHazardPlus { get { return this[nameof(SupportsHazardPlus)].Flag; } set { this[nameof(SupportsHazardPlus)].Flag = value; } }
-        public Array<float> EnemyCountModifier { get { return new Array<float>(this[nameof(EnemyCountModifier)].Address); } }
+        public UArray<float> EnemyCountModifier { get { return new UArray<float>(this[nameof(EnemyCountModifier)].Address); } }
         public float BossDifficultyScaler { get { return this[nameof(BossDifficultyScaler)].GetValue<float>(); } set { this[nameof(BossDifficultyScaler)].SetValue<float>(value); } }
         public float PointExtractionScaler { get { return this[nameof(PointExtractionScaler)].GetValue<float>(); } set { this[nameof(PointExtractionScaler)].SetValue<float>(value); } }
         public RandInterval EncounterDifficulty { get { return this[nameof(EncounterDifficulty)].As<RandInterval>(); } set { this["EncounterDifficulty"] = value; } }
@@ -6117,7 +6121,7 @@ namespace SDK.Script.FSDSDK
         public float ProjectileSpeedModifier { get { return this[nameof(ProjectileSpeedModifier)].GetValue<float>(); } set { this[nameof(ProjectileSpeedModifier)].SetValue<float>(value); } }
         public int DifficultyGroup { get { return this[nameof(DifficultyGroup)].GetValue<int>(); } set { this[nameof(DifficultyGroup)].SetValue<int>(value); } }
         public int DifficultyGroupIndex { get { return this[nameof(DifficultyGroupIndex)].GetValue<int>(); } set { this[nameof(DifficultyGroupIndex)].SetValue<int>(value); } }
-        public Array<MissionStat> MissionCompletedStats { get { return new Array<MissionStat>(this[nameof(MissionCompletedStats)].Address); } }
+        public UArray<MissionStat> MissionCompletedStats { get { return new UArray<MissionStat>(this[nameof(MissionCompletedStats)].Address); } }
         public float HeathRegenerationMax { get { return this[nameof(HeathRegenerationMax)].GetValue<float>(); } set { this[nameof(HeathRegenerationMax)].SetValue<float>(value); } }
         public float ReviveHealthRatio { get { return this[nameof(ReviveHealthRatio)].GetValue<float>(); } set { this[nameof(ReviveHealthRatio)].SetValue<float>(value); } }
         public float EliteChanceModifier { get { return this[nameof(EliteChanceModifier)].GetValue<float>(); } set { this[nameof(EliteChanceModifier)].SetValue<float>(value); } }
@@ -6131,7 +6135,7 @@ namespace SDK.Script.FSDSDK
     {
         public DifficultyMutatorSetupItem(nint addr) : base(addr) { }
         public DifficultyMutatorInfo Info { get { return this[nameof(Info)].As<DifficultyMutatorInfo>(); } set { this["Info"] = value; } }
-        public Array<DifficultyMutator> Mutators { get { return new Array<DifficultyMutator>(this[nameof(Mutators)].Address); } }
+        public UArray<DifficultyMutator> Mutators { get { return new UArray<DifficultyMutator>(this[nameof(Mutators)].Address); } }
         public float HazardBonus { get { return this[nameof(HazardBonus)].GetValue<float>(); } set { this[nameof(HazardBonus)].SetValue<float>(value); } }
         public int GetNumberOfLevels() { return Invoke<int>(nameof(GetNumberOfLevels)); }
     }
@@ -6178,7 +6182,7 @@ namespace SDK.Script.FSDSDK
         public RuntimeFloatCurve RelativeZOffset { get { return this[nameof(RelativeZOffset)].As<RuntimeFloatCurve>(); } set { this["RelativeZOffset"] = value; } }
         public RuntimeFloatCurve ReactZOffsetCof { get { return this[nameof(ReactZOffsetCof)].As<RuntimeFloatCurve>(); } set { this["ReactZOffsetCof"] = value; } }
         public RuntimeFloatCurve ReactTimeDilationCof { get { return this[nameof(ReactTimeDilationCof)].As<RuntimeFloatCurve>(); } set { this["ReactTimeDilationCof"] = value; } }
-        public Array<DisplayContent> Contents { get { return new Array<DisplayContent>(this[nameof(Contents)].Address); } }
+        public UArray<DisplayContent> Contents { get { return new UArray<DisplayContent>(this[nameof(Contents)].Address); } }
         public float RotationSpeed { get { return this[nameof(RotationSpeed)].GetValue<float>(); } set { this[nameof(RotationSpeed)].SetValue<float>(value); } }
         public float BeerMugSpawnChancePercent { get { return this[nameof(BeerMugSpawnChancePercent)].GetValue<float>(); } set { this[nameof(BeerMugSpawnChancePercent)].SetValue<float>(value); } }
         public float BarrelSpawnChancePercent { get { return this[nameof(BarrelSpawnChancePercent)].GetValue<float>(); } set { this[nameof(BarrelSpawnChancePercent)].SetValue<float>(value); } }
@@ -6263,14 +6267,14 @@ namespace SDK.Script.FSDSDK
         public float FuelUsePerMelee { get { return this[nameof(FuelUsePerMelee)].GetValue<float>(); } set { this[nameof(FuelUsePerMelee)].SetValue<float>(value); } }
         public float SupplyStatusWeight { get { return this[nameof(SupplyStatusWeight)].GetValue<float>(); } set { this[nameof(SupplyStatusWeight)].SetValue<float>(value); } }
         public DialogDataAsset ShoutOutOfFuel { get { return this[nameof(ShoutOutOfFuel)].As<DialogDataAsset>(); } set { this["ShoutOutOfFuel"] = value; } }
-        public Array<HitResult> HitCache { get { return new Array<HitResult>(this[nameof(HitCache)].Address); } }
-        public Array<DoubleDrillDamageItem> DamageCache { get { return new Array<DoubleDrillDamageItem>(this[nameof(DamageCache)].Address); } }
+        public UArray<HitResult> HitCache { get { return new UArray<HitResult>(this[nameof(HitCache)].Address); } }
+        public UArray<DoubleDrillDamageItem> DamageCache { get { return new UArray<DoubleDrillDamageItem>(this[nameof(DamageCache)].Address); } }
         public float DrillParticlesDuration { get { return this[nameof(DrillParticlesDuration)].GetValue<float>(); } set { this[nameof(DrillParticlesDuration)].SetValue<float>(value); } }
         public bool IsMining { get { return this[nameof(IsMining)].Flag; } set { this[nameof(IsMining)].Flag = value; } }
         public bool IsGunslinging { get { return this[nameof(IsGunslinging)].Flag; } set { this[nameof(IsGunslinging)].Flag = value; } }
         public void Server_StopMining() { Invoke(nameof(Server_StopMining)); }
         public void Server_StartMining() { Invoke(nameof(Server_StartMining)); }
-        public void Server_DoDamage(Array<DoubleDrillDamageItem> Targets) { Invoke(nameof(Server_DoDamage), Targets); }
+        public void Server_DoDamage(UArray<DoubleDrillDamageItem> Targets) { Invoke(nameof(Server_DoDamage), Targets); }
         public void Server_DigBlock(Vector_NetQuantize Start, Vector_NetQuantize End) { Invoke(nameof(Server_DigBlock), Start, End); }
         public void OnTargetKilled(Actor Target, FSDPhysicalMaterial PhysMat, bool wasDirectHit) { Invoke(nameof(OnTargetKilled), Target, PhysMat, wasDirectHit); }
         public void OnStopDrilling() { Invoke(nameof(OnStopDrilling)); }
@@ -6282,7 +6286,7 @@ namespace SDK.Script.FSDSDK
         public void BP_OnDrillDamage() { Invoke(nameof(BP_OnDrillDamage)); }
         public void All_SimulateDigDebris(Vector_NetQuantize Position, int DebrisIndex) { Invoke(nameof(All_SimulateDigDebris), Position, DebrisIndex); }
         public void All_SimulateDigBlock(Vector_NetQuantize Position, bool SpawnParticles, int Material) { Invoke(nameof(All_SimulateDigBlock), Position, SpawnParticles, Material); }
-        public void All_SimulateDamage(Array<DoubleDrillDamageItem> Targets) { Invoke(nameof(All_SimulateDamage), Targets); }
+        public void All_SimulateDamage(UArray<DoubleDrillDamageItem> Targets) { Invoke(nameof(All_SimulateDamage), Targets); }
     }
     public class DoubleDrillAnimInstance : AnimInstance
     {
@@ -6309,7 +6313,7 @@ namespace SDK.Script.FSDSDK
     public class MoveDownedPlayerCapsule : CapsuleComponent
     {
         public MoveDownedPlayerCapsule(nint addr) : base(addr) { }
-        public Array<SceneComponent> TargetLocations { get { return new Array<SceneComponent>(this[nameof(TargetLocations)].Address); } }
+        public UArray<SceneComponent> TargetLocations { get { return new UArray<SceneComponent>(this[nameof(TargetLocations)].Address); } }
     }
     public class Drillevator : TaggedActor
     {
@@ -6439,11 +6443,11 @@ namespace SDK.Script.FSDSDK
     public class DrinkSettings : DataAsset
     {
         public DrinkSettings(nint addr) : base(addr) { }
-        public Array<BarleySpawnItem> BarleySpawns { get { return new Array<BarleySpawnItem>(this[nameof(BarleySpawns)].Address); } }
+        public UArray<BarleySpawnItem> BarleySpawns { get { return new UArray<BarleySpawnItem>(this[nameof(BarleySpawns)].Address); } }
         public RandInterval BarleyAmount { get { return this[nameof(BarleyAmount)].As<RandInterval>(); } set { this["BarleyAmount"] = value; } }
         public Object SpecialBeerUnlockCost { get { return this[nameof(SpecialBeerUnlockCost)]; } set { this[nameof(SpecialBeerUnlockCost)] = value; } }
-        public Array<DrinkableDataAsset> Drinkables { get { return new Array<DrinkableDataAsset>(this[nameof(Drinkables)].Address); } }
-        public Array<DrinkableDataAsset> GetBarDrinkables(Object WorldContext, bool IncludeDailySpecial, bool includeNotUnlocked, bool includePlayerRankTooLow) { return Invoke<Array<DrinkableDataAsset>>(nameof(GetBarDrinkables), WorldContext, IncludeDailySpecial, includeNotUnlocked, includePlayerRankTooLow); }
+        public UArray<DrinkableDataAsset> Drinkables { get { return new UArray<DrinkableDataAsset>(this[nameof(Drinkables)].Address); } }
+        public UArray<DrinkableDataAsset> GetBarDrinkables(Object WorldContext, bool IncludeDailySpecial, bool includeNotUnlocked, bool includePlayerRankTooLow) { return Invoke<UArray<DrinkableDataAsset>>(nameof(GetBarDrinkables), WorldContext, IncludeDailySpecial, includeNotUnlocked, includePlayerRankTooLow); }
         public DrinkableDataAsset GetBarDailySpecial(Object WorldContext, DrinkableDataAsset currentDailySpecial) { return Invoke<DrinkableDataAsset>(nameof(GetBarDailySpecial), WorldContext, currentDailySpecial); }
     }
     public class DroneBase : DeepPathfinderCharacter
@@ -6451,7 +6455,7 @@ namespace SDK.Script.FSDSDK
         public DroneBase(nint addr) : base(addr) { }
         public PointLightComponent StateLight { get { return this[nameof(StateLight)].As<PointLightComponent>(); } set { this["StateLight"] = value; } }
         public EDroneState DefaultState { get { return (EDroneState)this[nameof(DefaultState)].GetValue<int>(); } set { this[nameof(DefaultState)].SetValue<int>((int)value); } }
-        public Array<DroneStateComponentBase> DroneStates { get { return new Array<DroneStateComponentBase>(this[nameof(DroneStates)].Address); } }
+        public UArray<DroneStateComponentBase> DroneStates { get { return new UArray<DroneStateComponentBase>(this[nameof(DroneStates)].Address); } }
         public EDroneState CurrentState { get { return (EDroneState)this[nameof(CurrentState)].GetValue<int>(); } set { this[nameof(CurrentState)].SetValue<int>((int)value); } }
         public void OnRep_CurrentState(EDroneState Previous) { Invoke(nameof(OnRep_CurrentState), Previous); }
     }
@@ -6490,7 +6494,7 @@ namespace SDK.Script.FSDSDK
     public class DroneControllerBase : AIController
     {
         public DroneControllerBase(nint addr) : base(addr) { }
-        public Array<Object> ControllingPlayers { get { return new Array<Object>(this[nameof(ControllingPlayers)].Address); } }
+        public UArray<Object> ControllingPlayers { get { return new UArray<Object>(this[nameof(ControllingPlayers)].Address); } }
         public void OnShout(PlayerCharacter Player) { Invoke(nameof(OnShout), Player); }
         public void OnSecondaryLaserPointer(LaserPointerTarget HitInfo) { Invoke(nameof(OnSecondaryLaserPointer), HitInfo); }
         public void OnSalute(PlayerCharacter Player) { Invoke(nameof(OnSalute), Player); }
@@ -6550,7 +6554,7 @@ namespace SDK.Script.FSDSDK
     {
         public DroneVacuumStream(nint addr) : base(addr) { }
         public SceneComponent VacuumPoint { get { return this[nameof(VacuumPoint)].As<SceneComponent>(); } set { this["VacuumPoint"] = value; } }
-        public Array<FoamPuddle> PuddlesInside { get { return new Array<FoamPuddle>(this[nameof(PuddlesInside)].Address); } }
+        public UArray<FoamPuddle> PuddlesInside { get { return new UArray<FoamPuddle>(this[nameof(PuddlesInside)].Address); } }
         public void Server_StartVacuumingPuddle(FoamPuddle puddle) { Invoke(nameof(Server_StartVacuumingPuddle), puddle); }
     }
     public class DroneUseComponent : ActorComponent
@@ -6677,7 +6681,7 @@ namespace SDK.Script.FSDSDK
         public bool StartActive { get { return this[nameof(StartActive)].Flag; } set { this[nameof(StartActive)].Flag = value; } }
         public Vector CurrentLocation { get { return this[nameof(CurrentLocation)].As<Vector>(); } set { this["CurrentLocation"] = value; } }
         public Vector DropTarget { get { return this[nameof(DropTarget)].As<Vector>(); } set { this["DropTarget"] = value; } }
-        public Array<TerrainDetectComponent> TerrainPoints { get { return new Array<TerrainDetectComponent>(this[nameof(TerrainPoints)].Address); } }
+        public UArray<TerrainDetectComponent> TerrainPoints { get { return new UArray<TerrainDetectComponent>(this[nameof(TerrainPoints)].Address); } }
         public float FallVelocity { get { return this[nameof(FallVelocity)].GetValue<float>(); } set { this[nameof(FallVelocity)].SetValue<float>(value); } }
         public float TerrainTraceMaxDistance { get { return this[nameof(TerrainTraceMaxDistance)].GetValue<float>(); } set { this[nameof(TerrainTraceMaxDistance)].SetValue<float>(value); } }
         public bool IsDetecting { get { return this[nameof(IsDetecting)].Flag; } set { this[nameof(IsDetecting)].Flag = value; } }
@@ -6830,7 +6834,7 @@ namespace SDK.Script.FSDSDK
     {
         public ElectroBeam(nint addr) : base(addr) { }
         public CapsuleComponent collider { get { return this[nameof(collider)].As<CapsuleComponent>(); } set { this["collider"] = value; } }
-        public Array<Actor> ParentPlants { get { return new Array<Actor>(this[nameof(ParentPlants)].Address); } }
+        public UArray<Actor> ParentPlants { get { return new UArray<Actor>(this[nameof(ParentPlants)].Address); } }
         public Vector LocationOffset { get { return this[nameof(LocationOffset)].As<Vector>(); } set { this["LocationOffset"] = value; } }
         public Vector SourceLocation { get { return this[nameof(SourceLocation)].As<Vector>(); } set { this["SourceLocation"] = value; } }
         public Vector TargetLocation { get { return this[nameof(TargetLocation)].As<Vector>(); } set { this["TargetLocation"] = value; } }
@@ -6840,7 +6844,7 @@ namespace SDK.Script.FSDSDK
         public SceneComponent DelayTarget { get { return this[nameof(DelayTarget)].As<SceneComponent>(); } set { this["DelayTarget"] = value; } }
         public ParticleSystemComponent BeamEffect { get { return this[nameof(BeamEffect)].As<ParticleSystemComponent>(); } set { this["BeamEffect"] = value; } }
         public AudioComponent ZappSound { get { return this[nameof(ZappSound)].As<AudioComponent>(); } set { this["ZappSound"] = value; } }
-        public Array<Object> StatusEffectsToApply { get { return new Array<Object>(this[nameof(StatusEffectsToApply)].Address); } }
+        public UArray<Object> StatusEffectsToApply { get { return new UArray<Object>(this[nameof(StatusEffectsToApply)].Address); } }
         public float MaxLitTime { get { return this[nameof(MaxLitTime)].GetValue<float>(); } set { this[nameof(MaxLitTime)].SetValue<float>(value); } }
         public float MinLitTime { get { return this[nameof(MinLitTime)].GetValue<float>(); } set { this[nameof(MinLitTime)].SetValue<float>(value); } }
         public float MaxUnlitTime { get { return this[nameof(MaxUnlitTime)].GetValue<float>(); } set { this[nameof(MaxUnlitTime)].SetValue<float>(value); } }
@@ -6873,7 +6877,7 @@ namespace SDK.Script.FSDSDK
     public class SentryElectroBeam : RecalculatedElectroBeam
     {
         public SentryElectroBeam(nint addr) : base(addr) { }
-        public Array<RedeployableSentryGun> Sentries { get { return new Array<RedeployableSentryGun>(this[nameof(Sentries)].Address); } }
+        public UArray<RedeployableSentryGun> Sentries { get { return new UArray<RedeployableSentryGun>(this[nameof(Sentries)].Address); } }
     }
     public class CrossbowElectroBeam : RecalculatedElectroBeam
     {
@@ -6928,23 +6932,23 @@ namespace SDK.Script.FSDSDK
         public EliminationObjective(nint addr) : base(addr) { }
         public int ObjectCount { get { return this[nameof(ObjectCount)].GetValue<int>(); } set { this[nameof(ObjectCount)].SetValue<int>(value); } }
         public DebrisPositioning Positioning { get { return this[nameof(Positioning)].As<DebrisPositioning>(); } set { this["Positioning"] = value; } }
-        public Array<int> ExcludeRoomIDs { get { return new Array<int>(this[nameof(ExcludeRoomIDs)].Address); } }
+        public UArray<int> ExcludeRoomIDs { get { return new UArray<int>(this[nameof(ExcludeRoomIDs)].Address); } }
         public Object ObjectToSpawn { get { return this[nameof(ObjectToSpawn)]; } set { this[nameof(ObjectToSpawn)] = value; } }
         public CaveInfluencer CaveInfluencer { get { return this[nameof(CaveInfluencer)].As<CaveInfluencer>(); } set { this["CaveInfluencer"] = value; } }
         public float DebrisRadius { get { return this[nameof(DebrisRadius)].GetValue<float>(); } set { this[nameof(DebrisRadius)].SetValue<float>(value); } }
-        public Array<Object> ObjectDebris { get { return new Array<Object>(this[nameof(ObjectDebris)].Address); } }
+        public UArray<Object> ObjectDebris { get { return new UArray<Object>(this[nameof(ObjectDebris)].Address); } }
         public int EnemiesKilled { get { return this[nameof(EnemiesKilled)].GetValue<int>(); } set { this[nameof(EnemiesKilled)].SetValue<int>(value); } }
         public int EnemiesToKill { get { return this[nameof(EnemiesToKill)].GetValue<int>(); } set { this[nameof(EnemiesToKill)].SetValue<int>(value); } }
-        public Array<EliminationDescriptors> TargetDescriptors { get { return new Array<EliminationDescriptors>(this[nameof(TargetDescriptors)].Address); } }
-        public Array<EliminationDescriptors> TargetQueue { get { return new Array<EliminationDescriptors>(this[nameof(TargetQueue)].Address); } }
-        public Array<EliminationTarget> ActiveEliminationTargets { get { return new Array<EliminationTarget>(this[nameof(ActiveEliminationTargets)].Address); } }
-        public void RegisterEliminationTargets(Array<FSDPawn> Targets) { Invoke(nameof(RegisterEliminationTargets), Targets); }
+        public UArray<EliminationDescriptors> TargetDescriptors { get { return new UArray<EliminationDescriptors>(this[nameof(TargetDescriptors)].Address); } }
+        public UArray<EliminationDescriptors> TargetQueue { get { return new UArray<EliminationDescriptors>(this[nameof(TargetQueue)].Address); } }
+        public UArray<EliminationTarget> ActiveEliminationTargets { get { return new UArray<EliminationTarget>(this[nameof(ActiveEliminationTargets)].Address); } }
+        public void RegisterEliminationTargets(UArray<FSDPawn> Targets) { Invoke(nameof(RegisterEliminationTargets), Targets); }
         public void ReceiveTargetSpawned() { Invoke(nameof(ReceiveTargetSpawned)); }
         public void ReceiveTargetKilled() { Invoke(nameof(ReceiveTargetKilled)); }
         public void OnTargetKilled(HealthComponentBase Health) { Invoke(nameof(OnTargetKilled), Health); }
         public void OnRep_EnemiesToKill(int prevAmount) { Invoke(nameof(OnRep_EnemiesToKill), prevAmount); }
         public void OnRep_EnemiesKilled(int prevAmount) { Invoke(nameof(OnRep_EnemiesKilled), prevAmount); }
-        public Array<EnemyDescriptor> GetNextTargetInQueue() { return Invoke<Array<EnemyDescriptor>>(nameof(GetNextTargetInQueue)); }
+        public UArray<EnemyDescriptor> GetNextTargetInQueue() { return Invoke<UArray<EnemyDescriptor>>(nameof(GetNextTargetInQueue)); }
     }
     public class EncounterActor : Actor
     {
@@ -6955,29 +6959,29 @@ namespace SDK.Script.FSDSDK
     {
         public EncounterManager(nint addr) : base(addr) { }
         public float SpawnDistanceFromRoomBounds { get { return this[nameof(SpawnDistanceFromRoomBounds)].GetValue<float>(); } set { this[nameof(SpawnDistanceFromRoomBounds)].SetValue<float>(value); } }
-        public Array<EncounterManagerItem> Encounters { get { return new Array<EncounterManagerItem>(this[nameof(Encounters)].Address); } }
+        public UArray<EncounterManagerItem> Encounters { get { return new UArray<EncounterManagerItem>(this[nameof(Encounters)].Address); } }
         public ProceduralSetup ProceduralSetup { get { return this[nameof(ProceduralSetup)].As<ProceduralSetup>(); } set { this["ProceduralSetup"] = value; } }
         public EnemySpawnManager SpawnManager { get { return this[nameof(SpawnManager)].As<EnemySpawnManager>(); } set { this["SpawnManager"] = value; } }
-        public Array<EnemyDescriptor> EnemyPool { get { return new Array<EnemyDescriptor>(this[nameof(EnemyPool)].Address); } }
-        public Array<EnemyDescriptor> EncounterPool { get { return new Array<EnemyDescriptor>(this[nameof(EncounterPool)].Address); } }
-        public Array<CritterDescriptor> CritterPool { get { return new Array<CritterDescriptor>(this[nameof(CritterPool)].Address); } }
+        public UArray<EnemyDescriptor> EnemyPool { get { return new UArray<EnemyDescriptor>(this[nameof(EnemyPool)].Address); } }
+        public UArray<EnemyDescriptor> EncounterPool { get { return new UArray<EnemyDescriptor>(this[nameof(EncounterPool)].Address); } }
+        public UArray<CritterDescriptor> CritterPool { get { return new UArray<CritterDescriptor>(this[nameof(CritterPool)].Address); } }
         public void ShowSpawnLocations() { Invoke(nameof(ShowSpawnLocations)); }
-        public Array<EnemyDescriptor> GetEnemyPool() { return Invoke<Array<EnemyDescriptor>>(nameof(GetEnemyPool)); }
-        public Array<EnemyDescriptor> GetEncounterPool() { return Invoke<Array<EnemyDescriptor>>(nameof(GetEncounterPool)); }
-        public Array<CritterDescriptor> GetCritterPool() { return Invoke<Array<CritterDescriptor>>(nameof(GetCritterPool)); }
+        public UArray<EnemyDescriptor> GetEnemyPool() { return Invoke<UArray<EnemyDescriptor>>(nameof(GetEnemyPool)); }
+        public UArray<EnemyDescriptor> GetEncounterPool() { return Invoke<UArray<EnemyDescriptor>>(nameof(GetEncounterPool)); }
+        public UArray<CritterDescriptor> GetCritterPool() { return Invoke<UArray<CritterDescriptor>>(nameof(GetCritterPool)); }
         public void AddEncounterFromGroup(EnemyGroupDescriptor Group, float Difficulty, Vector Location, float Radius) { Invoke(nameof(AddEncounterFromGroup), Group, Difficulty, Location, Radius); }
     }
     public class EncounterSettings : DataAsset
     {
         public EncounterSettings(nint addr) : base(addr) { }
         public IRandRange StationaryEnemyCount { get { return this[nameof(StationaryEnemyCount)].As<IRandRange>(); } set { this["StationaryEnemyCount"] = value; } }
-        public Array<EnemyDescriptor> CommonEnemies { get { return new Array<EnemyDescriptor>(this[nameof(CommonEnemies)].Address); } }
-        public Array<EnemyDescriptor> SpecialEnemies { get { return new Array<EnemyDescriptor>(this[nameof(SpecialEnemies)].Address); } }
-        public Array<EnemyDescriptor> DisruptiveEnemies { get { return new Array<EnemyDescriptor>(this[nameof(DisruptiveEnemies)].Address); } }
-        public Array<EnemyDescriptor> StationaryEnemies { get { return new Array<EnemyDescriptor>(this[nameof(StationaryEnemies)].Address); } }
-        public Array<CritterDescriptor> CommonCritters { get { return new Array<CritterDescriptor>(this[nameof(CommonCritters)].Address); } }
-        public Array<EncounterRareCritterItem> RareCritters { get { return new Array<EncounterRareCritterItem>(this[nameof(RareCritters)].Address); } }
-        public Array<EncounterSpecialItem> SpecialEncounters { get { return new Array<EncounterSpecialItem>(this[nameof(SpecialEncounters)].Address); } }
+        public UArray<EnemyDescriptor> CommonEnemies { get { return new UArray<EnemyDescriptor>(this[nameof(CommonEnemies)].Address); } }
+        public UArray<EnemyDescriptor> SpecialEnemies { get { return new UArray<EnemyDescriptor>(this[nameof(SpecialEnemies)].Address); } }
+        public UArray<EnemyDescriptor> DisruptiveEnemies { get { return new UArray<EnemyDescriptor>(this[nameof(DisruptiveEnemies)].Address); } }
+        public UArray<EnemyDescriptor> StationaryEnemies { get { return new UArray<EnemyDescriptor>(this[nameof(StationaryEnemies)].Address); } }
+        public UArray<CritterDescriptor> CommonCritters { get { return new UArray<CritterDescriptor>(this[nameof(CommonCritters)].Address); } }
+        public UArray<EncounterRareCritterItem> RareCritters { get { return new UArray<EncounterRareCritterItem>(this[nameof(RareCritters)].Address); } }
+        public UArray<EncounterSpecialItem> SpecialEncounters { get { return new UArray<EncounterSpecialItem>(this[nameof(SpecialEncounters)].Address); } }
         public float RequiredDifficultyPerDiversity { get { return this[nameof(RequiredDifficultyPerDiversity)].GetValue<float>(); } set { this[nameof(RequiredDifficultyPerDiversity)].SetValue<float>(value); } }
         public float GlobalDifficultyScale { get { return this[nameof(GlobalDifficultyScale)].GetValue<float>(); } set { this[nameof(GlobalDifficultyScale)].SetValue<float>(value); } }
         public RandInterval EncounterDifficulty { get { return this[nameof(EncounterDifficulty)].As<RandInterval>(); } set { this["EncounterDifficulty"] = value; } }
@@ -7095,8 +7099,8 @@ namespace SDK.Script.FSDSDK
         public int MaxBuffedTargets { get { return this[nameof(MaxBuffedTargets)].GetValue<int>(); } set { this[nameof(MaxBuffedTargets)].SetValue<int>(value); } }
         public GameplayTagQuery BuffQuery { get { return this[nameof(BuffQuery)].As<GameplayTagQuery>(); } set { this["BuffQuery"] = value; } }
         public Object SubclassBuffQuery { get { return this[nameof(SubclassBuffQuery)]; } set { this[nameof(SubclassBuffQuery)] = value; } }
-        public Array<FSDPawn> BuffTargets { get { return new Array<FSDPawn>(this[nameof(BuffTargets)].Address); } }
-        public Array<ParticleSystemComponent> ParticleInstances { get { return new Array<ParticleSystemComponent>(this[nameof(ParticleInstances)].Address); } }
+        public UArray<FSDPawn> BuffTargets { get { return new UArray<FSDPawn>(this[nameof(BuffTargets)].Address); } }
+        public UArray<ParticleSystemComponent> ParticleInstances { get { return new UArray<ParticleSystemComponent>(this[nameof(ParticleInstances)].Address); } }
         public void SetBuffingEnabled(bool Enabled) { Invoke(nameof(SetBuffingEnabled), Enabled); }
         public void OnPawnDied(HealthComponentBase Health) { Invoke(nameof(OnPawnDied), Health); }
         public void OnOwnerDied(HealthComponentBase Health) { Invoke(nameof(OnOwnerDied), Health); }
@@ -7124,7 +7128,7 @@ namespace SDK.Script.FSDSDK
         public EnemyID EnemyID { get { return this[nameof(EnemyID)].As<EnemyID>(); } set { this["EnemyID"] = value; } }
         public Object EnemyClass { get { return this[nameof(EnemyClass)]; } set { this[nameof(EnemyClass)] = value; } }
         public EVeteranScaling VeteranScaling { get { return (EVeteranScaling)this[nameof(VeteranScaling)].GetValue<int>(); } set { this[nameof(VeteranScaling)].SetValue<int>((int)value); } }
-        public Array<EnemyDescriptor> VeteranClasses { get { return new Array<EnemyDescriptor>(this[nameof(VeteranClasses)].Address); } }
+        public UArray<EnemyDescriptor> VeteranClasses { get { return new UArray<EnemyDescriptor>(this[nameof(VeteranClasses)].Address); } }
         public Object BiomeEnemyClassOverrides { get { return this[nameof(BiomeEnemyClassOverrides)]; } set { this[nameof(BiomeEnemyClassOverrides)] = value; } }
         public Object EliteEnemyClass { get { return this[nameof(EliteEnemyClass)]; } set { this[nameof(EliteEnemyClass)] = value; } }
         public Object BannedMissionTypes { get { return this[nameof(BannedMissionTypes)]; } set { this[nameof(BannedMissionTypes)] = value; } }
@@ -7134,7 +7138,7 @@ namespace SDK.Script.FSDSDK
         public ECreatureSize CreatureSize { get { return (ECreatureSize)this[nameof(CreatureSize)].GetValue<int>(); } set { this[nameof(CreatureSize)].SetValue<int>((int)value); } }
         public DebrisPositioning Positioning { get { return this[nameof(Positioning)].As<DebrisPositioning>(); } set { this["Positioning"] = value; } }
         public CaveInfluencer CaveInfluencer { get { return this[nameof(CaveInfluencer)].As<CaveInfluencer>(); } set { this["CaveInfluencer"] = value; } }
-        public Array<EnemyDebris> Debris { get { return new Array<EnemyDebris>(this[nameof(Debris)].Address); } }
+        public UArray<EnemyDebris> Debris { get { return new UArray<EnemyDebris>(this[nameof(Debris)].Address); } }
         public float InfluencerRange { get { return this[nameof(InfluencerRange)].GetValue<float>(); } set { this[nameof(InfluencerRange)].SetValue<float>(value); } }
         public Object PlacementCarver { get { return this[nameof(PlacementCarver)]; } set { this[nameof(PlacementCarver)] = value; } }
         public DeepPathFinderType PathfinderType { get { return (DeepPathFinderType)this[nameof(PathfinderType)].GetValue<int>(); } set { this[nameof(PathfinderType)].SetValue<int>((int)value); } }
@@ -7150,11 +7154,11 @@ namespace SDK.Script.FSDSDK
         public float SpawnAmountModifier { get { return this[nameof(SpawnAmountModifier)].GetValue<float>(); } set { this[nameof(SpawnAmountModifier)].SetValue<float>(value); } }
         public int RequiredMainCampaignProgress { get { return this[nameof(RequiredMainCampaignProgress)].GetValue<int>(); } set { this[nameof(RequiredMainCampaignProgress)].SetValue<int>(value); } }
         public bool UsesSpawnRarityModifiers { get { return this[nameof(UsesSpawnRarityModifiers)].Flag; } set { this[nameof(UsesSpawnRarityModifiers)].Flag = value; } }
-        public Array<SpawnRarityItem> SpawnRarityModifiers { get { return new Array<SpawnRarityItem>(this[nameof(SpawnRarityModifiers)].Address); } }
+        public UArray<SpawnRarityItem> SpawnRarityModifiers { get { return new UArray<SpawnRarityItem>(this[nameof(SpawnRarityModifiers)].Address); } }
         public EEnemyDescriptorCheatClass CheatClass { get { return (EEnemyDescriptorCheatClass)this[nameof(CheatClass)].GetValue<int>(); } set { this[nameof(CheatClass)].SetValue<int>((int)value); } }
         public Object GetEnemyClass(Biome Biome, bool IsElite) { return Invoke<Object>(nameof(GetEnemyClass), Biome, IsElite); }
-        public Array<EnemyDescriptor> FindDescriptorsForCheatMenu(EEnemyDescriptorCheatClass CheatClass) { return Invoke<Array<EnemyDescriptor>>(nameof(FindDescriptorsForCheatMenu), CheatClass); }
-        public Array<EnemyDescriptor> FindAllDescriptorsForCheatMenu() { return Invoke<Array<EnemyDescriptor>>(nameof(FindAllDescriptorsForCheatMenu)); }
+        public UArray<EnemyDescriptor> FindDescriptorsForCheatMenu(EEnemyDescriptorCheatClass CheatClass) { return Invoke<UArray<EnemyDescriptor>>(nameof(FindDescriptorsForCheatMenu), CheatClass); }
+        public UArray<EnemyDescriptor> FindAllDescriptorsForCheatMenu() { return Invoke<UArray<EnemyDescriptor>>(nameof(FindAllDescriptorsForCheatMenu)); }
     }
     public class HealthComponentBase : ActorComponent
     {
@@ -7198,10 +7202,10 @@ namespace SDK.Script.FSDSDK
         public Object OnDeathDetailed { get { return this[nameof(OnDeathDetailed)]; } set { this[nameof(OnDeathDetailed)] = value; } }
         public Object OnNewHealthSegment { get { return this[nameof(OnNewHealthSegment)]; } set { this[nameof(OnNewHealthSegment)] = value; } }
         public float Damage { get { return this[nameof(Damage)].GetValue<float>(); } set { this[nameof(Damage)].SetValue<float>(value); } }
-        public Array<float> HealthSegmentSizes { get { return new Array<float>(this[nameof(HealthSegmentSizes)].Address); } }
+        public UArray<float> HealthSegmentSizes { get { return new UArray<float>(this[nameof(HealthSegmentSizes)].Address); } }
         public bool CanDamageThroughSegments { get { return this[nameof(CanDamageThroughSegments)].Flag; } set { this[nameof(CanDamageThroughSegments)].Flag = value; } }
         public Actor LastDamageCauser { get { return this[nameof(LastDamageCauser)].As<Actor>(); } set { this["LastDamageCauser"] = value; } }
-        public Array<SubHealthComponent> SubHealthComponents { get { return new Array<SubHealthComponent>(this[nameof(SubHealthComponents)].Address); } }
+        public UArray<SubHealthComponent> SubHealthComponents { get { return new UArray<SubHealthComponent>(this[nameof(SubHealthComponents)].Address); } }
         public bool ShouldUseLargestSubhealthDamageTaken { get { return this[nameof(ShouldUseLargestSubhealthDamageTaken)].Flag; } set { this[nameof(ShouldUseLargestSubhealthDamageTaken)].Flag = value; } }
         public bool InvulnerableToNonDefinedResistances { get { return this[nameof(InvulnerableToNonDefinedResistances)].Flag; } set { this[nameof(InvulnerableToNonDefinedResistances)].Flag = value; } }
         public Object Resistances { get { return this[nameof(Resistances)]; } set { this[nameof(Resistances)] = value; } }
@@ -7260,19 +7264,19 @@ namespace SDK.Script.FSDSDK
         public EnemyID EnemyID { get { return this[nameof(EnemyID)].As<EnemyID>(); } set { this["EnemyID"] = value; } }
         public Object Name { get { return this[nameof(Name)]; } set { this[nameof(Name)] = value; } }
         public Object RichDescription { get { return this[nameof(RichDescription)]; } set { this[nameof(RichDescription)] = value; } }
-        public Array<Object> GameplayTips { get { return new Array<Object>(this[nameof(GameplayTips)].Address); } }
+        public UArray<Object> GameplayTips { get { return new UArray<Object>(this[nameof(GameplayTips)].Address); } }
         public EEnemyFamily Family { get { return (EEnemyFamily)this[nameof(Family)].GetValue<int>(); } set { this[nameof(Family)].SetValue<int>((int)value); } }
         public EEnemyType EnemyType { get { return (EEnemyType)this[nameof(EnemyType)].GetValue<int>(); } set { this[nameof(EnemyType)].SetValue<int>((int)value); } }
-        public Array<EnemyAttackDescription> AttackType { get { return new Array<EnemyAttackDescription>(this[nameof(AttackType)].Address); } }
-        public Array<EnemyAttackDescription> SpecialAttacks { get { return new Array<EnemyAttackDescription>(this[nameof(SpecialAttacks)].Address); } }
-        public Array<AnimSequenceBase> AttackAnimations { get { return new Array<AnimSequenceBase>(this[nameof(AttackAnimations)].Address); } }
+        public UArray<EnemyAttackDescription> AttackType { get { return new UArray<EnemyAttackDescription>(this[nameof(AttackType)].Address); } }
+        public UArray<EnemyAttackDescription> SpecialAttacks { get { return new UArray<EnemyAttackDescription>(this[nameof(SpecialAttacks)].Address); } }
+        public UArray<AnimSequenceBase> AttackAnimations { get { return new UArray<AnimSequenceBase>(this[nameof(AttackAnimations)].Address); } }
         public EArmorType ArmorType { get { return (EArmorType)this[nameof(ArmorType)].GetValue<int>(); } set { this[nameof(ArmorType)].SetValue<int>((int)value); } }
         public Object Armor { get { return this[nameof(Armor)]; } set { this[nameof(Armor)] = value; } }
         public Object Weakpoint { get { return this[nameof(Weakpoint)]; } set { this[nameof(Weakpoint)] = value; } }
         public EnemyMinersManualStats EnemyStats { get { return this[nameof(EnemyStats)].As<EnemyMinersManualStats>(); } set { this["EnemyStats"] = value; } }
-        public Array<EDamageType> Resistances { get { return new Array<EDamageType>(this[nameof(Resistances)].Address); } }
-        public Array<EDamageType> Weaknesses { get { return new Array<EDamageType>(this[nameof(Weaknesses)].Address); } }
-        public Array<Object> LoreInfo { get { return new Array<Object>(this[nameof(LoreInfo)].Address); } }
+        public UArray<EDamageType> Resistances { get { return new UArray<EDamageType>(this[nameof(Resistances)].Address); } }
+        public UArray<EDamageType> Weaknesses { get { return new UArray<EDamageType>(this[nameof(Weaknesses)].Address); } }
+        public UArray<Object> LoreInfo { get { return new UArray<Object>(this[nameof(LoreInfo)].Address); } }
         public bool AlwaysUnlocked { get { return this[nameof(AlwaysUnlocked)].Flag; } set { this[nameof(AlwaysUnlocked)].Flag = value; } }
         public int InfoUnlockSpeed { get { return this[nameof(InfoUnlockSpeed)].GetValue<int>(); } set { this[nameof(InfoUnlockSpeed)].SetValue<int>(value); } }
         public Object EnemyIcon { get { return this[nameof(EnemyIcon)]; } set { this[nameof(EnemyIcon)] = value; } }
@@ -7296,7 +7300,7 @@ namespace SDK.Script.FSDSDK
         public Object HeroEnemies { get { return this[nameof(HeroEnemies)]; } set { this[nameof(HeroEnemies)] = value; } }
         public RandFloatInterval HeroEnemySpawn { get { return this[nameof(HeroEnemySpawn)].As<RandFloatInterval>(); } set { this["HeroEnemySpawn"] = value; } }
         public int EliteRequiredCampaignProgress { get { return this[nameof(EliteRequiredCampaignProgress)].GetValue<int>(); } set { this[nameof(EliteRequiredCampaignProgress)].SetValue<int>(value); } }
-        public Array<Object> ExplodingEnemiesDamageComponents { get { return new Array<Object>(this[nameof(ExplodingEnemiesDamageComponents)].Address); } }
+        public UArray<Object> ExplodingEnemiesDamageComponents { get { return new UArray<Object>(this[nameof(ExplodingEnemiesDamageComponents)].Address); } }
     }
     public class EnemySpawnManager : ActorComponent
     {
@@ -7305,12 +7309,12 @@ namespace SDK.Script.FSDSDK
         public Object OnEnemyDied { get { return this[nameof(OnEnemyDied)]; } set { this[nameof(OnEnemyDied)] = value; } }
         public Object OnEnemySpawned { get { return this[nameof(OnEnemySpawned)]; } set { this[nameof(OnEnemySpawned)] = value; } }
         public SpawnEffectsComponent SpawnEffects { get { return this[nameof(SpawnEffects)].As<SpawnEffectsComponent>(); } set { this["SpawnEffects"] = value; } }
-        public Array<Pawn> ActiveEnemies { get { return new Array<Pawn>(this[nameof(ActiveEnemies)].Address); } }
-        public Array<Pawn> ActiveSwarmerEnemies { get { return new Array<Pawn>(this[nameof(ActiveSwarmerEnemies)].Address); } }
-        public Array<Object> ActiveGlobalStatusEffects { get { return new Array<Object>(this[nameof(ActiveGlobalStatusEffects)].Address); } }
+        public UArray<Pawn> ActiveEnemies { get { return new UArray<Pawn>(this[nameof(ActiveEnemies)].Address); } }
+        public UArray<Pawn> ActiveSwarmerEnemies { get { return new UArray<Pawn>(this[nameof(ActiveSwarmerEnemies)].Address); } }
+        public UArray<Object> ActiveGlobalStatusEffects { get { return new UArray<Object>(this[nameof(ActiveGlobalStatusEffects)].Address); } }
         public Object SpawnRarityModifiers { get { return this[nameof(SpawnRarityModifiers)]; } set { this[nameof(SpawnRarityModifiers)] = value; } }
-        public Array<Pawn> ActiveCritters { get { return new Array<Pawn>(this[nameof(ActiveCritters)].Address); } }
-        public Array<Pawn> CritcalEnemies { get { return new Array<Pawn>(this[nameof(CritcalEnemies)].Address); } }
+        public UArray<Pawn> ActiveCritters { get { return new UArray<Pawn>(this[nameof(ActiveCritters)].Address); } }
+        public UArray<Pawn> CritcalEnemies { get { return new UArray<Pawn>(this[nameof(CritcalEnemies)].Address); } }
         public int MaxActiveEnemies { get { return this[nameof(MaxActiveEnemies)].GetValue<int>(); } set { this[nameof(MaxActiveEnemies)].SetValue<int>(value); } }
         public int MaxActiveSwarmers { get { return this[nameof(MaxActiveSwarmers)].GetValue<int>(); } set { this[nameof(MaxActiveSwarmers)].SetValue<int>(value); } }
         public int MaxActiveCritters { get { return this[nameof(MaxActiveCritters)].GetValue<int>(); } set { this[nameof(MaxActiveCritters)].SetValue<int>(value); } }
@@ -7319,7 +7323,7 @@ namespace SDK.Script.FSDSDK
         public GameplayTag RegularTag { get { return this[nameof(RegularTag)].As<GameplayTag>(); } set { this["RegularTag"] = value; } }
         public GameplayTag CritterTag { get { return this[nameof(CritterTag)].As<GameplayTag>(); } set { this["CritterTag"] = value; } }
         public ProceduralSetup ProceduralSetup { get { return this[nameof(ProceduralSetup)].As<ProceduralSetup>(); } set { this["ProceduralSetup"] = value; } }
-        public Array<SpawnQueueItem> SpawnQueue { get { return new Array<SpawnQueueItem>(this[nameof(SpawnQueue)].Address); } }
+        public UArray<SpawnQueueItem> SpawnQueue { get { return new UArray<SpawnQueueItem>(this[nameof(SpawnQueue)].Address); } }
         public bool bDestroyingAllEnemies { get { return this[nameof(bDestroyingAllEnemies)].Flag; } set { this[nameof(bDestroyingAllEnemies)].Flag = value; } }
         public EliteEnemiesMutator EliteMutator { get { return this[nameof(EliteMutator)].As<EliteEnemiesMutator>(); } set { this["EliteMutator"] = value; } }
         public DifficultyManager DifficultyManager { get { return this[nameof(DifficultyManager)].As<DifficultyManager>(); } set { this["DifficultyManager"] = value; } }
@@ -7334,7 +7338,7 @@ namespace SDK.Script.FSDSDK
         public void OnMatchEnded() { Invoke(nameof(OnMatchEnded)); }
         public bool GetSpawningEnabled() { return Invoke<bool>(nameof(GetSpawningEnabled)); }
         public Pawn FindEnemyByClass(Object PawnClass, bool isSwarmerEnemy) { return Invoke<Pawn>(nameof(FindEnemyByClass), PawnClass, isSwarmerEnemy); }
-        public Array<Pawn> FindEnemiesByClass(Object PawnClass, bool isSwarmerEnemy) { return Invoke<Array<Pawn>>(nameof(FindEnemiesByClass), PawnClass, isSwarmerEnemy); }
+        public UArray<Pawn> FindEnemiesByClass(Object PawnClass, bool isSwarmerEnemy) { return Invoke<UArray<Pawn>>(nameof(FindEnemiesByClass), PawnClass, isSwarmerEnemy); }
         public void EnemyDestroyed(Actor Actor) { Invoke(nameof(EnemyDestroyed), Actor); }
         public void EnemyDeath(HealthComponentBase HealthComponent) { Invoke(nameof(EnemyDeath), HealthComponent); }
         public void DestroyAllEnemies() { Invoke(nameof(DestroyAllEnemies)); }
@@ -7400,7 +7404,7 @@ namespace SDK.Script.FSDSDK
         public byte FireDetonationStack { get { return this[nameof(FireDetonationStack)].GetValue<byte>(); } set { this[nameof(FireDetonationStack)].SetValue<byte>(value); } }
         public byte IceDetonationStack { get { return this[nameof(IceDetonationStack)].GetValue<byte>(); } set { this[nameof(IceDetonationStack)].SetValue<byte>(value); } }
         public void TimerCallback() { Invoke(nameof(TimerCallback)); }
-        public void OnDeath(HealthComponent HealthComponent, float damageAmount, DamageData DamageData, Array<DamageTag> Tags) { Invoke(nameof(OnDeath), HealthComponent, damageAmount, DamageData, Tags); }
+        public void OnDeath(HealthComponent HealthComponent, float damageAmount, DamageData DamageData, UArray<DamageTag> Tags) { Invoke(nameof(OnDeath), HealthComponent, damageAmount, DamageData, Tags); }
         public void DoTemperatureShock(StatusEffectsComponent Status, Actor Source) { Invoke(nameof(DoTemperatureShock), Status, Source); }
         public void All_IceDetonation() { Invoke(nameof(All_IceDetonation)); }
         public void All_FireDetonation() { Invoke(nameof(All_FireDetonation)); }
@@ -7436,9 +7440,9 @@ namespace SDK.Script.FSDSDK
     {
         public EnemyWaveManager(nint addr) : base(addr) { }
         public Object AlwaysRunningWave { get { return this[nameof(AlwaysRunningWave)]; } set { this[nameof(AlwaysRunningWave)] = value; } }
-        public Array<WaveEntry> ScriptedWaves { get { return new Array<WaveEntry>(this[nameof(ScriptedWaves)].Address); } }
-        public Array<WaveEntry> EndMissionWaves { get { return new Array<WaveEntry>(this[nameof(EndMissionWaves)].Address); } }
-        public Array<EnemyWaveController> ActiveScriptedWaves { get { return new Array<EnemyWaveController>(this[nameof(ActiveScriptedWaves)].Address); } }
+        public UArray<WaveEntry> ScriptedWaves { get { return new UArray<WaveEntry>(this[nameof(ScriptedWaves)].Address); } }
+        public UArray<WaveEntry> EndMissionWaves { get { return new UArray<WaveEntry>(this[nameof(EndMissionWaves)].Address); } }
+        public UArray<EnemyWaveController> ActiveScriptedWaves { get { return new UArray<EnemyWaveController>(this[nameof(ActiveScriptedWaves)].Address); } }
         public float StartDelay { get { return this[nameof(StartDelay)].GetValue<float>(); } set { this[nameof(StartDelay)].SetValue<float>(value); } }
         public float spawnRadiusFromSpawnPoint { get { return this[nameof(spawnRadiusFromSpawnPoint)].GetValue<float>(); } set { this[nameof(spawnRadiusFromSpawnPoint)].SetValue<float>(value); } }
         public bool ScriptedWavesEnabled { get { return this[nameof(ScriptedWavesEnabled)].Flag; } set { this[nameof(ScriptedWavesEnabled)].Flag = value; } }
@@ -7447,8 +7451,8 @@ namespace SDK.Script.FSDSDK
         public RandRange OverrideScriptedWaveInterval { get { return this[nameof(OverrideScriptedWaveInterval)].As<RandRange>(); } set { this["OverrideScriptedWaveInterval"] = value; } }
         public FSDGameMode GameMode { get { return this[nameof(GameMode)].As<FSDGameMode>(); } set { this["GameMode"] = value; } }
         public EnemySpawnManager SpawnManager { get { return this[nameof(SpawnManager)].As<EnemySpawnManager>(); } set { this["SpawnManager"] = value; } }
-        public Array<Object> NormalWavesBlockStack { get { return new Array<Object>(this[nameof(NormalWavesBlockStack)].Address); } }
-        public Array<Object> ScriptedWavesBlockStack { get { return new Array<Object>(this[nameof(ScriptedWavesBlockStack)].Address); } }
+        public UArray<Object> NormalWavesBlockStack { get { return new UArray<Object>(this[nameof(NormalWavesBlockStack)].Address); } }
+        public UArray<Object> ScriptedWavesBlockStack { get { return new UArray<Object>(this[nameof(ScriptedWavesBlockStack)].Address); } }
         public EnemyWaveController TriggerWave(Object waveClass) { return Invoke<EnemyWaveController>(nameof(TriggerWave), waveClass); }
         public void TriggerEndWave(bool cancelAllWaves) { Invoke(nameof(TriggerEndWave), cancelAllWaves); }
         public void SpawnScriptedWave() { Invoke(nameof(SpawnScriptedWave)); }
@@ -7497,15 +7501,15 @@ namespace SDK.Script.FSDSDK
         public float NextBreakpoint { get { return this[nameof(NextBreakpoint)].GetValue<float>(); } set { this[nameof(NextBreakpoint)].SetValue<float>(value); } }
         public int StageForAnalytics { get { return this[nameof(StageForAnalytics)].GetValue<int>(); } set { this[nameof(StageForAnalytics)].SetValue<int>(value); } }
         public int SecondsToDestroyHeartstone { get { return this[nameof(SecondsToDestroyHeartstone)].GetValue<int>(); } set { this[nameof(SecondsToDestroyHeartstone)].SetValue<int>(value); } }
-        public Array<float> BreakpointsPercent { get { return new Array<float>(this[nameof(BreakpointsPercent)].Address); } }
+        public UArray<float> BreakpointsPercent { get { return new UArray<float>(this[nameof(BreakpointsPercent)].Address); } }
         public float Radius { get { return this[nameof(Radius)].GetValue<float>(); } set { this[nameof(Radius)].SetValue<float>(value); } }
         public float ShellThickness { get { return this[nameof(ShellThickness)].GetValue<float>(); } set { this[nameof(ShellThickness)].SetValue<float>(value); } }
-        public Array<EOmmoranStage> OmmoranStages { get { return new Array<EOmmoranStage>(this[nameof(OmmoranStages)].Address); } }
-        public void MeltPlatforms(DeepCSGWorld CSGWorld, Array<Vector> meltPoints, float meltRadius) { Invoke(nameof(MeltPlatforms), CSGWorld, meltPoints, meltRadius); }
+        public UArray<EOmmoranStage> OmmoranStages { get { return new UArray<EOmmoranStage>(this[nameof(OmmoranStages)].Address); } }
+        public void MeltPlatforms(DeepCSGWorld CSGWorld, UArray<Vector> meltPoints, float meltRadius) { Invoke(nameof(MeltPlatforms), CSGWorld, meltPoints, meltRadius); }
         public TerrainMaterial GetTerrainMaterialByHandle(DeepCSGWorld CSGWorld, int materialHandle) { return Invoke<TerrainMaterial>(nameof(GetTerrainMaterialByHandle), CSGWorld, materialHandle); }
         public int GetSecondsToDestroyObjective() { return Invoke<int>(nameof(GetSecondsToDestroyObjective)); }
         public Vector GetClosestPointOnRadius(Vector CurrentLocation, int numberOfShellsCracked, Vector dirFromCenter) { return Invoke<Vector>(nameof(GetClosestPointOnRadius), CurrentLocation, numberOfShellsCracked, dirFromCenter); }
-        public void Cheat_OverrideStages(Array<EOmmoranStage> newStages) { Invoke(nameof(Cheat_OverrideStages), newStages); }
+        public void Cheat_OverrideStages(UArray<EOmmoranStage> newStages) { Invoke(nameof(Cheat_OverrideStages), newStages); }
     }
     public class MissionDNA : Object
     {
@@ -7514,7 +7518,7 @@ namespace SDK.Script.FSDSDK
         public float Weight { get { return this[nameof(Weight)].GetValue<float>(); } set { this[nameof(Weight)].SetValue<float>(value); } }
         public MissionComplexity Complexity { get { return this[nameof(Complexity)].As<MissionComplexity>(); } set { this["Complexity"] = value; } }
         public MissionDuration Duration { get { return this[nameof(Duration)].As<MissionDuration>(); } set { this["Duration"] = value; } }
-        public Array<GameplayTagQuery> RoomQueries { get { return new Array<GameplayTagQuery>(this[nameof(RoomQueries)].Address); } }
+        public UArray<GameplayTagQuery> RoomQueries { get { return new UArray<GameplayTagQuery>(this[nameof(RoomQueries)].Address); } }
         public float GetDurationHazardBonus() { return Invoke<float>(nameof(GetDurationHazardBonus)); }
         public float GetComplexityHazardBonus() { return Invoke<float>(nameof(GetComplexityHazardBonus)); }
     }
@@ -7551,13 +7555,13 @@ namespace SDK.Script.FSDSDK
         public Vector NextStop { get { return this[nameof(NextStop)].As<Vector>(); } set { this["NextStop"] = value; } }
         public bool IsCarvingTunnel { get { return this[nameof(IsCarvingTunnel)].Flag; } set { this[nameof(IsCarvingTunnel)].Flag = value; } }
         public int FullCanisters { get { return this[nameof(FullCanisters)].GetValue<int>(); } set { this[nameof(FullCanisters)].SetValue<int>(value); } }
-        public Array<EscortMuleExtractorSlot> ExtractorSlots { get { return new Array<EscortMuleExtractorSlot>(this[nameof(ExtractorSlots)].Address); } }
+        public UArray<EscortMuleExtractorSlot> ExtractorSlots { get { return new UArray<EscortMuleExtractorSlot>(this[nameof(ExtractorSlots)].Address); } }
         public bool TryHeal(PlayerCharacter User, float amount) { return Invoke<bool>(nameof(TryHeal), User, amount); }
         public void SetTargetTransform(Transform InTransform) { Invoke(nameof(SetTargetTransform), InTransform); }
         public void SetSpeedModifier(float inSpeedModifier) { Invoke(nameof(SetSpeedModifier), inSpeedModifier); }
         public void SetFullExtracterAttached(InstantUsable Usable) { Invoke(nameof(SetFullExtracterAttached), Usable); }
         public void SetExtractorDetached(InstantUsable Usable) { Invoke(nameof(SetExtractorDetached), Usable); }
-        public void SetExitGaragePath(Array<Vector> Path) { Invoke(nameof(SetExitGaragePath), Path); }
+        public void SetExitGaragePath(UArray<Vector> Path) { Invoke(nameof(SetExitGaragePath), Path); }
         public void ResetExtractors() { Invoke(nameof(ResetExtractors)); }
         public void PathIsReady() { Invoke(nameof(PathIsReady)); }
         public void OnRep_SpeedModifier() { Invoke(nameof(OnRep_SpeedModifier)); }
@@ -7581,8 +7585,8 @@ namespace SDK.Script.FSDSDK
     public class EscortMuleAIController : FSDAIController
     {
         public EscortMuleAIController(nint addr) : base(addr) { }
-        public Array<Vector> CurrentPath { get { return new Array<Vector>(this[nameof(CurrentPath)].Address); } }
-        public Array<Vector> GaragePath { get { return new Array<Vector>(this[nameof(GaragePath)].Address); } }
+        public UArray<Vector> CurrentPath { get { return new UArray<Vector>(this[nameof(CurrentPath)].Address); } }
+        public UArray<Vector> GaragePath { get { return new UArray<Vector>(this[nameof(GaragePath)].Address); } }
         public int PathIndex { get { return this[nameof(PathIndex)].GetValue<int>(); } set { this[nameof(PathIndex)].SetValue<int>(value); } }
         public int CurrentRoom { get { return this[nameof(CurrentRoom)].GetValue<int>(); } set { this[nameof(CurrentRoom)].SetValue<int>(value); } }
         public EscortObjective EscortObj { get { return this[nameof(EscortObj)].As<EscortObjective>(); } set { this["EscortObj"] = value; } }
@@ -7592,9 +7596,9 @@ namespace SDK.Script.FSDSDK
         public void SetDozerNextPathSegment() { Invoke(nameof(SetDozerNextPathSegment)); }
         public void OnPathComplete() { Invoke(nameof(OnPathComplete)); }
         public Vector GetPointBehindEscortMule(float Distance) { return Invoke<Vector>(nameof(GetPointBehindEscortMule), Distance); }
-        public Array<Vector> GetPathForDebug(int Segment) { return Invoke<Array<Vector>>(nameof(GetPathForDebug), Segment); }
+        public UArray<Vector> GetPathForDebug(int Segment) { return Invoke<UArray<Vector>>(nameof(GetPathForDebug), Segment); }
         public Vector GetPathEndTagent() { return Invoke<Vector>(nameof(GetPathEndTagent)); }
-        public void GetFullPath(Array<Vector> outPath) { Invoke(nameof(GetFullPath), outPath); }
+        public void GetFullPath(UArray<Vector> outPath) { Invoke(nameof(GetFullPath), outPath); }
         public void FindDozerPath(Vector StartPosition) { Invoke(nameof(FindDozerPath), StartPosition); }
         public void CHEAT_SetDozerLastPathSegment() { Invoke(nameof(CHEAT_SetDozerLastPathSegment)); }
     }
@@ -7607,12 +7611,12 @@ namespace SDK.Script.FSDSDK
         public bool DidRescueDorettaHead { get { return this[nameof(DidRescueDorettaHead)].Flag; } set { this[nameof(DidRescueDorettaHead)].Flag = value; } }
         public int AreasToScan { get { return this[nameof(AreasToScan)].GetValue<int>(); } set { this[nameof(AreasToScan)].SetValue<int>(value); } }
         public int ScanCount { get { return this[nameof(ScanCount)].GetValue<int>(); } set { this[nameof(ScanCount)].SetValue<int>(value); } }
-        public Array<Vector> ScanLocations { get { return new Array<Vector>(this[nameof(ScanLocations)].Address); } }
+        public UArray<Vector> ScanLocations { get { return new UArray<Vector>(this[nameof(ScanLocations)].Address); } }
         public DebrisPositioning Positioning { get { return this[nameof(Positioning)].As<DebrisPositioning>(); } set { this["Positioning"] = value; } }
         public DebrisPositioning EscortMulePositioning { get { return this[nameof(EscortMulePositioning)].As<DebrisPositioning>(); } set { this["EscortMulePositioning"] = value; } }
         public CurveFloat CostDistanceCurve { get { return this[nameof(CostDistanceCurve)].As<CurveFloat>(); } set { this["CostDistanceCurve"] = value; } }
         public float DebrisRadius { get { return this[nameof(DebrisRadius)].GetValue<float>(); } set { this[nameof(DebrisRadius)].SetValue<float>(value); } }
-        public Array<DebrisBase> ObjectDebris { get { return new Array<DebrisBase>(this[nameof(ObjectDebris)].Address); } }
+        public UArray<DebrisBase> ObjectDebris { get { return new UArray<DebrisBase>(this[nameof(ObjectDebris)].Address); } }
         public Object RefuelObjectClass { get { return this[nameof(RefuelObjectClass)]; } set { this[nameof(RefuelObjectClass)] = value; } }
         public Object DestinationClass { get { return this[nameof(DestinationClass)]; } set { this[nameof(DestinationClass)] = value; } }
         public int AreasScanned { get { return this[nameof(AreasScanned)].GetValue<int>(); } set { this[nameof(AreasScanned)].SetValue<int>(value); } }
@@ -7770,7 +7774,7 @@ namespace SDK.Script.FSDSDK
     {
         public FacilityGeneratorLine(nint addr) : base(addr) { }
         public Transform StartTransform { get { return this[nameof(StartTransform)].As<Transform>(); } set { this["StartTransform"] = value; } }
-        public Array<Transform> EndTransforms { get { return new Array<Transform>(this[nameof(EndTransforms)].Address); } }
+        public UArray<Transform> EndTransforms { get { return new UArray<Transform>(this[nameof(EndTransforms)].Address); } }
         public float HeightOffsetMin { get { return this[nameof(HeightOffsetMin)].GetValue<float>(); } set { this[nameof(HeightOffsetMin)].SetValue<float>(value); } }
         public float HeightOffsetMax { get { return this[nameof(HeightOffsetMax)].GetValue<float>(); } set { this[nameof(HeightOffsetMax)].SetValue<float>(value); } }
         public float MaxSegmentLength { get { return this[nameof(MaxSegmentLength)].GetValue<float>(); } set { this[nameof(MaxSegmentLength)].SetValue<float>(value); } }
@@ -7782,7 +7786,7 @@ namespace SDK.Script.FSDSDK
         public Object MaterialUnconnected { get { return this[nameof(MaterialUnconnected)]; } set { this[nameof(MaterialUnconnected)] = value; } }
         public TetherStation Station { get { return this[nameof(Station)].As<TetherStation>(); } set { this["Station"] = value; } }
         public StaticMesh MeshInstance { get { return this[nameof(MeshInstance)].As<StaticMesh>(); } set { this["MeshInstance"] = value; } }
-        public Array<Vector> ReplicatedPath { get { return new Array<Vector>(this[nameof(ReplicatedPath)].Address); } }
+        public UArray<Vector> ReplicatedPath { get { return new UArray<Vector>(this[nameof(ReplicatedPath)].Address); } }
         public bool Connected { get { return this[nameof(Connected)].Flag; } set { this[nameof(Connected)].Flag = value; } }
         public void SetConnected(bool InConnected) { Invoke(nameof(SetConnected), InConnected); }
         public void ReceiveBeginPathFinding() { Invoke(nameof(ReceiveBeginPathFinding)); }
@@ -7803,8 +7807,8 @@ namespace SDK.Script.FSDSDK
     public class RGBLightManagerComponent : ActorComponent
     {
         public RGBLightManagerComponent(nint addr) : base(addr) { }
-        public Array<PointLightComponent> Lights { get { return new Array<PointLightComponent>(this[nameof(Lights)].Address); } }
-        public Array<LinearColor> ColorList { get { return new Array<LinearColor>(this[nameof(ColorList)].Address); } }
+        public UArray<PointLightComponent> Lights { get { return new UArray<PointLightComponent>(this[nameof(Lights)].Address); } }
+        public UArray<LinearColor> ColorList { get { return new UArray<LinearColor>(this[nameof(ColorList)].Address); } }
         public float NewColorsInterval { get { return this[nameof(NewColorsInterval)].GetValue<float>(); } set { this[nameof(NewColorsInterval)].SetValue<float>(value); } }
         public float NewColorsVariance { get { return this[nameof(NewColorsVariance)].GetValue<float>(); } set { this[nameof(NewColorsVariance)].SetValue<float>(value); } }
         public void StopRgb() { Invoke(nameof(StopRgb)); }
@@ -7844,32 +7848,32 @@ namespace SDK.Script.FSDSDK
         public Object GeneratorBeaconClass { get { return this[nameof(GeneratorBeaconClass)]; } set { this[nameof(GeneratorBeaconClass)] = value; } }
         public int GeneratorCount { get { return this[nameof(GeneratorCount)].GetValue<int>(); } set { this[nameof(GeneratorCount)].SetValue<int>(value); } }
         public int ObjectivesStage { get { return this[nameof(ObjectivesStage)].GetValue<int>(); } set { this[nameof(ObjectivesStage)].SetValue<int>(value); } }
-        public Array<SubObjective> SubObjectives { get { return new Array<SubObjective>(this[nameof(SubObjectives)].Address); } }
+        public UArray<SubObjective> SubObjectives { get { return new UArray<SubObjective>(this[nameof(SubObjectives)].Address); } }
         public Object OnFirstEncounterDroneSpawned_Delegate { get { return this[nameof(OnFirstEncounterDroneSpawned_Delegate)]; } set { this[nameof(OnFirstEncounterDroneSpawned_Delegate)] = value; } }
         public Object OnSecondEncounterDroneSpawned_Delegate { get { return this[nameof(OnSecondEncounterDroneSpawned_Delegate)]; } set { this[nameof(OnSecondEncounterDroneSpawned_Delegate)] = value; } }
-        public Array<Pawn> spawnedEnemies { get { return new Array<Pawn>(this[nameof(spawnedEnemies)].Address); } }
-        public Array<EnemyDescriptor> TurretDescriptors { get { return new Array<EnemyDescriptor>(this[nameof(TurretDescriptors)].Address); } }
-        public Array<EnemyDescriptor> GeneratorRoomTurretDescriptors { get { return new Array<EnemyDescriptor>(this[nameof(GeneratorRoomTurretDescriptors)].Address); } }
-        public Array<EnemyDescriptor> EncounterEnemies { get { return new Array<EnemyDescriptor>(this[nameof(EncounterEnemies)].Address); } }
+        public UArray<Pawn> spawnedEnemies { get { return new UArray<Pawn>(this[nameof(spawnedEnemies)].Address); } }
+        public UArray<EnemyDescriptor> TurretDescriptors { get { return new UArray<EnemyDescriptor>(this[nameof(TurretDescriptors)].Address); } }
+        public UArray<EnemyDescriptor> GeneratorRoomTurretDescriptors { get { return new UArray<EnemyDescriptor>(this[nameof(GeneratorRoomTurretDescriptors)].Address); } }
+        public UArray<EnemyDescriptor> EncounterEnemies { get { return new UArray<EnemyDescriptor>(this[nameof(EncounterEnemies)].Address); } }
         public float EncounterDifficulty { get { return this[nameof(EncounterDifficulty)].GetValue<float>(); } set { this[nameof(EncounterDifficulty)].SetValue<float>(value); } }
         public RandInterval Diversity { get { return this[nameof(Diversity)].As<RandInterval>(); } set { this["Diversity"] = value; } }
         public IRandRange TurretEncountersRange { get { return this[nameof(TurretEncountersRange)].As<IRandRange>(); } set { this["TurretEncountersRange"] = value; } }
         public int MinimumTurretEncounters { get { return this[nameof(MinimumTurretEncounters)].GetValue<int>(); } set { this[nameof(MinimumTurretEncounters)].SetValue<int>(value); } }
         public IRandRange TunnelTurretsRange { get { return this[nameof(TunnelTurretsRange)].As<IRandRange>(); } set { this["TunnelTurretsRange"] = value; } }
-        public Array<Actor> SmallGenerators { get { return new Array<Actor>(this[nameof(SmallGenerators)].Address); } }
+        public UArray<Actor> SmallGenerators { get { return new UArray<Actor>(this[nameof(SmallGenerators)].Address); } }
         public TetherStation mainFacility { get { return this[nameof(mainFacility)].As<TetherStation>(); } set { this["mainFacility"] = value; } }
-        public Array<int> ShieldGeneratorRooms { get { return new Array<int>(this[nameof(ShieldGeneratorRooms)].Address); } }
+        public UArray<int> ShieldGeneratorRooms { get { return new UArray<int>(this[nameof(ShieldGeneratorRooms)].Address); } }
         public int MainFacilityRoom { get { return this[nameof(MainFacilityRoom)].GetValue<int>(); } set { this[nameof(MainFacilityRoom)].SetValue<int>(value); } }
         public bool HasRemovedMainShield { get { return this[nameof(HasRemovedMainShield)].Flag; } set { this[nameof(HasRemovedMainShield)].Flag = value; } }
-        public Array<Actor> ShieldGenerators { get { return new Array<Actor>(this[nameof(ShieldGenerators)].Address); } }
+        public UArray<Actor> ShieldGenerators { get { return new UArray<Actor>(this[nameof(ShieldGenerators)].Address); } }
         public ResourceData GoalResource { get { return this[nameof(GoalResource)].As<ResourceData>(); } set { this["GoalResource"] = value; } }
         public float AmountRequired { get { return this[nameof(AmountRequired)].GetValue<float>(); } set { this[nameof(AmountRequired)].SetValue<float>(value); } }
         public float AmountCollected { get { return this[nameof(AmountCollected)].GetValue<float>(); } set { this[nameof(AmountCollected)].SetValue<float>(value); } }
         public int GeneratorsActivated { get { return this[nameof(GeneratorsActivated)].GetValue<int>(); } set { this[nameof(GeneratorsActivated)].SetValue<int>(value); } }
         public void SpawnFacilityEncounters(ProceduralSetup Setup, EncounterManager Encounters, DebrisPositioning Positioning) { Invoke(nameof(SpawnFacilityEncounters), Setup, Encounters, Positioning); }
-        public Array<Transform> SpawnEndBattleTurrets(int amountOfTurrets, ProceduralSetup Setup, DebrisPositioning DebrisPositioning, Object terrainPlacement, Array<Actor> existingTurrets, bool success) { return Invoke<Array<Transform>>(nameof(SpawnEndBattleTurrets), amountOfTurrets, Setup, DebrisPositioning, terrainPlacement, existingTurrets, success); }
+        public UArray<Transform> SpawnEndBattleTurrets(int amountOfTurrets, ProceduralSetup Setup, DebrisPositioning DebrisPositioning, Object terrainPlacement, UArray<Actor> existingTurrets, bool success) { return Invoke<UArray<Transform>>(nameof(SpawnEndBattleTurrets), amountOfTurrets, Setup, DebrisPositioning, terrainPlacement, existingTurrets, success); }
         public void SetMainFacility(TetherStation mainFacility) { Invoke(nameof(SetMainFacility), mainFacility); }
-        public void SetGeneratorRooms(Array<int> generatorRoomsIndicies) { Invoke(nameof(SetGeneratorRooms), generatorRoomsIndicies); }
+        public void SetGeneratorRooms(UArray<int> generatorRoomsIndicies) { Invoke(nameof(SetGeneratorRooms), generatorRoomsIndicies); }
         public void SecondGeneratorEncounterSpawn(Pawn spawned) { Invoke(nameof(SecondGeneratorEncounterSpawn), spawned); }
         public void Receive_AddEnemies(ProceduralSetup Setup) { Invoke(nameof(Receive_AddEnemies), Setup); }
         public void ProgressCurrentObjective() { Invoke(nameof(ProgressCurrentObjective)); }
@@ -7882,7 +7886,7 @@ namespace SDK.Script.FSDSDK
         public bool IsSubObjectiveComplete(int objectiveIndex) { return Invoke<bool>(nameof(IsSubObjectiveComplete), objectiveIndex); }
         public void InitGeneratorCount(int generators) { Invoke(nameof(InitGeneratorCount), generators); }
         public Transform GetTurretGoal(ProceduralSetup Setup, Vector Origin, float idealRange, DebrisPositioning DebrisPositioning, Object terrainPlacement, bool success) { return Invoke<Transform>(nameof(GetTurretGoal), Setup, Origin, idealRange, DebrisPositioning, terrainPlacement, success); }
-        public Array<Actor> GetShieldGenerators() { return Invoke<Array<Actor>>(nameof(GetShieldGenerators)); }
+        public UArray<Actor> GetShieldGenerators() { return Invoke<UArray<Actor>>(nameof(GetShieldGenerators)); }
         public int GetShieldGeneratorCount() { return Invoke<int>(nameof(GetShieldGeneratorCount)); }
         public void GetObjectTransformInRoom(Transform Transform, ProceduralSetup Setup, RoomNode RoomNode, DebrisPositioning Positioning, Object placementActor, RandomStream RandomStream, bool checkImportantLocations) { Invoke(nameof(GetObjectTransformInRoom), Transform, Setup, RoomNode, Positioning, placementActor, RandomStream, checkImportantLocations); }
         public int GetFacilityRoomIndex() { return Invoke<int>(nameof(GetFacilityRoomIndex)); }
@@ -7951,7 +7955,7 @@ namespace SDK.Script.FSDSDK
         public FacilityTentacle(nint addr) : base(addr) { }
         public float SwaySpeed { get { return this[nameof(SwaySpeed)].GetValue<float>(); } set { this[nameof(SwaySpeed)].SetValue<float>(value); } }
         public bool Extended { get { return this[nameof(Extended)].Flag; } set { this[nameof(Extended)].Flag = value; } }
-        public Array<AnimMontage> HitReactions { get { return new Array<AnimMontage>(this[nameof(HitReactions)].Address); } }
+        public UArray<AnimMontage> HitReactions { get { return new UArray<AnimMontage>(this[nameof(HitReactions)].Address); } }
         public EFacilityTentacleState TentacleState { get { return (EFacilityTentacleState)this[nameof(TentacleState)].GetValue<int>(); } set { this[nameof(TentacleState)].SetValue<int>((int)value); } }
         public SkeletalMeshComponent HeadMesh { get { return this[nameof(HeadMesh)].As<SkeletalMeshComponent>(); } set { this["HeadMesh"] = value; } }
         public TentacleTarget DesiredTarget { get { return this[nameof(DesiredTarget)].As<TentacleTarget>(); } set { this["DesiredTarget"] = value; } }
@@ -8217,7 +8221,7 @@ namespace SDK.Script.FSDSDK
         public float VeryLongReachThreshold { get { return this[nameof(VeryLongReachThreshold)].GetValue<float>(); } set { this[nameof(VeryLongReachThreshold)].SetValue<float>(value); } }
         public ParticleSystem FP_VeryLongReachParticles { get { return this[nameof(FP_VeryLongReachParticles)].As<ParticleSystem>(); } set { this["FP_VeryLongReachParticles"] = value; } }
         public ParticleSystem TP_VeryLongReachParticles { get { return this[nameof(TP_VeryLongReachParticles)].As<ParticleSystem>(); } set { this["TP_VeryLongReachParticles"] = value; } }
-        public Array<Object> FlameParameterNames { get { return new Array<Object>(this[nameof(FlameParameterNames)].Address); } }
+        public UArray<Object> FlameParameterNames { get { return new UArray<Object>(this[nameof(FlameParameterNames)].Address); } }
         public float DamageSphereRadius { get { return this[nameof(DamageSphereRadius)].GetValue<float>(); } set { this[nameof(DamageSphereRadius)].SetValue<float>(value); } }
         public float MaxFlameDistance { get { return this[nameof(MaxFlameDistance)].GetValue<float>(); } set { this[nameof(MaxFlameDistance)].SetValue<float>(value); } }
         public float FlameGrowthPerSecond { get { return this[nameof(FlameGrowthPerSecond)].GetValue<float>(); } set { this[nameof(FlameGrowthPerSecond)].SetValue<float>(value); } }
@@ -8230,7 +8234,7 @@ namespace SDK.Script.FSDSDK
         public float MeltPointBuildTime { get { return this[nameof(MeltPointBuildTime)].GetValue<float>(); } set { this[nameof(MeltPointBuildTime)].SetValue<float>(value); } }
         public float MeltCarveTime { get { return this[nameof(MeltCarveTime)].GetValue<float>(); } set { this[nameof(MeltCarveTime)].SetValue<float>(value); } }
         public ParticleSystem MeltSteamParticle { get { return this[nameof(MeltSteamParticle)].As<ParticleSystem>(); } set { this["MeltSteamParticle"] = value; } }
-        public Array<ItemUpgrade> Upgrades { get { return new Array<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
+        public UArray<ItemUpgrade> Upgrades { get { return new UArray<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
         public bool LongReachEnabled { get { return this[nameof(LongReachEnabled)].Flag; } set { this[nameof(LongReachEnabled)].Flag = value; } }
         public bool AoEHeatEnabled { get { return this[nameof(AoEHeatEnabled)].Flag; } set { this[nameof(AoEHeatEnabled)].Flag = value; } }
         public float KilledTargetsExplosionChance { get { return this[nameof(KilledTargetsExplosionChance)].GetValue<float>(); } set { this[nameof(KilledTargetsExplosionChance)].SetValue<float>(value); } }
@@ -8246,7 +8250,7 @@ namespace SDK.Script.FSDSDK
         public Object ExplosionCandidates { get { return this[nameof(ExplosionCandidates)]; } set { this[nameof(ExplosionCandidates)] = value; } }
         public void TriggerAoEHeat() { Invoke(nameof(TriggerAoEHeat)); }
         public void SetIsChargingForProjectile(bool isCharging) { Invoke(nameof(SetIsChargingForProjectile), isCharging); }
-        public void ServerMeltIce(Array<Vector> meltPoints) { Invoke(nameof(ServerMeltIce), meltPoints); }
+        public void ServerMeltIce(UArray<Vector> meltPoints) { Invoke(nameof(ServerMeltIce), meltPoints); }
         public void ServerDoDamage(Vector_NetQuantize Start, Vector_NetQuantize End) { Invoke(nameof(ServerDoDamage), Start, End); }
         public void OnTargetKilled(HealthComponentBase Health) { Invoke(nameof(OnTargetKilled), Health); }
         public void OnTargetDamaged(HealthComponentBase Health, float amount, PrimitiveComponent HitComponent, FSDPhysicalMaterial PhysicalMaterial) { Invoke(nameof(OnTargetDamaged), Health, amount, HitComponent, PhysicalMaterial); }
@@ -8293,7 +8297,7 @@ namespace SDK.Script.FSDSDK
         public Object LoadoutItem { get { return this[nameof(LoadoutItem)]; } set { this[nameof(LoadoutItem)] = value; } }
         public ItemID ItemID { get { return this[nameof(ItemID)].As<ItemID>(); } set { this["ItemID"] = value; } }
         public SoundCue ImpactGroundSound { get { return this[nameof(ImpactGroundSound)].As<SoundCue>(); } set { this["ImpactGroundSound"] = value; } }
-        public void StartLightFunction(LightComponent mainLight, Array<LightComponent> spotLights, CurveFloat flutterCurve, CurveFloat fadeInCurve) { Invoke(nameof(StartLightFunction), mainLight, spotLights, flutterCurve, fadeInCurve); }
+        public void StartLightFunction(LightComponent mainLight, UArray<LightComponent> spotLights, CurveFloat flutterCurve, CurveFloat fadeInCurve) { Invoke(nameof(StartLightFunction), mainLight, spotLights, flutterCurve, fadeInCurve); }
         public void OnUpdateShadowRadius() { Invoke(nameof(OnUpdateShadowRadius)); }
         public void OnRep_IsFlareOn() { Invoke(nameof(OnRep_IsFlareOn)); }
         public void OnFlareSpawnCompleted() { Invoke(nameof(OnFlareSpawnCompleted)); }
@@ -8314,7 +8318,7 @@ namespace SDK.Script.FSDSDK
     {
         public FlareController(nint addr) : base(addr) { }
         public Object OnShadowQualityChanged { get { return this[nameof(OnShadowQualityChanged)]; } set { this[nameof(OnShadowQualityChanged)] = value; } }
-        public Array<FlareMeta> FlaresMeta { get { return new Array<FlareMeta>(this[nameof(FlaresMeta)].Address); } }
+        public UArray<FlareMeta> FlaresMeta { get { return new UArray<FlareMeta>(this[nameof(FlaresMeta)].Address); } }
         public void UnregisterFlareGunProjectile(FlareGunProjectile flareprj) { Invoke(nameof(UnregisterFlareGunProjectile), flareprj); }
         public void UnregisterFlare(Flare Flare) { Invoke(nameof(UnregisterFlare), Flare); }
         public void RegisterFlareGunProjectile(FlareGunProjectile flareprj) { Invoke(nameof(RegisterFlareGunProjectile), flareprj); }
@@ -8343,16 +8347,16 @@ namespace SDK.Script.FSDSDK
         public Texture2D Icon { get { return this[nameof(Icon)].As<Texture2D>(); } set { this["Icon"] = value; } }
         public bool bIsEquippable { get { return this[nameof(bIsEquippable)].Flag; } set { this[nameof(bIsEquippable)].Flag = value; } }
         public DialogDataAsset ShoutOnUseCharge { get { return this[nameof(ShoutOnUseCharge)].As<DialogDataAsset>(); } set { this["ShoutOnUseCharge"] = value; } }
-        public Array<Object> PerkLogicClasses { get { return new Array<Object>(this[nameof(PerkLogicClasses)].Address); } }
+        public UArray<Object> PerkLogicClasses { get { return new UArray<Object>(this[nameof(PerkLogicClasses)].Address); } }
         public Object HudIconWidgetClass { get { return this[nameof(HudIconWidgetClass)]; } set { this[nameof(HudIconWidgetClass)] = value; } }
-        public Array<Object> HudActivationWidgets { get { return new Array<Object>(this[nameof(HudActivationWidgets)].Address); } }
+        public UArray<Object> HudActivationWidgets { get { return new UArray<Object>(this[nameof(HudActivationWidgets)].Address); } }
         public int MaxUseCharges { get { return this[nameof(MaxUseCharges)].GetValue<int>(); } set { this[nameof(MaxUseCharges)].SetValue<int>(value); } }
         public float CoolDownBetweenUse { get { return this[nameof(CoolDownBetweenUse)].GetValue<float>(); } set { this[nameof(CoolDownBetweenUse)].SetValue<float>(value); } }
         public bool bIsHighlighted { get { return this[nameof(bIsHighlighted)].Flag; } set { this[nameof(bIsHighlighted)].Flag = value; } }
         public bool UseCharge(PlayerController PlayerController) { return Invoke<bool>(nameof(UseCharge), PlayerController); }
         public bool Unequip(Object WorldContext, PlayerCharacterID characterID) { return Invoke<bool>(nameof(Unequip), WorldContext, characterID); }
         public void SetHighlighted(Object WorldContext, bool IsHighlighted) { Invoke(nameof(SetHighlighted), WorldContext, IsHighlighted); }
-        public void SetCharacterPerks(Object WorldContext, PlayerCharacterID characterID, Array<PerkAsset> perks) { Invoke(nameof(SetCharacterPerks), WorldContext, characterID, perks); }
+        public void SetCharacterPerks(Object WorldContext, PlayerCharacterID characterID, UArray<PerkAsset> perks) { Invoke(nameof(SetCharacterPerks), WorldContext, characterID, perks); }
         public bool IsUsageType(EPerkUsageType InType) { return Invoke<bool>(nameof(IsUsageType), InType); }
         public bool IsPerkAvailableInTier(int Tier) { return Invoke<bool>(nameof(IsPerkAvailableInTier), Tier); }
         public bool IsEquippedBy(Object WorldContext, PlayerCharacterID characterID) { return Invoke<bool>(nameof(IsEquippedBy), WorldContext, characterID); }
@@ -8369,7 +8373,7 @@ namespace SDK.Script.FSDSDK
         public int GetMaxUseCharges(PlayerController PlayerController) { return Invoke<int>(nameof(GetMaxUseCharges), PlayerController); }
         public int GetMaxRank() { return Invoke<int>(nameof(GetMaxRank)); }
         public Object GetHudIconWidgetClass() { return Invoke<Object>(nameof(GetHudIconWidgetClass)); }
-        public Array<Object> GetHudActivationWidgets(EPerkHUDActivationLocation Location) { return Invoke<Array<Object>>(nameof(GetHudActivationWidgets), Location); }
+        public UArray<Object> GetHudActivationWidgets(EPerkHUDActivationLocation Location) { return Invoke<UArray<Object>>(nameof(GetHudActivationWidgets), Location); }
         public PerkDelegateItem GetDelegates(Object WorldContext) { return Invoke<PerkDelegateItem>(nameof(GetDelegates), WorldContext); }
         public int GetCurrentRank(Object WorldContext) { return Invoke<int>(nameof(GetCurrentRank), WorldContext); }
         public int GetChargesUsed(PlayerController PlayerController) { return Invoke<int>(nameof(GetChargesUsed), PlayerController); }
@@ -8382,8 +8386,8 @@ namespace SDK.Script.FSDSDK
     public class FloatPerkAsset : PerkAsset
     {
         public FloatPerkAsset(nint addr) : base(addr) { }
-        public Array<FloatPerkRank> Ranks { get { return new Array<FloatPerkRank>(this[nameof(Ranks)].Address); } }
-        public Array<FloatPerkEffect> Effects { get { return new Array<FloatPerkEffect>(this[nameof(Effects)].Address); } }
+        public UArray<FloatPerkRank> Ranks { get { return new UArray<FloatPerkRank>(this[nameof(Ranks)].Address); } }
+        public UArray<FloatPerkEffect> Effects { get { return new UArray<FloatPerkEffect>(this[nameof(Effects)].Address); } }
         public float GetPerkValue(Object WorldContext) { return Invoke<float>(nameof(GetPerkValue), WorldContext); }
         public float GetLastTierValue() { return Invoke<float>(nameof(GetLastTierValue)); }
         public float GetFloatPerkValue(Object WorldContext, FloatPerkAsset Perk, float UnclaimedValue) { return Invoke<float>(nameof(GetFloatPerkValue), WorldContext, Perk, UnclaimedValue); }
@@ -8497,7 +8501,7 @@ namespace SDK.Script.FSDSDK
         public bool Turbulence { get { return this[nameof(Turbulence)].Flag; } set { this[nameof(Turbulence)].Flag = value; } }
         public bool Invert { get { return this[nameof(Invert)].Flag; } set { this[nameof(Invert)].Flag = value; } }
         public int Octaves { get { return this[nameof(Octaves)].GetValue<int>(); } set { this[nameof(Octaves)].SetValue<int>(value); } }
-        public Array<LayeredNoise> NoiseLayers { get { return new Array<LayeredNoise>(this[nameof(NoiseLayers)].Address); } }
+        public UArray<LayeredNoise> NoiseLayers { get { return new UArray<LayeredNoise>(this[nameof(NoiseLayers)].Address); } }
     }
     public class DetailNoise : FloodFillSettings
     {
@@ -8516,7 +8520,7 @@ namespace SDK.Script.FSDSDK
         public NiagaraComponent NS_Foam { get { return this[nameof(NS_Foam)].As<NiagaraComponent>(); } set { this["NS_Foam"] = value; } }
         public RuntimeFloatCurve ScaleCurve { get { return this[nameof(ScaleCurve)].As<RuntimeFloatCurve>(); } set { this["ScaleCurve"] = value; } }
         public Object OnChangeVacuumStateDelegate { get { return this[nameof(OnChangeVacuumStateDelegate)]; } set { this[nameof(OnChangeVacuumStateDelegate)] = value; } }
-        public Array<Object> VacuumableActors { get { return new Array<Object>(this[nameof(VacuumableActors)].Address); } }
+        public UArray<Object> VacuumableActors { get { return new UArray<Object>(this[nameof(VacuumableActors)].Address); } }
         public SoundCue PickupSound { get { return this[nameof(PickupSound)].As<SoundCue>(); } set { this["PickupSound"] = value; } }
         public float PickupSoundCooldown { get { return this[nameof(PickupSoundCooldown)].GetValue<float>(); } set { this[nameof(PickupSoundCooldown)].SetValue<float>(value); } }
         public SoundCue PickupFilledSound { get { return this[nameof(PickupFilledSound)].As<SoundCue>(); } set { this["PickupFilledSound"] = value; } }
@@ -8551,20 +8555,20 @@ namespace SDK.Script.FSDSDK
         public ForgingFunctionLibrary(nint addr) : base(addr) { }
         public Schematic PickForgingMasteryDefaultReward(Object WorldContextObject, ESchematicType InType) { return Invoke<Schematic>(nameof(PickForgingMasteryDefaultReward), WorldContextObject, InType); }
         public ForgingResult GiveForgingXP(Object WorldContextObject) { return Invoke<ForgingResult>(nameof(GiveForgingXP), WorldContextObject); }
-        public Array<Schematic> GetOwnedSchematics(Object WorldContextObject) { return Invoke<Array<Schematic>>(nameof(GetOwnedSchematics), WorldContextObject); }
+        public UArray<Schematic> GetOwnedSchematics(Object WorldContextObject) { return Invoke<UArray<Schematic>>(nameof(GetOwnedSchematics), WorldContextObject); }
         public void GetForgingPendingMasteryRewardNewest(Object WorldContextObject, bool OutSuccess, ForgingPendingReward OutReward) { Invoke(nameof(GetForgingPendingMasteryRewardNewest), WorldContextObject, OutSuccess, OutReward); }
         public ESchematicType GetForgingMasteryRewardType(Object WorldContextObject, int Level, bool ReturnDefaultIfUnavailable) { return Invoke<ESchematicType>(nameof(GetForgingMasteryRewardType), WorldContextObject, Level, ReturnDefaultIfUnavailable); }
         public ESchematicType GetForgingMasteryRewardDefaultType(ESchematicType InType) { return Invoke<ESchematicType>(nameof(GetForgingMasteryRewardDefaultType), InType); }
         public float GetForgingLevelProgress(Object WorldContextObject) { return Invoke<float>(nameof(GetForgingLevelProgress), WorldContextObject); }
         public int GetForgingLevel(Object WorldContextObject) { return Invoke<int>(nameof(GetForgingLevel), WorldContextObject); }
         public bool GetForgingHasPendingMasteryRewards(Object WorldContextObject) { return Invoke<bool>(nameof(GetForgingHasPendingMasteryRewards), WorldContextObject); }
-        public Array<Schematic> GetForgedSchematics(Object WorldContextObject) { return Invoke<Array<Schematic>>(nameof(GetForgedSchematics), WorldContextObject); }
+        public UArray<Schematic> GetForgedSchematics(Object WorldContextObject) { return Invoke<UArray<Schematic>>(nameof(GetForgedSchematics), WorldContextObject); }
         public void ClaimForgingPendingMasteryReward(Object WorldContextObject, int Level, Schematic Reward) { Invoke(nameof(ClaimForgingPendingMasteryReward), WorldContextObject, Level, Reward); }
     }
     public class FormationData : DataAsset
     {
         public FormationData(nint addr) : base(addr) { }
-        public Array<FormationDataItem> FormationItems { get { return new Array<FormationDataItem>(this[nameof(FormationItems)].Address); } }
+        public UArray<FormationDataItem> FormationItems { get { return new UArray<FormationDataItem>(this[nameof(FormationItems)].Address); } }
         public GameplayTagQuery LeaderQuery { get { return this[nameof(LeaderQuery)].As<GameplayTagQuery>(); } set { this["LeaderQuery"] = value; } }
         public GameplayTagQuery MemberQuery { get { return this[nameof(MemberQuery)].As<GameplayTagQuery>(); } set { this["MemberQuery"] = value; } }
     }
@@ -8586,7 +8590,7 @@ namespace SDK.Script.FSDSDK
     {
         public FormationsManagerComponent(nint addr) : base(addr) { }
         public EnemySpawnManager SpawnManager { get { return this[nameof(SpawnManager)].As<EnemySpawnManager>(); } set { this["SpawnManager"] = value; } }
-        public Array<FormationData> FormationData { get { return new Array<FormationData>(this[nameof(FormationData)].Address); } }
+        public UArray<FormationData> FormationData { get { return new UArray<FormationData>(this[nameof(FormationData)].Address); } }
     }
     public class FragileDebrisCleaner : SceneComponent
     {
@@ -8646,7 +8650,7 @@ namespace SDK.Script.FSDSDK
         public Object OnThawInputsUpdated { get { return this[nameof(OnThawInputsUpdated)]; } set { this[nameof(OnThawInputsUpdated)] = value; } }
         public Object OnBreakOutInputSuccess { get { return this[nameof(OnBreakOutInputSuccess)]; } set { this[nameof(OnBreakOutInputSuccess)] = value; } }
         public Object OnBreakOutInputFailed { get { return this[nameof(OnBreakOutInputFailed)]; } set { this[nameof(OnBreakOutInputFailed)] = value; } }
-        public Array<InputDirectionSet> DirectionSets { get { return new Array<InputDirectionSet>(this[nameof(DirectionSets)].Address); } }
+        public UArray<InputDirectionSet> DirectionSets { get { return new UArray<InputDirectionSet>(this[nameof(DirectionSets)].Address); } }
         public Object SuccessSound { get { return this[nameof(SuccessSound)]; } set { this[nameof(SuccessSound)] = value; } }
         public Object FailSound { get { return this[nameof(FailSound)]; } set { this[nameof(FailSound)] = value; } }
         public float ErrorGracePeriod { get { return this[nameof(ErrorGracePeriod)].GetValue<float>(); } set { this[nameof(ErrorGracePeriod)].SetValue<float>(value); } }
@@ -8732,7 +8736,7 @@ namespace SDK.Script.FSDSDK
         public FSDAchievement EliteDeepDiveCompleted { get { return this[nameof(EliteDeepDiveCompleted)].As<FSDAchievement>(); } set { this["EliteDeepDiveCompleted"] = value; } }
         public FSDAchievement DeepDiveCompletedUnderTime { get { return this[nameof(DeepDiveCompletedUnderTime)].As<FSDAchievement>(); } set { this["DeepDiveCompletedUnderTime"] = value; } }
         public FSDAchievement DeepDivesCompleted { get { return this[nameof(DeepDivesCompleted)].As<FSDAchievement>(); } set { this["DeepDivesCompleted"] = value; } }
-        public Array<FSDAchievement> AllAchievements { get { return new Array<FSDAchievement>(this[nameof(AllAchievements)].Address); } }
+        public UArray<FSDAchievement> AllAchievements { get { return new UArray<FSDAchievement>(this[nameof(AllAchievements)].Address); } }
         public Object BarrelClass { get { return this[nameof(BarrelClass)]; } set { this[nameof(BarrelClass)] = value; } }
     }
     public class FSDAdvancedLabel : UserWidget
@@ -8901,7 +8905,7 @@ namespace SDK.Script.FSDSDK
     public class AnimNotify_HideBones : AnimNotify
     {
         public AnimNotify_HideBones(nint addr) : base(addr) { }
-        public Array<Object> TargetBoneNames { get { return new Array<Object>(this[nameof(TargetBoneNames)].Address); } }
+        public UArray<Object> TargetBoneNames { get { return new UArray<Object>(this[nameof(TargetBoneNames)].Address); } }
     }
     public class AnimNotify_HideBone : AnimNotify
     {
@@ -8917,7 +8921,7 @@ namespace SDK.Script.FSDSDK
     {
         public AnimNotify_CopyBoneVisibility(nint addr) : base(addr) { }
         public Object SourceBoneName { get { return this[nameof(SourceBoneName)]; } set { this[nameof(SourceBoneName)] = value; } }
-        public Array<Object> TargetBoneNames { get { return new Array<Object>(this[nameof(TargetBoneNames)].Address); } }
+        public UArray<Object> TargetBoneNames { get { return new UArray<Object>(this[nameof(TargetBoneNames)].Address); } }
         public bool HideSourceBone { get { return this[nameof(HideSourceBone)].Flag; } set { this[nameof(HideSourceBone)].Flag = value; } }
     }
     public class AnimNotifyState_SpawnMesh : AnimNotifyState
@@ -9083,7 +9087,7 @@ namespace SDK.Script.FSDSDK
         public bool IsFastMovementActive() { return Invoke<bool>(nameof(IsFastMovementActive)); }
         public void InstantDropResuppyPod(RessuplyPod pod) { Invoke(nameof(InstantDropResuppyPod), pod); }
         public bool GetSavedCheatValue(Object CheatName, int ValueToGet) { return Invoke<bool>(nameof(GetSavedCheatValue), CheatName, ValueToGet); }
-        public void GetListOfRoomNames(Array<Object> roomNames) { Invoke(nameof(GetListOfRoomNames), roomNames); }
+        public void GetListOfRoomNames(UArray<Object> roomNames) { Invoke(nameof(GetListOfRoomNames), roomNames); }
         public void DestroyAllInstances(Object destroy) { Invoke(nameof(DestroyAllInstances), destroy); }
         public void D_Rejoin_RestoreState() { Invoke(nameof(D_Rejoin_RestoreState)); }
         public void D_MovieModeStartWithCameraShake(bool Value) { Invoke(nameof(D_MovieModeStartWithCameraShake), Value); }
@@ -9358,15 +9362,15 @@ namespace SDK.Script.FSDSDK
         public Object EventAmbienceMusic { get { return this[nameof(EventAmbienceMusic)]; } set { this[nameof(EventAmbienceMusic)] = value; } }
         public bool UseDifferentBarLightColor { get { return this[nameof(UseDifferentBarLightColor)].Flag; } set { this[nameof(UseDifferentBarLightColor)].Flag = value; } }
         public LinearColor SpaceRigBarLightColor { get { return this[nameof(SpaceRigBarLightColor)].As<LinearColor>(); } set { this["SpaceRigBarLightColor"] = value; } }
-        public Array<EncounterSpecialItem> EventEncounters { get { return new Array<EncounterSpecialItem>(this[nameof(EventEncounters)].Address); } }
-        public Array<Object> EventDebris { get { return new Array<Object>(this[nameof(EventDebris)].Address); } }
+        public UArray<EncounterSpecialItem> EventEncounters { get { return new UArray<EncounterSpecialItem>(this[nameof(EventEncounters)].Address); } }
+        public UArray<Object> EventDebris { get { return new UArray<Object>(this[nameof(EventDebris)].Address); } }
         public bool bIsEventDebrisInDeepDives { get { return this[nameof(bIsEventDebrisInDeepDives)].Flag; } set { this[nameof(bIsEventDebrisInDeepDives)].Flag = value; } }
-        public Array<Object> SpacerigSublevels { get { return new Array<Object>(this[nameof(SpacerigSublevels)].Address); } }
-        public Array<Object> UnloadSpacerigSublevels { get { return new Array<Object>(this[nameof(UnloadSpacerigSublevels)].Address); } }
+        public UArray<Object> SpacerigSublevels { get { return new UArray<Object>(this[nameof(SpacerigSublevels)].Address); } }
+        public UArray<Object> UnloadSpacerigSublevels { get { return new UArray<Object>(this[nameof(UnloadSpacerigSublevels)].Address); } }
         public bool bHasClaimableRewards { get { return this[nameof(bHasClaimableRewards)].Flag; } set { this[nameof(bHasClaimableRewards)].Flag = value; } }
         public ClaimableRewardView ClaimableRewards { get { return this[nameof(ClaimableRewards)].As<ClaimableRewardView>(); } set { this["ClaimableRewards"] = value; } }
-        public Array<PlatformSpecificEventPopup> OptionalPopUpWindow { get { return new Array<PlatformSpecificEventPopup>(this[nameof(OptionalPopUpWindow)].Address); } }
-        public Array<Object> Campaigns { get { return new Array<Object>(this[nameof(Campaigns)].Address); } }
+        public UArray<PlatformSpecificEventPopup> OptionalPopUpWindow { get { return new UArray<PlatformSpecificEventPopup>(this[nameof(OptionalPopUpWindow)].Address); } }
+        public UArray<Object> Campaigns { get { return new UArray<Object>(this[nameof(Campaigns)].Address); } }
         public Object TitleScreenOverride { get { return this[nameof(TitleScreenOverride)]; } set { this[nameof(TitleScreenOverride)] = value; } }
         public JettyBootEventSettings JettyBootSettings { get { return this[nameof(JettyBootSettings)].As<JettyBootEventSettings>(); } set { this["JettyBootSettings"] = value; } }
         public DateTime EventEndTimeLocal { get { return this[nameof(EventEndTimeLocal)].As<DateTime>(); } set { this["EventEndTimeLocal"] = value; } }
@@ -9383,17 +9387,17 @@ namespace SDK.Script.FSDSDK
         public FSDEventCollection(nint addr) : base(addr) { }
         public Object Events { get { return this[nameof(Events)]; } set { this[nameof(Events)] = value; } }
         public Object OnEventActiveChanged { get { return this[nameof(OnEventActiveChanged)]; } set { this[nameof(OnEventActiveChanged)] = value; } }
-        public Array<FSDEvent> GetEventsSorted() { return Invoke<Array<FSDEvent>>(nameof(GetEventsSorted)); }
+        public UArray<FSDEvent> GetEventsSorted() { return Invoke<UArray<FSDEvent>>(nameof(GetEventsSorted)); }
         public FSDEvent FindEventHandler(Object EventName) { return Invoke<FSDEvent>(nameof(FindEventHandler), EventName); }
-        public Array<FSDEvent> FindAllEventHandlers(Object EventName) { return Invoke<Array<FSDEvent>>(nameof(FindAllEventHandlers), EventName); }
+        public UArray<FSDEvent> FindAllEventHandlers(Object EventName) { return Invoke<UArray<FSDEvent>>(nameof(FindAllEventHandlers), EventName); }
     }
     public class FSDEventManager : GameInstanceSubsystem
     {
         public FSDEventManager(nint addr) : base(addr) { }
         public Object OnFSDEventsRefresh { get { return this[nameof(OnFSDEventsRefresh)]; } set { this[nameof(OnFSDEventsRefresh)] = value; } }
         public Object OnEventActiveChanged { get { return this[nameof(OnEventActiveChanged)]; } set { this[nameof(OnEventActiveChanged)] = value; } }
-        public Array<FSDEventWithEnd> PendingActiveEvents { get { return new Array<FSDEventWithEnd>(this[nameof(PendingActiveEvents)].Address); } }
-        public Array<FSDEventWithEnd> ActiveEvents { get { return new Array<FSDEventWithEnd>(this[nameof(ActiveEvents)].Address); } }
+        public UArray<FSDEventWithEnd> PendingActiveEvents { get { return new UArray<FSDEventWithEnd>(this[nameof(PendingActiveEvents)].Address); } }
+        public UArray<FSDEventWithEnd> ActiveEvents { get { return new UArray<FSDEventWithEnd>(this[nameof(ActiveEvents)].Address); } }
         public int NumFailedRequests { get { return this[nameof(NumFailedRequests)].GetValue<int>(); } set { this[nameof(NumFailedRequests)].SetValue<int>(value); } }
         public bool BackendDataValid { get { return this[nameof(BackendDataValid)].Flag; } set { this[nameof(BackendDataValid)].Flag = value; } }
         public DateTime LastRequestTime { get { return this[nameof(LastRequestTime)].As<DateTime>(); } set { this["LastRequestTime"] = value; } }
@@ -9409,7 +9413,7 @@ namespace SDK.Script.FSDSDK
         public EHolidayType GetHolidayType() { return Invoke<EHolidayType>(nameof(GetHolidayType)); }
         public FSDEvent GetFirstActiveEventHandler() { return Invoke<FSDEvent>(nameof(GetFirstActiveEventHandler)); }
         public bool GetBackendNotificationEvent(BackendNotificationEvent Notification) { return Invoke<bool>(nameof(GetBackendNotificationEvent), Notification); }
-        public Array<FSDEvent> GetActiveEventHandlers() { return Invoke<Array<FSDEvent>>(nameof(GetActiveEventHandlers)); }
+        public UArray<FSDEvent> GetActiveEventHandlers() { return Invoke<UArray<FSDEvent>>(nameof(GetActiveEventHandlers)); }
         public void FSDEventsRefreshDelegate__DelegateSignature() { Invoke(nameof(FSDEventsRefreshDelegate__DelegateSignature)); }
         public bool FSDEventsReady() { return Invoke<bool>(nameof(FSDEventsReady)); }
     }
@@ -9432,7 +9436,7 @@ namespace SDK.Script.FSDSDK
         public Object OnRefresh { get { return this[nameof(OnRefresh)]; } set { this[nameof(OnRefresh)] = value; } }
         public Object WorldContextObject { get { return this[nameof(WorldContextObject)].As<Object>(); } set { this["WorldContextObject"] = value; } }
         public FSDFindSteamSessions FSDFindSteamSessions { get { return this[nameof(FSDFindSteamSessions)].As<FSDFindSteamSessions>(); } set { this["FSDFindSteamSessions"] = value; } }
-        public void OnFSDCompleted(bool bSuccess, Array<BlueprintSessionResult> Results) { Invoke(nameof(OnFSDCompleted), bSuccess, Results); }
+        public void OnFSDCompleted(bool bSuccess, UArray<BlueprintSessionResult> Results) { Invoke(nameof(OnFSDCompleted), bSuccess, Results); }
         public void ManualRefreshServerList() { Invoke(nameof(ManualRefreshServerList)); }
         public FSDFindSessionsCallbackProxy FSDFindSessions(Object WorldContextObject, PlayerController PlayerController, int MaxResults, bool bUseLAN) { return Invoke<FSDFindSessionsCallbackProxy>(nameof(FSDFindSessions), WorldContextObject, PlayerController, MaxResults, bUseLAN); }
         public FSDFindSessionsCallbackProxy FSDFindFullSessions(Object WorldContextObject, PlayerController PlayerController, int MaxResults) { return Invoke<FSDFindSessionsCallbackProxy>(nameof(FSDFindFullSessions), WorldContextObject, PlayerController, MaxResults); }
@@ -9461,8 +9465,8 @@ namespace SDK.Script.FSDSDK
         public Object OnFriendsChanged { get { return this[nameof(OnFriendsChanged)]; } set { this[nameof(OnFriendsChanged)] = value; } }
         public Object OnFriendInvitesChanged { get { return this[nameof(OnFriendInvitesChanged)]; } set { this[nameof(OnFriendInvitesChanged)] = value; } }
         public Object OnRequestRefresh { get { return this[nameof(OnRequestRefresh)]; } set { this[nameof(OnRequestRefresh)] = value; } }
-        public Array<BlueprintFriend> Friends { get { return new Array<BlueprintFriend>(this[nameof(Friends)].Address); } }
-        public Array<BlueprintFriend> FriendInvites { get { return new Array<BlueprintFriend>(this[nameof(FriendInvites)].Address); } }
+        public UArray<BlueprintFriend> Friends { get { return new UArray<BlueprintFriend>(this[nameof(Friends)].Address); } }
+        public UArray<BlueprintFriend> FriendInvites { get { return new UArray<BlueprintFriend>(this[nameof(FriendInvites)].Address); } }
         public void Init() { Invoke(nameof(Init)); }
     }
     public class FSDGameInstance : GameInstance
@@ -9562,7 +9566,7 @@ namespace SDK.Script.FSDSDK
         public FSDSaveGame SaveGame { get { return this[nameof(SaveGame)].As<FSDSaveGame>(); } set { this["SaveGame"] = value; } }
         public EDisconnectReason DisconnectReason { get { return (EDisconnectReason)this[nameof(DisconnectReason)].GetValue<int>(); } set { this[nameof(DisconnectReason)].SetValue<int>((int)value); } }
         public Object DisconnectErrorCode { get { return this[nameof(DisconnectErrorCode)]; } set { this[nameof(DisconnectErrorCode)] = value; } }
-        public Array<World> AlwaysLoadedWorlds { get { return new Array<World>(this[nameof(AlwaysLoadedWorlds)].Address); } }
+        public UArray<World> AlwaysLoadedWorlds { get { return new UArray<World>(this[nameof(AlwaysLoadedWorlds)].Address); } }
         public bool ShowCharacterSelectionWorld { get { return this[nameof(ShowCharacterSelectionWorld)].Flag; } set { this[nameof(ShowCharacterSelectionWorld)].Flag = value; } }
         public Object Viewer3DClass { get { return this[nameof(Viewer3DClass)]; } set { this[nameof(Viewer3DClass)] = value; } }
         public bool ShowLoaderWorld { get { return this[nameof(ShowLoaderWorld)].Flag; } set { this[nameof(ShowLoaderWorld)].Flag = value; } }
@@ -9584,7 +9588,7 @@ namespace SDK.Script.FSDSDK
         public float InKBytesPerSecond { get { return this[nameof(InKBytesPerSecond)].GetValue<float>(); } set { this[nameof(InKBytesPerSecond)].SetValue<float>(value); } }
         public float OutKBytesPerSecond { get { return this[nameof(OutKBytesPerSecond)].GetValue<float>(); } set { this[nameof(OutKBytesPerSecond)].SetValue<float>(value); } }
         public bool PreSpawnNigaraParticles { get { return this[nameof(PreSpawnNigaraParticles)].Flag; } set { this[nameof(PreSpawnNigaraParticles)].Flag = value; } }
-        public Array<TemporaryBuff> TemporaryBuffs { get { return new Array<TemporaryBuff>(this[nameof(TemporaryBuffs)].Address); } }
+        public UArray<TemporaryBuff> TemporaryBuffs { get { return new UArray<TemporaryBuff>(this[nameof(TemporaryBuffs)].Address); } }
         public Object NextLoaderSequence { get { return this[nameof(NextLoaderSequence)]; } set { this[nameof(NextLoaderSequence)] = value; } }
         public EAlwaysLoadedWorlds NextLoaderLevel { get { return (EAlwaysLoadedWorlds)this[nameof(NextLoaderLevel)].GetValue<int>(); } set { this[nameof(NextLoaderLevel)].SetValue<int>((int)value); } }
         public Object DeepDiveLoaderSequence { get { return this[nameof(DeepDiveLoaderSequence)]; } set { this[nameof(DeepDiveLoaderSequence)] = value; } }
@@ -9656,9 +9660,9 @@ namespace SDK.Script.FSDSDK
         public void GiveTemporaryBuff(TemporaryBuff buff, PlayerCharacter Player) { Invoke(nameof(GiveTemporaryBuff), buff, Player); }
         public Vector2D GetViewportSize() { return Invoke<Vector2D>(nameof(GetViewportSize)); }
         public Object GetSoftReferenceToPLS() { return Invoke<Object>(nameof(GetSoftReferenceToPLS)); }
-        public Array<BlueprintSessionResult> GetServersFriendsArePlaying(Array<BlueprintSessionResult> servers) { return Invoke<Array<BlueprintSessionResult>>(nameof(GetServersFriendsArePlaying), servers); }
+        public UArray<BlueprintSessionResult> GetServersFriendsArePlaying(UArray<BlueprintSessionResult> servers) { return Invoke<UArray<BlueprintSessionResult>>(nameof(GetServersFriendsArePlaying), servers); }
         public int GetOverrideMaxPlayerCount() { return Invoke<int>(nameof(GetOverrideMaxPlayerCount)); }
-        public Array<Mutator> GetMutators(Object mutatorClass) { return Invoke<Array<Mutator>>(nameof(GetMutators), mutatorClass); }
+        public UArray<Mutator> GetMutators(Object mutatorClass) { return Invoke<UArray<Mutator>>(nameof(GetMutators), mutatorClass); }
         public int GetMaxPublicConnections() { return Invoke<int>(nameof(GetMaxPublicConnections)); }
         public int GetMaxAllowedMods() { return Invoke<int>(nameof(GetMaxAllowedMods)); }
         public FSDPlayerController GetLocalFSDPlayerController() { return Invoke<FSDPlayerController>(nameof(GetLocalFSDPlayerController)); }
@@ -9668,7 +9672,7 @@ namespace SDK.Script.FSDSDK
         public GeneratedMission GetGeneratedMission() { return Invoke<GeneratedMission>(nameof(GetGeneratedMission)); }
         public Mutator GetFirstMutator(Object mutatorClass) { return Invoke<Mutator>(nameof(GetFirstMutator), mutatorClass); }
         public Object GetDisconnectErrorCode() { return Invoke<Object>(nameof(GetDisconnectErrorCode)); }
-        public Array<NetworkConnectionInfo> GetConnectionInfo() { return Invoke<Array<NetworkConnectionInfo>>(nameof(GetConnectionInfo)); }
+        public UArray<NetworkConnectionInfo> GetConnectionInfo() { return Invoke<UArray<NetworkConnectionInfo>>(nameof(GetConnectionInfo)); }
         public PlayerCharacter GetCharacterSelectorCharacter() { return Invoke<PlayerCharacter>(nameof(GetCharacterSelectorCharacter)); }
         public void GameUserSettingsChanged() { Invoke(nameof(GameUserSettingsChanged)); }
         public void DonkeyCharacterDelegate__DelegateSignature(Molly InDonkey) { Invoke(nameof(DonkeyCharacterDelegate__DelegateSignature), InDonkey); }
@@ -9699,7 +9703,7 @@ namespace SDK.Script.FSDSDK
         public MissionManager MissionManager { get { return this[nameof(MissionManager)].As<MissionManager>(); } set { this["MissionManager"] = value; } }
         public EncounterManager EncounterManagerComponent { get { return this[nameof(EncounterManagerComponent)].As<EncounterManager>(); } set { this["EncounterManagerComponent"] = value; } }
         public CritterManager CritterManager { get { return this[nameof(CritterManager)].As<CritterManager>(); } set { this["CritterManager"] = value; } }
-        public Array<FSDPlayerController> PlayerControllers { get { return new Array<FSDPlayerController>(this[nameof(PlayerControllers)].Address); } }
+        public UArray<FSDPlayerController> PlayerControllers { get { return new UArray<FSDPlayerController>(this[nameof(PlayerControllers)].Address); } }
         public FormationsManagerComponent FormationsManager { get { return this[nameof(FormationsManager)].As<FormationsManagerComponent>(); } set { this["FormationsManager"] = value; } }
         public Object DropPodClass { get { return this[nameof(DropPodClass)]; } set { this[nameof(DropPodClass)] = value; } }
         public Object MuleClass { get { return this[nameof(MuleClass)]; } set { this[nameof(MuleClass)] = value; } }
@@ -9712,7 +9716,7 @@ namespace SDK.Script.FSDSDK
         public bool PreventLateJoinOnMissionStart { get { return this[nameof(PreventLateJoinOnMissionStart)].Flag; } set { this[nameof(PreventLateJoinOnMissionStart)].Flag = value; } }
         public float PlayerSpawnHeightOffset { get { return this[nameof(PlayerSpawnHeightOffset)].GetValue<float>(); } set { this[nameof(PlayerSpawnHeightOffset)].SetValue<float>(value); } }
         public float FriendlyFireGracePeriod { get { return this[nameof(FriendlyFireGracePeriod)].GetValue<float>(); } set { this[nameof(FriendlyFireGracePeriod)].SetValue<float>(value); } }
-        public Array<EnemyDescriptor> ForcedEnemyPool { get { return new Array<EnemyDescriptor>(this[nameof(ForcedEnemyPool)].Address); } }
+        public UArray<EnemyDescriptor> ForcedEnemyPool { get { return new UArray<EnemyDescriptor>(this[nameof(ForcedEnemyPool)].Address); } }
         public bool UseNormalEncounters { get { return this[nameof(UseNormalEncounters)].Flag; } set { this[nameof(UseNormalEncounters)].Flag = value; } }
         public bool UseStationaryEncounter { get { return this[nameof(UseStationaryEncounter)].Flag; } set { this[nameof(UseStationaryEncounter)].Flag = value; } }
         public bool AllowSpecialEncounters { get { return this[nameof(AllowSpecialEncounters)].Flag; } set { this[nameof(AllowSpecialEncounters)].Flag = value; } }
@@ -9786,8 +9790,8 @@ namespace SDK.Script.FSDSDK
     public class FSDGameSession : GameSession
     {
         public FSDGameSession(nint addr) : base(addr) { }
-        public Array<UniqueNetIdRepl> KickedPlayers { get { return new Array<UniqueNetIdRepl>(this[nameof(KickedPlayers)].Address); } }
-        public Array<UniqueNetIdRepl> BannedPlayers { get { return new Array<UniqueNetIdRepl>(this[nameof(BannedPlayers)].Address); } }
+        public UArray<UniqueNetIdRepl> KickedPlayers { get { return new UArray<UniqueNetIdRepl>(this[nameof(KickedPlayers)].Address); } }
+        public UArray<UniqueNetIdRepl> BannedPlayers { get { return new UArray<UniqueNetIdRepl>(this[nameof(BannedPlayers)].Address); } }
     }
     public class FSDGameState : GameState
     {
@@ -9846,7 +9850,7 @@ namespace SDK.Script.FSDSDK
         public TeamResourcesComponent TeamResources { get { return this[nameof(TeamResources)].As<TeamResourcesComponent>(); } set { this["TeamResources"] = value; } }
         public bool IsOnSpaceRig { get { return this[nameof(IsOnSpaceRig)].Flag; } set { this[nameof(IsOnSpaceRig)].Flag = value; } }
         public bool PlayerMadeItToDropPod { get { return this[nameof(PlayerMadeItToDropPod)].Flag; } set { this[nameof(PlayerMadeItToDropPod)].Flag = value; } }
-        public Array<PlayerCharacter> ActivePlayerCharacters { get { return new Array<PlayerCharacter>(this[nameof(ActivePlayerCharacters)].Address); } }
+        public UArray<PlayerCharacter> ActivePlayerCharacters { get { return new UArray<PlayerCharacter>(this[nameof(ActivePlayerCharacters)].Address); } }
         public ReplicatedObjectives Objectives { get { return this[nameof(Objectives)].As<ReplicatedObjectives>(); } set { this["Objectives"] = value; } }
         public Object CompletedGameEventName { get { return this[nameof(CompletedGameEventName)]; } set { this[nameof(CompletedGameEventName)] = value; } }
         public GeneratedMissionSeed GeneratedMissionSeed { get { return this[nameof(GeneratedMissionSeed)].As<GeneratedMissionSeed>(); } set { this["GeneratedMissionSeed"] = value; } }
@@ -9879,7 +9883,7 @@ namespace SDK.Script.FSDSDK
         public void SetCurrentDifficulty(DifficultySetting Setting, bool updateSessionSettings) { Invoke(nameof(SetCurrentDifficulty), Setting, updateSessionSettings); }
         public void SetCompletionData(bool objectivesCompleted, int playersInPod) { Invoke(nameof(SetCompletionData), objectivesCompleted, playersInPod); }
         public void ReceiveGeneratedMissionReplicated() { Invoke(nameof(ReceiveGeneratedMissionReplicated)); }
-        public void PostLocalizedGameMessage(Object Msg, Array<Object> Arguments) { Invoke(nameof(PostLocalizedGameMessage), Msg, Arguments); }
+        public void PostLocalizedGameMessage(Object Msg, UArray<Object> Arguments) { Invoke(nameof(PostLocalizedGameMessage), Msg, Arguments); }
         public void PostGameMessage(Object Msg) { Invoke(nameof(PostGameMessage), Msg); }
         public void OnRep_StartPressed(bool oldStartPressed) { Invoke(nameof(OnRep_StartPressed), oldStartPressed); }
         public void OnRep_ObjectivesCompleted() { Invoke(nameof(OnRep_ObjectivesCompleted)); }
@@ -9902,19 +9906,19 @@ namespace SDK.Script.FSDSDK
         public bool HasObjectivesReplicated() { return Invoke<bool>(nameof(HasObjectivesReplicated)); }
         public void HandleSeamlessTravelEvent() { Invoke(nameof(HandleSeamlessTravelEvent)); }
         public FSDPlayerState GetServerPlayerState() { return Invoke<FSDPlayerState>(nameof(GetServerPlayerState)); }
-        public Array<Objective> GetSecondaryObjectives() { return Invoke<Array<Objective>>(nameof(GetSecondaryObjectives)); }
+        public UArray<Objective> GetSecondaryObjectives() { return Invoke<UArray<Objective>>(nameof(GetSecondaryObjectives)); }
         public ProceduralSetup GetProceduralSetup() { return Invoke<ProceduralSetup>(nameof(GetProceduralSetup)); }
         public Objective GetPrimaryObjective() { return Invoke<Objective>(nameof(GetPrimaryObjective)); }
         public bool GetPreventLatejoinCharacterDuplication() { return Invoke<bool>(nameof(GetPreventLatejoinCharacterDuplication)); }
         public bool GetPlayersHaveReachedDroppod() { return Invoke<bool>(nameof(GetPlayersHaveReachedDroppod)); }
-        public Array<PlayerCharacterID> GetPlayableCharacterIDs() { return Invoke<Array<PlayerCharacterID>>(nameof(GetPlayableCharacterIDs)); }
-        public Array<Objective> GetObjectives() { return Invoke<Array<Objective>>(nameof(GetObjectives)); }
-        public Array<FSDPlayerState> GetNetworkSortedPlayerArray() { return Invoke<Array<FSDPlayerState>>(nameof(GetNetworkSortedPlayerArray)); }
+        public UArray<PlayerCharacterID> GetPlayableCharacterIDs() { return Invoke<UArray<PlayerCharacterID>>(nameof(GetPlayableCharacterIDs)); }
+        public UArray<Objective> GetObjectives() { return Invoke<UArray<Objective>>(nameof(GetObjectives)); }
+        public UArray<FSDPlayerState> GetNetworkSortedPlayerArray() { return Invoke<UArray<FSDPlayerState>>(nameof(GetNetworkSortedPlayerArray)); }
         public int GetMissionTime() { return Invoke<int>(nameof(GetMissionTime)); }
         public bool GetMissionSuccessful() { return Invoke<bool>(nameof(GetMissionSuccessful)); }
         public int GetMissionStartTime() { return Invoke<int>(nameof(GetMissionStartTime)); }
         public int GetMissionRewardCreditSum() { return Invoke<int>(nameof(GetMissionRewardCreditSum)); }
-        public Array<CreditsReward> GetMissionRewardCredits() { return Invoke<Array<CreditsReward>>(nameof(GetMissionRewardCredits)); }
+        public UArray<CreditsReward> GetMissionRewardCredits() { return Invoke<UArray<CreditsReward>>(nameof(GetMissionRewardCredits)); }
         public int GetGlobalMissionSeed() { return Invoke<int>(nameof(GetGlobalMissionSeed)); }
         public GameStats GetGameStats() { return Invoke<GameStats>(nameof(GetGameStats)); }
         public Object GetEndscreenResources() { return Invoke<Object>(nameof(GetEndscreenResources)); }
@@ -9922,7 +9926,7 @@ namespace SDK.Script.FSDSDK
         public GameDifficulty GetCurrentGameDifficulty() { return Invoke<GameDifficulty>(nameof(GetCurrentGameDifficulty)); }
         public DifficultySetting GetCurrentDifficultySetting() { return Invoke<DifficultySetting>(nameof(GetCurrentDifficultySetting)); }
         public Object GetCollectedResources() { return Invoke<Object>(nameof(GetCollectedResources)); }
-        public Array<FSDEvent> GetActiveEventsFromMission() { return Invoke<Array<FSDEvent>>(nameof(GetActiveEventsFromMission)); }
+        public UArray<FSDEvent> GetActiveEventsFromMission() { return Invoke<UArray<FSDEvent>>(nameof(GetActiveEventsFromMission)); }
         public Objective FindObjective(Object SubClass) { return Invoke<Objective>(nameof(FindObjective), SubClass); }
         public void ClientNewMessage(FSDChatMessage Msg) { Invoke(nameof(ClientNewMessage), Msg); }
         public void Client_StartPressed() { Invoke(nameof(Client_StartPressed)); }
@@ -10043,8 +10047,8 @@ namespace SDK.Script.FSDSDK
         public bool HasKeyboardBeenConnected { get { return this[nameof(HasKeyboardBeenConnected)].Flag; } set { this[nameof(HasKeyboardBeenConnected)].Flag = value; } }
         public EFSDInputSource CurrentInputSource { get { return (EFSDInputSource)this[nameof(CurrentInputSource)].GetValue<int>(); } set { this[nameof(CurrentInputSource)].SetValue<int>((int)value); } }
         public EFSDInputSource RequestedInputSource { get { return (EFSDInputSource)this[nameof(RequestedInputSource)].GetValue<int>(); } set { this[nameof(RequestedInputSource)].SetValue<int>((int)value); } }
-        public Array<CustomKeyBinding> CustomKeyBindings { get { return new Array<CustomKeyBinding>(this[nameof(CustomKeyBindings)].Address); } }
-        public Array<CustomKeyBinding> CustomControllerBindings { get { return new Array<CustomKeyBinding>(this[nameof(CustomControllerBindings)].Address); } }
+        public UArray<CustomKeyBinding> CustomKeyBindings { get { return new UArray<CustomKeyBinding>(this[nameof(CustomKeyBindings)].Address); } }
+        public UArray<CustomKeyBinding> CustomControllerBindings { get { return new UArray<CustomKeyBinding>(this[nameof(CustomControllerBindings)].Address); } }
         public bool SwapControllerThumbsticks { get { return this[nameof(SwapControllerThumbsticks)].Flag; } set { this[nameof(SwapControllerThumbsticks)].Flag = value; } }
         public bool bTutorialHintsEnabled { get { return this[nameof(bTutorialHintsEnabled)].Flag; } set { this[nameof(bTutorialHintsEnabled)].Flag = value; } }
         public bool bShowSubtitles { get { return this[nameof(bShowSubtitles)].Flag; } set { this[nameof(bShowSubtitles)].Flag = value; } }
@@ -10055,8 +10059,8 @@ namespace SDK.Script.FSDSDK
         public bool TranslatorDebugModeEnabled { get { return this[nameof(TranslatorDebugModeEnabled)].Flag; } set { this[nameof(TranslatorDebugModeEnabled)].Flag = value; } }
         public Object PreviousCulture { get { return this[nameof(PreviousCulture)]; } set { this[nameof(PreviousCulture)] = value; } }
         public ControllerSettings ControllerSettings { get { return this[nameof(ControllerSettings)].As<ControllerSettings>(); } set { this["ControllerSettings"] = value; } }
-        public Array<Guid> SelectedDifficultyLevels { get { return new Array<Guid>(this[nameof(SelectedDifficultyLevels)].Address); } }
-        public Array<Guid> DifficultyLevelsAddedByDefault { get { return new Array<Guid>(this[nameof(DifficultyLevelsAddedByDefault)].Address); } }
+        public UArray<Guid> SelectedDifficultyLevels { get { return new UArray<Guid>(this[nameof(SelectedDifficultyLevels)].Address); } }
+        public UArray<Guid> DifficultyLevelsAddedByDefault { get { return new UArray<Guid>(this[nameof(DifficultyLevelsAddedByDefault)].Address); } }
         public void UpdateVolumeSettings(SoundClass CharacterVoices, SoundClass MissionControl, SoundClass Master, SoundClass Music, SoundClass SFX, SoundClass UI, SoundClass Voice) { Invoke(nameof(UpdateVolumeSettings), CharacterVoices, MissionControl, Master, Music, SFX, UI, Voice); }
         public void UpdateForceFeedbackScaleOnController(PlayerController Controller) { Invoke(nameof(UpdateForceFeedbackScaleOnController), Controller); }
         public bool ToggleTranslatorDebugMode() { return Invoke<bool>(nameof(ToggleTranslatorDebugMode)); }
@@ -10162,7 +10166,7 @@ namespace SDK.Script.FSDSDK
         public bool IsDx12Enabled() { return Invoke<bool>(nameof(IsDx12Enabled)); }
         public bool IsDebugLocalizerModeEnabled() { return Invoke<bool>(nameof(IsDebugLocalizerModeEnabled)); }
         public bool IsCurrentInputSource(EFSDInputSource InputSource) { return Invoke<bool>(nameof(IsCurrentInputSource), InputSource); }
-        public void InitializeDifficultySelection(Object WorldContext, Array<DifficultySetting> StartSelection) { Invoke(nameof(InitializeDifficultySelection), WorldContext, StartSelection); }
+        public void InitializeDifficultySelection(Object WorldContext, UArray<DifficultySetting> StartSelection) { Invoke(nameof(InitializeDifficultySelection), WorldContext, StartSelection); }
         public bool HasAudioOutputDeviceChanged(Object AudioDeviceChangedTo) { return Invoke<bool>(nameof(HasAudioOutputDeviceChanged), AudioDeviceChangedTo); }
         public bool GetZiplineGunAutoSwitch() { return Invoke<bool>(nameof(GetZiplineGunAutoSwitch)); }
         public float GetWeaponSwayScale() { return Invoke<float>(nameof(GetWeaponSwayScale)); }
@@ -10238,9 +10242,9 @@ namespace SDK.Script.FSDSDK
         public bool GetChatEnabledOnController() { return Invoke<bool>(nameof(GetChatEnabledOnController)); }
         public float GetCameraShakeScale() { return Invoke<float>(nameof(GetCameraShakeScale)); }
         public bool GetBloomEnabled() { return Invoke<bool>(nameof(GetBloomEnabled)); }
-        public bool GetAvaliableAudioOutputDevices(Object WorldContextObject, Array<Object> AudioDevices) { return Invoke<bool>(nameof(GetAvaliableAudioOutputDevices), WorldContextObject, AudioDevices); }
-        public bool GetAvaliableAudioInputDevices(Array<Object> AudioDevices) { return Invoke<bool>(nameof(GetAvaliableAudioInputDevices), AudioDevices); }
-        public bool GetAvailableScreenResolutionsForNonPrimaryMonitors(Array<IntPoint> Resolutions) { return Invoke<bool>(nameof(GetAvailableScreenResolutionsForNonPrimaryMonitors), Resolutions); }
+        public bool GetAvaliableAudioOutputDevices(Object WorldContextObject, UArray<Object> AudioDevices) { return Invoke<bool>(nameof(GetAvaliableAudioOutputDevices), WorldContextObject, AudioDevices); }
+        public bool GetAvaliableAudioInputDevices(UArray<Object> AudioDevices) { return Invoke<bool>(nameof(GetAvaliableAudioInputDevices), AudioDevices); }
+        public bool GetAvailableScreenResolutionsForNonPrimaryMonitors(UArray<IntPoint> Resolutions) { return Invoke<bool>(nameof(GetAvailableScreenResolutionsForNonPrimaryMonitors), Resolutions); }
         public bool GetAutoRefreshServerlist() { return Invoke<bool>(nameof(GetAutoRefreshServerlist)); }
         public Object GetAudioOutputDeviceName(Object WorldContextObject, Object DeviceID) { return Invoke<Object>(nameof(GetAudioOutputDeviceName), WorldContextObject, DeviceID); }
         public bool GetAppearOffline() { return Invoke<bool>(nameof(GetAppearOffline)); }
@@ -10287,7 +10291,7 @@ namespace SDK.Script.FSDSDK
     public class SpaceRigHUD : FSDHUD
     {
         public SpaceRigHUD(nint addr) : base(addr) { }
-        public Array<NotificationEntry> NotificationQueue { get { return new Array<NotificationEntry>(this[nameof(NotificationQueue)].Address); } }
+        public UArray<NotificationEntry> NotificationQueue { get { return new UArray<NotificationEntry>(this[nameof(NotificationQueue)].Address); } }
         public bool bNotificationQueueActive { get { return this[nameof(bNotificationQueueActive)].Flag; } set { this[nameof(bNotificationQueueActive)].Flag = value; } }
         public void SetNotificationQueueActive(bool Inactive) { Invoke(nameof(SetNotificationQueueActive), Inactive); }
         public void ReceiveNotificationQueueActivated() { Invoke(nameof(ReceiveNotificationQueueActivated)); }
@@ -10308,7 +10312,7 @@ namespace SDK.Script.FSDSDK
     public class FSDKismetArrayExtensionFunctions : KismetArrayLibrary
     {
         public FSDKismetArrayExtensionFunctions(nint addr) : base(addr) { }
-        public void Array_GetRandom(Array<int> TargetArray, int Item) { Invoke(nameof(Array_GetRandom), TargetArray, Item); }
+        public void Array_GetRandom(UArray<int> TargetArray, int Item) { Invoke(nameof(Array_GetRandom), TargetArray, Item); }
     }
     public class FSDLobbyHandler : Object
     {
@@ -10351,7 +10355,7 @@ namespace SDK.Script.FSDSDK
         public void OpenProfileByUserId(PlayerState Requestor, Object RequesteeUserID) { Invoke(nameof(OpenProfileByUserId), Requestor, RequesteeUserID); }
         public void OpenProfile(PlayerState Requestor, PlayerState Requestee) { Invoke(nameof(OpenProfile), Requestor, Requestee); }
         public Object OnlinePlayBlockReasonToString(EBlueprintablePrivilegeResults reason) { return Invoke<Object>(nameof(OnlinePlayBlockReasonToString), reason); }
-        public void GetOnlinePlayBlockReasons(Array<EBlueprintablePrivilegeResults> reasons) { Invoke(nameof(GetOnlinePlayBlockReasons), reasons); }
+        public void GetOnlinePlayBlockReasons(UArray<EBlueprintablePrivilegeResults> reasons) { Invoke(nameof(GetOnlinePlayBlockReasons), reasons); }
         public void GetIsUpdatePending(Object Delegate) { Invoke(nameof(GetIsUpdatePending), Delegate); }
         public void GetIsPrivilegeAllowed(PlayerState PlayerState, EBlueprintableUserPrivileges Privilege, Object Delegate) { Invoke(nameof(GetIsPrivilegeAllowed), PlayerState, Privilege, Delegate); }
         public Object GetInviteFeatureBlockReason(Object WorldContextObject, EInviteBlockReason reason) { return Invoke<Object>(nameof(GetInviteFeatureBlockReason), WorldContextObject, reason); }
@@ -10374,7 +10378,7 @@ namespace SDK.Script.FSDSDK
         public SoundCue ImpactSound { get { return this[nameof(ImpactSound)].As<SoundCue>(); } set { this["ImpactSound"] = value; } }
         public SoundCue MeleeImpactSound { get { return this[nameof(MeleeImpactSound)].As<SoundCue>(); } set { this["MeleeImpactSound"] = value; } }
         public bool UseImpactDecalOverrides { get { return this[nameof(UseImpactDecalOverrides)].Flag; } set { this[nameof(UseImpactDecalOverrides)].Flag = value; } }
-        public Array<DecalData> ImpactDecals { get { return new Array<DecalData>(this[nameof(ImpactDecals)].Address); } }
+        public UArray<DecalData> ImpactDecals { get { return new UArray<DecalData>(this[nameof(ImpactDecals)].Address); } }
         public SoundCue FirstPersonDamageIndicatorSound { get { return this[nameof(FirstPersonDamageIndicatorSound)].As<SoundCue>(); } set { this["FirstPersonDamageIndicatorSound"] = value; } }
         public bool IsWeakPoint { get { return this[nameof(IsWeakPoint)].Flag; } set { this[nameof(IsWeakPoint)].Flag = value; } }
         public bool AllowFrozenBonus { get { return this[nameof(AllowFrozenBonus)].Flag; } set { this[nameof(AllowFrozenBonus)].Flag = value; } }
@@ -10410,7 +10414,7 @@ namespace SDK.Script.FSDSDK
         public Object OnPlayerVoiceStatusChanged { get { return this[nameof(OnPlayerVoiceStatusChanged)]; } set { this[nameof(OnPlayerVoiceStatusChanged)] = value; } }
         public bool bStartWithBlackScreen { get { return this[nameof(bStartWithBlackScreen)].Flag; } set { this[nameof(bStartWithBlackScreen)].Flag = value; } }
         public WindowManager WindowManager { get { return this[nameof(WindowManager)].As<WindowManager>(); } set { this["WindowManager"] = value; } }
-        public Array<PlatformComponent> PlatformComponentClasses { get { return new Array<PlatformComponent>(this[nameof(PlatformComponentClasses)].Address); } }
+        public UArray<PlatformComponent> PlatformComponentClasses { get { return new UArray<PlatformComponent>(this[nameof(PlatformComponentClasses)].Address); } }
         public void ToggleAnalogCursor(bool Visible) { Invoke(nameof(ToggleAnalogCursor), Visible); }
         public void StopAspectRatioAxisConstraint() { Invoke(nameof(StopAspectRatioAxisConstraint)); }
         public void StartAspectRatioAxisConstraint() { Invoke(nameof(StartAspectRatioAxisConstraint)); }
@@ -10448,7 +10452,7 @@ namespace SDK.Script.FSDSDK
         public TerrainLatejoinComponent LateJoinComponent { get { return this[nameof(LateJoinComponent)].As<TerrainLatejoinComponent>(); } set { this["LateJoinComponent"] = value; } }
         public bool IsOnSpaceRig { get { return this[nameof(IsOnSpaceRig)].Flag; } set { this[nameof(IsOnSpaceRig)].Flag = value; } }
         public bool bReceivedEndLevel { get { return this[nameof(bReceivedEndLevel)].Flag; } set { this[nameof(bReceivedEndLevel)].Flag = value; } }
-        public Array<SoundMix> InitialSoundMixes { get { return new Array<SoundMix>(this[nameof(InitialSoundMixes)].Address); } }
+        public UArray<SoundMix> InitialSoundMixes { get { return new UArray<SoundMix>(this[nameof(InitialSoundMixes)].Address); } }
         public bool ServerTravelDone { get { return this[nameof(ServerTravelDone)].Flag; } set { this[nameof(ServerTravelDone)].Flag = value; } }
         public FSDWidgetEffectsComponent WidgetEffects { get { return this[nameof(WidgetEffects)].As<FSDWidgetEffectsComponent>(); } set { this["WidgetEffects"] = value; } }
         public ESpacerigStartType SpacerigSpawnType { get { return (ESpacerigStartType)this[nameof(SpacerigSpawnType)].GetValue<int>(); } set { this[nameof(SpacerigSpawnType)].SetValue<int>((int)value); } }
@@ -10573,8 +10577,8 @@ namespace SDK.Script.FSDSDK
         public void OnLateJoinFinished() { Invoke(nameof(OnLateJoinFinished)); }
         public bool HasNormalOwnerStatus() { return Invoke<bool>(nameof(HasNormalOwnerStatus)); }
         public int GetXPRewardsSum() { return Invoke<int>(nameof(GetXPRewardsSum)); }
-        public Array<XPReward> GetXPRewards() { return Invoke<Array<XPReward>>(nameof(GetXPRewards)); }
-        public Array<XPReward> GetXPRewardDeepDive(int StagesCompleted) { return Invoke<Array<XPReward>>(nameof(GetXPRewardDeepDive), StagesCompleted); }
+        public UArray<XPReward> GetXPRewards() { return Invoke<UArray<XPReward>>(nameof(GetXPRewards)); }
+        public UArray<XPReward> GetXPRewardDeepDive(int StagesCompleted) { return Invoke<UArray<XPReward>>(nameof(GetXPRewardDeepDive), StagesCompleted); }
         public int GetUIPing() { return Invoke<int>(nameof(GetUIPing)); }
         public float GetSupplyHealthStatus() { return Invoke<float>(nameof(GetSupplyHealthStatus)); }
         public float GetSupplyAmmoStatus() { return Invoke<float>(nameof(GetSupplyAmmoStatus)); }
@@ -10587,7 +10591,7 @@ namespace SDK.Script.FSDSDK
         public FSDPlayerController GetPlayerController() { return Invoke<FSDPlayerController>(nameof(GetPlayerController)); }
         public bool GetHasGeneratedLevel() { return Invoke<bool>(nameof(GetHasGeneratedLevel)); }
         public bool GetGameOwnerStatus(EGameOwnerStatus Status) { return Invoke<bool>(nameof(GetGameOwnerStatus), Status); }
-        public Array<CreditsReward> GetDeepDiveCreditsReward(int StagesCompleted, int goldCollected) { return Invoke<Array<CreditsReward>>(nameof(GetDeepDiveCreditsReward), StagesCompleted, goldCollected); }
+        public UArray<CreditsReward> GetDeepDiveCreditsReward(int StagesCompleted, int goldCollected) { return Invoke<UArray<CreditsReward>>(nameof(GetDeepDiveCreditsReward), StagesCompleted, goldCollected); }
         public EChatSenderType GetChatSenderType() { return Invoke<EChatSenderType>(nameof(GetChatSenderType)); }
         public CharacterProgress GetCharacterProgress(PlayerCharacterID characterID) { return Invoke<CharacterProgress>(nameof(GetCharacterProgress), characterID); }
         public int GetCharacterLevel(PlayerCharacterID characterID) { return Invoke<int>(nameof(GetCharacterLevel), characterID); }
@@ -10615,7 +10619,7 @@ namespace SDK.Script.FSDSDK
         public Object OnProjectilePenetrate { get { return this[nameof(OnProjectilePenetrate)]; } set { this[nameof(OnProjectilePenetrate)] = value; } }
         public Object OnProjectileOutOfPropulsion { get { return this[nameof(OnProjectileOutOfPropulsion)]; } set { this[nameof(OnProjectileOutOfPropulsion)] = value; } }
         public bool bShouldPenetrate { get { return this[nameof(bShouldPenetrate)].Flag; } set { this[nameof(bShouldPenetrate)].Flag = value; } }
-        public Array<Object> IgnoreCollisionAgainst { get { return new Array<Object>(this[nameof(IgnoreCollisionAgainst)].Address); } }
+        public UArray<Object> IgnoreCollisionAgainst { get { return new UArray<Object>(this[nameof(IgnoreCollisionAgainst)].Address); } }
         public bool InvertIgnoreCollisionAgainst { get { return this[nameof(InvertIgnoreCollisionAgainst)].Flag; } set { this[nameof(InvertIgnoreCollisionAgainst)].Flag = value; } }
         public CurveFloat AccelerationCurve { get { return this[nameof(AccelerationCurve)].As<CurveFloat>(); } set { this["AccelerationCurve"] = value; } }
         public float AccelerationMultiplier { get { return this[nameof(AccelerationMultiplier)].GetValue<float>(); } set { this[nameof(AccelerationMultiplier)].SetValue<float>(value); } }
@@ -10658,7 +10662,7 @@ namespace SDK.Script.FSDSDK
         public ERefineryState RefineryState { get { return (ERefineryState)this[nameof(RefineryState)].GetValue<int>(); } set { this[nameof(RefineryState)].SetValue<int>((int)value); } }
         public ERefineryState PreviousRefineryState { get { return (ERefineryState)this[nameof(PreviousRefineryState)].GetValue<int>(); } set { this[nameof(PreviousRefineryState)].SetValue<int>((int)value); } }
         public byte RefiningProgressReplicated { get { return this[nameof(RefiningProgressReplicated)].GetValue<byte>(); } set { this[nameof(RefiningProgressReplicated)].SetValue<byte>(value); } }
-        public Array<PipelineStart> PipelineStarts { get { return new Array<PipelineStart>(this[nameof(PipelineStarts)].Address); } }
+        public UArray<PipelineStart> PipelineStarts { get { return new UArray<PipelineStart>(this[nameof(PipelineStarts)].Address); } }
         public void SetRefineryState(ERefineryState InState) { Invoke(nameof(SetRefineryState), InState); }
         public void RefineryStateDelegate__DelegateSignature(ERefineryState InRefineryState) { Invoke(nameof(RefineryStateDelegate__DelegateSignature), InRefineryState); }
         public void RefineryProgressDelegate__DelegateSignature(float InProgress01) { Invoke(nameof(RefineryProgressDelegate__DelegateSignature), InProgress01); }
@@ -10708,7 +10712,7 @@ namespace SDK.Script.FSDSDK
         public PerkClaimsSave OwnedPerks { get { return this[nameof(OwnedPerks)].As<PerkClaimsSave>(); } set { this["OwnedPerks"] = value; } }
         public CharacterPerksSave EquippedPerks { get { return this[nameof(EquippedPerks)].As<CharacterPerksSave>(); } set { this["EquippedPerks"] = value; } }
         public AchievementSave AchievementSave { get { return this[nameof(AchievementSave)].As<AchievementSave>(); } set { this["AchievementSave"] = value; } }
-        public Array<CharacterPerksSave> EquippedPerkLoadouts { get { return new Array<CharacterPerksSave>(this[nameof(EquippedPerkLoadouts)].Address); } }
+        public UArray<CharacterPerksSave> EquippedPerkLoadouts { get { return new UArray<CharacterPerksSave>(this[nameof(EquippedPerkLoadouts)].Address); } }
         public CharacterPerksSave RandomEquippedPerkLoadout { get { return this[nameof(RandomEquippedPerkLoadout)].As<CharacterPerksSave>(); } set { this["RandomEquippedPerkLoadout"] = value; } }
         public VanityMasterySave VanityMasterySave { get { return this[nameof(VanityMasterySave)].As<VanityMasterySave>(); } set { this["VanityMasterySave"] = value; } }
         public Object OnVanityMasteryChanged { get { return this[nameof(OnVanityMasteryChanged)]; } set { this[nameof(OnVanityMasteryChanged)] = value; } }
@@ -10725,28 +10729,28 @@ namespace SDK.Script.FSDSDK
         public int PerkPoints { get { return this[nameof(PerkPoints)].GetValue<int>(); } set { this[nameof(PerkPoints)].SetValue<int>(value); } }
         public bool HasRecievedDiscordReward { get { return this[nameof(HasRecievedDiscordReward)].Flag; } set { this[nameof(HasRecievedDiscordReward)].Flag = value; } }
         public EFSDFaction Faction { get { return (EFSDFaction)this[nameof(Faction)].GetValue<int>(); } set { this[nameof(Faction)].SetValue<int>((int)value); } }
-        public Array<Guid> UnLockedMissions { get { return new Array<Guid>(this[nameof(UnLockedMissions)].Address); } }
+        public UArray<Guid> UnLockedMissions { get { return new UArray<Guid>(this[nameof(UnLockedMissions)].Address); } }
         public Object UnLockedMissionParameters { get { return this[nameof(UnLockedMissionParameters)]; } set { this[nameof(UnLockedMissionParameters)] = value; } }
-        public Array<Guid> UnLockedPlanetZones { get { return new Array<Guid>(this[nameof(UnLockedPlanetZones)].Address); } }
+        public UArray<Guid> UnLockedPlanetZones { get { return new UArray<Guid>(this[nameof(UnLockedPlanetZones)].Address); } }
         public CampaignSave CampaignSave { get { return this[nameof(CampaignSave)].As<CampaignSave>(); } set { this["CampaignSave"] = value; } }
         public DeepDiveSave DeepDiveSave { get { return this[nameof(DeepDiveSave)].As<DeepDiveSave>(); } set { this["DeepDiveSave"] = value; } }
-        public Array<CharacterSave> CharacterSaves { get { return new Array<CharacterSave>(this[nameof(CharacterSaves)].Address); } }
+        public UArray<CharacterSave> CharacterSaves { get { return new UArray<CharacterSave>(this[nameof(CharacterSaves)].Address); } }
         public int Credits { get { return this[nameof(Credits)].GetValue<int>(); } set { this[nameof(Credits)].SetValue<int>(value); } }
         public int LastBoughtDailyDealSeed { get { return this[nameof(LastBoughtDailyDealSeed)].GetValue<int>(); } set { this[nameof(LastBoughtDailyDealSeed)].SetValue<int>(value); } }
         public ForgingSave Forging { get { return this[nameof(Forging)].As<ForgingSave>(); } set { this["Forging"] = value; } }
         public DrinkSave Drinks { get { return this[nameof(Drinks)].As<DrinkSave>(); } set { this["Drinks"] = value; } }
-        public Array<UpgradeLoadout> ItemUpgradeLoadouts { get { return new Array<UpgradeLoadout>(this[nameof(ItemUpgradeLoadouts)].Address); } }
+        public UArray<UpgradeLoadout> ItemUpgradeLoadouts { get { return new UArray<UpgradeLoadout>(this[nameof(ItemUpgradeLoadouts)].Address); } }
         public bool bIgnoreRandomLoadout { get { return this[nameof(bIgnoreRandomLoadout)].Flag; } set { this[nameof(bIgnoreRandomLoadout)].Flag = value; } }
-        public Array<Guid> PurchasedItemUpgrades { get { return new Array<Guid>(this[nameof(PurchasedItemUpgrades)].Address); } }
-        public Array<Guid> UnlockedItems { get { return new Array<Guid>(this[nameof(UnlockedItems)].Address); } }
-        public Array<Guid> OwnedItems { get { return new Array<Guid>(this[nameof(OwnedItems)].Address); } }
+        public UArray<Guid> PurchasedItemUpgrades { get { return new UArray<Guid>(this[nameof(PurchasedItemUpgrades)].Address); } }
+        public UArray<Guid> UnlockedItems { get { return new UArray<Guid>(this[nameof(UnlockedItems)].Address); } }
+        public UArray<Guid> OwnedItems { get { return new UArray<Guid>(this[nameof(OwnedItems)].Address); } }
         public Object EnemiesKilled { get { return this[nameof(EnemiesKilled)]; } set { this[nameof(EnemiesKilled)] = value; } }
         public Object ItemsWithNotification { get { return this[nameof(ItemsWithNotification)]; } set { this[nameof(ItemsWithNotification)] = value; } }
         public Object UnlockedItemSkins { get { return this[nameof(UnlockedItemSkins)]; } set { this[nameof(UnlockedItemSkins)] = value; } }
         public Object UnlockedPickaxeParts { get { return this[nameof(UnlockedPickaxeParts)]; } set { this[nameof(UnlockedPickaxeParts)] = value; } }
-        public Array<VanityItem> UnLockedVanityItems { get { return new Array<VanityItem>(this[nameof(UnLockedVanityItems)].Address); } }
-        public Array<Guid> UnLockedVanityItemIDs { get { return new Array<Guid>(this[nameof(UnLockedVanityItemIDs)].Address); } }
-        public Array<Guid> HiddenUICategories { get { return new Array<Guid>(this[nameof(HiddenUICategories)].Address); } }
+        public UArray<VanityItem> UnLockedVanityItems { get { return new UArray<VanityItem>(this[nameof(UnLockedVanityItems)].Address); } }
+        public UArray<Guid> UnLockedVanityItemIDs { get { return new UArray<Guid>(this[nameof(UnLockedVanityItemIDs)].Address); } }
+        public UArray<Guid> HiddenUICategories { get { return new UArray<Guid>(this[nameof(HiddenUICategories)].Address); } }
         public int LastCollectedCommunityRewardPeriodID { get { return this[nameof(LastCollectedCommunityRewardPeriodID)].GetValue<int>(); } set { this[nameof(LastCollectedCommunityRewardPeriodID)].SetValue<int>(value); } }
         public Object MinersManualKnownObjects { get { return this[nameof(MinersManualKnownObjects)]; } set { this[nameof(MinersManualKnownObjects)] = value; } }
         public EventRewardSave EventRewardSave { get { return this[nameof(EventRewardSave)].As<EventRewardSave>(); } set { this["EventRewardSave"] = value; } }
@@ -10757,7 +10761,7 @@ namespace SDK.Script.FSDSDK
         public bool bHasOpenedDeepDiveTerminal { get { return this[nameof(bHasOpenedDeepDiveTerminal)].Flag; } set { this[nameof(bHasOpenedDeepDiveTerminal)].Flag = value; } }
         public ResourcesSave Resources { get { return this[nameof(Resources)].As<ResourcesSave>(); } set { this["Resources"] = value; } }
         public bool FirstSession { get { return this[nameof(FirstSession)].Flag; } set { this[nameof(FirstSession)].Flag = value; } }
-        public Array<WatchedTutorial> WatchedTutorials { get { return new Array<WatchedTutorial>(this[nameof(WatchedTutorials)].Address); } }
+        public UArray<WatchedTutorial> WatchedTutorials { get { return new UArray<WatchedTutorial>(this[nameof(WatchedTutorials)].Address); } }
         public ConsoleOptionsInSaveGame ConsoleOptions { get { return this[nameof(ConsoleOptions)].As<ConsoleOptionsInSaveGame>(); } set { this["ConsoleOptions"] = value; } }
         public GDKWinOptionsInSaveGame WinGDKOptions { get { return this[nameof(WinGDKOptions)].As<GDKWinOptionsInSaveGame>(); } set { this["WinGDKOptions"] = value; } }
         public OptionsInSaveGame WindowsOptions { get { return this[nameof(WindowsOptions)].As<OptionsInSaveGame>(); } set { this["WindowsOptions"] = value; } }
@@ -10865,7 +10869,7 @@ namespace SDK.Script.FSDSDK
         public int GetPerkPoints() { return Invoke<int>(nameof(GetPerkPoints)); }
         public Object GetName() { return Invoke<Object>(nameof(GetName)); }
         public int GetMaxSaveSlots() { return Invoke<int>(nameof(GetMaxSaveSlots)); }
-        public int GetMainSaves(FSDGameInstance GameInstance, Array<FSDSaveGame> outMainSaves) { return Invoke<int>(nameof(GetMainSaves), GameInstance, outMainSaves); }
+        public int GetMainSaves(FSDGameInstance GameInstance, UArray<FSDSaveGame> outMainSaves) { return Invoke<int>(nameof(GetMainSaves), GameInstance, outMainSaves); }
         public bool GetIsModded() { return Invoke<bool>(nameof(GetIsModded)); }
         public int GetIndex() { return Invoke<int>(nameof(GetIndex)); }
         public bool GetHasSentSteamInfo() { return Invoke<bool>(nameof(GetHasSentSteamInfo)); }
@@ -10879,7 +10883,7 @@ namespace SDK.Script.FSDSDK
         public int GetCharacterRetirementCount(Guid PlayerId) { return Invoke<int>(nameof(GetCharacterRetirementCount), PlayerId); }
         public bool GetBoscoAllowed() { return Invoke<bool>(nameof(GetBoscoAllowed)); }
         public int GetAvailableUserSlotIndex(FSDGameInstance GameInstance) { return Invoke<int>(nameof(GetAvailableUserSlotIndex), GameInstance); }
-        public Array<FSDSaveGame> GetAllSavesFromDisk(FSDGameInstance GameInstance) { return Invoke<Array<FSDSaveGame>>(nameof(GetAllSavesFromDisk), GameInstance); }
+        public UArray<FSDSaveGame> GetAllSavesFromDisk(FSDGameInstance GameInstance) { return Invoke<UArray<FSDSaveGame>>(nameof(GetAllSavesFromDisk), GameInstance); }
         public void ForgingXPDelegate__DelegateSignature(float XP) { Invoke(nameof(ForgingXPDelegate__DelegateSignature), XP); }
         public void ForceSetIsModded(bool modded) { Invoke(nameof(ForceSetIsModded), modded); }
         public void FixNamingOfMainSave(FSDSaveGame mainsave) { Invoke(nameof(FixNamingOfMainSave), mainsave); }
@@ -10929,9 +10933,9 @@ namespace SDK.Script.FSDSDK
     public class FSDSplineLibrary : BlueprintFunctionLibrary
     {
         public FSDSplineLibrary(nint addr) : base(addr) { }
-        public bool SplineComponentSphereTrace(SplineComponent SplineComponent, float Radius, byte TraceType, float StepSize, Array<Actor> IgnoreActors, HitResult OutHitResult, Vector Offset) { return Invoke<bool>(nameof(SplineComponentSphereTrace), SplineComponent, Radius, TraceType, StepSize, IgnoreActors, OutHitResult, Offset); }
+        public bool SplineComponentSphereTrace(SplineComponent SplineComponent, float Radius, byte TraceType, float StepSize, UArray<Actor> IgnoreActors, HitResult OutHitResult, Vector Offset) { return Invoke<bool>(nameof(SplineComponentSphereTrace), SplineComponent, Radius, TraceType, StepSize, IgnoreActors, OutHitResult, Offset); }
         public void SetStartAndEndTangentsCurve2D(InterpCurveVector2D Curve, Vector2D StartTangent, Vector2D EndTangent) { Invoke(nameof(SetStartAndEndTangentsCurve2D), Curve, StartTangent, EndTangent); }
-        public Array<Transform> GetSplineComponentTransforms(SplineComponent SplineComponent, float StepSize, byte Space) { return Invoke<Array<Transform>>(nameof(GetSplineComponentTransforms), SplineComponent, StepSize, Space); }
+        public UArray<Transform> GetSplineComponentTransforms(SplineComponent SplineComponent, float StepSize, byte Space) { return Invoke<UArray<Transform>>(nameof(GetSplineComponentTransforms), SplineComponent, StepSize, Space); }
         public void GetLocationAndTangentsAtSplinePoint(SplineComponent Spline, int PointIndex, Vector Location, Vector ArriveTangent, Vector LeaveTangent, byte CoordinateSpace) { Invoke(nameof(GetLocationAndTangentsAtSplinePoint), Spline, PointIndex, Location, ArriveTangent, LeaveTangent, CoordinateSpace); }
         public void EvalCurveScaled2D(InterpCurveVector2D Curve, float Key, Vector2D ScaleBy, Vector2D OutPosition, Vector2D OutTangent) { Invoke(nameof(EvalCurveScaled2D), Curve, Key, ScaleBy, OutPosition, OutTangent); }
         public void EvalCurve2D(InterpCurveVector2D Curve, float Key, Vector2D OutPosition, Vector2D OutTangent) { Invoke(nameof(EvalCurve2D), Curve, Key, OutPosition, OutTangent); }
@@ -10939,8 +10943,8 @@ namespace SDK.Script.FSDSDK
         public void DrawCurve2D(PaintContext Context, InterpCurveVector2D Curve, Curve2DAppearance Appearance, float Opacity) { Invoke(nameof(DrawCurve2D), Context, Curve, Appearance, Opacity); }
         public void DrawBezierScaled2D(PaintContext Context, Vector2D InStartPos, Vector2D InStartTangent, Vector2D InEndPos, Vector2D InEndTangent, Curve2DAppearance InAppearance, Vector2D ScaleBy, float Opacity, bool InClampTangents) { Invoke(nameof(DrawBezierScaled2D), Context, InStartPos, InStartTangent, InEndPos, InEndTangent, InAppearance, ScaleBy, Opacity, InClampTangents); }
         public void DrawBezier2D(PaintContext Context, Vector2D InStartPos, Vector2D InStartTangent, Vector2D InEndPos, Vector2D InEndTangent, Curve2DAppearance InAppearance, float Opacity, bool InClampTangents) { Invoke(nameof(DrawBezier2D), Context, InStartPos, InStartTangent, InEndPos, InEndTangent, InAppearance, Opacity, InClampTangents); }
-        public InterpCurveVector2D CreateCurveWithTangents2D(Array<Vector2D> Positions, Vector2D StartTangent, Vector2D EndTangent, byte Mode) { return Invoke<InterpCurveVector2D>(nameof(CreateCurveWithTangents2D), Positions, StartTangent, EndTangent, Mode); }
-        public InterpCurveVector2D CreateCurve2D(Array<Vector2D> Positions, byte Mode) { return Invoke<InterpCurveVector2D>(nameof(CreateCurve2D), Positions, Mode); }
+        public InterpCurveVector2D CreateCurveWithTangents2D(UArray<Vector2D> Positions, Vector2D StartTangent, Vector2D EndTangent, byte Mode) { return Invoke<InterpCurveVector2D>(nameof(CreateCurveWithTangents2D), Positions, StartTangent, EndTangent, Mode); }
+        public InterpCurveVector2D CreateCurve2D(UArray<Vector2D> Positions, byte Mode) { return Invoke<InterpCurveVector2D>(nameof(CreateCurve2D), Positions, Mode); }
         public void ConvertSplineDistanceToInputKey(SplineComponent SplineComponent, SplineComponent OptionalTargetSpline) { Invoke(nameof(ConvertSplineDistanceToInputKey), SplineComponent, OptionalTargetSpline); }
         public bool CarveAroundSplinePoints(Object WorldContext, Vector InStartLocation, Vector InStartTangent, Vector InEndLocation, Vector InEndTangent, float InRadius, TerrainMaterial InTerrainMaterial, ECarveFilterType InCarveFilter, EPreciousMaterialOptions InPrecious) { return Invoke<bool>(nameof(CarveAroundSplinePoints), WorldContext, InStartLocation, InStartTangent, InEndLocation, InEndTangent, InRadius, InTerrainMaterial, InCarveFilter, InPrecious); }
         public bool CarveAroundSplineMesh(SplineMeshComponent InMesh, float InRadius, TerrainMaterial InTerrainMaterial, ECarveFilterType InCarveFilter, EPreciousMaterialOptions InPrecious) { return Invoke<bool>(nameof(CarveAroundSplineMesh), InMesh, InRadius, InTerrainMaterial, InCarveFilter, InPrecious); }
@@ -10984,7 +10988,7 @@ namespace SDK.Script.FSDSDK
         public int RequiredCPTreasures { get { return this[nameof(RequiredCPTreasures)].GetValue<int>(); } set { this[nameof(RequiredCPTreasures)].SetValue<int>(value); } }
         public int RequiredCPMachineEvents { get { return this[nameof(RequiredCPMachineEvents)].GetValue<int>(); } set { this[nameof(RequiredCPMachineEvents)].SetValue<int>(value); } }
         public int RequiredCPVeterans { get { return this[nameof(RequiredCPVeterans)].GetValue<int>(); } set { this[nameof(RequiredCPVeterans)].SetValue<int>(value); } }
-        public Array<NewPlayerMutator> FirstMissionsMutators { get { return new Array<NewPlayerMutator>(this[nameof(FirstMissionsMutators)].Address); } }
+        public UArray<NewPlayerMutator> FirstMissionsMutators { get { return new UArray<NewPlayerMutator>(this[nameof(FirstMissionsMutators)].Address); } }
     }
     public class FSDLevelLoadingPersistentWidget : UserWidget
     {
@@ -11009,7 +11013,7 @@ namespace SDK.Script.FSDSDK
         public void ToggleAnimationLooping(Object WorldContext, WidgetAnimation InAnimation, WidgetAnimationSettings InSettings, bool InLoop, bool OutPlayingChanged, bool OutIsPlaying) { Invoke(nameof(ToggleAnimationLooping), WorldContext, InAnimation, InSettings, InLoop, OutPlayingChanged, OutIsPlaying); }
         public bool TextSmallerThan(Object Text1, Object Text2) { return Invoke<bool>(nameof(TextSmallerThan), Text1, Text2); }
         public bool TextGreaterThan(Object Text1, Object Text2) { return Invoke<bool>(nameof(TextGreaterThan), Text1, Text2); }
-        public Array<Widget> SortWidgetArray(Array<Widget> InWidgets, Object InCompareFunction) { return Invoke<Array<Widget>>(nameof(SortWidgetArray), InWidgets, InCompareFunction); }
+        public UArray<Widget> SortWidgetArray(UArray<Widget> InWidgets, Object InCompareFunction) { return Invoke<UArray<Widget>>(nameof(SortWidgetArray), InWidgets, InCompareFunction); }
         public void SimpleBox(PaintContext Context, Vector2D Position, Vector2D Size, LinearColor Tint) { Invoke(nameof(SimpleBox), Context, Position, Size, Tint); }
         public TimerHandle SetTimerForNextTick(Object WorldContext, Object TimerDelegate) { return Invoke<TimerHandle>(nameof(SetTimerForNextTick), WorldContext, TimerDelegate); }
         public void SetSizeBoxSettings(SizeBox InSizeBox, SizeBoxSettings InSettings) { Invoke(nameof(SetSizeBoxSettings), InSizeBox, InSettings); }
@@ -11019,12 +11023,12 @@ namespace SDK.Script.FSDSDK
         public void ScrubAnimation(Object WorldContext, WidgetAnimation InAnimation, float Progress01) { Invoke(nameof(ScrubAnimation), WorldContext, InAnimation, Progress01); }
         public void ScaleTextBlockToHeight(TextBlock TextBlock, float TargetHeight, bool SetMinimimumWidth) { Invoke(nameof(ScaleTextBlockToHeight), TextBlock, TargetHeight, SetMinimimumWidth); }
         public void ScaleImageToHeight(Image Image, float TargetHeight) { Invoke(nameof(ScaleImageToHeight), Image, TargetHeight); }
-        public void PrintStrings(Object WorldContextObject, Array<Object> InStrings, bool bPrintToScreen, bool bPrintToLog, LinearColor TextColor, float Duration) { Invoke(nameof(PrintStrings), WorldContextObject, InStrings, bPrintToScreen, bPrintToLog, TextColor, Duration); }
+        public void PrintStrings(Object WorldContextObject, UArray<Object> InStrings, bool bPrintToScreen, bool bPrintToLog, LinearColor TextColor, float Duration) { Invoke(nameof(PrintStrings), WorldContextObject, InStrings, bPrintToScreen, bPrintToLog, TextColor, Duration); }
         public Object MidIgnoringWhiteSpace(Object Source, int Index, int Count) { return Invoke<Object>(nameof(MidIgnoringWhiteSpace), Source, Index, Count); }
         public Vector2D MeasureTextSize(Object Text, SlateFontInfo Font) { return Invoke<Vector2D>(nameof(MeasureTextSize), Text, Font); }
         public Vector2D MeasureTextBlockSize(TextBlock TextBlock) { return Invoke<Vector2D>(nameof(MeasureTextBlockSize), TextBlock); }
         public void Line(PaintContext Context, Vector2D Pos1, Vector2D Pos2, LinearColor Tint) { Invoke(nameof(Line), Context, Pos1, Pos2, Tint); }
-        public LinearColor LerpColors(Array<LinearColor> Colors, bool Interpolate, float Progress01) { return Invoke<LinearColor>(nameof(LerpColors), Colors, Interpolate, Progress01); }
+        public LinearColor LerpColors(UArray<LinearColor> Colors, bool Interpolate, float Progress01) { return Invoke<LinearColor>(nameof(LerpColors), Colors, Interpolate, Progress01); }
         public int LengthIgnoringWhitespace(Object Source) { return Invoke<int>(nameof(LengthIgnoringWhitespace), Source); }
         public bool IsWindowsPlatform(Object WorldContextObject) { return Invoke<bool>(nameof(IsWindowsPlatform), WorldContextObject); }
         public bool IsWhiteSpaceAt(Object Source, int Index) { return Invoke<bool>(nameof(IsWhiteSpaceAt), Source, Index); }
@@ -11048,9 +11052,9 @@ namespace SDK.Script.FSDSDK
         public VerticalBox CreateVerticalBox(Object WorldContext) { return Invoke<VerticalBox>(nameof(CreateVerticalBox), WorldContext); }
         public TextBlock CreateTextBlock(Object WorldContext, Object Text, SlateFontInfo Font, byte Justification, LinearColor Color, bool WrapText) { return Invoke<TextBlock>(nameof(CreateTextBlock), WorldContext, Text, Font, Justification, Color, WrapText); }
         public Spacer CreateSpacer(Object WorldContext, Vector2D Size) { return Invoke<Spacer>(nameof(CreateSpacer), WorldContext, Size); }
-        public Array<UserWidget> CreateOrReuseChildrenWithCallbackEx(PanelWidget Panel, int Count, Object WidgetClass, Object OnCreatedOrReused, Object OnCollapsed) { return Invoke<Array<UserWidget>>(nameof(CreateOrReuseChildrenWithCallbackEx), Panel, Count, WidgetClass, OnCreatedOrReused, OnCollapsed); }
-        public Array<UserWidget> CreateOrReuseChildrenWithCallback(PanelWidget Panel, int Count, Object WidgetClass, Object OnCreatedOrReused) { return Invoke<Array<UserWidget>>(nameof(CreateOrReuseChildrenWithCallback), Panel, Count, WidgetClass, OnCreatedOrReused); }
-        public Array<UserWidget> CreateOrReuseChildren(PanelWidget Panel, int Count, Object WidgetClass) { return Invoke<Array<UserWidget>>(nameof(CreateOrReuseChildren), Panel, Count, WidgetClass); }
+        public UArray<UserWidget> CreateOrReuseChildrenWithCallbackEx(PanelWidget Panel, int Count, Object WidgetClass, Object OnCreatedOrReused, Object OnCollapsed) { return Invoke<UArray<UserWidget>>(nameof(CreateOrReuseChildrenWithCallbackEx), Panel, Count, WidgetClass, OnCreatedOrReused, OnCollapsed); }
+        public UArray<UserWidget> CreateOrReuseChildrenWithCallback(PanelWidget Panel, int Count, Object WidgetClass, Object OnCreatedOrReused) { return Invoke<UArray<UserWidget>>(nameof(CreateOrReuseChildrenWithCallback), Panel, Count, WidgetClass, OnCreatedOrReused); }
+        public UArray<UserWidget> CreateOrReuseChildren(PanelWidget Panel, int Count, Object WidgetClass) { return Invoke<UArray<UserWidget>>(nameof(CreateOrReuseChildren), Panel, Count, WidgetClass); }
         public Image CreateImageSized(Object WorldContext, Texture2D Texture, LinearColor Tint, Vector2D Size) { return Invoke<Image>(nameof(CreateImageSized), WorldContext, Texture, Tint, Size); }
         public Image CreateImageFromBrush(Object WorldContext, SlateBrush InBrush, LinearColor InColorAndOpacity) { return Invoke<Image>(nameof(CreateImageFromBrush), WorldContext, InBrush, InColorAndOpacity); }
         public Image CreateImage(Object WorldContext, Texture2D Texture, LinearColor Tint, bool AutoSize) { return Invoke<Image>(nameof(CreateImage), WorldContext, Texture, Tint, AutoSize); }
@@ -11065,16 +11069,16 @@ namespace SDK.Script.FSDSDK
         public Widget AddChildToOverlayEx(Overlay OverlayPanel, Widget Widget, byte HorizontalAlignment, byte VerticalAlignment, Margin Padding, OverlaySlot OutSlot, Overlay OutOverlayPanel) { return Invoke<Widget>(nameof(AddChildToOverlayEx), OverlayPanel, Widget, HorizontalAlignment, VerticalAlignment, Padding, OutSlot, OutOverlayPanel); }
         public Widget AddChildToHorizontalBoxEx(HorizontalBox HorizontalBox, Widget Widget, byte HorizontalAlignment, byte VerticalAlignment, float Size, Margin Padding, HorizontalBoxSlot OutSlot, HorizontalBox OutHorizontalBox) { return Invoke<Widget>(nameof(AddChildToHorizontalBoxEx), HorizontalBox, Widget, HorizontalAlignment, VerticalAlignment, Size, Padding, OutSlot, OutHorizontalBox); }
         public Widget AddChildToCanvasEx(CanvasPanel CanvasPanel, Widget Widget, Anchors Anchors, Margin Offsets, bool AutoSize, int Z_Order, CanvasPanelSlot OutSlot, CanvasPanel OutCanvasPanel) { return Invoke<Widget>(nameof(AddChildToCanvasEx), CanvasPanel, Widget, Anchors, Offsets, AutoSize, Z_Order, OutSlot, OutCanvasPanel); }
-        public HorizontalBox AddChildrenToHorizontalBox(Object WorldContext, HorizontalBox HorizontalBox, Array<Widget> Children, bool ClearHorizontalBox, Margin Padding, byte HorizontalAlignment, byte VerticalAlignment, float FillFirst, float FillMiddle, float FillLast) { return Invoke<HorizontalBox>(nameof(AddChildrenToHorizontalBox), WorldContext, HorizontalBox, Children, ClearHorizontalBox, Padding, HorizontalAlignment, VerticalAlignment, FillFirst, FillMiddle, FillLast); }
+        public HorizontalBox AddChildrenToHorizontalBox(Object WorldContext, HorizontalBox HorizontalBox, UArray<Widget> Children, bool ClearHorizontalBox, Margin Padding, byte HorizontalAlignment, byte VerticalAlignment, float FillFirst, float FillMiddle, float FillLast) { return Invoke<HorizontalBox>(nameof(AddChildrenToHorizontalBox), WorldContext, HorizontalBox, Children, ClearHorizontalBox, Padding, HorizontalAlignment, VerticalAlignment, FillFirst, FillMiddle, FillLast); }
     }
     public class FSDWidgetEffectsComponent : ActorComponent
     {
         public FSDWidgetEffectsComponent(nint addr) : base(addr) { }
-        public Array<WidgetPing> WidgetPings { get { return new Array<WidgetPing>(this[nameof(WidgetPings)].Address); } }
-        public Array<WidgetFade> WidgetFades { get { return new Array<WidgetFade>(this[nameof(WidgetFades)].Address); } }
-        public Array<WidgetTextCounter> WidgetTextCounters { get { return new Array<WidgetTextCounter>(this[nameof(WidgetTextCounters)].Address); } }
-        public Array<CustomCounter> CustomCounters { get { return new Array<CustomCounter>(this[nameof(CustomCounters)].Address); } }
-        public Array<WidgetMover> WidgetMovers { get { return new Array<WidgetMover>(this[nameof(WidgetMovers)].Address); } }
+        public UArray<WidgetPing> WidgetPings { get { return new UArray<WidgetPing>(this[nameof(WidgetPings)].Address); } }
+        public UArray<WidgetFade> WidgetFades { get { return new UArray<WidgetFade>(this[nameof(WidgetFades)].Address); } }
+        public UArray<WidgetTextCounter> WidgetTextCounters { get { return new UArray<WidgetTextCounter>(this[nameof(WidgetTextCounters)].Address); } }
+        public UArray<CustomCounter> CustomCounters { get { return new UArray<CustomCounter>(this[nameof(CustomCounters)].Address); } }
+        public UArray<WidgetMover> WidgetMovers { get { return new UArray<WidgetMover>(this[nameof(WidgetMovers)].Address); } }
         public void StartTextCounter(Object WorldContext, TextBlock Widget, float Start, float End, float Duration, int MaxDigits, float StartDelay) { Invoke(nameof(StartTextCounter), WorldContext, Widget, Start, End, Duration, MaxDigits, StartDelay); }
         public void StartCounter(Object WorldContext, Object Owner, float Start, float End, float Duration, Object OnCount, float StartDelay) { Invoke(nameof(StartCounter), WorldContext, Owner, Start, End, Duration, OnCount, StartDelay); }
         public void PingWidget(Object WorldContext, Widget Widget, float amount, float Duration, EPingType PingType, float StartDelay) { Invoke(nameof(PingWidget), WorldContext, Widget, amount, Duration, PingType, StartDelay); }
@@ -11291,7 +11295,7 @@ namespace SDK.Script.FSDSDK
         public TerrainMaterialSettings TerrainMaterialSettings { get { return this[nameof(TerrainMaterialSettings)].As<TerrainMaterialSettings>(); } set { this["TerrainMaterialSettings"] = value; } }
         public SaveGameSettings SaveGameSettings { get { return this[nameof(SaveGameSettings)].As<SaveGameSettings>(); } set { this["SaveGameSettings"] = value; } }
         public GDItemCategoryIDs ItemCategoryIDs { get { return this[nameof(ItemCategoryIDs)].As<GDItemCategoryIDs>(); } set { this["ItemCategoryIDs"] = value; } }
-        public Array<Texture2D> LoadoutIconList { get { return new Array<Texture2D>(this[nameof(LoadoutIconList)].Address); } }
+        public UArray<Texture2D> LoadoutIconList { get { return new UArray<Texture2D>(this[nameof(LoadoutIconList)].Address); } }
         public MinersManual MinersManual { get { return this[nameof(MinersManual)].As<MinersManual>(); } set { this["MinersManual"] = value; } }
         public GDDamageClasses DamageClasses { get { return this[nameof(DamageClasses)].As<GDDamageClasses>(); } set { this["DamageClasses"] = value; } }
         public GDStats Stats { get { return this[nameof(Stats)].As<GDStats>(); } set { this["Stats"] = value; } }
@@ -11314,7 +11318,7 @@ namespace SDK.Script.FSDSDK
         public void UnloadPreloadedAssets() { Invoke(nameof(UnloadPreloadedAssets)); }
         public void LoadDefaultAssetsBlocking(AsyncManager AsyncManager) { Invoke(nameof(LoadDefaultAssetsBlocking), AsyncManager); }
         public bool IsCheatConsolesEnabled() { return Invoke<bool>(nameof(IsCheatConsolesEnabled)); }
-        public Array<PlayerCharacterID> GetRankedHeroIDs() { return Invoke<Array<PlayerCharacterID>>(nameof(GetRankedHeroIDs)); }
+        public UArray<PlayerCharacterID> GetRankedHeroIDs() { return Invoke<UArray<PlayerCharacterID>>(nameof(GetRankedHeroIDs)); }
         public Object GetPlayerRankName(int Rank) { return Invoke<Object>(nameof(GetPlayerRankName), Rank); }
         public PlayerCharacterID GetPlayerCharacterID(Guid ID) { return Invoke<PlayerCharacterID>(nameof(GetPlayerCharacterID), ID); }
         public GDPerks GetPerkData() { return Invoke<GDPerks>(nameof(GetPerkData)); }
@@ -11327,10 +11331,10 @@ namespace SDK.Script.FSDSDK
         public Object GetDefaultEditorCharacter() { return Invoke<Object>(nameof(GetDefaultEditorCharacter)); }
         public Object GetDefaultCharacter() { return Invoke<Object>(nameof(GetDefaultCharacter)); }
         public RetirementCostItem GetCharacterRetirementCost(Object WorldContext, PlayerCharacterID ID) { return Invoke<RetirementCostItem>(nameof(GetCharacterRetirementCost), WorldContext, ID); }
-        public Array<HUDVisibilityGroup> GetAllVisibilityGroups() { return Invoke<Array<HUDVisibilityGroup>>(nameof(GetAllVisibilityGroups)); }
-        public Array<MissionStat> GetAllMissionStats() { return Invoke<Array<MissionStat>>(nameof(GetAllMissionStats)); }
-        public Array<MilestoneAsset> GetAllMilestones() { return Invoke<Array<MilestoneAsset>>(nameof(GetAllMilestones)); }
-        public Array<MissionStat> GetAllInfirmaryStats() { return Invoke<Array<MissionStat>>(nameof(GetAllInfirmaryStats)); }
+        public UArray<HUDVisibilityGroup> GetAllVisibilityGroups() { return Invoke<UArray<HUDVisibilityGroup>>(nameof(GetAllVisibilityGroups)); }
+        public UArray<MissionStat> GetAllMissionStats() { return Invoke<UArray<MissionStat>>(nameof(GetAllMissionStats)); }
+        public UArray<MilestoneAsset> GetAllMilestones() { return Invoke<UArray<MilestoneAsset>>(nameof(GetAllMilestones)); }
+        public UArray<MissionStat> GetAllInfirmaryStats() { return Invoke<UArray<MissionStat>>(nameof(GetAllInfirmaryStats)); }
     }
     public class KPISettings : DataAsset
     {
@@ -11378,8 +11382,8 @@ namespace SDK.Script.FSDSDK
     {
         public GameDLCSettings(nint addr) : base(addr) { }
         public Object StoreDLCs { get { return this[nameof(StoreDLCs)]; } set { this[nameof(StoreDLCs)] = value; } }
-        public Array<GameDLC> GetStoreDLCs(Object WorldContext) { return Invoke<Array<GameDLC>>(nameof(GetStoreDLCs), WorldContext); }
-        public Array<GameDLC> GetAnnouncableDLCs(Object WorldContext) { return Invoke<Array<GameDLC>>(nameof(GetAnnouncableDLCs), WorldContext); }
+        public UArray<GameDLC> GetStoreDLCs(Object WorldContext) { return Invoke<UArray<GameDLC>>(nameof(GetStoreDLCs), WorldContext); }
+        public UArray<GameDLC> GetAnnouncableDLCs(Object WorldContext) { return Invoke<UArray<GameDLC>>(nameof(GetAnnouncableDLCs), WorldContext); }
     }
     public class TimedDLC : DLCBase
     {
@@ -11399,12 +11403,12 @@ namespace SDK.Script.FSDSDK
     public class AndDLC : DLCBase
     {
         public AndDLC(nint addr) : base(addr) { }
-        public Array<DLCBase> DLCs { get { return new Array<DLCBase>(this[nameof(DLCs)].Address); } }
+        public UArray<DLCBase> DLCs { get { return new UArray<DLCBase>(this[nameof(DLCs)].Address); } }
     }
     public class OrDLC : DLCBase
     {
         public OrDLC(nint addr) : base(addr) { }
-        public Array<DLCBase> DLCs { get { return new Array<DLCBase>(this[nameof(DLCs)].Address); } }
+        public UArray<DLCBase> DLCs { get { return new UArray<DLCBase>(this[nameof(DLCs)].Address); } }
     }
     public class NotDLC : DLCBase
     {
@@ -11420,9 +11424,9 @@ namespace SDK.Script.FSDSDK
     {
         public EventRewardFrame(nint addr) : base(addr) { }
         public SpecialEventUsableComponent EventUsable { get { return this[nameof(EventUsable)].As<SpecialEventUsableComponent>(); } set { this["EventUsable"] = value; } }
-        public Array<EventRewardDispenser> Dispensers { get { return new Array<EventRewardDispenser>(this[nameof(Dispensers)].Address); } }
+        public UArray<EventRewardDispenser> Dispensers { get { return new UArray<EventRewardDispenser>(this[nameof(Dispensers)].Address); } }
         public bool keyInserted { get { return this[nameof(keyInserted)].Flag; } set { this[nameof(keyInserted)].Flag = value; } }
-        public Array<Object> EventPlayerIDs { get { return new Array<Object>(this[nameof(EventPlayerIDs)].Address); } }
+        public UArray<Object> EventPlayerIDs { get { return new UArray<Object>(this[nameof(EventPlayerIDs)].Address); } }
         public void TurnOff() { Invoke(nameof(TurnOff)); }
         public void SetKeyInserted(bool keyInserted) { Invoke(nameof(SetKeyInserted), keyInserted); }
         public void SetDispenseRewards(bool dispensRewards) { Invoke(nameof(SetDispenseRewards), dispensRewards); }
@@ -11568,7 +11572,7 @@ namespace SDK.Script.FSDSDK
         public float TotalGoldMined { get { return this[nameof(TotalGoldMined)].GetValue<float>(); } set { this[nameof(TotalGoldMined)].SetValue<float>(value); } }
         public int TotalEnemiesKilled { get { return this[nameof(TotalEnemiesKilled)].GetValue<int>(); } set { this[nameof(TotalEnemiesKilled)].SetValue<int>(value); } }
         public int MissionHaz { get { return this[nameof(MissionHaz)].GetValue<int>(); } set { this[nameof(MissionHaz)].SetValue<int>(value); } }
-        public Array<SeamlessTravelEventKey> EventKeys { get { return new Array<SeamlessTravelEventKey>(this[nameof(EventKeys)].Address); } }
+        public UArray<SeamlessTravelEventKey> EventKeys { get { return new UArray<SeamlessTravelEventKey>(this[nameof(EventKeys)].Address); } }
         public void OnPlayerMinedGold(CappedResource Resource, float amount) { Invoke(nameof(OnPlayerMinedGold), Resource, amount); }
     }
     public class GasCloud : Actor
@@ -11621,8 +11625,8 @@ namespace SDK.Script.FSDSDK
     public class GemProximityTracker : ActorComponent
     {
         public GemProximityTracker(nint addr) : base(addr) { }
-        public Array<Object> Trackers { get { return new Array<Object>(this[nameof(Trackers)].Address); } }
-        public Array<TrackPositionList> TrackerLists { get { return new Array<TrackPositionList>(this[nameof(TrackerLists)].Address); } }
+        public UArray<Object> Trackers { get { return new UArray<Object>(this[nameof(Trackers)].Address); } }
+        public UArray<TrackPositionList> TrackerLists { get { return new UArray<TrackPositionList>(this[nameof(TrackerLists)].Address); } }
     }
     public class GemResourceData : ResourceData
     {
@@ -11632,11 +11636,11 @@ namespace SDK.Script.FSDSDK
         public IRandRange GemValue { get { return this[nameof(GemValue)].As<IRandRange>(); } set { this["GemValue"] = value; } }
         public GemResourceCreator ResourceCreator { get { return this[nameof(ResourceCreator)].As<GemResourceCreator>(); } set { this["ResourceCreator"] = value; } }
         public float InfluencerRange { get { return this[nameof(InfluencerRange)].GetValue<float>(); } set { this[nameof(InfluencerRange)].SetValue<float>(value); } }
-        public Array<Object> Debris { get { return new Array<Object>(this[nameof(Debris)].Address); } }
-        public Array<Object> GemClasses { get { return new Array<Object>(this[nameof(GemClasses)].Address); } }
+        public UArray<Object> Debris { get { return new UArray<Object>(this[nameof(Debris)].Address); } }
+        public UArray<Object> GemClasses { get { return new UArray<Object>(this[nameof(GemClasses)].Address); } }
         public float ImportantRadius { get { return this[nameof(ImportantRadius)].GetValue<float>(); } set { this[nameof(ImportantRadius)].SetValue<float>(value); } }
-        public Array<Object> GemClassesLoaded { get { return new Array<Object>(this[nameof(GemClassesLoaded)].Address); } }
-        public Array<DebrisBase> DebrisLoaded { get { return new Array<DebrisBase>(this[nameof(DebrisLoaded)].Address); } }
+        public UArray<Object> GemClassesLoaded { get { return new UArray<Object>(this[nameof(GemClassesLoaded)].Address); } }
+        public UArray<DebrisBase> DebrisLoaded { get { return new UArray<DebrisBase>(this[nameof(DebrisLoaded)].Address); } }
         public int GetCollectedGemsCreditValue(FSDGameState GameState) { return Invoke<int>(nameof(GetCollectedGemsCreditValue), GameState); }
         public int GetCollectedGemsAmount(FSDGameState GameState) { return Invoke<int>(nameof(GetCollectedGemsAmount), GameState); }
     }
@@ -11666,9 +11670,9 @@ namespace SDK.Script.FSDSDK
         public MissionTemplate Template { get { return this[nameof(Template)].As<MissionTemplate>(); } set { this["Template"] = value; } }
         public Object MissionName { get { return this[nameof(MissionName)]; } set { this[nameof(MissionName)] = value; } }
         public Object PrimaryObjective { get { return this[nameof(PrimaryObjective)]; } set { this[nameof(PrimaryObjective)] = value; } }
-        public Array<Object> SecondaryObjectives { get { return new Array<Object>(this[nameof(SecondaryObjectives)].Address); } }
+        public UArray<Object> SecondaryObjectives { get { return new UArray<Object>(this[nameof(SecondaryObjectives)].Address); } }
         public Object Mutators { get { return this[nameof(Mutators)]; } set { this[nameof(Mutators)] = value; } }
-        public Array<MissionWarning> MissionWarnings { get { return new Array<MissionWarning>(this[nameof(MissionWarnings)].Address); } }
+        public UArray<MissionWarning> MissionWarnings { get { return new UArray<MissionWarning>(this[nameof(MissionWarnings)].Address); } }
         public MissionMutator MissionMutator { get { return this[nameof(MissionMutator)].As<MissionMutator>(); } set { this["MissionMutator"] = value; } }
         public MissionChallenge MissionChallenge { get { return this[nameof(MissionChallenge)].As<MissionChallenge>(); } set { this["MissionChallenge"] = value; } }
         public MissionComplexity ComplexityLimit { get { return this[nameof(ComplexityLimit)].As<MissionComplexity>(); } set { this["ComplexityLimit"] = value; } }
@@ -11686,7 +11690,7 @@ namespace SDK.Script.FSDSDK
         public bool IsDeepDive() { return Invoke<bool>(nameof(IsDeepDive)); }
         public ObjectiveMissionIcon GetSecondaryObjectiveIcon() { return Invoke<ObjectiveMissionIcon>(nameof(GetSecondaryObjectiveIcon)); }
         public Object GetPLS() { return Invoke<Object>(nameof(GetPLS)); }
-        public Array<Mutator> GetMutators(Object mutatorClass) { return Invoke<Array<Mutator>>(nameof(GetMutators), mutatorClass); }
+        public UArray<Mutator> GetMutators(Object mutatorClass) { return Invoke<UArray<Mutator>>(nameof(GetMutators), mutatorClass); }
         public float GetMissionScale() { return Invoke<float>(nameof(GetMissionScale)); }
         public MissionDNA GetMissionDNA() { return Invoke<MissionDNA>(nameof(GetMissionDNA)); }
         public ProceduralSetup CreatePLS(int Seed) { return Invoke<ProceduralSetup>(nameof(CreatePLS), Seed); }
@@ -11710,21 +11714,21 @@ namespace SDK.Script.FSDSDK
         public IRandRange ExtraBiomes { get { return this[nameof(ExtraBiomes)].As<IRandRange>(); } set { this["ExtraBiomes"] = value; } }
         public IRandRange AdditionalMissionsForExtraBiomes { get { return this[nameof(AdditionalMissionsForExtraBiomes)].As<IRandRange>(); } set { this["AdditionalMissionsForExtraBiomes"] = value; } }
         public IRandRange MissionsPerZone { get { return this[nameof(MissionsPerZone)].As<IRandRange>(); } set { this["MissionsPerZone"] = value; } }
-        public Array<MissionBiomeItem> Biomes { get { return new Array<MissionBiomeItem>(this[nameof(Biomes)].Address); } }
-        public Array<MissionTemplateItem> AvailableMissions { get { return new Array<MissionTemplateItem>(this[nameof(AvailableMissions)].Address); } }
+        public UArray<MissionBiomeItem> Biomes { get { return new UArray<MissionBiomeItem>(this[nameof(Biomes)].Address); } }
+        public UArray<MissionTemplateItem> AvailableMissions { get { return new UArray<MissionTemplateItem>(this[nameof(AvailableMissions)].Address); } }
         public float FacilityMutatorChance { get { return this[nameof(FacilityMutatorChance)].GetValue<float>(); } set { this[nameof(FacilityMutatorChance)].SetValue<float>(value); } }
         public MissionNameBank MissionNames { get { return this[nameof(MissionNames)].As<MissionNameBank>(); } set { this["MissionNames"] = value; } }
         public IRandRange MutatorWarningCount { get { return this[nameof(MutatorWarningCount)].As<IRandRange>(); } set { this["MutatorWarningCount"] = value; } }
         public IRandRange ExtraSeasonWarningCount { get { return this[nameof(ExtraSeasonWarningCount)].As<IRandRange>(); } set { this["ExtraSeasonWarningCount"] = value; } }
         public float DoubleWarningChance { get { return this[nameof(DoubleWarningChance)].GetValue<float>(); } set { this[nameof(DoubleWarningChance)].SetValue<float>(value); } }
         public MissionStat DoubleWarningStat { get { return this[nameof(DoubleWarningStat)].As<MissionStat>(); } set { this["DoubleWarningStat"] = value; } }
-        public Array<MissionMutator> Mutators { get { return new Array<MissionMutator>(this[nameof(Mutators)].Address); } }
-        public Array<MissionWarning> Warnings { get { return new Array<MissionWarning>(this[nameof(Warnings)].Address); } }
+        public UArray<MissionMutator> Mutators { get { return new UArray<MissionMutator>(this[nameof(Mutators)].Address); } }
+        public UArray<MissionWarning> Warnings { get { return new UArray<MissionWarning>(this[nameof(Warnings)].Address); } }
         public Object IncompatibleWarnings { get { return this[nameof(IncompatibleWarnings)]; } set { this[nameof(IncompatibleWarnings)] = value; } }
-        public Array<MissionChallenge> Challenges { get { return new Array<MissionChallenge>(this[nameof(Challenges)].Address); } }
-        public Array<PlanetZone> PlanetZones { get { return new Array<PlanetZone>(this[nameof(PlanetZones)].Address); } }
-        public Array<RequiredMissionItem> GlobalRequiredMissions { get { return new Array<RequiredMissionItem>(this[nameof(GlobalRequiredMissions)].Address); } }
-        public Array<MissionTemplateItem> GetAllPossibleMissions() { return Invoke<Array<MissionTemplateItem>>(nameof(GetAllPossibleMissions)); }
+        public UArray<MissionChallenge> Challenges { get { return new UArray<MissionChallenge>(this[nameof(Challenges)].Address); } }
+        public UArray<PlanetZone> PlanetZones { get { return new UArray<PlanetZone>(this[nameof(PlanetZones)].Address); } }
+        public UArray<RequiredMissionItem> GlobalRequiredMissions { get { return new UArray<RequiredMissionItem>(this[nameof(GlobalRequiredMissions)].Address); } }
+        public UArray<MissionTemplateItem> GetAllPossibleMissions() { return Invoke<UArray<MissionTemplateItem>>(nameof(GetAllPossibleMissions)); }
     }
     public class GlowPlant : Actor
     {
@@ -11840,8 +11844,8 @@ namespace SDK.Script.FSDSDK
         public SphereComponent SphereTrigger { get { return this[nameof(SphereTrigger)].As<SphereComponent>(); } set { this["SphereTrigger"] = value; } }
         public SimpleHealthComponent SimpleHealth { get { return this[nameof(SimpleHealth)].As<SimpleHealthComponent>(); } set { this["SimpleHealth"] = value; } }
         public SoundBase SpawnSound { get { return this[nameof(SpawnSound)].As<SoundBase>(); } set { this["SpawnSound"] = value; } }
-        public Array<GooPuddleStatusEffectTrigger> StatusEffectTriggers { get { return new Array<GooPuddleStatusEffectTrigger>(this[nameof(StatusEffectTriggers)].Address); } }
-        public Array<Object> InflictedStatusEffects { get { return new Array<Object>(this[nameof(InflictedStatusEffects)].Address); } }
+        public UArray<GooPuddleStatusEffectTrigger> StatusEffectTriggers { get { return new UArray<GooPuddleStatusEffectTrigger>(this[nameof(StatusEffectTriggers)].Address); } }
+        public UArray<Object> InflictedStatusEffects { get { return new UArray<Object>(this[nameof(InflictedStatusEffects)].Address); } }
         public int ActiveStatusEffectTriggersMask { get { return this[nameof(ActiveStatusEffectTriggersMask)].GetValue<int>(); } set { this[nameof(ActiveStatusEffectTriggersMask)].SetValue<int>(value); } }
         public float LifeTime { get { return this[nameof(LifeTime)].GetValue<float>(); } set { this[nameof(LifeTime)].SetValue<float>(value); } }
         public bool IsOnFire { get { return this[nameof(IsOnFire)].Flag; } set { this[nameof(IsOnFire)].Flag = value; } }
@@ -11956,8 +11960,8 @@ namespace SDK.Script.FSDSDK
     public class FakePhysGrabberComponent : GrabberComponent
     {
         public FakePhysGrabberComponent(nint addr) : base(addr) { }
-        public Array<GrabAvoidClassEntry> ActorTypesToAvoid { get { return new Array<GrabAvoidClassEntry>(this[nameof(ActorTypesToAvoid)].Address); } }
-        public Array<AvoidActorEntry> ActorsToAvoid { get { return new Array<AvoidActorEntry>(this[nameof(ActorsToAvoid)].Address); } }
+        public UArray<GrabAvoidClassEntry> ActorTypesToAvoid { get { return new UArray<GrabAvoidClassEntry>(this[nameof(ActorTypesToAvoid)].Address); } }
+        public UArray<AvoidActorEntry> ActorsToAvoid { get { return new UArray<AvoidActorEntry>(this[nameof(ActorsToAvoid)].Address); } }
     }
     public class GrapplingHookGun : AnimatedItem
     {
@@ -11990,7 +11994,7 @@ namespace SDK.Script.FSDSDK
     {
         public GravityChangedComponent(nint addr) : base(addr) { }
         public bool bAwakeOnGravityChanged { get { return this[nameof(bAwakeOnGravityChanged)].Flag; } set { this[nameof(bAwakeOnGravityChanged)].Flag = value; } }
-        public Array<PrimitiveComponent> PrimitiveComponents { get { return new Array<PrimitiveComponent>(this[nameof(PrimitiveComponents)].Address); } }
+        public UArray<PrimitiveComponent> PrimitiveComponents { get { return new UArray<PrimitiveComponent>(this[nameof(PrimitiveComponents)].Address); } }
         public void OnGravityChanged(float Gravity, float Change) { Invoke(nameof(OnGravityChanged), Gravity, Change); }
     }
     public class MolotovComponent : ActorComponent
@@ -12028,7 +12032,7 @@ namespace SDK.Script.FSDSDK
     public class GrenadeProjectionSettings : DataAsset
     {
         public GrenadeProjectionSettings(nint addr) : base(addr) { }
-        public Array<Vector> SplinePoints { get { return new Array<Vector>(this[nameof(SplinePoints)].Address); } }
+        public UArray<Vector> SplinePoints { get { return new UArray<Vector>(this[nameof(SplinePoints)].Address); } }
         public float ProjectionScale { get { return this[nameof(ProjectionScale)].GetValue<float>(); } set { this[nameof(ProjectionScale)].SetValue<float>(value); } }
         public float VelocityScale { get { return this[nameof(VelocityScale)].GetValue<float>(); } set { this[nameof(VelocityScale)].SetValue<float>(value); } }
         public bool ProjectionVisible { get { return this[nameof(ProjectionVisible)].Flag; } set { this[nameof(ProjectionVisible)].Flag = value; } }
@@ -12109,11 +12113,11 @@ namespace SDK.Script.FSDSDK
         public SceneComponent Root { get { return this[nameof(Root)].As<SceneComponent>(); } set { this["Root"] = value; } }
         public SkeletalMeshComponent BaseMesh { get { return this[nameof(BaseMesh)].As<SkeletalMeshComponent>(); } set { this["BaseMesh"] = value; } }
         public DamageComponent EndExplosionDamage { get { return this[nameof(EndExplosionDamage)].As<DamageComponent>(); } set { this["EndExplosionDamage"] = value; } }
-        public Array<GuntowerModuleLevel> GuntowerLevels { get { return new Array<GuntowerModuleLevel>(this[nameof(GuntowerLevels)].Address); } }
+        public UArray<GuntowerModuleLevel> GuntowerLevels { get { return new UArray<GuntowerModuleLevel>(this[nameof(GuntowerLevels)].Address); } }
         public Object ModuleAttachBone { get { return this[nameof(ModuleAttachBone)]; } set { this[nameof(ModuleAttachBone)] = value; } }
         public float TowerExplodeDelay { get { return this[nameof(TowerExplodeDelay)].GetValue<float>(); } set { this[nameof(TowerExplodeDelay)].SetValue<float>(value); } }
         public float DelayBetweenExplosions { get { return this[nameof(DelayBetweenExplosions)].GetValue<float>(); } set { this[nameof(DelayBetweenExplosions)].SetValue<float>(value); } }
-        public Array<GuntowerModule> TowerModules { get { return new Array<GuntowerModule>(this[nameof(TowerModules)].Address); } }
+        public UArray<GuntowerModule> TowerModules { get { return new UArray<GuntowerModule>(this[nameof(TowerModules)].Address); } }
         public int ActiveHostileModules { get { return this[nameof(ActiveHostileModules)].GetValue<int>(); } set { this[nameof(ActiveHostileModules)].SetValue<int>(value); } }
         public void SpawnModules() { Invoke(nameof(SpawnModules)); }
         public void OnRep_ModuleActive() { Invoke(nameof(OnRep_ModuleActive)); }
@@ -12125,7 +12129,7 @@ namespace SDK.Script.FSDSDK
         public TowerModuleBase(nint addr) : base(addr) { }
         public SceneComponent Root { get { return this[nameof(Root)].As<SceneComponent>(); } set { this["Root"] = value; } }
         public SkeletalMeshComponent ModuleMesh { get { return this[nameof(ModuleMesh)].As<SkeletalMeshComponent>(); } set { this["ModuleMesh"] = value; } }
-        public Array<StaticMeshComponent> ArmorPlates { get { return new Array<StaticMeshComponent>(this[nameof(ArmorPlates)].Address); } }
+        public UArray<StaticMeshComponent> ArmorPlates { get { return new UArray<StaticMeshComponent>(this[nameof(ArmorPlates)].Address); } }
         public EnemyHealthComponent Health { get { return this[nameof(Health)].As<EnemyHealthComponent>(); } set { this["Health"] = value; } }
         public Rotator ModuleRotation { get { return this[nameof(ModuleRotation)].As<Rotator>(); } set { this["ModuleRotation"] = value; } }
         public SkeletalMesh DestroyedMesh { get { return this[nameof(DestroyedMesh)].As<SkeletalMesh>(); } set { this["DestroyedMesh"] = value; } }
@@ -12156,7 +12160,7 @@ namespace SDK.Script.FSDSDK
         public SoundCue ExposeWeakpointSound { get { return this[nameof(ExposeWeakpointSound)].As<SoundCue>(); } set { this["ExposeWeakpointSound"] = value; } }
         public SoundCue deathSound { get { return this[nameof(deathSound)].As<SoundCue>(); } set { this["deathSound"] = value; } }
         public ParticleSystem deathParticles { get { return this[nameof(deathParticles)].As<ParticleSystem>(); } set { this["deathParticles"] = value; } }
-        public Array<Actor> WeakpointActors { get { return new Array<Actor>(this[nameof(WeakpointActors)].Address); } }
+        public UArray<Actor> WeakpointActors { get { return new UArray<Actor>(this[nameof(WeakpointActors)].Address); } }
         public Object BodyBone { get { return this[nameof(BodyBone)]; } set { this[nameof(BodyBone)] = value; } }
         public Object TopConnectionPointName { get { return this[nameof(TopConnectionPointName)]; } set { this[nameof(TopConnectionPointName)] = value; } }
         public Rotator CurrentTurretRotation { get { return this[nameof(CurrentTurretRotation)].As<Rotator>(); } set { this["CurrentTurretRotation"] = value; } }
@@ -12213,7 +12217,7 @@ namespace SDK.Script.FSDSDK
     public class HostileTargetingGuntowerModule : HostileGuntowerModule
     {
         public HostileTargetingGuntowerModule(nint addr) : base(addr) { }
-        public Array<Actor> SensedTargets { get { return new Array<Actor>(this[nameof(SensedTargets)].Address); } }
+        public UArray<Actor> SensedTargets { get { return new UArray<Actor>(this[nameof(SensedTargets)].Address); } }
         public float TurretRotationSpeed { get { return this[nameof(TurretRotationSpeed)].GetValue<float>(); } set { this[nameof(TurretRotationSpeed)].SetValue<float>(value); } }
         public Actor TargetedActor { get { return this[nameof(TargetedActor)].As<Actor>(); } set { this["TargetedActor"] = value; } }
         public float TargetingRotationSpeed { get { return this[nameof(TargetingRotationSpeed)].GetValue<float>(); } set { this[nameof(TargetingRotationSpeed)].SetValue<float>(value); } }
@@ -12416,7 +12420,7 @@ namespace SDK.Script.FSDSDK
         public SkeletalMeshComponent SKMesh { get { return this[nameof(SKMesh)].As<SkeletalMeshComponent>(); } set { this["SKMesh"] = value; } }
         public NiagaraComponent MovingSparks { get { return this[nameof(MovingSparks)].As<NiagaraComponent>(); } set { this["MovingSparks"] = value; } }
         public FSDAudioComponent FuseSound { get { return this[nameof(FuseSound)].As<FSDAudioComponent>(); } set { this["FuseSound"] = value; } }
-        public Array<StaticMeshComponent> Crackers { get { return new Array<StaticMeshComponent>(this[nameof(Crackers)].Address); } }
+        public UArray<StaticMeshComponent> Crackers { get { return new UArray<StaticMeshComponent>(this[nameof(Crackers)].Address); } }
         public NiagaraSystem CrackerExplosion { get { return this[nameof(CrackerExplosion)].As<NiagaraSystem>(); } set { this["CrackerExplosion"] = value; } }
         public SoundCue CrackerExplosionCue { get { return this[nameof(CrackerExplosionCue)].As<SoundCue>(); } set { this["CrackerExplosionCue"] = value; } }
         public float SparkSpeed { get { return this[nameof(SparkSpeed)].GetValue<float>(); } set { this[nameof(SparkSpeed)].SetValue<float>(value); } }
@@ -12436,7 +12440,7 @@ namespace SDK.Script.FSDSDK
         public bool HideBeard { get { return this[nameof(HideBeard)].Flag; } set { this[nameof(HideBeard)].Flag = value; } }
         public bool HideAll { get { return this[nameof(HideAll)].Flag; } set { this[nameof(HideAll)].Flag = value; } }
         public bool RequiresSlimArmor { get { return this[nameof(RequiresSlimArmor)].Flag; } set { this[nameof(RequiresSlimArmor)].Flag = value; } }
-        public Array<ArmorVanityItem> ForceThickAmorsHack { get { return new Array<ArmorVanityItem>(this[nameof(ForceThickAmorsHack)].Address); } }
+        public UArray<ArmorVanityItem> ForceThickAmorsHack { get { return new UArray<ArmorVanityItem>(this[nameof(ForceThickAmorsHack)].Address); } }
         public bool HideHead { get { return this[nameof(HideHead)].Flag; } set { this[nameof(HideHead)].Flag = value; } }
         public ECharacterHeadMesh HeadMesh { get { return (ECharacterHeadMesh)this[nameof(HeadMesh)].GetValue<int>(); } set { this[nameof(HeadMesh)].SetValue<int>((int)value); } }
         public Object MaterialOverride { get { return this[nameof(MaterialOverride)]; } set { this[nameof(MaterialOverride)] = value; } }
@@ -12530,7 +12534,7 @@ namespace SDK.Script.FSDSDK
     {
         public HeliumTank(nint addr) : base(addr) { }
         public CurveFloat PitchCurve { get { return this[nameof(PitchCurve)].As<CurveFloat>(); } set { this["PitchCurve"] = value; } }
-        public Array<PitchedUsers> PitchedUsers { get { return new Array<PitchedUsers>(this[nameof(PitchedUsers)].Address); } }
+        public UArray<PitchedUsers> PitchedUsers { get { return new UArray<PitchedUsers>(this[nameof(PitchedUsers)].Address); } }
         public HeliumTank Leader { get { return this[nameof(Leader)].As<HeliumTank>(); } set { this["Leader"] = value; } }
         public void OnUsedBy(PlayerCharacter User, EInputKeys Key) { Invoke(nameof(OnUsedBy), User, Key); }
         public void OnShoutStarted(PlayerCharacter Player, AudioComponent Audio) { Invoke(nameof(OnShoutStarted), Player, Audio); }
@@ -12560,7 +12564,7 @@ namespace SDK.Script.FSDSDK
     public class HitReactionComponent : ActorComponent
     {
         public HitReactionComponent(nint addr) : base(addr) { }
-        public Array<AnimSequenceBase> HitReactions { get { return new Array<AnimSequenceBase>(this[nameof(HitReactions)].Address); } }
+        public UArray<AnimSequenceBase> HitReactions { get { return new UArray<AnimSequenceBase>(this[nameof(HitReactions)].Address); } }
         public float FirstHitReactBlendIn { get { return this[nameof(FirstHitReactBlendIn)].GetValue<float>(); } set { this[nameof(FirstHitReactBlendIn)].SetValue<float>(value); } }
         public float OverrideHitReactBlendIn { get { return this[nameof(OverrideHitReactBlendIn)].GetValue<float>(); } set { this[nameof(OverrideHitReactBlendIn)].SetValue<float>(value); } }
         public bool AllowHitReactions { get { return this[nameof(AllowHitReactions)].Flag; } set { this[nameof(AllowHitReactions)].Flag = value; } }
@@ -12584,8 +12588,8 @@ namespace SDK.Script.FSDSDK
         public FXSystemAsset ImpactParticles { get { return this[nameof(ImpactParticles)].As<FXSystemAsset>(); } set { this["ImpactParticles"] = value; } }
         public SoundCue ImpactSound { get { return this[nameof(ImpactSound)].As<SoundCue>(); } set { this["ImpactSound"] = value; } }
         public bool IgnoreAlwaysPenetrate { get { return this[nameof(IgnoreAlwaysPenetrate)].Flag; } set { this[nameof(IgnoreAlwaysPenetrate)].Flag = value; } }
-        public Array<Actor> DamagedActorCache { get { return new Array<Actor>(this[nameof(DamagedActorCache)].Address); } }
-        public Array<HitscanDelayedImpact> DelayedImpacts { get { return new Array<HitscanDelayedImpact>(this[nameof(DelayedImpacts)].Address); } }
+        public UArray<Actor> DamagedActorCache { get { return new UArray<Actor>(this[nameof(DamagedActorCache)].Address); } }
+        public UArray<HitscanDelayedImpact> DelayedImpacts { get { return new UArray<HitscanDelayedImpact>(this[nameof(DelayedImpacts)].Address); } }
         public void Server_RegisterRicochetHit_Terrain(Vector_NetQuantize Origin, Vector_NetQuantize Location, Vector_NetQuantizeNormal Normal, FSDPhysicalMaterial PhysMaterial) { Invoke(nameof(Server_RegisterRicochetHit_Terrain), Origin, Location, Normal, PhysMaterial); }
         public void Server_RegisterRicochetHit_Destructable(Vector_NetQuantize Origin, Vector_NetQuantize Location, Vector_NetQuantizeNormal Normal, PrimitiveComponent Target, FSDPhysicalMaterial PhysMaterial, byte BoneIndex) { Invoke(nameof(Server_RegisterRicochetHit_Destructable), Origin, Location, Normal, Target, PhysMaterial, BoneIndex); }
         public void Server_RegisterRicochetHit(Vector_NetQuantize Origin, Vector_NetQuantize Location, Vector_NetQuantizeNormal Normal, PrimitiveComponent Target, FSDPhysicalMaterial PhysMaterial) { Invoke(nameof(Server_RegisterRicochetHit), Origin, Location, Normal, Target, PhysMaterial); }
@@ -12614,9 +12618,9 @@ namespace SDK.Script.FSDSDK
         public float ThrowDelay { get { return this[nameof(ThrowDelay)].GetValue<float>(); } set { this[nameof(ThrowDelay)].SetValue<float>(value); } }
         public Vector ThrowOffset { get { return this[nameof(ThrowOffset)].As<Vector>(); } set { this["ThrowOffset"] = value; } }
         public float CooldownLeft { get { return this[nameof(CooldownLeft)].GetValue<float>(); } set { this[nameof(CooldownLeft)].SetValue<float>(value); } }
-        public Array<ItemUpgrade> Upgrades { get { return new Array<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
+        public UArray<ItemUpgrade> Upgrades { get { return new UArray<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
         public Object LoadoutItem { get { return this[nameof(LoadoutItem)]; } set { this[nameof(LoadoutItem)] = value; } }
-        public Array<Object> ThrownActors { get { return new Array<Object>(this[nameof(ThrownActors)].Address); } }
+        public UArray<Object> ThrownActors { get { return new UArray<Object>(this[nameof(ThrownActors)].Address); } }
         public void Simulate_Throw(Object actorClass) { Invoke(nameof(Simulate_Throw), actorClass); }
         public void Server_Throw(Object actorClass, Vector Location) { Invoke(nameof(Server_Throw), actorClass, Location); }
         public void ReceiveItemThrown(ThrowableActor thrownActor) { Invoke(nameof(ReceiveItemThrown), thrownActor); }
@@ -12674,7 +12678,7 @@ namespace SDK.Script.FSDSDK
         public bool AllowDynamicMode { get { return this[nameof(AllowDynamicMode)].Flag; } set { this[nameof(AllowDynamicMode)].Flag = value; } }
         public bool AllowHiddenMode { get { return this[nameof(AllowHiddenMode)].Flag; } set { this[nameof(AllowHiddenMode)].Flag = value; } }
         public bool bDynamicallyVisible { get { return this[nameof(bDynamicallyVisible)].Flag; } set { this[nameof(bDynamicallyVisible)].Flag = value; } }
-        public Array<HUDVisibilityRegisteredWidget> RegisteredWidgets { get { return new Array<HUDVisibilityRegisteredWidget>(this[nameof(RegisteredWidgets)].Address); } }
+        public UArray<HUDVisibilityRegisteredWidget> RegisteredWidgets { get { return new UArray<HUDVisibilityRegisteredWidget>(this[nameof(RegisteredWidgets)].Address); } }
         public EHUDVisibilityMode RecommendedMode { get { return (EHUDVisibilityMode)this[nameof(RecommendedMode)].GetValue<int>(); } set { this[nameof(RecommendedMode)].SetValue<int>((int)value); } }
         public EHUDVisibilityMode MinimalMode { get { return (EHUDVisibilityMode)this[nameof(MinimalMode)].GetValue<int>(); } set { this[nameof(MinimalMode)].SetValue<int>((int)value); } }
         public void VisibilityDelegate__DelegateSignature(HUDVisibilityGroup Group, bool IsVisible) { Invoke(nameof(VisibilityDelegate__DelegateSignature), Group, IsVisible); }
@@ -12683,14 +12687,14 @@ namespace SDK.Script.FSDSDK
         public void SetHudGroupDynamicallyVisible(HUDVisibilityGroup Group, bool IsVisible) { Invoke(nameof(SetHudGroupDynamicallyVisible), Group, IsVisible); }
         public void SetGroupDynamicallyVisible(bool IsVisible) { Invoke(nameof(SetGroupDynamicallyVisible), IsVisible); }
         public void RegisterWidgetWithVisibilityGroup(Widget Widget, HUDVisibilityGroup Group, ESlateVisibility VisibleMode, ESlateVisibility HiddenMode) { Invoke(nameof(RegisterWidgetWithVisibilityGroup), Widget, Group, VisibleMode, HiddenMode); }
-        public void RegisterMultipleWidgetsWithVisibilityGroup(Array<Widget> Widgets, HUDVisibilityGroup Group, ESlateVisibility VisibleMode, ESlateVisibility HiddenMode) { Invoke(nameof(RegisterMultipleWidgetsWithVisibilityGroup), Widgets, Group, VisibleMode, HiddenMode); }
+        public void RegisterMultipleWidgetsWithVisibilityGroup(UArray<Widget> Widgets, HUDVisibilityGroup Group, ESlateVisibility VisibleMode, ESlateVisibility HiddenMode) { Invoke(nameof(RegisterMultipleWidgetsWithVisibilityGroup), Widgets, Group, VisibleMode, HiddenMode); }
         public void ModeDelegate__DelegateSignature(HUDVisibilityGroup Group, EHUDVisibilityMode Mode) { Invoke(nameof(ModeDelegate__DelegateSignature), Group, Mode); }
         public bool IsModeAllowed(EHUDVisibilityMode InMode) { return Invoke<bool>(nameof(IsModeAllowed), InMode); }
         public bool IsInDynamicMode() { return Invoke<bool>(nameof(IsInDynamicMode)); }
         public bool IsHudGroupVisible(HUDVisibilityGroup Group) { return Invoke<bool>(nameof(IsHudGroupVisible), Group); }
         public bool IsGroupVisible() { return Invoke<bool>(nameof(IsGroupVisible)); }
         public EHUDVisibilityMode GetMode() { return Invoke<EHUDVisibilityMode>(nameof(GetMode)); }
-        public Array<EHUDVisibilityMode> GetAllowedModes() { return Invoke<Array<EHUDVisibilityMode>>(nameof(GetAllowedModes)); }
+        public UArray<EHUDVisibilityMode> GetAllowedModes() { return Invoke<UArray<EHUDVisibilityMode>>(nameof(GetAllowedModes)); }
     }
     public class HUDWarningWidget : FSDUserWidget
     {
@@ -12760,9 +12764,9 @@ namespace SDK.Script.FSDSDK
         public IconGenerationCharacter GeneratorInst { get { return this[nameof(GeneratorInst)].As<IconGenerationCharacter>(); } set { this["GeneratorInst"] = value; } }
         public IconGenerationPickaxe PickaxeGeneratorInst { get { return this[nameof(PickaxeGeneratorInst)].As<IconGenerationPickaxe>(); } set { this["PickaxeGeneratorInst"] = value; } }
         public IconGenerationWeapon WeaponGeneratorInst { get { return this[nameof(WeaponGeneratorInst)].As<IconGenerationWeapon>(); } set { this["WeaponGeneratorInst"] = value; } }
-        public Array<GenerateIconInfo> ItemGenerationQueue { get { return new Array<GenerateIconInfo>(this[nameof(ItemGenerationQueue)].Address); } }
-        public Array<EVanitySlot> VanitySlots { get { return new Array<EVanitySlot>(this[nameof(VanitySlots)].Address); } }
-        public Array<VanityItem> HairColorHairItems { get { return new Array<VanityItem>(this[nameof(HairColorHairItems)].Address); } }
+        public UArray<GenerateIconInfo> ItemGenerationQueue { get { return new UArray<GenerateIconInfo>(this[nameof(ItemGenerationQueue)].Address); } }
+        public UArray<EVanitySlot> VanitySlots { get { return new UArray<EVanitySlot>(this[nameof(VanitySlots)].Address); } }
+        public UArray<VanityItem> HairColorHairItems { get { return new UArray<VanityItem>(this[nameof(HairColorHairItems)].Address); } }
         public Object IconCharacter { get { return this[nameof(IconCharacter)]; } set { this[nameof(IconCharacter)] = value; } }
         public Object IconPickaxe { get { return this[nameof(IconPickaxe)]; } set { this[nameof(IconPickaxe)] = value; } }
         public Object IconWeapon { get { return this[nameof(IconWeapon)]; } set { this[nameof(IconWeapon)] = value; } }
@@ -12787,7 +12791,7 @@ namespace SDK.Script.FSDSDK
         public Craftable(nint addr) : base(addr) { }
         public void PreviewItem(FSDPlayerState PlayerState, bool Show) { Invoke(nameof(PreviewItem), PlayerState, Show); }
         public bool IsOwned(Object WorldContextObject, PlayerCharacterID characterID) { return Invoke<bool>(nameof(IsOwned), WorldContextObject, characterID); }
-        public Array<CraftingCost> GetResourceCost() { return Invoke<Array<CraftingCost>>(nameof(GetResourceCost)); }
+        public UArray<CraftingCost> GetResourceCost() { return Invoke<UArray<CraftingCost>>(nameof(GetResourceCost)); }
         public int GetRequiredPlayerRank() { return Invoke<int>(nameof(GetRequiredPlayerRank)); }
         public CraftingCost GetFashioniteCost() { return Invoke<CraftingCost>(nameof(GetFashioniteCost)); }
         public int GetCraftingCreditsCost() { return Invoke<int>(nameof(GetCraftingCreditsCost)); }
@@ -12825,11 +12829,11 @@ namespace SDK.Script.FSDSDK
     {
         public IKComponent(nint addr) : base(addr) { }
         public bool Enabled { get { return this[nameof(Enabled)].Flag; } set { this[nameof(Enabled)].Flag = value; } }
-        public Array<IKLegSetup> LegSetups { get { return new Array<IKLegSetup>(this[nameof(LegSetups)].Address); } }
-        public Array<IKSyncGroup> SyncGroups { get { return new Array<IKSyncGroup>(this[nameof(SyncGroups)].Address); } }
+        public UArray<IKLegSetup> LegSetups { get { return new UArray<IKLegSetup>(this[nameof(LegSetups)].Address); } }
+        public UArray<IKSyncGroup> SyncGroups { get { return new UArray<IKSyncGroup>(this[nameof(SyncGroups)].Address); } }
         public IKStyle IKStyle { get { return this[nameof(IKStyle)].As<IKStyle>(); } set { this["IKStyle"] = value; } }
         public SphereComponent BodyColi { get { return this[nameof(BodyColi)].As<SphereComponent>(); } set { this["BodyColi"] = value; } }
-        public Array<EndEffector> Effectors { get { return new Array<EndEffector>(this[nameof(Effectors)].Address); } }
+        public UArray<EndEffector> Effectors { get { return new UArray<EndEffector>(this[nameof(Effectors)].Address); } }
         public float EffectorWeight { get { return this[nameof(EffectorWeight)].GetValue<float>(); } set { this[nameof(EffectorWeight)].SetValue<float>(value); } }
         public bool EffectorsEnabled { get { return this[nameof(EffectorsEnabled)].Flag; } set { this[nameof(EffectorsEnabled)].Flag = value; } }
     }
@@ -12936,10 +12940,10 @@ namespace SDK.Script.FSDSDK
         public float ScaleDownOnDeathTime { get { return this[nameof(ScaleDownOnDeathTime)].GetValue<float>(); } set { this[nameof(ScaleDownOnDeathTime)].SetValue<float>(value); } }
         public MaterialInterface BaseMat { get { return this[nameof(BaseMat)].As<MaterialInterface>(); } set { this["BaseMat"] = value; } }
         public MaterialInterface GlowMat { get { return this[nameof(GlowMat)].As<MaterialInterface>(); } set { this["GlowMat"] = value; } }
-        public Array<StaticMesh> InfectionPointMeshes { get { return new Array<StaticMesh>(this[nameof(InfectionPointMeshes)].Address); } }
-        public Array<StaticMesh> InfectionSpikeMeshes { get { return new Array<StaticMesh>(this[nameof(InfectionSpikeMeshes)].Address); } }
+        public UArray<StaticMesh> InfectionPointMeshes { get { return new UArray<StaticMesh>(this[nameof(InfectionPointMeshes)].Address); } }
+        public UArray<StaticMesh> InfectionSpikeMeshes { get { return new UArray<StaticMesh>(this[nameof(InfectionSpikeMeshes)].Address); } }
         public HealthComponent HealthComponent { get { return this[nameof(HealthComponent)].As<HealthComponent>(); } set { this["HealthComponent"] = value; } }
-        public Array<StaticMeshComponent> MeshComponents { get { return new Array<StaticMeshComponent>(this[nameof(MeshComponents)].Address); } }
+        public UArray<StaticMeshComponent> MeshComponents { get { return new UArray<StaticMeshComponent>(this[nameof(MeshComponents)].Address); } }
         public uint RandomSeed { get { return this[nameof(RandomSeed)].GetValue<uint>(); } set { this[nameof(RandomSeed)].SetValue<uint>(value); } }
         public void OnRep_RandomSeed() { Invoke(nameof(OnRep_RandomSeed)); }
         public void OnDeath(HealthComponentBase enemy) { Invoke(nameof(OnDeath), enemy); }
@@ -12974,11 +12978,11 @@ namespace SDK.Script.FSDSDK
         public void SetMouseSmoothingOn(bool smoothingOn) { Invoke(nameof(SetMouseSmoothingOn), smoothingOn); }
         public bool IsMouseSmoothingOn() { return Invoke<bool>(nameof(IsMouseSmoothingOn)); }
         public bool IsMouseEventAction(PointerEvent MouseEvent, Object ActionName, bool IgnoreCustomBindings) { return Invoke<bool>(nameof(IsMouseEventAction), MouseEvent, ActionName, IgnoreCustomBindings); }
-        public bool IsKeyEventActionAny(KeyEvent KeyEvent, Array<Object> ActionNames, bool IgnoreCustomBindings) { return Invoke<bool>(nameof(IsKeyEventActionAny), KeyEvent, ActionNames, IgnoreCustomBindings); }
+        public bool IsKeyEventActionAny(KeyEvent KeyEvent, UArray<Object> ActionNames, bool IgnoreCustomBindings) { return Invoke<bool>(nameof(IsKeyEventActionAny), KeyEvent, ActionNames, IgnoreCustomBindings); }
         public bool IsKeyEventAction(KeyEvent KeyEvent, Object ActionName, bool IgnoreCustomBindings) { return Invoke<bool>(nameof(IsKeyEventAction), KeyEvent, ActionName, IgnoreCustomBindings); }
         public bool IsInputActionDown(PlayerController InPlayerController, Object InActionName) { return Invoke<bool>(nameof(IsInputActionDown), InPlayerController, InActionName); }
         public bool IsAxisMappedToDirectional(Object InActionName, Key Key, int Direction, bool IgnoreCustomBindings) { return Invoke<bool>(nameof(IsAxisMappedToDirectional), InActionName, Key, Direction, IgnoreCustomBindings); }
-        public bool IsAnyInputActionDown(PlayerController InPlayerController, Array<Object> InActionNames) { return Invoke<bool>(nameof(IsAnyInputActionDown), InPlayerController, InActionNames); }
+        public bool IsAnyInputActionDown(PlayerController InPlayerController, UArray<Object> InActionNames) { return Invoke<bool>(nameof(IsAnyInputActionDown), InPlayerController, InActionNames); }
         public bool IsActionMappedTo(Object InActionName, Key Key, bool IgnoreCustomBindings) { return Invoke<bool>(nameof(IsActionMappedTo), InActionName, Key, IgnoreCustomBindings); }
         public bool GetAxisMapping(Object InActionName, int Axis, bool InGamepadKeys, InputAxisKeyMapping OutResult) { return Invoke<bool>(nameof(GetAxisMapping), InActionName, Axis, InGamepadKeys, OutResult); }
         public bool GetActionMapping(Object InActionName, bool InGamepadKeys, InputActionKeyMapping OutResult) { return Invoke<bool>(nameof(GetActionMapping), InActionName, InGamepadKeys, OutResult); }
@@ -13010,14 +13014,14 @@ namespace SDK.Script.FSDSDK
         public float Speed { get { return this[nameof(Speed)].GetValue<float>(); } set { this[nameof(Speed)].SetValue<float>(value); } }
         public float VerticalOffset { get { return this[nameof(VerticalOffset)].GetValue<float>(); } set { this[nameof(VerticalOffset)].SetValue<float>(value); } }
         public Vector Scale { get { return this[nameof(Scale)].As<Vector>(); } set { this["Scale"] = value; } }
-        public Array<Transform> NewInstancesTransforms { get { return new Array<Transform>(this[nameof(NewInstancesTransforms)].Address); } }
+        public UArray<Transform> NewInstancesTransforms { get { return new UArray<Transform>(this[nameof(NewInstancesTransforms)].Address); } }
         public float Phase { get { return this[nameof(Phase)].GetValue<float>(); } set { this[nameof(Phase)].SetValue<float>(value); } }
         public void SetSpeed(float NewSpeed) { Invoke(nameof(SetSpeed), NewSpeed); }
     }
     public class InstancedNiagaraComponent : SceneComponent
     {
         public InstancedNiagaraComponent(nint addr) : base(addr) { }
-        public Array<EmitterConnection> Emitters { get { return new Array<EmitterConnection>(this[nameof(Emitters)].Address); } }
+        public UArray<EmitterConnection> Emitters { get { return new UArray<EmitterConnection>(this[nameof(Emitters)].Address); } }
         public NiagaraComponent NiagaraComponent { get { return this[nameof(NiagaraComponent)].As<NiagaraComponent>(); } set { this["NiagaraComponent"] = value; } }
         public void SpawnParticlesFromName(Vector Location, Object EmitterName) { Invoke(nameof(SpawnParticlesFromName), Location, EmitterName); }
         public void SpawnParticles(Vector Location, int EmitterIndex) { Invoke(nameof(SpawnParticles), Location, EmitterIndex); }
@@ -13025,8 +13029,8 @@ namespace SDK.Script.FSDSDK
     public class InventoryBase : ActorComponent
     {
         public InventoryBase(nint addr) : base(addr) { }
-        public Array<Actor> ActorsSelectable { get { return new Array<Actor>(this[nameof(ActorsSelectable)].Address); } }
-        public Array<Actor> ActorsNonSelectable { get { return new Array<Actor>(this[nameof(ActorsNonSelectable)].Address); } }
+        public UArray<Actor> ActorsSelectable { get { return new UArray<Actor>(this[nameof(ActorsSelectable)].Address); } }
+        public UArray<Actor> ActorsNonSelectable { get { return new UArray<Actor>(this[nameof(ActorsNonSelectable)].Address); } }
         public EquippedActorData ReplicatedEquippedActor { get { return this[nameof(ReplicatedEquippedActor)].As<EquippedActorData>(); } set { this["ReplicatedEquippedActor"] = value; } }
         public EquippedActorData EquippedActor { get { return this[nameof(EquippedActor)].As<EquippedActorData>(); } set { this["EquippedActor"] = value; } }
         public Actor LastEquippedActors { get { return this[nameof(LastEquippedActors)].As<Actor>(); } set { this["LastEquippedActors"] = value; } }
@@ -13036,8 +13040,8 @@ namespace SDK.Script.FSDSDK
         public void OnRep_EquippedActor(EquippedActorData OldActor) { Invoke(nameof(OnRep_EquippedActor), OldActor); }
         public void OnRep_ActorsSelectable() { Invoke(nameof(OnRep_ActorsSelectable)); }
         public void OnRep_ActorsNonSelectable() { Invoke(nameof(OnRep_ActorsNonSelectable)); }
-        public Array<Actor> GetSelectableActors() { return Invoke<Array<Actor>>(nameof(GetSelectableActors)); }
-        public Array<Actor> GetAllItems() { return Invoke<Array<Actor>>(nameof(GetAllItems)); }
+        public UArray<Actor> GetSelectableActors() { return Invoke<UArray<Actor>>(nameof(GetSelectableActors)); }
+        public UArray<Actor> GetAllItems() { return Invoke<UArray<Actor>>(nameof(GetAllItems)); }
         public void EquipPrevious() { Invoke(nameof(EquipPrevious)); }
         public void EquipNull() { Invoke(nameof(EquipNull)); }
         public void EquipNext() { Invoke(nameof(EquipNext)); }
@@ -13071,7 +13075,7 @@ namespace SDK.Script.FSDSDK
         public int MaxFlares { get { return this[nameof(MaxFlares)].GetValue<int>(); } set { this[nameof(MaxFlares)].SetValue<int>(value); } }
         public int Flares { get { return this[nameof(Flares)].GetValue<int>(); } set { this[nameof(Flares)].SetValue<int>(value); } }
         public float FlareCooldownRemaining { get { return this[nameof(FlareCooldownRemaining)].GetValue<float>(); } set { this[nameof(FlareCooldownRemaining)].SetValue<float>(value); } }
-        public Array<ItemUpgrade> FlareUpgrades { get { return new Array<ItemUpgrade>(this[nameof(FlareUpgrades)].Address); } }
+        public UArray<ItemUpgrade> FlareUpgrades { get { return new UArray<ItemUpgrade>(this[nameof(FlareUpgrades)].Address); } }
         public bool bItemsLoaded { get { return this[nameof(bItemsLoaded)].Flag; } set { this[nameof(bItemsLoaded)].Flag = value; } }
         public PickaxeItem MiningItem { get { return this[nameof(MiningItem)].As<PickaxeItem>(); } set { this["MiningItem"] = value; } }
         public ThrownGrenadeItem GrenadeItem { get { return this[nameof(GrenadeItem)].As<ThrownGrenadeItem>(); } set { this["GrenadeItem"] = value; } }
@@ -13117,24 +13121,24 @@ namespace SDK.Script.FSDSDK
         public ItemID LaserPointerItem { get { return this[nameof(LaserPointerItem)].As<ItemID>(); } set { this["LaserPointerItem"] = value; } }
         public ItemID TerrainScannerItem { get { return this[nameof(TerrainScannerItem)].As<ItemID>(); } set { this["TerrainScannerItem"] = value; } }
         public ItemID ResupplyItem { get { return this[nameof(ResupplyItem)].As<ItemID>(); } set { this["ResupplyItem"] = value; } }
-        public Array<ItemID> PrimaryWeapons { get { return new Array<ItemID>(this[nameof(PrimaryWeapons)].Address); } }
-        public Array<ItemID> SecondaryWeapons { get { return new Array<ItemID>(this[nameof(SecondaryWeapons)].Address); } }
-        public Array<ItemID> TraversalTools { get { return new Array<ItemID>(this[nameof(TraversalTools)].Address); } }
-        public Array<ItemID> ClassTools { get { return new Array<ItemID>(this[nameof(ClassTools)].Address); } }
-        public Array<ItemID> Armors { get { return new Array<ItemID>(this[nameof(Armors)].Address); } }
-        public Array<ItemID> Flares { get { return new Array<ItemID>(this[nameof(Flares)].Address); } }
-        public Array<ItemID> Grenades { get { return new Array<ItemID>(this[nameof(Grenades)].Address); } }
-        public Array<ItemID> MiningTools { get { return new Array<ItemID>(this[nameof(MiningTools)].Address); } }
+        public UArray<ItemID> PrimaryWeapons { get { return new UArray<ItemID>(this[nameof(PrimaryWeapons)].Address); } }
+        public UArray<ItemID> SecondaryWeapons { get { return new UArray<ItemID>(this[nameof(SecondaryWeapons)].Address); } }
+        public UArray<ItemID> TraversalTools { get { return new UArray<ItemID>(this[nameof(TraversalTools)].Address); } }
+        public UArray<ItemID> ClassTools { get { return new UArray<ItemID>(this[nameof(ClassTools)].Address); } }
+        public UArray<ItemID> Armors { get { return new UArray<ItemID>(this[nameof(Armors)].Address); } }
+        public UArray<ItemID> Flares { get { return new UArray<ItemID>(this[nameof(Flares)].Address); } }
+        public UArray<ItemID> Grenades { get { return new UArray<ItemID>(this[nameof(Grenades)].Address); } }
+        public UArray<ItemID> MiningTools { get { return new UArray<ItemID>(this[nameof(MiningTools)].Address); } }
         public ItemID GetPreviousUnlockedItem(Object WorldContextObject, EItemCategory Category, ItemID currentItem) { return Invoke<ItemID>(nameof(GetPreviousUnlockedItem), WorldContextObject, Category, currentItem); }
         public ItemID GetPreviousItem(EItemCategory Category, ItemID currentItem) { return Invoke<ItemID>(nameof(GetPreviousItem), Category, currentItem); }
         public int GetNumberOfItems(EItemCategory Category) { return Invoke<int>(nameof(GetNumberOfItems), Category); }
         public ItemID GetNextUnlockedItem(Object WorldContextObject, EItemCategory Category, ItemID currentItem) { return Invoke<ItemID>(nameof(GetNextUnlockedItem), WorldContextObject, Category, currentItem); }
         public ItemID GetNextItem(EItemCategory Category, ItemID currentItem) { return Invoke<ItemID>(nameof(GetNextItem), Category, currentItem); }
-        public Array<Object> GetLoadedItemListFiltered(EItemCategory Category, Object Filter) { return Invoke<Array<Object>>(nameof(GetLoadedItemListFiltered), Category, Filter); }
-        public Array<Object> GetLoadedItemList(EItemCategory Category) { return Invoke<Array<Object>>(nameof(GetLoadedItemList), Category); }
-        public Array<ItemID> GetItemList(EItemCategory Category) { return Invoke<Array<ItemID>>(nameof(GetItemList), Category); }
+        public UArray<Object> GetLoadedItemListFiltered(EItemCategory Category, Object Filter) { return Invoke<UArray<Object>>(nameof(GetLoadedItemListFiltered), Category, Filter); }
+        public UArray<Object> GetLoadedItemList(EItemCategory Category) { return Invoke<UArray<Object>>(nameof(GetLoadedItemList), Category); }
+        public UArray<ItemID> GetItemList(EItemCategory Category) { return Invoke<UArray<ItemID>>(nameof(GetItemList), Category); }
         public int GetItemIndex(EItemCategory Category, ItemID Item) { return Invoke<int>(nameof(GetItemIndex), Category, Item); }
-        public Array<ItemID> GetAllItemsList() { return Invoke<Array<ItemID>>(nameof(GetAllItemsList)); }
+        public UArray<ItemID> GetAllItemsList() { return Invoke<UArray<ItemID>>(nameof(GetAllItemsList)); }
         public void CheckForInventoryAchievements(Object WorldContextObject) { Invoke(nameof(CheckForInventoryAchievements), WorldContextObject); }
     }
     public class PlaySoundInterface : Interface
@@ -13172,7 +13176,7 @@ namespace SDK.Script.FSDSDK
         public HeatMaterialComponent(nint addr) : base(addr) { }
         public Object ParameterName { get { return this[nameof(ParameterName)]; } set { this[nameof(ParameterName)] = value; } }
         public float MaxEffect { get { return this[nameof(MaxEffect)].GetValue<float>(); } set { this[nameof(MaxEffect)].SetValue<float>(value); } }
-        public Array<MaterialInstanceDynamic> MaterialIntances { get { return new Array<MaterialInstanceDynamic>(this[nameof(MaterialIntances)].Address); } }
+        public UArray<MaterialInstanceDynamic> MaterialIntances { get { return new UArray<MaterialInstanceDynamic>(this[nameof(MaterialIntances)].Address); } }
         public void OnTemperatureChanged(float temperature, bool overheated) { Invoke(nameof(OnTemperatureChanged), temperature, overheated); }
         public void AddHeatMaterial(MaterialInstanceDynamic MaterialInstance) { Invoke(nameof(AddHeatMaterial), MaterialInstance); }
     }
@@ -13247,7 +13251,7 @@ namespace SDK.Script.FSDSDK
         public int RequiredCharacterLevel { get { return this[nameof(RequiredCharacterLevel)].GetValue<int>(); } set { this[nameof(RequiredCharacterLevel)].SetValue<int>(value); } }
         public Texture2D GetPreviewImage(Object WorldContext) { return Invoke<Texture2D>(nameof(GetPreviewImage), WorldContext); }
         public Object GetPreviewActorClass() { return Invoke<Object>(nameof(GetPreviewActorClass)); }
-        public Array<CraftingCost> GetCraftingCost() { return Invoke<Array<CraftingCost>>(nameof(GetCraftingCost)); }
+        public UArray<CraftingCost> GetCraftingCost() { return Invoke<UArray<CraftingCost>>(nameof(GetCraftingCost)); }
     }
     public class ItemDispenser : Actor
     {
@@ -13256,7 +13260,7 @@ namespace SDK.Script.FSDSDK
         public InstantUsable Usable { get { return this[nameof(Usable)].As<InstantUsable>(); } set { this["Usable"] = value; } }
         public Object OnItemSpawned { get { return this[nameof(OnItemSpawned)]; } set { this[nameof(OnItemSpawned)] = value; } }
         public Object OnItemTaken { get { return this[nameof(OnItemTaken)]; } set { this[nameof(OnItemTaken)] = value; } }
-        public Array<Actor> ItemHistory { get { return new Array<Actor>(this[nameof(ItemHistory)].Address); } }
+        public UArray<Actor> ItemHistory { get { return new UArray<Actor>(this[nameof(ItemHistory)].Address); } }
         public Object itemClass { get { return this[nameof(itemClass)]; } set { this[nameof(itemClass)] = value; } }
         public Actor spawnedItem { get { return this[nameof(spawnedItem)].As<Actor>(); } set { this["spawnedItem"] = value; } }
         public float ItemSpawnTime { get { return this[nameof(ItemSpawnTime)].GetValue<float>(); } set { this[nameof(ItemSpawnTime)].SetValue<float>(value); } }
@@ -13278,8 +13282,8 @@ namespace SDK.Script.FSDSDK
     public class WeaponMaintenanceSettings : DataAsset
     {
         public WeaponMaintenanceSettings(nint addr) : base(addr) { }
-        public Array<int> LevelXPRequirements { get { return new Array<int>(this[nameof(LevelXPRequirements)].Address); } }
-        public Array<ItemSkin> LevelRewards { get { return new Array<ItemSkin>(this[nameof(LevelRewards)].Address); } }
+        public UArray<int> LevelXPRequirements { get { return new UArray<int>(this[nameof(LevelXPRequirements)].Address); } }
+        public UArray<ItemSkin> LevelRewards { get { return new UArray<ItemSkin>(this[nameof(LevelRewards)].Address); } }
         public SpaceRigNotification WeaponUnlockedNotification { get { return this[nameof(WeaponUnlockedNotification)].As<SpaceRigNotification>(); } set { this["WeaponUnlockedNotification"] = value; } }
     }
     public class WeaponMaintenanceAquisition : ItemAquisitionBase
@@ -13320,7 +13324,7 @@ namespace SDK.Script.FSDSDK
     public class ItemPlacerAggregator : ItemAggregator
     {
         public ItemPlacerAggregator(nint addr) : base(addr) { }
-        public Array<Object> IgnoreActors { get { return new Array<Object>(this[nameof(IgnoreActors)].Address); } }
+        public UArray<Object> IgnoreActors { get { return new UArray<Object>(this[nameof(IgnoreActors)].Address); } }
         public Object OnMarkerSpawned { get { return this[nameof(OnMarkerSpawned)]; } set { this[nameof(OnMarkerSpawned)] = value; } }
         public Object OnPlacementChanged { get { return this[nameof(OnPlacementChanged)]; } set { this[nameof(OnPlacementChanged)] = value; } }
         public float PlacementDistance { get { return this[nameof(PlacementDistance)].GetValue<float>(); } set { this[nameof(PlacementDistance)].SetValue<float>(value); } }
@@ -13332,8 +13336,8 @@ namespace SDK.Script.FSDSDK
         public bool CanOnlyPlaceOnTerrain { get { return this[nameof(CanOnlyPlaceOnTerrain)].Flag; } set { this[nameof(CanOnlyPlaceOnTerrain)].Flag = value; } }
         public GameplayTagQuery ExcludeTags { get { return this[nameof(ExcludeTags)].As<GameplayTagQuery>(); } set { this["ExcludeTags"] = value; } }
         public GameplayTagQuery IncludeTags { get { return this[nameof(IncludeTags)].As<GameplayTagQuery>(); } set { this["IncludeTags"] = value; } }
-        public Array<Object> InvalidAroundActors { get { return new Array<Object>(this[nameof(InvalidAroundActors)].Address); } }
-        public Array<TerrainMaterial> InvalidMaterials { get { return new Array<TerrainMaterial>(this[nameof(InvalidMaterials)].Address); } }
+        public UArray<Object> InvalidAroundActors { get { return new UArray<Object>(this[nameof(InvalidAroundActors)].Address); } }
+        public UArray<TerrainMaterial> InvalidMaterials { get { return new UArray<TerrainMaterial>(this[nameof(InvalidMaterials)].Address); } }
         public float InvalidAroundSize { get { return this[nameof(InvalidAroundSize)].GetValue<float>(); } set { this[nameof(InvalidAroundSize)].SetValue<float>(value); } }
         public ItemMarker PlacementMarker { get { return this[nameof(PlacementMarker)].As<ItemMarker>(); } set { this["PlacementMarker"] = value; } }
         public Item Item { get { return this[nameof(Item)].As<Item>(); } set { this["Item"] = value; } }
@@ -13373,7 +13377,7 @@ namespace SDK.Script.FSDSDK
     {
         public ItemRefundList(nint addr) : base(addr) { }
         public bool ResetListOnSave { get { return this[nameof(ResetListOnSave)].Flag; } set { this[nameof(ResetListOnSave)].Flag = value; } }
-        public Array<Object> Items { get { return new Array<Object>(this[nameof(Items)].Address); } }
+        public UArray<Object> Items { get { return new UArray<Object>(this[nameof(Items)].Address); } }
         public Object ItemsToRefund { get { return this[nameof(ItemsToRefund)]; } set { this[nameof(ItemsToRefund)] = value; } }
     }
     public class ItemsBarIcon : UserWidget
@@ -13393,7 +13397,7 @@ namespace SDK.Script.FSDSDK
         public ItemsBar(nint addr) : base(addr) { }
         public Object DefaultItemWidget { get { return this[nameof(DefaultItemWidget)]; } set { this[nameof(DefaultItemWidget)] = value; } }
         public bool bShowSupplyItem { get { return this[nameof(bShowSupplyItem)].Flag; } set { this[nameof(bShowSupplyItem)].Flag = value; } }
-        public Array<ItemsBarIcon> ItemIcons { get { return new Array<ItemsBarIcon>(this[nameof(ItemIcons)].Address); } }
+        public UArray<ItemsBarIcon> ItemIcons { get { return new UArray<ItemsBarIcon>(this[nameof(ItemIcons)].Address); } }
         public ItemsBarIcon SupplyIcon { get { return this[nameof(SupplyIcon)].As<ItemsBarIcon>(); } set { this["SupplyIcon"] = value; } }
         public ItemsBarIcon SelectedIcon { get { return this[nameof(SelectedIcon)].As<ItemsBarIcon>(); } set { this["SelectedIcon"] = value; } }
         public void OnSupplyItemUnequipped(ItemsBarIcon ItemIcon) { Invoke(nameof(OnSupplyItemUnequipped), ItemIcon); }
@@ -13411,7 +13415,7 @@ namespace SDK.Script.FSDSDK
     public class ItemSettings : DataAsset
     {
         public ItemSettings(nint addr) : base(addr) { }
-        public Array<ItemRefundList> ItemRefunds { get { return new Array<ItemRefundList>(this[nameof(ItemRefunds)].Address); } }
+        public UArray<ItemRefundList> ItemRefunds { get { return new UArray<ItemRefundList>(this[nameof(ItemRefunds)].Address); } }
         public Object ItemData { get { return this[nameof(ItemData)]; } set { this[nameof(ItemData)] = value; } }
     }
     public class ItemSkin : SavablePrimaryDataAsset
@@ -13445,8 +13449,8 @@ namespace SDK.Script.FSDSDK
     {
         public ItemSkinSettings(nint addr) : base(addr) { }
         public ItemSkinSet StockSet { get { return this[nameof(StockSet)].As<ItemSkinSet>(); } set { this["StockSet"] = value; } }
-        public Array<ItemSkin> LoadedSkins { get { return new Array<ItemSkin>(this[nameof(LoadedSkins)].Address); } }
-        public Array<ItemSkin> FindableSkins { get { return new Array<ItemSkin>(this[nameof(FindableSkins)].Address); } }
+        public UArray<ItemSkin> LoadedSkins { get { return new UArray<ItemSkin>(this[nameof(LoadedSkins)].Address); } }
+        public UArray<ItemSkin> FindableSkins { get { return new UArray<ItemSkin>(this[nameof(FindableSkins)].Address); } }
     }
     public class ItemSkinFunctionLibrary : BlueprintFunctionLibrary
     {
@@ -13474,14 +13478,14 @@ namespace SDK.Script.FSDSDK
         public EUpgradeClass upgradeClass { get { return (EUpgradeClass)this[nameof(upgradeClass)].GetValue<int>(); } set { this[nameof(upgradeClass)].SetValue<int>((int)value); } }
         public ItemUpgradeCategory Category { get { return this[nameof(Category)].As<ItemUpgradeCategory>(); } set { this["Category"] = value; } }
         public Object UpgradeCraftingCost { get { return this[nameof(UpgradeCraftingCost)]; } set { this[nameof(UpgradeCraftingCost)] = value; } }
-        public Array<ResourceData> ResourceCost { get { return new Array<ResourceData>(this[nameof(ResourceCost)].Address); } }
-        public Array<ItemUpgradeElement> Elements { get { return new Array<ItemUpgradeElement>(this[nameof(Elements)].Address); } }
-        public Array<ItemUpgradeStatText> StatTexts { get { return new Array<ItemUpgradeStatText>(this[nameof(StatTexts)].Address); } }
+        public UArray<ResourceData> ResourceCost { get { return new UArray<ResourceData>(this[nameof(ResourceCost)].Address); } }
+        public UArray<ItemUpgradeElement> Elements { get { return new UArray<ItemUpgradeElement>(this[nameof(Elements)].Address); } }
+        public UArray<ItemUpgradeStatText> StatTexts { get { return new UArray<ItemUpgradeStatText>(this[nameof(StatTexts)].Address); } }
         public void UnequipUpgrade(Object itemClass, FSDPlayerState PlayerState) { Invoke(nameof(UnequipUpgrade), itemClass, PlayerState); }
         public void ItemUpgradeSignature__DelegateSignature(ItemUpgrade Upgrade) { Invoke(nameof(ItemUpgradeSignature__DelegateSignature), Upgrade); }
-        public Array<ItemUpgradeStatText> GetUpgradeStatTexts() { return Invoke<Array<ItemUpgradeStatText>>(nameof(GetUpgradeStatTexts)); }
+        public UArray<ItemUpgradeStatText> GetUpgradeStatTexts() { return Invoke<UArray<ItemUpgradeStatText>>(nameof(GetUpgradeStatTexts)); }
         public Object GetUpgradeName(ItemUpgrade Upgrade) { return Invoke<Object>(nameof(GetUpgradeName), Upgrade); }
-        public Array<CraftingCost> GetUpgradeCost() { return Invoke<Array<CraftingCost>>(nameof(GetUpgradeCost)); }
+        public UArray<CraftingCost> GetUpgradeCost() { return Invoke<UArray<CraftingCost>>(nameof(GetUpgradeCost)); }
         public Object GetSourceName() { return Invoke<Object>(nameof(GetSourceName)); }
         public UpgradeValues GetGenericUpgradedValue(Object Item, FSDPlayerState Player, ItemUpgrade upgradeClass) { return Invoke<UpgradeValues>(nameof(GetGenericUpgradedValue), Item, Player, upgradeClass); }
         public float GetCreditsCost() { return Invoke<float>(nameof(GetCreditsCost)); }
@@ -13490,9 +13494,9 @@ namespace SDK.Script.FSDSDK
     public class CombinedUpgrade : ItemUpgrade
     {
         public CombinedUpgrade(nint addr) : base(addr) { }
-        public Array<Object> CombinedUpgrades { get { return new Array<Object>(this[nameof(CombinedUpgrades)].Address); } }
-        public Array<ItemUpgrade> LoadedUpgrades { get { return new Array<ItemUpgrade>(this[nameof(LoadedUpgrades)].Address); } }
-        public Array<ItemUpgrade> GetUpgrades() { return Invoke<Array<ItemUpgrade>>(nameof(GetUpgrades)); }
+        public UArray<Object> CombinedUpgrades { get { return new UArray<Object>(this[nameof(CombinedUpgrades)].Address); } }
+        public UArray<ItemUpgrade> LoadedUpgrades { get { return new UArray<ItemUpgrade>(this[nameof(LoadedUpgrades)].Address); } }
+        public UArray<ItemUpgrade> GetUpgrades() { return Invoke<UArray<ItemUpgrade>>(nameof(GetUpgrades)); }
     }
     public class OverclockUpgrade : CombinedUpgrade
     {
@@ -13519,7 +13523,7 @@ namespace SDK.Script.FSDSDK
     public class ProjectileClassFilterItemUpgradeCondition : ItemUpgradeCondition
     {
         public ProjectileClassFilterItemUpgradeCondition(nint addr) : base(addr) { }
-        public Array<Object> ProjectileClasses { get { return new Array<Object>(this[nameof(ProjectileClasses)].Address); } }
+        public UArray<Object> ProjectileClasses { get { return new UArray<Object>(this[nameof(ProjectileClasses)].Address); } }
     }
     public class ItemUpgradeElement : DataAsset
     {
@@ -13818,7 +13822,7 @@ namespace SDK.Script.FSDSDK
     public class StatusDamageBonusUpgrade : ItemUpgrade
     {
         public StatusDamageBonusUpgrade(nint addr) : base(addr) { }
-        public Array<Object> StatusEffects { get { return new Array<Object>(this[nameof(StatusEffects)].Address); } }
+        public UArray<Object> StatusEffects { get { return new UArray<Object>(this[nameof(StatusEffects)].Address); } }
         public float Bonus { get { return this[nameof(Bonus)].GetValue<float>(); } set { this[nameof(Bonus)].SetValue<float>(value); } }
         public DamageClass DamageClass { get { return this[nameof(DamageClass)].As<DamageClass>(); } set { this["DamageClass"] = value; } }
         public UpgradeValues GetUpgradedValue(Object Item, FSDPlayerState Player, Object StatusEffect) { return Invoke<UpgradeValues>(nameof(GetUpgradedValue), Item, Player, StatusEffect); }
@@ -13826,8 +13830,8 @@ namespace SDK.Script.FSDSDK
     public class StatusAndStateDamageBonusUpgrade : ItemUpgrade
     {
         public StatusAndStateDamageBonusUpgrade(nint addr) : base(addr) { }
-        public Array<Object> StatusEffects { get { return new Array<Object>(this[nameof(StatusEffects)].Address); } }
-        public Array<ETargetStateDamageBonusType> TargetStates { get { return new Array<ETargetStateDamageBonusType>(this[nameof(TargetStates)].Address); } }
+        public UArray<Object> StatusEffects { get { return new UArray<Object>(this[nameof(StatusEffects)].Address); } }
+        public UArray<ETargetStateDamageBonusType> TargetStates { get { return new UArray<ETargetStateDamageBonusType>(this[nameof(TargetStates)].Address); } }
         public float Bonus { get { return this[nameof(Bonus)].GetValue<float>(); } set { this[nameof(Bonus)].SetValue<float>(value); } }
         public DamageClass DamageClass { get { return this[nameof(DamageClass)].As<DamageClass>(); } set { this["DamageClass"] = value; } }
     }
@@ -13864,19 +13868,19 @@ namespace SDK.Script.FSDSDK
     public class DamageTagBonusUpgrade : ItemUpgrade
     {
         public DamageTagBonusUpgrade(nint addr) : base(addr) { }
-        public Array<DamageTag> Tags { get { return new Array<DamageTag>(this[nameof(Tags)].Address); } }
+        public UArray<DamageTag> Tags { get { return new UArray<DamageTag>(this[nameof(Tags)].Address); } }
     }
     public class ConditionalDamageTagBonusUpgrade : ItemUpgrade
     {
         public ConditionalDamageTagBonusUpgrade(nint addr) : base(addr) { }
-        public Array<DamageTag> Tags { get { return new Array<DamageTag>(this[nameof(Tags)].Address); } }
+        public UArray<DamageTag> Tags { get { return new UArray<DamageTag>(this[nameof(Tags)].Address); } }
         public DamageCondition Condition { get { return this[nameof(Condition)].As<DamageCondition>(); } set { this["Condition"] = value; } }
     }
     public class ConditionalDamageModifierUpgrade : ItemUpgrade
     {
         public ConditionalDamageModifierUpgrade(nint addr) : base(addr) { }
         public DamageCondition Condition { get { return this[nameof(Condition)].As<DamageCondition>(); } set { this["Condition"] = value; } }
-        public Array<DamageModifierItem> Modifiers { get { return new Array<DamageModifierItem>(this[nameof(Modifiers)].Address); } }
+        public UArray<DamageModifierItem> Modifiers { get { return new UArray<DamageModifierItem>(this[nameof(Modifiers)].Address); } }
         public UpgradeValues GetUpgradedValue(Object Item, FSDPlayerState Player) { return Invoke<UpgradeValues>(nameof(GetUpgradedValue), Item, Player); }
     }
     public class FearAoEBonusUpgrade : ItemUpgrade
@@ -14122,12 +14126,12 @@ namespace SDK.Script.FSDSDK
     public class Upgradable : Interface
     {
         public Upgradable(nint addr) : base(addr) { }
-        public void Upgraded(Array<ItemUpgrade> Upgrades) { Invoke(nameof(Upgraded), Upgrades); }
+        public void Upgraded(UArray<ItemUpgrade> Upgrades) { Invoke(nameof(Upgraded), Upgrades); }
     }
     public class UpgradableGear : Interface
     {
         public UpgradableGear(nint addr) : base(addr) { }
-        public void GetGearStatEntry(FSDPlayerState PlayerState, Array<GearStatEntry> Stats) { Invoke(nameof(GetGearStatEntry), PlayerState, Stats); }
+        public void GetGearStatEntry(FSDPlayerState PlayerState, UArray<GearStatEntry> Stats) { Invoke(nameof(GetGearStatEntry), PlayerState, Stats); }
     }
     public class Vacuumable : Interface
     {
@@ -14286,10 +14290,10 @@ namespace SDK.Script.FSDSDK
         public JettyBootsPlayer Player { get { return this[nameof(Player)].As<JettyBootsPlayer>(); } set { this["Player"] = value; } }
         public int MaxDistanceToPlay { get { return this[nameof(MaxDistanceToPlay)].GetValue<int>(); } set { this[nameof(MaxDistanceToPlay)].SetValue<int>(value); } }
         public SceneComponent MaxDistanceComponent { get { return this[nameof(MaxDistanceComponent)].As<SceneComponent>(); } set { this["MaxDistanceComponent"] = value; } }
-        public Array<AnimMontage> AnimPlaying { get { return new Array<AnimMontage>(this[nameof(AnimPlaying)].Address); } }
-        public Array<AnimMontage> AnimFailed { get { return new Array<AnimMontage>(this[nameof(AnimFailed)].Address); } }
-        public Array<AnimMontage> AnimSucces { get { return new Array<AnimMontage>(this[nameof(AnimSucces)].Address); } }
-        public Array<JettyBootNPC> HighScoreNPCs { get { return new Array<JettyBootNPC>(this[nameof(HighScoreNPCs)].Address); } }
+        public UArray<AnimMontage> AnimPlaying { get { return new UArray<AnimMontage>(this[nameof(AnimPlaying)].Address); } }
+        public UArray<AnimMontage> AnimFailed { get { return new UArray<AnimMontage>(this[nameof(AnimFailed)].Address); } }
+        public UArray<AnimMontage> AnimSucces { get { return new UArray<AnimMontage>(this[nameof(AnimSucces)].Address); } }
+        public UArray<JettyBootNPC> HighScoreNPCs { get { return new UArray<JettyBootNPC>(this[nameof(HighScoreNPCs)].Address); } }
         public JettyBootsSave JettyBootsSave { get { return this[nameof(JettyBootsSave)].As<JettyBootsSave>(); } set { this["JettyBootsSave"] = value; } }
         public void SetActivePlayer(PlayerCharacter InPlayer) { Invoke(nameof(SetActivePlayer), InPlayer); }
         public void Server_ReplayPackage(JettyBootsReplay InPackage) { Invoke(nameof(Server_ReplayPackage), InPackage); }
@@ -14303,7 +14307,7 @@ namespace SDK.Script.FSDSDK
         public void OnCharacterMontageEnded(AnimMontage InMontage, bool InInterrupted) { Invoke(nameof(OnCharacterMontageEnded), InMontage, InInterrupted); }
         public bool IsPlayerWithinDistance() { return Invoke<bool>(nameof(IsPlayerWithinDistance)); }
         public int GetLastHighScoreIndex() { return Invoke<int>(nameof(GetLastHighScoreIndex)); }
-        public Array<JettyBootsScore> GetHighScores() { return Invoke<Array<JettyBootsScore>>(nameof(GetHighScores)); }
+        public UArray<JettyBootsScore> GetHighScores() { return Invoke<UArray<JettyBootsScore>>(nameof(GetHighScores)); }
         public PlayerCharacter GetActivePlayer() { return Invoke<PlayerCharacter>(nameof(GetActivePlayer)); }
         public void ClearHighScores() { Invoke(nameof(ClearHighScores)); }
         public void All_ReplayPackage(JettyBootsReplay InPackage) { Invoke(nameof(All_ReplayPackage), InPackage); }
@@ -14360,7 +14364,7 @@ namespace SDK.Script.FSDSDK
     {
         public SpriteRectLibrary(nint addr) : base(addr) { }
         public SpriteRect TranslateSpriteRect(SpriteRect Rect, Vector2D Offset) { return Invoke<SpriteRect>(nameof(TranslateSpriteRect), Rect, Offset); }
-        public bool SpriteRectIntersectsAny(SpriteRect A, Array<SpriteRect> Others) { return Invoke<bool>(nameof(SpriteRectIntersectsAny), A, Others); }
+        public bool SpriteRectIntersectsAny(SpriteRect A, UArray<SpriteRect> Others) { return Invoke<bool>(nameof(SpriteRectIntersectsAny), A, Others); }
         public bool SpriteRectIntersects(SpriteRect A, SpriteRect B) { return Invoke<bool>(nameof(SpriteRectIntersects), A, B); }
         public void MoveSpriteRect(SpriteRect Rect, Vector2D Offset) { Invoke(nameof(MoveSpriteRect), Rect, Offset); }
         public SpriteRect MakeSpriteRectFromPoints(Vector2D Start, Vector2D End) { return Invoke<SpriteRect>(nameof(MakeSpriteRectFromPoints), Start, End); }
@@ -14383,13 +14387,13 @@ namespace SDK.Script.FSDSDK
     public class JettyBootSettings : DataAsset
     {
         public JettyBootSettings(nint addr) : base(addr) { }
-        public Array<JettyBootSetting> LevelSettings { get { return new Array<JettyBootSetting>(this[nameof(LevelSettings)].Address); } }
+        public UArray<JettyBootSetting> LevelSettings { get { return new UArray<JettyBootSetting>(this[nameof(LevelSettings)].Address); } }
         public JettyBootSetting GetLevelSetting(int InLevel) { return Invoke<JettyBootSetting>(nameof(GetLevelSetting), InLevel); }
     }
     public class KeepInsideWorld : ActorComponent
     {
         public KeepInsideWorld(nint addr) : base(addr) { }
-        public Array<Object> ActorsToKeepInsideWorld { get { return new Array<Object>(this[nameof(ActorsToKeepInsideWorld)].Address); } }
+        public UArray<Object> ActorsToKeepInsideWorld { get { return new UArray<Object>(this[nameof(ActorsToKeepInsideWorld)].Address); } }
         public int IteratorIndex { get { return this[nameof(IteratorIndex)].GetValue<int>(); } set { this[nameof(IteratorIndex)].SetValue<int>(value); } }
         public void UnregisterForKeepInsideWorld(Object WorldContextObject, Actor Actor) { Invoke(nameof(UnregisterForKeepInsideWorld), WorldContextObject, Actor); }
         public void RegisterForKeepInsideWorld(Object WorldContextObject, Actor Actor) { Invoke(nameof(RegisterForKeepInsideWorld), WorldContextObject, Actor); }
@@ -14438,7 +14442,7 @@ namespace SDK.Script.FSDSDK
         public GameplayTagContainer enemyTags { get { return this[nameof(enemyTags)].As<GameplayTagContainer>(); } set { this["enemyTags"] = value; } }
         public Object WaypointType { get { return this[nameof(WaypointType)]; } set { this[nameof(WaypointType)] = value; } }
         public int MaxWaypoints { get { return this[nameof(MaxWaypoints)].GetValue<int>(); } set { this[nameof(MaxWaypoints)].SetValue<int>(value); } }
-        public Array<LaserPointerWaypoint> Waypoints { get { return new Array<LaserPointerWaypoint>(this[nameof(Waypoints)].Address); } }
+        public UArray<LaserPointerWaypoint> Waypoints { get { return new UArray<LaserPointerWaypoint>(this[nameof(Waypoints)].Address); } }
         public int NextWaypointIndex { get { return this[nameof(NextWaypointIndex)].GetValue<int>(); } set { this[nameof(NextWaypointIndex)].SetValue<int>(value); } }
         public float MarkerLifeTime { get { return this[nameof(MarkerLifeTime)].GetValue<float>(); } set { this[nameof(MarkerLifeTime)].SetValue<float>(value); } }
         public DialogDataAsset DefaultLookAtShout { get { return this[nameof(DefaultLookAtShout)].As<DialogDataAsset>(); } set { this["DefaultLookAtShout"] = value; } }
@@ -14463,7 +14467,7 @@ namespace SDK.Script.FSDSDK
     public class LegacySettings : DataAsset
     {
         public LegacySettings(nint addr) : base(addr) { }
-        public Array<Object> ArmorMeshes { get { return new Array<Object>(this[nameof(ArmorMeshes)].Address); } }
+        public UArray<Object> ArmorMeshes { get { return new UArray<Object>(this[nameof(ArmorMeshes)].Address); } }
     }
     public class LevelGenerationDebris : ActorComponent
     {
@@ -14487,18 +14491,18 @@ namespace SDK.Script.FSDSDK
     public class LimbDismembermentList : DataAsset
     {
         public LimbDismembermentList(nint addr) : base(addr) { }
-        public Array<Object> Bones { get { return new Array<Object>(this[nameof(Bones)].Address); } }
+        public UArray<Object> Bones { get { return new UArray<Object>(this[nameof(Bones)].Address); } }
     }
     public class GibPartsList : DataAsset
     {
         public GibPartsList(nint addr) : base(addr) { }
-        public Array<StaticMesh> GibMeshes { get { return new Array<StaticMesh>(this[nameof(GibMeshes)].Address); } }
+        public UArray<StaticMesh> GibMeshes { get { return new UArray<StaticMesh>(this[nameof(GibMeshes)].Address); } }
         public void SetGibMeshesAndMaterialsOnFX(NiagaraComponent ns, MaterialInstance Material, float Scale) { Invoke(nameof(SetGibMeshesAndMaterialsOnFX), ns, Material, Scale); }
     }
     public class LineSegmentCarverComponent : GenerationComponent
     {
         public LineSegmentCarverComponent(nint addr) : base(addr) { }
-        public Array<LineSegmentCarverPoint> LinePoints { get { return new Array<LineSegmentCarverPoint>(this[nameof(LinePoints)].Address); } }
+        public UArray<LineSegmentCarverPoint> LinePoints { get { return new UArray<LineSegmentCarverPoint>(this[nameof(LinePoints)].Address); } }
         public bool Visible { get { return this[nameof(Visible)].Flag; } set { this[nameof(Visible)].Flag = value; } }
         public int Layer { get { return this[nameof(Layer)].GetValue<int>(); } set { this[nameof(Layer)].SetValue<int>(value); } }
         public float Cielingheight { get { return this[nameof(Cielingheight)].GetValue<float>(); } set { this[nameof(Cielingheight)].SetValue<float>(value); } }
@@ -14594,7 +14598,7 @@ namespace SDK.Script.FSDSDK
     public class LineSegmentFillerComponent : GenerationComponent
     {
         public LineSegmentFillerComponent(nint addr) : base(addr) { }
-        public Array<LineSegmentFillerPoint> LinePoints { get { return new Array<LineSegmentFillerPoint>(this[nameof(LinePoints)].Address); } }
+        public UArray<LineSegmentFillerPoint> LinePoints { get { return new UArray<LineSegmentFillerPoint>(this[nameof(LinePoints)].Address); } }
         public bool Visible { get { return this[nameof(Visible)].Flag; } set { this[nameof(Visible)].Flag = value; } }
         public FloodFillSettings NoiseOverride { get { return this[nameof(NoiseOverride)].As<FloodFillSettings>(); } set { this["NoiseOverride"] = value; } }
         public RandRange RangeScale { get { return this[nameof(RangeScale)].As<RandRange>(); } set { this["RangeScale"] = value; } }
@@ -14633,7 +14637,7 @@ namespace SDK.Script.FSDSDK
     public class SpecialAttackComponent : AttackBaseComponent
     {
         public SpecialAttackComponent(nint addr) : base(addr) { }
-        public Array<AnimMontage> Montages { get { return new Array<AnimMontage>(this[nameof(Montages)].Address); } }
+        public UArray<AnimMontage> Montages { get { return new UArray<AnimMontage>(this[nameof(Montages)].Address); } }
         public Object OnAttackActionNotify { get { return this[nameof(OnAttackActionNotify)]; } set { this[nameof(OnAttackActionNotify)] = value; } }
         public void TriggerAttack(Object Name) { Invoke(nameof(TriggerAttack), Name); }
         public AnimMontage SelectMontage() { return Invoke<AnimMontage>(nameof(SelectMontage)); }
@@ -14647,15 +14651,15 @@ namespace SDK.Script.FSDSDK
         public LineSpikeAttack(nint addr) : base(addr) { }
         public MaterialInterface TentacleMaterial { get { return this[nameof(TentacleMaterial)].As<MaterialInterface>(); } set { this["TentacleMaterial"] = value; } }
         public MaterialInstance ActiveMaterial { get { return this[nameof(ActiveMaterial)].As<MaterialInstance>(); } set { this["ActiveMaterial"] = value; } }
-        public Array<Object> ActiveParticles { get { return new Array<Object>(this[nameof(ActiveParticles)].Address); } }
+        public UArray<Object> ActiveParticles { get { return new UArray<Object>(this[nameof(ActiveParticles)].Address); } }
         public NiagaraSystem TentacleImpactParticles { get { return this[nameof(TentacleImpactParticles)].As<NiagaraSystem>(); } set { this["TentacleImpactParticles"] = value; } }
         public NiagaraSystem StartWaveParticles { get { return this[nameof(StartWaveParticles)].As<NiagaraSystem>(); } set { this["StartWaveParticles"] = value; } }
         public SoundCue TentacleImpactSound { get { return this[nameof(TentacleImpactSound)].As<SoundCue>(); } set { this["TentacleImpactSound"] = value; } }
         public SoundCue TentacleExitSound { get { return this[nameof(TentacleExitSound)].As<SoundCue>(); } set { this["TentacleExitSound"] = value; } }
         public SoundCue StartWaveSound { get { return this[nameof(StartWaveSound)].As<SoundCue>(); } set { this["StartWaveSound"] = value; } }
         public NiagaraComponent Tentacles { get { return this[nameof(Tentacles)].As<NiagaraComponent>(); } set { this["Tentacles"] = value; } }
-        public Array<LineSpikeTaskBase> Sequence { get { return new Array<LineSpikeTaskBase>(this[nameof(Sequence)].Address); } }
-        public Array<Actor> Children { get { return new Array<Actor>(this[nameof(Children)].Address); } }
+        public UArray<LineSpikeTaskBase> Sequence { get { return new UArray<LineSpikeTaskBase>(this[nameof(Sequence)].Address); } }
+        public UArray<Actor> Children { get { return new UArray<Actor>(this[nameof(Children)].Address); } }
         public int SequenceLoops { get { return this[nameof(SequenceLoops)].GetValue<int>(); } set { this[nameof(SequenceLoops)].SetValue<int>(value); } }
         public Object SpikeClass { get { return this[nameof(SpikeClass)]; } set { this[nameof(SpikeClass)] = value; } }
         public bool TentaclesBurried { get { return this[nameof(TentaclesBurried)].Flag; } set { this[nameof(TentaclesBurried)].Flag = value; } }
@@ -14697,12 +14701,12 @@ namespace SDK.Script.FSDSDK
     public class LocalizationFunctionLibrary : BlueprintFunctionLibrary
     {
         public LocalizationFunctionLibrary(nint addr) : base(addr) { }
-        public Array<LocalizedLanguageInfo> GetLocalizedLanguages() { return Invoke<Array<LocalizedLanguageInfo>>(nameof(GetLocalizedLanguages)); }
+        public UArray<LocalizedLanguageInfo> GetLocalizedLanguages() { return Invoke<UArray<LocalizedLanguageInfo>>(nameof(GetLocalizedLanguages)); }
     }
     public class FSDLocalizationSettings : DeveloperSettings
     {
         public FSDLocalizationSettings(nint addr) : base(addr) { }
-        public Array<FSDTranslationProgress> CommunityTranslationProgress { get { return new Array<FSDTranslationProgress>(this[nameof(CommunityTranslationProgress)].Address); } }
+        public UArray<FSDTranslationProgress> CommunityTranslationProgress { get { return new UArray<FSDTranslationProgress>(this[nameof(CommunityTranslationProgress)].Address); } }
     }
     public class LockOnBeam : Actor
     {
@@ -14869,9 +14873,9 @@ namespace SDK.Script.FSDSDK
         public SceneComponent Root { get { return this[nameof(Root)].As<SceneComponent>(); } set { this["Root"] = value; } }
         public OncePerPlayerUsableComponent CollectUsable { get { return this[nameof(CollectUsable)].As<OncePerPlayerUsableComponent>(); } set { this["CollectUsable"] = value; } }
         public ItemAquisitionSource AquisitionSource { get { return this[nameof(AquisitionSource)].As<ItemAquisitionSource>(); } set { this["AquisitionSource"] = value; } }
-        public Array<PlayerCharacter> Collectors { get { return new Array<PlayerCharacter>(this[nameof(Collectors)].Address); } }
+        public UArray<PlayerCharacter> Collectors { get { return new UArray<PlayerCharacter>(this[nameof(Collectors)].Address); } }
         public PlayerCharacter LastJoiner { get { return this[nameof(LastJoiner)].As<PlayerCharacter>(); } set { this["LastJoiner"] = value; } }
-        public Array<TreasureWeight> PossibleRewarders { get { return new Array<TreasureWeight>(this[nameof(PossibleRewarders)].Address); } }
+        public UArray<TreasureWeight> PossibleRewarders { get { return new UArray<TreasureWeight>(this[nameof(PossibleRewarders)].Address); } }
         public TreasureRewarder TreasureRewarder { get { return this[nameof(TreasureRewarder)].As<TreasureRewarder>(); } set { this["TreasureRewarder"] = value; } }
         public bool PreventLatejoiners { get { return this[nameof(PreventLatejoiners)].Flag; } set { this[nameof(PreventLatejoiners)].Flag = value; } }
         public void TestAwardTreasure() { Invoke(nameof(TestAwardTreasure)); }
@@ -14928,10 +14932,10 @@ namespace SDK.Script.FSDSDK
     public class MeleeAttackComponent : DamageAttackComponent
     {
         public MeleeAttackComponent(nint addr) : base(addr) { }
-        public Array<AnimMontage> Montages { get { return new Array<AnimMontage>(this[nameof(Montages)].Address); } }
+        public UArray<AnimMontage> Montages { get { return new UArray<AnimMontage>(this[nameof(Montages)].Address); } }
         public TargetValidator HitValidator { get { return this[nameof(HitValidator)].As<TargetValidator>(); } set { this["HitValidator"] = value; } }
         public bool CenterOnTarget { get { return this[nameof(CenterOnTarget)].Flag; } set { this[nameof(CenterOnTarget)].Flag = value; } }
-        public Array<AttackEffect> AttackEffects { get { return new Array<AttackEffect>(this[nameof(AttackEffects)].Address); } }
+        public UArray<AttackEffect> AttackEffects { get { return new UArray<AttackEffect>(this[nameof(AttackEffects)].Address); } }
         public Object OnAttackStartedEvent { get { return this[nameof(OnAttackStartedEvent)]; } set { this[nameof(OnAttackStartedEvent)] = value; } }
         public Object OnDamageAppliedEvent { get { return this[nameof(OnDamageAppliedEvent)]; } set { this[nameof(OnDamageAppliedEvent)] = value; } }
         public Object OnAttackEndedEvent { get { return this[nameof(OnAttackEndedEvent)]; } set { this[nameof(OnAttackEndedEvent)] = value; } }
@@ -14955,13 +14959,13 @@ namespace SDK.Script.FSDSDK
         public Object OnNewMessage { get { return this[nameof(OnNewMessage)]; } set { this[nameof(OnNewMessage)] = value; } }
         public Object MessageSenderIdAsString(FSDChatMessage Msg) { return Invoke<Object>(nameof(MessageSenderIdAsString), Msg); }
         public float MessageAge(FSDChatMessage Msg) { return Invoke<float>(nameof(MessageAge), Msg); }
-        public void LatestMessages(int Num, bool resetAge, Array<FSDChatMessage> OutMessages) { Invoke(nameof(LatestMessages), Num, resetAge, OutMessages); }
+        public void LatestMessages(int Num, bool resetAge, UArray<FSDChatMessage> OutMessages) { Invoke(nameof(LatestMessages), Num, resetAge, OutMessages); }
         public void ClearMessages() { Invoke(nameof(ClearMessages)); }
     }
     public class MeteorDefenseEvent : GameEvent
     {
         public MeteorDefenseEvent(nint addr) : base(addr) { }
-        public Array<ProgressShout> ProgressShouts { get { return new Array<ProgressShout>(this[nameof(ProgressShouts)].Address); } }
+        public UArray<ProgressShout> ProgressShouts { get { return new UArray<ProgressShout>(this[nameof(ProgressShouts)].Address); } }
         public float Duration { get { return this[nameof(Duration)].GetValue<float>(); } set { this[nameof(Duration)].SetValue<float>(value); } }
         public float InitialProgress { get { return this[nameof(InitialProgress)].GetValue<float>(); } set { this[nameof(InitialProgress)].SetValue<float>(value); } }
         public PlagueMeteor meteor { get { return this[nameof(meteor)].As<PlagueMeteor>(); } set { this["meteor"] = value; } }
@@ -14993,7 +14997,7 @@ namespace SDK.Script.FSDSDK
         public MicroMissileLauncher(nint addr) : base(addr) { }
         public Object OnStartCharging { get { return this[nameof(OnStartCharging)]; } set { this[nameof(OnStartCharging)] = value; } }
         public Object OnEndCharging { get { return this[nameof(OnEndCharging)]; } set { this[nameof(OnEndCharging)] = value; } }
-        public Array<Object> MuzzleNames { get { return new Array<Object>(this[nameof(MuzzleNames)].Address); } }
+        public UArray<Object> MuzzleNames { get { return new UArray<Object>(this[nameof(MuzzleNames)].Address); } }
         public float ChargeTime { get { return this[nameof(ChargeTime)].GetValue<float>(); } set { this[nameof(ChargeTime)].SetValue<float>(value); } }
         public int ChargeMaxFireCount { get { return this[nameof(ChargeMaxFireCount)].GetValue<int>(); } set { this[nameof(ChargeMaxFireCount)].SetValue<int>(value); } }
         public float BuckShotDelay { get { return this[nameof(BuckShotDelay)].GetValue<float>(); } set { this[nameof(BuckShotDelay)].SetValue<float>(value); } }
@@ -15019,7 +15023,7 @@ namespace SDK.Script.FSDSDK
         public bool IsNextShotBuckShot() { return Invoke<bool>(nameof(IsNextShotBuckShot)); }
         public Projectile GetFirstActiveProjectileOfType(Object Class) { return Invoke<Projectile>(nameof(GetFirstActiveProjectileOfType), Class); }
         public int GetChargeCurrentFireCount() { return Invoke<int>(nameof(GetChargeCurrentFireCount)); }
-        public void GetActiveProjectiles(Array<Projectile> ActiveProjectiles) { Invoke(nameof(GetActiveProjectiles), ActiveProjectiles); }
+        public void GetActiveProjectiles(UArray<Projectile> ActiveProjectiles) { Invoke(nameof(GetActiveProjectiles), ActiveProjectiles); }
         public void ChargingDelegate__DelegateSignature() { Invoke(nameof(ChargingDelegate__DelegateSignature)); }
         public void All_SetChargedMissile(bool isCharged) { Invoke(nameof(All_SetChargedMissile), isCharged); }
     }
@@ -15049,7 +15053,7 @@ namespace SDK.Script.FSDSDK
         public float BlisteringNecrosisChance { get { return this[nameof(BlisteringNecrosisChance)].GetValue<float>(); } set { this[nameof(BlisteringNecrosisChance)].SetValue<float>(value); } }
         public float MinTimeBetweenBlisteringNecrosis { get { return this[nameof(MinTimeBetweenBlisteringNecrosis)].GetValue<float>(); } set { this[nameof(MinTimeBetweenBlisteringNecrosis)].SetValue<float>(value); } }
         public Object FireEffect { get { return this[nameof(FireEffect)]; } set { this[nameof(FireEffect)] = value; } }
-        public Array<Object> NeuroEffects { get { return new Array<Object>(this[nameof(NeuroEffects)].Address); } }
+        public UArray<Object> NeuroEffects { get { return new UArray<Object>(this[nameof(NeuroEffects)].Address); } }
         public Object NeuroToSpread { get { return this[nameof(NeuroToSpread)]; } set { this[nameof(NeuroToSpread)] = value; } }
         public Object SlowEffect { get { return this[nameof(SlowEffect)]; } set { this[nameof(SlowEffect)] = value; } }
         public NiagaraSystem ImpactParticleEnemies { get { return this[nameof(ImpactParticleEnemies)].As<NiagaraSystem>(); } set { this["ImpactParticleEnemies"] = value; } }
@@ -15097,7 +15101,7 @@ namespace SDK.Script.FSDSDK
     public class Boil : Actor
     {
         public Boil(nint addr) : base(addr) { }
-        public Array<FSDPhysicalMaterial> PhysicalMaterials { get { return new Array<FSDPhysicalMaterial>(this[nameof(PhysicalMaterials)].Address); } }
+        public UArray<FSDPhysicalMaterial> PhysicalMaterials { get { return new UArray<FSDPhysicalMaterial>(this[nameof(PhysicalMaterials)].Address); } }
         public int MaterialIndex { get { return this[nameof(MaterialIndex)].GetValue<int>(); } set { this[nameof(MaterialIndex)].SetValue<int>(value); } }
         public void OnRep_MaterialIndex() { Invoke(nameof(OnRep_MaterialIndex)); }
     }
@@ -15113,10 +15117,10 @@ namespace SDK.Script.FSDSDK
         public bool CountValueAsTotal { get { return this[nameof(CountValueAsTotal)].Flag; } set { this[nameof(CountValueAsTotal)].Flag = value; } }
         public MissionStat TrackingStat { get { return this[nameof(TrackingStat)].As<MissionStat>(); } set { this["TrackingStat"] = value; } }
         public PlayerCharacterID TrackingCharacterID { get { return this[nameof(TrackingCharacterID)].As<PlayerCharacterID>(); } set { this["TrackingCharacterID"] = value; } }
-        public Array<MilestoneTier> Tiers { get { return new Array<MilestoneTier>(this[nameof(Tiers)].Address); } }
+        public UArray<MilestoneTier> Tiers { get { return new UArray<MilestoneTier>(this[nameof(Tiers)].Address); } }
         public int LastTierReached { get { return this[nameof(LastTierReached)].GetValue<int>(); } set { this[nameof(LastTierReached)].SetValue<int>(value); } }
         public bool bPendingMilestoneReached { get { return this[nameof(bPendingMilestoneReached)].Flag; } set { this[nameof(bPendingMilestoneReached)].Flag = value; } }
-        public Array<MilestoneAsset> SortMilestonesByProgress(Object WorldContext, Array<MilestoneAsset> Milestones) { return Invoke<Array<MilestoneAsset>>(nameof(SortMilestonesByProgress), WorldContext, Milestones); }
+        public UArray<MilestoneAsset> SortMilestonesByProgress(Object WorldContext, UArray<MilestoneAsset> Milestones) { return Invoke<UArray<MilestoneAsset>>(nameof(SortMilestonesByProgress), WorldContext, Milestones); }
         public void OnMissionStatChanged(Object WorldContext, MissionStat Stat, float Value) { Invoke(nameof(OnMissionStatChanged), WorldContext, Stat, Value); }
         public bool IsCompleted(Object WorldContext) { return Invoke<bool>(nameof(IsCompleted), WorldContext); }
         public bool IsClaimable(Object WorldContext) { return Invoke<bool>(nameof(IsClaimable), WorldContext); }
@@ -15133,7 +15137,7 @@ namespace SDK.Script.FSDSDK
     public class MineralTradeData : DataAsset
     {
         public MineralTradeData(nint addr) : base(addr) { }
-        public Array<Object> MineralTradeTickerTexts { get { return new Array<Object>(this[nameof(MineralTradeTickerTexts)].Address); } }
+        public UArray<Object> MineralTradeTickerTexts { get { return new UArray<Object>(this[nameof(MineralTradeTickerTexts)].Address); } }
     }
     public class MinersManualData : DataAsset
     {
@@ -15154,36 +15158,36 @@ namespace SDK.Script.FSDSDK
     public class MinersManual : DataAsset
     {
         public MinersManual(nint addr) : base(addr) { }
-        public Array<Object> BasicsPages { get { return new Array<Object>(this[nameof(BasicsPages)].Address); } }
+        public UArray<Object> BasicsPages { get { return new UArray<Object>(this[nameof(BasicsPages)].Address); } }
         public Object BasicsPageHeaders { get { return this[nameof(BasicsPageHeaders)]; } set { this[nameof(BasicsPageHeaders)] = value; } }
-        public Array<Object> CombatPages { get { return new Array<Object>(this[nameof(CombatPages)].Address); } }
-        public Array<Object> ExtraMissionPages { get { return new Array<Object>(this[nameof(ExtraMissionPages)].Address); } }
-        public Array<Object> ResourcePages { get { return new Array<Object>(this[nameof(ResourcePages)].Address); } }
-        public Array<EnemyMinersManualData> Enemies { get { return new Array<EnemyMinersManualData>(this[nameof(Enemies)].Address); } }
-        public Array<Object> BiomeReferences { get { return new Array<Object>(this[nameof(BiomeReferences)].Address); } }
-        public Array<Object> MissionReferences { get { return new Array<Object>(this[nameof(MissionReferences)].Address); } }
-        public Array<DamageTypeDescription> DamageTypeInfo { get { return new Array<DamageTypeDescription>(this[nameof(DamageTypeInfo)].Address); } }
+        public UArray<Object> CombatPages { get { return new UArray<Object>(this[nameof(CombatPages)].Address); } }
+        public UArray<Object> ExtraMissionPages { get { return new UArray<Object>(this[nameof(ExtraMissionPages)].Address); } }
+        public UArray<Object> ResourcePages { get { return new UArray<Object>(this[nameof(ResourcePages)].Address); } }
+        public UArray<EnemyMinersManualData> Enemies { get { return new UArray<EnemyMinersManualData>(this[nameof(Enemies)].Address); } }
+        public UArray<Object> BiomeReferences { get { return new UArray<Object>(this[nameof(BiomeReferences)].Address); } }
+        public UArray<Object> MissionReferences { get { return new UArray<Object>(this[nameof(MissionReferences)].Address); } }
+        public UArray<DamageTypeDescription> DamageTypeInfo { get { return new UArray<DamageTypeDescription>(this[nameof(DamageTypeInfo)].Address); } }
         public Object MissionDescriptions { get { return this[nameof(MissionDescriptions)]; } set { this[nameof(MissionDescriptions)] = value; } }
         public Object BiomeFeatureDescriptions { get { return this[nameof(BiomeFeatureDescriptions)]; } set { this[nameof(BiomeFeatureDescriptions)] = value; } }
         public bool IsObjectInMinersManual(Object WorldContext, Object Object) { return Invoke<bool>(nameof(IsObjectInMinersManual), WorldContext, Object); }
         public bool IsMissionUnlocked(Object WorldContext, MissionTemplate mission) { return Invoke<bool>(nameof(IsMissionUnlocked), WorldContext, mission); }
         public bool IsBiomeUnlocked(Object WorldContext, Biome Biome) { return Invoke<bool>(nameof(IsBiomeUnlocked), WorldContext, Biome); }
-        public Array<Object> GetUnlockedCreatureLore(Object WorldContext, EnemyMinersManualData enemy, float completePercentage) { return Invoke<Array<Object>>(nameof(GetUnlockedCreatureLore), WorldContext, enemy, completePercentage); }
-        public Array<Object> GetMissions() { return Invoke<Array<Object>>(nameof(GetMissions)); }
-        public void GetMissionInfo(int MissionTypeIndex, Object InfoHeadline, Object InfoDescription, Array<MissionStepDescription> Steps) { Invoke(nameof(GetMissionInfo), MissionTypeIndex, InfoHeadline, InfoDescription, Steps); }
+        public UArray<Object> GetUnlockedCreatureLore(Object WorldContext, EnemyMinersManualData enemy, float completePercentage) { return Invoke<UArray<Object>>(nameof(GetUnlockedCreatureLore), WorldContext, enemy, completePercentage); }
+        public UArray<Object> GetMissions() { return Invoke<UArray<Object>>(nameof(GetMissions)); }
+        public void GetMissionInfo(int MissionTypeIndex, Object InfoHeadline, Object InfoDescription, UArray<MissionStepDescription> Steps) { Invoke(nameof(GetMissionInfo), MissionTypeIndex, InfoHeadline, InfoDescription, Steps); }
         public int GetEnemyKillCount(Object WorldContext, Guid EnemyID) { return Invoke<int>(nameof(GetEnemyKillCount), WorldContext, EnemyID); }
-        public Array<EnemyMinersManualData> GetEnemiesSorted() { return Invoke<Array<EnemyMinersManualData>>(nameof(GetEnemiesSorted)); }
-        public Array<EnemyMinersManualData> GetEnemies() { return Invoke<Array<EnemyMinersManualData>>(nameof(GetEnemies)); }
-        public void GetDamageTypeDescriptions(Array<EDamageType> damageTypes, Array<DamageTypeDescription> Icon) { Invoke(nameof(GetDamageTypeDescriptions), damageTypes, Icon); }
+        public UArray<EnemyMinersManualData> GetEnemiesSorted() { return Invoke<UArray<EnemyMinersManualData>>(nameof(GetEnemiesSorted)); }
+        public UArray<EnemyMinersManualData> GetEnemies() { return Invoke<UArray<EnemyMinersManualData>>(nameof(GetEnemies)); }
+        public void GetDamageTypeDescriptions(UArray<EDamageType> damageTypes, UArray<DamageTypeDescription> Icon) { Invoke(nameof(GetDamageTypeDescriptions), damageTypes, Icon); }
         public void GetDamageTypeDescription(EDamageType damageTypes, DamageTypeDescription Icon) { Invoke(nameof(GetDamageTypeDescription), damageTypes, Icon); }
-        public Array<Object> GetBiomes() { return Invoke<Array<Object>>(nameof(GetBiomes)); }
-        public Array<MinersManualData> GetBiomeFeatures(int BiomeIndex) { return Invoke<Array<MinersManualData>>(nameof(GetBiomeFeatures), BiomeIndex); }
-        public Array<DamageTypeDescription> GetAllDamageTypeDescriptions() { return Invoke<Array<DamageTypeDescription>>(nameof(GetAllDamageTypeDescriptions)); }
+        public UArray<Object> GetBiomes() { return Invoke<UArray<Object>>(nameof(GetBiomes)); }
+        public UArray<MinersManualData> GetBiomeFeatures(int BiomeIndex) { return Invoke<UArray<MinersManualData>>(nameof(GetBiomeFeatures), BiomeIndex); }
+        public UArray<DamageTypeDescription> GetAllDamageTypeDescriptions() { return Invoke<UArray<DamageTypeDescription>>(nameof(GetAllDamageTypeDescriptions)); }
     }
     public class MissionChallenge : SavableDataAsset
     {
         public MissionChallenge(nint addr) : base(addr) { }
-        public Array<Mutator> Mutators { get { return new Array<Mutator>(this[nameof(Mutators)].Address); } }
+        public UArray<Mutator> Mutators { get { return new UArray<Mutator>(this[nameof(Mutators)].Address); } }
         public Object MissionBP { get { return this[nameof(MissionBP)]; } set { this[nameof(MissionBP)] = value; } }
     }
     public class MissionComplexity : DataAsset
@@ -15213,14 +15217,14 @@ namespace SDK.Script.FSDSDK
     {
         public MissionGenerationManager(nint addr) : base(addr) { }
         public Object AllMissionGroups { get { return this[nameof(AllMissionGroups)]; } set { this[nameof(AllMissionGroups)] = value; } }
-        public Array<GeneratedMission> GetMissions(GlobalMissionSeed Seed) { return Invoke<Array<GeneratedMission>>(nameof(GetMissions), Seed); }
+        public UArray<GeneratedMission> GetMissions(GlobalMissionSeed Seed) { return Invoke<UArray<GeneratedMission>>(nameof(GetMissions), Seed); }
         public GeneratedMission GetMissionFromSeeds(GlobalMissionSeed GlobalSeed, int MissionSeed) { return Invoke<GeneratedMission>(nameof(GetMissionFromSeeds), GlobalSeed, MissionSeed); }
-        public Array<GeneratedMission> GetAvailableMissions() { return Invoke<Array<GeneratedMission>>(nameof(GetAvailableMissions)); }
+        public UArray<GeneratedMission> GetAvailableMissions() { return Invoke<UArray<GeneratedMission>>(nameof(GetAvailableMissions)); }
     }
     public class MissionManager : ActorComponent
     {
         public MissionManager(nint addr) : base(addr) { }
-        public Array<RunningMissionBP> RunningBlueprints { get { return new Array<RunningMissionBP>(this[nameof(RunningBlueprints)].Address); } }
+        public UArray<RunningMissionBP> RunningBlueprints { get { return new UArray<RunningMissionBP>(this[nameof(RunningBlueprints)].Address); } }
         public void OnMatchStarted() { Invoke(nameof(OnMatchStarted)); }
     }
     public class MissionModeManager : Interface
@@ -15246,8 +15250,8 @@ namespace SDK.Script.FSDSDK
     {
         public MissionMutator(nint addr) : base(addr) { }
         public Object MissionBP { get { return this[nameof(MissionBP)]; } set { this[nameof(MissionBP)] = value; } }
-        public Array<Object> BannedObjectives { get { return new Array<Object>(this[nameof(BannedObjectives)].Address); } }
-        public Array<Mutator> Mutators { get { return new Array<Mutator>(this[nameof(Mutators)].Address); } }
+        public UArray<Object> BannedObjectives { get { return new UArray<Object>(this[nameof(BannedObjectives)].Address); } }
+        public UArray<Mutator> Mutators { get { return new UArray<Mutator>(this[nameof(Mutators)].Address); } }
         public Object Title { get { return this[nameof(Title)]; } set { this[nameof(Title)] = value; } }
         public Object RichDescription { get { return this[nameof(RichDescription)]; } set { this[nameof(RichDescription)] = value; } }
         public Texture2D Icon { get { return this[nameof(Icon)].As<Texture2D>(); } set { this["Icon"] = value; } }
@@ -15270,7 +15274,7 @@ namespace SDK.Script.FSDSDK
     public class ResourceMutator : Mutator
     {
         public ResourceMutator(nint addr) : base(addr) { }
-        public Array<ResourceData> Resources { get { return new Array<ResourceData>(this[nameof(Resources)].Address); } }
+        public UArray<ResourceData> Resources { get { return new UArray<ResourceData>(this[nameof(Resources)].Address); } }
         public float modifier { get { return this[nameof(modifier)].GetValue<float>(); } set { this[nameof(modifier)].SetValue<float>(value); } }
     }
     public class SupplyPodMutator : Mutator
@@ -15355,7 +15359,7 @@ namespace SDK.Script.FSDSDK
     public class InfestedEnemiesMutator : Mutator
     {
         public InfestedEnemiesMutator(nint addr) : base(addr) { }
-        public Array<ParticleSystem> SpawnEffects { get { return new Array<ParticleSystem>(this[nameof(SpawnEffects)].Address); } }
+        public UArray<ParticleSystem> SpawnEffects { get { return new UArray<ParticleSystem>(this[nameof(SpawnEffects)].Address); } }
         public ParticleSystem GetParticleSystem(FSDPawn enemy) { return Invoke<ParticleSystem>(nameof(GetParticleSystem), enemy); }
     }
     public class NoOxygenMutator : Mutator
@@ -15397,13 +15401,13 @@ namespace SDK.Script.FSDSDK
     public class MaxAmmoMutator : Mutator
     {
         public MaxAmmoMutator(nint addr) : base(addr) { }
-        public Array<EItemCategory> ApplyToItems { get { return new Array<EItemCategory>(this[nameof(ApplyToItems)].Address); } }
+        public UArray<EItemCategory> ApplyToItems { get { return new UArray<EItemCategory>(this[nameof(ApplyToItems)].Address); } }
         public float MaxAmmoMultiplier { get { return this[nameof(MaxAmmoMultiplier)].GetValue<float>(); } set { this[nameof(MaxAmmoMultiplier)].SetValue<float>(value); } }
     }
     public class RestrictItemCategoriesMutator : Mutator
     {
         public RestrictItemCategoriesMutator(nint addr) : base(addr) { }
-        public Array<EItemCategory> RestrictedCategories { get { return new Array<EItemCategory>(this[nameof(RestrictedCategories)].Address); } }
+        public UArray<EItemCategory> RestrictedCategories { get { return new UArray<EItemCategory>(this[nameof(RestrictedCategories)].Address); } }
     }
     public class SharedHealthMutator : Mutator
     {
@@ -15450,9 +15454,9 @@ namespace SDK.Script.FSDSDK
         public int ComplexityDots { get { return this[nameof(ComplexityDots)].GetValue<int>(); } set { this[nameof(ComplexityDots)].SetValue<int>(value); } }
         public float LenghtBonus { get { return this[nameof(LenghtBonus)].GetValue<float>(); } set { this[nameof(LenghtBonus)].SetValue<float>(value); } }
         public int LenghtDots { get { return this[nameof(LenghtDots)].GetValue<int>(); } set { this[nameof(LenghtDots)].SetValue<int>(value); } }
-        public Array<Object> WarningTitles { get { return new Array<Object>(this[nameof(WarningTitles)].Address); } }
-        public Array<Texture2D> WarningIcons { get { return new Array<Texture2D>(this[nameof(WarningIcons)].Address); } }
-        public Array<float> WarningBonusses { get { return new Array<float>(this[nameof(WarningBonusses)].Address); } }
+        public UArray<Object> WarningTitles { get { return new UArray<Object>(this[nameof(WarningTitles)].Address); } }
+        public UArray<Texture2D> WarningIcons { get { return new UArray<Texture2D>(this[nameof(WarningIcons)].Address); } }
+        public UArray<float> WarningBonusses { get { return new UArray<float>(this[nameof(WarningBonusses)].Address); } }
         public float TotalCreditsSum { get { return this[nameof(TotalCreditsSum)].GetValue<float>(); } set { this[nameof(TotalCreditsSum)].SetValue<float>(value); } }
         public float TotalXPSum { get { return this[nameof(TotalXPSum)].GetValue<float>(); } set { this[nameof(TotalXPSum)].SetValue<float>(value); } }
         public bool wasSuccess { get { return this[nameof(wasSuccess)].Flag; } set { this[nameof(wasSuccess)].Flag = value; } }
@@ -15511,21 +15515,21 @@ namespace SDK.Script.FSDSDK
     public class GlobalMissionParameters : DataAsset
     {
         public GlobalMissionParameters(nint addr) : base(addr) { }
-        public Array<ResourceSpawner> DefaultResources { get { return new Array<ResourceSpawner>(this[nameof(DefaultResources)].Address); } }
+        public UArray<ResourceSpawner> DefaultResources { get { return new UArray<ResourceSpawner>(this[nameof(DefaultResources)].Address); } }
     }
     public class MissionTemplate : SavableDataAsset
     {
         public MissionTemplate(nint addr) : base(addr) { }
-        public Array<ResourceSpawner> ResourceDistribution { get { return new Array<ResourceSpawner>(this[nameof(ResourceDistribution)].Address); } }
+        public UArray<ResourceSpawner> ResourceDistribution { get { return new UArray<ResourceSpawner>(this[nameof(ResourceDistribution)].Address); } }
         public Object PrimaryObjective { get { return this[nameof(PrimaryObjective)]; } set { this[nameof(PrimaryObjective)] = value; } }
-        public Array<Object> SecondaryObjectives { get { return new Array<Object>(this[nameof(SecondaryObjectives)].Address); } }
-        public Array<Object> DeepDiveObjectives { get { return new Array<Object>(this[nameof(DeepDiveObjectives)].Address); } }
-        public Array<Mutator> BaseMutators { get { return new Array<Mutator>(this[nameof(BaseMutators)].Address); } }
+        public UArray<Object> SecondaryObjectives { get { return new UArray<Object>(this[nameof(SecondaryObjectives)].Address); } }
+        public UArray<Object> DeepDiveObjectives { get { return new UArray<Object>(this[nameof(DeepDiveObjectives)].Address); } }
+        public UArray<Mutator> BaseMutators { get { return new UArray<Mutator>(this[nameof(BaseMutators)].Address); } }
         public Object pls { get { return this[nameof(pls)]; } set { this[nameof(pls)] = value; } }
         public Object Level { get { return this[nameof(Level)]; } set { this[nameof(Level)] = value; } }
         public Object GameMode { get { return this[nameof(GameMode)]; } set { this[nameof(GameMode)] = value; } }
-        public Array<MissionComplexity> LockedComplexities { get { return new Array<MissionComplexity>(this[nameof(LockedComplexities)].Address); } }
-        public Array<MissionDuration> LockedDurations { get { return new Array<MissionDuration>(this[nameof(LockedDurations)].Address); } }
+        public UArray<MissionComplexity> LockedComplexities { get { return new UArray<MissionComplexity>(this[nameof(LockedComplexities)].Address); } }
+        public UArray<MissionDuration> LockedDurations { get { return new UArray<MissionDuration>(this[nameof(LockedDurations)].Address); } }
         public Object MissionName { get { return this[nameof(MissionName)]; } set { this[nameof(MissionName)] = value; } }
         public Object MissionImageLarge { get { return this[nameof(MissionImageLarge)]; } set { this[nameof(MissionImageLarge)] = value; } }
         public Object MissionButtonImage { get { return this[nameof(MissionButtonImage)]; } set { this[nameof(MissionButtonImage)] = value; } }
@@ -15534,16 +15538,16 @@ namespace SDK.Script.FSDSDK
         public LinearColor MissionColor { get { return this[nameof(MissionColor)].As<LinearColor>(); } set { this["MissionColor"] = value; } }
         public int MissionTypeIndex { get { return this[nameof(MissionTypeIndex)].GetValue<int>(); } set { this[nameof(MissionTypeIndex)].SetValue<int>(value); } }
         public Object MissionTypeAnalyticsIndex { get { return this[nameof(MissionTypeAnalyticsIndex)]; } set { this[nameof(MissionTypeAnalyticsIndex)] = value; } }
-        public Array<Object> DNA { get { return new Array<Object>(this[nameof(DNA)].Address); } }
-        public Array<Object> DebrisComponents { get { return new Array<Object>(this[nameof(DebrisComponents)].Address); } }
+        public UArray<Object> DNA { get { return new UArray<Object>(this[nameof(DNA)].Address); } }
+        public UArray<Object> DebrisComponents { get { return new UArray<Object>(this[nameof(DebrisComponents)].Address); } }
         public bool MustBeUnlocked { get { return this[nameof(MustBeUnlocked)].Flag; } set { this[nameof(MustBeUnlocked)].Flag = value; } }
         public float RoomEncounerScale { get { return this[nameof(RoomEncounerScale)].GetValue<float>(); } set { this[nameof(RoomEncounerScale)].SetValue<float>(value); } }
         public float StationaryEnemyScale { get { return this[nameof(StationaryEnemyScale)].GetValue<float>(); } set { this[nameof(StationaryEnemyScale)].SetValue<float>(value); } }
-        public Array<Object> Tutorials { get { return new Array<Object>(this[nameof(Tutorials)].Address); } }
+        public UArray<Object> Tutorials { get { return new UArray<Object>(this[nameof(Tutorials)].Address); } }
         public void Receive_SetMissionParameters(GeneratedMission mission, RandomStream Random) { Invoke(nameof(Receive_SetMissionParameters), mission, Random); }
         public bool IsLocked(FSDSaveGame SaveGame) { return Invoke<bool>(nameof(IsLocked), SaveGame); }
-        public Array<MissionDuration> GetValidDurations() { return Invoke<Array<MissionDuration>>(nameof(GetValidDurations)); }
-        public Array<MissionComplexity> GetValidComplexities() { return Invoke<Array<MissionComplexity>>(nameof(GetValidComplexities)); }
+        public UArray<MissionDuration> GetValidDurations() { return Invoke<UArray<MissionDuration>>(nameof(GetValidDurations)); }
+        public UArray<MissionComplexity> GetValidComplexities() { return Invoke<UArray<MissionComplexity>>(nameof(GetValidComplexities)); }
         public Object GetSoftReferenceToPLS() { return Invoke<Object>(nameof(GetSoftReferenceToPLS)); }
         public ObjectiveMissionIcon GetPrimaryObjectiveIconFromAsset(MissionTemplate mission, bool getSmallVersion) { return Invoke<ObjectiveMissionIcon>(nameof(GetPrimaryObjectiveIconFromAsset), mission, getSmallVersion); }
         public ObjectiveMissionIcon GetPrimaryObjectiveIcon(bool getSmallVersion) { return Invoke<ObjectiveMissionIcon>(nameof(GetPrimaryObjectiveIcon), getSmallVersion); }
@@ -15552,14 +15556,14 @@ namespace SDK.Script.FSDSDK
         public int GetMissionTypeIndex() { return Invoke<int>(nameof(GetMissionTypeIndex)); }
         public Texture2D GetMissionImageLarge() { return Invoke<Texture2D>(nameof(GetMissionImageLarge)); }
         public Texture2D GetMissionButtonImage() { return Invoke<Texture2D>(nameof(GetMissionButtonImage)); }
-        public GeneratedMission GenerateMission(Object WorldContextObject, Biome Biome, int Seed, GlobalMissionSeed GlobalSeed, MissionComplexity limitComplexity, MissionDuration limitDuration, MissionMutator Mutator, Array<MissionWarning> Warnings, MissionChallenge Challenge, Array<Object> forceSecondary, GemResourceData forcedGem) { return Invoke<GeneratedMission>(nameof(GenerateMission), WorldContextObject, Biome, Seed, GlobalSeed, limitComplexity, limitDuration, Mutator, Warnings, Challenge, forceSecondary, forcedGem); }
+        public GeneratedMission GenerateMission(Object WorldContextObject, Biome Biome, int Seed, GlobalMissionSeed GlobalSeed, MissionComplexity limitComplexity, MissionDuration limitDuration, MissionMutator Mutator, UArray<MissionWarning> Warnings, MissionChallenge Challenge, UArray<Object> forceSecondary, GemResourceData forcedGem) { return Invoke<GeneratedMission>(nameof(GenerateMission), WorldContextObject, Biome, Seed, GlobalSeed, limitComplexity, limitDuration, Mutator, Warnings, Challenge, forceSecondary, forcedGem); }
     }
     public class MissionNameBank : DataAsset
     {
         public MissionNameBank(nint addr) : base(addr) { }
-        public Array<Object> FirstNames { get { return new Array<Object>(this[nameof(FirstNames)].Address); } }
-        public Array<Object> LastNames { get { return new Array<Object>(this[nameof(LastNames)].Address); } }
-        public Array<Object> GetRandomGeneratedNames(RandomStream Random, int Count) { return Invoke<Array<Object>>(nameof(GetRandomGeneratedNames), Random, Count); }
+        public UArray<Object> FirstNames { get { return new UArray<Object>(this[nameof(FirstNames)].Address); } }
+        public UArray<Object> LastNames { get { return new UArray<Object>(this[nameof(LastNames)].Address); } }
+        public UArray<Object> GetRandomGeneratedNames(RandomStream Random, int Count) { return Invoke<UArray<Object>>(nameof(GetRandomGeneratedNames), Random, Count); }
     }
     public class MissionWarning : DataAsset
     {
@@ -15568,10 +15572,10 @@ namespace SDK.Script.FSDSDK
         public bool IsOptionalExtraObjectiveMandatory { get { return this[nameof(IsOptionalExtraObjectiveMandatory)].Flag; } set { this[nameof(IsOptionalExtraObjectiveMandatory)].Flag = value; } }
         public bool OptionalExtraObjectiveIsRandom { get { return this[nameof(OptionalExtraObjectiveIsRandom)].Flag; } set { this[nameof(OptionalExtraObjectiveIsRandom)].Flag = value; } }
         public Object OptionalExtraObjective { get { return this[nameof(OptionalExtraObjective)]; } set { this[nameof(OptionalExtraObjective)] = value; } }
-        public Array<Object> BannedObjectives { get { return new Array<Object>(this[nameof(BannedObjectives)].Address); } }
-        public Array<MissionMutator> BannedMutators { get { return new Array<MissionMutator>(this[nameof(BannedMutators)].Address); } }
+        public UArray<Object> BannedObjectives { get { return new UArray<Object>(this[nameof(BannedObjectives)].Address); } }
+        public UArray<MissionMutator> BannedMutators { get { return new UArray<MissionMutator>(this[nameof(BannedMutators)].Address); } }
         public bool DoubleWarning { get { return this[nameof(DoubleWarning)].Flag; } set { this[nameof(DoubleWarning)].Flag = value; } }
-        public Array<Mutator> Mutators { get { return new Array<Mutator>(this[nameof(Mutators)].Address); } }
+        public UArray<Mutator> Mutators { get { return new UArray<Mutator>(this[nameof(Mutators)].Address); } }
         public Object Title { get { return this[nameof(Title)]; } set { this[nameof(Title)] = value; } }
         public Object RichDescription { get { return this[nameof(RichDescription)]; } set { this[nameof(RichDescription)] = value; } }
         public Texture2D Icon { get { return this[nameof(Icon)].As<Texture2D>(); } set { this["Icon"] = value; } }
@@ -15615,10 +15619,10 @@ namespace SDK.Script.FSDSDK
     public class MiniMule : MULE
     {
         public MiniMule(nint addr) : base(addr) { }
-        public Array<Gem> LostLegs { get { return new Array<Gem>(this[nameof(LostLegs)].Address); } }
+        public UArray<Gem> LostLegs { get { return new UArray<Gem>(this[nameof(LostLegs)].Address); } }
         public void SetLegsVisibleOnScanner() { Invoke(nameof(SetLegsVisibleOnScanner)); }
         public void OnLegsSetVisible() { Invoke(nameof(OnLegsSetVisible)); }
-        public Array<Gem> FindLegsInLevelSortedByDistance() { return Invoke<Array<Gem>>(nameof(FindLegsInLevelSortedByDistance)); }
+        public UArray<Gem> FindLegsInLevelSortedByDistance() { return Invoke<UArray<Gem>>(nameof(FindLegsInLevelSortedByDistance)); }
         public void CheatRepair() { Invoke(nameof(CheatRepair)); }
     }
     public class MorkiteSeedNut : Actor
@@ -15688,16 +15692,16 @@ namespace SDK.Script.FSDSDK
         public int BulletsPerShot { get { return this[nameof(BulletsPerShot)].GetValue<int>(); } set { this[nameof(BulletsPerShot)].SetValue<int>(value); } }
         public float GeneralImpactAudioVolume { get { return this[nameof(GeneralImpactAudioVolume)].GetValue<float>(); } set { this[nameof(GeneralImpactAudioVolume)].SetValue<float>(value); } }
         public bool CountMultiHits { get { return this[nameof(CountMultiHits)].Flag; } set { this[nameof(CountMultiHits)].Flag = value; } }
-        public Array<Actor> DamagedActorCache { get { return new Array<Actor>(this[nameof(DamagedActorCache)].Address); } }
+        public UArray<Actor> DamagedActorCache { get { return new UArray<Actor>(this[nameof(DamagedActorCache)].Address); } }
         public MultiHitScanHits Hits { get { return this[nameof(Hits)].As<MultiHitScanHits>(); } set { this["Hits"] = value; } }
-        public Array<Actor> ActorsHit { get { return new Array<Actor>(this[nameof(ActorsHit)].Address); } }
+        public UArray<Actor> ActorsHit { get { return new UArray<Actor>(this[nameof(ActorsHit)].Address); } }
         public void Server_RegisterHit(MultiHitScanHits hitResults) { Invoke(nameof(Server_RegisterHit), hitResults); }
         public void All_ShowHit(MultiHitScanHits hitResults) { Invoke(nameof(All_ShowHit), hitResults); }
     }
     public class MultiprojectileSpawner : ActorComponent
     {
         public MultiprojectileSpawner(nint addr) : base(addr) { }
-        public Array<ProjectileSpawnData> ProjectileData { get { return new Array<ProjectileSpawnData>(this[nameof(ProjectileData)].Address); } }
+        public UArray<ProjectileSpawnData> ProjectileData { get { return new UArray<ProjectileSpawnData>(this[nameof(ProjectileData)].Address); } }
         public bool ProjectilesIgnoreEachOther { get { return this[nameof(ProjectilesIgnoreEachOther)].Flag; } set { this[nameof(ProjectilesIgnoreEachOther)].Flag = value; } }
         public bool GetIsFiring() { return Invoke<bool>(nameof(GetIsFiring)); }
         public void Fire(Vector Velocity, Vector Origin) { Invoke(nameof(Fire), Velocity, Origin); }
@@ -15710,7 +15714,7 @@ namespace SDK.Script.FSDSDK
     public class MusicLibrary : DataAsset
     {
         public MusicLibrary(nint addr) : base(addr) { }
-        public Array<Object> MusicCues { get { return new Array<Object>(this[nameof(MusicCues)].Address); } }
+        public UArray<Object> MusicCues { get { return new UArray<Object>(this[nameof(MusicCues)].Address); } }
         public MusicCategory Category { get { return this[nameof(Category)].As<MusicCategory>(); } set { this["Category"] = value; } }
     }
     public class MusicCategory : DataAsset
@@ -15721,7 +15725,7 @@ namespace SDK.Script.FSDSDK
     public class MusicReplicator : Actor
     {
         public MusicReplicator(nint addr) : base(addr) { }
-        public Array<ActiveMusicItem> ActiveMusic { get { return new Array<ActiveMusicItem>(this[nameof(ActiveMusic)].Address); } }
+        public UArray<ActiveMusicItem> ActiveMusic { get { return new UArray<ActiveMusicItem>(this[nameof(ActiveMusic)].Address); } }
         public void OnRep_ActiveMusic() { Invoke(nameof(OnRep_ActiveMusic)); }
     }
     public class MusicManager : WorldSubsystem
@@ -15768,23 +15772,23 @@ namespace SDK.Script.FSDSDK
     public class NewsTextLists : DataAsset
     {
         public NewsTextLists(nint addr) : base(addr) { }
-        public Array<Object> Verb { get { return new Array<Object>(this[nameof(Verb)].Address); } }
-        public Array<Object> Person { get { return new Array<Object>(this[nameof(Person)].Address); } }
-        public Array<Object> Creature { get { return new Array<Object>(this[nameof(Creature)].Address); } }
-        public Array<Object> Resource { get { return new Array<Object>(this[nameof(Resource)].Address); } }
-        public Array<Object> Minerals { get { return new Array<Object>(this[nameof(Minerals)].Address); } }
-        public Array<Object> MineralFactions { get { return new Array<Object>(this[nameof(MineralFactions)].Address); } }
+        public UArray<Object> Verb { get { return new UArray<Object>(this[nameof(Verb)].Address); } }
+        public UArray<Object> Person { get { return new UArray<Object>(this[nameof(Person)].Address); } }
+        public UArray<Object> Creature { get { return new UArray<Object>(this[nameof(Creature)].Address); } }
+        public UArray<Object> Resource { get { return new UArray<Object>(this[nameof(Resource)].Address); } }
+        public UArray<Object> Minerals { get { return new UArray<Object>(this[nameof(Minerals)].Address); } }
+        public UArray<Object> MineralFactions { get { return new UArray<Object>(this[nameof(MineralFactions)].Address); } }
     }
     public class NewsTextHeadlines : DataAsset
     {
         public NewsTextHeadlines(nint addr) : base(addr) { }
-        public Array<Object> MineralTradeTicker { get { return new Array<Object>(this[nameof(MineralTradeTicker)].Address); } }
+        public UArray<Object> MineralTradeTicker { get { return new UArray<Object>(this[nameof(MineralTradeTicker)].Address); } }
     }
     public class NiagaraSpawnerAndCacheGenerator : Actor
     {
         public NiagaraSpawnerAndCacheGenerator(nint addr) : base(addr) { }
-        public Array<FXSystemAsset> ToGenerate { get { return new Array<FXSystemAsset>(this[nameof(ToGenerate)].Address); } }
-        public Array<FXSystemComponent> Generating { get { return new Array<FXSystemComponent>(this[nameof(Generating)].Address); } }
+        public UArray<FXSystemAsset> ToGenerate { get { return new UArray<FXSystemAsset>(this[nameof(ToGenerate)].Address); } }
+        public UArray<FXSystemComponent> Generating { get { return new UArray<FXSystemComponent>(this[nameof(Generating)].Address); } }
     }
     public class NoiseCarveAttackEffect : AttackEffect
     {
@@ -15838,7 +15842,7 @@ namespace SDK.Script.FSDSDK
         public float ZPenaltyScale { get { return this[nameof(ZPenaltyScale)].GetValue<float>(); } set { this[nameof(ZPenaltyScale)].SetValue<float>(value); } }
         public float DistancePenaltyScale { get { return this[nameof(DistancePenaltyScale)].GetValue<float>(); } set { this[nameof(DistancePenaltyScale)].SetValue<float>(value); } }
         public float RandomPenaltyScale { get { return this[nameof(RandomPenaltyScale)].GetValue<float>(); } set { this[nameof(RandomPenaltyScale)].SetValue<float>(value); } }
-        public Array<PathObstacle> Obstacles { get { return new Array<PathObstacle>(this[nameof(Obstacles)].Address); } }
+        public UArray<PathObstacle> Obstacles { get { return new UArray<PathObstacle>(this[nameof(Obstacles)].Address); } }
         public TunnelSegmentSetting TunnelSettings { get { return this[nameof(TunnelSettings)].As<TunnelSegmentSetting>(); } set { this["TunnelSettings"] = value; } }
         public TunnelParameters TunnelParameters { get { return this[nameof(TunnelParameters)].As<TunnelParameters>(); } set { this["TunnelParameters"] = value; } }
         public int StepSize { get { return this[nameof(StepSize)].GetValue<int>(); } set { this[nameof(StepSize)].SetValue<int>(value); } }
@@ -15872,7 +15876,7 @@ namespace SDK.Script.FSDSDK
         public int NetworkedOxygen { get { return this[nameof(NetworkedOxygen)].GetValue<int>(); } set { this[nameof(NetworkedOxygen)].SetValue<int>(value); } }
         public bool IsReplenishingOxygen { get { return this[nameof(IsReplenishingOxygen)].Flag; } set { this[nameof(IsReplenishingOxygen)].Flag = value; } }
         public float OxygenDepletionPersecond { get { return this[nameof(OxygenDepletionPersecond)].GetValue<float>(); } set { this[nameof(OxygenDepletionPersecond)].SetValue<float>(value); } }
-        public Array<OxygenCallback> Callbacks { get { return new Array<OxygenCallback>(this[nameof(Callbacks)].Address); } }
+        public UArray<OxygenCallback> Callbacks { get { return new UArray<OxygenCallback>(this[nameof(Callbacks)].Address); } }
         public Object NoOxygenStatusEffect { get { return this[nameof(NoOxygenStatusEffect)]; } set { this[nameof(NoOxygenStatusEffect)] = value; } }
         public void RegisterOxygenEvent(Object OxygenCallback, float oxygenLevel, bool triggerOnOxygenLoss) { Invoke(nameof(RegisterOxygenEvent), OxygenCallback, oxygenLevel, triggerOnOxygenLoss); }
         public void OnRevived() { Invoke(nameof(OnRevived)); }
@@ -15903,7 +15907,7 @@ namespace SDK.Script.FSDSDK
         public NotificationSubSystem(nint addr) : base(addr) { }
         public Object OnNewSpaceRigNotificationEvent { get { return this[nameof(OnNewSpaceRigNotificationEvent)]; } set { this[nameof(OnNewSpaceRigNotificationEvent)] = value; } }
         public Object OnCampaignNotification { get { return this[nameof(OnCampaignNotification)]; } set { this[nameof(OnCampaignNotification)] = value; } }
-        public Array<SpaceRigNotification> SpaceRigNotifications { get { return new Array<SpaceRigNotification>(this[nameof(SpaceRigNotifications)].Address); } }
+        public UArray<SpaceRigNotification> SpaceRigNotifications { get { return new UArray<SpaceRigNotification>(this[nameof(SpaceRigNotifications)].Address); } }
         public CampaignNotification CampaignNotification { get { return this[nameof(CampaignNotification)].As<CampaignNotification>(); } set { this["CampaignNotification"] = value; } }
         public bool GetNextSpaceRigNotification(SpaceRigNotification NextNotification) { return Invoke<bool>(nameof(GetNextSpaceRigNotification), NextNotification); }
         public void ClearCampaignNotifications() { Invoke(nameof(ClearCampaignNotifications)); }
@@ -15931,7 +15935,7 @@ namespace SDK.Script.FSDSDK
         public Object GetItemClass() { return Invoke<Object>(nameof(GetItemClass)); }
         public EItemCategory GetItemCategory() { return Invoke<EItemCategory>(nameof(GetItemCategory)); }
         public Item GetItem() { return Invoke<Item>(nameof(GetItem)); }
-        public Array<ItemSkin> GetAllSkins() { return Invoke<Array<ItemSkin>>(nameof(GetAllSkins)); }
+        public UArray<ItemSkin> GetAllSkins() { return Invoke<UArray<ItemSkin>>(nameof(GetAllSkins)); }
         public Object GetActorClass() { return Invoke<Object>(nameof(GetActorClass)); }
         public Actor GetActor() { return Invoke<Actor>(nameof(GetActor)); }
     }
@@ -15968,13 +15972,13 @@ namespace SDK.Script.FSDSDK
         public Object OnObjectivesChanged { get { return this[nameof(OnObjectivesChanged)]; } set { this[nameof(OnObjectivesChanged)] = value; } }
         public Object OnAllRequiredReturnObjectivesCompleted { get { return this[nameof(OnAllRequiredReturnObjectivesCompleted)]; } set { this[nameof(OnAllRequiredReturnObjectivesCompleted)] = value; } }
         public Objective Objective { get { return this[nameof(Objective)].As<Objective>(); } set { this["Objective"] = value; } }
-        public Array<Objective> SecondaryObjectives { get { return new Array<Objective>(this[nameof(SecondaryObjectives)].Address); } }
+        public UArray<Objective> SecondaryObjectives { get { return new UArray<Objective>(this[nameof(SecondaryObjectives)].Address); } }
         public bool ObjectivesInitialized { get { return this[nameof(ObjectivesInitialized)].Flag; } set { this[nameof(ObjectivesInitialized)].Flag = value; } }
         public bool ObjectivesStarted { get { return this[nameof(ObjectivesStarted)].Flag; } set { this[nameof(ObjectivesStarted)].Flag = value; } }
         public bool bCheatObjectivesCompleted { get { return this[nameof(bCheatObjectivesCompleted)].Flag; } set { this[nameof(bCheatObjectivesCompleted)].Flag = value; } }
         public void OnObjectiveChanged(Objective obj) { Invoke(nameof(OnObjectiveChanged), obj); }
         public bool HasRequiredSecondaryObjective() { return Invoke<bool>(nameof(HasRequiredSecondaryObjective)); }
-        public Array<Objective> GetSecondaryObjectives() { return Invoke<Array<Objective>>(nameof(GetSecondaryObjectives)); }
+        public UArray<Objective> GetSecondaryObjectives() { return Invoke<UArray<Objective>>(nameof(GetSecondaryObjectives)); }
         public Objective GetSecondaryObjective() { return Invoke<Objective>(nameof(GetSecondaryObjective)); }
         public Objective GetPrimaryObjective() { return Invoke<Objective>(nameof(GetPrimaryObjective)); }
         public Objective FindSecondaryObjective(Object objectiveClass) { return Invoke<Objective>(nameof(FindSecondaryObjective), objectiveClass); }
@@ -16049,8 +16053,8 @@ namespace SDK.Script.FSDSDK
         public float CustomLaserPointDuration { get { return this[nameof(CustomLaserPointDuration)].GetValue<float>(); } set { this[nameof(CustomLaserPointDuration)].SetValue<float>(value); } }
         public int LockCounter { get { return this[nameof(LockCounter)].GetValue<int>(); } set { this[nameof(LockCounter)].SetValue<int>(value); } }
         public EOutline CurrentOutline { get { return (EOutline)this[nameof(CurrentOutline)].GetValue<int>(); } set { this[nameof(CurrentOutline)].SetValue<int>((int)value); } }
-        public Array<PrimitiveComponent> OutlinedComponents { get { return new Array<PrimitiveComponent>(this[nameof(OutlinedComponents)].Address); } }
-        public Array<PrimitiveComponent> ExcludedComponents { get { return new Array<PrimitiveComponent>(this[nameof(ExcludedComponents)].Address); } }
+        public UArray<PrimitiveComponent> OutlinedComponents { get { return new UArray<PrimitiveComponent>(this[nameof(OutlinedComponents)].Address); } }
+        public UArray<PrimitiveComponent> ExcludedComponents { get { return new UArray<PrimitiveComponent>(this[nameof(ExcludedComponents)].Address); } }
         public Object Character { get { return this[nameof(Character)]; } set { this[nameof(Character)] = value; } }
         public void UnlockOutline() { Invoke(nameof(UnlockOutline)); }
         public void ToggleDefaultOutline(bool Visible) { Invoke(nameof(ToggleDefaultOutline), Visible); }
@@ -16300,9 +16304,9 @@ namespace SDK.Script.FSDSDK
         public bool bShowPlayerIcon { get { return this[nameof(bShowPlayerIcon)].Flag; } set { this[nameof(bShowPlayerIcon)].Flag = value; } }
         public bool bShowOnEnemyHealthbar { get { return this[nameof(bShowOnEnemyHealthbar)].Flag; } set { this[nameof(bShowOnEnemyHealthbar)].Flag = value; } }
         public PlayerAfflictionOverlay AfflictionOverlay { get { return this[nameof(AfflictionOverlay)].As<PlayerAfflictionOverlay>(); } set { this["AfflictionOverlay"] = value; } }
-        public Array<Object> EnemyEffects { get { return new Array<Object>(this[nameof(EnemyEffects)].Address); } }
-        public Array<Object> PlayerFirstPersonEffects { get { return new Array<Object>(this[nameof(PlayerFirstPersonEffects)].Address); } }
-        public Array<Object> PlayerThirdPersonEffects { get { return new Array<Object>(this[nameof(PlayerThirdPersonEffects)].Address); } }
+        public UArray<Object> EnemyEffects { get { return new UArray<Object>(this[nameof(EnemyEffects)].Address); } }
+        public UArray<Object> PlayerFirstPersonEffects { get { return new UArray<Object>(this[nameof(PlayerFirstPersonEffects)].Address); } }
+        public UArray<Object> PlayerThirdPersonEffects { get { return new UArray<Object>(this[nameof(PlayerThirdPersonEffects)].Address); } }
         public DialogDataAsset PlayerShoutOnBegin { get { return this[nameof(PlayerShoutOnBegin)].As<DialogDataAsset>(); } set { this["PlayerShoutOnBegin"] = value; } }
     }
     public class PawnAfflictionComponent : ActorComponent
@@ -16321,7 +16325,7 @@ namespace SDK.Script.FSDSDK
         public void PopAffliction(PawnAffliction Affliction) { Invoke(nameof(PopAffliction), Affliction); }
         public void OnDeath(HealthComponentBase HealthComponent) { Invoke(nameof(OnDeath), HealthComponent); }
         public bool IsAfflictedBy(PawnAffliction Affliction) { return Invoke<bool>(nameof(IsAfflictedBy), Affliction); }
-        public Array<PawnAffliction> GetActiveAfflictions() { return Invoke<Array<PawnAffliction>>(nameof(GetActiveAfflictions)); }
+        public UArray<PawnAffliction> GetActiveAfflictions() { return Invoke<UArray<PawnAffliction>>(nameof(GetActiveAfflictions)); }
     }
     public class PawnAlertComponent : ActorComponent
     {
@@ -16397,20 +16401,20 @@ namespace SDK.Script.FSDSDK
     public class PerkFunctionLibrary : BlueprintFunctionLibrary
     {
         public PerkFunctionLibrary(nint addr) : base(addr) { }
-        public void SplitPerksByUsage(Array<PerkAsset> perks, Array<PerkAsset> OutPassivePerks, Array<PerkAsset> OutActivePerks) { Invoke(nameof(SplitPerksByUsage), perks, OutPassivePerks, OutActivePerks); }
-        public Array<PerkAsset> SortPerksByUsage(Array<PerkAsset> perks) { return Invoke<Array<PerkAsset>>(nameof(SortPerksByUsage), perks); }
+        public void SplitPerksByUsage(UArray<PerkAsset> perks, UArray<PerkAsset> OutPassivePerks, UArray<PerkAsset> OutActivePerks) { Invoke(nameof(SplitPerksByUsage), perks, OutPassivePerks, OutActivePerks); }
+        public UArray<PerkAsset> SortPerksByUsage(UArray<PerkAsset> perks) { return Invoke<UArray<PerkAsset>>(nameof(SortPerksByUsage), perks); }
         public void RandomizePerkLoadout(Object WorldContext, PlayerCharacterID characterID) { Invoke(nameof(RandomizePerkLoadout), WorldContext, characterID); }
         public bool IsPerkTierUnLocked(Object WorldContext, int Tier) { return Invoke<bool>(nameof(IsPerkTierUnLocked), WorldContext, Tier); }
         public int GetRequiredPerkClaimsForTier(int Tier) { return Invoke<int>(nameof(GetRequiredPerkClaimsForTier), Tier); }
         public void GetPerkTierState(Object WorldContext, int Tier, bool TierUnLocked, int NextRequiredCount, int NextProgressCount) { Invoke(nameof(GetPerkTierState), WorldContext, Tier, TierUnLocked, NextRequiredCount, NextProgressCount); }
         public void GetPerkEquipSlots(Object WorldContext, EPerkUsageType InType, Object InCharacterClass, int OutAvailableSlots, int OutUnavailableSlots, int OutPromotionLockedSlots) { Invoke(nameof(GetPerkEquipSlots), WorldContext, InType, InCharacterClass, OutAvailableSlots, OutUnavailableSlots, OutPromotionLockedSlots); }
-        public Array<EPerkSlotType> GetPerkEquipSlotLayout(Object WorldContext, EPerkUsageType InType, Object InCharacterClass) { return Invoke<Array<EPerkSlotType>>(nameof(GetPerkEquipSlotLayout), WorldContext, InType, InCharacterClass); }
-        public Array<PerkAsset> GetOwnedPerksByType(Object WorldContext, EPerkUsageType InType) { return Invoke<Array<PerkAsset>>(nameof(GetOwnedPerksByType), WorldContext, InType); }
-        public Array<PerkAsset> GetOwnedPerks(Object WorldContext) { return Invoke<Array<PerkAsset>>(nameof(GetOwnedPerks), WorldContext); }
+        public UArray<EPerkSlotType> GetPerkEquipSlotLayout(Object WorldContext, EPerkUsageType InType, Object InCharacterClass) { return Invoke<UArray<EPerkSlotType>>(nameof(GetPerkEquipSlotLayout), WorldContext, InType, InCharacterClass); }
+        public UArray<PerkAsset> GetOwnedPerksByType(Object WorldContext, EPerkUsageType InType) { return Invoke<UArray<PerkAsset>>(nameof(GetOwnedPerksByType), WorldContext, InType); }
+        public UArray<PerkAsset> GetOwnedPerks(Object WorldContext) { return Invoke<UArray<PerkAsset>>(nameof(GetOwnedPerks), WorldContext); }
         public int GetHighestPerkTier() { return Invoke<int>(nameof(GetHighestPerkTier)); }
-        public Array<PerkAsset> GetCharacterNonEquippedPerks(Object WorldContext, PlayerCharacterID characterID) { return Invoke<Array<PerkAsset>>(nameof(GetCharacterNonEquippedPerks), WorldContext, characterID); }
-        public Array<PerkAsset> GetCharacterEquippedPerks(Object WorldContext, PlayerCharacterID characterID) { return Invoke<Array<PerkAsset>>(nameof(GetCharacterEquippedPerks), WorldContext, characterID); }
-        public Array<PerkAsset> GetAvailablePerks() { return Invoke<Array<PerkAsset>>(nameof(GetAvailablePerks)); }
+        public UArray<PerkAsset> GetCharacterNonEquippedPerks(Object WorldContext, PlayerCharacterID characterID) { return Invoke<UArray<PerkAsset>>(nameof(GetCharacterNonEquippedPerks), WorldContext, characterID); }
+        public UArray<PerkAsset> GetCharacterEquippedPerks(Object WorldContext, PlayerCharacterID characterID) { return Invoke<UArray<PerkAsset>>(nameof(GetCharacterEquippedPerks), WorldContext, characterID); }
+        public UArray<PerkAsset> GetAvailablePerks() { return Invoke<UArray<PerkAsset>>(nameof(GetAvailablePerks)); }
         public int GetAmountOfPurchasedPerks(Object WorldContext) { return Invoke<int>(nameof(GetAmountOfPurchasedPerks), WorldContext); }
         public Object FormatRichText(Object SourceText, bool UpperCase, Object CharTagMap) { return Invoke<Object>(nameof(FormatRichText), SourceText, UpperCase, CharTagMap); }
         public int CalculateClaimablePerkPoints(Object WorldContext) { return Invoke<int>(nameof(CalculateClaimablePerkPoints), WorldContext); }
@@ -16418,7 +16422,7 @@ namespace SDK.Script.FSDSDK
     public class PerkUsageComponent : ActorComponent
     {
         public PerkUsageComponent(nint addr) : base(addr) { }
-        public Array<PerkUsage> PerkUsageReplicated { get { return new Array<PerkUsage>(this[nameof(PerkUsageReplicated)].Address); } }
+        public UArray<PerkUsage> PerkUsageReplicated { get { return new UArray<PerkUsage>(this[nameof(PerkUsageReplicated)].Address); } }
         public void Server_MarkPerkUsed(PerkAsset Perk) { Invoke(nameof(Server_MarkPerkUsed), Perk); }
         public void Server_CheatReset() { Invoke(nameof(Server_CheatReset)); }
         public void OnRep_PerkUsageReplicated() { Invoke(nameof(OnRep_PerkUsageReplicated)); }
@@ -16434,8 +16438,8 @@ namespace SDK.Script.FSDSDK
         public void RandomizePickaxe(Object WorldContextObject, PlayerCharacterID PlayerId) { Invoke(nameof(RandomizePickaxe), WorldContextObject, PlayerId); }
         public bool IsPickaxePartEquipped(Object WorldContextObject, EPickaxePartLocation Location, PickaxePart part, ItemID pickaxeID) { return Invoke<bool>(nameof(IsPickaxePartEquipped), WorldContextObject, Location, part, pickaxeID); }
         public void GivePickaxePart(Object WorldContextObject, PickaxePart part) { Invoke(nameof(GivePickaxePart), WorldContextObject, part); }
-        public Array<PickaxePart> GetUnlockedPickaxeParts(Object WorldContextObject, EPickaxePartLocation Category) { return Invoke<Array<PickaxePart>>(nameof(GetUnlockedPickaxeParts), WorldContextObject, Category); }
-        public Array<PickaxePart> GetPickaxeParts(Object WorldContextObject, EPickaxePartLocation Category) { return Invoke<Array<PickaxePart>>(nameof(GetPickaxeParts), WorldContextObject, Category); }
+        public UArray<PickaxePart> GetUnlockedPickaxeParts(Object WorldContextObject, EPickaxePartLocation Category) { return Invoke<UArray<PickaxePart>>(nameof(GetUnlockedPickaxeParts), WorldContextObject, Category); }
+        public UArray<PickaxePart> GetPickaxeParts(Object WorldContextObject, EPickaxePartLocation Category) { return Invoke<UArray<PickaxePart>>(nameof(GetPickaxeParts), WorldContextObject, Category); }
         public bool GetIsPickAxePartAcquired(Object WorldContextObject, PickaxePart InPickaxePart) { return Invoke<bool>(nameof(GetIsPickAxePartAcquired), WorldContextObject, InPickaxePart); }
         public PickaxeSet GetEquippedPickaxeSet(Object WorldContextObject, ItemID pickaxeID) { return Invoke<PickaxeSet>(nameof(GetEquippedPickaxeSet), WorldContextObject, pickaxeID); }
         public PickaxePart GetEquippedPickaxePart(Object WorldContextObject, EPickaxePartLocation partLocation, ItemID pickaxeID) { return Invoke<PickaxePart>(nameof(GetEquippedPickaxePart), WorldContextObject, partLocation, pickaxeID); }
@@ -16572,7 +16576,7 @@ namespace SDK.Script.FSDSDK
         public Object PickaxePreviewActors { get { return this[nameof(PickaxePreviewActors)]; } set { this[nameof(PickaxePreviewActors)] = value; } }
         public AnimMontage Salute_FP { get { return this[nameof(Salute_FP)].As<AnimMontage>(); } set { this["Salute_FP"] = value; } }
         public AnimMontage Salute_TP { get { return this[nameof(Salute_TP)].As<AnimMontage>(); } set { this["Salute_TP"] = value; } }
-        public Array<PickaxePart> Parts { get { return new Array<PickaxePart>(this[nameof(Parts)].Address); } }
+        public UArray<PickaxePart> Parts { get { return new UArray<PickaxePart>(this[nameof(Parts)].Address); } }
         public Object DefaultParts { get { return this[nameof(DefaultParts)]; } set { this[nameof(DefaultParts)] = value; } }
     }
     public class PickaxePartEquip : Interface
@@ -16582,7 +16586,7 @@ namespace SDK.Script.FSDSDK
     public class PillarSettings : DataAsset
     {
         public PillarSettings(nint addr) : base(addr) { }
-        public Array<PillarSegment> PillarSegments { get { return new Array<PillarSegment>(this[nameof(PillarSegments)].Address); } }
+        public UArray<PillarSegment> PillarSegments { get { return new UArray<PillarSegment>(this[nameof(PillarSegments)].Address); } }
         public RandRange PointRange { get { return this[nameof(PointRange)].As<RandRange>(); } set { this["PointRange"] = value; } }
         public RandRange PointNoiseRange { get { return this[nameof(PointNoiseRange)].As<RandRange>(); } set { this["PointNoiseRange"] = value; } }
         public RandRange PillarRangeScale { get { return this[nameof(PillarRangeScale)].As<RandRange>(); } set { this["PillarRangeScale"] = value; } }
@@ -16592,7 +16596,7 @@ namespace SDK.Script.FSDSDK
     public class PillarGenerationComponent : GenerationComponent
     {
         public PillarGenerationComponent(nint addr) : base(addr) { }
-        public Array<Vector> Points { get { return new Array<Vector>(this[nameof(Points)].Address); } }
+        public UArray<Vector> Points { get { return new UArray<Vector>(this[nameof(Points)].Address); } }
         public bool Visible { get { return this[nameof(Visible)].Flag; } set { this[nameof(Visible)].Flag = value; } }
         public PillarSettings PillarSettings { get { return this[nameof(PillarSettings)].As<PillarSettings>(); } set { this["PillarSettings"] = value; } }
     }
@@ -16737,13 +16741,13 @@ namespace SDK.Script.FSDSDK
         public EPipelineBuildState BuildState { get { return (EPipelineBuildState)this[nameof(BuildState)].GetValue<int>(); } set { this[nameof(BuildState)].SetValue<int>((int)value); } }
         public PipelineFinish PipelineFinish { get { return this[nameof(PipelineFinish)].As<PipelineFinish>(); } set { this["PipelineFinish"] = value; } }
         public FSDRefinery Refinery { get { return this[nameof(Refinery)].As<FSDRefinery>(); } set { this["Refinery"] = value; } }
-        public Array<Object> BrokenSegments { get { return new Array<Object>(this[nameof(BrokenSegments)].Address); } }
+        public UArray<Object> BrokenSegments { get { return new UArray<Object>(this[nameof(BrokenSegments)].Address); } }
         public void ReceiveBuildStateChanged(EPipelineBuildState InBuildState) { Invoke(nameof(ReceiveBuildStateChanged), InBuildState); }
         public void PipelineStartStateDelegate__DelegateSignature(PipelineStart InPipelineStart, EPipelineBuildState InPipelineState) { Invoke(nameof(PipelineStartStateDelegate__DelegateSignature), InPipelineStart, InPipelineState); }
         public void PipelineCompleted(PipelineFinish InPipelineFinish) { Invoke(nameof(PipelineCompleted), InPipelineFinish); }
         public void OnRep_BuildState() { Invoke(nameof(OnRep_BuildState)); }
         public void OnNextSegmentChanged(TrackBuilderUsable InUsable, TrackBuilderSegment InSegment) { Invoke(nameof(OnNextSegmentChanged), InUsable, InSegment); }
-        public Array<PipelineSegment> GetAllPipelineSegments() { return Invoke<Array<PipelineSegment>>(nameof(GetAllPipelineSegments)); }
+        public UArray<PipelineSegment> GetAllPipelineSegments() { return Invoke<UArray<PipelineSegment>>(nameof(GetAllPipelineSegments)); }
     }
     public class PlaceableInterface : Interface
     {
@@ -16799,7 +16803,7 @@ namespace SDK.Script.FSDSDK
     public class PlagueControlActor : Actor
     {
         public PlagueControlActor(nint addr) : base(addr) { }
-        public Array<PlacementObstruction> Obstructions { get { return new Array<PlacementObstruction>(this[nameof(Obstructions)].Address); } }
+        public UArray<PlacementObstruction> Obstructions { get { return new UArray<PlacementObstruction>(this[nameof(Obstructions)].Address); } }
         public NiagaraComponent DebrisLightSystem { get { return this[nameof(DebrisLightSystem)].As<NiagaraComponent>(); } set { this["DebrisLightSystem"] = value; } }
         public PlagueUsable CallWeaponPodUsable { get { return this[nameof(CallWeaponPodUsable)].As<PlagueUsable>(); } set { this["CallWeaponPodUsable"] = value; } }
         public TerrainMaterial TargetPlagueMaterial { get { return this[nameof(TargetPlagueMaterial)].As<TerrainMaterial>(); } set { this["TargetPlagueMaterial"] = value; } }
@@ -16832,8 +16836,8 @@ namespace SDK.Script.FSDSDK
         public float HealthPercentageToKill { get { return this[nameof(HealthPercentageToKill)].GetValue<float>(); } set { this[nameof(HealthPercentageToKill)].SetValue<float>(value); } }
         public Object WormPodClass { get { return this[nameof(WormPodClass)]; } set { this[nameof(WormPodClass)] = value; } }
         public float ImportantLocationRadius { get { return this[nameof(ImportantLocationRadius)].GetValue<float>(); } set { this[nameof(ImportantLocationRadius)].SetValue<float>(value); } }
-        public Array<Actor> ActiveWorms { get { return new Array<Actor>(this[nameof(ActiveWorms)].Address); } }
-        public Array<Actor> ActivePods { get { return new Array<Actor>(this[nameof(ActivePods)].Address); } }
+        public UArray<Actor> ActiveWorms { get { return new UArray<Actor>(this[nameof(ActiveWorms)].Address); } }
+        public UArray<Actor> ActivePods { get { return new UArray<Actor>(this[nameof(ActivePods)].Address); } }
         public int MaxWormCount { get { return this[nameof(MaxWormCount)].GetValue<int>(); } set { this[nameof(MaxWormCount)].SetValue<int>(value); } }
         public float WormPodInterval { get { return this[nameof(WormPodInterval)].GetValue<float>(); } set { this[nameof(WormPodInterval)].SetValue<float>(value); } }
         public int MinWormPodWave { get { return this[nameof(MinWormPodWave)].GetValue<int>(); } set { this[nameof(MinWormPodWave)].SetValue<int>(value); } }
@@ -16871,7 +16875,7 @@ namespace SDK.Script.FSDSDK
         public TerrainPlacementComponent terrainPlacement { get { return this[nameof(terrainPlacement)].As<TerrainPlacementComponent>(); } set { this["terrainPlacement"] = value; } }
         public DamageComponent ImpactDamage { get { return this[nameof(ImpactDamage)].As<DamageComponent>(); } set { this["ImpactDamage"] = value; } }
         public bool ManuallyTargeted { get { return this[nameof(ManuallyTargeted)].Flag; } set { this[nameof(ManuallyTargeted)].Flag = value; } }
-        public Array<StaticMesh> stages { get { return new Array<StaticMesh>(this[nameof(stages)].Address); } }
+        public UArray<StaticMesh> stages { get { return new UArray<StaticMesh>(this[nameof(stages)].Address); } }
         public int CrackStage { get { return this[nameof(CrackStage)].GetValue<int>(); } set { this[nameof(CrackStage)].SetValue<int>(value); } }
         public DropInfo DropInfo { get { return this[nameof(DropInfo)].As<DropInfo>(); } set { this["DropInfo"] = value; } }
         public Object DropzoneIndicatorClass { get { return this[nameof(DropzoneIndicatorClass)]; } set { this[nameof(DropzoneIndicatorClass)] = value; } }
@@ -16887,7 +16891,7 @@ namespace SDK.Script.FSDSDK
         public Object RockCrackerPod { get { return this[nameof(RockCrackerPod)]; } set { this[nameof(RockCrackerPod)] = value; } }
         public Object RockCrackerIndicator { get { return this[nameof(RockCrackerIndicator)]; } set { this[nameof(RockCrackerIndicator)] = value; } }
         public DebrisPositioning RockCrackerPodPositioning { get { return this[nameof(RockCrackerPodPositioning)].As<DebrisPositioning>(); } set { this["RockCrackerPodPositioning"] = value; } }
-        public Array<RockCrackerPod> SpawnedPods { get { return new Array<RockCrackerPod>(this[nameof(SpawnedPods)].Address); } }
+        public UArray<RockCrackerPod> SpawnedPods { get { return new UArray<RockCrackerPod>(this[nameof(SpawnedPods)].Address); } }
         public float SpawnedTime { get { return this[nameof(SpawnedTime)].GetValue<float>(); } set { this[nameof(SpawnedTime)].SetValue<float>(value); } }
         public void SignalEventStarted() { Invoke(nameof(SignalEventStarted)); }
         public void SignalEventEnded(bool wasSuccess) { Invoke(nameof(SignalEventEnded), wasSuccess); }
@@ -16903,7 +16907,7 @@ namespace SDK.Script.FSDSDK
         public void Impacted_Latejoin() { Invoke(nameof(Impacted_Latejoin)); }
         public void Impacted() { Invoke(nameof(Impacted)); }
         public bool HasLandedOnTopOfRefineryPipes(float minDistanceToPipes) { return Invoke<bool>(nameof(HasLandedOnTopOfRefineryPipes), minDistanceToPipes); }
-        public Array<RockCrackerPod> GetPods() { return Invoke<Array<RockCrackerPod>>(nameof(GetPods)); }
+        public UArray<RockCrackerPod> GetPods() { return Invoke<UArray<RockCrackerPod>>(nameof(GetPods)); }
         public RockCrackerPod GetPodAtIndex(int Index) { return Invoke<RockCrackerPod>(nameof(GetPodAtIndex), Index); }
         public int GetNumActivePods() { return Invoke<int>(nameof(GetNumActivePods)); }
         public void EnableVisuals() { Invoke(nameof(EnableVisuals)); }
@@ -16927,11 +16931,11 @@ namespace SDK.Script.FSDSDK
         public bool AllPlagueCleaned { get { return this[nameof(AllPlagueCleaned)].Flag; } set { this[nameof(AllPlagueCleaned)].Flag = value; } }
         public PlagueControlActor PlagueController { get { return this[nameof(PlagueController)].As<PlagueControlActor>(); } set { this["PlagueController"] = value; } }
         public Object PlagueControllerClass { get { return this[nameof(PlagueControllerClass)]; } set { this[nameof(PlagueControllerClass)] = value; } }
-        public Array<PlagueInfectionNode> ActivePlagueCenters { get { return new Array<PlagueInfectionNode>(this[nameof(ActivePlagueCenters)].Address); } }
+        public UArray<PlagueInfectionNode> ActivePlagueCenters { get { return new UArray<PlagueInfectionNode>(this[nameof(ActivePlagueCenters)].Address); } }
         public Object ScriptedPlagueWave { get { return this[nameof(ScriptedPlagueWave)]; } set { this[nameof(ScriptedPlagueWave)] = value; } }
         public float ScriptedPlagueWaveWeight { get { return this[nameof(ScriptedPlagueWaveWeight)].GetValue<float>(); } set { this[nameof(ScriptedPlagueWaveWeight)].SetValue<float>(value); } }
         public void OnRep_CurrentPlagueAmount(int OldAmount) { Invoke(nameof(OnRep_CurrentPlagueAmount), OldAmount); }
-        public Array<PlagueInfectionNode> GetPlagueCenters() { return Invoke<Array<PlagueInfectionNode>>(nameof(GetPlagueCenters)); }
+        public UArray<PlagueInfectionNode> GetPlagueCenters() { return Invoke<UArray<PlagueInfectionNode>>(nameof(GetPlagueCenters)); }
     }
     public class PlaguePuddle : AdicPuddle
     {
@@ -16952,19 +16956,19 @@ namespace SDK.Script.FSDSDK
     public class PlanetZoneSetup : DataAsset
     {
         public PlanetZoneSetup(nint addr) : base(addr) { }
-        public Array<PlanetZone> PlanetZones { get { return new Array<PlanetZone>(this[nameof(PlanetZones)].Address); } }
+        public UArray<PlanetZone> PlanetZones { get { return new UArray<PlanetZone>(this[nameof(PlanetZones)].Address); } }
         public PlanetZone GetPlanetZoneForBiome(Biome Biome, int zoneIndex) { return Invoke<PlanetZone>(nameof(GetPlanetZoneForBiome), Biome, zoneIndex); }
     }
     public class PlanetZone : DataAsset
     {
         public PlanetZone(nint addr) : base(addr) { }
-        public Array<Biome> Biomes { get { return new Array<Biome>(this[nameof(Biomes)].Address); } }
-        public Array<RequiredMissionItem> RequiredMissions { get { return new Array<RequiredMissionItem>(this[nameof(RequiredMissions)].Address); } }
+        public UArray<Biome> Biomes { get { return new UArray<Biome>(this[nameof(Biomes)].Address); } }
+        public UArray<RequiredMissionItem> RequiredMissions { get { return new UArray<RequiredMissionItem>(this[nameof(RequiredMissions)].Address); } }
         public bool MustBeUnlocked { get { return this[nameof(MustBeUnlocked)].Flag; } set { this[nameof(MustBeUnlocked)].Flag = value; } }
         public Guid SavegameID { get { return this[nameof(SavegameID)].As<Guid>(); } set { this["SavegameID"] = value; } }
         public bool IsUnlocked(FSDSaveGame SaveGame) { return Invoke<bool>(nameof(IsUnlocked), SaveGame); }
         public Guid GetSavegameID() { return Invoke<Guid>(nameof(GetSavegameID)); }
-        public Array<Biome> GetBiomes() { return Invoke<Array<Biome>>(nameof(GetBiomes)); }
+        public UArray<Biome> GetBiomes() { return Invoke<UArray<Biome>>(nameof(GetBiomes)); }
     }
     public class PlasmaBoomerang : Grenade
     {
@@ -17246,8 +17250,8 @@ namespace SDK.Script.FSDSDK
         public float BuffRadius { get { return this[nameof(BuffRadius)].GetValue<float>(); } set { this[nameof(BuffRadius)].SetValue<float>(value); } }
         public int MaxBuffedTargets { get { return this[nameof(MaxBuffedTargets)].GetValue<int>(); } set { this[nameof(MaxBuffedTargets)].SetValue<int>(value); } }
         public int PushAmount { get { return this[nameof(PushAmount)].GetValue<int>(); } set { this[nameof(PushAmount)].SetValue<int>(value); } }
-        public Array<PlayerCharacter> BuffTargets { get { return new Array<PlayerCharacter>(this[nameof(BuffTargets)].Address); } }
-        public Array<ParticleSystemComponent> ParticleInstances { get { return new Array<ParticleSystemComponent>(this[nameof(ParticleInstances)].Address); } }
+        public UArray<PlayerCharacter> BuffTargets { get { return new UArray<PlayerCharacter>(this[nameof(BuffTargets)].Address); } }
+        public UArray<ParticleSystemComponent> ParticleInstances { get { return new UArray<ParticleSystemComponent>(this[nameof(ParticleInstances)].Address); } }
         public void SetBuffingEnabled(bool Enabled) { Invoke(nameof(SetBuffingEnabled), Enabled); }
         public void ReducePushAmount() { Invoke(nameof(ReducePushAmount)); }
         public void OnPawnDied(HealthComponentBase Health) { Invoke(nameof(OnPawnDied), Health); }
@@ -17270,19 +17274,19 @@ namespace SDK.Script.FSDSDK
         public bool UseDOF { get { return this[nameof(UseDOF)].Flag; } set { this[nameof(UseDOF)].Flag = value; } }
         public Object VanitySpawnable { get { return this[nameof(VanitySpawnable)]; } set { this[nameof(VanitySpawnable)] = value; } }
         public Object VanityWeaponSpawnable { get { return this[nameof(VanityWeaponSpawnable)]; } set { this[nameof(VanityWeaponSpawnable)] = value; } }
-        public Array<Object> VanityCharacterAnimations { get { return new Array<Object>(this[nameof(VanityCharacterAnimations)].Address); } }
+        public UArray<Object> VanityCharacterAnimations { get { return new UArray<Object>(this[nameof(VanityCharacterAnimations)].Address); } }
         public int SelectedVanityClassIndex { get { return this[nameof(SelectedVanityClassIndex)].GetValue<int>(); } set { this[nameof(SelectedVanityClassIndex)].SetValue<int>(value); } }
         public int SelectedVanityAnimation { get { return this[nameof(SelectedVanityAnimation)].GetValue<int>(); } set { this[nameof(SelectedVanityAnimation)].SetValue<int>(value); } }
-        public Array<VanityCharacter> VanityCharacterInstances { get { return new Array<VanityCharacter>(this[nameof(VanityCharacterInstances)].Address); } }
-        public Array<VanityCharacter> StaticVanityCharacterInstances { get { return new Array<VanityCharacter>(this[nameof(StaticVanityCharacterInstances)].Address); } }
+        public UArray<VanityCharacter> VanityCharacterInstances { get { return new UArray<VanityCharacter>(this[nameof(VanityCharacterInstances)].Address); } }
+        public UArray<VanityCharacter> StaticVanityCharacterInstances { get { return new UArray<VanityCharacter>(this[nameof(StaticVanityCharacterInstances)].Address); } }
         public Object DroneMarker { get { return this[nameof(DroneMarker)]; } set { this[nameof(DroneMarker)] = value; } }
         public LaserPointerMarker ActiveMarker { get { return this[nameof(ActiveMarker)].As<LaserPointerMarker>(); } set { this["ActiveMarker"] = value; } }
         public Object Flare { get { return this[nameof(Flare)]; } set { this[nameof(Flare)] = value; } }
-        public Array<Actor> FlareInstances { get { return new Array<Actor>(this[nameof(FlareInstances)].Address); } }
+        public UArray<Actor> FlareInstances { get { return new UArray<Actor>(this[nameof(FlareInstances)].Address); } }
         public Object BounceFlare { get { return this[nameof(BounceFlare)]; } set { this[nameof(BounceFlare)] = value; } }
-        public Array<Actor> BounceFlareInstances { get { return new Array<Actor>(this[nameof(BounceFlareInstances)].Address); } }
+        public UArray<Actor> BounceFlareInstances { get { return new UArray<Actor>(this[nameof(BounceFlareInstances)].Address); } }
         public Actor SplineInstance { get { return this[nameof(SplineInstance)].As<Actor>(); } set { this["SplineInstance"] = value; } }
-        public Array<Actor> SplineMeshInstances { get { return new Array<Actor>(this[nameof(SplineMeshInstances)].Address); } }
+        public UArray<Actor> SplineMeshInstances { get { return new UArray<Actor>(this[nameof(SplineMeshInstances)].Address); } }
         public Object Spline { get { return this[nameof(Spline)]; } set { this[nameof(Spline)] = value; } }
         public Object SplineMesh { get { return this[nameof(SplineMesh)]; } set { this[nameof(SplineMesh)] = value; } }
         public Actor PlayerFollowed { get { return this[nameof(PlayerFollowed)].As<Actor>(); } set { this["PlayerFollowed"] = value; } }
@@ -17363,7 +17367,7 @@ namespace SDK.Script.FSDSDK
         public Object JetBootsComponentSpawnable { get { return this[nameof(JetBootsComponentSpawnable)]; } set { this[nameof(JetBootsComponentSpawnable)] = value; } }
         public Object JetBootsComponentMK2Spawnable { get { return this[nameof(JetBootsComponentMK2Spawnable)]; } set { this[nameof(JetBootsComponentMK2Spawnable)] = value; } }
         public ZipLineStateComponent ZipLineStateComponent { get { return this[nameof(ZipLineStateComponent)].As<ZipLineStateComponent>(); } set { this["ZipLineStateComponent"] = value; } }
-        public Array<Object> EscapableGrabberEnemies { get { return new Array<Object>(this[nameof(EscapableGrabberEnemies)].Address); } }
+        public UArray<Object> EscapableGrabberEnemies { get { return new UArray<Object>(this[nameof(EscapableGrabberEnemies)].Address); } }
         public Object OnKilledGrabber { get { return this[nameof(OnKilledGrabber)]; } set { this[nameof(OnKilledGrabber)] = value; } }
         public Object OnPerkActivationTimerFinished { get { return this[nameof(OnPerkActivationTimerFinished)]; } set { this[nameof(OnPerkActivationTimerFinished)] = value; } }
         public PerkHUDActivationWidget BoundPerkActivationW { get { return this[nameof(BoundPerkActivationW)].As<PerkHUDActivationWidget>(); } set { this["BoundPerkActivationW"] = value; } }
@@ -17373,9 +17377,9 @@ namespace SDK.Script.FSDSDK
         public Object OnCoolDownProgress { get { return this[nameof(OnCoolDownProgress)]; } set { this[nameof(OnCoolDownProgress)] = value; } }
         public bool bIsBeingBittenByCaveLeech { get { return this[nameof(bIsBeingBittenByCaveLeech)].Flag; } set { this[nameof(bIsBeingBittenByCaveLeech)].Flag = value; } }
         public WidgetInteractionComponent WidgetInteraction { get { return this[nameof(WidgetInteraction)].As<WidgetInteractionComponent>(); } set { this["WidgetInteraction"] = value; } }
-        public Array<PlatformComponent> PlatformComponentClasses { get { return new Array<PlatformComponent>(this[nameof(PlatformComponentClasses)].Address); } }
+        public UArray<PlatformComponent> PlatformComponentClasses { get { return new UArray<PlatformComponent>(this[nameof(PlatformComponentClasses)].Address); } }
         public DownCameraSettings DownCameraSettings { get { return this[nameof(DownCameraSettings)].As<DownCameraSettings>(); } set { this["DownCameraSettings"] = value; } }
-        public Array<Object> ActiveShieldGenerators { get { return new Array<Object>(this[nameof(ActiveShieldGenerators)].Address); } }
+        public UArray<Object> ActiveShieldGenerators { get { return new UArray<Object>(this[nameof(ActiveShieldGenerators)].Address); } }
         public Guid SavegameID { get { return this[nameof(SavegameID)].As<Guid>(); } set { this["SavegameID"] = value; } }
         public Vector EstimatedVelocity { get { return this[nameof(EstimatedVelocity)].As<Vector>(); } set { this["EstimatedVelocity"] = value; } }
         public HoldButton FlareHeadlightButton { get { return this[nameof(FlareHeadlightButton)].As<HoldButton>(); } set { this["FlareHeadlightButton"] = value; } }
@@ -17487,7 +17491,7 @@ namespace SDK.Script.FSDSDK
         public AnimMontage FPDrinkSalute { get { return this[nameof(FPDrinkSalute)].As<AnimMontage>(); } set { this["FPDrinkSalute"] = value; } }
         public AnimMontage TPDrinkSalute { get { return this[nameof(TPDrinkSalute)].As<AnimMontage>(); } set { this["TPDrinkSalute"] = value; } }
         public AnimMontage CurrentSaluteMontage { get { return this[nameof(CurrentSaluteMontage)].As<AnimMontage>(); } set { this["CurrentSaluteMontage"] = value; } }
-        public Array<MaterialInterface> CachedMaterials { get { return new Array<MaterialInterface>(this[nameof(CachedMaterials)].Address); } }
+        public UArray<MaterialInterface> CachedMaterials { get { return new UArray<MaterialInterface>(this[nameof(CachedMaterials)].Address); } }
         public bool BlockTrackGrindOnLanded { get { return this[nameof(BlockTrackGrindOnLanded)].Flag; } set { this[nameof(BlockTrackGrindOnLanded)].Flag = value; } }
         public Object SteamClassID { get { return this[nameof(SteamClassID)]; } set { this[nameof(SteamClassID)] = value; } }
         public MaterialInstanceDynamic RadarMaterialInstance { get { return this[nameof(RadarMaterialInstance)].As<MaterialInstanceDynamic>(); } set { this["RadarMaterialInstance"] = value; } }
@@ -17653,7 +17657,7 @@ namespace SDK.Script.FSDSDK
         public Object GetAnalyticsClass() { return Invoke<Object>(nameof(GetAnalyticsClass)); }
         public Rotator GetAimRotation() { return Invoke<Rotator>(nameof(GetAimRotation)); }
         public Vector GetActorGroundLocation() { return Invoke<Vector>(nameof(GetActorGroundLocation)); }
-        public Array<ShieldGeneratorActor> GetActiveShieldGenerators() { return Invoke<Array<ShieldGeneratorActor>>(nameof(GetActiveShieldGenerators)); }
+        public UArray<ShieldGeneratorActor> GetActiveShieldGenerators() { return Invoke<UArray<ShieldGeneratorActor>>(nameof(GetActiveShieldGenerators)); }
         public PlayerAnimInstance GetActiveAnimInstance() { return Invoke<PlayerAnimInstance>(nameof(GetActiveAnimInstance)); }
         public void GenericAnimNotifyDelegate__DelegateSignature(PlayerCharacter Player) { Invoke(nameof(GenericAnimNotifyDelegate__DelegateSignature), Player); }
         public void ForceIsPressingMovementInputKey() { Invoke(nameof(ForceIsPressingMovementInputKey)); }
@@ -17793,13 +17797,13 @@ namespace SDK.Script.FSDSDK
         public PlayerProximityTracker(nint addr) : base(addr) { }
         public float MaxDistanceBetweenPlayers { get { return this[nameof(MaxDistanceBetweenPlayers)].GetValue<float>(); } set { this[nameof(MaxDistanceBetweenPlayers)].SetValue<float>(value); } }
         public float PlayerSpheresUpdateRatePerSecond { get { return this[nameof(PlayerSpheresUpdateRatePerSecond)].GetValue<float>(); } set { this[nameof(PlayerSpheresUpdateRatePerSecond)].SetValue<float>(value); } }
-        public Array<PlayerSphere> PlayerSpheres { get { return new Array<PlayerSphere>(this[nameof(PlayerSpheres)].Address); } }
-        public Array<ProximityTriggerItem> LocalPlayerProximityTriggers { get { return new Array<ProximityTriggerItem>(this[nameof(LocalPlayerProximityTriggers)].Address); } }
-        public Array<ProximityTriggerItem> AnyPlayerProximityTriggers { get { return new Array<ProximityTriggerItem>(this[nameof(AnyPlayerProximityTriggers)].Address); } }
+        public UArray<PlayerSphere> PlayerSpheres { get { return new UArray<PlayerSphere>(this[nameof(PlayerSpheres)].Address); } }
+        public UArray<ProximityTriggerItem> LocalPlayerProximityTriggers { get { return new UArray<ProximityTriggerItem>(this[nameof(LocalPlayerProximityTriggers)].Address); } }
+        public UArray<ProximityTriggerItem> AnyPlayerProximityTriggers { get { return new UArray<ProximityTriggerItem>(this[nameof(AnyPlayerProximityTriggers)].Address); } }
         public void Receive_RegisterForLocalPlayerProximity(Object WorldContextObject, Vector Location, float Distance, Object proximityCallback, bool triggerOnlyOnce) { Invoke(nameof(Receive_RegisterForLocalPlayerProximity), WorldContextObject, Location, Distance, proximityCallback, triggerOnlyOnce); }
         public void Receive_RegisterForAnyPlayerProximity(Object WorldContextObject, Vector Location, float Distance, Object proximityCallback, bool triggerOnlyOnce) { Invoke(nameof(Receive_RegisterForAnyPlayerProximity), WorldContextObject, Location, Distance, proximityCallback, triggerOnlyOnce); }
         public PlayerSphere GetPrimarySphere() { return Invoke<PlayerSphere>(nameof(GetPrimarySphere)); }
-        public Array<PlayerSphere> GetPlayerSpheres() { return Invoke<Array<PlayerSphere>>(nameof(GetPlayerSpheres)); }
+        public UArray<PlayerSphere> GetPlayerSpheres() { return Invoke<UArray<PlayerSphere>>(nameof(GetPlayerSpheres)); }
     }
     public class PlayerRejoinState : ActorComponent
     {
@@ -17807,7 +17811,7 @@ namespace SDK.Script.FSDSDK
         public void Server_Reset() { Invoke(nameof(Server_Reset)); }
         public void Server_AddIntValue_Internal(Guid ItemKey, Object ValueKey, int Value) { Invoke(nameof(Server_AddIntValue_Internal), ItemKey, ValueKey, Value); }
         public void Server_AddFloatValue_Internal(Guid ItemKey, Object ValueKey, float Value) { Invoke(nameof(Server_AddFloatValue_Internal), ItemKey, ValueKey, Value); }
-        public void Client_SetValues(Array<RejoinFloat> floatValues, Array<RejoinInt> intValues) { Invoke(nameof(Client_SetValues), floatValues, intValues); }
+        public void Client_SetValues(UArray<RejoinFloat> floatValues, UArray<RejoinInt> intValues) { Invoke(nameof(Client_SetValues), floatValues, intValues); }
     }
     public class ResourcesComponent : ActorComponent
     {
@@ -17816,7 +17820,7 @@ namespace SDK.Script.FSDSDK
         public Object OnResourceIncreased { get { return this[nameof(OnResourceIncreased)]; } set { this[nameof(OnResourceIncreased)] = value; } }
         public Object OnResourceFull { get { return this[nameof(OnResourceFull)]; } set { this[nameof(OnResourceFull)] = value; } }
         public Object OnResourceAdded { get { return this[nameof(OnResourceAdded)]; } set { this[nameof(OnResourceAdded)] = value; } }
-        public Array<CappedResource> Resources { get { return new Array<CappedResource>(this[nameof(Resources)].Address); } }
+        public UArray<CappedResource> Resources { get { return new UArray<CappedResource>(this[nameof(Resources)].Address); } }
         public float ResourceCap { get { return this[nameof(ResourceCap)].GetValue<float>(); } set { this[nameof(ResourceCap)].SetValue<float>(value); } }
         public void ResourceIncreased(CappedResource Resource, float Delta) { Invoke(nameof(ResourceIncreased), Resource, Delta); }
         public void ResourceFull(CappedResource Resource) { Invoke(nameof(ResourceFull), Resource); }
@@ -17827,7 +17831,7 @@ namespace SDK.Script.FSDSDK
         public Object GetSeparateResourcesFromMap(Object Resources) { return Invoke<Object>(nameof(GetSeparateResourcesFromMap), Resources); }
         public CappedResource GetResource(ResourceData Data, bool createIfAmountIsZero) { return Invoke<CappedResource>(nameof(GetResource), Data, createIfAmountIsZero); }
         public float GetCapacityPct() { return Invoke<float>(nameof(GetCapacityPct)); }
-        public Array<CappedResource> GetAllResources() { return Invoke<Array<CappedResource>>(nameof(GetAllResources)); }
+        public UArray<CappedResource> GetAllResources() { return Invoke<UArray<CappedResource>>(nameof(GetAllResources)); }
     }
     public class PlayerResourceComponent : ResourcesComponent
     {
@@ -17909,9 +17913,9 @@ namespace SDK.Script.FSDSDK
         public MissionComplexity limitComplexity { get { return this[nameof(limitComplexity)].As<MissionComplexity>(); } set { this["limitComplexity"] = value; } }
         public MissionDuration limitDuration { get { return this[nameof(limitDuration)].As<MissionDuration>(); } set { this["limitDuration"] = value; } }
         public MissionMutator Mutator { get { return this[nameof(Mutator)].As<MissionMutator>(); } set { this["Mutator"] = value; } }
-        public Array<MissionWarning> Warnings { get { return new Array<MissionWarning>(this[nameof(Warnings)].Address); } }
+        public UArray<MissionWarning> Warnings { get { return new UArray<MissionWarning>(this[nameof(Warnings)].Address); } }
         public MissionChallenge Challenge { get { return this[nameof(Challenge)].As<MissionChallenge>(); } set { this["Challenge"] = value; } }
-        public Array<Object> SecondaryObjectives { get { return new Array<Object>(this[nameof(SecondaryObjectives)].Address); } }
+        public UArray<Object> SecondaryObjectives { get { return new UArray<Object>(this[nameof(SecondaryObjectives)].Address); } }
         public SpecialEvent SpecialEvent { get { return this[nameof(SpecialEvent)].As<SpecialEvent>(); } set { this["SpecialEvent"] = value; } }
         public Biome Biome { get { return this[nameof(Biome)].As<Biome>(); } set { this["Biome"] = value; } }
         public MissionTemplate MissionTemplate { get { return this[nameof(MissionTemplate)].As<MissionTemplate>(); } set { this["MissionTemplate"] = value; } }
@@ -17927,7 +17931,7 @@ namespace SDK.Script.FSDSDK
         public Biome Biome { get { return this[nameof(Biome)].As<Biome>(); } set { this["Biome"] = value; } }
         public int Seed { get { return this[nameof(Seed)].GetValue<int>(); } set { this[nameof(Seed)].SetValue<int>(value); } }
         public EMissionStructure MissionStructure { get { return (EMissionStructure)this[nameof(MissionStructure)].GetValue<int>(); } set { this[nameof(MissionStructure)].SetValue<int>((int)value); } }
-        public Array<DeepDiveTesterItem> stages { get { return new Array<DeepDiveTesterItem>(this[nameof(stages)].Address); } }
+        public UArray<DeepDiveTesterItem> stages { get { return new UArray<DeepDiveTesterItem>(this[nameof(stages)].Address); } }
     }
     public class PoseCorrectionComponent : ActorComponent
     {
@@ -17940,9 +17944,9 @@ namespace SDK.Script.FSDSDK
     public class PostProcessingManager : Actor
     {
         public PostProcessingManager(nint addr) : base(addr) { }
-        public Array<Object> RegisteredActors { get { return new Array<Object>(this[nameof(RegisteredActors)].Address); } }
-        public Array<PostProcessingBlendable> CurrentBlendables { get { return new Array<PostProcessingBlendable>(this[nameof(CurrentBlendables)].Address); } }
-        public Array<MaterialInstanceDynamic> Materials { get { return new Array<MaterialInstanceDynamic>(this[nameof(Materials)].Address); } }
+        public UArray<Object> RegisteredActors { get { return new UArray<Object>(this[nameof(RegisteredActors)].Address); } }
+        public UArray<PostProcessingBlendable> CurrentBlendables { get { return new UArray<PostProcessingBlendable>(this[nameof(CurrentBlendables)].Address); } }
+        public UArray<MaterialInstanceDynamic> Materials { get { return new UArray<MaterialInstanceDynamic>(this[nameof(Materials)].Address); } }
     }
     public class PresenceSubSystem : GameInstanceSubsystem
     {
@@ -17960,14 +17964,14 @@ namespace SDK.Script.FSDSDK
         public void SendRequestedCarverData(EDebrisItemPass pass) { Invoke(nameof(SendRequestedCarverData), pass); }
         public void RequestPLSData() { Invoke(nameof(RequestPLSData)); }
         public void RequestCarverData(EDebrisItemPass pass) { Invoke(nameof(RequestCarverData), pass); }
-        public void ReceivedTunnelData(Array<TunnelNode> tunnels) { Invoke(nameof(ReceivedTunnelData), tunnels); }
-        public void ReceivedRoomData(int Seed, Array<RoomNode> Rooms, Array<PathObstacle> Obstacles) { Invoke(nameof(ReceivedRoomData), Seed, Rooms, Obstacles); }
-        public void Client_SendTunnelData(Array<TunnelNode> tunnels) { Invoke(nameof(Client_SendTunnelData), tunnels); }
-        public void Client_SendRoomData(int Seed, Array<RoomNode> Rooms, Array<PathObstacle> Obstacles) { Invoke(nameof(Client_SendRoomData), Seed, Rooms, Obstacles); }
+        public void ReceivedTunnelData(UArray<TunnelNode> tunnels) { Invoke(nameof(ReceivedTunnelData), tunnels); }
+        public void ReceivedRoomData(int Seed, UArray<RoomNode> Rooms, UArray<PathObstacle> Obstacles) { Invoke(nameof(ReceivedRoomData), Seed, Rooms, Obstacles); }
+        public void Client_SendTunnelData(UArray<TunnelNode> tunnels) { Invoke(nameof(Client_SendTunnelData), tunnels); }
+        public void Client_SendRoomData(int Seed, UArray<RoomNode> Rooms, UArray<PathObstacle> Obstacles) { Invoke(nameof(Client_SendRoomData), Seed, Rooms, Obstacles); }
         public void Client_RecieveCarverSizes(int pass, int carverCount) { Invoke(nameof(Client_RecieveCarverSizes), pass, carverCount); }
         public void Client_ReceivePLSLevelCarver(int pass, LevelGenerationCarverLists levelCarvers) { Invoke(nameof(Client_ReceivePLSLevelCarver), pass, levelCarvers); }
         public void Client_ReceivePLSInfluencers(GeneratedInfluenceSets influenceSet) { Invoke(nameof(Client_ReceivePLSInfluencers), influenceSet); }
-        public void Client_ReceivePLSDebris(Array<GeneratedDebrisItem> levelDebris) { Invoke(nameof(Client_ReceivePLSDebris), levelDebris); }
+        public void Client_ReceivePLSDebris(UArray<GeneratedDebrisItem> levelDebris) { Invoke(nameof(Client_ReceivePLSDebris), levelDebris); }
     }
     public class ProceduralObjectColliders : ActorComponent
     {
@@ -17989,10 +17993,10 @@ namespace SDK.Script.FSDSDK
     {
         public ProceduralSettings(nint addr) : base(addr) { }
         public RoomDecorationObject MiningpodCalldownLocationDecoration { get { return this[nameof(MiningpodCalldownLocationDecoration)].As<RoomDecorationObject>(); } set { this["MiningpodCalldownLocationDecoration"] = value; } }
-        public Array<MissionTemplate> TestMissions { get { return new Array<MissionTemplate>(this[nameof(TestMissions)].Address); } }
+        public UArray<MissionTemplate> TestMissions { get { return new UArray<MissionTemplate>(this[nameof(TestMissions)].Address); } }
         public Object TestBiome { get { return this[nameof(TestBiome)]; } set { this[nameof(TestBiome)] = value; } }
         public Biome DefaultBiome { get { return this[nameof(DefaultBiome)].As<Biome>(); } set { this["DefaultBiome"] = value; } }
-        public Array<Object> GenericBiomeQuotes { get { return new Array<Object>(this[nameof(GenericBiomeQuotes)].Address); } }
+        public UArray<Object> GenericBiomeQuotes { get { return new UArray<Object>(this[nameof(GenericBiomeQuotes)].Address); } }
         public MissionTemplate DefaultMission { get { return this[nameof(DefaultMission)].As<MissionTemplate>(); } set { this["DefaultMission"] = value; } }
         public Object CaveGeneratorPLSClass { get { return this[nameof(CaveGeneratorPLSClass)]; } set { this[nameof(CaveGeneratorPLSClass)] = value; } }
     }
@@ -18007,7 +18011,7 @@ namespace SDK.Script.FSDSDK
         public RandomStream RandomStreamAsync { get { return this[nameof(RandomStreamAsync)].As<RandomStream>(); } set { this["RandomStreamAsync"] = value; } }
         public RandomStream RandomStreamAsyncServer { get { return this[nameof(RandomStreamAsyncServer)].As<RandomStream>(); } set { this["RandomStreamAsyncServer"] = value; } }
         public Object OnEncounterSpawnedEvent { get { return this[nameof(OnEncounterSpawnedEvent)]; } set { this[nameof(OnEncounterSpawnedEvent)] = value; } }
-        public Array<EncounterSpecialItem> SpecialEncountersToSpawn { get { return new Array<EncounterSpecialItem>(this[nameof(SpecialEncountersToSpawn)].Address); } }
+        public UArray<EncounterSpecialItem> SpecialEncountersToSpawn { get { return new UArray<EncounterSpecialItem>(this[nameof(SpecialEncountersToSpawn)].Address); } }
         public SpecialEvent ForcedMachineEvent { get { return this[nameof(ForcedMachineEvent)].As<SpecialEvent>(); } set { this["ForcedMachineEvent"] = value; } }
         public SpecialEvent ForcedTreasure { get { return this[nameof(ForcedTreasure)].As<SpecialEvent>(); } set { this["ForcedTreasure"] = value; } }
         public SpecialEvent ForcedOtherEvent { get { return this[nameof(ForcedOtherEvent)].As<SpecialEvent>(); } set { this["ForcedOtherEvent"] = value; } }
@@ -18019,24 +18023,24 @@ namespace SDK.Script.FSDSDK
         public ProceduralObjectColliders ObjectColliders { get { return this[nameof(ObjectColliders)].As<ProceduralObjectColliders>(); } set { this["ObjectColliders"] = value; } }
         public DeepCSGWorld CSGWorld { get { return this[nameof(CSGWorld)].As<DeepCSGWorld>(); } set { this["CSGWorld"] = value; } }
         public FloodFillSettings PathfinderNoise { get { return this[nameof(PathfinderNoise)].As<FloodFillSettings>(); } set { this["PathfinderNoise"] = value; } }
-        public Array<CarvedResource> CarvedResources { get { return new Array<CarvedResource>(this[nameof(CarvedResources)].Address); } }
+        public UArray<CarvedResource> CarvedResources { get { return new UArray<CarvedResource>(this[nameof(CarvedResources)].Address); } }
         public Object MissionDNA { get { return this[nameof(MissionDNA)]; } set { this[nameof(MissionDNA)] = value; } }
-        public Array<GemResourceAmount> GemResourcesToGenerate { get { return new Array<GemResourceAmount>(this[nameof(GemResourcesToGenerate)].Address); } }
-        public Array<CollectableSpawnableItem> CollectablesToGenerate { get { return new Array<CollectableSpawnableItem>(this[nameof(CollectablesToGenerate)].Address); } }
+        public UArray<GemResourceAmount> GemResourcesToGenerate { get { return new UArray<GemResourceAmount>(this[nameof(GemResourcesToGenerate)].Address); } }
+        public UArray<CollectableSpawnableItem> CollectablesToGenerate { get { return new UArray<CollectableSpawnableItem>(this[nameof(CollectablesToGenerate)].Address); } }
         public ESpawnSettings SpawnSettings { get { return (ESpawnSettings)this[nameof(SpawnSettings)].GetValue<int>(); } set { this[nameof(SpawnSettings)].SetValue<int>((int)value); } }
         public bool CanSpawnSpecialEvents { get { return this[nameof(CanSpawnSpecialEvents)].Flag; } set { this[nameof(CanSpawnSpecialEvents)].Flag = value; } }
         public bool ShouldCarveTunnels { get { return this[nameof(ShouldCarveTunnels)].Flag; } set { this[nameof(ShouldCarveTunnels)].Flag = value; } }
-        public Array<RoomNode> Rooms { get { return new Array<RoomNode>(this[nameof(Rooms)].Address); } }
-        public Array<RoomNode> RoomsInitialState { get { return new Array<RoomNode>(this[nameof(RoomsInitialState)].Address); } }
-        public Array<TunnelNode> tunnels { get { return new Array<TunnelNode>(this[nameof(tunnels)].Address); } }
+        public UArray<RoomNode> Rooms { get { return new UArray<RoomNode>(this[nameof(Rooms)].Address); } }
+        public UArray<RoomNode> RoomsInitialState { get { return new UArray<RoomNode>(this[nameof(RoomsInitialState)].Address); } }
+        public UArray<TunnelNode> tunnels { get { return new UArray<TunnelNode>(this[nameof(tunnels)].Address); } }
         public GeneratedInfluenceSets GeneratedInfluenceSets { get { return this[nameof(GeneratedInfluenceSets)].As<GeneratedInfluenceSets>(); } set { this["GeneratedInfluenceSets"] = value; } }
         public GeneratedInstantCarvers GeneratedInstantCarvers { get { return this[nameof(GeneratedInstantCarvers)].As<GeneratedInstantCarvers>(); } set { this["GeneratedInstantCarvers"] = value; } }
         public GeneratedDebris GeneratedDebris { get { return this[nameof(GeneratedDebris)].As<GeneratedDebris>(); } set { this["GeneratedDebris"] = value; } }
         public Biome Biome { get { return this[nameof(Biome)].As<Biome>(); } set { this["Biome"] = value; } }
         public float missionLength { get { return this[nameof(missionLength)].GetValue<float>(); } set { this[nameof(missionLength)].SetValue<float>(value); } }
-        public Array<PathObstacle> PathObstacles { get { return new Array<PathObstacle>(this[nameof(PathObstacles)].Address); } }
+        public UArray<PathObstacle> PathObstacles { get { return new UArray<PathObstacle>(this[nameof(PathObstacles)].Address); } }
         public InfluenceMap InfluenceMap { get { return this[nameof(InfluenceMap)].As<InfluenceMap>(); } set { this["InfluenceMap"] = value; } }
-        public Array<ResourceData> SpawnedResources { get { return new Array<ResourceData>(this[nameof(SpawnedResources)].Address); } }
+        public UArray<ResourceData> SpawnedResources { get { return new UArray<ResourceData>(this[nameof(SpawnedResources)].Address); } }
         public float CaveDepth { get { return this[nameof(CaveDepth)].GetValue<float>(); } set { this[nameof(CaveDepth)].SetValue<float>(value); } }
         public Actor PostProcessActor { get { return this[nameof(PostProcessActor)].As<Actor>(); } set { this["PostProcessActor"] = value; } }
         public SpecialEvent SpecialEvent { get { return this[nameof(SpecialEvent)].As<SpecialEvent>(); } set { this["SpecialEvent"] = value; } }
@@ -18070,7 +18074,7 @@ namespace SDK.Script.FSDSDK
         public Object GetCollectablesResourceAmounts() { return Invoke<Object>(nameof(GetCollectablesResourceAmounts)); }
         public void GenerateRoomsFromGraph_Async(ProceduralSetup Setup, LatentActionInfo LatentInfo, int CarvePass) { Invoke(nameof(GenerateRoomsFromGraph_Async), Setup, LatentInfo, CarvePass); }
         public void GenerateRoomsFromGraph(int CarvePass) { Invoke(nameof(GenerateRoomsFromGraph), CarvePass); }
-        public void GenerateLandscapeFromData(int Seed, Array<RoomNode> Rooms, Array<PathObstacle> Obstacles) { Invoke(nameof(GenerateLandscapeFromData), Seed, Rooms, Obstacles); }
+        public void GenerateLandscapeFromData(int Seed, UArray<RoomNode> Rooms, UArray<PathObstacle> Obstacles) { Invoke(nameof(GenerateLandscapeFromData), Seed, Rooms, Obstacles); }
         public void GenerateLandscape() { Invoke(nameof(GenerateLandscape)); }
         public Vector FindLocationInDirection(Vector Origin, Vector Direction, float horizontalDeviation, float verticalDeviation, RandRange Distance, float additionalDistance) { return Invoke<Vector>(nameof(FindLocationInDirection), Origin, Direction, horizontalDeviation, verticalDeviation, Distance, additionalDistance); }
         public void FindEntrancesForAllConnections() { Invoke(nameof(FindEntrancesForAllConnections)); }
@@ -18112,7 +18116,7 @@ namespace SDK.Script.FSDSDK
     public class ProceduralVeinsComponent : ActorComponent
     {
         public ProceduralVeinsComponent(nint addr) : base(addr) { }
-        public Array<VeinResource> VeinResources { get { return new Array<VeinResource>(this[nameof(VeinResources)].Address); } }
+        public UArray<VeinResource> VeinResources { get { return new UArray<VeinResource>(this[nameof(VeinResources)].Address); } }
         public void GenerateResourceVeins_Async(ProceduralSetup Setup, LatentActionInfo LatentInfo) { Invoke(nameof(GenerateResourceVeins_Async), Setup, LatentInfo); }
         public void GenerateResourceVeins() { Invoke(nameof(GenerateResourceVeins)); }
         public void GenerateMissingResourceVeins_Async(ProceduralSetup Setup, LatentActionInfo LatentInfo) { Invoke(nameof(GenerateMissingResourceVeins_Async), Setup, LatentInfo); }
@@ -18126,10 +18130,10 @@ namespace SDK.Script.FSDSDK
     public class ProfilingSubSystem : WorldSubsystem
     {
         public ProfilingSubSystem(nint addr) : base(addr) { }
-        public Array<ProfileEntry> Entries { get { return new Array<ProfileEntry>(this[nameof(Entries)].Address); } }
+        public UArray<ProfileEntry> Entries { get { return new UArray<ProfileEntry>(this[nameof(Entries)].Address); } }
         public float GetTotalTime() { return Invoke<float>(nameof(GetTotalTime)); }
-        public Array<ProfileEntry> GetEntries() { return Invoke<Array<ProfileEntry>>(nameof(GetEntries)); }
-        public Array<ProfileCategoryTiming> GetCategoryTimings() { return Invoke<Array<ProfileCategoryTiming>>(nameof(GetCategoryTimings)); }
+        public UArray<ProfileEntry> GetEntries() { return Invoke<UArray<ProfileEntry>>(nameof(GetEntries)); }
+        public UArray<ProfileCategoryTiming> GetCategoryTimings() { return Invoke<UArray<ProfileCategoryTiming>>(nameof(GetCategoryTimings)); }
     }
     public class FakePhysicsProjectile : ProjectileBase
     {
@@ -18168,8 +18172,8 @@ namespace SDK.Script.FSDSDK
     public class ProjectileAttackBaseComponent : AttackBaseComponent
     {
         public ProjectileAttackBaseComponent(nint addr) : base(addr) { }
-        public Array<ProjectileAttack> Projectiles { get { return new Array<ProjectileAttack>(this[nameof(Projectiles)].Address); } }
-        public Array<AnimMontage> Montages { get { return new Array<AnimMontage>(this[nameof(Montages)].Address); } }
+        public UArray<ProjectileAttack> Projectiles { get { return new UArray<ProjectileAttack>(this[nameof(Projectiles)].Address); } }
+        public UArray<AnimMontage> Montages { get { return new UArray<AnimMontage>(this[nameof(Montages)].Address); } }
         public Object SocketName { get { return this[nameof(SocketName)]; } set { this[nameof(SocketName)] = value; } }
         public EProjectileAttackRotationType RotationHandling { get { return (EProjectileAttackRotationType)this[nameof(RotationHandling)].GetValue<int>(); } set { this[nameof(RotationHandling)].SetValue<int>((int)value); } }
         public TargetValidator FinalValidationCheck { get { return this[nameof(FinalValidationCheck)].As<TargetValidator>(); } set { this["FinalValidationCheck"] = value; } }
@@ -18229,7 +18233,7 @@ namespace SDK.Script.FSDSDK
         public float VerticalSpread { get { return this[nameof(VerticalSpread)].GetValue<float>(); } set { this[nameof(VerticalSpread)].SetValue<float>(value); } }
         public float HorizontalSpread { get { return this[nameof(HorizontalSpread)].GetValue<float>(); } set { this[nameof(HorizontalSpread)].SetValue<float>(value); } }
         public Object OnProjectileSpawned { get { return this[nameof(OnProjectileSpawned)]; } set { this[nameof(OnProjectileSpawned)] = value; } }
-        public Array<ItemUpgrade> ProjectileUpgrades { get { return new Array<ItemUpgrade>(this[nameof(ProjectileUpgrades)].Address); } }
+        public UArray<ItemUpgrade> ProjectileUpgrades { get { return new UArray<ItemUpgrade>(this[nameof(ProjectileUpgrades)].Address); } }
         public float ArcStartAngle { get { return this[nameof(ArcStartAngle)].GetValue<float>(); } set { this[nameof(ArcStartAngle)].SetValue<float>(value); } }
         public bool TransferCharacterVelocityToProjectile { get { return this[nameof(TransferCharacterVelocityToProjectile)].Flag; } set { this[nameof(TransferCharacterVelocityToProjectile)].Flag = value; } }
         public bool CameraToMuzzleFireCheck { get { return this[nameof(CameraToMuzzleFireCheck)].Flag; } set { this[nameof(CameraToMuzzleFireCheck)].Flag = value; } }
@@ -18258,7 +18262,7 @@ namespace SDK.Script.FSDSDK
         public ProjectileThrowerAttack(nint addr) : base(addr) { }
         public SkeletalMesh ThrowerMesh { get { return this[nameof(ThrowerMesh)].As<SkeletalMesh>(); } set { this["ThrowerMesh"] = value; } }
         public Object ThrowerAnimInstance { get { return this[nameof(ThrowerAnimInstance)]; } set { this[nameof(ThrowerAnimInstance)] = value; } }
-        public Array<AnimMontage> ThrowerMontages { get { return new Array<AnimMontage>(this[nameof(ThrowerMontages)].Address); } }
+        public UArray<AnimMontage> ThrowerMontages { get { return new UArray<AnimMontage>(this[nameof(ThrowerMontages)].Address); } }
         public Object ThrowerAttachPoint { get { return this[nameof(ThrowerAttachPoint)]; } set { this[nameof(ThrowerAttachPoint)] = value; } }
         public bool RotateToTarget { get { return this[nameof(RotateToTarget)].Flag; } set { this[nameof(RotateToTarget)].Flag = value; } }
         public Rotator ThrowerRotation { get { return this[nameof(ThrowerRotation)].As<Rotator>(); } set { this["ThrowerRotation"] = value; } }
@@ -18269,14 +18273,14 @@ namespace SDK.Script.FSDSDK
     public class PromotionRewardsSettings : DataAsset
     {
         public PromotionRewardsSettings(nint addr) : base(addr) { }
-        public Array<ClaimableRewardEntry> FirstPromotionRewards { get { return new Array<ClaimableRewardEntry>(this[nameof(FirstPromotionRewards)].Address); } }
-        public Array<ClaimableRewardEntry> SubsequentPromotionRewards { get { return new Array<ClaimableRewardEntry>(this[nameof(SubsequentPromotionRewards)].Address); } }
+        public UArray<ClaimableRewardEntry> FirstPromotionRewards { get { return new UArray<ClaimableRewardEntry>(this[nameof(FirstPromotionRewards)].Address); } }
+        public UArray<ClaimableRewardEntry> SubsequentPromotionRewards { get { return new UArray<ClaimableRewardEntry>(this[nameof(SubsequentPromotionRewards)].Address); } }
     }
     public class PromotionRewardsLibrary : BlueprintFunctionLibrary
     {
         public PromotionRewardsLibrary(nint addr) : base(addr) { }
         public bool HasPendingPromotionRewards(Object WorldContext) { return Invoke<bool>(nameof(HasPendingPromotionRewards), WorldContext); }
-        public bool ClaimPromotionRewards(Object WorldContext, PlayerController PlayerController, Array<ClaimableRewardEntry> OutRewards, bool OutFirstPromotion) { return Invoke<bool>(nameof(ClaimPromotionRewards), WorldContext, PlayerController, OutRewards, OutFirstPromotion); }
+        public bool ClaimPromotionRewards(Object WorldContext, PlayerController PlayerController, UArray<ClaimableRewardEntry> OutRewards, bool OutFirstPromotion) { return Invoke<bool>(nameof(ClaimPromotionRewards), WorldContext, PlayerController, OutRewards, OutFirstPromotion); }
     }
     public class PropHuntContestant : ActorComponent
     {
@@ -18339,7 +18343,7 @@ namespace SDK.Script.FSDSDK
         public PropHuntManager(nint addr) : base(addr) { }
         public Object OnStateChanged { get { return this[nameof(OnStateChanged)]; } set { this[nameof(OnStateChanged)] = value; } }
         public PropHuntManagerState State { get { return this[nameof(State)].As<PropHuntManagerState>(); } set { this["State"] = value; } }
-        public Array<Object> Contestants { get { return new Array<Object>(this[nameof(Contestants)].Address); } }
+        public UArray<Object> Contestants { get { return new UArray<Object>(this[nameof(Contestants)].Address); } }
         public void StateChangedDelegate__DelegateSignature() { Invoke(nameof(StateChangedDelegate__DelegateSignature)); }
         public void OnRep_State() { Invoke(nameof(OnRep_State)); }
         public int GetActiveProps() { return Invoke<int>(nameof(GetActiveProps)); }
@@ -18430,14 +18434,14 @@ namespace SDK.Script.FSDSDK
     public class RagdollManager : ActorComponent
     {
         public RagdollManager(nint addr) : base(addr) { }
-        public Array<RagdollItem> Items { get { return new Array<RagdollItem>(this[nameof(Items)].Address); } }
-        public void StartRagdoll(Actor Actor, Array<MaterialInstanceDynamic> Materials, float desiredDuration) { Invoke(nameof(StartRagdoll), Actor, Materials, desiredDuration); }
+        public UArray<RagdollItem> Items { get { return new UArray<RagdollItem>(this[nameof(Items)].Address); } }
+        public void StartRagdoll(Actor Actor, UArray<MaterialInstanceDynamic> Materials, float desiredDuration) { Invoke(nameof(StartRagdoll), Actor, Materials, desiredDuration); }
     }
     public class RagdollEliminationComponent : SceneComponent
     {
         public RagdollEliminationComponent(nint addr) : base(addr) { }
         public float Radius { get { return this[nameof(Radius)].GetValue<float>(); } set { this[nameof(Radius)].SetValue<float>(value); } }
-        public Array<EnemyDeepPathfinderCharacter> EnemiesTracked { get { return new Array<EnemyDeepPathfinderCharacter>(this[nameof(EnemiesTracked)].Address); } }
+        public UArray<EnemyDeepPathfinderCharacter> EnemiesTracked { get { return new UArray<EnemyDeepPathfinderCharacter>(this[nameof(EnemiesTracked)].Address); } }
         public void OnEnemyKilled(GameplayTagContainer GameplayTags, Actor killedEnemy) { Invoke(nameof(OnEnemyKilled), GameplayTags, killedEnemy); }
     }
     public class RandomSelectorItem : GenerationItem
@@ -18449,8 +18453,8 @@ namespace SDK.Script.FSDSDK
     public class RandRangeFunctionLibrary : BlueprintFunctionLibrary
     {
         public RandRangeFunctionLibrary(nint addr) : base(addr) { }
-        public bool TryPickRandomText(Array<Object> TextArray, RandomStream RandomStream, Object OutResult) { return Invoke<bool>(nameof(TryPickRandomText), TextArray, RandomStream, OutResult); }
-        public Object PickRandomText(Array<Object> TextArray, RandomStream RandomStream) { return Invoke<Object>(nameof(PickRandomText), TextArray, RandomStream); }
+        public bool TryPickRandomText(UArray<Object> TextArray, RandomStream RandomStream, Object OutResult) { return Invoke<bool>(nameof(TryPickRandomText), TextArray, RandomStream, OutResult); }
+        public Object PickRandomText(UArray<Object> TextArray, RandomStream RandomStream) { return Invoke<Object>(nameof(PickRandomText), TextArray, RandomStream); }
         public int GetValueFromStream(IRandRange RandRange, RandomStream RandomStream) { return Invoke<int>(nameof(GetValueFromStream), RandRange, RandomStream); }
         public float GetFloatValue(RandRange RandRange) { return Invoke<float>(nameof(GetFloatValue), RandRange); }
         public float GetFloatFromStream(RandRange RandRange, RandomStream RandomStream) { return Invoke<float>(nameof(GetFloatFromStream), RandRange, RandomStream); }
@@ -18468,7 +18472,7 @@ namespace SDK.Script.FSDSDK
     public class RDGLauncher : AmmoDrivenWeapon
     {
         public RDGLauncher(nint addr) : base(addr) { }
-        public Array<RDGComponent> ActiveGrenades { get { return new Array<RDGComponent>(this[nameof(ActiveGrenades)].Address); } }
+        public UArray<RDGComponent> ActiveGrenades { get { return new UArray<RDGComponent>(this[nameof(ActiveGrenades)].Address); } }
         public void Server_DetonateAll() { Invoke(nameof(Server_DetonateAll)); }
         public void RegisterGrenade(RDGComponent Grenade) { Invoke(nameof(RegisterGrenade), Grenade); }
     }
@@ -18539,7 +18543,7 @@ namespace SDK.Script.FSDSDK
     {
         public RecallableItem(nint addr) : base(addr) { }
         public Object ItemType { get { return this[nameof(ItemType)]; } set { this[nameof(ItemType)] = value; } }
-        public Array<Object> ActiveItems { get { return new Array<Object>(this[nameof(ActiveItems)].Address); } }
+        public UArray<Object> ActiveItems { get { return new UArray<Object>(this[nameof(ActiveItems)].Address); } }
         public void ServerSpawnItemAttached(Actor InAttachActor, PrimitiveComponent InAttachComponent, Object InAttachBoneName, Vector LocalLocation, Rotator LocalRotation) { Invoke(nameof(ServerSpawnItemAttached), InAttachActor, InAttachComponent, InAttachBoneName, LocalLocation, LocalRotation); }
         public void ServerSpawnItem(Vector WorldLocation, Rotator WorldRotation) { Invoke(nameof(ServerSpawnItem), WorldLocation, WorldRotation); }
         public void ReceiveOnItemSpawned(RecallableActor Item) { Invoke(nameof(ReceiveOnItemSpawned), Item); }
@@ -18554,7 +18558,7 @@ namespace SDK.Script.FSDSDK
         public Object OnAmmoCountChanged { get { return this[nameof(OnAmmoCountChanged)]; } set { this[nameof(OnAmmoCountChanged)] = value; } }
         public Object OnMaxAmmoCountChanged { get { return this[nameof(OnMaxAmmoCountChanged)]; } set { this[nameof(OnMaxAmmoCountChanged)] = value; } }
         public SkeletalMeshComponent SentryGunMesh { get { return this[nameof(SentryGunMesh)].As<SkeletalMeshComponent>(); } set { this["SentryGunMesh"] = value; } }
-        public Array<SentryGunMuzzleSetup> SentryGunMuzzels { get { return new Array<SentryGunMuzzleSetup>(this[nameof(SentryGunMuzzels)].Address); } }
+        public UArray<SentryGunMuzzleSetup> SentryGunMuzzels { get { return new UArray<SentryGunMuzzleSetup>(this[nameof(SentryGunMuzzels)].Address); } }
         public Object ProjectileClass { get { return this[nameof(ProjectileClass)]; } set { this[nameof(ProjectileClass)] = value; } }
         public SoundCue ShootingSound { get { return this[nameof(ShootingSound)].As<SoundCue>(); } set { this["ShootingSound"] = value; } }
         public ParticleSystem MuzzleFlash { get { return this[nameof(MuzzleFlash)].As<ParticleSystem>(); } set { this["MuzzleFlash"] = value; } }
@@ -18565,7 +18569,7 @@ namespace SDK.Script.FSDSDK
         public float MinTracerDistance { get { return this[nameof(MinTracerDistance)].GetValue<float>(); } set { this[nameof(MinTracerDistance)].SetValue<float>(value); } }
         public float AngleRestriction { get { return this[nameof(AngleRestriction)].GetValue<float>(); } set { this[nameof(AngleRestriction)].SetValue<float>(value); } }
         public bool Enabled { get { return this[nameof(Enabled)].Flag; } set { this[nameof(Enabled)].Flag = value; } }
-        public Array<OverlapResult> OverlapCache { get { return new Array<OverlapResult>(this[nameof(OverlapCache)].Address); } }
+        public UArray<OverlapResult> OverlapCache { get { return new UArray<OverlapResult>(this[nameof(OverlapCache)].Address); } }
         public Rotator MinRotation { get { return this[nameof(MinRotation)].As<Rotator>(); } set { this["MinRotation"] = value; } }
         public Rotator MaxRotation { get { return this[nameof(MaxRotation)].As<Rotator>(); } set { this["MaxRotation"] = value; } }
         public float AquisitionRange { get { return this[nameof(AquisitionRange)].GetValue<float>(); } set { this[nameof(AquisitionRange)].SetValue<float>(value); } }
@@ -18618,7 +18622,7 @@ namespace SDK.Script.FSDSDK
         public bool bOutlineAndIconVisible { get { return this[nameof(bOutlineAndIconVisible)].Flag; } set { this[nameof(bOutlineAndIconVisible)].Flag = value; } }
         public ERedeployableSentryGunState State { get { return (ERedeployableSentryGunState)this[nameof(State)].GetValue<int>(); } set { this[nameof(State)].SetValue<int>((int)value); } }
         public float PlasmaLineMaxRange { get { return this[nameof(PlasmaLineMaxRange)].GetValue<float>(); } set { this[nameof(PlasmaLineMaxRange)].SetValue<float>(value); } }
-        public Array<SentryElectroBeam> PlasmaLines { get { return new Array<SentryElectroBeam>(this[nameof(PlasmaLines)].Address); } }
+        public UArray<SentryElectroBeam> PlasmaLines { get { return new UArray<SentryElectroBeam>(this[nameof(PlasmaLines)].Address); } }
         public Object PlasmaBeamClass { get { return this[nameof(PlasmaBeamClass)]; } set { this[nameof(PlasmaBeamClass)] = value; } }
         public Object ElectrocutionActorClass { get { return this[nameof(ElectrocutionActorClass)]; } set { this[nameof(ElectrocutionActorClass)] = value; } }
         public Actor ElectrocutionActor { get { return this[nameof(ElectrocutionActor)].As<Actor>(); } set { this["ElectrocutionActor"] = value; } }
@@ -18713,7 +18717,7 @@ namespace SDK.Script.FSDSDK
         public bool bMissionCompleted { get { return this[nameof(bMissionCompleted)].Flag; } set { this[nameof(bMissionCompleted)].Flag = value; } }
         public bool bIsFinalBattle { get { return this[nameof(bIsFinalBattle)].Flag; } set { this[nameof(bIsFinalBattle)].Flag = value; } }
         public int OptionalTunnelRoomID { get { return this[nameof(OptionalTunnelRoomID)].GetValue<int>(); } set { this[nameof(OptionalTunnelRoomID)].SetValue<int>(value); } }
-        public void SpawnWells(ProceduralSetup Setup, Vector rigLocation, float minDistanceBetween, Array<Vector2D> minMaxDistancesToRig) { Invoke(nameof(SpawnWells), Setup, rigLocation, minDistanceBetween, minMaxDistancesToRig); }
+        public void SpawnWells(ProceduralSetup Setup, Vector rigLocation, float minDistanceBetween, UArray<Vector2D> minMaxDistancesToRig) { Invoke(nameof(SpawnWells), Setup, rigLocation, minDistanceBetween, minMaxDistancesToRig); }
         public void RefineryDelegate__DelegateSignature(FSDRefinery InRefinery) { Invoke(nameof(RefineryDelegate__DelegateSignature), InRefinery); }
         public void ReceiveRefinerySpawned(FSDRefinery InRefinery) { Invoke(nameof(ReceiveRefinerySpawned), InRefinery); }
         public void OnRep_Refinery() { Invoke(nameof(OnRep_Refinery)); }
@@ -18761,7 +18765,7 @@ namespace SDK.Script.FSDSDK
         public SkeletalMeshComponent SkeletalMesh_Base { get { return this[nameof(SkeletalMesh_Base)].As<SkeletalMeshComponent>(); } set { this["SkeletalMesh_Base"] = value; } }
         public Object ScreenSocketName { get { return this[nameof(ScreenSocketName)]; } set { this[nameof(ScreenSocketName)] = value; } }
         public ERefineryExtractorPodState ExtractorState { get { return (ERefineryExtractorPodState)this[nameof(ExtractorState)].GetValue<int>(); } set { this[nameof(ExtractorState)].SetValue<int>((int)value); } }
-        public Array<RefineryExtractorPodAnimInstance> AnimBlueprints { get { return new Array<RefineryExtractorPodAnimInstance>(this[nameof(AnimBlueprints)].Address); } }
+        public UArray<RefineryExtractorPodAnimInstance> AnimBlueprints { get { return new UArray<RefineryExtractorPodAnimInstance>(this[nameof(AnimBlueprints)].Address); } }
         public void TakeOff() { Invoke(nameof(TakeOff)); }
         public void StartExtraction() { Invoke(nameof(StartExtraction)); }
         public void SetIsReturning(bool InIsReturning) { Invoke(nameof(SetIsReturning), InIsReturning); }
@@ -18840,7 +18844,7 @@ namespace SDK.Script.FSDSDK
         public int RepairResourcesPerActor { get { return this[nameof(RepairResourcesPerActor)].GetValue<int>(); } set { this[nameof(RepairResourcesPerActor)].SetValue<int>(value); } }
         public float RepairResourceDistanceFromActor { get { return this[nameof(RepairResourceDistanceFromActor)].GetValue<float>(); } set { this[nameof(RepairResourceDistanceFromActor)].SetValue<float>(value); } }
         public float MinRepairObjectiveDistanceToLandingZone { get { return this[nameof(MinRepairObjectiveDistanceToLandingZone)].GetValue<float>(); } set { this[nameof(MinRepairObjectiveDistanceToLandingZone)].SetValue<float>(value); } }
-        public Array<Actor> RepairedObjectivesList { get { return new Array<Actor>(this[nameof(RepairedObjectivesList)].Address); } }
+        public UArray<Actor> RepairedObjectivesList { get { return new UArray<Actor>(this[nameof(RepairedObjectivesList)].Address); } }
         public void OnRep_RepairedObjectives() { Invoke(nameof(OnRep_RepairedObjectives)); }
         public void OnRep_ObjectivesToRepair() { Invoke(nameof(OnRep_ObjectivesToRepair)); }
         public void OnObjectiveRepaired(RepairableComponent repairable) { Invoke(nameof(OnObjectiveRepaired), repairable); }
@@ -18854,7 +18858,7 @@ namespace SDK.Script.FSDSDK
     public class ResourceFilter : DataAsset
     {
         public ResourceFilter(nint addr) : base(addr) { }
-        public Array<ResourceData> Resources { get { return new Array<ResourceData>(this[nameof(Resources)].Address); } }
+        public UArray<ResourceData> Resources { get { return new UArray<ResourceData>(this[nameof(Resources)].Address); } }
         public byte FilterType { get { return this[nameof(FilterType)].GetValue<byte>(); } set { this[nameof(FilterType)].SetValue<byte>(value); } }
     }
     public class ResourceBank : UsableComponentBase
@@ -18893,7 +18897,7 @@ namespace SDK.Script.FSDSDK
         public float ResourceAmount { get { return this[nameof(ResourceAmount)].GetValue<float>(); } set { this[nameof(ResourceAmount)].SetValue<float>(value); } }
         public SoundCue PickupSound { get { return this[nameof(PickupSound)].As<SoundCue>(); } set { this["PickupSound"] = value; } }
         public ResourceData ResourceData { get { return this[nameof(ResourceData)].As<ResourceData>(); } set { this["ResourceData"] = value; } }
-        public Array<PlayerCharacter> OverlappingPlayers { get { return new Array<PlayerCharacter>(this[nameof(OverlappingPlayers)].Address); } }
+        public UArray<PlayerCharacter> OverlappingPlayers { get { return new UArray<PlayerCharacter>(this[nameof(OverlappingPlayers)].Address); } }
         public Object CollectedBy { get { return this[nameof(CollectedBy)]; } set { this[nameof(CollectedBy)] = value; } }
         public void SetCollectOpen() { Invoke(nameof(SetCollectOpen)); }
         public void OnRep_CollectedBy() { Invoke(nameof(OnRep_CollectedBy)); }
@@ -19017,7 +19021,7 @@ namespace SDK.Script.FSDSDK
     public class VanityCollectionReward : UnlockReward
     {
         public VanityCollectionReward(nint addr) : base(addr) { }
-        public Array<VanityItem> VanityItems { get { return new Array<VanityItem>(this[nameof(VanityItems)].Address); } }
+        public UArray<VanityItem> VanityItems { get { return new UArray<VanityItem>(this[nameof(VanityItems)].Address); } }
         public PlayerCharacterID OptionalCharacterID { get { return this[nameof(OptionalCharacterID)].As<PlayerCharacterID>(); } set { this["OptionalCharacterID"] = value; } }
         public bool UseContextAsTargetCharacter { get { return this[nameof(UseContextAsTargetCharacter)].Flag; } set { this[nameof(UseContextAsTargetCharacter)].Flag = value; } }
     }
@@ -19057,7 +19061,7 @@ namespace SDK.Script.FSDSDK
     {
         public RewardsSubSystem(nint addr) : base(addr) { }
         public PendingRewards PendingMissionRewards { get { return this[nameof(PendingMissionRewards)].As<PendingRewards>(); } set { this["PendingMissionRewards"] = value; } }
-        public Array<ClaimableRewardEntry> PendingPromotionRewards { get { return new Array<ClaimableRewardEntry>(this[nameof(PendingPromotionRewards)].Address); } }
+        public UArray<ClaimableRewardEntry> PendingPromotionRewards { get { return new UArray<ClaimableRewardEntry>(this[nameof(PendingPromotionRewards)].Address); } }
         public bool ShouldPendingRewardsBeShown() { return Invoke<bool>(nameof(ShouldPendingRewardsBeShown)); }
         public bool ShouldPendingRewardsBeGiven() { return Invoke<bool>(nameof(ShouldPendingRewardsBeGiven)); }
         public bool Receive_GetPendingRewards(Object WorldContext, PendingRewardsStats OutStats, PendingRewards OutRewards) { return Invoke<bool>(nameof(Receive_GetPendingRewards), WorldContext, OutStats, OutRewards); }
@@ -19132,7 +19136,7 @@ namespace SDK.Script.FSDSDK
         public PointLightComponent LargeLight { get { return this[nameof(LargeLight)].As<PointLightComponent>(); } set { this["LargeLight"] = value; } }
         public CapsuleComponent KnockBackCapsule { get { return this[nameof(KnockBackCapsule)].As<CapsuleComponent>(); } set { this["KnockBackCapsule"] = value; } }
         public MeshCarverComponent SpaceCarver { get { return this[nameof(SpaceCarver)].As<MeshCarverComponent>(); } set { this["SpaceCarver"] = value; } }
-        public Array<TerrainDetectComponent> TerrainDetectors { get { return new Array<TerrainDetectComponent>(this[nameof(TerrainDetectors)].Address); } }
+        public UArray<TerrainDetectComponent> TerrainDetectors { get { return new UArray<TerrainDetectComponent>(this[nameof(TerrainDetectors)].Address); } }
         public NiagaraComponent EnergyParticles { get { return this[nameof(EnergyParticles)].As<NiagaraComponent>(); } set { this["EnergyParticles"] = value; } }
         public NiagaraComponent PillarParticles { get { return this[nameof(PillarParticles)].As<NiagaraComponent>(); } set { this["PillarParticles"] = value; } }
         public AudioComponent RockIdleSound { get { return this[nameof(RockIdleSound)].As<AudioComponent>(); } set { this["RockIdleSound"] = value; } }
@@ -19149,8 +19153,8 @@ namespace SDK.Script.FSDSDK
         public Object BeamTargetParamName { get { return this[nameof(BeamTargetParamName)]; } set { this[nameof(BeamTargetParamName)] = value; } }
         public GameplayTagContainer GameplayTags { get { return this[nameof(GameplayTags)].As<GameplayTagContainer>(); } set { this["GameplayTags"] = value; } }
         public Rotator SpawnedRotation { get { return this[nameof(SpawnedRotation)].As<Rotator>(); } set { this["SpawnedRotation"] = value; } }
-        public Array<RiftBeam> Beams { get { return new Array<RiftBeam>(this[nameof(Beams)].Address); } }
-        public Array<Actor> KnockbackTargets { get { return new Array<Actor>(this[nameof(KnockbackTargets)].Address); } }
+        public UArray<RiftBeam> Beams { get { return new UArray<RiftBeam>(this[nameof(Beams)].Address); } }
+        public UArray<Actor> KnockbackTargets { get { return new UArray<Actor>(this[nameof(KnockbackTargets)].Address); } }
         public CurveVector DeathRattle { get { return this[nameof(DeathRattle)].As<CurveVector>(); } set { this["DeathRattle"] = value; } }
         public RuntimeFloatCurve KnockBackCurve { get { return this[nameof(KnockBackCurve)].As<RuntimeFloatCurve>(); } set { this["KnockBackCurve"] = value; } }
         public Object DroppedActorClass { get { return this[nameof(DroppedActorClass)]; } set { this[nameof(DroppedActorClass)] = value; } }
@@ -19201,7 +19205,7 @@ namespace SDK.Script.FSDSDK
         public void OnNewHealthSegment(int currentSegment, int prevSegment) { Invoke(nameof(OnNewHealthSegment), currentSegment, prevSegment); }
         public void OnExitedKnockbackZone(PrimitiveComponent OverlappedComponent, Actor OtherActor, PrimitiveComponent OtherComp, int OtherBodyIndex) { Invoke(nameof(OnExitedKnockbackZone), OverlappedComponent, OtherActor, OtherComp, OtherBodyIndex); }
         public void OnEnteredKnockbackZone(PrimitiveComponent OverlappedComponent, Actor OtherActor, PrimitiveComponent OtherComp, int OtherBodyIndex, bool bFromSweep, HitResult SweepResult) { Invoke(nameof(OnEnteredKnockbackZone), OverlappedComponent, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult); }
-        public void OnDeath(HealthComponent HealthComponent, float damageAmount, DamageData DamageData, Array<DamageTag> damageTags) { Invoke(nameof(OnDeath), HealthComponent, damageAmount, DamageData, damageTags); }
+        public void OnDeath(HealthComponent HealthComponent, float damageAmount, DamageData DamageData, UArray<DamageTag> damageTags) { Invoke(nameof(OnDeath), HealthComponent, damageAmount, DamageData, damageTags); }
         public void OnDamaged(float Damage, DamageData DamageData, bool anyHealthLost) { Invoke(nameof(OnDamaged), Damage, DamageData, anyHealthLost); }
         public void OnAllRiftsOpened() { Invoke(nameof(OnAllRiftsOpened)); }
         public void EnableTerrainDetection() { Invoke(nameof(EnableTerrainDetection)); }
@@ -19217,7 +19221,7 @@ namespace SDK.Script.FSDSDK
         public Object OnRiftSpawned { get { return this[nameof(OnRiftSpawned)]; } set { this[nameof(OnRiftSpawned)] = value; } }
         public Object OnFinishedSpawningRifts { get { return this[nameof(OnFinishedSpawningRifts)]; } set { this[nameof(OnFinishedSpawningRifts)] = value; } }
         public Object OnAllRiftsOpened { get { return this[nameof(OnAllRiftsOpened)]; } set { this[nameof(OnAllRiftsOpened)] = value; } }
-        public Array<Actor> spawned { get { return new Array<Actor>(this[nameof(spawned)].Address); } }
+        public UArray<Actor> spawned { get { return new UArray<Actor>(this[nameof(spawned)].Address); } }
         public Object AmountByDifficulty { get { return this[nameof(AmountByDifficulty)]; } set { this[nameof(AmountByDifficulty)] = value; } }
         public Object RiftClass { get { return this[nameof(RiftClass)]; } set { this[nameof(RiftClass)] = value; } }
         public DebrisPositioning Positioning { get { return this[nameof(Positioning)].As<DebrisPositioning>(); } set { this["Positioning"] = value; } }
@@ -19233,13 +19237,13 @@ namespace SDK.Script.FSDSDK
         public void ReportRiftOpened(Actor Rift) { Invoke(nameof(ReportRiftOpened), Rift); }
         public void PreFetchSpawnLocations(Vector Origin) { Invoke(nameof(PreFetchSpawnLocations), Origin); }
         public void OnRep_Spawned() { Invoke(nameof(OnRep_Spawned)); }
-        public Array<Actor> GetRifts() { return Invoke<Array<Actor>>(nameof(GetRifts)); }
+        public UArray<Actor> GetRifts() { return Invoke<UArray<Actor>>(nameof(GetRifts)); }
         public bool CollectSpawnLocations(Vector Origin) { return Invoke<bool>(nameof(CollectSpawnLocations), Origin); }
     }
     public class RivalBomb : GameEvent
     {
         public RivalBomb(nint addr) : base(addr) { }
-        public Array<RivalBombNode> ActiveNodeInstances { get { return new Array<RivalBombNode>(this[nameof(ActiveNodeInstances)].Address); } }
+        public UArray<RivalBombNode> ActiveNodeInstances { get { return new UArray<RivalBombNode>(this[nameof(ActiveNodeInstances)].Address); } }
         public float NodeHackTime { get { return this[nameof(NodeHackTime)].GetValue<float>(); } set { this[nameof(NodeHackTime)].SetValue<float>(value); } }
         public int NumNodesToHack { get { return this[nameof(NumNodesToHack)].GetValue<int>(); } set { this[nameof(NumNodesToHack)].SetValue<int>(value); } }
         public bool bDataCellPickedUp { get { return this[nameof(bDataCellPickedUp)].Flag; } set { this[nameof(bDataCellPickedUp)].Flag = value; } }
@@ -19341,9 +19345,9 @@ namespace SDK.Script.FSDSDK
         public RockEnemiesEvent(nint addr) : base(addr) { }
         public Object PowerUpClass { get { return this[nameof(PowerUpClass)]; } set { this[nameof(PowerUpClass)] = value; } }
         public float PowerUpGenerationTime { get { return this[nameof(PowerUpGenerationTime)].GetValue<float>(); } set { this[nameof(PowerUpGenerationTime)].SetValue<float>(value); } }
-        public Array<int> KillAmountPerPlayer { get { return new Array<int>(this[nameof(KillAmountPerPlayer)].Address); } }
-        public Array<int> MaxEnemyCountPerPlayer { get { return new Array<int>(this[nameof(MaxEnemyCountPerPlayer)].Address); } }
-        public Array<Pawn> SpawnedRockEnemies { get { return new Array<Pawn>(this[nameof(SpawnedRockEnemies)].Address); } }
+        public UArray<int> KillAmountPerPlayer { get { return new UArray<int>(this[nameof(KillAmountPerPlayer)].Address); } }
+        public UArray<int> MaxEnemyCountPerPlayer { get { return new UArray<int>(this[nameof(MaxEnemyCountPerPlayer)].Address); } }
+        public UArray<Pawn> SpawnedRockEnemies { get { return new UArray<Pawn>(this[nameof(SpawnedRockEnemies)].Address); } }
         public SkeletalMeshComponent Mesh { get { return this[nameof(Mesh)].As<SkeletalMeshComponent>(); } set { this["Mesh"] = value; } }
         public ParticleSystem MuzzleEffect { get { return this[nameof(MuzzleEffect)].As<ParticleSystem>(); } set { this["MuzzleEffect"] = value; } }
         public int PowerUpsPerGeneration { get { return this[nameof(PowerUpsPerGeneration)].GetValue<int>(); } set { this[nameof(PowerUpsPerGeneration)].SetValue<int>(value); } }
@@ -19352,7 +19356,7 @@ namespace SDK.Script.FSDSDK
         public EnemyGroupDescriptor RockEnemies { get { return this[nameof(RockEnemies)].As<EnemyGroupDescriptor>(); } set { this["RockEnemies"] = value; } }
         public void StopPowerupGeneration() { Invoke(nameof(StopPowerupGeneration)); }
         public void StartPowerupGeneration() { Invoke(nameof(StartPowerupGeneration)); }
-        public void SpawnRockEnemies(float Difficulty, Array<Vector> Locations) { Invoke(nameof(SpawnRockEnemies), Difficulty, Locations); }
+        public void SpawnRockEnemies(float Difficulty, UArray<Vector> Locations) { Invoke(nameof(SpawnRockEnemies), Difficulty, Locations); }
         public void ShowFireEffects(int selectedBone) { Invoke(nameof(ShowFireEffects), selectedBone); }
         public void RockEnemySpawned(Pawn spawnedEnemy) { Invoke(nameof(RockEnemySpawned), spawnedEnemy); }
         public void RockEnemyDied(HealthComponentBase Health) { Invoke(nameof(RockEnemyDied), Health); }
@@ -19373,7 +19377,7 @@ namespace SDK.Script.FSDSDK
     public class RoomFeature : Object
     {
         public RoomFeature(nint addr) : base(addr) { }
-        public Array<RoomFeature> RoomFeatures { get { return new Array<RoomFeature>(this[nameof(RoomFeatures)].Address); } }
+        public UArray<RoomFeature> RoomFeatures { get { return new UArray<RoomFeature>(this[nameof(RoomFeatures)].Address); } }
     }
     public class RandomSelector : RoomFeature
     {
@@ -19388,13 +19392,13 @@ namespace SDK.Script.FSDSDK
         public FloodFillSettings CeilingNoiseOverride { get { return this[nameof(CeilingNoiseOverride)].As<FloodFillSettings>(); } set { this["CeilingNoiseOverride"] = value; } }
         public FloodFillSettings FloorNoiseOverride { get { return this[nameof(FloorNoiseOverride)].As<FloodFillSettings>(); } set { this["FloorNoiseOverride"] = value; } }
         public bool UseDetailNoise { get { return this[nameof(UseDetailNoise)].Flag; } set { this[nameof(UseDetailNoise)].Flag = value; } }
-        public Array<RoomLinePoint> Points { get { return new Array<RoomLinePoint>(this[nameof(Points)].Address); } }
+        public UArray<RoomLinePoint> Points { get { return new UArray<RoomLinePoint>(this[nameof(Points)].Address); } }
     }
     public class FloodFillPillar : RoomFeature
     {
         public FloodFillPillar(nint addr) : base(addr) { }
         public FloodFillSettings NoiseOverride { get { return this[nameof(NoiseOverride)].As<FloodFillSettings>(); } set { this["NoiseOverride"] = value; } }
-        public Array<RandLinePoint> Points { get { return new Array<RandLinePoint>(this[nameof(Points)].Address); } }
+        public UArray<RandLinePoint> Points { get { return new UArray<RandLinePoint>(this[nameof(Points)].Address); } }
         public RandRange RangeScale { get { return this[nameof(RangeScale)].As<RandRange>(); } set { this["RangeScale"] = value; } }
         public RandRange NoiseRangeScale { get { return this[nameof(NoiseRangeScale)].As<RandRange>(); } set { this["NoiseRangeScale"] = value; } }
         public RandRange EndcapScale { get { return this[nameof(EndcapScale)].As<RandRange>(); } set { this["EndcapScale"] = value; } }
@@ -19402,7 +19406,7 @@ namespace SDK.Script.FSDSDK
     public class FloodFillProceduralPillar : RoomFeature
     {
         public FloodFillProceduralPillar(nint addr) : base(addr) { }
-        public Array<Vector> Points { get { return new Array<Vector>(this[nameof(Points)].Address); } }
+        public UArray<Vector> Points { get { return new UArray<Vector>(this[nameof(Points)].Address); } }
         public PillarSettings PillarSettings { get { return this[nameof(PillarSettings)].As<PillarSettings>(); } set { this["PillarSettings"] = value; } }
     }
     public class FloodFillBox : RoomFeature
@@ -19488,13 +19492,13 @@ namespace SDK.Script.FSDSDK
     public class RoomGenerator : RoomGeneratorBase
     {
         public RoomGenerator(nint addr) : base(addr) { }
-        public Array<RoomFeature> RoomFeatures { get { return new Array<RoomFeature>(this[nameof(RoomFeatures)].Address); } }
-        public Array<RoomFeature> GetAllRoomFeatures() { return Invoke<Array<RoomFeature>>(nameof(GetAllRoomFeatures)); }
+        public UArray<RoomFeature> RoomFeatures { get { return new UArray<RoomFeature>(this[nameof(RoomFeatures)].Address); } }
+        public UArray<RoomFeature> GetAllRoomFeatures() { return Invoke<UArray<RoomFeature>>(nameof(GetAllRoomFeatures)); }
     }
     public class RoomGeneratorGroup : DataAsset
     {
         public RoomGeneratorGroup(nint addr) : base(addr) { }
-        public Array<RoomGenerator> Rooms { get { return new Array<RoomGenerator>(this[nameof(Rooms)].Address); } }
+        public UArray<RoomGenerator> Rooms { get { return new UArray<RoomGenerator>(this[nameof(Rooms)].Address); } }
         public RoomGenerator GetRandomRoomWithTags(RoomGeneratorGroupInstance groupInstance, GameplayTagQuery queury, RandomStream RandomStream) { return Invoke<RoomGenerator>(nameof(GetRandomRoomWithTags), groupInstance, queury, RandomStream); }
         public RoomGenerator GetRandomRoom(RandomStream RandomStream) { return Invoke<RoomGenerator>(nameof(GetRandomRoom), RandomStream); }
         public RoomGeneratorGroupInstance CreateGroupInstance() { return Invoke<RoomGeneratorGroupInstance>(nameof(CreateGroupInstance)); }
@@ -19529,7 +19533,7 @@ namespace SDK.Script.FSDSDK
         public float LegDistanceToActor { get { return this[nameof(LegDistanceToActor)].GetValue<float>(); } set { this[nameof(LegDistanceToActor)].SetValue<float>(value); } }
         public Object OnDisableLegSpheres { get { return this[nameof(OnDisableLegSpheres)]; } set { this[nameof(OnDisableLegSpheres)] = value; } }
         public DebrisPositioning Positioning { get { return this[nameof(Positioning)].As<DebrisPositioning>(); } set { this["Positioning"] = value; } }
-        public Array<Object> Debris { get { return new Array<Object>(this[nameof(Debris)].Address); } }
+        public UArray<Object> Debris { get { return new UArray<Object>(this[nameof(Debris)].Address); } }
         public Object SalvageActor { get { return this[nameof(SalvageActor)]; } set { this[nameof(SalvageActor)] = value; } }
         public Object DamagedPodClass { get { return this[nameof(DamagedPodClass)]; } set { this[nameof(DamagedPodClass)] = value; } }
         public DebrisPositioning DamagedPodPositioning { get { return this[nameof(DamagedPodPositioning)].As<DebrisPositioning>(); } set { this["DamagedPodPositioning"] = value; } }
@@ -19541,14 +19545,14 @@ namespace SDK.Script.FSDSDK
         public int PointsRepaired { get { return this[nameof(PointsRepaired)].GetValue<int>(); } set { this[nameof(PointsRepaired)].SetValue<int>(value); } }
         public float MinSalvageActorDistanceToLandingZone { get { return this[nameof(MinSalvageActorDistanceToLandingZone)].GetValue<float>(); } set { this[nameof(MinSalvageActorDistanceToLandingZone)].SetValue<float>(value); } }
         public bool HasMuleReturnedToPod { get { return this[nameof(HasMuleReturnedToPod)].Flag; } set { this[nameof(HasMuleReturnedToPod)].Flag = value; } }
-        public Array<MiniMule> AllSalvageActors { get { return new Array<MiniMule>(this[nameof(AllSalvageActors)].Address); } }
-        public Array<MiniMule> SalvagedActors { get { return new Array<MiniMule>(this[nameof(SalvagedActors)].Address); } }
+        public UArray<MiniMule> AllSalvageActors { get { return new UArray<MiniMule>(this[nameof(AllSalvageActors)].Address); } }
+        public UArray<MiniMule> SalvagedActors { get { return new UArray<MiniMule>(this[nameof(SalvagedActors)].Address); } }
         public void PointRepaired() { Invoke(nameof(PointRepaired)); }
         public void OnRep_PointsRepaired() { Invoke(nameof(OnRep_PointsRepaired)); }
         public void OnRep_ActorsToSalvage(int prevAmount) { Invoke(nameof(OnRep_ActorsToSalvage), prevAmount); }
         public void OnRep_ActorsSalvaged(int prevAmount) { Invoke(nameof(OnRep_ActorsSalvaged), prevAmount); }
         public void OnActorRepaired(RepairableComponent repairable) { Invoke(nameof(OnActorRepaired), repairable); }
-        public Transform FindRepairPointLocation(ProceduralSetup Setup, Vector podLocation, float Radius, float maxVerticalDistance, DebrisPositioning DebrisPositioning, Object terrainPlacement, Array<Vector> locationsToAvoid, CurveFloat AvoidCostCurve) { return Invoke<Transform>(nameof(FindRepairPointLocation), Setup, podLocation, Radius, maxVerticalDistance, DebrisPositioning, terrainPlacement, locationsToAvoid, AvoidCostCurve); }
+        public Transform FindRepairPointLocation(ProceduralSetup Setup, Vector podLocation, float Radius, float maxVerticalDistance, DebrisPositioning DebrisPositioning, Object terrainPlacement, UArray<Vector> locationsToAvoid, CurveFloat AvoidCostCurve) { return Invoke<Transform>(nameof(FindRepairPointLocation), Setup, podLocation, Radius, maxVerticalDistance, DebrisPositioning, terrainPlacement, locationsToAvoid, AvoidCostCurve); }
         public void AllActorsSalvaged() { Invoke(nameof(AllActorsSalvaged)); }
     }
     public class SalvageFuelPod : RessuplyPod
@@ -19602,20 +19606,20 @@ namespace SDK.Script.FSDSDK
         public Object OnCharacterStatsChanged { get { return this[nameof(OnCharacterStatsChanged)]; } set { this[nameof(OnCharacterStatsChanged)] = value; } }
         public Object OnCreditsChanged { get { return this[nameof(OnCreditsChanged)]; } set { this[nameof(OnCreditsChanged)] = value; } }
         public int Credits { get { return this[nameof(Credits)].GetValue<int>(); } set { this[nameof(Credits)].SetValue<int>(value); } }
-        public Array<SaveGameStatePerkItem> EquippedPerks { get { return new Array<SaveGameStatePerkItem>(this[nameof(EquippedPerks)].Address); } }
+        public UArray<SaveGameStatePerkItem> EquippedPerks { get { return new UArray<SaveGameStatePerkItem>(this[nameof(EquippedPerks)].Address); } }
         public VictoryPose VictoryPose { get { return this[nameof(VictoryPose)].As<VictoryPose>(); } set { this["VictoryPose"] = value; } }
         public ItemLoadout EquippedLoadout { get { return this[nameof(EquippedLoadout)].As<ItemLoadout>(); } set { this["EquippedLoadout"] = value; } }
         public ActiveCampaingMission ActiveCampaignMission { get { return this[nameof(ActiveCampaignMission)].As<ActiveCampaingMission>(); } set { this["ActiveCampaignMission"] = value; } }
-        public Array<ItemUpgradeSelection> ItemUpgradeSelections { get { return new Array<ItemUpgradeSelection>(this[nameof(ItemUpgradeSelections)].Address); } }
+        public UArray<ItemUpgradeSelection> ItemUpgradeSelections { get { return new UArray<ItemUpgradeSelection>(this[nameof(ItemUpgradeSelections)].Address); } }
         public PlayerProgress PlayerProgress { get { return this[nameof(PlayerProgress)].As<PlayerProgress>(); } set { this["PlayerProgress"] = value; } }
-        public Array<CharacterProgress> CharacterStats { get { return new Array<CharacterProgress>(this[nameof(CharacterStats)].Address); } }
+        public UArray<CharacterProgress> CharacterStats { get { return new UArray<CharacterProgress>(this[nameof(CharacterStats)].Address); } }
         public void SetCampaign() { Invoke(nameof(SetCampaign)); }
         public void Server_SetVictoryPose(VictoryPose pose) { Invoke(nameof(Server_SetVictoryPose), pose); }
         public void Server_SetPlayerProgress(PlayerProgress Progress) { Invoke(nameof(Server_SetPlayerProgress), Progress); }
-        public void Server_SetLoadout(ItemLoadout Loadout, Array<ItemUpgradeSelection> weaponLoadouts) { Invoke(nameof(Server_SetLoadout), Loadout, weaponLoadouts); }
-        public void Server_SetEquippedPerks(Array<SaveGameStatePerkItem> perks) { Invoke(nameof(Server_SetEquippedPerks), perks); }
+        public void Server_SetLoadout(ItemLoadout Loadout, UArray<ItemUpgradeSelection> weaponLoadouts) { Invoke(nameof(Server_SetLoadout), Loadout, weaponLoadouts); }
+        public void Server_SetEquippedPerks(UArray<SaveGameStatePerkItem> perks) { Invoke(nameof(Server_SetEquippedPerks), perks); }
         public void Server_SetCredits(int amount) { Invoke(nameof(Server_SetCredits), amount); }
-        public void Server_SetCharacterStats(Array<CharacterProgress> Stats) { Invoke(nameof(Server_SetCharacterStats), Stats); }
+        public void Server_SetCharacterStats(UArray<CharacterProgress> Stats) { Invoke(nameof(Server_SetCharacterStats), Stats); }
         public void Server_SetActiveCampaignMission(ActiveCampaingMission Data) { Invoke(nameof(Server_SetActiveCampaignMission), Data); }
         public void RefreshLoadoutFromSave(PlayerCharacterID characterID) { Invoke(nameof(RefreshLoadoutFromSave), characterID); }
         public void OnRep_PlayerProgress() { Invoke(nameof(OnRep_PlayerProgress)); }
@@ -19756,14 +19760,14 @@ namespace SDK.Script.FSDSDK
         public Object SchematicTypes { get { return this[nameof(SchematicTypes)]; } set { this[nameof(SchematicTypes)] = value; } }
         public SchematicBank EndlessSchematics { get { return this[nameof(EndlessSchematics)].As<SchematicBank>(); } set { this["EndlessSchematics"] = value; } }
         public Object Categories { get { return this[nameof(Categories)]; } set { this[nameof(Categories)] = value; } }
-        public Array<SchematicCategory> OverclockCategories { get { return new Array<SchematicCategory>(this[nameof(OverclockCategories)].Address); } }
-        public Array<SchematicCategory> VanityCategories { get { return new Array<SchematicCategory>(this[nameof(VanityCategories)].Address); } }
-        public Array<SchematicCategory> EndlessCategories { get { return new Array<SchematicCategory>(this[nameof(EndlessCategories)].Address); } }
+        public UArray<SchematicCategory> OverclockCategories { get { return new UArray<SchematicCategory>(this[nameof(OverclockCategories)].Address); } }
+        public UArray<SchematicCategory> VanityCategories { get { return new UArray<SchematicCategory>(this[nameof(VanityCategories)].Address); } }
+        public UArray<SchematicCategory> EndlessCategories { get { return new UArray<SchematicCategory>(this[nameof(EndlessCategories)].Address); } }
         public SchematicPricingTier OverclockPricingTier { get { return this[nameof(OverclockPricingTier)].As<SchematicPricingTier>(); } set { this["OverclockPricingTier"] = value; } }
-        public Array<SchematicPricingTier> VanityPricingTiers { get { return new Array<SchematicPricingTier>(this[nameof(VanityPricingTiers)].Address); } }
-        public Array<SchematicRarity> VanityRarity { get { return new Array<SchematicRarity>(this[nameof(VanityRarity)].Address); } }
-        public Array<SchematicRarity> OverclockRarity { get { return new Array<SchematicRarity>(this[nameof(OverclockRarity)].Address); } }
-        public Array<SchematicRarity> EndlessRarity { get { return new Array<SchematicRarity>(this[nameof(EndlessRarity)].Address); } }
+        public UArray<SchematicPricingTier> VanityPricingTiers { get { return new UArray<SchematicPricingTier>(this[nameof(VanityPricingTiers)].Address); } }
+        public UArray<SchematicRarity> VanityRarity { get { return new UArray<SchematicRarity>(this[nameof(VanityRarity)].Address); } }
+        public UArray<SchematicRarity> OverclockRarity { get { return new UArray<SchematicRarity>(this[nameof(OverclockRarity)].Address); } }
+        public UArray<SchematicRarity> EndlessRarity { get { return new UArray<SchematicRarity>(this[nameof(EndlessRarity)].Address); } }
         public SchematicCategory VanityCatHeadWear { get { return this[nameof(VanityCatHeadWear)].As<SchematicCategory>(); } set { this["VanityCatHeadWear"] = value; } }
         public SchematicCategory VanityCatMoustache { get { return this[nameof(VanityCatMoustache)].As<SchematicCategory>(); } set { this["VanityCatMoustache"] = value; } }
         public SchematicCategory VanityCatBeard { get { return this[nameof(VanityCatBeard)].As<SchematicCategory>(); } set { this["VanityCatBeard"] = value; } }
@@ -19787,7 +19791,7 @@ namespace SDK.Script.FSDSDK
     {
         public ForginSettings(nint addr) : base(addr) { }
         public int XPRequiredPerLevel { get { return this[nameof(XPRequiredPerLevel)].GetValue<int>(); } set { this[nameof(XPRequiredPerLevel)].SetValue<int>(value); } }
-        public Array<ESchematicType> MasteryRewardCycle { get { return new Array<ESchematicType>(this[nameof(MasteryRewardCycle)].Address); } }
+        public UArray<ESchematicType> MasteryRewardCycle { get { return new UArray<ESchematicType>(this[nameof(MasteryRewardCycle)].Address); } }
     }
     public class SeamlessTravelEventActivator : ActorComponent
     {
@@ -19834,21 +19838,21 @@ namespace SDK.Script.FSDSDK
         public Object SeasonBriefingShowroomItem { get { return this[nameof(SeasonBriefingShowroomItem)]; } set { this[nameof(SeasonBriefingShowroomItem)] = value; } }
         public Object SeasonBriefingAudio { get { return this[nameof(SeasonBriefingAudio)]; } set { this[nameof(SeasonBriefingAudio)] = value; } }
         public Object SeasonBriefingText { get { return this[nameof(SeasonBriefingText)]; } set { this[nameof(SeasonBriefingText)] = value; } }
-        public Array<SeasonLevel> Levels { get { return new Array<SeasonLevel>(this[nameof(Levels)].Address); } }
+        public UArray<SeasonLevel> Levels { get { return new UArray<SeasonLevel>(this[nameof(Levels)].Address); } }
         public SeasonLevel RewardAfterAllLevels { get { return this[nameof(RewardAfterAllLevels)].As<SeasonLevel>(); } set { this["RewardAfterAllLevels"] = value; } }
         public SeasonLevel RewardIfAlreadyOwned { get { return this[nameof(RewardIfAlreadyOwned)].As<SeasonLevel>(); } set { this["RewardIfAlreadyOwned"] = value; } }
-        public Array<UnassignedReward> UnassignedRewards { get { return new Array<UnassignedReward>(this[nameof(UnassignedRewards)].Address); } }
+        public UArray<UnassignedReward> UnassignedRewards { get { return new UArray<UnassignedReward>(this[nameof(UnassignedRewards)].Address); } }
         public TreeOfVanity TreeOfVanity { get { return this[nameof(TreeOfVanity)].As<TreeOfVanity>(); } set { this["TreeOfVanity"] = value; } }
         public GameDLC SeasonDLC { get { return this[nameof(SeasonDLC)].As<GameDLC>(); } set { this["SeasonDLC"] = value; } }
         public ESeasonMissionMapOverlayType MissionMapEventZoneType { get { return (ESeasonMissionMapOverlayType)this[nameof(MissionMapEventZoneType)].GetValue<int>(); } set { this[nameof(MissionMapEventZoneType)].SetValue<int>((int)value); } }
         public RuntimeFloatCurve SpawnChanceByMissionLength { get { return this[nameof(SpawnChanceByMissionLength)].As<RuntimeFloatCurve>(); } set { this["SpawnChanceByMissionLength"] = value; } }
         public RuntimeFloatCurve MinorSpawnChanceByMissionLenght { get { return this[nameof(MinorSpawnChanceByMissionLenght)].As<RuntimeFloatCurve>(); } set { this["MinorSpawnChanceByMissionLenght"] = value; } }
-        public Array<SeasonalEventEntry> SeasonalEvents { get { return new Array<SeasonalEventEntry>(this[nameof(SeasonalEvents)].Address); } }
-        public Array<SeasonalEventEntry> MinorSeasonalEvents { get { return new Array<SeasonalEventEntry>(this[nameof(MinorSeasonalEvents)].Address); } }
-        public Array<SeasonChallenge> SeasonChallenges { get { return new Array<SeasonChallenge>(this[nameof(SeasonChallenges)].Address); } }
+        public UArray<SeasonalEventEntry> SeasonalEvents { get { return new UArray<SeasonalEventEntry>(this[nameof(SeasonalEvents)].Address); } }
+        public UArray<SeasonalEventEntry> MinorSeasonalEvents { get { return new UArray<SeasonalEventEntry>(this[nameof(MinorSeasonalEvents)].Address); } }
+        public UArray<SeasonChallenge> SeasonChallenges { get { return new UArray<SeasonChallenge>(this[nameof(SeasonChallenges)].Address); } }
         public int NumberOfScripChallenges { get { return this[nameof(NumberOfScripChallenges)].GetValue<int>(); } set { this[nameof(NumberOfScripChallenges)].SetValue<int>(value); } }
         public MissionStat ScripChallenge { get { return this[nameof(ScripChallenge)].As<MissionStat>(); } set { this["ScripChallenge"] = value; } }
-        public Array<WaveEntry> SeasonSpecificWaves { get { return new Array<WaveEntry>(this[nameof(SeasonSpecificWaves)].Address); } }
+        public UArray<WaveEntry> SeasonSpecificWaves { get { return new UArray<WaveEntry>(this[nameof(SeasonSpecificWaves)].Address); } }
         public float SeasonWaveInMissionChance { get { return this[nameof(SeasonWaveInMissionChance)].GetValue<float>(); } set { this[nameof(SeasonWaveInMissionChance)].SetValue<float>(value); } }
         public MissionWarning SeasonWarning { get { return this[nameof(SeasonWarning)].As<MissionWarning>(); } set { this["SeasonWarning"] = value; } }
         public Object SpacerigSeasonLevel { get { return this[nameof(SpacerigSeasonLevel)]; } set { this[nameof(SpacerigSeasonLevel)] = value; } }
@@ -19866,14 +19870,14 @@ namespace SDK.Script.FSDSDK
         public Object Icon { get { return this[nameof(Icon)]; } set { this[nameof(Icon)] = value; } }
         public Object IconOutlined { get { return this[nameof(IconOutlined)]; } set { this[nameof(IconOutlined)] = value; } }
         public LinearColor Color { get { return this[nameof(Color)].As<LinearColor>(); } set { this["Color"] = value; } }
-        public Array<TrackedStatInfo> TrackedStats { get { return new Array<TrackedStatInfo>(this[nameof(TrackedStats)].Address); } }
-        public Array<ChallengeVariation> Variations { get { return new Array<ChallengeVariation>(this[nameof(Variations)].Address); } }
+        public UArray<TrackedStatInfo> TrackedStats { get { return new UArray<TrackedStatInfo>(this[nameof(TrackedStats)].Address); } }
+        public UArray<ChallengeVariation> Variations { get { return new UArray<ChallengeVariation>(this[nameof(Variations)].Address); } }
         public int NumberOfChoices { get { return this[nameof(NumberOfChoices)].GetValue<int>(); } set { this[nameof(NumberOfChoices)].SetValue<int>(value); } }
         public float ChallengeWeight { get { return this[nameof(ChallengeWeight)].GetValue<float>(); } set { this[nameof(ChallengeWeight)].SetValue<float>(value); } }
         public bool bIsSpecialChallenge { get { return this[nameof(bIsSpecialChallenge)].Flag; } set { this[nameof(bIsSpecialChallenge)].Flag = value; } }
         public int MaxOccurences { get { return this[nameof(MaxOccurences)].GetValue<int>(); } set { this[nameof(MaxOccurences)].SetValue<int>(value); } }
         public SeasonChallenge ChallengeAfterMaxOccurences { get { return this[nameof(ChallengeAfterMaxOccurences)].As<SeasonChallenge>(); } set { this["ChallengeAfterMaxOccurences"] = value; } }
-        public Array<Object> RequiredCampaigns { get { return new Array<Object>(this[nameof(RequiredCampaigns)].Address); } }
+        public UArray<Object> RequiredCampaigns { get { return new UArray<Object>(this[nameof(RequiredCampaigns)].Address); } }
         public Texture2D GetIconOutlined() { return Invoke<Texture2D>(nameof(GetIconOutlined)); }
         public Texture2D GetIcon() { return Invoke<Texture2D>(nameof(GetIcon)); }
     }
@@ -19906,7 +19910,7 @@ namespace SDK.Script.FSDSDK
     public class SeasonSettings : DataAsset
     {
         public SeasonSettings(nint addr) : base(addr) { }
-        public Array<Season> Seasons { get { return new Array<Season>(this[nameof(Seasons)].Address); } }
+        public UArray<Season> Seasons { get { return new UArray<Season>(this[nameof(Seasons)].Address); } }
         public int CurrentSeasonIndex { get { return this[nameof(CurrentSeasonIndex)].GetValue<int>(); } set { this[nameof(CurrentSeasonIndex)].SetValue<int>(value); } }
         public int MaxActiveChallenges { get { return this[nameof(MaxActiveChallenges)].GetValue<int>(); } set { this[nameof(MaxActiveChallenges)].SetValue<int>(value); } }
         public int XPPerLevel { get { return this[nameof(XPPerLevel)].GetValue<int>(); } set { this[nameof(XPPerLevel)].SetValue<int>(value); } }
@@ -19977,8 +19981,8 @@ namespace SDK.Script.FSDSDK
         public SeasonLevel GetLevelReward(int Level) { return Invoke<SeasonLevel>(nameof(GetLevelReward), Level); }
         public void GetLevelProgress(int Level, float levelPercent) { Invoke(nameof(GetLevelProgress), Level, levelPercent); }
         public Season GetCurrentSeason() { return Invoke<Season>(nameof(GetCurrentSeason)); }
-        public Array<DataAsset> GetAssetReferences(int ChallengeIndex, SeasonChallenge outChallenge) { return Invoke<Array<DataAsset>>(nameof(GetAssetReferences), ChallengeIndex, outChallenge); }
-        public Array<ChallengeInfo> GetActiveChallenges(bool canGenerateNewChallenge) { return Invoke<Array<ChallengeInfo>>(nameof(GetActiveChallenges), canGenerateNewChallenge); }
+        public UArray<DataAsset> GetAssetReferences(int ChallengeIndex, SeasonChallenge outChallenge) { return Invoke<UArray<DataAsset>>(nameof(GetAssetReferences), ChallengeIndex, outChallenge); }
+        public UArray<ChallengeInfo> GetActiveChallenges(bool canGenerateNewChallenge) { return Invoke<UArray<ChallengeInfo>>(nameof(GetActiveChallenges), canGenerateNewChallenge); }
         public bool ConvertHeartsToScrip(int scripGained) { return Invoke<bool>(nameof(ConvertHeartsToScrip), scripGained); }
         public void CompleteSeasonEvent_Server(SeasonEventData InEvent) { Invoke(nameof(CompleteSeasonEvent_Server), InEvent); }
         public bool ClaimScripChallenge() { return Invoke<bool>(nameof(ClaimScripChallenge)); }
@@ -20061,21 +20065,21 @@ namespace SDK.Script.FSDSDK
     public class SentryGunItem : PlaceableItem
     {
         public SentryGunItem(nint addr) : base(addr) { }
-        public Array<ItemUpgrade> Upgrades { get { return new Array<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
+        public UArray<ItemUpgrade> Upgrades { get { return new UArray<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
     }
     public class RecallableSentryGunItem : RecallableItem
     {
         public RecallableSentryGunItem(nint addr) : base(addr) { }
         public Object OnActiveItemsChanged { get { return this[nameof(OnActiveItemsChanged)]; } set { this[nameof(OnActiveItemsChanged)] = value; } }
         public Object OnSelectedItemChanged { get { return this[nameof(OnSelectedItemChanged)]; } set { this[nameof(OnSelectedItemChanged)] = value; } }
-        public Array<Object> SentriesWithActiveIndicators { get { return new Array<Object>(this[nameof(SentriesWithActiveIndicators)].Address); } }
+        public UArray<Object> SentriesWithActiveIndicators { get { return new UArray<Object>(this[nameof(SentriesWithActiveIndicators)].Address); } }
         public int MaxSentryCount { get { return this[nameof(MaxSentryCount)].GetValue<int>(); } set { this[nameof(MaxSentryCount)].SetValue<int>(value); } }
         public float MinDistanceBetweenSentries { get { return this[nameof(MinDistanceBetweenSentries)].GetValue<float>(); } set { this[nameof(MinDistanceBetweenSentries)].SetValue<float>(value); } }
         public Object RecallHoldDescription { get { return this[nameof(RecallHoldDescription)]; } set { this[nameof(RecallHoldDescription)] = value; } }
         public float RecallHoldDuration { get { return this[nameof(RecallHoldDuration)].GetValue<float>(); } set { this[nameof(RecallHoldDuration)].SetValue<float>(value); } }
         public CapacityHoldingItemAggregator AmmoCapacity { get { return this[nameof(AmmoCapacity)].As<CapacityHoldingItemAggregator>(); } set { this["AmmoCapacity"] = value; } }
         public ItemPlacerAggregator ItemPlacer { get { return this[nameof(ItemPlacer)].As<ItemPlacerAggregator>(); } set { this["ItemPlacer"] = value; } }
-        public Array<ItemUpgrade> Upgrades { get { return new Array<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
+        public UArray<ItemUpgrade> Upgrades { get { return new UArray<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
         public Object LoadoutClass { get { return this[nameof(LoadoutClass)]; } set { this[nameof(LoadoutClass)] = value; } }
         public Object SentryGunObjectClass { get { return this[nameof(SentryGunObjectClass)]; } set { this[nameof(SentryGunObjectClass)] = value; } }
         public float SupplyStatusWeight { get { return this[nameof(SupplyStatusWeight)].GetValue<float>(); } set { this[nameof(SupplyStatusWeight)].SetValue<float>(value); } }
@@ -20087,7 +20091,7 @@ namespace SDK.Script.FSDSDK
         public void RecallableSentryGunItemSignature__DelegateSignature(RecallableSentryGunItem Item) { Invoke(nameof(RecallableSentryGunItemSignature__DelegateSignature), Item); }
         public bool HasAmmoLeft() { return Invoke<bool>(nameof(HasAmmoLeft)); }
         public RecallableSentryGun GetSelectedSentryGun() { return Invoke<RecallableSentryGun>(nameof(GetSelectedSentryGun)); }
-        public Array<RecallableSentryGun> GetActiveSentryGuns() { return Invoke<Array<RecallableSentryGun>>(nameof(GetActiveSentryGuns)); }
+        public UArray<RecallableSentryGun> GetActiveSentryGuns() { return Invoke<UArray<RecallableSentryGun>>(nameof(GetActiveSentryGuns)); }
         public bool AreAllSentriesPlaced() { return Invoke<bool>(nameof(AreAllSentriesPlaced)); }
     }
     public class SessionHandling : BlueprintFunctionLibrary
@@ -20098,7 +20102,7 @@ namespace SDK.Script.FSDSDK
         public bool StartSearchForFriends(int localUserNum, FSDGameInstance GameInstance) { return Invoke<bool>(nameof(StartSearchForFriends), localUserNum, GameInstance); }
         public bool StartSearchForBlockedUsers(int localUserNum) { return Invoke<bool>(nameof(StartSearchForBlockedUsers), localUserNum); }
         public void StartCheckForInstalledDLC(Object WorldContextObject) { Invoke(nameof(StartCheckForInstalledDLC), WorldContextObject); }
-        public void SortServerList(Object WorldContextObject, EServerSortOrder order, bool Reverse, bool sortByFriends, Array<BlueprintSessionResult> servers) { Invoke(nameof(SortServerList), WorldContextObject, order, Reverse, sortByFriends, servers); }
+        public void SortServerList(Object WorldContextObject, EServerSortOrder order, bool Reverse, bool sortByFriends, UArray<BlueprintSessionResult> servers) { Invoke(nameof(SortServerList), WorldContextObject, order, Reverse, sortByFriends, servers); }
         public void ShowStoreUI(Object WorldContextObject) { Invoke(nameof(ShowStoreUI), WorldContextObject); }
         public void ShowInviteUI(Object WorldContextObject) { Invoke(nameof(ShowInviteUI), WorldContextObject); }
         public void JoinOfficialXboxClub(Object WorldContextObject) { Invoke(nameof(JoinOfficialXboxClub), WorldContextObject); }
@@ -20113,7 +20117,7 @@ namespace SDK.Script.FSDSDK
         public Object GetLoginStatus(int localUserNum) { return Invoke<Object>(nameof(GetLoginStatus), localUserNum); }
         public Object GetHostUsername(Object WorldContextObject) { return Invoke<Object>(nameof(GetHostUsername), WorldContextObject); }
         public Object GetHostUniqueId(Object WorldContextObject) { return Invoke<Object>(nameof(GetHostUniqueId), WorldContextObject); }
-        public bool GetFriendsList(int localUserNum, Array<FriendInfo> Players) { return Invoke<bool>(nameof(GetFriendsList), localUserNum, Players); }
+        public bool GetFriendsList(int localUserNum, UArray<FriendInfo> Players) { return Invoke<bool>(nameof(GetFriendsList), localUserNum, Players); }
         public Object GetFriendlyServerNameSanitized(Object WorldContextObject) { return Invoke<Object>(nameof(GetFriendlyServerNameSanitized), WorldContextObject); }
         public Object GetFriendlyServerName(Object WorldContextObject) { return Invoke<Object>(nameof(GetFriendlyServerName), WorldContextObject); }
         public bool GetCurrentSessionState(Object sessionState, Object ID) { return Invoke<bool>(nameof(GetCurrentSessionState), sessionState, ID); }
@@ -20135,24 +20139,24 @@ namespace SDK.Script.FSDSDK
         public Object FSDGetServerName(BlueprintSessionResult Result) { return Invoke<Object>(nameof(FSDGetServerName), Result); }
         public Object FSDGetServerID(BlueprintSessionResult Result) { return Invoke<Object>(nameof(FSDGetServerID), Result); }
         public int FSDGetSeason(BlueprintSessionResult Result) { return Invoke<int>(nameof(FSDGetSeason), Result); }
-        public Array<Object> FSDGetRequiredModsToDownload(BlueprintSessionResult Result) { return Invoke<Array<Object>>(nameof(FSDGetRequiredModsToDownload), Result); }
+        public UArray<Object> FSDGetRequiredModsToDownload(BlueprintSessionResult Result) { return Invoke<UArray<Object>>(nameof(FSDGetRequiredModsToDownload), Result); }
         public Object FSDGetRegion(BlueprintSessionResult Result) { return Invoke<Object>(nameof(FSDGetRegion), Result); }
-        public Array<PlayerCharacterID> FSDGetPlayerClassIDs(BlueprintSessionResult Result) { return Invoke<Array<PlayerCharacterID>>(nameof(FSDGetPlayerClassIDs), Result); }
-        public Array<Object> FSDGetPlayerClasses(BlueprintSessionResult Result) { return Invoke<Array<Object>>(nameof(FSDGetPlayerClasses), Result); }
-        public Array<Object> FSDGetOptionalModsInstalled(BlueprintSessionResult Result, bool ExcludeVerifiedMods) { return Invoke<Array<Object>>(nameof(FSDGetOptionalModsInstalled), Result, ExcludeVerifiedMods); }
+        public UArray<PlayerCharacterID> FSDGetPlayerClassIDs(BlueprintSessionResult Result) { return Invoke<UArray<PlayerCharacterID>>(nameof(FSDGetPlayerClassIDs), Result); }
+        public UArray<Object> FSDGetPlayerClasses(BlueprintSessionResult Result) { return Invoke<UArray<Object>>(nameof(FSDGetPlayerClasses), Result); }
+        public UArray<Object> FSDGetOptionalModsInstalled(BlueprintSessionResult Result, bool ExcludeVerifiedMods) { return Invoke<UArray<Object>>(nameof(FSDGetOptionalModsInstalled), Result, ExcludeVerifiedMods); }
         public int FSDGetNumPlayers(BlueprintSessionResult Result) { return Invoke<int>(nameof(FSDGetNumPlayers), Result); }
-        public Array<Object> FSDGetModsInstalled(BlueprintSessionResult Result, bool ExcludeVerifiedMods) { return Invoke<Array<Object>>(nameof(FSDGetModsInstalled), Result, ExcludeVerifiedMods); }
+        public UArray<Object> FSDGetModsInstalled(BlueprintSessionResult Result, bool ExcludeVerifiedMods) { return Invoke<UArray<Object>>(nameof(FSDGetModsInstalled), Result, ExcludeVerifiedMods); }
         public int FSDGetMissionSeed(BlueprintSessionResult Result) { return Invoke<int>(nameof(FSDGetMissionSeed), Result); }
         public Object FSDGetMapName(BlueprintSessionResult Result) { return Invoke<Object>(nameof(FSDGetMapName), Result); }
         public Object FSDGetHostUserID(BlueprintSessionResult Result) { return Invoke<Object>(nameof(FSDGetHostUserID), Result); }
         public GlobalMissionSeed FSDGetGlobalMissionSeed(BlueprintSessionResult Result) { return Invoke<GlobalMissionSeed>(nameof(FSDGetGlobalMissionSeed), Result); }
         public float FSDGetDistanceFloat(BlueprintSessionResult Result) { return Invoke<float>(nameof(FSDGetDistanceFloat), Result); }
         public EServerDistance FSDGetDistance(BlueprintSessionResult Result) { return Invoke<EServerDistance>(nameof(FSDGetDistance), Result); }
-        public Array<DifficultyMutatorItem> FSDGetDifficultyModifiers(BlueprintSessionResult Result) { return Invoke<Array<DifficultyMutatorItem>>(nameof(FSDGetDifficultyModifiers), Result); }
+        public UArray<DifficultyMutatorItem> FSDGetDifficultyModifiers(BlueprintSessionResult Result) { return Invoke<UArray<DifficultyMutatorItem>>(nameof(FSDGetDifficultyModifiers), Result); }
         public DifficultySetting FSDGetDifficulty(BlueprintSessionResult Result) { return Invoke<DifficultySetting>(nameof(FSDGetDifficulty), Result); }
         public Object FSDGetBuildId(BlueprintSessionResult Result) { return Invoke<Object>(nameof(FSDGetBuildId), Result); }
         public bool FSDCancelFindSessions(Object WorldContextObject) { return Invoke<bool>(nameof(FSDCancelFindSessions), WorldContextObject); }
-        public bool FindBestQuickJoinServer(Object WorldContextObject, Array<BlueprintSessionResult> sessions, DifficultySetting Difficulty, Biome Biome, MissionTemplate MissionTemplate, BlueprintSessionResult OutResult) { return Invoke<bool>(nameof(FindBestQuickJoinServer), WorldContextObject, sessions, Difficulty, Biome, MissionTemplate, OutResult); }
+        public bool FindBestQuickJoinServer(Object WorldContextObject, UArray<BlueprintSessionResult> sessions, DifficultySetting Difficulty, Biome Biome, MissionTemplate MissionTemplate, BlueprintSessionResult OutResult) { return Invoke<bool>(nameof(FindBestQuickJoinServer), WorldContextObject, sessions, Difficulty, Biome, MissionTemplate, OutResult); }
         public bool AllowLinkToExternalFeedback(Object WorldContextObject) { return Invoke<bool>(nameof(AllowLinkToExternalFeedback), WorldContextObject); }
     }
     public class SharkEnemy : EnemyDeepPathfinderCharacter
@@ -20213,7 +20217,7 @@ namespace SDK.Script.FSDSDK
         public void OnHit(float HitDamage, DamageData DamageData, bool anyHealthLost) { Invoke(nameof(OnHit), HitDamage, DamageData, anyHealthLost); }
         public void OnExitState(ESharkEnemyState State) { Invoke(nameof(OnExitState), State); }
         public void OnEnterState(ESharkEnemyState State) { Invoke(nameof(OnEnterState), State); }
-        public void OnDeathDetailed(HealthComponent aHealthComponent, float damageAmount, DamageData DamageData, Array<DamageTag> dTags) { Invoke(nameof(OnDeathDetailed), aHealthComponent, damageAmount, DamageData, dTags); }
+        public void OnDeathDetailed(HealthComponent aHealthComponent, float damageAmount, DamageData DamageData, UArray<DamageTag> dTags) { Invoke(nameof(OnDeathDetailed), aHealthComponent, damageAmount, DamageData, dTags); }
         public void OnDeath(HealthComponentBase aHealthComponent) { Invoke(nameof(OnDeath), aHealthComponent); }
         public void OnCollided(PrimitiveComponent OverlappedComponent, Actor OtherActor, PrimitiveComponent OtherComp, int OtherBodyIndex, bool bFromSweep, HitResult SweepResult) { Invoke(nameof(OnCollided), OverlappedComponent, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult); }
         public void Jumped() { Invoke(nameof(Jumped)); }
@@ -20403,7 +20407,7 @@ namespace SDK.Script.FSDSDK
         public Vector HealthBarOffsetWorld { get { return this[nameof(HealthBarOffsetWorld)].As<Vector>(); } set { this["HealthBarOffsetWorld"] = value; } }
         public Object EnemyComponent { get { return this[nameof(EnemyComponent)]; } set { this[nameof(EnemyComponent)] = value; } }
         public Object Resistances { get { return this[nameof(Resistances)]; } set { this[nameof(Resistances)] = value; } }
-        public Array<DamageTag> RequiredDamageTags { get { return new Array<DamageTag>(this[nameof(RequiredDamageTags)].Address); } }
+        public UArray<DamageTag> RequiredDamageTags { get { return new UArray<DamageTag>(this[nameof(RequiredDamageTags)].Address); } }
         public bool AutomaticFlushNetDormancy { get { return this[nameof(AutomaticFlushNetDormancy)].Flag; } set { this[nameof(AutomaticFlushNetDormancy)].Flag = value; } }
         public void OnRep_Damage(float oldDamage) { Invoke(nameof(OnRep_Damage), oldDamage); }
         public float HealFromDeath(float amount) { return Invoke<float>(nameof(HealFromDeath), amount); }
@@ -20430,13 +20434,13 @@ namespace SDK.Script.FSDSDK
     public class MaterialSkinEffect : SkinEffect
     {
         public MaterialSkinEffect(nint addr) : base(addr) { }
-        public Array<Object> Materials { get { return new Array<Object>(this[nameof(Materials)].Address); } }
+        public UArray<Object> Materials { get { return new UArray<Object>(this[nameof(Materials)].Address); } }
     }
     public class SkeletalMeshSkinEffect : SkinEffect
     {
         public SkeletalMeshSkinEffect(nint addr) : base(addr) { }
         public Object Mesh { get { return this[nameof(Mesh)]; } set { this[nameof(Mesh)] = value; } }
-        public Array<AttachMesh> AttachMeshes { get { return new Array<AttachMesh>(this[nameof(AttachMeshes)].Address); } }
+        public UArray<AttachMesh> AttachMeshes { get { return new UArray<AttachMesh>(this[nameof(AttachMeshes)].Address); } }
     }
     public class SkeletalMeshSkinEffectSpawnable : SkeletalMeshComponent
     {
@@ -20457,11 +20461,11 @@ namespace SDK.Script.FSDSDK
         public ItemSkin EquippedSkinMesh { get { return this[nameof(EquippedSkinMesh)].As<ItemSkin>(); } set { this["EquippedSkinMesh"] = value; } }
         public void UpdateSkin(FSDPlayerState Player) { Invoke(nameof(UpdateSkin), Player); }
         public void OnLoadoutChanged() { Invoke(nameof(OnLoadoutChanged)); }
-        public Array<ItemSkin> GetSkinsForItem(ItemID ItemID, EItemSkinType skinType) { return Invoke<Array<ItemSkin>>(nameof(GetSkinsForItem), ItemID, skinType); }
+        public UArray<ItemSkin> GetSkinsForItem(ItemID ItemID, EItemSkinType skinType) { return Invoke<UArray<ItemSkin>>(nameof(GetSkinsForItem), ItemID, skinType); }
         public ItemSkin GetEquippedSkinMesh(ItemID ItemID, FSDPlayerState Player) { return Invoke<ItemSkin>(nameof(GetEquippedSkinMesh), ItemID, Player); }
         public ItemSkin GetEquippedSkinColor(ItemID ItemID, FSDPlayerState Player) { return Invoke<ItemSkin>(nameof(GetEquippedSkinColor), ItemID, Player); }
         public ItemSkin GetEquippedSkin(ItemID ItemID, EItemSkinType skinType, FSDPlayerState Player) { return Invoke<ItemSkin>(nameof(GetEquippedSkin), ItemID, skinType, Player); }
-        public Array<ItemSkin> GetEquippableColorSkins(ItemID ItemID, FSDPlayerState Player) { return Invoke<Array<ItemSkin>>(nameof(GetEquippableColorSkins), ItemID, Player); }
+        public UArray<ItemSkin> GetEquippableColorSkins(ItemID ItemID, FSDPlayerState Player) { return Invoke<UArray<ItemSkin>>(nameof(GetEquippableColorSkins), ItemID, Player); }
         public ItemSkin GetDefaultItemSkin(ItemID ItemID, EItemSkinType itemSkinType) { return Invoke<ItemSkin>(nameof(GetDefaultItemSkin), ItemID, itemSkinType); }
         public ItemSkin GetBaseColorSkinForMeshSkin(ItemID ItemID, ItemSkin meshSkin) { return Invoke<ItemSkin>(nameof(GetBaseColorSkinForMeshSkin), ItemID, meshSkin); }
         public void EquipSkin(ItemSkin Skin, ItemID ItemID, FSDPlayerState Player) { Invoke(nameof(EquipSkin), Skin, ItemID, Player); }
@@ -20496,7 +20500,7 @@ namespace SDK.Script.FSDSDK
     public class SoundMixManagerComponent : ActorComponent
     {
         public SoundMixManagerComponent(nint addr) : base(addr) { }
-        public Array<SoundMixManagerItem> SoundMixes { get { return new Array<SoundMixManagerItem>(this[nameof(SoundMixes)].Address); } }
+        public UArray<SoundMixManagerItem> SoundMixes { get { return new UArray<SoundMixManagerItem>(this[nameof(SoundMixes)].Address); } }
     }
     public class SpaceBall : CarriableItem
     {
@@ -20513,8 +20517,8 @@ namespace SDK.Script.FSDSDK
         public InstantUsable BarUsable { get { return this[nameof(BarUsable)].As<InstantUsable>(); } set { this["BarUsable"] = value; } }
         public BoxComponent BarUsableCollider { get { return this[nameof(BarUsableCollider)].As<BoxComponent>(); } set { this["BarUsableCollider"] = value; } }
         public Object BarMenuWidget { get { return this[nameof(BarMenuWidget)]; } set { this[nameof(BarMenuWidget)] = value; } }
-        public Array<Vector> DrinkServingLocations { get { return new Array<Vector>(this[nameof(DrinkServingLocations)].Address); } }
-        public Array<DrinkableBarSlot> DrinkableBarSlots { get { return new Array<DrinkableBarSlot>(this[nameof(DrinkableBarSlots)].Address); } }
+        public UArray<Vector> DrinkServingLocations { get { return new UArray<Vector>(this[nameof(DrinkServingLocations)].Address); } }
+        public UArray<DrinkableBarSlot> DrinkableBarSlots { get { return new UArray<DrinkableBarSlot>(this[nameof(DrinkableBarSlots)].Address); } }
         public DrinkableDataAsset DrinkableSpecial { get { return this[nameof(DrinkableSpecial)].As<DrinkableDataAsset>(); } set { this["DrinkableSpecial"] = value; } }
         public Object HolidayComponentMap { get { return this[nameof(HolidayComponentMap)]; } set { this[nameof(HolidayComponentMap)] = value; } }
         public void SpawnDrinkables(DrinkableDataAsset Drinkable, PlayerCharacter User) { Invoke(nameof(SpawnDrinkables), Drinkable, User); }
@@ -20546,43 +20550,43 @@ namespace SDK.Script.FSDSDK
         public bool AddTerrainPlacementBlockers { get { return this[nameof(AddTerrainPlacementBlockers)].Flag; } set { this[nameof(AddTerrainPlacementBlockers)].Flag = value; } }
         public bool AvoidImportantLocations { get { return this[nameof(AvoidImportantLocations)].Flag; } set { this[nameof(AvoidImportantLocations)].Flag = value; } }
         public float MinDistanceToImportantLocations { get { return this[nameof(MinDistanceToImportantLocations)].GetValue<float>(); } set { this[nameof(MinDistanceToImportantLocations)].SetValue<float>(value); } }
-        public bool PlaceActorsWithCallback(int NumToSpawn, int NumToSpawnMin, int NumAllowedChecks, Object SpawnedActorClass, ProceduralSetup Setup, float Radius, DebrisPositioning DebrisPositioning, Array<Vector> locationsToAvoid, CurveFloat AvoidCostCurve, Object OnSpawned, Vector CustomLocation) { return Invoke<bool>(nameof(PlaceActorsWithCallback), NumToSpawn, NumToSpawnMin, NumAllowedChecks, SpawnedActorClass, Setup, Radius, DebrisPositioning, locationsToAvoid, AvoidCostCurve, OnSpawned, CustomLocation); }
-        public bool PlaceActors(int NumToSpawn, int NumToSpawnMin, int NumAllowedChecks, Object SpawnedActorClass, ProceduralSetup Setup, float Radius, DebrisPositioning DebrisPositioning, Array<Vector> locationsToAvoid, CurveFloat AvoidCostCurve, Array<Actor> OutSpawnedActors, Vector CustomLocation) { return Invoke<bool>(nameof(PlaceActors), NumToSpawn, NumToSpawnMin, NumAllowedChecks, SpawnedActorClass, Setup, Radius, DebrisPositioning, locationsToAvoid, AvoidCostCurve, OutSpawnedActors, CustomLocation); }
-        public bool GetLocations(int NumToSpawn, int NumToSpawnMin, int NumAllowedChecks, Object SpawnedActorClass, ProceduralSetup Setup, float Radius, DebrisPositioning DebrisPositioning, Array<Vector> locationsToAvoid, CurveFloat AvoidCostCurve, Array<Transform> OutLocations, Vector CustomLocation) { return Invoke<bool>(nameof(GetLocations), NumToSpawn, NumToSpawnMin, NumAllowedChecks, SpawnedActorClass, Setup, Radius, DebrisPositioning, locationsToAvoid, AvoidCostCurve, OutLocations, CustomLocation); }
+        public bool PlaceActorsWithCallback(int NumToSpawn, int NumToSpawnMin, int NumAllowedChecks, Object SpawnedActorClass, ProceduralSetup Setup, float Radius, DebrisPositioning DebrisPositioning, UArray<Vector> locationsToAvoid, CurveFloat AvoidCostCurve, Object OnSpawned, Vector CustomLocation) { return Invoke<bool>(nameof(PlaceActorsWithCallback), NumToSpawn, NumToSpawnMin, NumAllowedChecks, SpawnedActorClass, Setup, Radius, DebrisPositioning, locationsToAvoid, AvoidCostCurve, OnSpawned, CustomLocation); }
+        public bool PlaceActors(int NumToSpawn, int NumToSpawnMin, int NumAllowedChecks, Object SpawnedActorClass, ProceduralSetup Setup, float Radius, DebrisPositioning DebrisPositioning, UArray<Vector> locationsToAvoid, CurveFloat AvoidCostCurve, UArray<Actor> OutSpawnedActors, Vector CustomLocation) { return Invoke<bool>(nameof(PlaceActors), NumToSpawn, NumToSpawnMin, NumAllowedChecks, SpawnedActorClass, Setup, Radius, DebrisPositioning, locationsToAvoid, AvoidCostCurve, OutSpawnedActors, CustomLocation); }
+        public bool GetLocations(int NumToSpawn, int NumToSpawnMin, int NumAllowedChecks, Object SpawnedActorClass, ProceduralSetup Setup, float Radius, DebrisPositioning DebrisPositioning, UArray<Vector> locationsToAvoid, CurveFloat AvoidCostCurve, UArray<Transform> OutLocations, Vector CustomLocation) { return Invoke<bool>(nameof(GetLocations), NumToSpawn, NumToSpawnMin, NumAllowedChecks, SpawnedActorClass, Setup, Radius, DebrisPositioning, locationsToAvoid, AvoidCostCurve, OutLocations, CustomLocation); }
         public void AddTerrainPlacement(Actor Actor, ProceduralSetup Setup) { Invoke(nameof(AddTerrainPlacement), Actor, Setup); }
     }
     public class SpawningBlueprintLibrary : BlueprintFunctionLibrary
     {
         public SpawningBlueprintLibrary(nint addr) : base(addr) { }
-        public void SpawnEnemyGroupDescriptorWithCallbackSpreadOut(Object WorldContextObject, EnemyGroupDescriptor descriptor, float Difficulty, Array<Vector> Locations, bool Alert, DeepPathFinderSize pfSize, Object Callback) { Invoke(nameof(SpawnEnemyGroupDescriptorWithCallbackSpreadOut), WorldContextObject, descriptor, Difficulty, Locations, Alert, pfSize, Callback); }
-        public void SpawnEnemyGroupDescriptorSpreadOut(Object WorldContextObject, EnemyGroupDescriptor descriptor, float Difficulty, Array<Vector> Locations, bool Alert, DeepPathFinderSize pfSize) { Invoke(nameof(SpawnEnemyGroupDescriptorSpreadOut), WorldContextObject, descriptor, Difficulty, Locations, Alert, pfSize); }
+        public void SpawnEnemyGroupDescriptorWithCallbackSpreadOut(Object WorldContextObject, EnemyGroupDescriptor descriptor, float Difficulty, UArray<Vector> Locations, bool Alert, DeepPathFinderSize pfSize, Object Callback) { Invoke(nameof(SpawnEnemyGroupDescriptorWithCallbackSpreadOut), WorldContextObject, descriptor, Difficulty, Locations, Alert, pfSize, Callback); }
+        public void SpawnEnemyGroupDescriptorSpreadOut(Object WorldContextObject, EnemyGroupDescriptor descriptor, float Difficulty, UArray<Vector> Locations, bool Alert, DeepPathFinderSize pfSize) { Invoke(nameof(SpawnEnemyGroupDescriptorSpreadOut), WorldContextObject, descriptor, Difficulty, Locations, Alert, pfSize); }
         public void SpawnEnemyGroupDescriptor(Object WorldContextObject, EnemyGroupDescriptor descriptor, float Difficulty, Vector Location, bool Alert, DeepPathFinderSize pfSize) { Invoke(nameof(SpawnEnemyGroupDescriptor), WorldContextObject, descriptor, Difficulty, Location, Alert, pfSize); }
-        public void SpawnEnemiesFromPool(Object WorldContextObject, float Difficulty, Array<Vector> Locations, Array<EnemyDescriptor> BannedEnemies, bool Alert, bool isConstantPreassure) { Invoke(nameof(SpawnEnemiesFromPool), WorldContextObject, Difficulty, Locations, BannedEnemies, Alert, isConstantPreassure); }
+        public void SpawnEnemiesFromPool(Object WorldContextObject, float Difficulty, UArray<Vector> Locations, UArray<EnemyDescriptor> BannedEnemies, bool Alert, bool isConstantPreassure) { Invoke(nameof(SpawnEnemiesFromPool), WorldContextObject, Difficulty, Locations, BannedEnemies, Alert, isConstantPreassure); }
         public void SpawnEnemiesAtLocationWithCallback(Object WorldContextObject, EnemyDescriptor EnemyDescriptor, int Count, Vector Location, Object Callback, bool Alert, bool scaleToDifficulty, DeepPathFinderSize pfSize) { Invoke(nameof(SpawnEnemiesAtLocationWithCallback), WorldContextObject, EnemyDescriptor, Count, Location, Callback, Alert, scaleToDifficulty, pfSize); }
         public void SpawnEnemiesAtLocation(Object WorldContextObject, EnemyDescriptor EnemyDescriptor, int Count, Vector Location, bool Alert, bool scaleToDifficulty, DeepPathFinderSize pfSize) { Invoke(nameof(SpawnEnemiesAtLocation), WorldContextObject, EnemyDescriptor, Count, Location, Alert, scaleToDifficulty, pfSize); }
-        public void SpawnEnemiesAtEachLocation(Object WorldContextObject, EnemyDescriptor EnemyDescriptor, Array<Vector> Locations, DeepPathFinderSize pfSize) { Invoke(nameof(SpawnEnemiesAtEachLocation), WorldContextObject, EnemyDescriptor, Locations, pfSize); }
-        public Array<Vector> GetSpawnPointsInRange(Object WorldContextObject, float distanceToPlayers, int spawnPointCount, DeepPathFinderSize pfSize) { return Invoke<Array<Vector>>(nameof(GetSpawnPointsInRange), WorldContextObject, distanceToPlayers, spawnPointCount, pfSize); }
-        public Array<Vector> GetSpawnPointsInCircle(Object WorldContextObject, Vector Location, float Radius, int Count, bool scaleToDificulty, float maxSpawnAngle, DeepPathFinderSize pfSize) { return Invoke<Array<Vector>>(nameof(GetSpawnPointsInCircle), WorldContextObject, Location, Radius, Count, scaleToDificulty, maxSpawnAngle, pfSize); }
-        public Array<Vector> GetSpawnPointsFromLocation(Object WorldContextObject, Vector Location, float Distance, int spawnPointCount, DeepPathFinderSize pfSize) { return Invoke<Array<Vector>>(nameof(GetSpawnPointsFromLocation), WorldContextObject, Location, Distance, spawnPointCount, pfSize); }
-        public Array<Vector> GetSpawnPointsAroundLocation(Object WorldContextObject, Vector Location, float Distance, int spawnPointCount, DeepPathFinderSize pfSize) { return Invoke<Array<Vector>>(nameof(GetSpawnPointsAroundLocation), WorldContextObject, Location, Distance, spawnPointCount, pfSize); }
+        public void SpawnEnemiesAtEachLocation(Object WorldContextObject, EnemyDescriptor EnemyDescriptor, UArray<Vector> Locations, DeepPathFinderSize pfSize) { Invoke(nameof(SpawnEnemiesAtEachLocation), WorldContextObject, EnemyDescriptor, Locations, pfSize); }
+        public UArray<Vector> GetSpawnPointsInRange(Object WorldContextObject, float distanceToPlayers, int spawnPointCount, DeepPathFinderSize pfSize) { return Invoke<UArray<Vector>>(nameof(GetSpawnPointsInRange), WorldContextObject, distanceToPlayers, spawnPointCount, pfSize); }
+        public UArray<Vector> GetSpawnPointsInCircle(Object WorldContextObject, Vector Location, float Radius, int Count, bool scaleToDificulty, float maxSpawnAngle, DeepPathFinderSize pfSize) { return Invoke<UArray<Vector>>(nameof(GetSpawnPointsInCircle), WorldContextObject, Location, Radius, Count, scaleToDificulty, maxSpawnAngle, pfSize); }
+        public UArray<Vector> GetSpawnPointsFromLocation(Object WorldContextObject, Vector Location, float Distance, int spawnPointCount, DeepPathFinderSize pfSize) { return Invoke<UArray<Vector>>(nameof(GetSpawnPointsFromLocation), WorldContextObject, Location, Distance, spawnPointCount, pfSize); }
+        public UArray<Vector> GetSpawnPointsAroundLocation(Object WorldContextObject, Vector Location, float Distance, int spawnPointCount, DeepPathFinderSize pfSize) { return Invoke<UArray<Vector>>(nameof(GetSpawnPointsAroundLocation), WorldContextObject, Location, Distance, spawnPointCount, pfSize); }
         public Vector GetSpawnPointInRange(Object WorldContextObject, float distanceToPlayers, DeepPathFinderSize pfSize) { return Invoke<Vector>(nameof(GetSpawnPointInRange), WorldContextObject, distanceToPlayers, pfSize); }
         public Vector GetSpawnPointFromLocation(Object WorldContextObject, Vector Location, float Distance, DeepPathFinderSize pfSize) { return Invoke<Vector>(nameof(GetSpawnPointFromLocation), WorldContextObject, Location, Distance, pfSize); }
     }
     public class SpawnSettings : DataAsset
     {
         public SpawnSettings(nint addr) : base(addr) { }
-        public Array<Object> SpawnEffects { get { return new Array<Object>(this[nameof(SpawnEffects)].Address); } }
-        public Array<Object> SpawnSounds { get { return new Array<Object>(this[nameof(SpawnSounds)].Address); } }
+        public UArray<Object> SpawnEffects { get { return new UArray<Object>(this[nameof(SpawnEffects)].Address); } }
+        public UArray<Object> SpawnSounds { get { return new UArray<Object>(this[nameof(SpawnSounds)].Address); } }
         public RandRange SpawnDuration { get { return this[nameof(SpawnDuration)].As<RandRange>(); } set { this["SpawnDuration"] = value; } }
     }
     public class SpecialEvent : DataAsset
     {
         public SpecialEvent(nint addr) : base(addr) { }
         public float Weight { get { return this[nameof(Weight)].GetValue<float>(); } set { this[nameof(Weight)].SetValue<float>(value); } }
-        public Array<MissionTemplate> BannedMissions { get { return new Array<MissionTemplate>(this[nameof(BannedMissions)].Address); } }
-        public Array<Mutator> BannedMutators { get { return new Array<Mutator>(this[nameof(BannedMutators)].Address); } }
+        public UArray<MissionTemplate> BannedMissions { get { return new UArray<MissionTemplate>(this[nameof(BannedMissions)].Address); } }
+        public UArray<Mutator> BannedMutators { get { return new UArray<Mutator>(this[nameof(BannedMutators)].Address); } }
         public SpecialEventSpawner EventSpawner { get { return this[nameof(EventSpawner)].As<SpecialEventSpawner>(); } set { this["EventSpawner"] = value; } }
-        public Array<Season> PartOfSeasons { get { return new Array<Season>(this[nameof(PartOfSeasons)].Address); } }
+        public UArray<Season> PartOfSeasons { get { return new UArray<Season>(this[nameof(PartOfSeasons)].Address); } }
     }
     public class SpecialDamageAttackComponent : SpecialAttackComponent
     {
@@ -20593,19 +20597,19 @@ namespace SDK.Script.FSDSDK
     {
         public SpecialEventBlueprintLibrary(nint addr) : base(addr) { }
         public Schematic TryGivePendingReward(Object WorldContextObject) { return Invoke<Schematic>(nameof(TryGivePendingReward), WorldContextObject); }
-        public void StorePendingReward(Object WorldContextObject, Array<Schematic> schematicsToChooseFrom) { Invoke(nameof(StorePendingReward), WorldContextObject, schematicsToChooseFrom); }
+        public void StorePendingReward(Object WorldContextObject, UArray<Schematic> schematicsToChooseFrom) { Invoke(nameof(StorePendingReward), WorldContextObject, schematicsToChooseFrom); }
         public void SpawnEventRewardFrame(Object WorldContextObject, Vector Location) { Invoke(nameof(SpawnEventRewardFrame), WorldContextObject, Location); }
         public bool HasPendingReward(Object WorldContextObject) { return Invoke<bool>(nameof(HasPendingReward), WorldContextObject); }
-        public Array<Schematic> GetSpecialEventsRewardSchematics(Object WorldContextObject) { return Invoke<Array<Schematic>>(nameof(GetSpecialEventsRewardSchematics), WorldContextObject); }
+        public UArray<Schematic> GetSpecialEventsRewardSchematics(Object WorldContextObject) { return Invoke<UArray<Schematic>>(nameof(GetSpecialEventsRewardSchematics), WorldContextObject); }
         public Schematic FindRandomSchematicForCharacter(Object WorldContextObject, PlayerCharacterID characterID, ESchematicType SchematicType) { return Invoke<Schematic>(nameof(FindRandomSchematicForCharacter), WorldContextObject, characterID, SchematicType); }
         public void ClearPendingReward(Object WorldContextObject) { Invoke(nameof(ClearPendingReward), WorldContextObject); }
     }
     public class SpecialEventSettings : DataAsset
     {
         public SpecialEventSettings(nint addr) : base(addr) { }
-        public Array<SpecialEvent> MachineEvents { get { return new Array<SpecialEvent>(this[nameof(MachineEvents)].Address); } }
+        public UArray<SpecialEvent> MachineEvents { get { return new UArray<SpecialEvent>(this[nameof(MachineEvents)].Address); } }
         public RuntimeFloatCurve ME_SpawnChanceMissionLengthCurve { get { return this[nameof(ME_SpawnChanceMissionLengthCurve)].As<RuntimeFloatCurve>(); } set { this["ME_SpawnChanceMissionLengthCurve"] = value; } }
-        public Array<SpecialEvent> OtherSpecialEvents { get { return new Array<SpecialEvent>(this[nameof(OtherSpecialEvents)].Address); } }
+        public UArray<SpecialEvent> OtherSpecialEvents { get { return new UArray<SpecialEvent>(this[nameof(OtherSpecialEvents)].Address); } }
         public RuntimeFloatCurve Other_SpawnChanceMissionLengthCurve { get { return this[nameof(Other_SpawnChanceMissionLengthCurve)].As<RuntimeFloatCurve>(); } set { this["Other_SpawnChanceMissionLengthCurve"] = value; } }
         public Object EventRewardFrameClass { get { return this[nameof(EventRewardFrameClass)]; } set { this[nameof(EventRewardFrameClass)] = value; } }
         public DebrisPositioning EventRewardFramePositioning { get { return this[nameof(EventRewardFramePositioning)].As<DebrisPositioning>(); } set { this["EventRewardFramePositioning"] = value; } }
@@ -20632,7 +20636,7 @@ namespace SDK.Script.FSDSDK
     public class TimedSpecialEventSpawner : SpecialEventSpawner
     {
         public TimedSpecialEventSpawner(nint addr) : base(addr) { }
-        public Array<Object> BlockStack { get { return new Array<Object>(this[nameof(BlockStack)].Address); } }
+        public UArray<Object> BlockStack { get { return new UArray<Object>(this[nameof(BlockStack)].Address); } }
         public Object EventActor { get { return this[nameof(EventActor)]; } set { this[nameof(EventActor)] = value; } }
         public float MinTime { get { return this[nameof(MinTime)].GetValue<float>(); } set { this[nameof(MinTime)].SetValue<float>(value); } }
         public float MaxTime { get { return this[nameof(MaxTime)].GetValue<float>(); } set { this[nameof(MaxTime)].SetValue<float>(value); } }
@@ -20695,10 +20699,10 @@ namespace SDK.Script.FSDSDK
         public StaticMesh CableMeshInstance { get { return this[nameof(CableMeshInstance)].As<StaticMesh>(); } set { this["CableMeshInstance"] = value; } }
         public Transform StartTransform { get { return this[nameof(StartTransform)].As<Transform>(); } set { this["StartTransform"] = value; } }
         public Transform EndTransform { get { return this[nameof(EndTransform)].As<Transform>(); } set { this["EndTransform"] = value; } }
-        public Array<Vector> ReplicatedPath { get { return new Array<Vector>(this[nameof(ReplicatedPath)].Address); } }
+        public UArray<Vector> ReplicatedPath { get { return new UArray<Vector>(this[nameof(ReplicatedPath)].Address); } }
         public bool bConnected { get { return this[nameof(bConnected)].Flag; } set { this[nameof(bConnected)].Flag = value; } }
         public bool ClearPointsWhenDone { get { return this[nameof(ClearPointsWhenDone)].Flag; } set { this[nameof(ClearPointsWhenDone)].Flag = value; } }
-        public Array<SplineMeshComponent> MeshComponents { get { return new Array<SplineMeshComponent>(this[nameof(MeshComponents)].Address); } }
+        public UArray<SplineMeshComponent> MeshComponents { get { return new UArray<SplineMeshComponent>(this[nameof(MeshComponents)].Address); } }
         public void SpawnBetweenTransforms(Transform InStart, Transform InEnd) { Invoke(nameof(SpawnBetweenTransforms), InStart, InEnd); }
         public void SetConnected(bool InConnected) { Invoke(nameof(SetConnected), InConnected); }
         public void ReceiveSegmentCreated(SplineMeshComponent InSegment, int InIndex, int InTotal) { Invoke(nameof(ReceiveSegmentCreated), InSegment, InIndex, InTotal); }
@@ -20718,7 +20722,7 @@ namespace SDK.Script.FSDSDK
         public Vector Scale { get { return this[nameof(Scale)].As<Vector>(); } set { this["Scale"] = value; } }
         public float DistanceProgress { get { return this[nameof(DistanceProgress)].GetValue<float>(); } set { this[nameof(DistanceProgress)].SetValue<float>(value); } }
         public SplineComponent SplineComponent { get { return this[nameof(SplineComponent)].As<SplineComponent>(); } set { this["SplineComponent"] = value; } }
-        public Array<Transform> NewInstancesTransforms { get { return new Array<Transform>(this[nameof(NewInstancesTransforms)].Address); } }
+        public UArray<Transform> NewInstancesTransforms { get { return new UArray<Transform>(this[nameof(NewInstancesTransforms)].Address); } }
         public float Phase { get { return this[nameof(Phase)].GetValue<float>(); } set { this[nameof(Phase)].SetValue<float>(value); } }
         public void Update(float DeltaTime) { Invoke(nameof(Update), DeltaTime); }
         public void SetUpdateContinuously(bool InContinuously) { Invoke(nameof(SetUpdateContinuously), InContinuously); }
@@ -20783,8 +20787,8 @@ namespace SDK.Script.FSDSDK
         public float SegmentHeightScale { get { return this[nameof(SegmentHeightScale)].GetValue<float>(); } set { this[nameof(SegmentHeightScale)].SetValue<float>(value); } }
         public float PreviewLengthPercent { get { return this[nameof(PreviewLengthPercent)].GetValue<float>(); } set { this[nameof(PreviewLengthPercent)].SetValue<float>(value); } }
         public int PreviewSeed { get { return this[nameof(PreviewSeed)].GetValue<int>(); } set { this[nameof(PreviewSeed)].SetValue<int>(value); } }
-        public Array<SplineMeshComponent> SegmentMeshCache { get { return new Array<SplineMeshComponent>(this[nameof(SegmentMeshCache)].Address); } }
-        public Array<SplineMeshComponent> CollisionMeshCache { get { return new Array<SplineMeshComponent>(this[nameof(CollisionMeshCache)].Address); } }
+        public UArray<SplineMeshComponent> SegmentMeshCache { get { return new UArray<SplineMeshComponent>(this[nameof(SegmentMeshCache)].Address); } }
+        public UArray<SplineMeshComponent> CollisionMeshCache { get { return new UArray<SplineMeshComponent>(this[nameof(CollisionMeshCache)].Address); } }
         public SplineComponent SplineInstance { get { return this[nameof(SplineInstance)].As<SplineComponent>(); } set { this["SplineInstance"] = value; } }
         public StaticMesh SegmentMesh { get { return this[nameof(SegmentMesh)].As<StaticMesh>(); } set { this["SegmentMesh"] = value; } }
         public int Seed { get { return this[nameof(Seed)].GetValue<int>(); } set { this[nameof(Seed)].SetValue<int>(value); } }
@@ -20806,7 +20810,7 @@ namespace SDK.Script.FSDSDK
     {
         public SplineTrailComponent(nint addr) : base(addr) { }
         public Object StaticMesh { get { return this[nameof(StaticMesh)]; } set { this[nameof(StaticMesh)] = value; } }
-        public Array<SplineTrailMaterial> MaterialSettings { get { return new Array<SplineTrailMaterial>(this[nameof(MaterialSettings)].Address); } }
+        public UArray<SplineTrailMaterial> MaterialSettings { get { return new UArray<SplineTrailMaterial>(this[nameof(MaterialSettings)].Address); } }
         public byte ForwardAxis { get { return this[nameof(ForwardAxis)].GetValue<byte>(); } set { this[nameof(ForwardAxis)].SetValue<byte>(value); } }
         public Object CollisionMaterial { get { return this[nameof(CollisionMaterial)]; } set { this[nameof(CollisionMaterial)] = value; } }
         public float CollisionCapsuleRadius { get { return this[nameof(CollisionCapsuleRadius)].GetValue<float>(); } set { this[nameof(CollisionCapsuleRadius)].SetValue<float>(value); } }
@@ -20818,10 +20822,10 @@ namespace SDK.Script.FSDSDK
         public float HeadBobbingLength { get { return this[nameof(HeadBobbingLength)].GetValue<float>(); } set { this[nameof(HeadBobbingLength)].SetValue<float>(value); } }
         public float HeadBobbingSpeed { get { return this[nameof(HeadBobbingSpeed)].GetValue<float>(); } set { this[nameof(HeadBobbingSpeed)].SetValue<float>(value); } }
         public RuntimeFloatCurve ScaleCurve { get { return this[nameof(ScaleCurve)].As<RuntimeFloatCurve>(); } set { this["ScaleCurve"] = value; } }
-        public Array<CapsuleComponent> CapsuleColliders { get { return new Array<CapsuleComponent>(this[nameof(CapsuleColliders)].Address); } }
+        public UArray<CapsuleComponent> CapsuleColliders { get { return new UArray<CapsuleComponent>(this[nameof(CapsuleColliders)].Address); } }
         public SplineComponent Spline { get { return this[nameof(Spline)].As<SplineComponent>(); } set { this["Spline"] = value; } }
-        public Array<SplineMeshComponent> MeshComponents { get { return new Array<SplineMeshComponent>(this[nameof(MeshComponents)].Address); } }
-        public Array<Vector> LocationHistory { get { return new Array<Vector>(this[nameof(LocationHistory)].Address); } }
+        public UArray<SplineMeshComponent> MeshComponents { get { return new UArray<SplineMeshComponent>(this[nameof(MeshComponents)].Address); } }
+        public UArray<Vector> LocationHistory { get { return new UArray<Vector>(this[nameof(LocationHistory)].Address); } }
         public int Seed { get { return this[nameof(Seed)].GetValue<int>(); } set { this[nameof(Seed)].SetValue<int>(value); } }
     }
     public class StabberVineRoot : EnemyPawn
@@ -20849,7 +20853,7 @@ namespace SDK.Script.FSDSDK
     public class StatusEffectEnemies : RunningMissionBP
     {
         public StatusEffectEnemies(nint addr) : base(addr) { }
-        public Array<Object> StatusEffects { get { return new Array<Object>(this[nameof(StatusEffects)].Address); } }
+        public UArray<Object> StatusEffects { get { return new UArray<Object>(this[nameof(StatusEffects)].Address); } }
         public GameplayTagContainer AllowedFilter { get { return this[nameof(AllowedFilter)].As<GameplayTagContainer>(); } set { this["AllowedFilter"] = value; } }
         public GameplayTagQuery AllowedQuery { get { return this[nameof(AllowedQuery)].As<GameplayTagQuery>(); } set { this["AllowedQuery"] = value; } }
         public float ChanceToApply { get { return this[nameof(ChanceToApply)].GetValue<float>(); } set { this[nameof(ChanceToApply)].SetValue<float>(value); } }
@@ -20865,7 +20869,7 @@ namespace SDK.Script.FSDSDK
     {
         public StatusEffect(nint addr) : base(addr) { }
         public PawnAffliction PawnAffliction { get { return this[nameof(PawnAffliction)].As<PawnAffliction>(); } set { this["PawnAffliction"] = value; } }
-        public Array<StatusEffectItem> StatusEffects { get { return new Array<StatusEffectItem>(this[nameof(StatusEffects)].Address); } }
+        public UArray<StatusEffectItem> StatusEffects { get { return new UArray<StatusEffectItem>(this[nameof(StatusEffects)].Address); } }
         public float MaxResistance { get { return this[nameof(MaxResistance)].GetValue<float>(); } set { this[nameof(MaxResistance)].SetValue<float>(value); } }
         public DamageClass DamageClass { get { return this[nameof(DamageClass)].As<DamageClass>(); } set { this["DamageClass"] = value; } }
         public StatusEffectExclusiveKey ExclusiveKey { get { return this[nameof(ExclusiveKey)].As<StatusEffectExclusiveKey>(); } set { this["ExclusiveKey"] = value; } }
@@ -21008,7 +21012,7 @@ namespace SDK.Script.FSDSDK
     public class StatusEffectsComponent : ActorComponent
     {
         public StatusEffectsComponent(nint addr) : base(addr) { }
-        public Array<ActiveStatusEffectBank> ActiveStatusEffects { get { return new Array<ActiveStatusEffectBank>(this[nameof(ActiveStatusEffects)].Address); } }
+        public UArray<ActiveStatusEffectBank> ActiveStatusEffects { get { return new UArray<ActiveStatusEffectBank>(this[nameof(ActiveStatusEffects)].Address); } }
         public HealthComponentBase OwnerHealth { get { return this[nameof(OwnerHealth)].As<HealthComponentBase>(); } set { this["OwnerHealth"] = value; } }
         public Object ActiveExclusiveKeys { get { return this[nameof(ActiveExclusiveKeys)]; } set { this[nameof(ActiveExclusiveKeys)] = value; } }
         public bool IgnoreAll { get { return this[nameof(IgnoreAll)].Flag; } set { this[nameof(IgnoreAll)].Flag = value; } }
@@ -21044,8 +21048,8 @@ namespace SDK.Script.FSDSDK
         public StatusEffectTriggerComponent(nint addr) : base(addr) { }
         public Object OnEffectTriggered { get { return this[nameof(OnEffectTriggered)]; } set { this[nameof(OnEffectTriggered)] = value; } }
         public Object OnActorEnterLeave { get { return this[nameof(OnActorEnterLeave)]; } set { this[nameof(OnActorEnterLeave)] = value; } }
-        public Array<Object> StatusEffects { get { return new Array<Object>(this[nameof(StatusEffects)].Address); } }
-        public Array<Object> LeaveTriggerEffects { get { return new Array<Object>(this[nameof(LeaveTriggerEffects)].Address); } }
+        public UArray<Object> StatusEffects { get { return new UArray<Object>(this[nameof(StatusEffects)].Address); } }
+        public UArray<Object> LeaveTriggerEffects { get { return new UArray<Object>(this[nameof(LeaveTriggerEffects)].Address); } }
         public PrimitiveComponent collider { get { return this[nameof(collider)].As<PrimitiveComponent>(); } set { this["collider"] = value; } }
         public bool RemoveStatusEffectOnEndOverlap { get { return this[nameof(RemoveStatusEffectOnEndOverlap)].Flag; } set { this[nameof(RemoveStatusEffectOnEndOverlap)].Flag = value; } }
         public void OnOverlapEnd(Actor MyActor, Actor OtherActor) { Invoke(nameof(OnOverlapEnd), MyActor, OtherActor); }
@@ -21134,7 +21138,7 @@ namespace SDK.Script.FSDSDK
         public STLMeshCarver(nint addr) : base(addr) { }
         public Box AABB { get { return this[nameof(AABB)].As<Box>(); } set { this["AABB"] = value; } }
         public DeepCSGFloatTree BSPTree { get { return this[nameof(BSPTree)].As<DeepCSGFloatTree>(); } set { this["BSPTree"] = value; } }
-        public Array<Vector> Vertices { get { return new Array<Vector>(this[nameof(Vertices)].Address); } }
+        public UArray<Vector> Vertices { get { return new UArray<Vector>(this[nameof(Vertices)].Address); } }
     }
     public class SubHealthComponent : ActorComponent
     {
@@ -21173,7 +21177,7 @@ namespace SDK.Script.FSDSDK
     public class SubsystemLoader : Object
     {
         public SubsystemLoader(nint addr) : base(addr) { }
-        public Array<Object> BlueprintSubSystems { get { return new Array<Object>(this[nameof(BlueprintSubSystems)].Address); } }
+        public UArray<Object> BlueprintSubSystems { get { return new UArray<Object>(this[nameof(BlueprintSubSystems)].Address); } }
     }
     public class TargetDummyPawn : Actor
     {
@@ -21188,7 +21192,7 @@ namespace SDK.Script.FSDSDK
     public class CompositeTargetValidator : TargetValidator
     {
         public CompositeTargetValidator(nint addr) : base(addr) { }
-        public Array<TargetValidator> TargetValidators { get { return new Array<TargetValidator>(this[nameof(TargetValidators)].Address); } }
+        public UArray<TargetValidator> TargetValidators { get { return new UArray<TargetValidator>(this[nameof(TargetValidators)].Address); } }
     }
     public class GrabTargetValidator : TargetValidator
     {
@@ -21260,7 +21264,7 @@ namespace SDK.Script.FSDSDK
         public float MinDistanceBetweenNodes { get { return this[nameof(MinDistanceBetweenNodes)].GetValue<float>(); } set { this[nameof(MinDistanceBetweenNodes)].SetValue<float>(value); } }
         public Object NodeType { get { return this[nameof(NodeType)]; } set { this[nameof(NodeType)] = value; } }
         public DebrisPositioning NodePositioning { get { return this[nameof(NodePositioning)].As<DebrisPositioning>(); } set { this["NodePositioning"] = value; } }
-        public Array<TentaclePlantNode> NodeInstances { get { return new Array<TentaclePlantNode>(this[nameof(NodeInstances)].Address); } }
+        public UArray<TentaclePlantNode> NodeInstances { get { return new UArray<TentaclePlantNode>(this[nameof(NodeInstances)].Address); } }
         public void OnRep_IsVulnerable() { Invoke(nameof(OnRep_IsVulnerable)); }
         public void OnNodeDestroyed(TentaclePlantNode InNode) { Invoke(nameof(OnNodeDestroyed), InNode); }
         public void OnNodeDamaged(TentaclePlantNode InNode) { Invoke(nameof(OnNodeDamaged), InNode); }
@@ -21284,10 +21288,10 @@ namespace SDK.Script.FSDSDK
     public class TerminatorShoutComponent : ActorComponent
     {
         public TerminatorShoutComponent(nint addr) : base(addr) { }
-        public Array<TerminatorShoutState> States { get { return new Array<TerminatorShoutState>(this[nameof(States)].Address); } }
+        public UArray<TerminatorShoutState> States { get { return new UArray<TerminatorShoutState>(this[nameof(States)].Address); } }
         public Object OnShoutStarted { get { return this[nameof(OnShoutStarted)]; } set { this[nameof(OnShoutStarted)] = value; } }
         public Object OnShoutEnded { get { return this[nameof(OnShoutEnded)]; } set { this[nameof(OnShoutEnded)] = value; } }
-        public Array<TerminatorTalkMaterial> TalkMaterials { get { return new Array<TerminatorTalkMaterial>(this[nameof(TalkMaterials)].Address); } }
+        public UArray<TerminatorTalkMaterial> TalkMaterials { get { return new UArray<TerminatorTalkMaterial>(this[nameof(TalkMaterials)].Address); } }
         public PointLightComponent TalkLight { get { return this[nameof(TalkLight)].As<PointLightComponent>(); } set { this["TalkLight"] = value; } }
         public float MaxRadius { get { return this[nameof(MaxRadius)].GetValue<float>(); } set { this[nameof(MaxRadius)].SetValue<float>(value); } }
         public float MaxIntensity { get { return this[nameof(MaxIntensity)].GetValue<float>(); } set { this[nameof(MaxIntensity)].SetValue<float>(value); } }
@@ -21319,7 +21323,7 @@ namespace SDK.Script.FSDSDK
         public float MaxFlairAnimationCooldown { get { return this[nameof(MaxFlairAnimationCooldown)].GetValue<float>(); } set { this[nameof(MaxFlairAnimationCooldown)].SetValue<float>(value); } }
         public float SwaySpeed { get { return this[nameof(SwaySpeed)].GetValue<float>(); } set { this[nameof(SwaySpeed)].SetValue<float>(value); } }
         public bool Extended { get { return this[nameof(Extended)].Flag; } set { this[nameof(Extended)].Flag = value; } }
-        public Array<AnimMontage> HitReactions { get { return new Array<AnimMontage>(this[nameof(HitReactions)].Address); } }
+        public UArray<AnimMontage> HitReactions { get { return new UArray<AnimMontage>(this[nameof(HitReactions)].Address); } }
         public ETerminatorTentacleState TentacleState { get { return (ETerminatorTentacleState)this[nameof(TentacleState)].GetValue<int>(); } set { this[nameof(TentacleState)].SetValue<int>((int)value); } }
         public SkeletalMeshComponent HeadMesh { get { return this[nameof(HeadMesh)].As<SkeletalMeshComponent>(); } set { this["HeadMesh"] = value; } }
         public GrabberComponent GrabberComponent { get { return this[nameof(GrabberComponent)].As<GrabberComponent>(); } set { this["GrabberComponent"] = value; } }
@@ -21387,9 +21391,9 @@ namespace SDK.Script.FSDSDK
     public class TerrainFunctionLibrary : BlueprintFunctionLibrary
     {
         public TerrainFunctionLibrary(nint addr) : base(addr) { }
-        public bool GetDebrisTransformsInSphere(Object WorldContextObject, Array<Matrix> outPositions, Vector Location, float Radius, ESpecialDebrisType debrisType, float minDistToOther, bool calcPriority) { return Invoke<bool>(nameof(GetDebrisTransformsInSphere), WorldContextObject, outPositions, Location, Radius, debrisType, minDistToOther, calcPriority); }
-        public Array<Vector> GetAllNavPointsInSphere(Object WorldContextObject, Vector Origin, float Radius, DeepPathFinderSize pfSize, Vector searchNormal, float maxDegreesToSearchNormal) { return Invoke<Array<Vector>>(nameof(GetAllNavPointsInSphere), WorldContextObject, Origin, Radius, pfSize, searchNormal, maxDegreesToSearchNormal); }
-        public Array<Vector> FindPath(Object WorldContextObject, Vector Origin, Vector Destination, DeepPathFinderSize pfSize, DeepPathFinderType pfType) { return Invoke<Array<Vector>>(nameof(FindPath), WorldContextObject, Origin, Destination, pfSize, pfType); }
+        public bool GetDebrisTransformsInSphere(Object WorldContextObject, UArray<Matrix> outPositions, Vector Location, float Radius, ESpecialDebrisType debrisType, float minDistToOther, bool calcPriority) { return Invoke<bool>(nameof(GetDebrisTransformsInSphere), WorldContextObject, outPositions, Location, Radius, debrisType, minDistToOther, calcPriority); }
+        public UArray<Vector> GetAllNavPointsInSphere(Object WorldContextObject, Vector Origin, float Radius, DeepPathFinderSize pfSize, Vector searchNormal, float maxDegreesToSearchNormal) { return Invoke<UArray<Vector>>(nameof(GetAllNavPointsInSphere), WorldContextObject, Origin, Radius, pfSize, searchNormal, maxDegreesToSearchNormal); }
+        public UArray<Vector> FindPath(Object WorldContextObject, Vector Origin, Vector Destination, DeepPathFinderSize pfSize, DeepPathFinderType pfType) { return Invoke<UArray<Vector>>(nameof(FindPath), WorldContextObject, Origin, Destination, pfSize, pfType); }
         public void FindNearestSurfacePoint(Object WorldContextObject, Vector inPoint, Vector outPoint, Vector Normal, bool IsBLocked) { Invoke(nameof(FindNearestSurfacePoint), WorldContextObject, inPoint, outPoint, Normal, IsBLocked); }
         public bool DoesPathExist(Object WorldContextObject, Vector Origin, Vector Destination, DeepPathFinderSize pfSize, DeepPathFinderType pfType) { return Invoke<bool>(nameof(DoesPathExist), WorldContextObject, Origin, Destination, pfSize, pfType); }
         public void CreateExplosionCrater2(Object WorldContextObject, Vector Location, float CarveDiameter, float carveNoiseSize, float carveBurnThickness, Vector Normal, float NormalOffset, float NormalSqueeze, bool allowCustomBurntMaterial, bool DissolvePlatforms, TerrainMaterial overrideBurnedMaterial) { Invoke(nameof(CreateExplosionCrater2), WorldContextObject, Location, CarveDiameter, carveNoiseSize, carveBurnThickness, Normal, NormalOffset, NormalSqueeze, allowCustomBurntMaterial, DissolvePlatforms, overrideBurnedMaterial); }
@@ -21412,10 +21416,10 @@ namespace SDK.Script.FSDSDK
     {
         public TerrainLatejoinComponent(nint addr) : base(addr) { }
         public void Server_TerrainLateJoinPartReceived() { Invoke(nameof(Server_TerrainLateJoinPartReceived)); }
-        public void Client_TerrainLateJoinVisibleChunks(Array<uint> VisibleChunks) { Invoke(nameof(Client_TerrainLateJoinVisibleChunks), VisibleChunks); }
-        public void Client_TerrainLateJoinPart(Array<GrenadeExplodeOperationData> Explosions, Array<CarveWithColliderOperationData> ColliderCarves, Array<CarveWithSTLMeshOperationData> MeshCarves, Array<PickaxeDigOperationData> PickAxe, Array<RemoveFloatingIslandOperationData> floating, Array<DrillOperationData> Drills, Array<MeltOperationData> Melts, Array<SplineSegmentCarveOperationData> Splines, Array<CSGBuildOperationData> CSGBuilds, Array<TerrainSpawnDebrisOperationData> SpawnDebris) { Invoke(nameof(Client_TerrainLateJoinPart), Explosions, ColliderCarves, MeshCarves, PickAxe, floating, Drills, Melts, Splines, CSGBuilds, SpawnDebris); }
+        public void Client_TerrainLateJoinVisibleChunks(UArray<uint> VisibleChunks) { Invoke(nameof(Client_TerrainLateJoinVisibleChunks), VisibleChunks); }
+        public void Client_TerrainLateJoinPart(UArray<GrenadeExplodeOperationData> Explosions, UArray<CarveWithColliderOperationData> ColliderCarves, UArray<CarveWithSTLMeshOperationData> MeshCarves, UArray<PickaxeDigOperationData> PickAxe, UArray<RemoveFloatingIslandOperationData> floating, UArray<DrillOperationData> Drills, UArray<MeltOperationData> Melts, UArray<SplineSegmentCarveOperationData> Splines, UArray<CSGBuildOperationData> CSGBuilds, UArray<TerrainSpawnDebrisOperationData> SpawnDebris) { Invoke(nameof(Client_TerrainLateJoinPart), Explosions, ColliderCarves, MeshCarves, PickAxe, floating, Drills, Melts, Splines, CSGBuilds, SpawnDebris); }
         public void Client_TerrainLateJoinDone() { Invoke(nameof(Client_TerrainLateJoinDone)); }
-        public void Client_TerrainLateJoinDebris(Array<int> instanceComponentPairs) { Invoke(nameof(Client_TerrainLateJoinDebris), instanceComponentPairs); }
+        public void Client_TerrainLateJoinDebris(UArray<int> instanceComponentPairs) { Invoke(nameof(Client_TerrainLateJoinDebris), instanceComponentPairs); }
     }
     public class SmartRockTerrainMaterial : TerrainMaterialBase
     {
@@ -21446,8 +21450,8 @@ namespace SDK.Script.FSDSDK
         public Object PartialDigParticles { get { return this[nameof(PartialDigParticles)]; } set { this[nameof(PartialDigParticles)] = value; } }
         public Object CrumbleSound { get { return this[nameof(CrumbleSound)]; } set { this[nameof(CrumbleSound)] = value; } }
         public Object PartialMineSound { get { return this[nameof(PartialMineSound)]; } set { this[nameof(PartialMineSound)] = value; } }
-        public void TestMaterialEffects(TerrainMaterial Material, Array<TestTerrainMaterialItem> Items) { Invoke(nameof(TestMaterialEffects), Material, Items); }
-        public void TestDecals(TerrainMaterial Material, Array<TestTerrainMaterialDecalItem> Items) { Invoke(nameof(TestDecals), Material, Items); }
+        public void TestMaterialEffects(TerrainMaterial Material, UArray<TestTerrainMaterialItem> Items) { Invoke(nameof(TestMaterialEffects), Material, Items); }
+        public void TestDecals(TerrainMaterial Material, UArray<TestTerrainMaterialDecalItem> Items) { Invoke(nameof(TestDecals), Material, Items); }
         public FXSystemComponent SpawnPartialDigParticles(Object WorldContextObject, Vector Location, Rotator Rotation) { return Invoke<FXSystemComponent>(nameof(SpawnPartialDigParticles), WorldContextObject, Location, Rotation); }
         public FXSystemComponent SpawnDigParticles(Object WorldContextObject, Vector Location, Rotator Rotation, float Density) { return Invoke<FXSystemComponent>(nameof(SpawnDigParticles), WorldContextObject, Location, Rotation, Density); }
         public bool IsPrecious() { return Invoke<bool>(nameof(IsPrecious)); }
@@ -21466,17 +21470,17 @@ namespace SDK.Script.FSDSDK
     public class TerrainMaterialsCollection : DataAsset
     {
         public TerrainMaterialsCollection(nint addr) : base(addr) { }
-        public Array<TerrainMaterial> Materials { get { return new Array<TerrainMaterial>(this[nameof(Materials)].Address); } }
-        public Array<TerrainType> TerrainTypes { get { return new Array<TerrainType>(this[nameof(TerrainTypes)].Address); } }
+        public UArray<TerrainMaterial> Materials { get { return new UArray<TerrainMaterial>(this[nameof(Materials)].Address); } }
+        public UArray<TerrainType> TerrainTypes { get { return new UArray<TerrainType>(this[nameof(TerrainTypes)].Address); } }
     }
     public class TerrainMaterialSettings : DataAsset
     {
         public TerrainMaterialSettings(nint addr) : base(addr) { }
-        public Array<DecalData> TwoHits { get { return new Array<DecalData>(this[nameof(TwoHits)].Address); } }
-        public Array<DecalData> ThreeHits { get { return new Array<DecalData>(this[nameof(ThreeHits)].Address); } }
-        public Array<DecalData> FourHits { get { return new Array<DecalData>(this[nameof(FourHits)].Address); } }
-        public Array<DecalData> FiveHits { get { return new Array<DecalData>(this[nameof(FiveHits)].Address); } }
-        public Array<TerrainMaterial> PlagueMaterials { get { return new Array<TerrainMaterial>(this[nameof(PlagueMaterials)].Address); } }
+        public UArray<DecalData> TwoHits { get { return new UArray<DecalData>(this[nameof(TwoHits)].Address); } }
+        public UArray<DecalData> ThreeHits { get { return new UArray<DecalData>(this[nameof(ThreeHits)].Address); } }
+        public UArray<DecalData> FourHits { get { return new UArray<DecalData>(this[nameof(FourHits)].Address); } }
+        public UArray<DecalData> FiveHits { get { return new UArray<DecalData>(this[nameof(FiveHits)].Address); } }
+        public UArray<TerrainMaterial> PlagueMaterials { get { return new UArray<TerrainMaterial>(this[nameof(PlagueMaterials)].Address); } }
         public float InfectionIncreasePerPlagueHit { get { return this[nameof(InfectionIncreasePerPlagueHit)].GetValue<float>(); } set { this[nameof(InfectionIncreasePerPlagueHit)].SetValue<float>(value); } }
     }
     public class TerrainModifyingProjectile : Projectile
@@ -21505,7 +21509,7 @@ namespace SDK.Script.FSDSDK
     public class TerrainPlacementComponent : SceneComponent
     {
         public TerrainPlacementComponent(nint addr) : base(addr) { }
-        public Array<TerrainPlacementBox> TerrainCheckers { get { return new Array<TerrainPlacementBox>(this[nameof(TerrainCheckers)].Address); } }
+        public UArray<TerrainPlacementBox> TerrainCheckers { get { return new UArray<TerrainPlacementBox>(this[nameof(TerrainCheckers)].Address); } }
         public EDebrisColliderType CapsuleType { get { return (EDebrisColliderType)this[nameof(CapsuleType)].GetValue<int>(); } set { this[nameof(CapsuleType)].SetValue<int>((int)value); } }
         public DebrisCapsule Capsule { get { return this[nameof(Capsule)].As<DebrisCapsule>(); } set { this["Capsule"] = value; } }
         public int BlockerIDHack { get { return this[nameof(BlockerIDHack)].GetValue<int>(); } set { this[nameof(BlockerIDHack)].SetValue<int>(value); } }
@@ -21528,9 +21532,9 @@ namespace SDK.Script.FSDSDK
         public float DelayedTerrainScannerZoom { get { return this[nameof(DelayedTerrainScannerZoom)].GetValue<float>(); } set { this[nameof(DelayedTerrainScannerZoom)].SetValue<float>(value); } }
         public bool IsLookingAtMap { get { return this[nameof(IsLookingAtMap)].Flag; } set { this[nameof(IsLookingAtMap)].Flag = value; } }
         public bool UpdateMapToolActors { get { return this[nameof(UpdateMapToolActors)].Flag; } set { this[nameof(UpdateMapToolActors)].Flag = value; } }
-        public Array<AnimMontage> UseLoopsFP { get { return new Array<AnimMontage>(this[nameof(UseLoopsFP)].Address); } }
+        public UArray<AnimMontage> UseLoopsFP { get { return new UArray<AnimMontage>(this[nameof(UseLoopsFP)].Address); } }
         public AnimMontage EndFP { get { return this[nameof(EndFP)].As<AnimMontage>(); } set { this["EndFP"] = value; } }
-        public Array<AnimMontage> UseLoopsTP { get { return new Array<AnimMontage>(this[nameof(UseLoopsTP)].Address); } }
+        public UArray<AnimMontage> UseLoopsTP { get { return new UArray<AnimMontage>(this[nameof(UseLoopsTP)].Address); } }
         public AnimMontage EndTP { get { return this[nameof(EndTP)].As<AnimMontage>(); } set { this["EndTP"] = value; } }
         public SceneComponent TerrainScannerRoot { get { return this[nameof(TerrainScannerRoot)].As<SceneComponent>(); } set { this["TerrainScannerRoot"] = value; } }
         public SceneCaptureComponent2D TerrainScannerCapture { get { return this[nameof(TerrainScannerCapture)].As<SceneCaptureComponent2D>(); } set { this["TerrainScannerCapture"] = value; } }
@@ -21566,7 +21570,7 @@ namespace SDK.Script.FSDSDK
         public Object OnConnectionRangeUpdated { get { return this[nameof(OnConnectionRangeUpdated)]; } set { this[nameof(OnConnectionRangeUpdated)] = value; } }
         public MeshComponent TetherMesh { get { return this[nameof(TetherMesh)].As<MeshComponent>(); } set { this["TetherMesh"] = value; } }
         public bool AutoSetup { get { return this[nameof(AutoSetup)].Flag; } set { this[nameof(AutoSetup)].Flag = value; } }
-        public Array<TetherComponent> ConnectionHistory { get { return new Array<TetherComponent>(this[nameof(ConnectionHistory)].Address); } }
+        public UArray<TetherComponent> ConnectionHistory { get { return new UArray<TetherComponent>(this[nameof(ConnectionHistory)].Address); } }
         public Object ConnectionPointName { get { return this[nameof(ConnectionPointName)]; } set { this[nameof(ConnectionPointName)] = value; } }
         public TetherComponent ForwardConnection { get { return this[nameof(ForwardConnection)].As<TetherComponent>(); } set { this["ForwardConnection"] = value; } }
         public TetherComponent backConnection { get { return this[nameof(backConnection)].As<TetherComponent>(); } set { this["backConnection"] = value; } }
@@ -21597,7 +21601,7 @@ namespace SDK.Script.FSDSDK
         public TetherComponent GetForwardConnection() { return Invoke<TetherComponent>(nameof(GetForwardConnection)); }
         public float GetConnectionRange() { return Invoke<float>(nameof(GetConnectionRange)); }
         public Vector GetConnectionPoint() { return Invoke<Vector>(nameof(GetConnectionPoint)); }
-        public Array<TetherComponent> GetConnectionHistory() { return Invoke<Array<TetherComponent>>(nameof(GetConnectionHistory)); }
+        public UArray<TetherComponent> GetConnectionHistory() { return Invoke<UArray<TetherComponent>>(nameof(GetConnectionHistory)); }
         public TetherComponent GetBackConnection() { return Invoke<TetherComponent>(nameof(GetBackConnection)); }
         public void DisconnectFromTetherLine(bool Deactivate) { Invoke(nameof(DisconnectFromTetherLine), Deactivate); }
         public bool ConnectToTetherLine() { return Invoke<bool>(nameof(ConnectToTetherLine)); }
@@ -21630,7 +21634,7 @@ namespace SDK.Script.FSDSDK
         public Object FacilityGeneratorLineType { get { return this[nameof(FacilityGeneratorLineType)]; } set { this[nameof(FacilityGeneratorLineType)] = value; } }
         public bool AreGeneratorsReady { get { return this[nameof(AreGeneratorsReady)].Flag; } set { this[nameof(AreGeneratorsReady)].Flag = value; } }
         public bool FacilityActive { get { return this[nameof(FacilityActive)].Flag; } set { this[nameof(FacilityActive)].Flag = value; } }
-        public void SpawnGeneratorLines(Transform startL, Transform startR, Array<Transform> endL, Array<Transform> endR, FacilityGeneratorLine outLineL, FacilityGeneratorLine outLineR) { Invoke(nameof(SpawnGeneratorLines), startL, startR, endL, endR, outLineL, outLineR); }
+        public void SpawnGeneratorLines(Transform startL, Transform startR, UArray<Transform> endL, UArray<Transform> endR, FacilityGeneratorLine outLineL, FacilityGeneratorLine outLineR) { Invoke(nameof(SpawnGeneratorLines), startL, startR, endL, endR, outLineL, outLineR); }
         public void SetGeneratorsReady(bool ready) { Invoke(nameof(SetGeneratorsReady), ready); }
         public void Onrep_FacilityActive() { Invoke(nameof(Onrep_FacilityActive)); }
         public void OnRep_AreGeneratorsReady() { Invoke(nameof(OnRep_AreGeneratorsReady)); }
@@ -21674,7 +21678,7 @@ namespace SDK.Script.FSDSDK
         public void Server_Resupply(float percentage) { Invoke(nameof(Server_Resupply), percentage); }
         public void ResupplyGrenadesAmount(int amount) { Invoke(nameof(ResupplyGrenadesAmount), amount); }
         public void ResupplyGrenades(float percentage) { Invoke(nameof(ResupplyGrenades), percentage); }
-        public Array<Vector> PredictGrenadePath() { return Invoke<Array<Vector>>(nameof(PredictGrenadePath)); }
+        public UArray<Vector> PredictGrenadePath() { return Invoke<UArray<Vector>>(nameof(PredictGrenadePath)); }
         public void OnRep_State() { Invoke(nameof(OnRep_State)); }
         public void OnRep_GrenadeCount() { Invoke(nameof(OnRep_GrenadeCount)); }
         public void OnRep_GrenadeClass() { Invoke(nameof(OnRep_GrenadeClass)); }
@@ -21705,13 +21709,13 @@ namespace SDK.Script.FSDSDK
         public Object OnTick { get { return this[nameof(OnTick)]; } set { this[nameof(OnTick)] = value; } }
         public TextBlock TotalBlock { get { return this[nameof(TotalBlock)].As<TextBlock>(); } set { this["TotalBlock"] = value; } }
         public Object TotalFormat { get { return this[nameof(TotalFormat)]; } set { this[nameof(TotalFormat)] = value; } }
-        public Array<TextCounterEntry> Entries { get { return new Array<TextCounterEntry>(this[nameof(Entries)].Address); } }
+        public UArray<TextCounterEntry> Entries { get { return new UArray<TextCounterEntry>(this[nameof(Entries)].Address); } }
         public float CountSpeed { get { return this[nameof(CountSpeed)].GetValue<float>(); } set { this[nameof(CountSpeed)].SetValue<float>(value); } }
         public SoundCue CountingSound { get { return this[nameof(CountingSound)].As<SoundCue>(); } set { this["CountingSound"] = value; } }
         public AudioComponent AudioComponent { get { return this[nameof(AudioComponent)].As<AudioComponent>(); } set { this["AudioComponent"] = value; } }
         public Object WorldContext { get { return this[nameof(WorldContext)].As<Object>(); } set { this["WorldContext"] = value; } }
         public void TickDelegate__DelegateSignature() { Invoke(nameof(TickDelegate__DelegateSignature)); }
-        public MultiTextCounterAction StartMultiTextCounter(Object InWorldContext, TextBlock InTotalBlock, Object InTotalFormat, float InCountSpeed, SoundCue InCountingSound, Array<TextCounterEntry> InEntries) { return Invoke<MultiTextCounterAction>(nameof(StartMultiTextCounter), InWorldContext, InTotalBlock, InTotalFormat, InCountSpeed, InCountingSound, InEntries); }
+        public MultiTextCounterAction StartMultiTextCounter(Object InWorldContext, TextBlock InTotalBlock, Object InTotalFormat, float InCountSpeed, SoundCue InCountingSound, UArray<TextCounterEntry> InEntries) { return Invoke<MultiTextCounterAction>(nameof(StartMultiTextCounter), InWorldContext, InTotalBlock, InTotalFormat, InCountSpeed, InCountingSound, InEntries); }
     }
     public class PendingLatentActionLibrary : BlueprintFunctionLibrary
     {
@@ -21746,7 +21750,7 @@ namespace SDK.Script.FSDSDK
         public float ArmorLifetime { get { return this[nameof(ArmorLifetime)].GetValue<float>(); } set { this[nameof(ArmorLifetime)].SetValue<float>(value); } }
         public float ArmorPopForce { get { return this[nameof(ArmorPopForce)].GetValue<float>(); } set { this[nameof(ArmorPopForce)].SetValue<float>(value); } }
         public float ArmorShedDelay { get { return this[nameof(ArmorShedDelay)].GetValue<float>(); } set { this[nameof(ArmorShedDelay)].SetValue<float>(value); } }
-        public Array<StaticMeshComponent> ArmorMeshes { get { return new Array<StaticMeshComponent>(this[nameof(ArmorMeshes)].Address); } }
+        public UArray<StaticMeshComponent> ArmorMeshes { get { return new UArray<StaticMeshComponent>(this[nameof(ArmorMeshes)].Address); } }
         public void OnAttack() { Invoke(nameof(OnAttack)); }
         public void HideArmorPlates() { Invoke(nameof(HideArmorPlates)); }
         public void DestroyArmor() { Invoke(nameof(DestroyArmor)); }
@@ -21813,7 +21817,7 @@ namespace SDK.Script.FSDSDK
         public TerrainPlacementComponent terrainPlacement { get { return this[nameof(terrainPlacement)].As<TerrainPlacementComponent>(); } set { this["terrainPlacement"] = value; } }
         public StaticMeshComponent MiddlePlane { get { return this[nameof(MiddlePlane)].As<StaticMeshComponent>(); } set { this["MiddlePlane"] = value; } }
         public SkeletalMeshComponent BoxMesh { get { return this[nameof(BoxMesh)].As<SkeletalMeshComponent>(); } set { this["BoxMesh"] = value; } }
-        public Array<Actor> Batteries { get { return new Array<Actor>(this[nameof(Batteries)].Address); } }
+        public UArray<Actor> Batteries { get { return new UArray<Actor>(this[nameof(Batteries)].Address); } }
         public float CollectActivationDelay { get { return this[nameof(CollectActivationDelay)].GetValue<float>(); } set { this[nameof(CollectActivationDelay)].SetValue<float>(value); } }
         public AnimSequenceBase OpenBoxAnim { get { return this[nameof(OpenBoxAnim)].As<AnimSequenceBase>(); } set { this["OpenBoxAnim"] = value; } }
         public float DelayToOpenAfterRepair { get { return this[nameof(DelayToOpenAfterRepair)].GetValue<float>(); } set { this[nameof(DelayToOpenAfterRepair)].SetValue<float>(value); } }
@@ -21822,7 +21826,7 @@ namespace SDK.Script.FSDSDK
         public float HologramRotationSpeed { get { return this[nameof(HologramRotationSpeed)].GetValue<float>(); } set { this[nameof(HologramRotationSpeed)].SetValue<float>(value); } }
         public int ItemsInserted { get { return this[nameof(ItemsInserted)].GetValue<int>(); } set { this[nameof(ItemsInserted)].SetValue<int>(value); } }
         public bool IsTreasureAvailable { get { return this[nameof(IsTreasureAvailable)].Flag; } set { this[nameof(IsTreasureAvailable)].Flag = value; } }
-        public void PlaceResources(ProceduralSetup Setup, float Radius, DebrisPositioning DebrisPositioning, Array<Vector> locationsToAvoid, CurveFloat AvoidCostCurve) { Invoke(nameof(PlaceResources), Setup, Radius, DebrisPositioning, locationsToAvoid, AvoidCostCurve); }
+        public void PlaceResources(ProceduralSetup Setup, float Radius, DebrisPositioning DebrisPositioning, UArray<Vector> locationsToAvoid, CurveFloat AvoidCostCurve) { Invoke(nameof(PlaceResources), Setup, Radius, DebrisPositioning, locationsToAvoid, AvoidCostCurve); }
         public void OnUsedEvent(PlayerCharacter User, EInputKeys Key) { Invoke(nameof(OnUsedEvent), User, Key); }
         public void OnRepairedEvent(RepairableComponent repaired) { Invoke(nameof(OnRepairedEvent), repaired); }
         public void OnHammerProgress(float Progress) { Invoke(nameof(OnHammerProgress), Progress); }
@@ -21877,25 +21881,25 @@ namespace SDK.Script.FSDSDK
     public class TreasureSettings : DataAsset
     {
         public TreasureSettings(nint addr) : base(addr) { }
-        public Array<ETreasureType> CrateTreasureTypes { get { return new Array<ETreasureType>(this[nameof(CrateTreasureTypes)].Address); } }
+        public UArray<ETreasureType> CrateTreasureTypes { get { return new UArray<ETreasureType>(this[nameof(CrateTreasureTypes)].Address); } }
         public Object CrateTreasureEmptyMsg { get { return this[nameof(CrateTreasureEmptyMsg)]; } set { this[nameof(CrateTreasureEmptyMsg)] = value; } }
-        public Array<ETreasureType> LostPackTreasureTypes { get { return new Array<ETreasureType>(this[nameof(LostPackTreasureTypes)].Address); } }
+        public UArray<ETreasureType> LostPackTreasureTypes { get { return new UArray<ETreasureType>(this[nameof(LostPackTreasureTypes)].Address); } }
         public Object LostPackEmptyMsg { get { return this[nameof(LostPackEmptyMsg)]; } set { this[nameof(LostPackEmptyMsg)] = value; } }
         public ItemAquisitionSource CrateAquisitionSource { get { return this[nameof(CrateAquisitionSource)].As<ItemAquisitionSource>(); } set { this["CrateAquisitionSource"] = value; } }
         public ItemAquisitionSource LostPackAquisitionSource { get { return this[nameof(LostPackAquisitionSource)].As<ItemAquisitionSource>(); } set { this["LostPackAquisitionSource"] = value; } }
         public RuntimeFloatCurve TreasureChanceMissionLengthCurve { get { return this[nameof(TreasureChanceMissionLengthCurve)].As<RuntimeFloatCurve>(); } set { this["TreasureChanceMissionLengthCurve"] = value; } }
-        public Array<SpecialEvent> TreasureEvents { get { return new Array<SpecialEvent>(this[nameof(TreasureEvents)].Address); } }
-        public Array<SpecialChanceEventItem> SpecialChancedEvent { get { return new Array<SpecialChanceEventItem>(this[nameof(SpecialChancedEvent)].Address); } }
-        public Array<VictoryPose> VictoryPoses { get { return new Array<VictoryPose>(this[nameof(VictoryPoses)].Address); } }
-        public Array<ItemSkinSet> SkinSets { get { return new Array<ItemSkinSet>(this[nameof(SkinSets)].Address); } }
-        public Array<DrinkableDataAsset> Drinks { get { return new Array<DrinkableDataAsset>(this[nameof(Drinks)].Address); } }
+        public UArray<SpecialEvent> TreasureEvents { get { return new UArray<SpecialEvent>(this[nameof(TreasureEvents)].Address); } }
+        public UArray<SpecialChanceEventItem> SpecialChancedEvent { get { return new UArray<SpecialChanceEventItem>(this[nameof(SpecialChancedEvent)].Address); } }
+        public UArray<VictoryPose> VictoryPoses { get { return new UArray<VictoryPose>(this[nameof(VictoryPoses)].Address); } }
+        public UArray<ItemSkinSet> SkinSets { get { return new UArray<ItemSkinSet>(this[nameof(SkinSets)].Address); } }
+        public UArray<DrinkableDataAsset> Drinks { get { return new UArray<DrinkableDataAsset>(this[nameof(Drinks)].Address); } }
     }
     public class TreeOfVanity : SavableDataAsset
     {
         public TreeOfVanity(nint addr) : base(addr) { }
-        public Array<VanityNode> Nodes { get { return new Array<VanityNode>(this[nameof(Nodes)].Address); } }
+        public UArray<VanityNode> Nodes { get { return new UArray<VanityNode>(this[nameof(Nodes)].Address); } }
         public void ClearNodes() { Invoke(nameof(ClearNodes)); }
-        public void AddNode(Reward Reward, int NodeID, Array<int> ConnectedNodes, bool isStartingNode, bool isBig, Vector2D Position) { Invoke(nameof(AddNode), Reward, NodeID, ConnectedNodes, isStartingNode, isBig, Position); }
+        public void AddNode(Reward Reward, int NodeID, UArray<int> ConnectedNodes, bool isStartingNode, bool isBig, Vector2D Position) { Invoke(nameof(AddNode), Reward, NodeID, ConnectedNodes, isStartingNode, isBig, Position); }
     }
     public class TreeOfVanityItemWidget : UserWidget
     {
@@ -21904,14 +21908,14 @@ namespace SDK.Script.FSDSDK
         public Reward actualReward { get { return this[nameof(actualReward)].As<Reward>(); } set { this["actualReward"] = value; } }
         public bool bIsPrimaryReward { get { return this[nameof(bIsPrimaryReward)].Flag; } set { this[nameof(bIsPrimaryReward)].Flag = value; } }
         public bool bIsStartingNode { get { return this[nameof(bIsStartingNode)].Flag; } set { this[nameof(bIsStartingNode)].Flag = value; } }
-        public Array<TreeOfVanityItemWidget> ConnectedNodes { get { return new Array<TreeOfVanityItemWidget>(this[nameof(ConnectedNodes)].Address); } }
+        public UArray<TreeOfVanityItemWidget> ConnectedNodes { get { return new UArray<TreeOfVanityItemWidget>(this[nameof(ConnectedNodes)].Address); } }
         public int NodeID { get { return this[nameof(NodeID)].GetValue<int>(); } set { this[nameof(NodeID)].SetValue<int>(value); } }
         public bool bIsClickable { get { return this[nameof(bIsClickable)].Flag; } set { this[nameof(bIsClickable)].Flag = value; } }
         public Reward DefaultReward { get { return this[nameof(DefaultReward)].As<Reward>(); } set { this["DefaultReward"] = value; } }
-        public Array<UserWidget> NodeConnections { get { return new Array<UserWidget>(this[nameof(NodeConnections)].Address); } }
+        public UArray<UserWidget> NodeConnections { get { return new UArray<UserWidget>(this[nameof(NodeConnections)].Address); } }
         public bool bIsBought { get { return this[nameof(bIsBought)].Flag; } set { this[nameof(bIsBought)].Flag = value; } }
         public void SetIsBought(bool inIsBought) { Invoke(nameof(SetIsBought), inIsBought); }
-        public void SetData(Reward InReward, bool inIsPrimaryReward, bool inIsStartingNode, Array<TreeOfVanityItemWidget> inConnectedNodes, int inNodeID) { Invoke(nameof(SetData), InReward, inIsPrimaryReward, inIsStartingNode, inConnectedNodes, inNodeID); }
+        public void SetData(Reward InReward, bool inIsPrimaryReward, bool inIsStartingNode, UArray<TreeOfVanityItemWidget> inConnectedNodes, int inNodeID) { Invoke(nameof(SetData), InReward, inIsPrimaryReward, inIsStartingNode, inConnectedNodes, inNodeID); }
         public void OnDataUpdated() { Invoke(nameof(OnDataUpdated)); }
         public bool GetIsBought() { return Invoke<bool>(nameof(GetIsBought)); }
     }
@@ -21986,7 +21990,7 @@ namespace SDK.Script.FSDSDK
         public TunnelSegmentSetting TightBendSegmentSetting { get { return this[nameof(TightBendSegmentSetting)].As<TunnelSegmentSetting>(); } set { this["TightBendSegmentSetting"] = value; } }
         public TunnelSegmentSetting DirtSegmentSetting { get { return this[nameof(DirtSegmentSetting)].As<TunnelSegmentSetting>(); } set { this["DirtSegmentSetting"] = value; } }
         public TunnelSegmentSetting DirtOffsetSetting { get { return this[nameof(DirtOffsetSetting)].As<TunnelSegmentSetting>(); } set { this["DirtOffsetSetting"] = value; } }
-        public Array<TunnelSettingItem> VariationSegments { get { return new Array<TunnelSettingItem>(this[nameof(VariationSegments)].Address); } }
+        public UArray<TunnelSettingItem> VariationSegments { get { return new UArray<TunnelSettingItem>(this[nameof(VariationSegments)].Address); } }
         public float Weight { get { return this[nameof(Weight)].GetValue<float>(); } set { this[nameof(Weight)].SetValue<float>(value); } }
     }
     public class TutorialContentWidget : FSDUserWidget
@@ -22016,7 +22020,7 @@ namespace SDK.Script.FSDSDK
         public Object PlayerController { get { return this[nameof(PlayerController)]; } set { this[nameof(PlayerController)] = value; } }
         public Object PlayerCharacter { get { return this[nameof(PlayerCharacter)]; } set { this[nameof(PlayerCharacter)] = value; } }
         public Object SaveGame { get { return this[nameof(SaveGame)]; } set { this[nameof(SaveGame)] = value; } }
-        public Array<Object> Tutorials { get { return new Array<Object>(this[nameof(Tutorials)].Address); } }
+        public UArray<Object> Tutorials { get { return new UArray<Object>(this[nameof(Tutorials)].Address); } }
         public Object ActiveTutorial { get { return this[nameof(ActiveTutorial)]; } set { this[nameof(ActiveTutorial)] = value; } }
     }
     public class TutorialWidget : FSDUserWidget
@@ -22054,7 +22058,7 @@ namespace SDK.Script.FSDSDK
         public HeightenedSenseComponent(nint addr) : base(addr) { }
         public PawnAffliction HeightenSenseAffliction { get { return this[nameof(HeightenSenseAffliction)].As<PawnAffliction>(); } set { this["HeightenSenseAffliction"] = value; } }
         public float AlertDistance { get { return this[nameof(AlertDistance)].GetValue<float>(); } set { this[nameof(AlertDistance)].SetValue<float>(value); } }
-        public Array<HeightenedSenseTracker> ActiveTrackers { get { return new Array<HeightenedSenseTracker>(this[nameof(ActiveTrackers)].Address); } }
+        public UArray<HeightenedSenseTracker> ActiveTrackers { get { return new UArray<HeightenedSenseTracker>(this[nameof(ActiveTrackers)].Address); } }
         public bool bAfflictionActivated { get { return this[nameof(bAfflictionActivated)].Flag; } set { this[nameof(bAfflictionActivated)].Flag = value; } }
         public void RemoveTracker(Actor TrackerActor) { Invoke(nameof(RemoveTracker), TrackerActor); }
         public void AddTracker(Actor TrackerActor) { Invoke(nameof(AddTracker), TrackerActor); }
@@ -22063,14 +22067,14 @@ namespace SDK.Script.FSDSDK
     {
         public UIFunctionLibrary(nint addr) : base(addr) { }
         public void SetLoadoutIcon(Object WorldContextObject, PlayerCharacterID characterID, int loadoutIndex, int iconIndex) { Invoke(nameof(SetLoadoutIcon), WorldContextObject, characterID, loadoutIndex, iconIndex); }
-        public void RemoveItemUINotification(Object WorldContextObject, Array<Object> Item, bool MatchChildNotifications) { Invoke(nameof(RemoveItemUINotification), WorldContextObject, Item, MatchChildNotifications); }
+        public void RemoveItemUINotification(Object WorldContextObject, UArray<Object> Item, bool MatchChildNotifications) { Invoke(nameof(RemoveItemUINotification), WorldContextObject, Item, MatchChildNotifications); }
         public bool IsInItemUINotificationSet(Object WorldContextObject, Object Item) { return Invoke<bool>(nameof(IsInItemUINotificationSet), WorldContextObject, Item); }
         public long GetUnixTimeStamp() { return Invoke<long>(nameof(GetUnixTimeStamp)); }
         public int GetLoadoutIcon(Object WorldContextObject, PlayerCharacterID characterID, int loadoutIndex) { return Invoke<int>(nameof(GetLoadoutIcon), WorldContextObject, characterID, loadoutIndex); }
-        public Array<Object> FormatNewsTexts(Array<Object> texts, int RandomSeed, NewsTextLists wordList, MissionNameBank MissionNameBank) { return Invoke<Array<Object>>(nameof(FormatNewsTexts), texts, RandomSeed, wordList, MissionNameBank); }
+        public UArray<Object> FormatNewsTexts(UArray<Object> texts, int RandomSeed, NewsTextLists wordList, MissionNameBank MissionNameBank) { return Invoke<UArray<Object>>(nameof(FormatNewsTexts), texts, RandomSeed, wordList, MissionNameBank); }
         public void ClearAllItemUINotifications(Object WorldContextObject) { Invoke(nameof(ClearAllItemUINotifications), WorldContextObject); }
-        public void CheckItemUINotification(Object WorldContextObject, Array<Object> Item, bool HasNotification, bool MatchChildNotifications) { Invoke(nameof(CheckItemUINotification), WorldContextObject, Item, HasNotification, MatchChildNotifications); }
-        public void AddItemUINotification(Object WorldContextObject, Array<Object> Item) { Invoke(nameof(AddItemUINotification), WorldContextObject, Item); }
+        public void CheckItemUINotification(Object WorldContextObject, UArray<Object> Item, bool HasNotification, bool MatchChildNotifications) { Invoke(nameof(CheckItemUINotification), WorldContextObject, Item, HasNotification, MatchChildNotifications); }
+        public void AddItemUINotification(Object WorldContextObject, UArray<Object> Item) { Invoke(nameof(AddItemUINotification), WorldContextObject, Item); }
     }
     public class InfectionPointCleaningComponent : ActorComponent
     {
@@ -22083,12 +22087,12 @@ namespace SDK.Script.FSDSDK
         public NiagaraSystem CleanedParticles { get { return this[nameof(CleanedParticles)].As<NiagaraSystem>(); } set { this["CleanedParticles"] = value; } }
         public float particleScale { get { return this[nameof(particleScale)].GetValue<float>(); } set { this[nameof(particleScale)].SetValue<float>(value); } }
         public bool outerLayerCleaned { get { return this[nameof(outerLayerCleaned)].Flag; } set { this[nameof(outerLayerCleaned)].Flag = value; } }
-        public Array<byte> InfectionPoints { get { return new Array<byte>(this[nameof(InfectionPoints)].Address); } }
-        public Array<MeshComponent> OuterLayerMeshes { get { return new Array<MeshComponent>(this[nameof(OuterLayerMeshes)].Address); } }
-        public Array<MeshComponent> InnerLayerMeshes { get { return new Array<MeshComponent>(this[nameof(InnerLayerMeshes)].Address); } }
+        public UArray<byte> InfectionPoints { get { return new UArray<byte>(this[nameof(InfectionPoints)].Address); } }
+        public UArray<MeshComponent> OuterLayerMeshes { get { return new UArray<MeshComponent>(this[nameof(OuterLayerMeshes)].Address); } }
+        public UArray<MeshComponent> InnerLayerMeshes { get { return new UArray<MeshComponent>(this[nameof(InnerLayerMeshes)].Address); } }
         public void Reset() { Invoke(nameof(Reset)); }
-        public void OnRep_InfectionPoints(Array<byte> oldInfectionPoints) { Invoke(nameof(OnRep_InfectionPoints), oldInfectionPoints); }
-        public void InitInfectionPoints(Array<MeshComponent> outerMeshes, Array<MeshComponent> innerMeshes) { Invoke(nameof(InitInfectionPoints), outerMeshes, innerMeshes); }
+        public void OnRep_InfectionPoints(UArray<byte> oldInfectionPoints) { Invoke(nameof(OnRep_InfectionPoints), oldInfectionPoints); }
+        public void InitInfectionPoints(UArray<MeshComponent> outerMeshes, UArray<MeshComponent> innerMeshes) { Invoke(nameof(InitInfectionPoints), outerMeshes, innerMeshes); }
         public int GetRequiredCleanCount() { return Invoke<int>(nameof(GetRequiredCleanCount)); }
         public int GetRemainingInfectedPoints() { return Invoke<int>(nameof(GetRemainingInfectedPoints)); }
         public int GetNumberOfInfectedPoints() { return Invoke<int>(nameof(GetNumberOfInfectedPoints)); }
@@ -22107,9 +22111,9 @@ namespace SDK.Script.FSDSDK
         public Object OnUpgradesAddedToItem { get { return this[nameof(OnUpgradesAddedToItem)]; } set { this[nameof(OnUpgradesAddedToItem)] = value; } }
         public bool bUpgradesAddedToItem { get { return this[nameof(bUpgradesAddedToItem)].Flag; } set { this[nameof(bUpgradesAddedToItem)].Flag = value; } }
         public ItemData ItemData { get { return this[nameof(ItemData)].As<ItemData>(); } set { this["ItemData"] = value; } }
-        public Array<UpgradeTier> UpgradeTiers { get { return new Array<UpgradeTier>(this[nameof(UpgradeTiers)].Address); } }
+        public UArray<UpgradeTier> UpgradeTiers { get { return new UArray<UpgradeTier>(this[nameof(UpgradeTiers)].Address); } }
         public OverclockBank OverclockBank { get { return this[nameof(OverclockBank)].As<OverclockBank>(); } set { this["OverclockBank"] = value; } }
-        public Array<ItemUpgrade> AllOverclocks { get { return new Array<ItemUpgrade>(this[nameof(AllOverclocks)].Address); } }
+        public UArray<ItemUpgrade> AllOverclocks { get { return new UArray<ItemUpgrade>(this[nameof(AllOverclocks)].Address); } }
         public Texture2D IconLine { get { return this[nameof(IconLine)].As<Texture2D>(); } set { this["IconLine"] = value; } }
         public Texture2D IconBG { get { return this[nameof(IconBG)].As<Texture2D>(); } set { this["IconBG"] = value; } }
         public Texture2D IconDetailed { get { return this[nameof(IconDetailed)].As<Texture2D>(); } set { this["IconDetailed"] = value; } }
@@ -22121,7 +22125,7 @@ namespace SDK.Script.FSDSDK
         public int CreditCost { get { return this[nameof(CreditCost)].GetValue<int>(); } set { this[nameof(CreditCost)].SetValue<int>(value); } }
         public Object ResourceCost { get { return this[nameof(ResourceCost)]; } set { this[nameof(ResourceCost)] = value; } }
         public int RequiredCharacterLevel { get { return this[nameof(RequiredCharacterLevel)].GetValue<int>(); } set { this[nameof(RequiredCharacterLevel)].SetValue<int>(value); } }
-        public Array<MasteryItem> masteryLevels { get { return new Array<MasteryItem>(this[nameof(masteryLevels)].Address); } }
+        public UArray<MasteryItem> masteryLevels { get { return new UArray<MasteryItem>(this[nameof(masteryLevels)].Address); } }
         public void UpgradesAddedToItem__DelegateSignature() { Invoke(nameof(UpgradesAddedToItem__DelegateSignature)); }
         public void SetGearStatText(GearStatEntry entry, Object Text) { Invoke(nameof(SetGearStatText), entry, Text); }
         public bool PurchaseUpgrade(ItemID ItemID, ItemUpgrade Upgrade, FSDPlayerController PlayerController, Object previewedCharacter) { return Invoke<bool>(nameof(PurchaseUpgrade), ItemID, Upgrade, PlayerController, previewedCharacter); }
@@ -22140,13 +22144,13 @@ namespace SDK.Script.FSDSDK
         public int GetRequiredCharacterLevel() { return Invoke<int>(nameof(GetRequiredCharacterLevel)); }
         public Texture2D GetPreviewImage() { return Invoke<Texture2D>(nameof(GetPreviewImage)); }
         public Object GetPreviewActorClass() { return Invoke<Object>(nameof(GetPreviewActorClass)); }
-        public Array<ItemUpgrade> GetOverClocks() { return Invoke<Array<ItemUpgrade>>(nameof(GetOverClocks)); }
+        public UArray<ItemUpgrade> GetOverClocks() { return Invoke<UArray<ItemUpgrade>>(nameof(GetOverClocks)); }
         public int GetMasteryProgress(Object WorldContextObject, ItemID ItemID, int maxMastery) { return Invoke<int>(nameof(GetMasteryProgress), WorldContextObject, ItemID, maxMastery); }
-        public Array<MasteryItem> GetMasteryLevels(ItemID ItemID) { return Invoke<Array<MasteryItem>>(nameof(GetMasteryLevels), ItemID); }
-        public bool GetMasteryForLevel(Array<MasteryItem> masteryLevels, int Level, MasteryItem outLevel) { return Invoke<bool>(nameof(GetMasteryForLevel), masteryLevels, Level, outLevel); }
-        public Array<UpgradeTier> GetItemUpgradeTiers(Object itemClass) { return Invoke<Array<UpgradeTier>>(nameof(GetItemUpgradeTiers), itemClass); }
+        public UArray<MasteryItem> GetMasteryLevels(ItemID ItemID) { return Invoke<UArray<MasteryItem>>(nameof(GetMasteryLevels), ItemID); }
+        public bool GetMasteryForLevel(UArray<MasteryItem> masteryLevels, int Level, MasteryItem outLevel) { return Invoke<bool>(nameof(GetMasteryForLevel), masteryLevels, Level, outLevel); }
+        public UArray<UpgradeTier> GetItemUpgradeTiers(Object itemClass) { return Invoke<UArray<UpgradeTier>>(nameof(GetItemUpgradeTiers), itemClass); }
         public EItemUpgradeStatus GetItemUpgradeStatus(Object WorldContextObject, Object itemClass, ItemUpgrade ItemUpgrade, PlayerCharacterID characterID) { return Invoke<EItemUpgradeStatus>(nameof(GetItemUpgradeStatus), WorldContextObject, itemClass, ItemUpgrade, characterID); }
-        public Array<ItemUpgrade> GetItemUpgradesFromSave(Object itemClass, Object upgradeClass, FSDPlayerState Player, byte upgradeIndex) { return Invoke<Array<ItemUpgrade>>(nameof(GetItemUpgradesFromSave), itemClass, upgradeClass, Player, upgradeIndex); }
+        public UArray<ItemUpgrade> GetItemUpgradesFromSave(Object itemClass, Object upgradeClass, FSDPlayerState Player, byte upgradeIndex) { return Invoke<UArray<ItemUpgrade>>(nameof(GetItemUpgradesFromSave), itemClass, upgradeClass, Player, upgradeIndex); }
         public Object GetItemPreviewClassFromActor(Object Actor) { return Invoke<Object>(nameof(GetItemPreviewClassFromActor), Actor); }
         public Object GetItemPreviewClass(ItemID ItemID) { return Invoke<Object>(nameof(GetItemPreviewClass), ItemID); }
         public bool GetItemMasteryForLevel(ItemID ItemID, int Level, MasteryItem outLevel) { return Invoke<bool>(nameof(GetItemMasteryForLevel), ItemID, Level, outLevel); }
@@ -22155,19 +22159,19 @@ namespace SDK.Script.FSDSDK
         public Texture2D GetIconDetailed() { return Invoke<Texture2D>(nameof(GetIconDetailed)); }
         public Texture2D GetIconBG() { return Invoke<Texture2D>(nameof(GetIconBG)); }
         public Object GetGearStatValue(GearStatEntry entry) { return Invoke<Object>(nameof(GetGearStatValue), entry); }
-        public Array<GearStatEntry> GetGearStats(FSDPlayerState PlayerState, Object actorClass) { return Invoke<Array<GearStatEntry>>(nameof(GetGearStats), PlayerState, actorClass); }
+        public UArray<GearStatEntry> GetGearStats(FSDPlayerState PlayerState, Object actorClass) { return Invoke<UArray<GearStatEntry>>(nameof(GetGearStats), PlayerState, actorClass); }
         public Object GetGearSourceName(ItemID ItemID) { return Invoke<Object>(nameof(GetGearSourceName), ItemID); }
         public Object GetGearName() { return Invoke<Object>(nameof(GetGearName)); }
         public Object GetGearDescription() { return Invoke<Object>(nameof(GetGearDescription)); }
         public Object GetGearCategory() { return Invoke<Object>(nameof(GetGearCategory)); }
-        public Array<ItemUpgrade> GetEquippedUpgrades(Object itemClass, FSDPlayerState Player) { return Invoke<Array<ItemUpgrade>>(nameof(GetEquippedUpgrades), itemClass, Player); }
+        public UArray<ItemUpgrade> GetEquippedUpgrades(Object itemClass, FSDPlayerState Player) { return Invoke<UArray<ItemUpgrade>>(nameof(GetEquippedUpgrades), itemClass, Player); }
         public ItemUpgrade GetEquippedUpgradeAtTier(Object itemClass, int tierIndex, PlayerCharacterID characterID, FSDPlayerState Player) { return Invoke<ItemUpgrade>(nameof(GetEquippedUpgradeAtTier), itemClass, tierIndex, characterID, Player); }
         public ItemUpgrade GetEquippedOverclock(Object WorldContextObject, Object itemClass) { return Invoke<ItemUpgrade>(nameof(GetEquippedOverclock), WorldContextObject, itemClass); }
-        public Array<ItemUpgrade> GetEquippableOverclocks(Object WorldContextObject, Object itemClass, PlayerCharacterID characterID) { return Invoke<Array<ItemUpgrade>>(nameof(GetEquippableOverclocks), WorldContextObject, itemClass, characterID); }
+        public UArray<ItemUpgrade> GetEquippableOverclocks(Object WorldContextObject, Object itemClass, PlayerCharacterID characterID) { return Invoke<UArray<ItemUpgrade>>(nameof(GetEquippableOverclocks), WorldContextObject, itemClass, characterID); }
         public int GetCreditCost() { return Invoke<int>(nameof(GetCreditCost)); }
-        public Array<CraftingCost> GetCraftingCost() { return Invoke<Array<CraftingCost>>(nameof(GetCraftingCost)); }
+        public UArray<CraftingCost> GetCraftingCost() { return Invoke<UArray<CraftingCost>>(nameof(GetCraftingCost)); }
         public int GetCharacterLevelRequiredForItem(ItemID ItemID) { return Invoke<int>(nameof(GetCharacterLevelRequiredForItem), ItemID); }
-        public Array<ItemUpgrade> GetAllUpgrades() { return Invoke<Array<ItemUpgrade>>(nameof(GetAllUpgrades)); }
+        public UArray<ItemUpgrade> GetAllUpgrades() { return Invoke<UArray<ItemUpgrade>>(nameof(GetAllUpgrades)); }
         public void ClearEquippedUpgrade(Object itemClass, int tierIndex, FSDPlayerState Player) { Invoke(nameof(ClearEquippedUpgrade), itemClass, tierIndex, Player); }
         public void CheckMasteryUnlocks(ItemID ItemID, FSDPlayerController Player) { Invoke(nameof(CheckMasteryUnlocks), ItemID, Player); }
         public bool CanItemOverclock(Object WorldContextObject, Object itemClass) { return Invoke<bool>(nameof(CanItemOverclock), WorldContextObject, itemClass); }
@@ -22185,20 +22189,20 @@ namespace SDK.Script.FSDSDK
     public class UpgradeSettings : DataAsset
     {
         public UpgradeSettings(nint addr) : base(addr) { }
-        public Array<int> ClassAUpgradeCosts { get { return new Array<int>(this[nameof(ClassAUpgradeCosts)].Address); } }
-        public Array<int> ClassBUpgradeCosts { get { return new Array<int>(this[nameof(ClassBUpgradeCosts)].Address); } }
-        public Array<int> GearAUpgradeCosts { get { return new Array<int>(this[nameof(GearAUpgradeCosts)].Address); } }
-        public Array<int> GearBUpgradeCosts { get { return new Array<int>(this[nameof(GearBUpgradeCosts)].Address); } }
-        public Array<int> ArmorUpgradeCosts { get { return new Array<int>(this[nameof(ArmorUpgradeCosts)].Address); } }
-        public Array<int> PickaxeUpgradeCosts { get { return new Array<int>(this[nameof(PickaxeUpgradeCosts)].Address); } }
-        public Array<int> ClassBoscoUpgradeCosts { get { return new Array<int>(this[nameof(ClassBoscoUpgradeCosts)].Address); } }
-        public Array<UpgradeCostItem> ClassAResourceCosts { get { return new Array<UpgradeCostItem>(this[nameof(ClassAResourceCosts)].Address); } }
-        public Array<UpgradeCostItem> ClassBResourceCosts { get { return new Array<UpgradeCostItem>(this[nameof(ClassBResourceCosts)].Address); } }
-        public Array<UpgradeCostItem> GearAResourceCosts { get { return new Array<UpgradeCostItem>(this[nameof(GearAResourceCosts)].Address); } }
-        public Array<UpgradeCostItem> GearBResourceCosts { get { return new Array<UpgradeCostItem>(this[nameof(GearBResourceCosts)].Address); } }
-        public Array<UpgradeCostItem> ArmorResourceCosts { get { return new Array<UpgradeCostItem>(this[nameof(ArmorResourceCosts)].Address); } }
-        public Array<UpgradeCostItem> PickaxeResourceCosts { get { return new Array<UpgradeCostItem>(this[nameof(PickaxeResourceCosts)].Address); } }
-        public Array<UpgradeCostItem> ClassBoscoResourceCosts { get { return new Array<UpgradeCostItem>(this[nameof(ClassBoscoResourceCosts)].Address); } }
+        public UArray<int> ClassAUpgradeCosts { get { return new UArray<int>(this[nameof(ClassAUpgradeCosts)].Address); } }
+        public UArray<int> ClassBUpgradeCosts { get { return new UArray<int>(this[nameof(ClassBUpgradeCosts)].Address); } }
+        public UArray<int> GearAUpgradeCosts { get { return new UArray<int>(this[nameof(GearAUpgradeCosts)].Address); } }
+        public UArray<int> GearBUpgradeCosts { get { return new UArray<int>(this[nameof(GearBUpgradeCosts)].Address); } }
+        public UArray<int> ArmorUpgradeCosts { get { return new UArray<int>(this[nameof(ArmorUpgradeCosts)].Address); } }
+        public UArray<int> PickaxeUpgradeCosts { get { return new UArray<int>(this[nameof(PickaxeUpgradeCosts)].Address); } }
+        public UArray<int> ClassBoscoUpgradeCosts { get { return new UArray<int>(this[nameof(ClassBoscoUpgradeCosts)].Address); } }
+        public UArray<UpgradeCostItem> ClassAResourceCosts { get { return new UArray<UpgradeCostItem>(this[nameof(ClassAResourceCosts)].Address); } }
+        public UArray<UpgradeCostItem> ClassBResourceCosts { get { return new UArray<UpgradeCostItem>(this[nameof(ClassBResourceCosts)].Address); } }
+        public UArray<UpgradeCostItem> GearAResourceCosts { get { return new UArray<UpgradeCostItem>(this[nameof(GearAResourceCosts)].Address); } }
+        public UArray<UpgradeCostItem> GearBResourceCosts { get { return new UArray<UpgradeCostItem>(this[nameof(GearBResourceCosts)].Address); } }
+        public UArray<UpgradeCostItem> ArmorResourceCosts { get { return new UArray<UpgradeCostItem>(this[nameof(ArmorResourceCosts)].Address); } }
+        public UArray<UpgradeCostItem> PickaxeResourceCosts { get { return new UArray<UpgradeCostItem>(this[nameof(PickaxeResourceCosts)].Address); } }
+        public UArray<UpgradeCostItem> ClassBoscoResourceCosts { get { return new UArray<UpgradeCostItem>(this[nameof(ClassBoscoResourceCosts)].Address); } }
     }
     public class RackableItemComponent : ActorComponent
     {
@@ -22230,10 +22234,10 @@ namespace SDK.Script.FSDSDK
     {
         public UseAnimationSetting(nint addr) : base(addr) { }
         public AnimMontage BeginFP { get { return this[nameof(BeginFP)].As<AnimMontage>(); } set { this["BeginFP"] = value; } }
-        public Array<AnimMontage> LoopsFP { get { return new Array<AnimMontage>(this[nameof(LoopsFP)].Address); } }
+        public UArray<AnimMontage> LoopsFP { get { return new UArray<AnimMontage>(this[nameof(LoopsFP)].Address); } }
         public AnimMontage EndFP { get { return this[nameof(EndFP)].As<AnimMontage>(); } set { this["EndFP"] = value; } }
         public AnimMontage BeginTP { get { return this[nameof(BeginTP)].As<AnimMontage>(); } set { this["BeginTP"] = value; } }
-        public Array<AnimMontage> LoopsTP { get { return new Array<AnimMontage>(this[nameof(LoopsTP)].Address); } }
+        public UArray<AnimMontage> LoopsTP { get { return new UArray<AnimMontage>(this[nameof(LoopsTP)].Address); } }
         public AnimMontage EndTP { get { return this[nameof(EndTP)].As<AnimMontage>(); } set { this["EndTP"] = value; } }
         public bool IsManuallyControlled { get { return this[nameof(IsManuallyControlled)].Flag; } set { this[nameof(IsManuallyControlled)].Flag = value; } }
         public bool BlockUseWhileActive { get { return this[nameof(BlockUseWhileActive)].Flag; } set { this[nameof(BlockUseWhileActive)].Flag = value; } }
@@ -22267,8 +22271,8 @@ namespace SDK.Script.FSDSDK
     {
         public OncePerPlayerUsableComponent(nint addr) : base(addr) { }
         public Object OnUsersChangedEvent { get { return this[nameof(OnUsersChangedEvent)]; } set { this[nameof(OnUsersChangedEvent)] = value; } }
-        public Array<UniqueNetIdRepl> Users { get { return new Array<UniqueNetIdRepl>(this[nameof(Users)].Address); } }
-        public void OnUsersChanged(Array<UniqueNetIdRepl> userList) { Invoke(nameof(OnUsersChanged), userList); }
+        public UArray<UniqueNetIdRepl> Users { get { return new UArray<UniqueNetIdRepl>(this[nameof(Users)].Address); } }
+        public void OnUsersChanged(UArray<UniqueNetIdRepl> userList) { Invoke(nameof(OnUsersChanged), userList); }
         public void OnRep_Users() { Invoke(nameof(OnRep_Users)); }
     }
     public class EventRewarderUsableComponent : SingleUsableComponent
@@ -22295,12 +22299,12 @@ namespace SDK.Script.FSDSDK
     public class UseConditionSet : DataAsset
     {
         public UseConditionSet(nint addr) : base(addr) { }
-        public Array<UseConditionBase> Conditions { get { return new Array<UseConditionBase>(this[nameof(Conditions)].Address); } }
+        public UArray<UseConditionBase> Conditions { get { return new UArray<UseConditionBase>(this[nameof(Conditions)].Address); } }
     }
     public class UseConditionCollection : DataAsset
     {
         public UseConditionCollection(nint addr) : base(addr) { }
-        public Array<UseConditionBase> Conditions { get { return new Array<UseConditionBase>(this[nameof(Conditions)].Address); } }
+        public UArray<UseConditionBase> Conditions { get { return new UArray<UseConditionBase>(this[nameof(Conditions)].Address); } }
     }
     public class UseConditionBase : Object
     {
@@ -22331,13 +22335,13 @@ namespace SDK.Script.FSDSDK
     {
         public UseConditionCharacterState(nint addr) : base(addr) { }
         public bool Invert { get { return this[nameof(Invert)].Flag; } set { this[nameof(Invert)].Flag = value; } }
-        public Array<Object> CharacterStates { get { return new Array<Object>(this[nameof(CharacterStates)].Address); } }
+        public UArray<Object> CharacterStates { get { return new UArray<Object>(this[nameof(CharacterStates)].Address); } }
     }
     public class UseConditionCarriedActor : UseConditionBase
     {
         public UseConditionCarriedActor(nint addr) : base(addr) { }
         public bool Invert { get { return this[nameof(Invert)].Flag; } set { this[nameof(Invert)].Flag = value; } }
-        public Array<Object> Actors { get { return new Array<Object>(this[nameof(Actors)].Address); } }
+        public UArray<Object> Actors { get { return new UArray<Object>(this[nameof(Actors)].Address); } }
     }
     public class UseConditionIsCarrying : UseConditionBase
     {
@@ -22348,7 +22352,7 @@ namespace SDK.Script.FSDSDK
     {
         public UseConditionEquippedItem(nint addr) : base(addr) { }
         public bool Invert { get { return this[nameof(Invert)].Flag; } set { this[nameof(Invert)].Flag = value; } }
-        public Array<Object> Items { get { return new Array<Object>(this[nameof(Items)].Address); } }
+        public UArray<Object> Items { get { return new UArray<Object>(this[nameof(Items)].Address); } }
     }
     public class UseConditionItemBlockAction : UseConditionBase
     {
@@ -22370,7 +22374,7 @@ namespace SDK.Script.FSDSDK
     {
         public UseConditionMovementMode(nint addr) : base(addr) { }
         public bool Invert { get { return this[nameof(Invert)].Flag; } set { this[nameof(Invert)].Flag = value; } }
-        public Array<MovementModeCombo> MovementModes { get { return new Array<MovementModeCombo>(this[nameof(MovementModes)].Address); } }
+        public UArray<MovementModeCombo> MovementModes { get { return new UArray<MovementModeCombo>(this[nameof(MovementModes)].Address); } }
     }
     public class UsingStateComponent : CharacterStateComponent
     {
@@ -22403,7 +22407,7 @@ namespace SDK.Script.FSDSDK
     public class ValidationFunctionLibrary : BlueprintFunctionLibrary
     {
         public ValidationFunctionLibrary(nint addr) : base(addr) { }
-        public void SetSelectedAssets(Array<Object> Paths) { Invoke(nameof(SetSelectedAssets), Paths); }
+        public void SetSelectedAssets(UArray<Object> Paths) { Invoke(nameof(SetSelectedAssets), Paths); }
     }
     public class ValidatorStrategy : Object
     {
@@ -22452,7 +22456,7 @@ namespace SDK.Script.FSDSDK
         public float ExternalForceMultiplier { get { return this[nameof(ExternalForceMultiplier)].GetValue<float>(); } set { this[nameof(ExternalForceMultiplier)].SetValue<float>(value); } }
         public float MaxForce { get { return this[nameof(MaxForce)].GetValue<float>(); } set { this[nameof(MaxForce)].SetValue<float>(value); } }
         public bool AlwaysShowAnimEffects { get { return this[nameof(AlwaysShowAnimEffects)].Flag; } set { this[nameof(AlwaysShowAnimEffects)].Flag = value; } }
-        public Array<VanityAnimEffect> VanityAnimEffects { get { return new Array<VanityAnimEffect>(this[nameof(VanityAnimEffects)].Address); } }
+        public UArray<VanityAnimEffect> VanityAnimEffects { get { return new UArray<VanityAnimEffect>(this[nameof(VanityAnimEffects)].Address); } }
         public void UpdateMeshes() { Invoke(nameof(UpdateMeshes)); }
     }
     public class VanityTestCharacter : Character
@@ -22521,7 +22525,7 @@ namespace SDK.Script.FSDSDK
         public SkeletalMeshComponent BodyMesh { get { return this[nameof(BodyMesh)].As<SkeletalMeshComponent>(); } set { this["BodyMesh"] = value; } }
         public BeardColorVanityItem HairColor { get { return this[nameof(HairColor)].As<BeardColorVanityItem>(); } set { this["HairColor"] = value; } }
         public MaterialInterface ArmorMaterial { get { return this[nameof(ArmorMaterial)].As<MaterialInterface>(); } set { this["ArmorMaterial"] = value; } }
-        public Array<IconSceneCaptureComponent> CaptureComponents { get { return new Array<IconSceneCaptureComponent>(this[nameof(CaptureComponents)].Address); } }
+        public UArray<IconSceneCaptureComponent> CaptureComponents { get { return new UArray<IconSceneCaptureComponent>(this[nameof(CaptureComponents)].Address); } }
     }
     public class PickaxeIconSceneCaptureComponent : SceneCaptureComponent2D
     {
@@ -22532,7 +22536,7 @@ namespace SDK.Script.FSDSDK
     public class IconGenerationPickaxe : IconGenerationBase
     {
         public IconGenerationPickaxe(nint addr) : base(addr) { }
-        public Array<PickaxeIconSceneCaptureComponent> CaptureComponents { get { return new Array<PickaxeIconSceneCaptureComponent>(this[nameof(CaptureComponents)].Address); } }
+        public UArray<PickaxeIconSceneCaptureComponent> CaptureComponents { get { return new UArray<PickaxeIconSceneCaptureComponent>(this[nameof(CaptureComponents)].Address); } }
     }
     public class WeaponIconSceneCaptureComponent : SceneCaptureComponent2D
     {
@@ -22542,7 +22546,7 @@ namespace SDK.Script.FSDSDK
     public class IconGenerationWeapon : IconGenerationBase
     {
         public IconGenerationWeapon(nint addr) : base(addr) { }
-        public Array<WeaponIconSceneCaptureComponent> CaptureComponents { get { return new Array<WeaponIconSceneCaptureComponent>(this[nameof(CaptureComponents)].Address); } }
+        public UArray<WeaponIconSceneCaptureComponent> CaptureComponents { get { return new UArray<WeaponIconSceneCaptureComponent>(this[nameof(CaptureComponents)].Address); } }
     }
     public class VanityEventSourceDataAsset : DataAsset
     {
@@ -22602,7 +22606,7 @@ namespace SDK.Script.FSDSDK
         public int GetVanityMasteryFashioniteForLevel(int InCurrentLevel) { return Invoke<int>(nameof(GetVanityMasteryFashioniteForLevel), InCurrentLevel); }
         public int GetFashionitesAwaredForOldPurchases(Object WorldContext) { return Invoke<int>(nameof(GetFashionitesAwaredForOldPurchases), WorldContext); }
         public float CalculateVanityMasteryLevelProgress(int Level, int XP) { return Invoke<float>(nameof(CalculateVanityMasteryLevelProgress), Level, XP); }
-        public VanityMasteryResult AddVanityMasteryXPFromCost(Object WorldContext, Array<CraftingCost> Cost, PlayerCharacterID characterID) { return Invoke<VanityMasteryResult>(nameof(AddVanityMasteryXPFromCost), WorldContext, Cost, characterID); }
+        public VanityMasteryResult AddVanityMasteryXPFromCost(Object WorldContext, UArray<CraftingCost> Cost, PlayerCharacterID characterID) { return Invoke<VanityMasteryResult>(nameof(AddVanityMasteryXPFromCost), WorldContext, Cost, characterID); }
         public VanityMasteryResult AddVanityMasteryXP(Object WorldContext, int XP, PlayerCharacterID PlayerId) { return Invoke<VanityMasteryResult>(nameof(AddVanityMasteryXP), WorldContext, XP, PlayerId); }
     }
     public class VanitySchematicBank : SchematicBankBase
@@ -22610,18 +22614,18 @@ namespace SDK.Script.FSDSDK
         public VanitySchematicBank(nint addr) : base(addr) { }
         public SchematicCategory SchematicCategory { get { return this[nameof(SchematicCategory)].As<SchematicCategory>(); } set { this["SchematicCategory"] = value; } }
         public Object VanityItems { get { return this[nameof(VanityItems)]; } set { this[nameof(VanityItems)] = value; } }
-        public void AppendItems(Array<VanityItem> toArray) { Invoke(nameof(AppendItems), toArray); }
+        public void AppendItems(UArray<VanityItem> toArray) { Invoke(nameof(AppendItems), toArray); }
     }
     public class VanitySettings : DataAsset
     {
         public VanitySettings(nint addr) : base(addr) { }
         public VanityItem MedbayArmorItem { get { return this[nameof(MedbayArmorItem)].As<VanityItem>(); } set { this["MedbayArmorItem"] = value; } }
-        public Array<VanityItem> MedbayArmorMaterials { get { return new Array<VanityItem>(this[nameof(MedbayArmorMaterials)].Address); } }
+        public UArray<VanityItem> MedbayArmorMaterials { get { return new UArray<VanityItem>(this[nameof(MedbayArmorMaterials)].Address); } }
         public DLCBase AlwaysLockedDLC { get { return this[nameof(AlwaysLockedDLC)].As<DLCBase>(); } set { this["AlwaysLockedDLC"] = value; } }
         public VanityTagSettings VanityTagSettings { get { return this[nameof(VanityTagSettings)].As<VanityTagSettings>(); } set { this["VanityTagSettings"] = value; } }
         public VanityMasterySettings MasterySettings { get { return this[nameof(MasterySettings)].As<VanityMasterySettings>(); } set { this["MasterySettings"] = value; } }
         public ResourceSpawner FashioniteSpawn { get { return this[nameof(FashioniteSpawn)].As<ResourceSpawner>(); } set { this["FashioniteSpawn"] = value; } }
-        public Array<Texture2D> VanityCategoryIcons { get { return new Array<Texture2D>(this[nameof(VanityCategoryIcons)].Address); } }
+        public UArray<Texture2D> VanityCategoryIcons { get { return new UArray<Texture2D>(this[nameof(VanityCategoryIcons)].Address); } }
         public Object ValidIDs { get { return this[nameof(ValidIDs)]; } set { this[nameof(ValidIDs)] = value; } }
         public Object ItemMap { get { return this[nameof(ItemMap)]; } set { this[nameof(ItemMap)] = value; } }
         public Object GlobalItems { get { return this[nameof(GlobalItems)]; } set { this[nameof(GlobalItems)] = value; } }
@@ -22653,7 +22657,7 @@ namespace SDK.Script.FSDSDK
         public FloodFillSettings Noise { get { return this[nameof(Noise)].As<FloodFillSettings>(); } set { this["Noise"] = value; } }
         public float range { get { return this[nameof(range)].GetValue<float>(); } set { this[nameof(range)].SetValue<float>(value); } }
         public float NoiseRange { get { return this[nameof(NoiseRange)].GetValue<float>(); } set { this[nameof(NoiseRange)].SetValue<float>(value); } }
-        public Array<Object> Debris { get { return new Array<Object>(this[nameof(Debris)].Address); } }
+        public UArray<Object> Debris { get { return new UArray<Object>(this[nameof(Debris)].Address); } }
     }
     public class VeinResourceData : ResourceData
     {
@@ -22669,7 +22673,7 @@ namespace SDK.Script.FSDSDK
     {
         public VictoryPoseFunctionLibrary(nint addr) : base(addr) { }
         public bool IsRandomVictoryPose(VictoryPose VictoryPose) { return Invoke<bool>(nameof(IsRandomVictoryPose), VictoryPose); }
-        public Array<VictoryPose> GetOwnedVictoryPoses(Object WorldContextObject, PlayerCharacterID characterID) { return Invoke<Array<VictoryPose>>(nameof(GetOwnedVictoryPoses), WorldContextObject, characterID); }
+        public UArray<VictoryPose> GetOwnedVictoryPoses(Object WorldContextObject, PlayerCharacterID characterID) { return Invoke<UArray<VictoryPose>>(nameof(GetOwnedVictoryPoses), WorldContextObject, characterID); }
         public VictoryPose GetEquippedVictoryPose(Object WorldContextObject, PlayerCharacterID characterID) { return Invoke<VictoryPose>(nameof(GetEquippedVictoryPose), WorldContextObject, characterID); }
     }
     public class VictoryPose : SavablePrimaryDataAsset
@@ -22678,7 +22682,7 @@ namespace SDK.Script.FSDSDK
         public Object Title { get { return this[nameof(Title)]; } set { this[nameof(Title)] = value; } }
         public Object Description { get { return this[nameof(Description)]; } set { this[nameof(Description)] = value; } }
         public ItemAquisitionBase Aquisition { get { return this[nameof(Aquisition)].As<ItemAquisitionBase>(); } set { this["Aquisition"] = value; } }
-        public Array<Object> Walks { get { return new Array<Object>(this[nameof(Walks)].Address); } }
+        public UArray<Object> Walks { get { return new UArray<Object>(this[nameof(Walks)].Address); } }
         public Object pose { get { return this[nameof(pose)]; } set { this[nameof(pose)] = value; } }
         public Object Prop_Actor { get { return this[nameof(Prop_Actor)]; } set { this[nameof(Prop_Actor)] = value; } }
         public Object Prop_Walk { get { return this[nameof(Prop_Walk)]; } set { this[nameof(Prop_Walk)] = value; } }
@@ -22700,11 +22704,11 @@ namespace SDK.Script.FSDSDK
     {
         public VictoryPoseSettings(nint addr) : base(addr) { }
         public Texture2D GenericVictoryPoseIcon { get { return this[nameof(GenericVictoryPoseIcon)].As<Texture2D>(); } set { this["GenericVictoryPoseIcon"] = value; } }
-        public Array<VictoryPose> LoadedVictoryPoses { get { return new Array<VictoryPose>(this[nameof(LoadedVictoryPoses)].Address); } }
+        public UArray<VictoryPose> LoadedVictoryPoses { get { return new UArray<VictoryPose>(this[nameof(LoadedVictoryPoses)].Address); } }
         public VictoryPose RandomVictoryPose { get { return this[nameof(RandomVictoryPose)].As<VictoryPose>(); } set { this["RandomVictoryPose"] = value; } }
-        public Array<Object> ModReferencesHack { get { return new Array<Object>(this[nameof(ModReferencesHack)].Address); } }
-        public Array<Object> ModProxyHack { get { return new Array<Object>(this[nameof(ModProxyHack)].Address); } }
-        public Array<VictoryPose> GetVictoryPoses() { return Invoke<Array<VictoryPose>>(nameof(GetVictoryPoses)); }
+        public UArray<Object> ModReferencesHack { get { return new UArray<Object>(this[nameof(ModReferencesHack)].Address); } }
+        public UArray<Object> ModProxyHack { get { return new UArray<Object>(this[nameof(ModProxyHack)].Address); } }
+        public UArray<VictoryPose> GetVictoryPoses() { return Invoke<UArray<VictoryPose>>(nameof(GetVictoryPoses)); }
     }
     public class WalkingStateComponent : CharacterStateComponent
     {
@@ -22749,7 +22753,7 @@ namespace SDK.Script.FSDSDK
     {
         public WeakpointGlowComponent(nint addr) : base(addr) { }
         public Object EmissiveParam { get { return this[nameof(EmissiveParam)]; } set { this[nameof(EmissiveParam)] = value; } }
-        public Array<WeakpointChannel> Channels { get { return new Array<WeakpointChannel>(this[nameof(Channels)].Address); } }
+        public UArray<WeakpointChannel> Channels { get { return new UArray<WeakpointChannel>(this[nameof(Channels)].Address); } }
         public RuntimeFloatCurve WeakpointHitCurve { get { return this[nameof(WeakpointHitCurve)].As<RuntimeFloatCurve>(); } set { this["WeakpointHitCurve"] = value; } }
         public float CurveMultiplier { get { return this[nameof(CurveMultiplier)].GetValue<float>(); } set { this[nameof(CurveMultiplier)].SetValue<float>(value); } }
         public EWeakpointGlowMode Mode { get { return (EWeakpointGlowMode)this[nameof(Mode)].GetValue<int>(); } set { this[nameof(Mode)].SetValue<int>((int)value); } }
@@ -22836,7 +22840,7 @@ namespace SDK.Script.FSDSDK
         public float ElectrocutionChance { get { return this[nameof(ElectrocutionChance)].GetValue<float>(); } set { this[nameof(ElectrocutionChance)].SetValue<float>(value); } }
         public bool TurretEMPDischargeEnabled { get { return this[nameof(TurretEMPDischargeEnabled)].Flag; } set { this[nameof(TurretEMPDischargeEnabled)].Flag = value; } }
         public bool ElectricfyPlatformsEnabled { get { return this[nameof(ElectricfyPlatformsEnabled)].Flag; } set { this[nameof(ElectricfyPlatformsEnabled)].Flag = value; } }
-        public Array<FSDPhysicalMaterial> PlatformMaterials { get { return new Array<FSDPhysicalMaterial>(this[nameof(PlatformMaterials)].Address); } }
+        public UArray<FSDPhysicalMaterial> PlatformMaterials { get { return new UArray<FSDPhysicalMaterial>(this[nameof(PlatformMaterials)].Address); } }
         public Object ElectrifyPlatformsActorClass { get { return this[nameof(ElectrifyPlatformsActorClass)]; } set { this[nameof(ElectrifyPlatformsActorClass)] = value; } }
         public void OnTerrainHit(Vector Location, Rotator Rotation, FSDPhysicalMaterial PhysicalMaterial) { Invoke(nameof(OnTerrainHit), Location, Rotation, PhysicalMaterial); }
         public void OnTargetDamaged(HealthComponentBase Health, float amount, PrimitiveComponent HitComponent, FSDPhysicalMaterial PhysicalMaterial) { Invoke(nameof(OnTargetDamaged), Health, amount, HitComponent, PhysicalMaterial); }
@@ -22856,7 +22860,7 @@ namespace SDK.Script.FSDSDK
         public bool StopUsingReversesProjectile { get { return this[nameof(StopUsingReversesProjectile)].Flag; } set { this[nameof(StopUsingReversesProjectile)].Flag = value; } }
         public bool RotateProjectileUntillStop { get { return this[nameof(RotateProjectileUntillStop)].Flag; } set { this[nameof(RotateProjectileUntillStop)].Flag = value; } }
         public bool ExplodeLastProjectileOnNextFireAttempt { get { return this[nameof(ExplodeLastProjectileOnNextFireAttempt)].Flag; } set { this[nameof(ExplodeLastProjectileOnNextFireAttempt)].Flag = value; } }
-        public Array<ItemUpgrade> Upgrades { get { return new Array<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
+        public UArray<ItemUpgrade> Upgrades { get { return new UArray<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
         public Object LastProjectile { get { return this[nameof(LastProjectile)]; } set { this[nameof(LastProjectile)] = value; } }
         public float MinExplosiveGoodbyeActivationTimme { get { return this[nameof(MinExplosiveGoodbyeActivationTimme)].GetValue<float>(); } set { this[nameof(MinExplosiveGoodbyeActivationTimme)].SetValue<float>(value); } }
         public void Server_StopRotatingProjectile() { Invoke(nameof(Server_StopRotatingProjectile)); }
@@ -22887,7 +22891,7 @@ namespace SDK.Script.FSDSDK
         public void OnTargetDamaged(HealthComponentBase Health, float amount, PrimitiveComponent HitComponent, FSDPhysicalMaterial PhysicalMaterial) { Invoke(nameof(OnTargetDamaged), Health, amount, HitComponent, PhysicalMaterial); }
         public void OnStoppedUsing() { Invoke(nameof(OnStoppedUsing)); }
         public void OnReloading() { Invoke(nameof(OnReloading)); }
-        public void All_ShowDamageEffects(Array<Object> Targets) { Invoke(nameof(All_ShowDamageEffects), Targets); }
+        public void All_ShowDamageEffects(UArray<Object> Targets) { Invoke(nameof(All_ShowDamageEffects), Targets); }
     }
     public class DamageHitCountEffect : WeaponHitCountEffect
     {
@@ -22929,9 +22933,9 @@ namespace SDK.Script.FSDSDK
     public class WeightRoomSelectorLibrary : BlueprintFunctionLibrary
     {
         public WeightRoomSelectorLibrary(nint addr) : base(addr) { }
-        public void SetupWeightedRoomSelector(WeightedRoomSelector Target, Array<RoomGenerator> Rooms) { Invoke(nameof(SetupWeightedRoomSelector), Target, Rooms); }
+        public void SetupWeightedRoomSelector(WeightedRoomSelector Target, UArray<RoomGenerator> Rooms) { Invoke(nameof(SetupWeightedRoomSelector), Target, Rooms); }
         public RoomGenerator SelectRandomRoom(WeightedRoomSelector Target, RandomStream RandomStream) { return Invoke<RoomGenerator>(nameof(SelectRandomRoom), Target, RandomStream); }
-        public RoomGenerator GetRandomRoom(Array<RoomGenerator> Rooms, bool removeChosenRoom, RandomStream RandomStream) { return Invoke<RoomGenerator>(nameof(GetRandomRoom), Rooms, removeChosenRoom, RandomStream); }
+        public RoomGenerator GetRandomRoom(UArray<RoomGenerator> Rooms, bool removeChosenRoom, RandomStream RandomStream) { return Invoke<RoomGenerator>(nameof(GetRandomRoom), Rooms, removeChosenRoom, RandomStream); }
     }
     public class WidgetToRenderTargetComponent : ActorComponent
     {
@@ -22972,7 +22976,7 @@ namespace SDK.Script.FSDSDK
         public Object OnFirstWindowOpened { get { return this[nameof(OnFirstWindowOpened)]; } set { this[nameof(OnFirstWindowOpened)] = value; } }
         public Object OnLastWindowClosed { get { return this[nameof(OnLastWindowClosed)]; } set { this[nameof(OnLastWindowClosed)] = value; } }
         public SoundCue AudioWindowOpen { get { return this[nameof(AudioWindowOpen)].As<SoundCue>(); } set { this["AudioWindowOpen"] = value; } }
-        public Array<WindowWidget> WindowStack { get { return new Array<WindowWidget>(this[nameof(WindowStack)].Address); } }
+        public UArray<WindowWidget> WindowStack { get { return new UArray<WindowWidget>(this[nameof(WindowStack)].Address); } }
         public Object WindowList { get { return this[nameof(WindowList)]; } set { this[nameof(WindowList)] = value; } }
         public Object WidgetSingletonCache { get { return this[nameof(WidgetSingletonCache)]; } set { this[nameof(WidgetSingletonCache)] = value; } }
         public bool ResolutionDownscaleActive { get { return this[nameof(ResolutionDownscaleActive)].Flag; } set { this[nameof(ResolutionDownscaleActive)].Flag = value; } }
@@ -23004,7 +23008,7 @@ namespace SDK.Script.FSDSDK
         public FakeMoverSettings FakeMoverSettings { get { return this[nameof(FakeMoverSettings)].As<FakeMoverSettings>(); } set { this["FakeMoverSettings"] = value; } }
         public Object BurstProjectileClass { get { return this[nameof(BurstProjectileClass)]; } set { this[nameof(BurstProjectileClass)] = value; } }
         public float BurstTime { get { return this[nameof(BurstTime)].GetValue<float>(); } set { this[nameof(BurstTime)].SetValue<float>(value); } }
-        public Array<Object> StatusEffectsOnRoll { get { return new Array<Object>(this[nameof(StatusEffectsOnRoll)].Address); } }
+        public UArray<Object> StatusEffectsOnRoll { get { return new UArray<Object>(this[nameof(StatusEffectsOnRoll)].Address); } }
         public BumpPlayerHit LastHit { get { return this[nameof(LastHit)].As<BumpPlayerHit>(); } set { this["LastHit"] = value; } }
         public float TiltModifier { get { return this[nameof(TiltModifier)].GetValue<float>(); } set { this[nameof(TiltModifier)].SetValue<float>(value); } }
         public float BurstXOffset { get { return this[nameof(BurstXOffset)].GetValue<float>(); } set { this[nameof(BurstXOffset)].SetValue<float>(value); } }
@@ -23146,8 +23150,8 @@ namespace SDK.Script.FSDSDK
         public float MaterialGlow { get { return this[nameof(MaterialGlow)].GetValue<float>(); } set { this[nameof(MaterialGlow)].SetValue<float>(value); } }
         public Object Callback { get { return this[nameof(Callback)]; } set { this[nameof(Callback)] = value; } }
         public CurveFloat LightCurve { get { return this[nameof(LightCurve)].As<CurveFloat>(); } set { this["LightCurve"] = value; } }
-        public Array<PointLightComponent> PointLights { get { return new Array<PointLightComponent>(this[nameof(PointLights)].Address); } }
-        public Array<MaterialInstanceDynamic> MaterialInstances { get { return new Array<MaterialInstanceDynamic>(this[nameof(MaterialInstances)].Address); } }
+        public UArray<PointLightComponent> PointLights { get { return new UArray<PointLightComponent>(this[nameof(PointLights)].Address); } }
+        public UArray<MaterialInstanceDynamic> MaterialInstances { get { return new UArray<MaterialInstanceDynamic>(this[nameof(MaterialInstances)].Address); } }
         public Object OnUseStatusEffect { get { return this[nameof(OnUseStatusEffect)]; } set { this[nameof(OnUseStatusEffect)] = value; } }
         public Object OnReleaseStatusEffect { get { return this[nameof(OnReleaseStatusEffect)]; } set { this[nameof(OnReleaseStatusEffect)] = value; } }
         public void OnTimelineTick(float NewValue) { Invoke(nameof(OnTimelineTick), NewValue); }
@@ -23280,7 +23284,7 @@ namespace SDK.Script.FSDSDK
     {
         public ItemLoadoutAnimations(nint addr) : base(addr) { }
         public AnimMontage Loadout { get { return this[nameof(Loadout)].As<AnimMontage>(); } set { this["Loadout"] = value; } }
-        public Array<AnimSequence> Loadout_IdleBreaks { get { return new Array<AnimSequence>(this[nameof(Loadout_IdleBreaks)].Address); } }
+        public UArray<AnimSequence> Loadout_IdleBreaks { get { return new UArray<AnimSequence>(this[nameof(Loadout_IdleBreaks)].Address); } }
     }
     public class AudioWithCooldown : Object
     {
@@ -23499,7 +23503,7 @@ namespace SDK.Script.FSDSDK
     public class CharacterViewScene : Object
     {
         public CharacterViewScene(nint addr) : base(addr) { }
-        public Array<CharacterViewInfo> Characters { get { return new Array<CharacterViewInfo>(this[nameof(Characters)].Address); } }
+        public UArray<CharacterViewInfo> Characters { get { return new UArray<CharacterViewInfo>(this[nameof(Characters)].Address); } }
         public bool MissionSuccess { get { return this[nameof(MissionSuccess)].Flag; } set { this[nameof(MissionSuccess)].Flag = value; } }
     }
     public class CharacterViewInfo : Object
@@ -23513,7 +23517,7 @@ namespace SDK.Script.FSDSDK
     public class EquippedVanity : Object
     {
         public EquippedVanity(nint addr) : base(addr) { }
-        public Array<VanityItem> Vanity { get { return new Array<VanityItem>(this[nameof(Vanity)].Address); } }
+        public UArray<VanityItem> Vanity { get { return new UArray<VanityItem>(this[nameof(Vanity)].Address); } }
         public VanityItem SelectedArmorMaterial { get { return this[nameof(SelectedArmorMaterial)].As<VanityItem>(); } set { this["SelectedArmorMaterial"] = value; } }
         public bool UsingSlevedArmor { get { return this[nameof(UsingSlevedArmor)].Flag; } set { this[nameof(UsingSlevedArmor)].Flag = value; } }
     }
@@ -23557,13 +23561,13 @@ namespace SDK.Script.FSDSDK
         public FSDServerSearchOptions(nint addr) : base(addr) { }
         public ESteamServerJoinStatus JoinStatus { get { return (ESteamServerJoinStatus)this[nameof(JoinStatus)].GetValue<int>(); } set { this[nameof(JoinStatus)].SetValue<int>((int)value); } }
         public ESteamSearchRegion SearchRegion { get { return (ESteamSearchRegion)this[nameof(SearchRegion)].GetValue<int>(); } set { this[nameof(SearchRegion)].SetValue<int>((int)value); } }
-        public Array<DifficultySetting> Difficulties { get { return new Array<DifficultySetting>(this[nameof(Difficulties)].Address); } }
-        public Array<Season> Seasons { get { return new Array<Season>(this[nameof(Seasons)].Address); } }
+        public UArray<DifficultySetting> Difficulties { get { return new UArray<DifficultySetting>(this[nameof(Difficulties)].Address); } }
+        public UArray<Season> Seasons { get { return new UArray<Season>(this[nameof(Seasons)].Address); } }
         public bool DeepDive { get { return this[nameof(DeepDive)].Flag; } set { this[nameof(DeepDive)].Flag = value; } }
         public Object SearchString { get { return this[nameof(SearchString)]; } set { this[nameof(SearchString)] = value; } }
         public int MissionSeed { get { return this[nameof(MissionSeed)].GetValue<int>(); } set { this[nameof(MissionSeed)].SetValue<int>(value); } }
         public GlobalMissionSeed GlobalMissionSeed { get { return this[nameof(GlobalMissionSeed)].As<GlobalMissionSeed>(); } set { this["GlobalMissionSeed"] = value; } }
-        public Array<EGameType> GameTypes { get { return new Array<EGameType>(this[nameof(GameTypes)].Address); } }
+        public UArray<EGameType> GameTypes { get { return new UArray<EGameType>(this[nameof(GameTypes)].Address); } }
     }
     public enum EGameType : int
     {
@@ -23645,7 +23649,7 @@ namespace SDK.Script.FSDSDK
     {
         public GameDifficulty(nint addr) : base(addr) { }
         public DifficultySetting Difficulty { get { return this[nameof(Difficulty)].As<DifficultySetting>(); } set { this["Difficulty"] = value; } }
-        public Array<DifficultyMutatorItem> Mutators { get { return new Array<DifficultyMutatorItem>(this[nameof(Mutators)].Address); } }
+        public UArray<DifficultyMutatorItem> Mutators { get { return new UArray<DifficultyMutatorItem>(this[nameof(Mutators)].Address); } }
     }
     public class DifficultyMutatorItem : Object
     {
@@ -23885,8 +23889,8 @@ namespace SDK.Script.FSDSDK
         public EConsoleGraphicsMode ConsoleGraphicsMode { get { return (EConsoleGraphicsMode)this[nameof(ConsoleGraphicsMode)].GetValue<int>(); } set { this[nameof(ConsoleGraphicsMode)].SetValue<int>((int)value); } }
         public Object Language { get { return this[nameof(Language)]; } set { this[nameof(Language)] = value; } }
         public CharacterOptions CharacterOptions { get { return this[nameof(CharacterOptions)].As<CharacterOptions>(); } set { this["CharacterOptions"] = value; } }
-        public Array<CustomKeyBinding> CustomKeyBindings { get { return new Array<CustomKeyBinding>(this[nameof(CustomKeyBindings)].Address); } }
-        public Array<CustomKeyBinding> CustomControllerBindings { get { return new Array<CustomKeyBinding>(this[nameof(CustomControllerBindings)].Address); } }
+        public UArray<CustomKeyBinding> CustomKeyBindings { get { return new UArray<CustomKeyBinding>(this[nameof(CustomKeyBindings)].Address); } }
+        public UArray<CustomKeyBinding> CustomControllerBindings { get { return new UArray<CustomKeyBinding>(this[nameof(CustomControllerBindings)].Address); } }
         public bool SwapControllerThumbsticks { get { return this[nameof(SwapControllerThumbsticks)].Flag; } set { this[nameof(SwapControllerThumbsticks)].Flag = value; } }
         public float FSDResolutionScale { get { return this[nameof(FSDResolutionScale)].GetValue<float>(); } set { this[nameof(FSDResolutionScale)].SetValue<float>(value); } }
         public int UpscalingType { get { return this[nameof(UpscalingType)].GetValue<int>(); } set { this[nameof(UpscalingType)].SetValue<int>(value); } }
@@ -23994,14 +23998,14 @@ namespace SDK.Script.FSDSDK
     public class ItemUINotifications : Object
     {
         public ItemUINotifications(nint addr) : base(addr) { }
-        public Array<UINotificationItem> UINotifications { get { return new Array<UINotificationItem>(this[nameof(UINotifications)].Address); } }
+        public UArray<UINotificationItem> UINotifications { get { return new UArray<UINotificationItem>(this[nameof(UINotifications)].Address); } }
         public Object UINotificationSet { get { return this[nameof(UINotificationSet)]; } set { this[nameof(UINotificationSet)] = value; } }
         public FSDSaveGame SaveGame { get { return this[nameof(SaveGame)].As<FSDSaveGame>(); } set { this["SaveGame"] = value; } }
     }
     public class UINotificationItem : Object
     {
         public UINotificationItem(nint addr) : base(addr) { }
-        public Array<Guid> NotificationIDs { get { return new Array<Guid>(this[nameof(NotificationIDs)].Address); } }
+        public UArray<Guid> NotificationIDs { get { return new UArray<Guid>(this[nameof(NotificationIDs)].Address); } }
     }
     public class EventRewardSave : Object
     {
@@ -24012,7 +24016,7 @@ namespace SDK.Script.FSDSDK
     {
         public EventRewardSaveItem(nint addr) : base(addr) { }
         public Guid CategoryID { get { return this[nameof(CategoryID)].As<Guid>(); } set { this["CategoryID"] = value; } }
-        public Array<Guid> ClassOptions { get { return new Array<Guid>(this[nameof(ClassOptions)].Address); } }
+        public UArray<Guid> ClassOptions { get { return new UArray<Guid>(this[nameof(ClassOptions)].Address); } }
     }
     public class SkinList : Object
     {
@@ -24033,10 +24037,10 @@ namespace SDK.Script.FSDSDK
     {
         public ItemUpgradeSelection(nint addr) : base(addr) { }
         public Guid WeaponID { get { return this[nameof(WeaponID)].As<Guid>(); } set { this["WeaponID"] = value; } }
-        public Array<Guid> EquippedUpgrades { get { return new Array<Guid>(this[nameof(EquippedUpgrades)].Address); } }
-        public Array<Guid> PermanentUpgrades { get { return new Array<Guid>(this[nameof(PermanentUpgrades)].Address); } }
+        public UArray<Guid> EquippedUpgrades { get { return new UArray<Guid>(this[nameof(EquippedUpgrades)].Address); } }
+        public UArray<Guid> PermanentUpgrades { get { return new UArray<Guid>(this[nameof(PermanentUpgrades)].Address); } }
         public Guid EquippedOverclock { get { return this[nameof(EquippedOverclock)].As<Guid>(); } set { this["EquippedOverclock"] = value; } }
-        public Array<Guid> EquippedSkins { get { return new Array<Guid>(this[nameof(EquippedSkins)].Address); } }
+        public UArray<Guid> EquippedSkins { get { return new UArray<Guid>(this[nameof(EquippedSkins)].Address); } }
         public bool OverclockingUnlocked { get { return this[nameof(OverclockingUnlocked)].Flag; } set { this[nameof(OverclockingUnlocked)].Flag = value; } }
         public Guid EquippedSkinColor { get { return this[nameof(EquippedSkinColor)].As<Guid>(); } set { this["EquippedSkinColor"] = value; } }
         public Guid EquippedSkinMesh { get { return this[nameof(EquippedSkinMesh)].As<Guid>(); } set { this["EquippedSkinMesh"] = value; } }
@@ -24051,7 +24055,7 @@ namespace SDK.Script.FSDSDK
     {
         public ForgingSave(nint addr) : base(addr) { }
         public int XP { get { return this[nameof(XP)].GetValue<int>(); } set { this[nameof(XP)].SetValue<int>(value); } }
-        public Array<ForgingPendingReward> PendingMasteryRewards { get { return new Array<ForgingPendingReward>(this[nameof(PendingMasteryRewards)].Address); } }
+        public UArray<ForgingPendingReward> PendingMasteryRewards { get { return new UArray<ForgingPendingReward>(this[nameof(PendingMasteryRewards)].Address); } }
     }
     public class ForgingPendingReward : Object
     {
@@ -24072,8 +24076,8 @@ namespace SDK.Script.FSDSDK
         public CharacterVanitySave Vanity { get { return this[nameof(Vanity)].As<CharacterVanitySave>(); } set { this["Vanity"] = value; } }
         public int SelectedLoadout { get { return this[nameof(SelectedLoadout)].GetValue<int>(); } set { this[nameof(SelectedLoadout)].SetValue<int>(value); } }
         public ItemLoadout Loadout { get { return this[nameof(Loadout)].As<ItemLoadout>(); } set { this["Loadout"] = value; } }
-        public Array<ItemLoadout> Loadouts { get { return new Array<ItemLoadout>(this[nameof(Loadouts)].Address); } }
-        public Array<UpgradeLoadout> ItemUpgradeLoadouts { get { return new Array<UpgradeLoadout>(this[nameof(ItemUpgradeLoadouts)].Address); } }
+        public UArray<ItemLoadout> Loadouts { get { return new UArray<ItemLoadout>(this[nameof(Loadouts)].Address); } }
+        public UArray<UpgradeLoadout> ItemUpgradeLoadouts { get { return new UArray<UpgradeLoadout>(this[nameof(ItemUpgradeLoadouts)].Address); } }
         public ItemLoadout RandomWeaponLoadout { get { return this[nameof(RandomWeaponLoadout)].As<ItemLoadout>(); } set { this["RandomWeaponLoadout"] = value; } }
         public UpgradeLoadout RandomItemUpgradeLoadouts { get { return this[nameof(RandomItemUpgradeLoadouts)].As<UpgradeLoadout>(); } set { this["RandomItemUpgradeLoadouts"] = value; } }
         public VictoryPoseSave VictoryPose { get { return this[nameof(VictoryPose)].As<VictoryPoseSave>(); } set { this["VictoryPose"] = value; } }
@@ -24082,8 +24086,8 @@ namespace SDK.Script.FSDSDK
     {
         public VictoryPoseSave(nint addr) : base(addr) { }
         public Guid EquippedVictoryPose { get { return this[nameof(EquippedVictoryPose)].As<Guid>(); } set { this["EquippedVictoryPose"] = value; } }
-        public Array<Guid> UnlockedVictoryPoses { get { return new Array<Guid>(this[nameof(UnlockedVictoryPoses)].Address); } }
-        public Array<Guid> EquippedVictoryPoses { get { return new Array<Guid>(this[nameof(EquippedVictoryPoses)].Address); } }
+        public UArray<Guid> UnlockedVictoryPoses { get { return new UArray<Guid>(this[nameof(UnlockedVictoryPoses)].Address); } }
+        public UArray<Guid> EquippedVictoryPoses { get { return new UArray<Guid>(this[nameof(EquippedVictoryPoses)].Address); } }
     }
     public class ItemLoadout : Object
     {
@@ -24101,10 +24105,10 @@ namespace SDK.Script.FSDSDK
     public class CharacterVanitySave : Object
     {
         public CharacterVanitySave(nint addr) : base(addr) { }
-        public Array<CharacterVanityLoadout> Loadouts { get { return new Array<CharacterVanityLoadout>(this[nameof(Loadouts)].Address); } }
+        public UArray<CharacterVanityLoadout> Loadouts { get { return new UArray<CharacterVanityLoadout>(this[nameof(Loadouts)].Address); } }
         public CharacterVanityLoadout RandomVanityLoadout { get { return this[nameof(RandomVanityLoadout)].As<CharacterVanityLoadout>(); } set { this["RandomVanityLoadout"] = value; } }
-        public Array<Guid> UnLockedVanityItemIDs { get { return new Array<Guid>(this[nameof(UnLockedVanityItemIDs)].Address); } }
-        public Array<VanityItem> UnLockedVanityItems { get { return new Array<VanityItem>(this[nameof(UnLockedVanityItems)].Address); } }
+        public UArray<Guid> UnLockedVanityItemIDs { get { return new UArray<Guid>(this[nameof(UnLockedVanityItemIDs)].Address); } }
+        public UArray<VanityItem> UnLockedVanityItems { get { return new UArray<VanityItem>(this[nameof(UnLockedVanityItems)].Address); } }
         public Object NewVanityItems { get { return this[nameof(NewVanityItems)]; } set { this[nameof(NewVanityItems)] = value; } }
     }
     public enum EVanitySlot : int
@@ -24148,9 +24152,9 @@ namespace SDK.Script.FSDSDK
         public int Progress { get { return this[nameof(Progress)].GetValue<int>(); } set { this[nameof(Progress)].SetValue<int>(value); } }
         public int Seed { get { return this[nameof(Seed)].GetValue<int>(); } set { this[nameof(Seed)].SetValue<int>(value); } }
         public int BestTime { get { return this[nameof(BestTime)].GetValue<int>(); } set { this[nameof(BestTime)].SetValue<int>(value); } }
-        public Array<DeepDiveSaveRewardItem> Rewards { get { return new Array<DeepDiveSaveRewardItem>(this[nameof(Rewards)].Address); } }
+        public UArray<DeepDiveSaveRewardItem> Rewards { get { return new UArray<DeepDiveSaveRewardItem>(this[nameof(Rewards)].Address); } }
         public bool HasEverCompleted { get { return this[nameof(HasEverCompleted)].Flag; } set { this[nameof(HasEverCompleted)].Flag = value; } }
-        public Array<Guid> RewardsGiven { get { return new Array<Guid>(this[nameof(RewardsGiven)].Address); } }
+        public UArray<Guid> RewardsGiven { get { return new UArray<Guid>(this[nameof(RewardsGiven)].Address); } }
     }
     public class DeepDiveSaveRewardItem : Object
     {
@@ -24162,7 +24166,7 @@ namespace SDK.Script.FSDSDK
     {
         public CampaignSave(nint addr) : base(addr) { }
         public ActiveCampaignItem ActiveCampaign { get { return this[nameof(ActiveCampaign)].As<ActiveCampaignItem>(); } set { this["ActiveCampaign"] = value; } }
-        public Array<Guid> CompletedCampaigns { get { return new Array<Guid>(this[nameof(CompletedCampaigns)].Address); } }
+        public UArray<Guid> CompletedCampaigns { get { return new UArray<Guid>(this[nameof(CompletedCampaigns)].Address); } }
         public int ActiveCampaignWeek { get { return this[nameof(ActiveCampaignWeek)].GetValue<int>(); } set { this[nameof(ActiveCampaignWeek)].SetValue<int>(value); } }
         public WeeklyCampaignItem WeeklySave { get { return this[nameof(WeeklySave)].As<WeeklyCampaignItem>(); } set { this["WeeklySave"] = value; } }
         public WeeklyCampaignItem MaxtrixCoreHuntSave { get { return this[nameof(MaxtrixCoreHuntSave)].As<WeeklyCampaignItem>(); } set { this["MaxtrixCoreHuntSave"] = value; } }
@@ -24185,13 +24189,13 @@ namespace SDK.Script.FSDSDK
     public class UnLockedMissionParameters : Object
     {
         public UnLockedMissionParameters(nint addr) : base(addr) { }
-        public Array<Guid> UnLockedComplexities { get { return new Array<Guid>(this[nameof(UnLockedComplexities)].Address); } }
-        public Array<Guid> UnLockedDurations { get { return new Array<Guid>(this[nameof(UnLockedDurations)].Address); } }
+        public UArray<Guid> UnLockedComplexities { get { return new UArray<Guid>(this[nameof(UnLockedComplexities)].Address); } }
+        public UArray<Guid> UnLockedDurations { get { return new UArray<Guid>(this[nameof(UnLockedDurations)].Address); } }
     }
     public class WeaponMaintenance : Object
     {
         public WeaponMaintenance(nint addr) : base(addr) { }
-        public Array<WeaponMaintenanceEntry> Entries { get { return new Array<WeaponMaintenanceEntry>(this[nameof(Entries)].Address); } }
+        public UArray<WeaponMaintenanceEntry> Entries { get { return new UArray<WeaponMaintenanceEntry>(this[nameof(Entries)].Address); } }
         public int MaxLevel { get { return this[nameof(MaxLevel)].GetValue<int>(); } set { this[nameof(MaxLevel)].SetValue<int>(value); } }
     }
     public class WeaponMaintenanceEntry : Object
@@ -24224,12 +24228,12 @@ namespace SDK.Script.FSDSDK
         public int CountSeasonContentReenabled { get { return this[nameof(CountSeasonContentReenabled)].GetValue<int>(); } set { this[nameof(CountSeasonContentReenabled)].SetValue<int>(value); } }
         public int XP { get { return this[nameof(XP)].GetValue<int>(); } set { this[nameof(XP)].SetValue<int>(value); } }
         public int Tokens { get { return this[nameof(Tokens)].GetValue<int>(); } set { this[nameof(Tokens)].SetValue<int>(value); } }
-        public Array<RewardsClaimed> RewardsClaimed { get { return new Array<RewardsClaimed>(this[nameof(RewardsClaimed)].Address); } }
+        public UArray<RewardsClaimed> RewardsClaimed { get { return new UArray<RewardsClaimed>(this[nameof(RewardsClaimed)].Address); } }
         public bool bSeasonCompletedAnnounced { get { return this[nameof(bSeasonCompletedAnnounced)].Flag; } set { this[nameof(bSeasonCompletedAnnounced)].Flag = value; } }
         public bool HasClaimedAllRewards { get { return this[nameof(HasClaimedAllRewards)].Flag; } set { this[nameof(HasClaimedAllRewards)].Flag = value; } }
         public int RewardsClaimedAfterMaxLevel { get { return this[nameof(RewardsClaimedAfterMaxLevel)].GetValue<int>(); } set { this[nameof(RewardsClaimedAfterMaxLevel)].SetValue<int>(value); } }
         public Object NodesBought { get { return this[nameof(NodesBought)]; } set { this[nameof(NodesBought)] = value; } }
-        public Array<ChallengeSaveInfo> ActiveChallenges { get { return new Array<ChallengeSaveInfo>(this[nameof(ActiveChallenges)].Address); } }
+        public UArray<ChallengeSaveInfo> ActiveChallenges { get { return new UArray<ChallengeSaveInfo>(this[nameof(ActiveChallenges)].Address); } }
         public DateTime LastNewChallengeGiven { get { return this[nameof(LastNewChallengeGiven)].As<DateTime>(); } set { this["LastNewChallengeGiven"] = value; } }
         public DateTime LastChallengeReroll { get { return this[nameof(LastChallengeReroll)].As<DateTime>(); } set { this["LastChallengeReroll"] = value; } }
         public Object CompletedSpecialChallenges { get { return this[nameof(CompletedSpecialChallenges)]; } set { this[nameof(CompletedSpecialChallenges)] = value; } }
@@ -24242,7 +24246,7 @@ namespace SDK.Script.FSDSDK
     public class ChallengeSaveInfo : Object
     {
         public ChallengeSaveInfo(nint addr) : base(addr) { }
-        public Array<int> StatIndices { get { return new Array<int>(this[nameof(StatIndices)].Address); } }
+        public UArray<int> StatIndices { get { return new UArray<int>(this[nameof(StatIndices)].Address); } }
         public Guid ChallengeGuid { get { return this[nameof(ChallengeGuid)].As<Guid>(); } set { this["ChallengeGuid"] = value; } }
         public int CurrentWins { get { return this[nameof(CurrentWins)].GetValue<int>(); } set { this[nameof(CurrentWins)].SetValue<int>(value); } }
         public int NumberOfWins { get { return this[nameof(NumberOfWins)].GetValue<int>(); } set { this[nameof(NumberOfWins)].SetValue<int>(value); } }
@@ -24272,15 +24276,15 @@ namespace SDK.Script.FSDSDK
         public SchematicSave(nint addr) : base(addr) { }
         public Guid PendingReward { get { return this[nameof(PendingReward)].As<Guid>(); } set { this["PendingReward"] = value; } }
         public bool bFirstSchematicMessageShown { get { return this[nameof(bFirstSchematicMessageShown)].Flag; } set { this[nameof(bFirstSchematicMessageShown)].Flag = value; } }
-        public Array<Guid> ForgedSchematics { get { return new Array<Guid>(this[nameof(ForgedSchematics)].Address); } }
-        public Array<Guid> OwnedSchematics { get { return new Array<Guid>(this[nameof(OwnedSchematics)].Address); } }
+        public UArray<Guid> ForgedSchematics { get { return new UArray<Guid>(this[nameof(ForgedSchematics)].Address); } }
+        public UArray<Guid> OwnedSchematics { get { return new UArray<Guid>(this[nameof(OwnedSchematics)].Address); } }
         public int SkinFixupCounter { get { return this[nameof(SkinFixupCounter)].GetValue<int>(); } set { this[nameof(SkinFixupCounter)].SetValue<int>(value); } }
     }
     public class JettyBootsSave : Object
     {
         public JettyBootsSave(nint addr) : base(addr) { }
-        public Array<JettyBootsScore> HighScores { get { return new Array<JettyBootsScore>(this[nameof(HighScores)].Address); } }
-        public Array<JettyBootsScore> NPC_HighScores { get { return new Array<JettyBootsScore>(this[nameof(NPC_HighScores)].Address); } }
+        public UArray<JettyBootsScore> HighScores { get { return new UArray<JettyBootsScore>(this[nameof(HighScores)].Address); } }
+        public UArray<JettyBootsScore> NPC_HighScores { get { return new UArray<JettyBootsScore>(this[nameof(NPC_HighScores)].Address); } }
         public bool bInitializeNPCs { get { return this[nameof(bInitializeNPCs)].Flag; } set { this[nameof(bInitializeNPCs)].Flag = value; } }
         public int LastHighScoreIndex { get { return this[nameof(LastHighScoreIndex)].GetValue<int>(); } set { this[nameof(LastHighScoreIndex)].SetValue<int>(value); } }
     }
@@ -24293,19 +24297,19 @@ namespace SDK.Script.FSDSDK
     public class CharacterPerksSave : Object
     {
         public CharacterPerksSave(nint addr) : base(addr) { }
-        public Array<PerkEquipEntry> CharacterPerks { get { return new Array<PerkEquipEntry>(this[nameof(CharacterPerks)].Address); } }
+        public UArray<PerkEquipEntry> CharacterPerks { get { return new UArray<PerkEquipEntry>(this[nameof(CharacterPerks)].Address); } }
     }
     public class PerkEquipEntry : Object
     {
         public PerkEquipEntry(nint addr) : base(addr) { }
         public Guid characterID { get { return this[nameof(characterID)].As<Guid>(); } set { this["characterID"] = value; } }
-        public Array<Guid> PerkIDs { get { return new Array<Guid>(this[nameof(PerkIDs)].Address); } }
+        public UArray<Guid> PerkIDs { get { return new UArray<Guid>(this[nameof(PerkIDs)].Address); } }
     }
     public class AchievementSave : Object
     {
         public AchievementSave(nint addr) : base(addr) { }
-        public Array<Object> OfflineAchievedAchievements { get { return new Array<Object>(this[nameof(OfflineAchievedAchievements)].Address); } }
-        public Array<AchievementSaveEntry> AchievementEntries { get { return new Array<AchievementSaveEntry>(this[nameof(AchievementEntries)].Address); } }
+        public UArray<Object> OfflineAchievedAchievements { get { return new UArray<Object>(this[nameof(OfflineAchievedAchievements)].Address); } }
+        public UArray<AchievementSaveEntry> AchievementEntries { get { return new UArray<AchievementSaveEntry>(this[nameof(AchievementEntries)].Address); } }
     }
     public class AchievementSaveEntry : Object
     {
@@ -24317,7 +24321,7 @@ namespace SDK.Script.FSDSDK
     public class PerkClaimsSave : Object
     {
         public PerkClaimsSave(nint addr) : base(addr) { }
-        public Array<PerkClaimEntry> PerkEntries { get { return new Array<PerkClaimEntry>(this[nameof(PerkEntries)].Address); } }
+        public UArray<PerkClaimEntry> PerkEntries { get { return new UArray<PerkClaimEntry>(this[nameof(PerkEntries)].Address); } }
         public bool HasResetPerks2 { get { return this[nameof(HasResetPerks2)].Flag; } set { this[nameof(HasResetPerks2)].Flag = value; } }
     }
     public class PerkClaimEntry : Object
@@ -24329,7 +24333,7 @@ namespace SDK.Script.FSDSDK
     public class MilestoneSave : Object
     {
         public MilestoneSave(nint addr) : base(addr) { }
-        public Array<MilestoneCounter> ClaimedKPIRewards { get { return new Array<MilestoneCounter>(this[nameof(ClaimedKPIRewards)].Address); } }
+        public UArray<MilestoneCounter> ClaimedKPIRewards { get { return new UArray<MilestoneCounter>(this[nameof(ClaimedKPIRewards)].Address); } }
     }
     public class MilestoneCounter : Object
     {
@@ -24340,7 +24344,7 @@ namespace SDK.Script.FSDSDK
     public class MissionStatSave : Object
     {
         public MissionStatSave(nint addr) : base(addr) { }
-        public Array<MissionStatCounter> Counters { get { return new Array<MissionStatCounter>(this[nameof(Counters)].Address); } }
+        public UArray<MissionStatCounter> Counters { get { return new UArray<MissionStatCounter>(this[nameof(Counters)].Address); } }
         public bool bCharacterLevelUpFixed { get { return this[nameof(bCharacterLevelUpFixed)].Flag; } set { this[nameof(bCharacterLevelUpFixed)].Flag = value; } }
         public bool bBoughtVanityItemsFixed { get { return this[nameof(bBoughtVanityItemsFixed)].Flag; } set { this[nameof(bBoughtVanityItemsFixed)].Flag = value; } }
         public bool bBoughtEquipmentUpgradesFixed { get { return this[nameof(bBoughtEquipmentUpgradesFixed)].Flag; } set { this[nameof(bBoughtEquipmentUpgradesFixed)].Flag = value; } }
@@ -24437,7 +24441,7 @@ namespace SDK.Script.FSDSDK
     public class HolidayMeshItems : Object
     {
         public HolidayMeshItems(nint addr) : base(addr) { }
-        public Array<SkeletalMeshComponent> HolidayMeshComponents { get { return new Array<SkeletalMeshComponent>(this[nameof(HolidayMeshComponents)].Address); } }
+        public UArray<SkeletalMeshComponent> HolidayMeshComponents { get { return new UArray<SkeletalMeshComponent>(this[nameof(HolidayMeshComponents)].Address); } }
     }
     public class DrinkableBarSlot : Object
     {
@@ -24525,7 +24529,7 @@ namespace SDK.Script.FSDSDK
     {
         public MasteryItem(nint addr) : base(addr) { }
         public int NeededMastery { get { return this[nameof(NeededMastery)].GetValue<int>(); } set { this[nameof(NeededMastery)].SetValue<int>(value); } }
-        public Array<UnlockReward> Unlocks { get { return new Array<UnlockReward>(this[nameof(Unlocks)].Address); } }
+        public UArray<UnlockReward> Unlocks { get { return new UArray<UnlockReward>(this[nameof(Unlocks)].Address); } }
     }
     public enum EItemUpgradeStatus : int
     {
@@ -24539,7 +24543,7 @@ namespace SDK.Script.FSDSDK
     public class UpgradeTier : Object
     {
         public UpgradeTier(nint addr) : base(addr) { }
-        public Array<ItemUpgrade> Upgrades { get { return new Array<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
+        public UArray<ItemUpgrade> Upgrades { get { return new UArray<ItemUpgrade>(this[nameof(Upgrades)].Address); } }
         public int RequiredCharacterLevel { get { return this[nameof(RequiredCharacterLevel)].GetValue<int>(); } set { this[nameof(RequiredCharacterLevel)].SetValue<int>(value); } }
         public int RequiredPlayerRank { get { return this[nameof(RequiredPlayerRank)].GetValue<int>(); } set { this[nameof(RequiredPlayerRank)].SetValue<int>(value); } }
     }
@@ -24718,7 +24722,7 @@ namespace SDK.Script.FSDSDK
     public class AfflictionEntriesArray : FastArraySerializer
     {
         public AfflictionEntriesArray(nint addr) : base(addr) { }
-        public Array<AfflictionEntry> Items { get { return new Array<AfflictionEntry>(this[nameof(Items)].Address); } }
+        public UArray<AfflictionEntry> Items { get { return new UArray<AfflictionEntry>(this[nameof(Items)].Address); } }
         public PawnAfflictionComponent Owner { get { return this[nameof(Owner)].As<PawnAfflictionComponent>(); } set { this["Owner"] = value; } }
     }
     public class AfflictionEntry : FastArraySerializerItem
@@ -24729,7 +24733,7 @@ namespace SDK.Script.FSDSDK
     public class PawnAfflictionItem : Object
     {
         public PawnAfflictionItem(nint addr) : base(addr) { }
-        public Array<AfflictionEffect> Afflictions { get { return new Array<AfflictionEffect>(this[nameof(Afflictions)].Address); } }
+        public UArray<AfflictionEffect> Afflictions { get { return new UArray<AfflictionEffect>(this[nameof(Afflictions)].Address); } }
     }
     public enum EPropHuntEndScreen : int
     {
@@ -24797,7 +24801,7 @@ namespace SDK.Script.FSDSDK
         public Object Title { get { return this[nameof(Title)]; } set { this[nameof(Title)] = value; } }
         public Object Text { get { return this[nameof(Text)]; } set { this[nameof(Text)] = value; } }
         public Object Image { get { return this[nameof(Image)]; } set { this[nameof(Image)] = value; } }
-        public Array<Reward> Rewards { get { return new Array<Reward>(this[nameof(Rewards)].Address); } }
+        public UArray<Reward> Rewards { get { return new UArray<Reward>(this[nameof(Rewards)].Address); } }
         public Object EntryWidgetOverride { get { return this[nameof(EntryWidgetOverride)]; } set { this[nameof(EntryWidgetOverride)] = value; } }
     }
     public enum ESchematicState : int
@@ -24964,9 +24968,9 @@ namespace SDK.Script.FSDSDK
     public class MultiHitScanHits : Object
     {
         public MultiHitScanHits(nint addr) : base(addr) { }
-        public Array<MultiHitscanHit> Hits { get { return new Array<MultiHitscanHit>(this[nameof(Hits)].Address); } }
-        public Array<PrimitiveComponent> Components { get { return new Array<PrimitiveComponent>(this[nameof(Components)].Address); } }
-        public Array<FSDPhysicalMaterial> PhysicalMaterials { get { return new Array<FSDPhysicalMaterial>(this[nameof(PhysicalMaterials)].Address); } }
+        public UArray<MultiHitscanHit> Hits { get { return new UArray<MultiHitscanHit>(this[nameof(Hits)].Address); } }
+        public UArray<PrimitiveComponent> Components { get { return new UArray<PrimitiveComponent>(this[nameof(Components)].Address); } }
+        public UArray<FSDPhysicalMaterial> PhysicalMaterials { get { return new UArray<FSDPhysicalMaterial>(this[nameof(PhysicalMaterials)].Address); } }
     }
     public class MultiHitscanHit : Object
     {
@@ -25048,7 +25052,7 @@ namespace SDK.Script.FSDSDK
         public Vector PivotOffset { get { return this[nameof(PivotOffset)].As<Vector>(); } set { this["PivotOffset"] = value; } }
         public Rotator RotationOffset { get { return this[nameof(RotationOffset)].As<Rotator>(); } set { this["RotationOffset"] = value; } }
         public Vector Scale { get { return this[nameof(Scale)].As<Vector>(); } set { this["Scale"] = value; } }
-        public Array<Object> Description { get { return new Array<Object>(this[nameof(Description)].Address); } }
+        public UArray<Object> Description { get { return new UArray<Object>(this[nameof(Description)].Address); } }
         public SkeletalMesh LoadedSkeletalMesh { get { return this[nameof(LoadedSkeletalMesh)].As<SkeletalMesh>(); } set { this["LoadedSkeletalMesh"] = value; } }
         public Object AnimClassInstance { get { return this[nameof(AnimClassInstance)]; } set { this[nameof(AnimClassInstance)] = value; } }
     }
@@ -27169,13 +27173,13 @@ namespace SDK.Script.FSDSDK
     public class ScaledMeshAfflictionTypeItem : Object
     {
         public ScaledMeshAfflictionTypeItem(nint addr) : base(addr) { }
-        public Array<RuntimeFloatCurve> Scalers { get { return new Array<RuntimeFloatCurve>(this[nameof(Scalers)].Address); } }
-        public Array<Object> Meshes { get { return new Array<Object>(this[nameof(Meshes)].Address); } }
+        public UArray<RuntimeFloatCurve> Scalers { get { return new UArray<RuntimeFloatCurve>(this[nameof(Scalers)].Address); } }
+        public UArray<Object> Meshes { get { return new UArray<Object>(this[nameof(Meshes)].Address); } }
         public RandRange ScaleDelay { get { return this[nameof(ScaleDelay)].As<RandRange>(); } set { this["ScaleDelay"] = value; } }
         public Object StartingSound { get { return this[nameof(StartingSound)]; } set { this[nameof(StartingSound)] = value; } }
         public Object EndSound { get { return this[nameof(EndSound)]; } set { this[nameof(EndSound)] = value; } }
-        public Array<Object> StartParticles { get { return new Array<Object>(this[nameof(StartParticles)].Address); } }
-        public Array<Object> EndParticles { get { return new Array<Object>(this[nameof(EndParticles)].Address); } }
+        public UArray<Object> StartParticles { get { return new UArray<Object>(this[nameof(StartParticles)].Address); } }
+        public UArray<Object> EndParticles { get { return new UArray<Object>(this[nameof(EndParticles)].Address); } }
     }
     public class PushPoint : Object
     {
@@ -27199,21 +27203,21 @@ namespace SDK.Script.FSDSDK
         public bool OverrideAffectedByAmorBreak { get { return this[nameof(OverrideAffectedByAmorBreak)].Flag; } set { this[nameof(OverrideAffectedByAmorBreak)].Flag = value; } }
         public bool NewAffectedByArmorBreak { get { return this[nameof(NewAffectedByArmorBreak)].Flag; } set { this[nameof(NewAffectedByArmorBreak)].Flag = value; } }
         public bool OverrideArmorDamageEnabled { get { return this[nameof(OverrideArmorDamageEnabled)].Flag; } set { this[nameof(OverrideArmorDamageEnabled)].Flag = value; } }
-        public Array<ArmorHealthSubItem> ArmorBones { get { return new Array<ArmorHealthSubItem>(this[nameof(ArmorBones)].Address); } }
+        public UArray<ArmorHealthSubItem> ArmorBones { get { return new UArray<ArmorHealthSubItem>(this[nameof(ArmorBones)].Address); } }
     }
     public class ArmorHealthSubItem : Object
     {
         public ArmorHealthSubItem(nint addr) : base(addr) { }
         public float Health { get { return this[nameof(Health)].GetValue<float>(); } set { this[nameof(Health)].SetValue<float>(value); } }
         public Object BoneName { get { return this[nameof(BoneName)]; } set { this[nameof(BoneName)] = value; } }
-        public Array<Object> AdditionalBones { get { return new Array<Object>(this[nameof(AdditionalBones)].Address); } }
+        public UArray<Object> AdditionalBones { get { return new UArray<Object>(this[nameof(AdditionalBones)].Address); } }
         public Object OptionalFXSocket { get { return this[nameof(OptionalFXSocket)]; } set { this[nameof(OptionalFXSocket)] = value; } }
     }
     public class DestructableBodypartItem : Object
     {
         public DestructableBodypartItem(nint addr) : base(addr) { }
         public byte MaterialIndex { get { return this[nameof(MaterialIndex)].GetValue<byte>(); } set { this[nameof(MaterialIndex)].SetValue<byte>(value); } }
-        public Array<Object> ArmorBones { get { return new Array<Object>(this[nameof(ArmorBones)].Address); } }
+        public UArray<Object> ArmorBones { get { return new UArray<Object>(this[nameof(ArmorBones)].Address); } }
     }
     public class ArmorDamageInfo : Object
     {
@@ -27224,9 +27228,9 @@ namespace SDK.Script.FSDSDK
     public class ArmorDamageEffects : Object
     {
         public ArmorDamageEffects(nint addr) : base(addr) { }
-        public Array<FXSystemAsset> ArmorBreakParticles { get { return new Array<FXSystemAsset>(this[nameof(ArmorBreakParticles)].Address); } }
-        public Array<FXSystemAsset> DissolveParticles { get { return new Array<FXSystemAsset>(this[nameof(DissolveParticles)].Address); } }
-        public Array<FXSystemAsset> BeamParticles { get { return new Array<FXSystemAsset>(this[nameof(BeamParticles)].Address); } }
+        public UArray<FXSystemAsset> ArmorBreakParticles { get { return new UArray<FXSystemAsset>(this[nameof(ArmorBreakParticles)].Address); } }
+        public UArray<FXSystemAsset> DissolveParticles { get { return new UArray<FXSystemAsset>(this[nameof(DissolveParticles)].Address); } }
+        public UArray<FXSystemAsset> BeamParticles { get { return new UArray<FXSystemAsset>(this[nameof(BeamParticles)].Address); } }
     }
     public class AttackCooldown : Object
     {
@@ -27245,8 +27249,8 @@ namespace SDK.Script.FSDSDK
     {
         public BEETemplateItem(nint addr) : base(addr) { }
         public MissionTemplate mission { get { return this[nameof(mission)].As<MissionTemplate>(); } set { this["mission"] = value; } }
-        public Array<MissionDuration> AllowedDurations { get { return new Array<MissionDuration>(this[nameof(AllowedDurations)].Address); } }
-        public Array<MissionComplexity> AllowedComplexities { get { return new Array<MissionComplexity>(this[nameof(AllowedComplexities)].Address); } }
+        public UArray<MissionDuration> AllowedDurations { get { return new UArray<MissionDuration>(this[nameof(AllowedDurations)].Address); } }
+        public UArray<MissionComplexity> AllowedComplexities { get { return new UArray<MissionComplexity>(this[nameof(AllowedComplexities)].Address); } }
     }
     public class BEELoaderSequence : Object
     {
@@ -27356,7 +27360,7 @@ namespace SDK.Script.FSDSDK
         public Object BackgroundWidgetClass { get { return this[nameof(BackgroundWidgetClass)]; } set { this[nameof(BackgroundWidgetClass)] = value; } }
         public Object FanfareAudio { get { return this[nameof(FanfareAudio)]; } set { this[nameof(FanfareAudio)] = value; } }
         public float MoveInRewardsDelay { get { return this[nameof(MoveInRewardsDelay)].GetValue<float>(); } set { this[nameof(MoveInRewardsDelay)].SetValue<float>(value); } }
-        public Array<ClaimableRewardEntry> RewardDisplays { get { return new Array<ClaimableRewardEntry>(this[nameof(RewardDisplays)].Address); } }
+        public UArray<ClaimableRewardEntry> RewardDisplays { get { return new UArray<ClaimableRewardEntry>(this[nameof(RewardDisplays)].Address); } }
         public Object ClaimButtonText { get { return this[nameof(ClaimButtonText)]; } set { this[nameof(ClaimButtonText)] = value; } }
     }
     public class CloudSaveRequest : Object
@@ -27372,7 +27376,7 @@ namespace SDK.Script.FSDSDK
     public class CloudLoadAllResponse : Object
     {
         public CloudLoadAllResponse(nint addr) : base(addr) { }
-        public Array<CloudLoadEntry> savegames { get { return new Array<CloudLoadEntry>(this[nameof(savegames)].Address); } }
+        public UArray<CloudLoadEntry> savegames { get { return new UArray<CloudLoadEntry>(this[nameof(savegames)].Address); } }
     }
     public class CloudLoadEntry : Object
     {
@@ -27402,7 +27406,7 @@ namespace SDK.Script.FSDSDK
     public class CoilgunAfflictionEntry : Object
     {
         public CoilgunAfflictionEntry(nint addr) : base(addr) { }
-        public Array<Object> PushedAfflictions { get { return new Array<Object>(this[nameof(PushedAfflictions)].Address); } }
+        public UArray<Object> PushedAfflictions { get { return new UArray<Object>(this[nameof(PushedAfflictions)].Address); } }
         public StatusEffectsComponent Target { get { return this[nameof(Target)].As<StatusEffectsComponent>(); } set { this["Target"] = value; } }
     }
     public class CoilMaterial : Object
@@ -27467,9 +27471,9 @@ namespace SDK.Script.FSDSDK
     {
         public CommunityFactionData(nint addr) : base(addr) { }
         public bool IsValid { get { return this[nameof(IsValid)].Flag; } set { this[nameof(IsValid)].Flag = value; } }
-        public Array<Object> Goals { get { return new Array<Object>(this[nameof(Goals)].Address); } }
-        public Array<float> Values { get { return new Array<float>(this[nameof(Values)].Address); } }
-        public Array<int> Members { get { return new Array<int>(this[nameof(Members)].Address); } }
+        public UArray<Object> Goals { get { return new UArray<Object>(this[nameof(Goals)].Address); } }
+        public UArray<float> Values { get { return new UArray<float>(this[nameof(Values)].Address); } }
+        public UArray<int> Members { get { return new UArray<int>(this[nameof(Members)].Address); } }
     }
     public class CommunityGoalStateData : Object
     {
@@ -27490,9 +27494,9 @@ namespace SDK.Script.FSDSDK
     public class CommunityFactionResponse : Object
     {
         public CommunityFactionResponse(nint addr) : base(addr) { }
-        public Array<Object> Goals { get { return new Array<Object>(this[nameof(Goals)].Address); } }
-        public Array<float> Values { get { return new Array<float>(this[nameof(Values)].Address); } }
-        public Array<float> Members { get { return new Array<float>(this[nameof(Members)].Address); } }
+        public UArray<Object> Goals { get { return new UArray<Object>(this[nameof(Goals)].Address); } }
+        public UArray<float> Values { get { return new UArray<float>(this[nameof(Values)].Address); } }
+        public UArray<float> Members { get { return new UArray<float>(this[nameof(Members)].Address); } }
     }
     public class CommunityGoalStateResponse : Object
     {
@@ -27558,7 +27562,7 @@ namespace SDK.Script.FSDSDK
         public CustomKeySetting(nint addr) : base(addr) { }
         public Object SaveID { get { return this[nameof(SaveID)]; } set { this[nameof(SaveID)] = value; } }
         public Object Description { get { return this[nameof(Description)]; } set { this[nameof(Description)] = value; } }
-        public Array<Object> ActionNames { get { return new Array<Object>(this[nameof(ActionNames)].Address); } }
+        public UArray<Object> ActionNames { get { return new UArray<Object>(this[nameof(ActionNames)].Address); } }
         public EKeyBindingAxis ActionAxis { get { return (EKeyBindingAxis)this[nameof(ActionAxis)].GetValue<int>(); } set { this[nameof(ActionAxis)].SetValue<int>((int)value); } }
     }
     public class DailyDeal : Object
@@ -27676,7 +27680,7 @@ namespace SDK.Script.FSDSDK
     public class RuntimeSpawnedDebris : Object
     {
         public RuntimeSpawnedDebris(nint addr) : base(addr) { }
-        public Array<DebrisInstances> DebrisInstances { get { return new Array<DebrisInstances>(this[nameof(DebrisInstances)].Address); } }
+        public UArray<DebrisInstances> DebrisInstances { get { return new UArray<DebrisInstances>(this[nameof(DebrisInstances)].Address); } }
         public DebrisMesh DebrisMesh { get { return this[nameof(DebrisMesh)].As<DebrisMesh>(); } set { this["DebrisMesh"] = value; } }
     }
     public class DebrisWhenCarving : Object
@@ -27708,8 +27712,8 @@ namespace SDK.Script.FSDSDK
         public DeepDiveTemplateItem(nint addr) : base(addr) { }
         public MissionTemplate mission { get { return this[nameof(mission)].As<MissionTemplate>(); } set { this["mission"] = value; } }
         public int Probability { get { return this[nameof(Probability)].GetValue<int>(); } set { this[nameof(Probability)].SetValue<int>(value); } }
-        public Array<MissionDuration> AllowedDurations { get { return new Array<MissionDuration>(this[nameof(AllowedDurations)].Address); } }
-        public Array<MissionComplexity> AllowedComplexities { get { return new Array<MissionComplexity>(this[nameof(AllowedComplexities)].Address); } }
+        public UArray<MissionDuration> AllowedDurations { get { return new UArray<MissionDuration>(this[nameof(AllowedDurations)].Address); } }
+        public UArray<MissionComplexity> AllowedComplexities { get { return new UArray<MissionComplexity>(this[nameof(AllowedComplexities)].Address); } }
         public bool CanOnlyAppearOnce { get { return this[nameof(CanOnlyAppearOnce)].Flag; } set { this[nameof(CanOnlyAppearOnce)].Flag = value; } }
         public bool CanOnlyAppearOncePerDeepDiveSet { get { return this[nameof(CanOnlyAppearOncePerDeepDiveSet)].Flag; } set { this[nameof(CanOnlyAppearOncePerDeepDiveSet)].Flag = value; } }
     }
@@ -27747,18 +27751,18 @@ namespace SDK.Script.FSDSDK
     public class TerrainLateJoinData : Object
     {
         public TerrainLateJoinData(nint addr) : base(addr) { }
-        public Array<GrenadeExplodeOperationData> Explosions { get { return new Array<GrenadeExplodeOperationData>(this[nameof(Explosions)].Address); } }
-        public Array<CarveWithColliderOperationData> ColliderCarves { get { return new Array<CarveWithColliderOperationData>(this[nameof(ColliderCarves)].Address); } }
-        public Array<CarveWithSTLMeshOperationData> MeshCarves { get { return new Array<CarveWithSTLMeshOperationData>(this[nameof(MeshCarves)].Address); } }
-        public Array<PickaxeDigOperationData> PickAxe { get { return new Array<PickaxeDigOperationData>(this[nameof(PickAxe)].Address); } }
-        public Array<RemoveFloatingIslandOperationData> RemoveFloating { get { return new Array<RemoveFloatingIslandOperationData>(this[nameof(RemoveFloating)].Address); } }
-        public Array<DrillOperationData> Drills { get { return new Array<DrillOperationData>(this[nameof(Drills)].Address); } }
-        public Array<MeltOperationData> Melts { get { return new Array<MeltOperationData>(this[nameof(Melts)].Address); } }
-        public Array<SplineSegmentCarveOperationData> Splines { get { return new Array<SplineSegmentCarveOperationData>(this[nameof(Splines)].Address); } }
-        public Array<CSGBuildOperationData> CSGBuilds { get { return new Array<CSGBuildOperationData>(this[nameof(CSGBuilds)].Address); } }
-        public Array<TerrainSpawnDebrisOperationData> SpawnDebris { get { return new Array<TerrainSpawnDebrisOperationData>(this[nameof(SpawnDebris)].Address); } }
-        public Array<int> DebrisInstanceComponentPairs { get { return new Array<int>(this[nameof(DebrisInstanceComponentPairs)].Address); } }
-        public Array<uint> VisibleChunks { get { return new Array<uint>(this[nameof(VisibleChunks)].Address); } }
+        public UArray<GrenadeExplodeOperationData> Explosions { get { return new UArray<GrenadeExplodeOperationData>(this[nameof(Explosions)].Address); } }
+        public UArray<CarveWithColliderOperationData> ColliderCarves { get { return new UArray<CarveWithColliderOperationData>(this[nameof(ColliderCarves)].Address); } }
+        public UArray<CarveWithSTLMeshOperationData> MeshCarves { get { return new UArray<CarveWithSTLMeshOperationData>(this[nameof(MeshCarves)].Address); } }
+        public UArray<PickaxeDigOperationData> PickAxe { get { return new UArray<PickaxeDigOperationData>(this[nameof(PickAxe)].Address); } }
+        public UArray<RemoveFloatingIslandOperationData> RemoveFloating { get { return new UArray<RemoveFloatingIslandOperationData>(this[nameof(RemoveFloating)].Address); } }
+        public UArray<DrillOperationData> Drills { get { return new UArray<DrillOperationData>(this[nameof(Drills)].Address); } }
+        public UArray<MeltOperationData> Melts { get { return new UArray<MeltOperationData>(this[nameof(Melts)].Address); } }
+        public UArray<SplineSegmentCarveOperationData> Splines { get { return new UArray<SplineSegmentCarveOperationData>(this[nameof(Splines)].Address); } }
+        public UArray<CSGBuildOperationData> CSGBuilds { get { return new UArray<CSGBuildOperationData>(this[nameof(CSGBuilds)].Address); } }
+        public UArray<TerrainSpawnDebrisOperationData> SpawnDebris { get { return new UArray<TerrainSpawnDebrisOperationData>(this[nameof(SpawnDebris)].Address); } }
+        public UArray<int> DebrisInstanceComponentPairs { get { return new UArray<int>(this[nameof(DebrisInstanceComponentPairs)].Address); } }
+        public UArray<uint> VisibleChunks { get { return new UArray<uint>(this[nameof(VisibleChunks)].Address); } }
         public int OperationCount { get { return this[nameof(OperationCount)].GetValue<int>(); } set { this[nameof(OperationCount)].SetValue<int>(value); } }
     }
     public class TerrainSpawnDebrisOperationData : Object
@@ -27781,7 +27785,7 @@ namespace SDK.Script.FSDSDK
     {
         public SplineSegmentCarveOperationData(nint addr) : base(addr) { }
         public int OperationNumber { get { return this[nameof(OperationNumber)].GetValue<int>(); } set { this[nameof(OperationNumber)].SetValue<int>(value); } }
-        public Array<CarveSplineSegment> Segments { get { return new Array<CarveSplineSegment>(this[nameof(Segments)].Address); } }
+        public UArray<CarveSplineSegment> Segments { get { return new UArray<CarveSplineSegment>(this[nameof(Segments)].Address); } }
         public TerrainMaterial Material { get { return this[nameof(Material)].As<TerrainMaterial>(); } set { this["Material"] = value; } }
         public ECarveFilterType CarveFilter { get { return (ECarveFilterType)this[nameof(CarveFilter)].GetValue<int>(); } set { this[nameof(CarveFilter)].SetValue<int>((int)value); } }
         public EPreciousMaterialOptions Precious { get { return (EPreciousMaterialOptions)this[nameof(Precious)].GetValue<int>(); } set { this[nameof(Precious)].SetValue<int>((int)value); } }
@@ -27791,7 +27795,7 @@ namespace SDK.Script.FSDSDK
     {
         public MeltOperationData(nint addr) : base(addr) { }
         public int OperationNumber { get { return this[nameof(OperationNumber)].GetValue<int>(); } set { this[nameof(OperationNumber)].SetValue<int>(value); } }
-        public Array<Vector> Points { get { return new Array<Vector>(this[nameof(Points)].Address); } }
+        public UArray<Vector> Points { get { return new UArray<Vector>(this[nameof(Points)].Address); } }
         public float Radius { get { return this[nameof(Radius)].GetValue<float>(); } set { this[nameof(Radius)].SetValue<float>(value); } }
     }
     public class DrillOperationData : Object
@@ -27888,7 +27892,7 @@ namespace SDK.Script.FSDSDK
     public class RandFloatInterval : Object
     {
         public RandFloatInterval(nint addr) : base(addr) { }
-        public Array<RandFloatIntervalItem> Intervals { get { return new Array<RandFloatIntervalItem>(this[nameof(Intervals)].Address); } }
+        public UArray<RandFloatIntervalItem> Intervals { get { return new UArray<RandFloatIntervalItem>(this[nameof(Intervals)].Address); } }
     }
     public class RandFloatIntervalItem : Object
     {
@@ -28031,18 +28035,18 @@ namespace SDK.Script.FSDSDK
     public class EliminationDescriptors : Object
     {
         public EliminationDescriptors(nint addr) : base(addr) { }
-        public Array<EnemyDescriptor> Descriptors { get { return new Array<EnemyDescriptor>(this[nameof(Descriptors)].Address); } }
+        public UArray<EnemyDescriptor> Descriptors { get { return new UArray<EnemyDescriptor>(this[nameof(Descriptors)].Address); } }
     }
     public class EliminationTarget : Object
     {
         public EliminationTarget(nint addr) : base(addr) { }
-        public Array<FSDPawn> Targets { get { return new Array<FSDPawn>(this[nameof(Targets)].Address); } }
+        public UArray<FSDPawn> Targets { get { return new UArray<FSDPawn>(this[nameof(Targets)].Address); } }
     }
     public class EncounterManagerItem : Object
     {
         public EncounterManagerItem(nint addr) : base(addr) { }
-        public Array<ManagedEncounterItem> ManagedEcnounterItems { get { return new Array<ManagedEncounterItem>(this[nameof(ManagedEcnounterItems)].Address); } }
-        public Array<PrePlacedEncounterItem> PrePlacedEncounterItems { get { return new Array<PrePlacedEncounterItem>(this[nameof(PrePlacedEncounterItems)].Address); } }
+        public UArray<ManagedEncounterItem> ManagedEcnounterItems { get { return new UArray<ManagedEncounterItem>(this[nameof(ManagedEcnounterItems)].Address); } }
+        public UArray<PrePlacedEncounterItem> PrePlacedEncounterItems { get { return new UArray<PrePlacedEncounterItem>(this[nameof(PrePlacedEncounterItems)].Address); } }
         public int ID { get { return this[nameof(ID)].GetValue<int>(); } set { this[nameof(ID)].SetValue<int>(value); } }
         public bool IsRoom { get { return this[nameof(IsRoom)].Flag; } set { this[nameof(IsRoom)].Flag = value; } }
         public Object Callback { get { return this[nameof(Callback)]; } set { this[nameof(Callback)] = value; } }
@@ -28108,7 +28112,7 @@ namespace SDK.Script.FSDSDK
     {
         public EnemyDebris(nint addr) : base(addr) { }
         public float InfluenceRange { get { return this[nameof(InfluenceRange)].GetValue<float>(); } set { this[nameof(InfluenceRange)].SetValue<float>(value); } }
-        public Array<DebrisBase> Debris { get { return new Array<DebrisBase>(this[nameof(Debris)].Address); } }
+        public UArray<DebrisBase> Debris { get { return new UArray<DebrisBase>(this[nameof(Debris)].Address); } }
     }
     public class SpawnRarityItem : Object
     {
@@ -28137,7 +28141,7 @@ namespace SDK.Script.FSDSDK
     public class SpawnEffectsArray : FastArraySerializer
     {
         public SpawnEffectsArray(nint addr) : base(addr) { }
-        public Array<SpawnEffectItem> Items { get { return new Array<SpawnEffectItem>(this[nameof(Items)].Address); } }
+        public UArray<SpawnEffectItem> Items { get { return new UArray<SpawnEffectItem>(this[nameof(Items)].Address); } }
     }
     public class SpawnEffectItem : FastArraySerializerItem
     {
@@ -28193,7 +28197,7 @@ namespace SDK.Script.FSDSDK
     public class EscortMulePath : Object
     {
         public EscortMulePath(nint addr) : base(addr) { }
-        public Array<Vector> Path { get { return new Array<Vector>(this[nameof(Path)].Address); } }
+        public UArray<Vector> Path { get { return new UArray<Vector>(this[nameof(Path)].Address); } }
     }
     public class FSDDeepDiveResponse : Object
     {
@@ -28210,8 +28214,8 @@ namespace SDK.Script.FSDSDK
     public class FSDEventsResponse : Object
     {
         public FSDEventsResponse(nint addr) : base(addr) { }
-        public Array<BackendNotification> Notifications { get { return new Array<BackendNotification>(this[nameof(Notifications)].Address); } }
-        public Array<FSDEventWithEnd> ActiveEventsWithEnd { get { return new Array<FSDEventWithEnd>(this[nameof(ActiveEventsWithEnd)].Address); } }
+        public UArray<BackendNotification> Notifications { get { return new UArray<BackendNotification>(this[nameof(Notifications)].Address); } }
+        public UArray<FSDEventWithEnd> ActiveEventsWithEnd { get { return new UArray<FSDEventWithEnd>(this[nameof(ActiveEventsWithEnd)].Address); } }
     }
     public class BackendNotification : Object
     {
@@ -28245,14 +28249,14 @@ namespace SDK.Script.FSDSDK
     public class FacilityGeneratorEnounter : Object
     {
         public FacilityGeneratorEnounter(nint addr) : base(addr) { }
-        public Array<EnemyDescriptor> Enemies { get { return new Array<EnemyDescriptor>(this[nameof(Enemies)].Address); } }
+        public UArray<EnemyDescriptor> Enemies { get { return new UArray<EnemyDescriptor>(this[nameof(Enemies)].Address); } }
         public float Difficulty { get { return this[nameof(Difficulty)].GetValue<float>(); } set { this[nameof(Difficulty)].SetValue<float>(value); } }
         public RandInterval Diversity { get { return this[nameof(Diversity)].As<RandInterval>(); } set { this["Diversity"] = value; } }
     }
     public class RandInterval : Object
     {
         public RandInterval(nint addr) : base(addr) { }
-        public Array<RandIntervalItem> Intervals { get { return new Array<RandIntervalItem>(this[nameof(Intervals)].Address); } }
+        public UArray<RandIntervalItem> Intervals { get { return new UArray<RandIntervalItem>(this[nameof(Intervals)].Address); } }
     }
     public class RandIntervalItem : Object
     {
@@ -28334,7 +28338,7 @@ namespace SDK.Script.FSDSDK
         public FloatPerkEffect(nint addr) : base(addr) { }
         public FloatPerkActivation PerkActivation { get { return this[nameof(PerkActivation)].As<FloatPerkActivation>(); } set { this["PerkActivation"] = value; } }
         public Object FormattedDescription { get { return this[nameof(FormattedDescription)]; } set { this[nameof(FormattedDescription)] = value; } }
-        public Array<FloatPerkRankValue> RankValues { get { return new Array<FloatPerkRankValue>(this[nameof(RankValues)].Address); } }
+        public UArray<FloatPerkRankValue> RankValues { get { return new UArray<FloatPerkRankValue>(this[nameof(RankValues)].Address); } }
     }
     public class FloatPerkRankValue : Object
     {
@@ -28373,7 +28377,7 @@ namespace SDK.Script.FSDSDK
     public class InputDirectionSet : Object
     {
         public InputDirectionSet(nint addr) : base(addr) { }
-        public Array<EThawInputDirection> Directions { get { return new Array<EThawInputDirection>(this[nameof(Directions)].Address); } }
+        public UArray<EThawInputDirection> Directions { get { return new UArray<EThawInputDirection>(this[nameof(Directions)].Address); } }
         public int InputCount { get { return this[nameof(InputCount)].GetValue<int>(); } set { this[nameof(InputCount)].SetValue<int>(value); } }
         public bool IsSequence { get { return this[nameof(IsSequence)].Flag; } set { this[nameof(IsSequence)].Flag = value; } }
         public int MaxSubsequentDuplicates { get { return this[nameof(MaxSubsequentDuplicates)].GetValue<int>(); } set { this[nameof(MaxSubsequentDuplicates)].SetValue<int>(value); } }
@@ -28417,15 +28421,15 @@ namespace SDK.Script.FSDSDK
         public MissionDuration DurationLimit { get { return this[nameof(DurationLimit)].As<MissionDuration>(); } set { this["DurationLimit"] = value; } }
         public MissionMutator Mutator { get { return this[nameof(Mutator)].As<MissionMutator>(); } set { this["Mutator"] = value; } }
         public MissionChallenge Challenge { get { return this[nameof(Challenge)].As<MissionChallenge>(); } set { this["Challenge"] = value; } }
-        public Array<MissionWarning> Warnings { get { return new Array<MissionWarning>(this[nameof(Warnings)].Address); } }
-        public Array<FSDEvent> ActiveEvents { get { return new Array<FSDEvent>(this[nameof(ActiveEvents)].Address); } }
+        public UArray<MissionWarning> Warnings { get { return new UArray<MissionWarning>(this[nameof(Warnings)].Address); } }
+        public UArray<FSDEvent> ActiveEvents { get { return new UArray<FSDEvent>(this[nameof(ActiveEvents)].Address); } }
         public EMissionStructure MissionStructure { get { return (EMissionStructure)this[nameof(MissionStructure)].GetValue<int>(); } set { this[nameof(MissionStructure)].SetValue<int>((int)value); } }
     }
     public class ReplicatedObjectives : Object
     {
         public ReplicatedObjectives(nint addr) : base(addr) { }
         public bool HasReplicated { get { return this[nameof(HasReplicated)].Flag; } set { this[nameof(HasReplicated)].Flag = value; } }
-        public Array<Objective> Objectives { get { return new Array<Objective>(this[nameof(Objectives)].Address); } }
+        public UArray<Objective> Objectives { get { return new UArray<Objective>(this[nameof(Objectives)].Address); } }
     }
     public class ModdingUISettings : Object
     {
@@ -28477,7 +28481,7 @@ namespace SDK.Script.FSDSDK
         public NewPlayerMutator(nint addr) : base(addr) { }
         public int MinCampaignProgress { get { return this[nameof(MinCampaignProgress)].GetValue<int>(); } set { this[nameof(MinCampaignProgress)].SetValue<int>(value); } }
         public int MaxCampaignProgress { get { return this[nameof(MaxCampaignProgress)].GetValue<int>(); } set { this[nameof(MaxCampaignProgress)].SetValue<int>(value); } }
-        public Array<Mutator> Mutators { get { return new Array<Mutator>(this[nameof(Mutators)].Address); } }
+        public UArray<Mutator> Mutators { get { return new UArray<Mutator>(this[nameof(Mutators)].Address); } }
     }
     public class WidgetMover : Object
     {
@@ -28523,7 +28527,7 @@ namespace SDK.Script.FSDSDK
     public class AssetsToLoadSettings : Object
     {
         public AssetsToLoadSettings(nint addr) : base(addr) { }
-        public Array<Object> ActorsPermanently { get { return new Array<Object>(this[nameof(ActorsPermanently)].Address); } }
+        public UArray<Object> ActorsPermanently { get { return new UArray<Object>(this[nameof(ActorsPermanently)].Address); } }
     }
     public class GVisibilityGroups : Object
     {
@@ -28534,17 +28538,17 @@ namespace SDK.Script.FSDSDK
     public class GDPlayerAndCharacterProgression : Object
     {
         public GDPlayerAndCharacterProgression(nint addr) : base(addr) { }
-        public Array<Object> RankedHeroClasses { get { return new Array<Object>(this[nameof(RankedHeroClasses)].Address); } }
-        public Array<Object> TestHeroClasses { get { return new Array<Object>(this[nameof(TestHeroClasses)].Address); } }
-        public Array<Object> LoadedClasses { get { return new Array<Object>(this[nameof(LoadedClasses)].Address); } }
-        public Array<Object> PlayerRankNames { get { return new Array<Object>(this[nameof(PlayerRankNames)].Address); } }
-        public Array<int> CharacterXPLevels { get { return new Array<int>(this[nameof(CharacterXPLevels)].Address); } }
+        public UArray<Object> RankedHeroClasses { get { return new UArray<Object>(this[nameof(RankedHeroClasses)].Address); } }
+        public UArray<Object> TestHeroClasses { get { return new UArray<Object>(this[nameof(TestHeroClasses)].Address); } }
+        public UArray<Object> LoadedClasses { get { return new UArray<Object>(this[nameof(LoadedClasses)].Address); } }
+        public UArray<Object> PlayerRankNames { get { return new UArray<Object>(this[nameof(PlayerRankNames)].Address); } }
+        public UArray<int> CharacterXPLevels { get { return new UArray<int>(this[nameof(CharacterXPLevels)].Address); } }
         public Object PlayerCharacterIDs { get { return this[nameof(PlayerCharacterIDs)]; } set { this[nameof(PlayerCharacterIDs)] = value; } }
     }
     public class GDMilestones : Object
     {
         public GDMilestones(nint addr) : base(addr) { }
-        public Array<MilestoneAsset> Milestones { get { return new Array<MilestoneAsset>(this[nameof(Milestones)].Address); } }
+        public UArray<MilestoneAsset> Milestones { get { return new UArray<MilestoneAsset>(this[nameof(Milestones)].Address); } }
     }
     public class GDGameStatsTracking : Object
     {
@@ -28560,7 +28564,7 @@ namespace SDK.Script.FSDSDK
     public class UpgradeCostItem : Object
     {
         public UpgradeCostItem(nint addr) : base(addr) { }
-        public Array<int> Amounts { get { return new Array<int>(this[nameof(Amounts)].Address); } }
+        public UArray<int> Amounts { get { return new UArray<int>(this[nameof(Amounts)].Address); } }
     }
     public class GDAudio : Object
     {
@@ -28578,8 +28582,8 @@ namespace SDK.Script.FSDSDK
         public GDCharacterRetirement(nint addr) : base(addr) { }
         public Object Campaigns { get { return this[nameof(Campaigns)]; } set { this[nameof(Campaigns)] = value; } }
         public Object RetirementCost { get { return this[nameof(RetirementCost)]; } set { this[nameof(RetirementCost)] = value; } }
-        public Array<float> CreditsCostMultipliers { get { return new Array<float>(this[nameof(CreditsCostMultipliers)].Address); } }
-        public Array<float> ResourceCostMultipliers { get { return new Array<float>(this[nameof(ResourceCostMultipliers)].Address); } }
+        public UArray<float> CreditsCostMultipliers { get { return new UArray<float>(this[nameof(CreditsCostMultipliers)].Address); } }
+        public UArray<float> ResourceCostMultipliers { get { return new UArray<float>(this[nameof(ResourceCostMultipliers)].Address); } }
     }
     public class RetirementCostItem : Object
     {
@@ -28606,8 +28610,8 @@ namespace SDK.Script.FSDSDK
     public class GDDifficulty : Object
     {
         public GDDifficulty(nint addr) : base(addr) { }
-        public Array<DifficultySetting> DifficultySettings { get { return new Array<DifficultySetting>(this[nameof(DifficultySettings)].Address); } }
-        public Array<DifficultyMutatorSetupItem> DifficultyMutators { get { return new Array<DifficultyMutatorSetupItem>(this[nameof(DifficultyMutators)].Address); } }
+        public UArray<DifficultySetting> DifficultySettings { get { return new UArray<DifficultySetting>(this[nameof(DifficultySettings)].Address); } }
+        public UArray<DifficultyMutatorSetupItem> DifficultyMutators { get { return new UArray<DifficultyMutatorSetupItem>(this[nameof(DifficultyMutators)].Address); } }
     }
     public class GDItemCategoryIDs : Object
     {
@@ -28624,8 +28628,8 @@ namespace SDK.Script.FSDSDK
     public class GDPerks : Object
     {
         public GDPerks(nint addr) : base(addr) { }
-        public Array<PerkAsset> PerkAssets { get { return new Array<PerkAsset>(this[nameof(PerkAssets)].Address); } }
-        public Array<int> RequiredClaimsPerTier { get { return new Array<int>(this[nameof(RequiredClaimsPerTier)].Address); } }
+        public UArray<PerkAsset> PerkAssets { get { return new UArray<PerkAsset>(this[nameof(PerkAssets)].Address); } }
+        public UArray<int> RequiredClaimsPerTier { get { return new UArray<int>(this[nameof(RequiredClaimsPerTier)].Address); } }
         public FloatPerkAsset IronWill { get { return this[nameof(IronWill)].As<FloatPerkAsset>(); } set { this["IronWill"] = value; } }
         public FloatPerkAsset DashPerk { get { return this[nameof(DashPerk)].As<FloatPerkAsset>(); } set { this["DashPerk"] = value; } }
         public FloatPerkAsset MarathonPerk { get { return this[nameof(MarathonPerk)].As<FloatPerkAsset>(); } set { this["MarathonPerk"] = value; } }
@@ -28671,8 +28675,8 @@ namespace SDK.Script.FSDSDK
         public GemResourceData MotherlodeGemResource { get { return this[nameof(MotherlodeGemResource)].As<GemResourceData>(); } set { this["MotherlodeGemResource"] = value; } }
         public ResourceData RedSugarResource { get { return this[nameof(RedSugarResource)].As<ResourceData>(); } set { this["RedSugarResource"] = value; } }
         public ResourceData BlankSchematics { get { return this[nameof(BlankSchematics)].As<ResourceData>(); } set { this["BlankSchematics"] = value; } }
-        public Array<ResourceData> CraftingResources { get { return new Array<ResourceData>(this[nameof(CraftingResources)].Address); } }
-        public Array<ResourceData> AllResources { get { return new Array<ResourceData>(this[nameof(AllResources)].Address); } }
+        public UArray<ResourceData> CraftingResources { get { return new UArray<ResourceData>(this[nameof(CraftingResources)].Address); } }
+        public UArray<ResourceData> AllResources { get { return new UArray<ResourceData>(this[nameof(AllResources)].Address); } }
         public float FashioniteToCredits { get { return this[nameof(FashioniteToCredits)].GetValue<float>(); } set { this[nameof(FashioniteToCredits)].SetValue<float>(value); } }
         public float FashioniteToMinerals { get { return this[nameof(FashioniteToMinerals)].GetValue<float>(); } set { this[nameof(FashioniteToMinerals)].SetValue<float>(value); } }
     }
@@ -28725,27 +28729,27 @@ namespace SDK.Script.FSDSDK
     {
         public TrackPositionList(nint addr) : base(addr) { }
         public Object TrackName { get { return this[nameof(TrackName)]; } set { this[nameof(TrackName)] = value; } }
-        public Array<Vector4> Positions { get { return new Array<Vector4>(this[nameof(Positions)].Address); } }
-        public Array<Object> Trackers { get { return new Array<Object>(this[nameof(Trackers)].Address); } }
-        public Array<Object> DynamicMaterials { get { return new Array<Object>(this[nameof(DynamicMaterials)].Address); } }
+        public UArray<Vector4> Positions { get { return new UArray<Vector4>(this[nameof(Positions)].Address); } }
+        public UArray<Object> Trackers { get { return new UArray<Object>(this[nameof(Trackers)].Address); } }
+        public UArray<Object> DynamicMaterials { get { return new UArray<Object>(this[nameof(DynamicMaterials)].Address); } }
     }
     public class GMMutatorItem : Object
     {
         public GMMutatorItem(nint addr) : base(addr) { }
-        public Array<Mutator> Mutators { get { return new Array<Mutator>(this[nameof(Mutators)].Address); } }
+        public UArray<Mutator> Mutators { get { return new UArray<Mutator>(this[nameof(Mutators)].Address); } }
     }
     public class GeneratedRoom : Object
     {
         public GeneratedRoom(nint addr) : base(addr) { }
         public TerrainMaterial Material { get { return this[nameof(Material)].As<TerrainMaterial>(); } set { this["Material"] = value; } }
-        public Array<RoomLine> Lines { get { return new Array<RoomLine>(this[nameof(Lines)].Address); } }
-        public Array<Pillar> Pillars { get { return new Array<Pillar>(this[nameof(Pillars)].Address); } }
-        public Array<RoomBox> BoxCarvers { get { return new Array<RoomBox>(this[nameof(BoxCarvers)].Address); } }
-        public Array<RoomBox> BoxFillers { get { return new Array<RoomBox>(this[nameof(BoxFillers)].Address); } }
-        public Array<ResourceLocation> ResourceLocations { get { return new Array<ResourceLocation>(this[nameof(ResourceLocations)].Address); } }
-        public Array<RoomEntrance> Entrances { get { return new Array<RoomEntrance>(this[nameof(Entrances)].Address); } }
-        public Array<RoomItem> RoomItems { get { return new Array<RoomItem>(this[nameof(RoomItems)].Address); } }
-        public Array<TriggerItem> TriggerItems { get { return new Array<TriggerItem>(this[nameof(TriggerItems)].Address); } }
+        public UArray<RoomLine> Lines { get { return new UArray<RoomLine>(this[nameof(Lines)].Address); } }
+        public UArray<Pillar> Pillars { get { return new UArray<Pillar>(this[nameof(Pillars)].Address); } }
+        public UArray<RoomBox> BoxCarvers { get { return new UArray<RoomBox>(this[nameof(BoxCarvers)].Address); } }
+        public UArray<RoomBox> BoxFillers { get { return new UArray<RoomBox>(this[nameof(BoxFillers)].Address); } }
+        public UArray<ResourceLocation> ResourceLocations { get { return new UArray<ResourceLocation>(this[nameof(ResourceLocations)].Address); } }
+        public UArray<RoomEntrance> Entrances { get { return new UArray<RoomEntrance>(this[nameof(Entrances)].Address); } }
+        public UArray<RoomItem> RoomItems { get { return new UArray<RoomItem>(this[nameof(RoomItems)].Address); } }
+        public UArray<TriggerItem> TriggerItems { get { return new UArray<TriggerItem>(this[nameof(TriggerItems)].Address); } }
     }
     public class TriggerItem : Object
     {
@@ -28795,7 +28799,7 @@ namespace SDK.Script.FSDSDK
     {
         public Pillar(nint addr) : base(addr) { }
         public FloodFillSettings NoiseOverride { get { return this[nameof(NoiseOverride)].As<FloodFillSettings>(); } set { this["NoiseOverride"] = value; } }
-        public Array<WeightedLinePoint> Points { get { return new Array<WeightedLinePoint>(this[nameof(Points)].Address); } }
+        public UArray<WeightedLinePoint> Points { get { return new UArray<WeightedLinePoint>(this[nameof(Points)].Address); } }
         public float NoiseScale { get { return this[nameof(NoiseScale)].GetValue<float>(); } set { this[nameof(NoiseScale)].SetValue<float>(value); } }
         public float EndcapScale { get { return this[nameof(EndcapScale)].GetValue<float>(); } set { this[nameof(EndcapScale)].SetValue<float>(value); } }
     }
@@ -28815,8 +28819,8 @@ namespace SDK.Script.FSDSDK
         public FloodFillSettings CeilingNoiseOverride { get { return this[nameof(CeilingNoiseOverride)].As<FloodFillSettings>(); } set { this["CeilingNoiseOverride"] = value; } }
         public FloodFillSettings FloorNoiseOverride { get { return this[nameof(FloorNoiseOverride)].As<FloodFillSettings>(); } set { this["FloorNoiseOverride"] = value; } }
         public bool UseDetailNoise { get { return this[nameof(UseDetailNoise)].Flag; } set { this[nameof(UseDetailNoise)].Flag = value; } }
-        public Array<RoomLinePoint> Points { get { return new Array<RoomLinePoint>(this[nameof(Points)].Address); } }
-        public Array<Vector> RightVectors { get { return new Array<Vector>(this[nameof(RightVectors)].Address); } }
+        public UArray<RoomLinePoint> Points { get { return new UArray<RoomLinePoint>(this[nameof(Points)].Address); } }
+        public UArray<Vector> RightVectors { get { return new UArray<Vector>(this[nameof(RightVectors)].Address); } }
     }
     public class RoomLinePoint : Object
     {
@@ -28847,7 +28851,7 @@ namespace SDK.Script.FSDSDK
     public class GooPuddleStatusEffectTrigger : Object
     {
         public GooPuddleStatusEffectTrigger(nint addr) : base(addr) { }
-        public Array<DamageClass> Trigger { get { return new Array<DamageClass>(this[nameof(Trigger)].Address); } }
+        public UArray<DamageClass> Trigger { get { return new UArray<DamageClass>(this[nameof(Trigger)].Address); } }
         public Object NewStatusEffect { get { return this[nameof(NewStatusEffect)]; } set { this[nameof(NewStatusEffect)] = value; } }
     }
     public class AvoidActorEntry : Object
@@ -28879,7 +28883,7 @@ namespace SDK.Script.FSDSDK
     public class GuntowerModuleLevel : Object
     {
         public GuntowerModuleLevel(nint addr) : base(addr) { }
-        public Array<Object> PossibleModules { get { return new Array<Object>(this[nameof(PossibleModules)].Address); } }
+        public UArray<Object> PossibleModules { get { return new UArray<Object>(this[nameof(PossibleModules)].Address); } }
         public bool PreventDuplication { get { return this[nameof(PreventDuplication)].Flag; } set { this[nameof(PreventDuplication)].Flag = value; } }
     }
     public class PitchedUsers : Object
@@ -28893,9 +28897,9 @@ namespace SDK.Script.FSDSDK
         public EliteEnemyEntry(nint addr) : base(addr) { }
         public float HeroChance { get { return this[nameof(HeroChance)].GetValue<float>(); } set { this[nameof(HeroChance)].SetValue<float>(value); } }
         public Object StatusEffect { get { return this[nameof(StatusEffect)]; } set { this[nameof(StatusEffect)] = value; } }
-        public Array<Object> ComponentsToAdd { get { return new Array<Object>(this[nameof(ComponentsToAdd)].Address); } }
+        public UArray<Object> ComponentsToAdd { get { return new UArray<Object>(this[nameof(ComponentsToAdd)].Address); } }
         public bool OverrideHealthScaling { get { return this[nameof(OverrideHealthScaling)].Flag; } set { this[nameof(OverrideHealthScaling)].Flag = value; } }
-        public Array<EliteEnemyBan> Bans { get { return new Array<EliteEnemyBan>(this[nameof(Bans)].Address); } }
+        public UArray<EliteEnemyBan> Bans { get { return new UArray<EliteEnemyBan>(this[nameof(Bans)].Address); } }
         public EEnemyHealthScaling HealthScalingOverride { get { return (EEnemyHealthScaling)this[nameof(HealthScalingOverride)].GetValue<int>(); } set { this[nameof(HealthScalingOverride)].SetValue<int>((int)value); } }
     }
     public class EliteEnemyBan : Object
@@ -28952,7 +28956,7 @@ namespace SDK.Script.FSDSDK
     public class IKSyncGroup : Object
     {
         public IKSyncGroup(nint addr) : base(addr) { }
-        public Array<int> LegNumbers { get { return new Array<int>(this[nameof(LegNumbers)].Address); } }
+        public UArray<int> LegNumbers { get { return new UArray<int>(this[nameof(LegNumbers)].Address); } }
         public int MinDownCount { get { return this[nameof(MinDownCount)].GetValue<int>(); } set { this[nameof(MinDownCount)].SetValue<int>(value); } }
     }
     public class IKLegSetup : Object
@@ -29044,7 +29048,7 @@ namespace SDK.Script.FSDSDK
     public class ItemSkinOwners : Object
     {
         public ItemSkinOwners(nint addr) : base(addr) { }
-        public Array<ItemID> Items { get { return new Array<ItemID>(this[nameof(Items)].Address); } }
+        public UArray<ItemID> Items { get { return new UArray<ItemID>(this[nameof(Items)].Address); } }
     }
     public class JettyBootSetting : Object
     {
@@ -29059,7 +29063,7 @@ namespace SDK.Script.FSDSDK
         public Object CharacterName { get { return this[nameof(CharacterName)]; } set { this[nameof(CharacterName)] = value; } }
         public float HasPlayedChance { get { return this[nameof(HasPlayedChance)].GetValue<float>(); } set { this[nameof(HasPlayedChance)].SetValue<float>(value); } }
         public IRandRange ScoreInterval { get { return this[nameof(ScoreInterval)].As<IRandRange>(); } set { this["ScoreInterval"] = value; } }
-        public Array<int> StartScores { get { return new Array<int>(this[nameof(StartScores)].Address); } }
+        public UArray<int> StartScores { get { return new UArray<int>(this[nameof(StartScores)].Address); } }
     }
     public class SpriteRect : Object
     {
@@ -29179,7 +29183,7 @@ namespace SDK.Script.FSDSDK
         public EChatMessageType MsgType { get { return (EChatMessageType)this[nameof(MsgType)].GetValue<int>(); } set { this[nameof(MsgType)].SetValue<int>((int)value); } }
         public Object Sender { get { return this[nameof(Sender)]; } set { this[nameof(Sender)] = value; } }
         public Object Msg { get { return this[nameof(Msg)]; } set { this[nameof(Msg)] = value; } }
-        public Array<Object> Arguments { get { return new Array<Object>(this[nameof(Arguments)].Address); } }
+        public UArray<Object> Arguments { get { return new UArray<Object>(this[nameof(Arguments)].Address); } }
     }
     public class ProgressShout : Object
     {
@@ -29217,7 +29221,7 @@ namespace SDK.Script.FSDSDK
     {
         public MissionTypeDescription(nint addr) : base(addr) { }
         public Object InfoHeadline { get { return this[nameof(InfoHeadline)]; } set { this[nameof(InfoHeadline)] = value; } }
-        public Array<SoftMissionStepDescription> Steps { get { return new Array<SoftMissionStepDescription>(this[nameof(Steps)].Address); } }
+        public UArray<SoftMissionStepDescription> Steps { get { return new UArray<SoftMissionStepDescription>(this[nameof(Steps)].Address); } }
     }
     public class SoftMissionStepDescription : Object
     {
@@ -29271,7 +29275,7 @@ namespace SDK.Script.FSDSDK
     public class GeneratedMissionGroup : Object
     {
         public GeneratedMissionGroup(nint addr) : base(addr) { }
-        public Array<GeneratedMission> AvailableMissions { get { return new Array<GeneratedMission>(this[nameof(AvailableMissions)].Address); } }
+        public UArray<GeneratedMission> AvailableMissions { get { return new UArray<GeneratedMission>(this[nameof(AvailableMissions)].Address); } }
     }
     public class RewardTexts : Object
     {
@@ -29331,14 +29335,14 @@ namespace SDK.Script.FSDSDK
         public MissionStat EliteDeepDiveCompletedBestTime { get { return this[nameof(EliteDeepDiveCompletedBestTime)].As<MissionStat>(); } set { this["EliteDeepDiveCompletedBestTime"] = value; } }
         public MissionStat SpecialBeersUnlocked { get { return this[nameof(SpecialBeersUnlocked)].As<MissionStat>(); } set { this["SpecialBeersUnlocked"] = value; } }
         public MissionStat JettyBootCreditsSpent { get { return this[nameof(JettyBootCreditsSpent)].As<MissionStat>(); } set { this["JettyBootCreditsSpent"] = value; } }
-        public Array<MissionStat> AllMissionStats { get { return new Array<MissionStat>(this[nameof(AllMissionStats)].Address); } }
+        public UArray<MissionStat> AllMissionStats { get { return new UArray<MissionStat>(this[nameof(AllMissionStats)].Address); } }
         public Object CharacterMissionsCompleted { get { return this[nameof(CharacterMissionsCompleted)]; } set { this[nameof(CharacterMissionsCompleted)] = value; } }
     }
     public class PlanetZoneItem : Object
     {
         public PlanetZoneItem(nint addr) : base(addr) { }
-        public Array<Biome> Biomes { get { return new Array<Biome>(this[nameof(Biomes)].Address); } }
-        public Array<GeneratedMission> missions { get { return new Array<GeneratedMission>(this[nameof(missions)].Address); } }
+        public UArray<Biome> Biomes { get { return new UArray<Biome>(this[nameof(Biomes)].Address); } }
+        public UArray<GeneratedMission> missions { get { return new UArray<GeneratedMission>(this[nameof(missions)].Address); } }
         public PlanetZone Zone { get { return this[nameof(Zone)].As<PlanetZone>(); } set { this["Zone"] = value; } }
         public bool HasSpecialEvent { get { return this[nameof(HasSpecialEvent)].Flag; } set { this[nameof(HasSpecialEvent)].Flag = value; } }
         public bool WouldHaveSpecialEvent { get { return this[nameof(WouldHaveSpecialEvent)].Flag; } set { this[nameof(WouldHaveSpecialEvent)].Flag = value; } }
@@ -29430,7 +29434,7 @@ namespace SDK.Script.FSDSDK
     public class PawnStatEntriesArray : FastArraySerializer
     {
         public PawnStatEntriesArray(nint addr) : base(addr) { }
-        public Array<PawnStatEntry> Items { get { return new Array<PawnStatEntry>(this[nameof(Items)].Address); } }
+        public UArray<PawnStatEntry> Items { get { return new UArray<PawnStatEntry>(this[nameof(Items)].Address); } }
         public PawnStatsComponent Owner { get { return this[nameof(Owner)].As<PawnStatsComponent>(); } set { this["Owner"] = value; } }
     }
     public class PawnStatEntry : FastArraySerializerItem
@@ -29444,9 +29448,9 @@ namespace SDK.Script.FSDSDK
         public PendingRewards(nint addr) : base(addr) { }
         public PendingRewardsStats StartStats { get { return this[nameof(StartStats)].As<PendingRewardsStats>(); } set { this["StartStats"] = value; } }
         public PendingRewardsStats EndStats { get { return this[nameof(EndStats)].As<PendingRewardsStats>(); } set { this["EndStats"] = value; } }
-        public Array<CreditsReward> CreditsRewardEntries { get { return new Array<CreditsReward>(this[nameof(CreditsRewardEntries)].Address); } }
+        public UArray<CreditsReward> CreditsRewardEntries { get { return new UArray<CreditsReward>(this[nameof(CreditsRewardEntries)].Address); } }
         public int CreditsReward { get { return this[nameof(CreditsReward)].GetValue<int>(); } set { this[nameof(CreditsReward)].SetValue<int>(value); } }
-        public Array<XPReward> XPRewardEntries { get { return new Array<XPReward>(this[nameof(XPRewardEntries)].Address); } }
+        public UArray<XPReward> XPRewardEntries { get { return new UArray<XPReward>(this[nameof(XPRewardEntries)].Address); } }
         public int XPReward { get { return this[nameof(XPReward)].GetValue<int>(); } set { this[nameof(XPReward)].SetValue<int>(value); } }
         public bool bHasData { get { return this[nameof(bHasData)].Flag; } set { this[nameof(bHasData)].Flag = value; } }
         public bool bIsRecording { get { return this[nameof(bIsRecording)].Flag; } set { this[nameof(bIsRecording)].Flag = value; } }
@@ -29501,7 +29505,7 @@ namespace SDK.Script.FSDSDK
     public class ShardStage : Object
     {
         public ShardStage(nint addr) : base(addr) { }
-        public Array<StaticMesh> Shards { get { return new Array<StaticMesh>(this[nameof(Shards)].Address); } }
+        public UArray<StaticMesh> Shards { get { return new UArray<StaticMesh>(this[nameof(Shards)].Address); } }
     }
     public class HealthRegenerationParams : Object
     {
@@ -29516,7 +29520,7 @@ namespace SDK.Script.FSDSDK
         public PlayerSphere(nint addr) : base(addr) { }
         public Vector Center { get { return this[nameof(Center)].As<Vector>(); } set { this["Center"] = value; } }
         public float Radius { get { return this[nameof(Radius)].GetValue<float>(); } set { this[nameof(Radius)].SetValue<float>(value); } }
-        public Array<Object> Players { get { return new Array<Object>(this[nameof(Players)].Address); } }
+        public UArray<Object> Players { get { return new UArray<Object>(this[nameof(Players)].Address); } }
     }
     public class ProximityTriggerItem : Object
     {
@@ -29554,7 +29558,7 @@ namespace SDK.Script.FSDSDK
     public class CaveInfluenceSet : Object
     {
         public CaveInfluenceSet(nint addr) : base(addr) { }
-        public Array<CaveInfluence> CaveInfluences { get { return new Array<CaveInfluence>(this[nameof(CaveInfluences)].Address); } }
+        public UArray<CaveInfluence> CaveInfluences { get { return new UArray<CaveInfluence>(this[nameof(CaveInfluences)].Address); } }
     }
     public class GemResourceAmount : Object
     {
@@ -29566,7 +29570,7 @@ namespace SDK.Script.FSDSDK
     {
         public CarvedResource(nint addr) : base(addr) { }
         public CarvedResourceCreator ResourceCreator { get { return this[nameof(ResourceCreator)].As<CarvedResourceCreator>(); } set { this["ResourceCreator"] = value; } }
-        public Array<int> PredeterminedRooms { get { return new Array<int>(this[nameof(PredeterminedRooms)].Address); } }
+        public UArray<int> PredeterminedRooms { get { return new UArray<int>(this[nameof(PredeterminedRooms)].Address); } }
         public int amount { get { return this[nameof(amount)].GetValue<int>(); } set { this[nameof(amount)].SetValue<int>(value); } }
         public float Overflow { get { return this[nameof(Overflow)].GetValue<float>(); } set { this[nameof(Overflow)].SetValue<float>(value); } }
     }
@@ -29584,22 +29588,22 @@ namespace SDK.Script.FSDSDK
     public class GeneratedInstantCarvers : Object
     {
         public GeneratedInstantCarvers(nint addr) : base(addr) { }
-        public Array<LevelCarverPass> LevelCarverPasses { get { return new Array<LevelCarverPass>(this[nameof(LevelCarverPasses)].Address); } }
+        public UArray<LevelCarverPass> LevelCarverPasses { get { return new UArray<LevelCarverPass>(this[nameof(LevelCarverPasses)].Address); } }
     }
     public class LevelCarverPass : Object
     {
         public LevelCarverPass(nint addr) : base(addr) { }
-        public Array<LevelGenerationCarverLists> Lists { get { return new Array<LevelGenerationCarverLists>(this[nameof(Lists)].Address); } }
+        public UArray<LevelGenerationCarverLists> Lists { get { return new UArray<LevelGenerationCarverLists>(this[nameof(Lists)].Address); } }
     }
     public class LevelGenerationCarverLists : Object
     {
         public LevelGenerationCarverLists(nint addr) : base(addr) { }
-        public Array<LevelGenerationCarver> Carvers { get { return new Array<LevelGenerationCarver>(this[nameof(Carvers)].Address); } }
+        public UArray<LevelGenerationCarver> Carvers { get { return new UArray<LevelGenerationCarver>(this[nameof(Carvers)].Address); } }
     }
     public class TerrainPlacementDebugItem : Object
     {
         public TerrainPlacementDebugItem(nint addr) : base(addr) { }
-        public Array<TerrainPlacementBox> TerrainCheckers { get { return new Array<TerrainPlacementBox>(this[nameof(TerrainCheckers)].Address); } }
+        public UArray<TerrainPlacementBox> TerrainCheckers { get { return new UArray<TerrainPlacementBox>(this[nameof(TerrainCheckers)].Address); } }
         public bool BoxGood { get { return this[nameof(BoxGood)].Flag; } set { this[nameof(BoxGood)].Flag = value; } }
         public bool CapsuleGood { get { return this[nameof(CapsuleGood)].Flag; } set { this[nameof(CapsuleGood)].Flag = value; } }
         public EDebrisColliderType CapsuleType { get { return (EDebrisColliderType)this[nameof(CapsuleType)].GetValue<int>(); } set { this[nameof(CapsuleType)].SetValue<int>((int)value); } }
@@ -29628,7 +29632,7 @@ namespace SDK.Script.FSDSDK
     public class GeneratedInfluenceSets : Object
     {
         public GeneratedInfluenceSets(nint addr) : base(addr) { }
-        public Array<GeneratedInfluenceSet> InfluenceSets { get { return new Array<GeneratedInfluenceSet>(this[nameof(InfluenceSets)].Address); } }
+        public UArray<GeneratedInfluenceSet> InfluenceSets { get { return new UArray<GeneratedInfluenceSet>(this[nameof(InfluenceSets)].Address); } }
         public bool IsValid { get { return this[nameof(IsValid)].Flag; } set { this[nameof(IsValid)].Flag = value; } }
     }
     public class GeneratedInfluenceSet : Object
@@ -29636,7 +29640,7 @@ namespace SDK.Script.FSDSDK
         public GeneratedInfluenceSet(nint addr) : base(addr) { }
         public Object CaveInfluencer { get { return this[nameof(CaveInfluencer)].As<Object>(); } set { this["CaveInfluencer"] = value; } }
         public int NetworkID { get { return this[nameof(NetworkID)].GetValue<int>(); } set { this[nameof(NetworkID)].SetValue<int>(value); } }
-        public Array<CaveInfluence> CaveInfluences { get { return new Array<CaveInfluence>(this[nameof(CaveInfluences)].Address); } }
+        public UArray<CaveInfluence> CaveInfluences { get { return new UArray<CaveInfluence>(this[nameof(CaveInfluences)].Address); } }
     }
     public class CollectableSpawnableItem : Object
     {
@@ -29703,7 +29707,7 @@ namespace SDK.Script.FSDSDK
     {
         public RagdollItem(nint addr) : base(addr) { }
         public Actor Actor { get { return this[nameof(Actor)].As<Actor>(); } set { this["Actor"] = value; } }
-        public Array<MaterialInstanceDynamic> Materials { get { return new Array<MaterialInstanceDynamic>(this[nameof(Materials)].Address); } }
+        public UArray<MaterialInstanceDynamic> Materials { get { return new UArray<MaterialInstanceDynamic>(this[nameof(Materials)].Address); } }
         public MaterialInstanceDynamic DropshadowMaterial { get { return this[nameof(DropshadowMaterial)].As<MaterialInstanceDynamic>(); } set { this["DropshadowMaterial"] = value; } }
     }
     public class RandLinePoint : Object
@@ -29745,7 +29749,7 @@ namespace SDK.Script.FSDSDK
     public class ReflectionTraceResult : Object
     {
         public ReflectionTraceResult(nint addr) : base(addr) { }
-        public Array<ScanPath> Path { get { return new Array<ScanPath>(this[nameof(Path)].Address); } }
+        public UArray<ScanPath> Path { get { return new UArray<ScanPath>(this[nameof(Path)].Address); } }
         public ReflectiveHitscanHit FinalHit { get { return this[nameof(FinalHit)].As<ReflectiveHitscanHit>(); } set { this["FinalHit"] = value; } }
     }
     public class ReflectiveHitscanHit : Object
@@ -29787,7 +29791,7 @@ namespace SDK.Script.FSDSDK
         public Object SourceText { get { return this[nameof(SourceText)]; } set { this[nameof(SourceText)] = value; } }
         public Object UnformattedString { get { return this[nameof(UnformattedString)]; } set { this[nameof(UnformattedString)] = value; } }
         public int UnformattedLength { get { return this[nameof(UnformattedLength)].GetValue<int>(); } set { this[nameof(UnformattedLength)].SetValue<int>(value); } }
-        public Array<RichTextToken> Tokens { get { return new Array<RichTextToken>(this[nameof(Tokens)].Address); } }
+        public UArray<RichTextToken> Tokens { get { return new UArray<RichTextToken>(this[nameof(Tokens)].Address); } }
     }
     public class RichTextToken : Object
     {
@@ -29819,7 +29823,7 @@ namespace SDK.Script.FSDSDK
     public class RoomGeneratorGroupInstance : Object
     {
         public RoomGeneratorGroupInstance(nint addr) : base(addr) { }
-        public Array<RoomGenerator> Rooms { get { return new Array<RoomGenerator>(this[nameof(Rooms)].Address); } }
+        public UArray<RoomGenerator> Rooms { get { return new UArray<RoomGenerator>(this[nameof(Rooms)].Address); } }
     }
     public class RoomGeneratorItem : Object
     {
@@ -29839,15 +29843,15 @@ namespace SDK.Script.FSDSDK
         public int CarvePass { get { return this[nameof(CarvePass)].GetValue<int>(); } set { this[nameof(CarvePass)].SetValue<int>(value); } }
         public Vector Position { get { return this[nameof(Position)].As<Vector>(); } set { this["Position"] = value; } }
         public float Radius { get { return this[nameof(Radius)].GetValue<float>(); } set { this[nameof(Radius)].SetValue<float>(value); } }
-        public Array<int> EntranceIDs { get { return new Array<int>(this[nameof(EntranceIDs)].Address); } }
-        public Array<int> ExitIDs { get { return new Array<int>(this[nameof(ExitIDs)].Address); } }
-        public Array<RoomEntrance> RoomEntrances { get { return new Array<RoomEntrance>(this[nameof(RoomEntrances)].Address); } }
+        public UArray<int> EntranceIDs { get { return new UArray<int>(this[nameof(EntranceIDs)].Address); } }
+        public UArray<int> ExitIDs { get { return new UArray<int>(this[nameof(ExitIDs)].Address); } }
+        public UArray<RoomEntrance> RoomEntrances { get { return new UArray<RoomEntrance>(this[nameof(RoomEntrances)].Address); } }
         public bool CanHaveEnemies { get { return this[nameof(CanHaveEnemies)].Flag; } set { this[nameof(CanHaveEnemies)].Flag = value; } }
-        public Array<GeneratedRoom> Rooms { get { return new Array<GeneratedRoom>(this[nameof(Rooms)].Address); } }
+        public UArray<GeneratedRoom> Rooms { get { return new UArray<GeneratedRoom>(this[nameof(Rooms)].Address); } }
         public float ResourceMultiplier { get { return this[nameof(ResourceMultiplier)].GetValue<float>(); } set { this[nameof(ResourceMultiplier)].SetValue<float>(value); } }
         public bool CanBeUsedForRoomBasedDistribution { get { return this[nameof(CanBeUsedForRoomBasedDistribution)].Flag; } set { this[nameof(CanBeUsedForRoomBasedDistribution)].Flag = value; } }
         public float WeightedResourceAmount { get { return this[nameof(WeightedResourceAmount)].GetValue<float>(); } set { this[nameof(WeightedResourceAmount)].SetValue<float>(value); } }
-        public Array<RoomGeneratorItem> RoomGenerators { get { return new Array<RoomGeneratorItem>(this[nameof(RoomGenerators)].Address); } }
+        public UArray<RoomGeneratorItem> RoomGenerators { get { return new UArray<RoomGeneratorItem>(this[nameof(RoomGenerators)].Address); } }
     }
     public class SaveGameSnapShot : Object
     {
@@ -29871,7 +29875,7 @@ namespace SDK.Script.FSDSDK
         public SchematicBankItem(nint addr) : base(addr) { }
         public SchematicPricingTier PricingTier { get { return this[nameof(PricingTier)].As<SchematicPricingTier>(); } set { this["PricingTier"] = value; } }
         public SchematicRarity Rarity { get { return this[nameof(Rarity)].As<SchematicRarity>(); } set { this["Rarity"] = value; } }
-        public Array<Schematic> Schematics { get { return new Array<Schematic>(this[nameof(Schematics)].Address); } }
+        public UArray<Schematic> Schematics { get { return new UArray<Schematic>(this[nameof(Schematics)].Address); } }
     }
     public class SchematicType : Object
     {
@@ -29945,8 +29949,8 @@ namespace SDK.Script.FSDSDK
         public float XPMultiplier { get { return this[nameof(XPMultiplier)].GetValue<float>(); } set { this[nameof(XPMultiplier)].SetValue<float>(value); } }
         public int TokenGain { get { return this[nameof(TokenGain)].GetValue<int>(); } set { this[nameof(TokenGain)].SetValue<int>(value); } }
         public bool LevelIncreased { get { return this[nameof(LevelIncreased)].Flag; } set { this[nameof(LevelIncreased)].Flag = value; } }
-        public Array<ChallengeInfo> UpdatedChallenges { get { return new Array<ChallengeInfo>(this[nameof(UpdatedChallenges)].Address); } }
-        public Array<SeasonEvent> CompletedEvents { get { return new Array<SeasonEvent>(this[nameof(CompletedEvents)].Address); } }
+        public UArray<ChallengeInfo> UpdatedChallenges { get { return new UArray<ChallengeInfo>(this[nameof(UpdatedChallenges)].Address); } }
+        public UArray<SeasonEvent> CompletedEvents { get { return new UArray<SeasonEvent>(this[nameof(CompletedEvents)].Address); } }
         public Texture2D EndScreenImage { get { return this[nameof(EndScreenImage)].As<Texture2D>(); } set { this["EndScreenImage"] = value; } }
         public Texture2D EndScreenResourceIcon { get { return this[nameof(EndScreenResourceIcon)].As<Texture2D>(); } set { this["EndScreenResourceIcon"] = value; } }
     }
@@ -29959,7 +29963,7 @@ namespace SDK.Script.FSDSDK
     public class FSDServerListResponse : Object
     {
         public FSDServerListResponse(nint addr) : base(addr) { }
-        public Array<FSDServerListEntryModel> Lobbies { get { return new Array<FSDServerListEntryModel>(this[nameof(Lobbies)].Address); } }
+        public UArray<FSDServerListEntryModel> Lobbies { get { return new UArray<FSDServerListEntryModel>(this[nameof(Lobbies)].Address); } }
     }
     public class FSDServerListEntryModel : Object
     {
@@ -29987,7 +29991,7 @@ namespace SDK.Script.FSDSDK
         public Object P2PAddr { get { return this[nameof(P2PAddr)]; } set { this[nameof(P2PAddr)] = value; } }
         public int P2PPORT { get { return this[nameof(P2PPORT)].GetValue<int>(); } set { this[nameof(P2PPORT)].SetValue<int>(value); } }
         public float Distance { get { return this[nameof(Distance)].GetValue<float>(); } set { this[nameof(Distance)].SetValue<float>(value); } }
-        public Array<FSDServerListEntryModModel> Mods { get { return new Array<FSDServerListEntryModModel>(this[nameof(Mods)].Address); } }
+        public UArray<FSDServerListEntryModModel> Mods { get { return new UArray<FSDServerListEntryModModel>(this[nameof(Mods)].Address); } }
     }
     public class FSDServerListEntryModModel : Object
     {
@@ -30018,7 +30022,7 @@ namespace SDK.Script.FSDSDK
         public FSDSteamServerListRequest(nint addr) : base(addr) { }
         public Object SteamTicket { get { return this[nameof(SteamTicket)]; } set { this[nameof(SteamTicket)] = value; } }
         public Object SteamPingLoc { get { return this[nameof(SteamPingLoc)]; } set { this[nameof(SteamPingLoc)] = value; } }
-        public Array<int> GameTypes { get { return new Array<int>(this[nameof(GameTypes)].Address); } }
+        public UArray<int> GameTypes { get { return new UArray<int>(this[nameof(GameTypes)].Address); } }
     }
     public class FriendInfo : Object
     {
@@ -30143,7 +30147,7 @@ namespace SDK.Script.FSDSDK
         public ActiveStatusEffectBank(nint addr) : base(addr) { }
         public StatusEffect Key { get { return this[nameof(Key)].As<StatusEffect>(); } set { this["Key"] = value; } }
         public StatusEffect ActiveEffect { get { return this[nameof(ActiveEffect)].As<StatusEffect>(); } set { this["ActiveEffect"] = value; } }
-        public Array<ActiveStatusEffect> Effects { get { return new Array<ActiveStatusEffect>(this[nameof(Effects)].Address); } }
+        public UArray<ActiveStatusEffect> Effects { get { return new UArray<ActiveStatusEffect>(this[nameof(Effects)].Address); } }
     }
     public class ActiveStatusEffect : Object
     {
@@ -30164,7 +30168,7 @@ namespace SDK.Script.FSDSDK
     public class AnimNode_Tentacle : AnimNode_SkeletalControlBase
     {
         public AnimNode_Tentacle(nint addr) : base(addr) { }
-        public Array<BoneReference> BonesToModify { get { return new Array<BoneReference>(this[nameof(BonesToModify)].Address); } }
+        public UArray<BoneReference> BonesToModify { get { return new UArray<BoneReference>(this[nameof(BonesToModify)].Address); } }
     }
     public class TentacleTarget : Object
     {
@@ -30190,7 +30194,7 @@ namespace SDK.Script.FSDSDK
     {
         public TerminatorShoutState(nint addr) : base(addr) { }
         public Object Name { get { return this[nameof(Name)]; } set { this[nameof(Name)] = value; } }
-        public Array<SoundCue> Shouts { get { return new Array<SoundCue>(this[nameof(Shouts)].Address); } }
+        public UArray<SoundCue> Shouts { get { return new UArray<SoundCue>(this[nameof(Shouts)].Address); } }
         public bool Loop { get { return this[nameof(Loop)].Flag; } set { this[nameof(Loop)].Flag = value; } }
         public float MaxRandomShoutDelay { get { return this[nameof(MaxRandomShoutDelay)].GetValue<float>(); } set { this[nameof(MaxRandomShoutDelay)].SetValue<float>(value); } }
         public float MinRandomShoutDelay { get { return this[nameof(MinRandomShoutDelay)].GetValue<float>(); } set { this[nameof(MinRandomShoutDelay)].SetValue<float>(value); } }
@@ -30200,13 +30204,13 @@ namespace SDK.Script.FSDSDK
     public class TestTerrainMaterialDecalItem : Object
     {
         public TestTerrainMaterialDecalItem(nint addr) : base(addr) { }
-        public Array<TerrainMaterial> Materials { get { return new Array<TerrainMaterial>(this[nameof(Materials)].Address); } }
-        public Array<DecalData> Decals { get { return new Array<DecalData>(this[nameof(Decals)].Address); } }
+        public UArray<TerrainMaterial> Materials { get { return new UArray<TerrainMaterial>(this[nameof(Materials)].Address); } }
+        public UArray<DecalData> Decals { get { return new UArray<DecalData>(this[nameof(Decals)].Address); } }
     }
     public class TestTerrainMaterialItem : Object
     {
         public TestTerrainMaterialItem(nint addr) : base(addr) { }
-        public Array<TerrainMaterial> Materials { get { return new Array<TerrainMaterial>(this[nameof(Materials)].Address); } }
+        public UArray<TerrainMaterial> Materials { get { return new UArray<TerrainMaterial>(this[nameof(Materials)].Address); } }
         public Object DigParticles { get { return this[nameof(DigParticles)]; } set { this[nameof(DigParticles)] = value; } }
         public Object PartialDigParticles { get { return this[nameof(PartialDigParticles)]; } set { this[nameof(PartialDigParticles)] = value; } }
         public Object CrumbleSound { get { return this[nameof(CrumbleSound)]; } set { this[nameof(CrumbleSound)] = value; } }
@@ -30251,7 +30255,7 @@ namespace SDK.Script.FSDSDK
         public VanityNode(nint addr) : base(addr) { }
         public Reward Reward { get { return this[nameof(Reward)].As<Reward>(); } set { this["Reward"] = value; } }
         public int NodeID { get { return this[nameof(NodeID)].GetValue<int>(); } set { this[nameof(NodeID)].SetValue<int>(value); } }
-        public Array<int> ConnectedNodes { get { return new Array<int>(this[nameof(ConnectedNodes)].Address); } }
+        public UArray<int> ConnectedNodes { get { return new UArray<int>(this[nameof(ConnectedNodes)].Address); } }
         public bool bIsBig { get { return this[nameof(bIsBig)].Flag; } set { this[nameof(bIsBig)].Flag = value; } }
         public bool bIsStartingNode { get { return this[nameof(bIsStartingNode)].Flag; } set { this[nameof(bIsStartingNode)].Flag = value; } }
         public Vector2D Position { get { return this[nameof(Position)].As<Vector2D>(); } set { this["Position"] = value; } }
@@ -30273,7 +30277,7 @@ namespace SDK.Script.FSDSDK
     public class TunnelPath : Object
     {
         public TunnelPath(nint addr) : base(addr) { }
-        public Array<Vector> Path { get { return new Array<Vector>(this[nameof(Path)].Address); } }
+        public UArray<Vector> Path { get { return new UArray<Vector>(this[nameof(Path)].Address); } }
     }
     public class TunnelSettingItem : Object
     {
@@ -30374,7 +30378,7 @@ namespace SDK.Script.FSDSDK
     public class VanitySlotStore : Object
     {
         public VanitySlotStore(nint addr) : base(addr) { }
-        public Array<VanityItem> VanityItems { get { return new Array<VanityItem>(this[nameof(VanityItems)].Address); } }
+        public UArray<VanityItem> VanityItems { get { return new UArray<VanityItem>(this[nameof(VanityItems)].Address); } }
     }
     public class FakeSawMover : Object
     {
@@ -30418,7 +30422,7 @@ namespace SDK.Script.FSDSDK
     public class WeightedRoomSelector : Object
     {
         public WeightedRoomSelector(nint addr) : base(addr) { }
-        public Array<WeightedRoomSelectorItem> Items { get { return new Array<WeightedRoomSelectorItem>(this[nameof(Items)].Address); } }
+        public UArray<WeightedRoomSelectorItem> Items { get { return new UArray<WeightedRoomSelectorItem>(this[nameof(Items)].Address); } }
     }
     public class WeightedRoomSelectorItem : Object
     {

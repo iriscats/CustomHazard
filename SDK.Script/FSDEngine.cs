@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -31,9 +33,9 @@ namespace SDK.Script.FSDEngineSDK
         public Object CSG { get { return this[nameof(CSG)]; } set { this[nameof(CSG)] = value; } }
         public Object Status { get { return this[nameof(Status)]; } set { this[nameof(Status)] = value; } }
         public Box CombinedAABB { get { return this[nameof(CombinedAABB)].As<Box>(); } set { this["CombinedAABB"] = value; } }
-        public Array<BakeEntry> Entries { get { return new Array<BakeEntry>(this[nameof(Entries)].Address); } }
+        public UArray<BakeEntry> Entries { get { return new UArray<BakeEntry>(this[nameof(Entries)].Address); } }
         public bool IsBaking { get { return this[nameof(IsBaking)].Flag; } set { this[nameof(IsBaking)].Flag = value; } }
-        public Array<BakeConfig> CurrentBakeConfigs { get { return new Array<BakeConfig>(this[nameof(CurrentBakeConfigs)].Address); } }
+        public UArray<BakeConfig> CurrentBakeConfigs { get { return new UArray<BakeConfig>(this[nameof(CurrentBakeConfigs)].Address); } }
         public CSGBuilder CDO { get { return this[nameof(CDO)].As<CSGBuilder>(); } set { this["CDO"] = value; } }
         public void BakeCSG() { Invoke(nameof(BakeCSG)); }
     }
@@ -78,7 +80,7 @@ namespace SDK.Script.FSDEngineSDK
     public class CSGDuplicateSingleChildBase : CSGBase
     {
         public CSGDuplicateSingleChildBase(nint addr) : base(addr) { }
-        public Array<CSGBase> Children { get { return new Array<CSGBase>(this[nameof(Children)].Address); } }
+        public UArray<CSGBase> Children { get { return new UArray<CSGBase>(this[nameof(Children)].Address); } }
     }
     public class CSGBuilderBase : Actor
     {
@@ -97,7 +99,7 @@ namespace SDK.Script.FSDEngineSDK
     {
         public CSGBuilder(nint addr) : base(addr) { }
         public CSGGroupComponent CSGRoot { get { return this[nameof(CSGRoot)].As<CSGGroupComponent>(); } set { this["CSGRoot"] = value; } }
-        public Array<TerrainMaterialCore> UsedMaterials { get { return new Array<TerrainMaterialCore>(this[nameof(UsedMaterials)].Address); } }
+        public UArray<TerrainMaterialCore> UsedMaterials { get { return new UArray<TerrainMaterialCore>(this[nameof(UsedMaterials)].Address); } }
         public CSGBase CurrentPreviewRoot { get { return this[nameof(CurrentPreviewRoot)].As<CSGBase>(); } set { this["CurrentPreviewRoot"] = value; } }
         public BakeConfig CurrentPreviewConfig { get { return this[nameof(CurrentPreviewConfig)].As<BakeConfig>(); } set { this["CurrentPreviewConfig"] = value; } }
         public CSGPreviewScene PreviewScene { get { return this[nameof(PreviewScene)].As<CSGPreviewScene>(); } set { this["PreviewScene"] = value; } }
@@ -107,7 +109,7 @@ namespace SDK.Script.FSDEngineSDK
         public BakeConfig(nint addr) : base(addr) { }
         public BakeSettings Settings { get { return this[nameof(Settings)].As<BakeSettings>(); } set { this["Settings"] = value; } }
         public Object Objects { get { return this[nameof(Objects)]; } set { this[nameof(Objects)] = value; } }
-        public Array<Object> Warnings { get { return new Array<Object>(this[nameof(Warnings)].Address); } }
+        public UArray<Object> Warnings { get { return new UArray<Object>(this[nameof(Warnings)].Address); } }
         public Vector GetVectorSetting(Object Name, Vector defaultVal) { return Invoke<Vector>(nameof(GetVectorSetting), Name, defaultVal); }
         public RandomStream GetRandomStream() { return Invoke<RandomStream>(nameof(GetRandomStream)); }
         public BuilderBase GetObject(Object Name) { return Invoke<BuilderBase>(nameof(GetObject), Name); }
@@ -122,8 +124,8 @@ namespace SDK.Script.FSDEngineSDK
         public BinaryTerrainMaterialCombiner Materials { get { return this[nameof(Materials)].As<BinaryTerrainMaterialCombiner>(); } set { this["Materials"] = value; } }
         public Vector ReciprocalCellSize { get { return this[nameof(ReciprocalCellSize)].As<Vector>(); } set { this["ReciprocalCellSize"] = value; } }
         public DeepCSGFloatTree ApplyTree { get { return this[nameof(ApplyTree)].As<DeepCSGFloatTree>(); } set { this["ApplyTree"] = value; } }
-        public Array<Vector> CellPositions { get { return new Array<Vector>(this[nameof(CellPositions)].Address); } }
-        public Array<DeepCSGNode> CellLeaves { get { return new Array<DeepCSGNode>(this[nameof(CellLeaves)].Address); } }
+        public UArray<Vector> CellPositions { get { return new UArray<Vector>(this[nameof(CellPositions)].Address); } }
+        public UArray<DeepCSGNode> CellLeaves { get { return new UArray<DeepCSGNode>(this[nameof(CellLeaves)].Address); } }
     }
     public class CSGCellNoiseComponent : CSGBaseComponent
     {
@@ -185,7 +187,7 @@ namespace SDK.Script.FSDEngineSDK
     public class CSGGroup : CSGBase
     {
         public CSGGroup(nint addr) : base(addr) { }
-        public Array<CSGBase> Children { get { return new Array<CSGBase>(this[nameof(Children)].Address); } }
+        public UArray<CSGBase> Children { get { return new UArray<CSGBase>(this[nameof(Children)].Address); } }
     }
     public class CSGGroupComponent : CSGBaseComponent
     {
@@ -337,9 +339,9 @@ namespace SDK.Script.FSDEngineSDK
         public CSGSplineWarp(nint addr) : base(addr) { }
         public SplineWarpProperties SplineProperties { get { return this[nameof(SplineProperties)].As<SplineWarpProperties>(); } set { this["SplineProperties"] = value; } }
         public SplineCurves SplineCurves { get { return this[nameof(SplineCurves)].As<SplineCurves>(); } set { this["SplineCurves"] = value; } }
-        public Array<Box> AABBs { get { return new Array<Box>(this[nameof(AABBs)].Address); } }
-        public Array<float> Keys { get { return new Array<float>(this[nameof(Keys)].Address); } }
-        public Array<Vector4> planes { get { return new Array<Vector4>(this[nameof(planes)].Address); } }
+        public UArray<Box> AABBs { get { return new UArray<Box>(this[nameof(AABBs)].Address); } }
+        public UArray<float> Keys { get { return new UArray<float>(this[nameof(Keys)].Address); } }
+        public UArray<Vector4> planes { get { return new UArray<Vector4>(this[nameof(planes)].Address); } }
         public Box TotalAABB { get { return this[nameof(TotalAABB)].As<Box>(); } set { this["TotalAABB"] = value; } }
     }
     public class CSGSplineWarpComponent : CSGWarpedComponent
@@ -429,10 +431,10 @@ namespace SDK.Script.FSDEngineSDK
         public Object Status { get { return this[nameof(Status)]; } set { this[nameof(Status)] = value; } }
         public Object InputRenderTarget { get { return this[nameof(InputRenderTarget)]; } set { this[nameof(InputRenderTarget)] = value; } }
         public Object InputTexture { get { return this[nameof(InputTexture)]; } set { this[nameof(InputTexture)] = value; } }
-        public Array<HMMinMaxLevel> MinMaxTree { get { return new Array<HMMinMaxLevel>(this[nameof(MinMaxTree)].Address); } }
+        public UArray<HMMinMaxLevel> MinMaxTree { get { return new UArray<HMMinMaxLevel>(this[nameof(MinMaxTree)].Address); } }
         public float MinHeight { get { return this[nameof(MinHeight)].GetValue<float>(); } set { this[nameof(MinHeight)].SetValue<float>(value); } }
         public float MaxHeight { get { return this[nameof(MaxHeight)].GetValue<float>(); } set { this[nameof(MaxHeight)].SetValue<float>(value); } }
-        public Array<float> Heights { get { return new Array<float>(this[nameof(Heights)].Address); } }
+        public UArray<float> Heights { get { return new UArray<float>(this[nameof(Heights)].Address); } }
         public int Dimensions { get { return this[nameof(Dimensions)].GetValue<int>(); } set { this[nameof(Dimensions)].SetValue<int>(value); } }
         public bool Initialized { get { return this[nameof(Initialized)].Flag; } set { this[nameof(Initialized)].Flag = value; } }
         public void Generate() { Invoke(nameof(Generate)); }
@@ -479,7 +481,7 @@ namespace SDK.Script.FSDEngineSDK
     {
         public SDFUnionOp(nint addr) : base(addr) { }
         public SDFSmoothingProperties Properties { get { return this[nameof(Properties)].As<SDFSmoothingProperties>(); } set { this["Properties"] = value; } }
-        public Array<SDFBase> Arguments { get { return new Array<SDFBase>(this[nameof(Arguments)].Address); } }
+        public UArray<SDFBase> Arguments { get { return new UArray<SDFBase>(this[nameof(Arguments)].Address); } }
     }
     public class SDFUnionOpComponent : SDFBaseComponent
     {
@@ -490,7 +492,7 @@ namespace SDK.Script.FSDEngineSDK
     {
         public SDFIntersectOp(nint addr) : base(addr) { }
         public SDFSmoothingProperties Properties { get { return this[nameof(Properties)].As<SDFSmoothingProperties>(); } set { this["Properties"] = value; } }
-        public Array<SDFBase> Arguments { get { return new Array<SDFBase>(this[nameof(Arguments)].Address); } }
+        public UArray<SDFBase> Arguments { get { return new UArray<SDFBase>(this[nameof(Arguments)].Address); } }
     }
     public class SDFIntersectOpComponent : SDFBaseComponent
     {
@@ -812,7 +814,7 @@ namespace SDK.Script.FSDEngineSDK
     public class BakeSettings : Object
     {
         public BakeSettings(nint addr) : base(addr) { }
-        public Array<BakeSetting> Pairs { get { return new Array<BakeSetting>(this[nameof(Pairs)].Address); } }
+        public UArray<BakeSetting> Pairs { get { return new UArray<BakeSetting>(this[nameof(Pairs)].Address); } }
     }
     public class BakeSetting : Object
     {
@@ -836,22 +838,22 @@ namespace SDK.Script.FSDEngineSDK
         public BakeEntry(nint addr) : base(addr) { }
         public DeepCSGFloatTreePacked Tree { get { return this[nameof(Tree)].As<DeepCSGFloatTreePacked>(); } set { this["Tree"] = value; } }
         public Box AABB { get { return this[nameof(AABB)].As<Box>(); } set { this["AABB"] = value; } }
-        public Array<TerrainMaterialCore> Materials { get { return new Array<TerrainMaterialCore>(this[nameof(Materials)].Address); } }
-        public Array<SmartTerrainMaterialVal> SmartMaterials { get { return new Array<SmartTerrainMaterialVal>(this[nameof(SmartMaterials)].Address); } }
+        public UArray<TerrainMaterialCore> Materials { get { return new UArray<TerrainMaterialCore>(this[nameof(Materials)].Address); } }
+        public UArray<SmartTerrainMaterialVal> SmartMaterials { get { return new UArray<SmartTerrainMaterialVal>(this[nameof(SmartMaterials)].Address); } }
     }
     public class SmartTerrainMaterialVal : Object
     {
         public SmartTerrainMaterialVal(nint addr) : base(addr) { }
         public uint IfEmpty { get { return this[nameof(IfEmpty)].GetValue<uint>(); } set { this[nameof(IfEmpty)].SetValue<uint>(value); } }
         public uint IfSolid { get { return this[nameof(IfSolid)].GetValue<uint>(); } set { this[nameof(IfSolid)].SetValue<uint>(value); } }
-        public Array<uint> OverrideKeys { get { return new Array<uint>(this[nameof(OverrideKeys)].Address); } }
-        public Array<uint> OverrideValues { get { return new Array<uint>(this[nameof(OverrideValues)].Address); } }
+        public UArray<uint> OverrideKeys { get { return new UArray<uint>(this[nameof(OverrideKeys)].Address); } }
+        public UArray<uint> OverrideValues { get { return new UArray<uint>(this[nameof(OverrideValues)].Address); } }
     }
     public class DeepCSGFloatTreePacked : Object
     {
         public DeepCSGFloatTreePacked(nint addr) : base(addr) { }
         public DeepCSGNode Root { get { return this[nameof(Root)].As<DeepCSGNode>(); } set { this["Root"] = value; } }
-        public Array<int> encplanes { get { return new Array<int>(this[nameof(encplanes)].Address); } }
+        public UArray<int> encplanes { get { return new UArray<int>(this[nameof(encplanes)].Address); } }
     }
     public class DeepCSGNode : Object
     {
@@ -872,7 +874,7 @@ namespace SDK.Script.FSDEngineSDK
     public class CSGAddMaterialLayersProperties : Object
     {
         public CSGAddMaterialLayersProperties(nint addr) : base(addr) { }
-        public Array<CSGLayers> Layers { get { return new Array<CSGLayers>(this[nameof(Layers)].Address); } }
+        public UArray<CSGLayers> Layers { get { return new UArray<CSGLayers>(this[nameof(Layers)].Address); } }
         public BinaryTerrainMaterialCombiner Inner { get { return this[nameof(Inner)].As<BinaryTerrainMaterialCombiner>(); } set { this["Inner"] = value; } }
     }
     public class BinaryTerrainMaterialCombiner : Object
@@ -880,7 +882,7 @@ namespace SDK.Script.FSDEngineSDK
         public BinaryTerrainMaterialCombiner(nint addr) : base(addr) { }
         public EmptyBinaryMatProperties IfEmpty { get { return this[nameof(IfEmpty)].As<EmptyBinaryMatProperties>(); } set { this["IfEmpty"] = value; } }
         public BinaryMatProperties IfSolid { get { return this[nameof(IfSolid)].As<BinaryMatProperties>(); } set { this["IfSolid"] = value; } }
-        public Array<BinaryMatPatterns> Patterns { get { return new Array<BinaryMatPatterns>(this[nameof(Patterns)].Address); } }
+        public UArray<BinaryMatPatterns> Patterns { get { return new UArray<BinaryMatPatterns>(this[nameof(Patterns)].Address); } }
     }
     public class BinaryMatPatterns : Object
     {
@@ -911,7 +913,7 @@ namespace SDK.Script.FSDEngineSDK
     {
         public GeneralTerrainMaterialCombiner(nint addr) : base(addr) { }
         public GeneralMatPropertiesEmpty IfBothEmpty { get { return this[nameof(IfBothEmpty)].As<GeneralMatPropertiesEmpty>(); } set { this["IfBothEmpty"] = value; } }
-        public Array<GeneralMatPatterns> Patterns { get { return new Array<GeneralMatPatterns>(this[nameof(Patterns)].Address); } }
+        public UArray<GeneralMatPatterns> Patterns { get { return new UArray<GeneralMatPatterns>(this[nameof(Patterns)].Address); } }
         public GeneralMatProperties IfBothSolid { get { return this[nameof(IfBothSolid)].As<GeneralMatProperties>(); } set { this["IfBothSolid"] = value; } }
         public GeneralMatProperties IfSrcSolid { get { return this[nameof(IfSrcSolid)].As<GeneralMatProperties>(); } set { this["IfSrcSolid"] = value; } }
         public GeneralMatProperties IfDestSolid { get { return this[nameof(IfDestSolid)].As<GeneralMatProperties>(); } set { this["IfDestSolid"] = value; } }
@@ -1071,7 +1073,7 @@ namespace SDK.Script.FSDEngineSDK
         public BakeSettings ModulateSettings { get { return this[nameof(ModulateSettings)].As<BakeSettings>(); } set { this["ModulateSettings"] = value; } }
         public int Seed { get { return this[nameof(Seed)].GetValue<int>(); } set { this[nameof(Seed)].SetValue<int>(value); } }
         public ESDFModulateMode ModulateMode { get { return (ESDFModulateMode)this[nameof(ModulateMode)].GetValue<int>(); } set { this[nameof(ModulateMode)].SetValue<int>((int)value); } }
-        public Array<SDFModulateLayer> ModulateLayers { get { return new Array<SDFModulateLayer>(this[nameof(ModulateLayers)].Address); } }
+        public UArray<SDFModulateLayer> ModulateLayers { get { return new UArray<SDFModulateLayer>(this[nameof(ModulateLayers)].Address); } }
     }
     public class SDFModulateLayer : Object
     {
@@ -1105,7 +1107,7 @@ namespace SDK.Script.FSDEngineSDK
     {
         public DeepCSGFloatTree(nint addr) : base(addr) { }
         public DeepCSGNode Root { get { return this[nameof(Root)].As<DeepCSGNode>(); } set { this["Root"] = value; } }
-        public Array<DeepCSGFloatPlane> planes { get { return new Array<DeepCSGFloatPlane>(this[nameof(planes)].Address); } }
+        public UArray<DeepCSGFloatPlane> planes { get { return new UArray<DeepCSGFloatPlane>(this[nameof(planes)].Address); } }
     }
     public class DeepCSGFloatPlane : Object
     {
@@ -1210,7 +1212,7 @@ namespace SDK.Script.FSDEngineSDK
     public class HMMinMaxLevel : Object
     {
         public HMMinMaxLevel(nint addr) : base(addr) { }
-        public Array<float> Entries { get { return new Array<float>(this[nameof(Entries)].Address); } }
+        public UArray<float> Entries { get { return new UArray<float>(this[nameof(Entries)].Address); } }
     }
     public class SDFOnionProperties : Object
     {

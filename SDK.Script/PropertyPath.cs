@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -9,7 +11,7 @@ namespace SDK.Script.PropertyPathSDK
     public class CachedPropertyPath : Object
     {
         public CachedPropertyPath(nint addr) : base(addr) { }
-        public Array<PropertyPathSegment> Segments { get { return new Array<PropertyPathSegment>(this[nameof(Segments)].Address); } }
+        public UArray<PropertyPathSegment> Segments { get { return new UArray<PropertyPathSegment>(this[nameof(Segments)].Address); } }
         public Function CachedFunction { get { return this[nameof(CachedFunction)].As<Function>(); } set { this["CachedFunction"] = value; } }
     }
     public class PropertyPathSegment : Object

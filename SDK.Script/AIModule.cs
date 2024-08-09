@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -83,7 +85,7 @@ namespace SDK.Script.AIModuleSDK
     public class BTTaskNode : BTNode
     {
         public BTTaskNode(nint addr) : base(addr) { }
-        public Array<BTService> Services { get { return new Array<BTService>(this[nameof(Services)].Address); } }
+        public UArray<BTService> Services { get { return new UArray<BTService>(this[nameof(Services)].Address); } }
         public bool bIgnoreRestartSelf { get { return this[nameof(bIgnoreRestartSelf)].Flag; } set { this[nameof(bIgnoreRestartSelf)].Flag = value; } }
     }
     public class BTTask_BlackboardBase : BTTaskNode
@@ -105,7 +107,7 @@ namespace SDK.Script.AIModuleSDK
     public class BehaviorTreeComponent : BrainComponent
     {
         public BehaviorTreeComponent(nint addr) : base(addr) { }
-        public Array<BTNode> NodeInstances { get { return new Array<BTNode>(this[nameof(NodeInstances)].Address); } }
+        public UArray<BTNode> NodeInstances { get { return new UArray<BTNode>(this[nameof(NodeInstances)].Address); } }
         public BehaviorTree DefaultBehaviorTreeAsset { get { return this[nameof(DefaultBehaviorTreeAsset)].As<BehaviorTree>(); } set { this["DefaultBehaviorTreeAsset"] = value; } }
         public void SetDynamicSubtree(GameplayTag InjectTag, BehaviorTree BehaviorAsset) { Invoke(nameof(SetDynamicSubtree), InjectTag, BehaviorAsset); }
         public float GetTagCooldownEndTime(GameplayTag CooldownTag) { return Invoke<float>(nameof(GetTagCooldownEndTime), CooldownTag); }
@@ -131,7 +133,7 @@ namespace SDK.Script.AIModuleSDK
         public bool IsValidAILocation(Vector Location) { return Invoke<bool>(nameof(IsValidAILocation), Location); }
         public bool IsValidAIDirection(Vector DirectionVector) { return Invoke<bool>(nameof(IsValidAIDirection), DirectionVector); }
         public int GetNextNavLinkIndex(Controller Controller) { return Invoke<int>(nameof(GetNextNavLinkIndex), Controller); }
-        public Array<Vector> GetCurrentPathPoints(Controller Controller) { return Invoke<Array<Vector>>(nameof(GetCurrentPathPoints), Controller); }
+        public UArray<Vector> GetCurrentPathPoints(Controller Controller) { return Invoke<UArray<Vector>>(nameof(GetCurrentPathPoints), Controller); }
         public int GetCurrentPathIndex(Controller Controller) { return Invoke<int>(nameof(GetCurrentPathIndex), Controller); }
         public NavigationPath GetCurrentPath(Controller Controller) { return Invoke<NavigationPath>(nameof(GetCurrentPath), Controller); }
         public BlackboardComponent GetBlackboard(Actor Target) { return Invoke<BlackboardComponent>(nameof(GetBlackboard), Target); }
@@ -164,7 +166,7 @@ namespace SDK.Script.AIModuleSDK
     public class AIPerceptionComponent : ActorComponent
     {
         public AIPerceptionComponent(nint addr) : base(addr) { }
-        public Array<AISenseConfig> SensesConfig { get { return new Array<AISenseConfig>(this[nameof(SensesConfig)].Address); } }
+        public UArray<AISenseConfig> SensesConfig { get { return new UArray<AISenseConfig>(this[nameof(SensesConfig)].Address); } }
         public Object DominantSense { get { return this[nameof(DominantSense)]; } set { this[nameof(DominantSense)] = value; } }
         public AIController AIOwner { get { return this[nameof(AIOwner)].As<AIController>(); } set { this["AIOwner"] = value; } }
         public Object OnPerceptionUpdated { get { return this[nameof(OnPerceptionUpdated)]; } set { this[nameof(OnPerceptionUpdated)] = value; } }
@@ -173,11 +175,11 @@ namespace SDK.Script.AIModuleSDK
         public void SetSenseEnabled(Object SenseClass, bool bEnable) { Invoke(nameof(SetSenseEnabled), SenseClass, bEnable); }
         public void RequestStimuliListenerUpdate() { Invoke(nameof(RequestStimuliListenerUpdate)); }
         public void OnOwnerEndPlay(Actor Actor, byte EndPlayReason) { Invoke(nameof(OnOwnerEndPlay), Actor, EndPlayReason); }
-        public void GetPerceivedHostileActorsBySense(Object SenseToUse, Array<Actor> OutActors) { Invoke(nameof(GetPerceivedHostileActorsBySense), SenseToUse, OutActors); }
-        public void GetPerceivedHostileActors(Array<Actor> OutActors) { Invoke(nameof(GetPerceivedHostileActors), OutActors); }
-        public void GetPerceivedActors(Object SenseToUse, Array<Actor> OutActors) { Invoke(nameof(GetPerceivedActors), SenseToUse, OutActors); }
-        public void GetKnownPerceivedActors(Object SenseToUse, Array<Actor> OutActors) { Invoke(nameof(GetKnownPerceivedActors), SenseToUse, OutActors); }
-        public void GetCurrentlyPerceivedActors(Object SenseToUse, Array<Actor> OutActors) { Invoke(nameof(GetCurrentlyPerceivedActors), SenseToUse, OutActors); }
+        public void GetPerceivedHostileActorsBySense(Object SenseToUse, UArray<Actor> OutActors) { Invoke(nameof(GetPerceivedHostileActorsBySense), SenseToUse, OutActors); }
+        public void GetPerceivedHostileActors(UArray<Actor> OutActors) { Invoke(nameof(GetPerceivedHostileActors), OutActors); }
+        public void GetPerceivedActors(Object SenseToUse, UArray<Actor> OutActors) { Invoke(nameof(GetPerceivedActors), SenseToUse, OutActors); }
+        public void GetKnownPerceivedActors(Object SenseToUse, UArray<Actor> OutActors) { Invoke(nameof(GetKnownPerceivedActors), SenseToUse, OutActors); }
+        public void GetCurrentlyPerceivedActors(Object SenseToUse, UArray<Actor> OutActors) { Invoke(nameof(GetCurrentlyPerceivedActors), SenseToUse, OutActors); }
         public bool GetActorsPerception(Actor Actor, ActorPerceptionBlueprintInfo Info) { return Invoke<bool>(nameof(GetActorsPerception), Actor, Info); }
         public void ForgetAll() { Invoke(nameof(ForgetAll)); }
     }
@@ -189,7 +191,7 @@ namespace SDK.Script.AIModuleSDK
     {
         public AIPerceptionStimuliSourceComponent(nint addr) : base(addr) { }
         public bool bAutoRegisterAsSource { get { return this[nameof(bAutoRegisterAsSource)].Flag; } set { this[nameof(bAutoRegisterAsSource)].Flag = value; } }
-        public Array<Object> RegisterAsSourceForSenses { get { return new Array<Object>(this[nameof(RegisterAsSourceForSenses)].Address); } }
+        public UArray<Object> RegisterAsSourceForSenses { get { return new UArray<Object>(this[nameof(RegisterAsSourceForSenses)].Address); } }
         public void UnregisterFromSense(Object SenseClass) { Invoke(nameof(UnregisterFromSense), SenseClass); }
         public void UnregisterFromPerceptionSystem() { Invoke(nameof(UnregisterFromPerceptionSystem)); }
         public void RegisterWithPerceptionSystem() { Invoke(nameof(RegisterWithPerceptionSystem)); }
@@ -203,7 +205,7 @@ namespace SDK.Script.AIModuleSDK
     public class AIPerceptionSystem : AISubsystem
     {
         public AIPerceptionSystem(nint addr) : base(addr) { }
-        public Array<AISense> Senses { get { return new Array<AISense>(this[nameof(Senses)].Address); } }
+        public UArray<AISense> Senses { get { return new UArray<AISense>(this[nameof(Senses)].Address); } }
         public float PerceptionAgingRate { get { return this[nameof(PerceptionAgingRate)].GetValue<float>(); } set { this[nameof(PerceptionAgingRate)].SetValue<float>(value); } }
         public void ReportPerceptionEvent(Object WorldContextObject, AISenseEvent PerceptionEvent) { Invoke(nameof(ReportPerceptionEvent), WorldContextObject, PerceptionEvent); }
         public void ReportEvent(AISenseEvent PerceptionEvent) { Invoke(nameof(ReportEvent), PerceptionEvent); }
@@ -236,33 +238,33 @@ namespace SDK.Script.AIModuleSDK
     {
         public AISense_Blueprint(nint addr) : base(addr) { }
         public Object ListenerDataType { get { return this[nameof(ListenerDataType)]; } set { this[nameof(ListenerDataType)] = value; } }
-        public Array<AIPerceptionComponent> ListenerContainer { get { return new Array<AIPerceptionComponent>(this[nameof(ListenerContainer)].Address); } }
-        public Array<AISenseEvent> UnprocessedEvents { get { return new Array<AISenseEvent>(this[nameof(UnprocessedEvents)].Address); } }
-        public float OnUpdate(Array<AISenseEvent> EventsToProcess) { return Invoke<float>(nameof(OnUpdate), EventsToProcess); }
+        public UArray<AIPerceptionComponent> ListenerContainer { get { return new UArray<AIPerceptionComponent>(this[nameof(ListenerContainer)].Address); } }
+        public UArray<AISenseEvent> UnprocessedEvents { get { return new UArray<AISenseEvent>(this[nameof(UnprocessedEvents)].Address); } }
+        public float OnUpdate(UArray<AISenseEvent> EventsToProcess) { return Invoke<float>(nameof(OnUpdate), EventsToProcess); }
         public void OnListenerUpdated(Actor ActorListener, AIPerceptionComponent PerceptionComponent) { Invoke(nameof(OnListenerUpdated), ActorListener, PerceptionComponent); }
         public void OnListenerUnregistered(Actor ActorListener, AIPerceptionComponent PerceptionComponent) { Invoke(nameof(OnListenerUnregistered), ActorListener, PerceptionComponent); }
         public void OnListenerRegistered(Actor ActorListener, AIPerceptionComponent PerceptionComponent) { Invoke(nameof(OnListenerRegistered), ActorListener, PerceptionComponent); }
         public void K2_OnNewPawn(Pawn NewPawn) { Invoke(nameof(K2_OnNewPawn), NewPawn); }
-        public void GetAllListenerComponents(Array<AIPerceptionComponent> ListenerComponents) { Invoke(nameof(GetAllListenerComponents), ListenerComponents); }
-        public void GetAllListenerActors(Array<Actor> ListenerActors) { Invoke(nameof(GetAllListenerActors), ListenerActors); }
+        public void GetAllListenerComponents(UArray<AIPerceptionComponent> ListenerComponents) { Invoke(nameof(GetAllListenerComponents), ListenerComponents); }
+        public void GetAllListenerActors(UArray<Actor> ListenerActors) { Invoke(nameof(GetAllListenerActors), ListenerActors); }
     }
     public class AISense_Damage : AISense
     {
         public AISense_Damage(nint addr) : base(addr) { }
-        public Array<AIDamageEvent> RegisteredEvents { get { return new Array<AIDamageEvent>(this[nameof(RegisteredEvents)].Address); } }
+        public UArray<AIDamageEvent> RegisteredEvents { get { return new UArray<AIDamageEvent>(this[nameof(RegisteredEvents)].Address); } }
         public void ReportDamageEvent(Object WorldContextObject, Actor DamagedActor, Actor Instigator, float damageAmount, Vector EventLocation, Vector HitLocation, Object Tag) { Invoke(nameof(ReportDamageEvent), WorldContextObject, DamagedActor, Instigator, damageAmount, EventLocation, HitLocation, Tag); }
     }
     public class AISense_Hearing : AISense
     {
         public AISense_Hearing(nint addr) : base(addr) { }
-        public Array<AINoiseEvent> NoiseEvents { get { return new Array<AINoiseEvent>(this[nameof(NoiseEvents)].Address); } }
+        public UArray<AINoiseEvent> NoiseEvents { get { return new UArray<AINoiseEvent>(this[nameof(NoiseEvents)].Address); } }
         public float SpeedOfSoundSq { get { return this[nameof(SpeedOfSoundSq)].GetValue<float>(); } set { this[nameof(SpeedOfSoundSq)].SetValue<float>(value); } }
         public void ReportNoiseEvent(Object WorldContextObject, Vector NoiseLocation, float Loudness, Actor Instigator, float MaxRange, Object Tag) { Invoke(nameof(ReportNoiseEvent), WorldContextObject, NoiseLocation, Loudness, Instigator, MaxRange, Tag); }
     }
     public class AISense_Prediction : AISense
     {
         public AISense_Prediction(nint addr) : base(addr) { }
-        public Array<AIPredictionEvent> RegisteredEvents { get { return new Array<AIPredictionEvent>(this[nameof(RegisteredEvents)].Address); } }
+        public UArray<AIPredictionEvent> RegisteredEvents { get { return new UArray<AIPredictionEvent>(this[nameof(RegisteredEvents)].Address); } }
         public void RequestPawnPredictionEvent(Pawn Requestor, Actor PredictedActor, float PredictionTime) { Invoke(nameof(RequestPawnPredictionEvent), Requestor, PredictedActor, PredictionTime); }
         public void RequestControllerPredictionEvent(AIController Requestor, Actor PredictedActor, float PredictionTime) { Invoke(nameof(RequestControllerPredictionEvent), Requestor, PredictedActor, PredictionTime); }
     }
@@ -279,12 +281,12 @@ namespace SDK.Script.AIModuleSDK
     public class AISense_Team : AISense
     {
         public AISense_Team(nint addr) : base(addr) { }
-        public Array<AITeamStimulusEvent> RegisteredEvents { get { return new Array<AITeamStimulusEvent>(this[nameof(RegisteredEvents)].Address); } }
+        public UArray<AITeamStimulusEvent> RegisteredEvents { get { return new UArray<AITeamStimulusEvent>(this[nameof(RegisteredEvents)].Address); } }
     }
     public class AISense_Touch : AISense
     {
         public AISense_Touch(nint addr) : base(addr) { }
-        public Array<AITouchEvent> RegisteredEvents { get { return new Array<AITouchEvent>(this[nameof(RegisteredEvents)].Address); } }
+        public UArray<AITouchEvent> RegisteredEvents { get { return new UArray<AITouchEvent>(this[nameof(RegisteredEvents)].Address); } }
     }
     public class AISenseBlueprintListener : UserDefinedStruct
     {
@@ -378,7 +380,7 @@ namespace SDK.Script.AIModuleSDK
         public BehaviorTreeManager BehaviorTreeManager { get { return this[nameof(BehaviorTreeManager)].As<BehaviorTreeManager>(); } set { this["BehaviorTreeManager"] = value; } }
         public EnvQueryManager EnvironmentQueryManager { get { return this[nameof(EnvironmentQueryManager)].As<EnvQueryManager>(); } set { this["EnvironmentQueryManager"] = value; } }
         public AIPerceptionSystem PerceptionSystem { get { return this[nameof(PerceptionSystem)].As<AIPerceptionSystem>(); } set { this["PerceptionSystem"] = value; } }
-        public Array<AIAsyncTaskBlueprintProxy> AllProxyObjects { get { return new Array<AIAsyncTaskBlueprintProxy>(this[nameof(AllProxyObjects)].Address); } }
+        public UArray<AIAsyncTaskBlueprintProxy> AllProxyObjects { get { return new UArray<AIAsyncTaskBlueprintProxy>(this[nameof(AllProxyObjects)].Address); } }
         public AIHotSpotManager HotSpotManager { get { return this[nameof(HotSpotManager)].As<AIHotSpotManager>(); } set { this["HotSpotManager"] = value; } }
         public NavLocalGridManager NavLocalGrids { get { return this[nameof(NavLocalGrids)].As<NavLocalGridManager>(); } set { this["NavLocalGrids"] = value; } }
         public void AILoggingVerbose() { Invoke(nameof(AILoggingVerbose)); }
@@ -411,15 +413,15 @@ namespace SDK.Script.AIModuleSDK
         public BehaviorTree(nint addr) : base(addr) { }
         public BTCompositeNode RootNode { get { return this[nameof(RootNode)].As<BTCompositeNode>(); } set { this["RootNode"] = value; } }
         public BlackboardData BlackboardAsset { get { return this[nameof(BlackboardAsset)].As<BlackboardData>(); } set { this["BlackboardAsset"] = value; } }
-        public Array<BTDecorator> RootDecorators { get { return new Array<BTDecorator>(this[nameof(RootDecorators)].Address); } }
-        public Array<BTDecoratorLogic> RootDecoratorOps { get { return new Array<BTDecoratorLogic>(this[nameof(RootDecoratorOps)].Address); } }
+        public UArray<BTDecorator> RootDecorators { get { return new UArray<BTDecorator>(this[nameof(RootDecorators)].Address); } }
+        public UArray<BTDecoratorLogic> RootDecoratorOps { get { return new UArray<BTDecoratorLogic>(this[nameof(RootDecoratorOps)].Address); } }
     }
     public class BehaviorTreeManager : Object
     {
         public BehaviorTreeManager(nint addr) : base(addr) { }
         public int MaxDebuggerSteps { get { return this[nameof(MaxDebuggerSteps)].GetValue<int>(); } set { this[nameof(MaxDebuggerSteps)].SetValue<int>(value); } }
-        public Array<BehaviorTreeTemplateInfo> LoadedTemplates { get { return new Array<BehaviorTreeTemplateInfo>(this[nameof(LoadedTemplates)].Address); } }
-        public Array<BehaviorTreeComponent> ActiveComponents { get { return new Array<BehaviorTreeComponent>(this[nameof(ActiveComponents)].Address); } }
+        public UArray<BehaviorTreeTemplateInfo> LoadedTemplates { get { return new UArray<BehaviorTreeTemplateInfo>(this[nameof(LoadedTemplates)].Address); } }
+        public UArray<BehaviorTreeComponent> ActiveComponents { get { return new UArray<BehaviorTreeComponent>(this[nameof(ActiveComponents)].Address); } }
     }
     public class BehaviorTreeTypes : Object
     {
@@ -436,7 +438,7 @@ namespace SDK.Script.AIModuleSDK
         public BrainComponent BrainComp { get { return this[nameof(BrainComp)].As<BrainComponent>(); } set { this["BrainComp"] = value; } }
         public BlackboardData DefaultBlackboardAsset { get { return this[nameof(DefaultBlackboardAsset)].As<BlackboardData>(); } set { this["DefaultBlackboardAsset"] = value; } }
         public BlackboardData BlackboardAsset { get { return this[nameof(BlackboardAsset)].As<BlackboardData>(); } set { this["BlackboardAsset"] = value; } }
-        public Array<BlackboardKeyType> KeyInstances { get { return new Array<BlackboardKeyType>(this[nameof(KeyInstances)].Address); } }
+        public UArray<BlackboardKeyType> KeyInstances { get { return new UArray<BlackboardKeyType>(this[nameof(KeyInstances)].Address); } }
         public void SetValueAsVector(Object KeyName, Vector vectorValue) { Invoke(nameof(SetValueAsVector), KeyName, vectorValue); }
         public void SetValueAsString(Object KeyName, Object StringValue) { Invoke(nameof(SetValueAsString), KeyName, StringValue); }
         public void SetValueAsRotator(Object KeyName, Rotator vectorValue) { Invoke(nameof(SetValueAsRotator), KeyName, vectorValue); }
@@ -466,7 +468,7 @@ namespace SDK.Script.AIModuleSDK
     {
         public BlackboardData(nint addr) : base(addr) { }
         public BlackboardData Parent { get { return this[nameof(Parent)].As<BlackboardData>(); } set { this["Parent"] = value; } }
-        public Array<BlackboardEntry> Keys { get { return new Array<BlackboardEntry>(this[nameof(Keys)].Address); } }
+        public UArray<BlackboardEntry> Keys { get { return new UArray<BlackboardEntry>(this[nameof(Keys)].Address); } }
         public bool bHasSynchronizedKeys { get { return this[nameof(bHasSynchronizedKeys)].Flag; } set { this[nameof(bHasSynchronizedKeys)].Flag = value; } }
     }
     public class BlackboardKeyType : Object
@@ -528,8 +530,8 @@ namespace SDK.Script.AIModuleSDK
     public class BTCompositeNode : BTNode
     {
         public BTCompositeNode(nint addr) : base(addr) { }
-        public Array<BTCompositeChild> Children { get { return new Array<BTCompositeChild>(this[nameof(Children)].Address); } }
-        public Array<BTService> Services { get { return new Array<BTService>(this[nameof(Services)].Address); } }
+        public UArray<BTCompositeChild> Children { get { return new UArray<BTCompositeChild>(this[nameof(Children)].Address); } }
+        public UArray<BTService> Services { get { return new UArray<BTService>(this[nameof(Services)].Address); } }
         public bool bApplyDecoratorScope { get { return this[nameof(bApplyDecoratorScope)].Flag; } set { this[nameof(bApplyDecoratorScope)].Flag = value; } }
     }
     public class BTComposite_Selector : BTCompositeNode
@@ -560,7 +562,7 @@ namespace SDK.Script.AIModuleSDK
         public BTDecorator_BlueprintBase(nint addr) : base(addr) { }
         public AIController AIOwner { get { return this[nameof(AIOwner)].As<AIController>(); } set { this["AIOwner"] = value; } }
         public Actor ActorOwner { get { return this[nameof(ActorOwner)].As<Actor>(); } set { this["ActorOwner"] = value; } }
-        public Array<Object> ObservedKeyNames { get { return new Array<Object>(this[nameof(ObservedKeyNames)].Address); } }
+        public UArray<Object> ObservedKeyNames { get { return new UArray<Object>(this[nameof(ObservedKeyNames)].Address); } }
         public bool bShowPropertyDetails { get { return this[nameof(bShowPropertyDetails)].Flag; } set { this[nameof(bShowPropertyDetails)].Flag = value; } }
         public bool bCheckConditionOnlyBlackBoardChanges { get { return this[nameof(bCheckConditionOnlyBlackBoardChanges)].Flag; } set { this[nameof(bCheckConditionOnlyBlackBoardChanges)].Flag = value; } }
         public bool bIsObservingBB { get { return this[nameof(bIsObservingBB)].Flag; } set { this[nameof(bIsObservingBB)].Flag = value; } }
@@ -844,8 +846,8 @@ namespace SDK.Script.AIModuleSDK
     {
         public BTTask_RunEQSQuery(nint addr) : base(addr) { }
         public EnvQuery QueryTemplate { get { return this[nameof(QueryTemplate)].As<EnvQuery>(); } set { this["QueryTemplate"] = value; } }
-        public Array<EnvNamedValue> QueryParams { get { return new Array<EnvNamedValue>(this[nameof(QueryParams)].Address); } }
-        public Array<AIDynamicParam> QueryConfig { get { return new Array<AIDynamicParam>(this[nameof(QueryConfig)].Address); } }
+        public UArray<EnvNamedValue> QueryParams { get { return new UArray<EnvNamedValue>(this[nameof(QueryParams)].Address); } }
+        public UArray<AIDynamicParam> QueryConfig { get { return new UArray<AIDynamicParam>(this[nameof(QueryConfig)].Address); } }
         public byte RunMode { get { return this[nameof(RunMode)].GetValue<byte>(); } set { this[nameof(RunMode)].SetValue<byte>(value); } }
         public BlackboardKeySelector EQSQueryBlackboardKey { get { return this[nameof(EQSQueryBlackboardKey)].As<BlackboardKeySelector>(); } set { this["EQSQueryBlackboardKey"] = value; } }
         public bool bUseBBKey { get { return this[nameof(bUseBBKey)].Flag; } set { this[nameof(bUseBBKey)].Flag = value; } }
@@ -893,8 +895,8 @@ namespace SDK.Script.AIModuleSDK
     {
         public CrowdManager(nint addr) : base(addr) { }
         public NavigationData MyNavData { get { return this[nameof(MyNavData)].As<NavigationData>(); } set { this["MyNavData"] = value; } }
-        public Array<CrowdAvoidanceConfig> AvoidanceConfig { get { return new Array<CrowdAvoidanceConfig>(this[nameof(AvoidanceConfig)].Address); } }
-        public Array<CrowdAvoidanceSamplingPattern> SamplingPatterns { get { return new Array<CrowdAvoidanceSamplingPattern>(this[nameof(SamplingPatterns)].Address); } }
+        public UArray<CrowdAvoidanceConfig> AvoidanceConfig { get { return new UArray<CrowdAvoidanceConfig>(this[nameof(AvoidanceConfig)].Address); } }
+        public UArray<CrowdAvoidanceSamplingPattern> SamplingPatterns { get { return new UArray<CrowdAvoidanceSamplingPattern>(this[nameof(SamplingPatterns)].Address); } }
         public int MaxAgents { get { return this[nameof(MaxAgents)].GetValue<int>(); } set { this[nameof(MaxAgents)].SetValue<int>(value); } }
         public float MaxAgentRadius { get { return this[nameof(MaxAgentRadius)].GetValue<float>(); } set { this[nameof(MaxAgentRadius)].SetValue<float>(value); } }
         public int MaxAvoidedAgents { get { return this[nameof(MaxAvoidedAgents)].GetValue<int>(); } set { this[nameof(MaxAvoidedAgents)].SetValue<int>(value); } }
@@ -913,7 +915,7 @@ namespace SDK.Script.AIModuleSDK
     {
         public EnvQuery(nint addr) : base(addr) { }
         public Object QueryName { get { return this[nameof(QueryName)]; } set { this[nameof(QueryName)] = value; } }
-        public Array<EnvQueryOption> options { get { return new Array<EnvQueryOption>(this[nameof(options)].Address); } }
+        public UArray<EnvQueryOption> options { get { return new UArray<EnvQueryOption>(this[nameof(options)].Address); } }
     }
     public class EnvQueryContext : Object
     {
@@ -924,8 +926,8 @@ namespace SDK.Script.AIModuleSDK
         public EnvQueryContext_BlueprintBase(nint addr) : base(addr) { }
         public void ProvideSingleLocation(Object QuerierObject, Actor QuerierActor, Vector ResultingLocation) { Invoke(nameof(ProvideSingleLocation), QuerierObject, QuerierActor, ResultingLocation); }
         public void ProvideSingleActor(Object QuerierObject, Actor QuerierActor, Actor ResultingActor) { Invoke(nameof(ProvideSingleActor), QuerierObject, QuerierActor, ResultingActor); }
-        public void ProvideLocationsSet(Object QuerierObject, Actor QuerierActor, Array<Vector> ResultingLocationSet) { Invoke(nameof(ProvideLocationsSet), QuerierObject, QuerierActor, ResultingLocationSet); }
-        public void ProvideActorsSet(Object QuerierObject, Actor QuerierActor, Array<Actor> ResultingActorsSet) { Invoke(nameof(ProvideActorsSet), QuerierObject, QuerierActor, ResultingActorsSet); }
+        public void ProvideLocationsSet(Object QuerierObject, Actor QuerierActor, UArray<Vector> ResultingLocationSet) { Invoke(nameof(ProvideLocationsSet), QuerierObject, QuerierActor, ResultingLocationSet); }
+        public void ProvideActorsSet(Object QuerierObject, Actor QuerierActor, UArray<Actor> ResultingActorsSet) { Invoke(nameof(ProvideActorsSet), QuerierObject, QuerierActor, ResultingActorsSet); }
     }
     public class EnvQueryContext_Item : EnvQueryContext
     {
@@ -966,14 +968,14 @@ namespace SDK.Script.AIModuleSDK
         public Object Context { get { return this[nameof(Context)]; } set { this[nameof(Context)] = value; } }
         public Object GeneratedItemType { get { return this[nameof(GeneratedItemType)]; } set { this[nameof(GeneratedItemType)] = value; } }
         public Object GetQuerier() { return Invoke<Object>(nameof(GetQuerier)); }
-        public void DoItemGeneration(Array<Vector> ContextLocations) { Invoke(nameof(DoItemGeneration), ContextLocations); }
+        public void DoItemGeneration(UArray<Vector> ContextLocations) { Invoke(nameof(DoItemGeneration), ContextLocations); }
         public void AddGeneratedVector(Vector GeneratedVector) { Invoke(nameof(AddGeneratedVector), GeneratedVector); }
         public void AddGeneratedActor(Actor GeneratedActor) { Invoke(nameof(AddGeneratedActor), GeneratedActor); }
     }
     public class EnvQueryGenerator_Composite : EnvQueryGenerator
     {
         public EnvQueryGenerator_Composite(nint addr) : base(addr) { }
-        public Array<EnvQueryGenerator> generators { get { return new Array<EnvQueryGenerator>(this[nameof(generators)].Address); } }
+        public UArray<EnvQueryGenerator> generators { get { return new UArray<EnvQueryGenerator>(this[nameof(generators)].Address); } }
         public bool bAllowDifferentItemTypes { get { return this[nameof(bAllowDifferentItemTypes)].Flag; } set { this[nameof(bAllowDifferentItemTypes)].Flag = value; } }
         public bool bHasMatchingItemType { get { return this[nameof(bHasMatchingItemType)].Flag; } set { this[nameof(bHasMatchingItemType)].Flag = value; } }
         public Object ForcedItemType { get { return this[nameof(ForcedItemType)]; } set { this[nameof(ForcedItemType)] = value; } }
@@ -1049,10 +1051,10 @@ namespace SDK.Script.AIModuleSDK
         public int OptionIndex { get { return this[nameof(OptionIndex)].GetValue<int>(); } set { this[nameof(OptionIndex)].SetValue<int>(value); } }
         public Object OnQueryFinishedEvent { get { return this[nameof(OnQueryFinishedEvent)]; } set { this[nameof(OnQueryFinishedEvent)] = value; } }
         public void SetNamedParam(Object ParamName, float Value) { Invoke(nameof(SetNamedParam), ParamName, Value); }
-        public Array<Vector> GetResultsAsLocations() { return Invoke<Array<Vector>>(nameof(GetResultsAsLocations)); }
-        public Array<Actor> GetResultsAsActors() { return Invoke<Array<Actor>>(nameof(GetResultsAsActors)); }
-        public bool GetQueryResultsAsLocations(Array<Vector> ResultLocations) { return Invoke<bool>(nameof(GetQueryResultsAsLocations), ResultLocations); }
-        public bool GetQueryResultsAsActors(Array<Actor> ResultActors) { return Invoke<bool>(nameof(GetQueryResultsAsActors), ResultActors); }
+        public UArray<Vector> GetResultsAsLocations() { return Invoke<UArray<Vector>>(nameof(GetResultsAsLocations)); }
+        public UArray<Actor> GetResultsAsActors() { return Invoke<UArray<Actor>>(nameof(GetResultsAsActors)); }
+        public bool GetQueryResultsAsLocations(UArray<Vector> ResultLocations) { return Invoke<bool>(nameof(GetQueryResultsAsLocations), ResultLocations); }
+        public bool GetQueryResultsAsActors(UArray<Actor> ResultActors) { return Invoke<bool>(nameof(GetQueryResultsAsActors), ResultActors); }
         public float GetItemScore(int ItemIndex) { return Invoke<float>(nameof(GetItemScore), ItemIndex); }
         public void EQSQueryDoneSignature__DelegateSignature(EnvQueryInstanceBlueprintWrapper QueryInstance, byte QueryStatus) { Invoke(nameof(EQSQueryDoneSignature__DelegateSignature), QueryInstance, QueryStatus); }
     }
@@ -1083,9 +1085,9 @@ namespace SDK.Script.AIModuleSDK
     public class EnvQueryManager : AISubsystem
     {
         public EnvQueryManager(nint addr) : base(addr) { }
-        public Array<EnvQueryInstanceCache> InstanceCache { get { return new Array<EnvQueryInstanceCache>(this[nameof(InstanceCache)].Address); } }
-        public Array<EnvQueryContext> LocalContexts { get { return new Array<EnvQueryContext>(this[nameof(LocalContexts)].Address); } }
-        public Array<EnvQueryInstanceBlueprintWrapper> GCShieldedWrappers { get { return new Array<EnvQueryInstanceBlueprintWrapper>(this[nameof(GCShieldedWrappers)].Address); } }
+        public UArray<EnvQueryInstanceCache> InstanceCache { get { return new UArray<EnvQueryInstanceCache>(this[nameof(InstanceCache)].Address); } }
+        public UArray<EnvQueryContext> LocalContexts { get { return new UArray<EnvQueryContext>(this[nameof(LocalContexts)].Address); } }
+        public UArray<EnvQueryInstanceBlueprintWrapper> GCShieldedWrappers { get { return new UArray<EnvQueryInstanceBlueprintWrapper>(this[nameof(GCShieldedWrappers)].Address); } }
         public float MaxAllowedTestingTime { get { return this[nameof(MaxAllowedTestingTime)].GetValue<float>(); } set { this[nameof(MaxAllowedTestingTime)].SetValue<float>(value); } }
         public bool bTestQueriesUsingBreadth { get { return this[nameof(bTestQueriesUsingBreadth)].Flag; } set { this[nameof(bTestQueriesUsingBreadth)].Flag = value; } }
         public int QueryCountWarningThreshold { get { return this[nameof(QueryCountWarningThreshold)].GetValue<int>(); } set { this[nameof(QueryCountWarningThreshold)].SetValue<int>(value); } }
@@ -1096,7 +1098,7 @@ namespace SDK.Script.AIModuleSDK
     {
         public EnvQueryOption(nint addr) : base(addr) { }
         public EnvQueryGenerator Generator { get { return this[nameof(Generator)].As<EnvQueryGenerator>(); } set { this["Generator"] = value; } }
-        public Array<EnvQueryTest> Tests { get { return new Array<EnvQueryTest>(this[nameof(Tests)].Address); } }
+        public UArray<EnvQueryTest> Tests { get { return new UArray<EnvQueryTest>(this[nameof(Tests)].Address); } }
     }
     public class EnvQueryTest : EnvQueryNode
     {
@@ -1203,8 +1205,8 @@ namespace SDK.Script.AIModuleSDK
     {
         public EQSTestingPawn(nint addr) : base(addr) { }
         public EnvQuery QueryTemplate { get { return this[nameof(QueryTemplate)].As<EnvQuery>(); } set { this["QueryTemplate"] = value; } }
-        public Array<EnvNamedValue> QueryParams { get { return new Array<EnvNamedValue>(this[nameof(QueryParams)].Address); } }
-        public Array<AIDynamicParam> QueryConfig { get { return new Array<AIDynamicParam>(this[nameof(QueryConfig)].Address); } }
+        public UArray<EnvNamedValue> QueryParams { get { return new UArray<EnvNamedValue>(this[nameof(QueryParams)].Address); } }
+        public UArray<AIDynamicParam> QueryConfig { get { return new UArray<AIDynamicParam>(this[nameof(QueryConfig)].Address); } }
         public float TimeLimitPerStep { get { return this[nameof(TimeLimitPerStep)].GetValue<float>(); } set { this[nameof(TimeLimitPerStep)].SetValue<float>(value); } }
         public int StepToDebugDraw { get { return this[nameof(StepToDebugDraw)].GetValue<int>(); } set { this[nameof(StepToDebugDraw)].SetValue<int>(value); } }
         public EEnvQueryHightlightMode HighlightMode { get { return (EEnvQueryHightlightMode)this[nameof(HighlightMode)].GetValue<int>(); } set { this[nameof(HighlightMode)].SetValue<int>((int)value); } }
@@ -1236,8 +1238,8 @@ namespace SDK.Script.AIModuleSDK
     public class NavLinkProxy : Actor
     {
         public NavLinkProxy(nint addr) : base(addr) { }
-        public Array<NavigationLink> PointLinks { get { return new Array<NavigationLink>(this[nameof(PointLinks)].Address); } }
-        public Array<NavigationSegmentLink> SegmentLinks { get { return new Array<NavigationSegmentLink>(this[nameof(SegmentLinks)].Address); } }
+        public UArray<NavigationLink> PointLinks { get { return new UArray<NavigationLink>(this[nameof(PointLinks)].Address); } }
+        public UArray<NavigationSegmentLink> SegmentLinks { get { return new UArray<NavigationSegmentLink>(this[nameof(SegmentLinks)].Address); } }
         public NavLinkCustomComponent SmartLinkComp { get { return this[nameof(SmartLinkComp)].As<NavLinkCustomComponent>(); } set { this["SmartLinkComp"] = value; } }
         public bool bSmartLinkIsRelevant { get { return this[nameof(bSmartLinkIsRelevant)].Flag; } set { this[nameof(bSmartLinkIsRelevant)].Flag = value; } }
         public Object OnSmartLinkReached { get { return this[nameof(OnSmartLinkReached)]; } set { this[nameof(OnSmartLinkReached)] = value; } }
@@ -1252,8 +1254,8 @@ namespace SDK.Script.AIModuleSDK
         public NavLocalGridManager(nint addr) : base(addr) { }
         public bool SetLocalNavigationGridDensity(Object WorldContextObject, float CellSize) { return Invoke<bool>(nameof(SetLocalNavigationGridDensity), WorldContextObject, CellSize); }
         public void RemoveLocalNavigationGrid(Object WorldContextObject, int GridId, bool bRebuildGrids) { Invoke(nameof(RemoveLocalNavigationGrid), WorldContextObject, GridId, bRebuildGrids); }
-        public bool FindLocalNavigationGridPath(Object WorldContextObject, Vector Start, Vector End, Array<Vector> PathPoints) { return Invoke<bool>(nameof(FindLocalNavigationGridPath), WorldContextObject, Start, End, PathPoints); }
-        public int AddLocalNavigationGridForPoints(Object WorldContextObject, Array<Vector> Locations, int Radius2D, float Height, bool bRebuildGrids) { return Invoke<int>(nameof(AddLocalNavigationGridForPoints), WorldContextObject, Locations, Radius2D, Height, bRebuildGrids); }
+        public bool FindLocalNavigationGridPath(Object WorldContextObject, Vector Start, Vector End, UArray<Vector> PathPoints) { return Invoke<bool>(nameof(FindLocalNavigationGridPath), WorldContextObject, Start, End, PathPoints); }
+        public int AddLocalNavigationGridForPoints(Object WorldContextObject, UArray<Vector> Locations, int Radius2D, float Height, bool bRebuildGrids) { return Invoke<int>(nameof(AddLocalNavigationGridForPoints), WorldContextObject, Locations, Radius2D, Height, bRebuildGrids); }
         public int AddLocalNavigationGridForPoint(Object WorldContextObject, Vector Location, int Radius2D, float Height, bool bRebuildGrids) { return Invoke<int>(nameof(AddLocalNavigationGridForPoint), WorldContextObject, Location, Radius2D, Height, bRebuildGrids); }
         public int AddLocalNavigationGridForCapsule(Object WorldContextObject, Vector Location, float CapsuleRadius, float CapsuleHalfHeight, int Radius2D, float Height, bool bRebuildGrids) { return Invoke<int>(nameof(AddLocalNavigationGridForCapsule), WorldContextObject, Location, CapsuleRadius, CapsuleHalfHeight, Radius2D, Height, bRebuildGrids); }
         public int AddLocalNavigationGridForBox(Object WorldContextObject, Vector Location, Vector Extent, Rotator Rotation, int Radius2D, float Height, bool bRebuildGrids) { return Invoke<int>(nameof(AddLocalNavigationGridForBox), WorldContextObject, Location, Extent, Rotation, Radius2D, Height, bRebuildGrids); }
@@ -1312,7 +1314,7 @@ namespace SDK.Script.AIModuleSDK
     public class PawnAction_Sequence : PawnAction
     {
         public PawnAction_Sequence(nint addr) : base(addr) { }
-        public Array<PawnAction> ActionSequence { get { return new Array<PawnAction>(this[nameof(ActionSequence)].Address); } }
+        public UArray<PawnAction> ActionSequence { get { return new UArray<PawnAction>(this[nameof(ActionSequence)].Address); } }
         public byte ChildFailureHandlingMode { get { return this[nameof(ChildFailureHandlingMode)].GetValue<byte>(); } set { this[nameof(ChildFailureHandlingMode)].SetValue<byte>(value); } }
         public PawnAction RecentActionCopy { get { return this[nameof(RecentActionCopy)].As<PawnAction>(); } set { this["RecentActionCopy"] = value; } }
     }
@@ -1325,8 +1327,8 @@ namespace SDK.Script.AIModuleSDK
     {
         public PawnActionsComponent(nint addr) : base(addr) { }
         public Pawn ControlledPawn { get { return this[nameof(ControlledPawn)].As<Pawn>(); } set { this["ControlledPawn"] = value; } }
-        public Array<PawnActionStack> ActionStacks { get { return new Array<PawnActionStack>(this[nameof(ActionStacks)].Address); } }
-        public Array<PawnActionEvent> ActionEvents { get { return new Array<PawnActionEvent>(this[nameof(ActionEvents)].Address); } }
+        public UArray<PawnActionStack> ActionStacks { get { return new UArray<PawnActionStack>(this[nameof(ActionStacks)].Address); } }
+        public UArray<PawnActionEvent> ActionEvents { get { return new UArray<PawnActionEvent>(this[nameof(ActionEvents)].Address); } }
         public PawnAction CurrentAction { get { return this[nameof(CurrentAction)].As<PawnAction>(); } set { this["CurrentAction"] = value; } }
         public bool K2_PushAction(PawnAction NewAction, byte Priority, Object Instigator) { return Invoke<bool>(nameof(K2_PushAction), NewAction, Priority, Instigator); }
         public bool K2_PerformAction(Pawn Pawn, PawnAction Action, byte Priority) { return Invoke<bool>(nameof(K2_PerformAction), Pawn, Action, Priority); }
@@ -1805,7 +1807,7 @@ namespace SDK.Script.AIModuleSDK
     {
         public ActorPerceptionBlueprintInfo(nint addr) : base(addr) { }
         public Actor Target { get { return this[nameof(Target)].As<Actor>(); } set { this["Target"] = value; } }
-        public Array<AIStimulus> LastSensedStimuli { get { return new Array<AIStimulus>(this[nameof(LastSensedStimuli)].Address); } }
+        public UArray<AIStimulus> LastSensedStimuli { get { return new UArray<AIStimulus>(this[nameof(LastSensedStimuli)].Address); } }
         public bool bIsHostile { get { return this[nameof(bIsHostile)].Flag; } set { this[nameof(bIsHostile)].Flag = value; } }
     }
     public class AISenseAffiliationFilter : Object
@@ -1877,7 +1879,7 @@ namespace SDK.Script.AIModuleSDK
     public class BlackboardKeySelector : Object
     {
         public BlackboardKeySelector(nint addr) : base(addr) { }
-        public Array<BlackboardKeyType> AllowedTypes { get { return new Array<BlackboardKeyType>(this[nameof(AllowedTypes)].Address); } }
+        public UArray<BlackboardKeyType> AllowedTypes { get { return new UArray<BlackboardKeyType>(this[nameof(AllowedTypes)].Address); } }
         public Object SelectedKeyName { get { return this[nameof(SelectedKeyName)]; } set { this[nameof(SelectedKeyName)] = value; } }
         public Object SelectedKeyType { get { return this[nameof(SelectedKeyType)]; } set { this[nameof(SelectedKeyType)] = value; } }
         public byte SelectedKeyID { get { return this[nameof(SelectedKeyID)].GetValue<byte>(); } set { this[nameof(SelectedKeyID)].SetValue<byte>(value); } }
@@ -1895,8 +1897,8 @@ namespace SDK.Script.AIModuleSDK
         public BTCompositeChild(nint addr) : base(addr) { }
         public BTCompositeNode ChildComposite { get { return this[nameof(ChildComposite)].As<BTCompositeNode>(); } set { this["ChildComposite"] = value; } }
         public BTTaskNode ChildTask { get { return this[nameof(ChildTask)].As<BTTaskNode>(); } set { this["ChildTask"] = value; } }
-        public Array<BTDecorator> Decorators { get { return new Array<BTDecorator>(this[nameof(Decorators)].Address); } }
-        public Array<BTDecoratorLogic> DecoratorOps { get { return new Array<BTDecoratorLogic>(this[nameof(DecoratorOps)].Address); } }
+        public UArray<BTDecorator> Decorators { get { return new UArray<BTDecorator>(this[nameof(Decorators)].Address); } }
+        public UArray<BTDecoratorLogic> DecoratorOps { get { return new UArray<BTDecoratorLogic>(this[nameof(DecoratorOps)].Address); } }
     }
     public class BTDecoratorLogic : Object
     {
@@ -1907,8 +1909,8 @@ namespace SDK.Script.AIModuleSDK
     public class CrowdAvoidanceSamplingPattern : Object
     {
         public CrowdAvoidanceSamplingPattern(nint addr) : base(addr) { }
-        public Array<float> Angles { get { return new Array<float>(this[nameof(Angles)].Address); } }
-        public Array<float> Radii { get { return new Array<float>(this[nameof(Radii)].Address); } }
+        public UArray<float> Angles { get { return new UArray<float>(this[nameof(Angles)].Address); } }
+        public UArray<float> Radii { get { return new UArray<float>(this[nameof(Radii)].Address); } }
     }
     public class CrowdAvoidanceConfig : Object
     {
@@ -1940,7 +1942,7 @@ namespace SDK.Script.AIModuleSDK
     {
         public EQSParametrizedQueryExecutionRequest(nint addr) : base(addr) { }
         public EnvQuery QueryTemplate { get { return this[nameof(QueryTemplate)].As<EnvQuery>(); } set { this["QueryTemplate"] = value; } }
-        public Array<AIDynamicParam> QueryConfig { get { return new Array<AIDynamicParam>(this[nameof(QueryConfig)].Address); } }
+        public UArray<AIDynamicParam> QueryConfig { get { return new UArray<AIDynamicParam>(this[nameof(QueryConfig)].Address); } }
         public BlackboardKeySelector EQSQueryBlackboardKey { get { return this[nameof(EQSQueryBlackboardKey)].As<BlackboardKeySelector>(); } set { this["EQSQueryBlackboardKey"] = value; } }
         public byte RunMode { get { return this[nameof(RunMode)].GetValue<byte>(); } set { this[nameof(RunMode)].SetValue<byte>(value); } }
         public bool bUseBBKeyForQueryTemplate { get { return this[nameof(bUseBBKeyForQueryTemplate)].Flag; } set { this[nameof(bUseBBKeyForQueryTemplate)].Flag = value; } }

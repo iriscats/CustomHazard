@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -15,7 +17,7 @@ namespace SDK.Script.NiagaraSDK
     public class MovieSceneNiagaraTrack : MovieSceneNameableTrack
     {
         public MovieSceneNiagaraTrack(nint addr) : base(addr) { }
-        public Array<MovieSceneSection> Sections { get { return new Array<MovieSceneSection>(this[nameof(Sections)].Address); } }
+        public UArray<MovieSceneSection> Sections { get { return new UArray<MovieSceneSection>(this[nameof(Sections)].Address); } }
     }
     public class MovieSceneNiagaraParameterTrack : MovieSceneNiagaraTrack
     {
@@ -71,7 +73,7 @@ namespace SDK.Script.NiagaraSDK
         public int FramesPerSecond { get { return this[nameof(FramesPerSecond)].GetValue<int>(); } set { this[nameof(FramesPerSecond)].SetValue<int>(value); } }
         public bool bPreviewLooping { get { return this[nameof(bPreviewLooping)].Flag; } set { this[nameof(bPreviewLooping)].Flag = value; } }
         public IntPoint FramesPerDimension { get { return this[nameof(FramesPerDimension)].As<IntPoint>(); } set { this["FramesPerDimension"] = value; } }
-        public Array<NiagaraBakerTextureSettings> OutputTextures { get { return new Array<NiagaraBakerTextureSettings>(this[nameof(OutputTextures)].Address); } }
+        public UArray<NiagaraBakerTextureSettings> OutputTextures { get { return new UArray<NiagaraBakerTextureSettings>(this[nameof(OutputTextures)].Address); } }
         public ENiagaraBakerViewMode CameraViewportMode { get { return (ENiagaraBakerViewMode)this[nameof(CameraViewportMode)].GetValue<int>(); } set { this[nameof(CameraViewportMode)].SetValue<int>((int)value); } }
         public Vector CameraViewportLocation { get { return this[nameof(CameraViewportLocation)].As<Vector>(); } set { this["CameraViewportLocation"] = value; } }
         public Rotator CameraViewportRotation { get { return this[nameof(CameraViewportRotation)].As<Rotator>(); } set { this["CameraViewportRotation"] = value; } }
@@ -96,7 +98,7 @@ namespace SDK.Script.NiagaraSDK
         public bool bAutoManageAttachment { get { return this[nameof(bAutoManageAttachment)].Flag; } set { this[nameof(bAutoManageAttachment)].Flag = value; } }
         public bool bAutoAttachWeldSimulatedBodies { get { return this[nameof(bAutoAttachWeldSimulatedBodies)].Flag; } set { this[nameof(bAutoAttachWeldSimulatedBodies)].Flag = value; } }
         public float MaxTimeBeforeForceUpdateTransform { get { return this[nameof(MaxTimeBeforeForceUpdateTransform)].GetValue<float>(); } set { this[nameof(MaxTimeBeforeForceUpdateTransform)].SetValue<float>(value); } }
-        public Array<NiagaraMaterialOverride> EmitterMaterials { get { return new Array<NiagaraMaterialOverride>(this[nameof(EmitterMaterials)].Address); } }
+        public UArray<NiagaraMaterialOverride> EmitterMaterials { get { return new UArray<NiagaraMaterialOverride>(this[nameof(EmitterMaterials)].Address); } }
         public Object OnSystemFinished { get { return this[nameof(OnSystemFinished)]; } set { this[nameof(OnSystemFinished)] = value; } }
         public Object AutoAttachParent { get { return this[nameof(AutoAttachParent)]; } set { this[nameof(AutoAttachParent)] = value; } }
         public Object AutoAttachSocketName { get { return this[nameof(AutoAttachSocketName)]; } set { this[nameof(AutoAttachSocketName)] = value; } }
@@ -151,9 +153,9 @@ namespace SDK.Script.NiagaraSDK
         public int GetRandomSeedOffset() { return Invoke<int>(nameof(GetRandomSeedOffset)); }
         public bool GetPreviewLODDistanceEnabled() { return Invoke<bool>(nameof(GetPreviewLODDistanceEnabled)); }
         public float GetPreviewLODDistance() { return Invoke<float>(nameof(GetPreviewLODDistance)); }
-        public Array<Vector> GetNiagaraParticleValueVec3_DebugOnly(Object InEmitterName, Object InValueName) { return Invoke<Array<Vector>>(nameof(GetNiagaraParticleValueVec3_DebugOnly), InEmitterName, InValueName); }
-        public Array<float> GetNiagaraParticleValues_DebugOnly(Object InEmitterName, Object InValueName) { return Invoke<Array<float>>(nameof(GetNiagaraParticleValues_DebugOnly), InEmitterName, InValueName); }
-        public Array<Vector> GetNiagaraParticlePositions_DebugOnly(Object InEmitterName) { return Invoke<Array<Vector>>(nameof(GetNiagaraParticlePositions_DebugOnly), InEmitterName); }
+        public UArray<Vector> GetNiagaraParticleValueVec3_DebugOnly(Object InEmitterName, Object InValueName) { return Invoke<UArray<Vector>>(nameof(GetNiagaraParticleValueVec3_DebugOnly), InEmitterName, InValueName); }
+        public UArray<float> GetNiagaraParticleValues_DebugOnly(Object InEmitterName, Object InValueName) { return Invoke<UArray<float>>(nameof(GetNiagaraParticleValues_DebugOnly), InEmitterName, InValueName); }
+        public UArray<Vector> GetNiagaraParticlePositions_DebugOnly(Object InEmitterName) { return Invoke<UArray<Vector>>(nameof(GetNiagaraParticlePositions_DebugOnly), InEmitterName); }
         public float GetMaxSimTime() { return Invoke<float>(nameof(GetMaxSimTime)); }
         public bool GetLockDesiredAgeDeltaTimeToSeekDelta() { return Invoke<bool>(nameof(GetLockDesiredAgeDeltaTimeToSeekDelta)); }
         public bool GetForceSolo() { return Invoke<bool>(nameof(GetForceSolo)); }
@@ -189,7 +191,7 @@ namespace SDK.Script.NiagaraSDK
         public bool bOnlyCreateComponentsOnParticleSpawn { get { return this[nameof(bOnlyCreateComponentsOnParticleSpawn)].Flag; } set { this[nameof(bOnlyCreateComponentsOnParticleSpawn)].Flag = value; } }
         public int RendererVisibility { get { return this[nameof(RendererVisibility)].GetValue<int>(); } set { this[nameof(RendererVisibility)].SetValue<int>(value); } }
         public SceneComponent TemplateComponent { get { return this[nameof(TemplateComponent)].As<SceneComponent>(); } set { this["TemplateComponent"] = value; } }
-        public Array<NiagaraComponentPropertyBinding> PropertyBindings { get { return new Array<NiagaraComponentPropertyBinding>(this[nameof(PropertyBindings)].Address); } }
+        public UArray<NiagaraComponentPropertyBinding> PropertyBindings { get { return new UArray<NiagaraComponentPropertyBinding>(this[nameof(PropertyBindings)].Address); } }
     }
     public class NiagaraComponentSettings : Object
     {
@@ -219,78 +221,78 @@ namespace SDK.Script.NiagaraSDK
     public class NiagaraDataInterfaceArrayFloat : NiagaraDataInterfaceArray
     {
         public NiagaraDataInterfaceArrayFloat(nint addr) : base(addr) { }
-        public Array<float> FloatData { get { return new Array<float>(this[nameof(FloatData)].Address); } }
+        public UArray<float> FloatData { get { return new UArray<float>(this[nameof(FloatData)].Address); } }
     }
     public class NiagaraDataInterfaceArrayFloat2 : NiagaraDataInterfaceArray
     {
         public NiagaraDataInterfaceArrayFloat2(nint addr) : base(addr) { }
-        public Array<Vector2D> FloatData { get { return new Array<Vector2D>(this[nameof(FloatData)].Address); } }
+        public UArray<Vector2D> FloatData { get { return new UArray<Vector2D>(this[nameof(FloatData)].Address); } }
     }
     public class NiagaraDataInterfaceArrayFloat3 : NiagaraDataInterfaceArray
     {
         public NiagaraDataInterfaceArrayFloat3(nint addr) : base(addr) { }
-        public Array<Vector> FloatData { get { return new Array<Vector>(this[nameof(FloatData)].Address); } }
+        public UArray<Vector> FloatData { get { return new UArray<Vector>(this[nameof(FloatData)].Address); } }
     }
     public class NiagaraDataInterfaceArrayFloat4 : NiagaraDataInterfaceArray
     {
         public NiagaraDataInterfaceArrayFloat4(nint addr) : base(addr) { }
-        public Array<Vector4> FloatData { get { return new Array<Vector4>(this[nameof(FloatData)].Address); } }
+        public UArray<Vector4> FloatData { get { return new UArray<Vector4>(this[nameof(FloatData)].Address); } }
     }
     public class NiagaraDataInterfaceArrayColor : NiagaraDataInterfaceArray
     {
         public NiagaraDataInterfaceArrayColor(nint addr) : base(addr) { }
-        public Array<LinearColor> ColorData { get { return new Array<LinearColor>(this[nameof(ColorData)].Address); } }
+        public UArray<LinearColor> ColorData { get { return new UArray<LinearColor>(this[nameof(ColorData)].Address); } }
     }
     public class NiagaraDataInterfaceArrayQuat : NiagaraDataInterfaceArray
     {
         public NiagaraDataInterfaceArrayQuat(nint addr) : base(addr) { }
-        public Array<Quat> QuatData { get { return new Array<Quat>(this[nameof(QuatData)].Address); } }
+        public UArray<Quat> QuatData { get { return new UArray<Quat>(this[nameof(QuatData)].Address); } }
     }
     public class NiagaraDataInterfaceArrayFunctionLibrary : BlueprintFunctionLibrary
     {
         public NiagaraDataInterfaceArrayFunctionLibrary(nint addr) : base(addr) { }
         public void SetNiagaraArrayVectorValue(NiagaraComponent NiagaraSystem, Object OverrideName, int Index, Vector Value, bool bSizeToFit) { Invoke(nameof(SetNiagaraArrayVectorValue), NiagaraSystem, OverrideName, Index, Value, bSizeToFit); }
         public void SetNiagaraArrayVector4Value(NiagaraComponent NiagaraSystem, Object OverrideName, int Index, Vector4 Value, bool bSizeToFit) { Invoke(nameof(SetNiagaraArrayVector4Value), NiagaraSystem, OverrideName, Index, Value, bSizeToFit); }
-        public void SetNiagaraArrayVector4(NiagaraComponent NiagaraSystem, Object OverrideName, Array<Vector4> ArrayData) { Invoke(nameof(SetNiagaraArrayVector4), NiagaraSystem, OverrideName, ArrayData); }
+        public void SetNiagaraArrayVector4(NiagaraComponent NiagaraSystem, Object OverrideName, UArray<Vector4> ArrayData) { Invoke(nameof(SetNiagaraArrayVector4), NiagaraSystem, OverrideName, ArrayData); }
         public void SetNiagaraArrayVector2DValue(NiagaraComponent NiagaraSystem, Object OverrideName, int Index, Vector2D Value, bool bSizeToFit) { Invoke(nameof(SetNiagaraArrayVector2DValue), NiagaraSystem, OverrideName, Index, Value, bSizeToFit); }
-        public void SetNiagaraArrayVector2D(NiagaraComponent NiagaraSystem, Object OverrideName, Array<Vector2D> ArrayData) { Invoke(nameof(SetNiagaraArrayVector2D), NiagaraSystem, OverrideName, ArrayData); }
-        public void SetNiagaraArrayVector(NiagaraComponent NiagaraSystem, Object OverrideName, Array<Vector> ArrayData) { Invoke(nameof(SetNiagaraArrayVector), NiagaraSystem, OverrideName, ArrayData); }
+        public void SetNiagaraArrayVector2D(NiagaraComponent NiagaraSystem, Object OverrideName, UArray<Vector2D> ArrayData) { Invoke(nameof(SetNiagaraArrayVector2D), NiagaraSystem, OverrideName, ArrayData); }
+        public void SetNiagaraArrayVector(NiagaraComponent NiagaraSystem, Object OverrideName, UArray<Vector> ArrayData) { Invoke(nameof(SetNiagaraArrayVector), NiagaraSystem, OverrideName, ArrayData); }
         public void SetNiagaraArrayQuatValue(NiagaraComponent NiagaraSystem, Object OverrideName, int Index, Quat Value, bool bSizeToFit) { Invoke(nameof(SetNiagaraArrayQuatValue), NiagaraSystem, OverrideName, Index, Value, bSizeToFit); }
-        public void SetNiagaraArrayQuat(NiagaraComponent NiagaraSystem, Object OverrideName, Array<Quat> ArrayData) { Invoke(nameof(SetNiagaraArrayQuat), NiagaraSystem, OverrideName, ArrayData); }
+        public void SetNiagaraArrayQuat(NiagaraComponent NiagaraSystem, Object OverrideName, UArray<Quat> ArrayData) { Invoke(nameof(SetNiagaraArrayQuat), NiagaraSystem, OverrideName, ArrayData); }
         public void SetNiagaraArrayInt32Value(NiagaraComponent NiagaraSystem, Object OverrideName, int Index, int Value, bool bSizeToFit) { Invoke(nameof(SetNiagaraArrayInt32Value), NiagaraSystem, OverrideName, Index, Value, bSizeToFit); }
-        public void SetNiagaraArrayInt32(NiagaraComponent NiagaraSystem, Object OverrideName, Array<int> ArrayData) { Invoke(nameof(SetNiagaraArrayInt32), NiagaraSystem, OverrideName, ArrayData); }
+        public void SetNiagaraArrayInt32(NiagaraComponent NiagaraSystem, Object OverrideName, UArray<int> ArrayData) { Invoke(nameof(SetNiagaraArrayInt32), NiagaraSystem, OverrideName, ArrayData); }
         public void SetNiagaraArrayFloatValue(NiagaraComponent NiagaraSystem, Object OverrideName, int Index, float Value, bool bSizeToFit) { Invoke(nameof(SetNiagaraArrayFloatValue), NiagaraSystem, OverrideName, Index, Value, bSizeToFit); }
-        public void SetNiagaraArrayFloat(NiagaraComponent NiagaraSystem, Object OverrideName, Array<float> ArrayData) { Invoke(nameof(SetNiagaraArrayFloat), NiagaraSystem, OverrideName, ArrayData); }
+        public void SetNiagaraArrayFloat(NiagaraComponent NiagaraSystem, Object OverrideName, UArray<float> ArrayData) { Invoke(nameof(SetNiagaraArrayFloat), NiagaraSystem, OverrideName, ArrayData); }
         public void SetNiagaraArrayColorValue(NiagaraComponent NiagaraSystem, Object OverrideName, int Index, LinearColor Value, bool bSizeToFit) { Invoke(nameof(SetNiagaraArrayColorValue), NiagaraSystem, OverrideName, Index, Value, bSizeToFit); }
-        public void SetNiagaraArrayColor(NiagaraComponent NiagaraSystem, Object OverrideName, Array<LinearColor> ArrayData) { Invoke(nameof(SetNiagaraArrayColor), NiagaraSystem, OverrideName, ArrayData); }
+        public void SetNiagaraArrayColor(NiagaraComponent NiagaraSystem, Object OverrideName, UArray<LinearColor> ArrayData) { Invoke(nameof(SetNiagaraArrayColor), NiagaraSystem, OverrideName, ArrayData); }
         public void SetNiagaraArrayBoolValue(NiagaraComponent NiagaraSystem, Object OverrideName, int Index, bool Value, bool bSizeToFit) { Invoke(nameof(SetNiagaraArrayBoolValue), NiagaraSystem, OverrideName, Index, Value, bSizeToFit); }
-        public void SetNiagaraArrayBool(NiagaraComponent NiagaraSystem, Object OverrideName, Array<bool> ArrayData) { Invoke(nameof(SetNiagaraArrayBool), NiagaraSystem, OverrideName, ArrayData); }
+        public void SetNiagaraArrayBool(NiagaraComponent NiagaraSystem, Object OverrideName, UArray<bool> ArrayData) { Invoke(nameof(SetNiagaraArrayBool), NiagaraSystem, OverrideName, ArrayData); }
         public Vector GetNiagaraArrayVectorValue(NiagaraComponent NiagaraSystem, Object OverrideName, int Index) { return Invoke<Vector>(nameof(GetNiagaraArrayVectorValue), NiagaraSystem, OverrideName, Index); }
         public Vector4 GetNiagaraArrayVector4Value(NiagaraComponent NiagaraSystem, Object OverrideName, int Index) { return Invoke<Vector4>(nameof(GetNiagaraArrayVector4Value), NiagaraSystem, OverrideName, Index); }
-        public Array<Vector4> GetNiagaraArrayVector4(NiagaraComponent NiagaraSystem, Object OverrideName) { return Invoke<Array<Vector4>>(nameof(GetNiagaraArrayVector4), NiagaraSystem, OverrideName); }
+        public UArray<Vector4> GetNiagaraArrayVector4(NiagaraComponent NiagaraSystem, Object OverrideName) { return Invoke<UArray<Vector4>>(nameof(GetNiagaraArrayVector4), NiagaraSystem, OverrideName); }
         public Vector2D GetNiagaraArrayVector2DValue(NiagaraComponent NiagaraSystem, Object OverrideName, int Index) { return Invoke<Vector2D>(nameof(GetNiagaraArrayVector2DValue), NiagaraSystem, OverrideName, Index); }
-        public Array<Vector2D> GetNiagaraArrayVector2D(NiagaraComponent NiagaraSystem, Object OverrideName) { return Invoke<Array<Vector2D>>(nameof(GetNiagaraArrayVector2D), NiagaraSystem, OverrideName); }
-        public Array<Vector> GetNiagaraArrayVector(NiagaraComponent NiagaraSystem, Object OverrideName) { return Invoke<Array<Vector>>(nameof(GetNiagaraArrayVector), NiagaraSystem, OverrideName); }
+        public UArray<Vector2D> GetNiagaraArrayVector2D(NiagaraComponent NiagaraSystem, Object OverrideName) { return Invoke<UArray<Vector2D>>(nameof(GetNiagaraArrayVector2D), NiagaraSystem, OverrideName); }
+        public UArray<Vector> GetNiagaraArrayVector(NiagaraComponent NiagaraSystem, Object OverrideName) { return Invoke<UArray<Vector>>(nameof(GetNiagaraArrayVector), NiagaraSystem, OverrideName); }
         public Quat GetNiagaraArrayQuatValue(NiagaraComponent NiagaraSystem, Object OverrideName, int Index) { return Invoke<Quat>(nameof(GetNiagaraArrayQuatValue), NiagaraSystem, OverrideName, Index); }
-        public Array<Quat> GetNiagaraArrayQuat(NiagaraComponent NiagaraSystem, Object OverrideName) { return Invoke<Array<Quat>>(nameof(GetNiagaraArrayQuat), NiagaraSystem, OverrideName); }
+        public UArray<Quat> GetNiagaraArrayQuat(NiagaraComponent NiagaraSystem, Object OverrideName) { return Invoke<UArray<Quat>>(nameof(GetNiagaraArrayQuat), NiagaraSystem, OverrideName); }
         public int GetNiagaraArrayInt32Value(NiagaraComponent NiagaraSystem, Object OverrideName, int Index) { return Invoke<int>(nameof(GetNiagaraArrayInt32Value), NiagaraSystem, OverrideName, Index); }
-        public Array<int> GetNiagaraArrayInt32(NiagaraComponent NiagaraSystem, Object OverrideName) { return Invoke<Array<int>>(nameof(GetNiagaraArrayInt32), NiagaraSystem, OverrideName); }
+        public UArray<int> GetNiagaraArrayInt32(NiagaraComponent NiagaraSystem, Object OverrideName) { return Invoke<UArray<int>>(nameof(GetNiagaraArrayInt32), NiagaraSystem, OverrideName); }
         public float GetNiagaraArrayFloatValue(NiagaraComponent NiagaraSystem, Object OverrideName, int Index) { return Invoke<float>(nameof(GetNiagaraArrayFloatValue), NiagaraSystem, OverrideName, Index); }
-        public Array<float> GetNiagaraArrayFloat(NiagaraComponent NiagaraSystem, Object OverrideName) { return Invoke<Array<float>>(nameof(GetNiagaraArrayFloat), NiagaraSystem, OverrideName); }
+        public UArray<float> GetNiagaraArrayFloat(NiagaraComponent NiagaraSystem, Object OverrideName) { return Invoke<UArray<float>>(nameof(GetNiagaraArrayFloat), NiagaraSystem, OverrideName); }
         public LinearColor GetNiagaraArrayColorValue(NiagaraComponent NiagaraSystem, Object OverrideName, int Index) { return Invoke<LinearColor>(nameof(GetNiagaraArrayColorValue), NiagaraSystem, OverrideName, Index); }
-        public Array<LinearColor> GetNiagaraArrayColor(NiagaraComponent NiagaraSystem, Object OverrideName) { return Invoke<Array<LinearColor>>(nameof(GetNiagaraArrayColor), NiagaraSystem, OverrideName); }
+        public UArray<LinearColor> GetNiagaraArrayColor(NiagaraComponent NiagaraSystem, Object OverrideName) { return Invoke<UArray<LinearColor>>(nameof(GetNiagaraArrayColor), NiagaraSystem, OverrideName); }
         public bool GetNiagaraArrayBoolValue(NiagaraComponent NiagaraSystem, Object OverrideName, int Index) { return Invoke<bool>(nameof(GetNiagaraArrayBoolValue), NiagaraSystem, OverrideName, Index); }
-        public Array<bool> GetNiagaraArrayBool(NiagaraComponent NiagaraSystem, Object OverrideName) { return Invoke<Array<bool>>(nameof(GetNiagaraArrayBool), NiagaraSystem, OverrideName); }
+        public UArray<bool> GetNiagaraArrayBool(NiagaraComponent NiagaraSystem, Object OverrideName) { return Invoke<UArray<bool>>(nameof(GetNiagaraArrayBool), NiagaraSystem, OverrideName); }
     }
     public class NiagaraDataInterfaceArrayInt32 : NiagaraDataInterfaceArray
     {
         public NiagaraDataInterfaceArrayInt32(nint addr) : base(addr) { }
-        public Array<int> IntData { get { return new Array<int>(this[nameof(IntData)].Address); } }
+        public UArray<int> IntData { get { return new UArray<int>(this[nameof(IntData)].Address); } }
     }
     public class NiagaraDataInterfaceArrayBool : NiagaraDataInterfaceArray
     {
         public NiagaraDataInterfaceArrayBool(nint addr) : base(addr) { }
-        public Array<bool> BoolData { get { return new Array<bool>(this[nameof(BoolData)].Address); } }
+        public UArray<bool> BoolData { get { return new UArray<bool>(this[nameof(BoolData)].Address); } }
     }
     public class NiagaraDataInterfaceAudioSubmix : NiagaraDataInterface
     {
@@ -310,7 +312,7 @@ namespace SDK.Script.NiagaraSDK
         public SoundBase SoundToPlay { get { return this[nameof(SoundToPlay)].As<SoundBase>(); } set { this["SoundToPlay"] = value; } }
         public SoundAttenuation Attenuation { get { return this[nameof(Attenuation)].As<SoundAttenuation>(); } set { this["Attenuation"] = value; } }
         public SoundConcurrency Concurrency { get { return this[nameof(Concurrency)].As<SoundConcurrency>(); } set { this["Concurrency"] = value; } }
-        public Array<Object> ParameterNames { get { return new Array<Object>(this[nameof(ParameterNames)].Address); } }
+        public UArray<Object> ParameterNames { get { return new UArray<Object>(this[nameof(ParameterNames)].Address); } }
         public bool bLimitPlaysPerTick { get { return this[nameof(bLimitPlaysPerTick)].Flag; } set { this[nameof(bLimitPlaysPerTick)].Flag = value; } }
         public int MaxPlaysPerTick { get { return this[nameof(MaxPlaysPerTick)].GetValue<int>(); } set { this[nameof(MaxPlaysPerTick)].SetValue<int>(value); } }
         public bool bStopWhenComponentIsDestroyed { get { return this[nameof(bStopWhenComponentIsDestroyed)].Flag; } set { this[nameof(bStopWhenComponentIsDestroyed)].Flag = value; } }
@@ -336,7 +338,7 @@ namespace SDK.Script.NiagaraSDK
     public class NiagaraDataInterfaceCurveBase : NiagaraDataInterface
     {
         public NiagaraDataInterfaceCurveBase(nint addr) : base(addr) { }
-        public Array<float> ShaderLUT { get { return new Array<float>(this[nameof(ShaderLUT)].Address); } }
+        public UArray<float> ShaderLUT { get { return new UArray<float>(this[nameof(ShaderLUT)].Address); } }
         public float LUTMinTime { get { return this[nameof(LUTMinTime)].GetValue<float>(); } set { this[nameof(LUTMinTime)].SetValue<float>(value); } }
         public float LUTMaxTime { get { return this[nameof(LUTMaxTime)].GetValue<float>(); } set { this[nameof(LUTMaxTime)].SetValue<float>(value); } }
         public float LUTInvTimeRange { get { return this[nameof(LUTInvTimeRange)].GetValue<float>(); } set { this[nameof(LUTInvTimeRange)].SetValue<float>(value); } }
@@ -376,7 +378,7 @@ namespace SDK.Script.NiagaraSDK
     public class NiagaraParticleCallbackHandler : Interface
     {
         public NiagaraParticleCallbackHandler(nint addr) : base(addr) { }
-        public void ReceiveParticleData(Array<BasicParticleData> Data, NiagaraSystem NiagaraSystem) { Invoke(nameof(ReceiveParticleData), Data, NiagaraSystem); }
+        public void ReceiveParticleData(UArray<BasicParticleData> Data, NiagaraSystem NiagaraSystem) { Invoke(nameof(ReceiveParticleData), Data, NiagaraSystem); }
     }
     public class NiagaraDataInterfaceExport : NiagaraDataInterface
     {
@@ -457,7 +459,7 @@ namespace SDK.Script.NiagaraSDK
         public NiagaraDataInterfaceLandscape(nint addr) : base(addr) { }
         public Actor SourceLandscape { get { return this[nameof(SourceLandscape)].As<Actor>(); } set { this["SourceLandscape"] = value; } }
         public ENDILandscape_SourceMode SourceMode { get { return (ENDILandscape_SourceMode)this[nameof(SourceMode)].GetValue<int>(); } set { this[nameof(SourceMode)].SetValue<int>((int)value); } }
-        public Array<PhysicalMaterial> PhysicalMaterials { get { return new Array<PhysicalMaterial>(this[nameof(PhysicalMaterials)].Address); } }
+        public UArray<PhysicalMaterial> PhysicalMaterials { get { return new UArray<PhysicalMaterial>(this[nameof(PhysicalMaterials)].Address); } }
     }
     public class NiagaraDataInterfaceMeshRendererInfo : NiagaraDataInterface
     {
@@ -536,10 +538,10 @@ namespace SDK.Script.NiagaraSDK
         public NiagaraUserParameterBinding MeshUserParameter { get { return this[nameof(MeshUserParameter)].As<NiagaraUserParameterBinding>(); } set { this["MeshUserParameter"] = value; } }
         public SkeletalMeshComponent SourceComponent { get { return this[nameof(SourceComponent)].As<SkeletalMeshComponent>(); } set { this["SourceComponent"] = value; } }
         public ENDISkeletalMesh_SkinningMode SkinningMode { get { return (ENDISkeletalMesh_SkinningMode)this[nameof(SkinningMode)].GetValue<int>(); } set { this[nameof(SkinningMode)].SetValue<int>((int)value); } }
-        public Array<Object> SamplingRegions { get { return new Array<Object>(this[nameof(SamplingRegions)].Address); } }
+        public UArray<Object> SamplingRegions { get { return new UArray<Object>(this[nameof(SamplingRegions)].Address); } }
         public int WholeMeshLOD { get { return this[nameof(WholeMeshLOD)].GetValue<int>(); } set { this[nameof(WholeMeshLOD)].SetValue<int>(value); } }
-        public Array<Object> FilteredBones { get { return new Array<Object>(this[nameof(FilteredBones)].Address); } }
-        public Array<Object> FilteredSockets { get { return new Array<Object>(this[nameof(FilteredSockets)].Address); } }
+        public UArray<Object> FilteredBones { get { return new UArray<Object>(this[nameof(FilteredBones)].Address); } }
+        public UArray<Object> FilteredSockets { get { return new UArray<Object>(this[nameof(FilteredSockets)].Address); } }
         public Object ExcludeBoneName { get { return this[nameof(ExcludeBoneName)]; } set { this[nameof(ExcludeBoneName)] = value; } }
         public bool bExcludeBone { get { return this[nameof(bExcludeBone)].Flag; } set { this[nameof(bExcludeBone)].Flag = value; } }
         public int UvSetIndex { get { return this[nameof(UvSetIndex)].GetValue<int>(); } set { this[nameof(UvSetIndex)].SetValue<int>(value); } }
@@ -560,7 +562,7 @@ namespace SDK.Script.NiagaraSDK
         public StaticMeshComponent SourceComponent { get { return this[nameof(SourceComponent)].As<StaticMeshComponent>(); } set { this["SourceComponent"] = value; } }
         public NDIStaticMeshSectionFilter SectionFilter { get { return this[nameof(SectionFilter)].As<NDIStaticMeshSectionFilter>(); } set { this["SectionFilter"] = value; } }
         public bool bUsePhysicsBodyVelocity { get { return this[nameof(bUsePhysicsBodyVelocity)].Flag; } set { this[nameof(bUsePhysicsBodyVelocity)].Flag = value; } }
-        public Array<Object> FilteredSockets { get { return new Array<Object>(this[nameof(FilteredSockets)].Address); } }
+        public UArray<Object> FilteredSockets { get { return new UArray<Object>(this[nameof(FilteredSockets)].Address); } }
     }
     public class NiagaraDataInterfaceTexture : NiagaraDataInterface
     {
@@ -632,7 +634,7 @@ namespace SDK.Script.NiagaraSDK
         public ENiagaraScalabilityUpdateFrequency UpdateFrequency { get { return (ENiagaraScalabilityUpdateFrequency)this[nameof(UpdateFrequency)].GetValue<int>(); } set { this[nameof(UpdateFrequency)].SetValue<int>((int)value); } }
         public ENiagaraCullReaction CullReaction { get { return (ENiagaraCullReaction)this[nameof(CullReaction)].GetValue<int>(); } set { this[nameof(CullReaction)].SetValue<int>((int)value); } }
         public NiagaraSignificanceHandler SignificanceHandler { get { return this[nameof(SignificanceHandler)].As<NiagaraSignificanceHandler>(); } set { this["SignificanceHandler"] = value; } }
-        public Array<NiagaraSystemScalabilitySettings> DetailLevelScalabilitySettings { get { return new Array<NiagaraSystemScalabilitySettings>(this[nameof(DetailLevelScalabilitySettings)].Address); } }
+        public UArray<NiagaraSystemScalabilitySettings> DetailLevelScalabilitySettings { get { return new UArray<NiagaraSystemScalabilitySettings>(this[nameof(DetailLevelScalabilitySettings)].Address); } }
         public NiagaraSystemScalabilitySettingsArray SystemScalabilitySettings { get { return this[nameof(SystemScalabilitySettings)].As<NiagaraSystemScalabilitySettingsArray>(); } set { this["SystemScalabilitySettings"] = value; } }
         public NiagaraEmitterScalabilitySettingsArray EmitterScalabilitySettings { get { return this[nameof(EmitterScalabilitySettings)].As<NiagaraEmitterScalabilitySettingsArray>(); } set { this["EmitterScalabilitySettings"] = value; } }
         public NiagaraBaselineController PerformanceBaselineController { get { return this[nameof(PerformanceBaselineController)].As<NiagaraBaselineController>(); } set { this["PerformanceBaselineController"] = value; } }
@@ -671,11 +673,11 @@ namespace SDK.Script.NiagaraSDK
         public bool bDeprecatedShaderStagesEnabled { get { return this[nameof(bDeprecatedShaderStagesEnabled)].Flag; } set { this[nameof(bDeprecatedShaderStagesEnabled)].Flag = value; } }
         public bool bLimitDeltaTime { get { return this[nameof(bLimitDeltaTime)].Flag; } set { this[nameof(bLimitDeltaTime)].Flag = value; } }
         public Object UniqueEmitterName { get { return this[nameof(UniqueEmitterName)]; } set { this[nameof(UniqueEmitterName)] = value; } }
-        public Array<NiagaraRendererProperties> RendererProperties { get { return new Array<NiagaraRendererProperties>(this[nameof(RendererProperties)].Address); } }
-        public Array<NiagaraEventScriptProperties> EventHandlerScriptProps { get { return new Array<NiagaraEventScriptProperties>(this[nameof(EventHandlerScriptProps)].Address); } }
-        public Array<NiagaraSimulationStageBase> SimulationStages { get { return new Array<NiagaraSimulationStageBase>(this[nameof(SimulationStages)].Address); } }
+        public UArray<NiagaraRendererProperties> RendererProperties { get { return new UArray<NiagaraRendererProperties>(this[nameof(RendererProperties)].Address); } }
+        public UArray<NiagaraEventScriptProperties> EventHandlerScriptProps { get { return new UArray<NiagaraEventScriptProperties>(this[nameof(EventHandlerScriptProps)].Address); } }
+        public UArray<NiagaraSimulationStageBase> SimulationStages { get { return new UArray<NiagaraSimulationStageBase>(this[nameof(SimulationStages)].Address); } }
         public NiagaraScript GPUComputeScript { get { return this[nameof(GPUComputeScript)].As<NiagaraScript>(); } set { this["GPUComputeScript"] = value; } }
-        public Array<Object> SharedEventGeneratorIds { get { return new Array<Object>(this[nameof(SharedEventGeneratorIds)].Address); } }
+        public UArray<Object> SharedEventGeneratorIds { get { return new UArray<Object>(this[nameof(SharedEventGeneratorIds)].Address); } }
     }
     public class NiagaraEventReceiverEmitterAction : Object
     {
@@ -694,7 +696,7 @@ namespace SDK.Script.NiagaraSDK
         public void SetVolumeTextureObject(NiagaraComponent NiagaraSystem, Object OverrideName, VolumeTexture Texture) { Invoke(nameof(SetVolumeTextureObject), NiagaraSystem, OverrideName, Texture); }
         public void SetTextureObject(NiagaraComponent NiagaraSystem, Object OverrideName, Texture Texture) { Invoke(nameof(SetTextureObject), NiagaraSystem, OverrideName, Texture); }
         public void SetTexture2DArrayObject(NiagaraComponent NiagaraSystem, Object OverrideName, Texture2DArray Texture) { Invoke(nameof(SetTexture2DArrayObject), NiagaraSystem, OverrideName, Texture); }
-        public void SetSkeletalMeshDataInterfaceSamplingRegions(NiagaraComponent NiagaraSystem, Object OverrideName, Array<Object> SamplingRegions) { Invoke(nameof(SetSkeletalMeshDataInterfaceSamplingRegions), NiagaraSystem, OverrideName, SamplingRegions); }
+        public void SetSkeletalMeshDataInterfaceSamplingRegions(NiagaraComponent NiagaraSystem, Object OverrideName, UArray<Object> SamplingRegions) { Invoke(nameof(SetSkeletalMeshDataInterfaceSamplingRegions), NiagaraSystem, OverrideName, SamplingRegions); }
         public void OverrideSystemUserVariableStaticMeshComponent(NiagaraComponent NiagaraSystem, Object OverrideName, StaticMeshComponent StaticMeshComponent) { Invoke(nameof(OverrideSystemUserVariableStaticMeshComponent), NiagaraSystem, OverrideName, StaticMeshComponent); }
         public void OverrideSystemUserVariableStaticMesh(NiagaraComponent NiagaraSystem, Object OverrideName, StaticMesh StaticMesh) { Invoke(nameof(OverrideSystemUserVariableStaticMesh), NiagaraSystem, OverrideName, StaticMesh); }
         public void OverrideSystemUserVariableSkeletalMeshComponent(NiagaraComponent NiagaraSystem, Object OverrideName, SkeletalMeshComponent SkeletalMeshComponent) { Invoke(nameof(OverrideSystemUserVariableSkeletalMeshComponent), NiagaraSystem, OverrideName, SkeletalMeshComponent); }
@@ -721,7 +723,7 @@ namespace SDK.Script.NiagaraSDK
     public class NiagaraMeshRendererProperties : NiagaraRendererProperties
     {
         public NiagaraMeshRendererProperties(nint addr) : base(addr) { }
-        public Array<NiagaraMeshRendererMeshProperties> Meshes { get { return new Array<NiagaraMeshRendererMeshProperties>(this[nameof(Meshes)].Address); } }
+        public UArray<NiagaraMeshRendererMeshProperties> Meshes { get { return new UArray<NiagaraMeshRendererMeshProperties>(this[nameof(Meshes)].Address); } }
         public ENiagaraRendererSourceDataMode SourceMode { get { return (ENiagaraRendererSourceDataMode)this[nameof(SourceMode)].GetValue<int>(); } set { this[nameof(SourceMode)].SetValue<int>((int)value); } }
         public ENiagaraSortMode SortMode { get { return (ENiagaraSortMode)this[nameof(SortMode)].GetValue<int>(); } set { this[nameof(SortMode)].SetValue<int>((int)value); } }
         public bool bOverrideMaterials { get { return this[nameof(bOverrideMaterials)].Flag; } set { this[nameof(bOverrideMaterials)].Flag = value; } }
@@ -731,7 +733,7 @@ namespace SDK.Script.NiagaraSDK
         public bool bEnableFrustumCulling { get { return this[nameof(bEnableFrustumCulling)].Flag; } set { this[nameof(bEnableFrustumCulling)].Flag = value; } }
         public bool bEnableCameraDistanceCulling { get { return this[nameof(bEnableCameraDistanceCulling)].Flag; } set { this[nameof(bEnableCameraDistanceCulling)].Flag = value; } }
         public bool bEnableMeshFlipbook { get { return this[nameof(bEnableMeshFlipbook)].Flag; } set { this[nameof(bEnableMeshFlipbook)].Flag = value; } }
-        public Array<NiagaraMeshMaterialOverride> OverrideMaterials { get { return new Array<NiagaraMeshMaterialOverride>(this[nameof(OverrideMaterials)].Address); } }
+        public UArray<NiagaraMeshMaterialOverride> OverrideMaterials { get { return new UArray<NiagaraMeshMaterialOverride>(this[nameof(OverrideMaterials)].Address); } }
         public Vector2D SubImageSize { get { return this[nameof(SubImageSize)].As<Vector2D>(); } set { this["SubImageSize"] = value; } }
         public ENiagaraMeshFacingMode FacingMode { get { return (ENiagaraMeshFacingMode)this[nameof(FacingMode)].GetValue<int>(); } set { this[nameof(FacingMode)].SetValue<int>((int)value); } }
         public bool bLockedAxisEnable { get { return this[nameof(bLockedAxisEnable)].Flag; } set { this[nameof(bLockedAxisEnable)].Flag = value; } }
@@ -756,7 +758,7 @@ namespace SDK.Script.NiagaraSDK
         public NiagaraVariableAttributeBinding CameraOffsetBinding { get { return this[nameof(CameraOffsetBinding)].As<NiagaraVariableAttributeBinding>(); } set { this["CameraOffsetBinding"] = value; } }
         public NiagaraVariableAttributeBinding RendererVisibilityTagBinding { get { return this[nameof(RendererVisibilityTagBinding)].As<NiagaraVariableAttributeBinding>(); } set { this["RendererVisibilityTagBinding"] = value; } }
         public NiagaraVariableAttributeBinding MeshIndexBinding { get { return this[nameof(MeshIndexBinding)].As<NiagaraVariableAttributeBinding>(); } set { this["MeshIndexBinding"] = value; } }
-        public Array<NiagaraMaterialAttributeBinding> MaterialParameterBindings { get { return new Array<NiagaraMaterialAttributeBinding>(this[nameof(MaterialParameterBindings)].Address); } }
+        public UArray<NiagaraMaterialAttributeBinding> MaterialParameterBindings { get { return new UArray<NiagaraMaterialAttributeBinding>(this[nameof(MaterialParameterBindings)].Address); } }
         public NiagaraVariableAttributeBinding PrevPositionBinding { get { return this[nameof(PrevPositionBinding)].As<NiagaraVariableAttributeBinding>(); } set { this["PrevPositionBinding"] = value; } }
         public NiagaraVariableAttributeBinding PrevScaleBinding { get { return this[nameof(PrevScaleBinding)].As<NiagaraVariableAttributeBinding>(); } set { this["PrevScaleBinding"] = value; } }
         public NiagaraVariableAttributeBinding PrevMeshOrientationBinding { get { return this[nameof(PrevMeshOrientationBinding)].As<NiagaraVariableAttributeBinding>(); } set { this["PrevMeshOrientationBinding"] = value; } }
@@ -774,7 +776,7 @@ namespace SDK.Script.NiagaraSDK
     {
         public NiagaraParameterCollectionInstance(nint addr) : base(addr) { }
         public NiagaraParameterCollection Collection { get { return this[nameof(Collection)].As<NiagaraParameterCollection>(); } set { this["Collection"] = value; } }
-        public Array<NiagaraVariable> OverridenParameters { get { return new Array<NiagaraVariable>(this[nameof(OverridenParameters)].Address); } }
+        public UArray<NiagaraVariable> OverridenParameters { get { return new UArray<NiagaraVariable>(this[nameof(OverridenParameters)].Address); } }
         public NiagaraParameterStore ParameterStorage { get { return this[nameof(ParameterStorage)].As<NiagaraParameterStore>(); } set { this["ParameterStorage"] = value; } }
         public void SetVectorParameter(Object InVariableName, Vector InValue) { Invoke(nameof(SetVectorParameter), InVariableName, InValue); }
         public void SetVector4Parameter(Object InVariableName, Vector4 InValue) { Invoke(nameof(SetVector4Parameter), InVariableName, InValue); }
@@ -797,7 +799,7 @@ namespace SDK.Script.NiagaraSDK
     {
         public NiagaraParameterCollection(nint addr) : base(addr) { }
         public Object Namespace { get { return this[nameof(Namespace)]; } set { this[nameof(Namespace)] = value; } }
-        public Array<NiagaraVariable> Parameters { get { return new Array<NiagaraVariable>(this[nameof(Parameters)].Address); } }
+        public UArray<NiagaraVariable> Parameters { get { return new UArray<NiagaraVariable>(this[nameof(Parameters)].Address); } }
         public MaterialParameterCollection SourceMaterialCollection { get { return this[nameof(SourceMaterialCollection)].As<MaterialParameterCollection>(); } set { this["SourceMaterialCollection"] = value; } }
         public NiagaraParameterCollectionInstance DefaultInstance { get { return this[nameof(DefaultInstance)].As<NiagaraParameterCollectionInstance>(); } set { this["DefaultInstance"] = value; } }
         public Guid CompileId { get { return this[nameof(CompileId)].As<Guid>(); } set { this["CompileId"] = value; } }
@@ -823,7 +825,7 @@ namespace SDK.Script.NiagaraSDK
     {
         public NiagaraBaselineController_Basic(nint addr) : base(addr) { }
         public int NumInstances { get { return this[nameof(NumInstances)].GetValue<int>(); } set { this[nameof(NumInstances)].SetValue<int>(value); } }
-        public Array<NiagaraComponent> SpawnedComponents { get { return new Array<NiagaraComponent>(this[nameof(SpawnedComponents)].Address); } }
+        public UArray<NiagaraComponent> SpawnedComponents { get { return new UArray<NiagaraComponent>(this[nameof(SpawnedComponents)].Address); } }
     }
     public class NiagaraPerfBaselineActor : Actor
     {
@@ -834,7 +836,7 @@ namespace SDK.Script.NiagaraSDK
     public class NiagaraPrecompileContainer : Object
     {
         public NiagaraPrecompileContainer(nint addr) : base(addr) { }
-        public Array<NiagaraScript> Scripts { get { return new Array<NiagaraScript>(this[nameof(Scripts)].Address); } }
+        public UArray<NiagaraScript> Scripts { get { return new UArray<NiagaraScript>(this[nameof(Scripts)].Address); } }
         public NiagaraSystem System { get { return this[nameof(System)].As<NiagaraSystem>(); } set { this["System"] = value; } }
     }
     public class NiagaraPreviewBase : Actor
@@ -903,9 +905,9 @@ namespace SDK.Script.NiagaraSDK
         public float SpacingY { get { return this[nameof(SpacingY)].GetValue<float>(); } set { this[nameof(SpacingY)].SetValue<float>(value); } }
         public int NumX { get { return this[nameof(NumX)].GetValue<int>(); } set { this[nameof(NumX)].SetValue<int>(value); } }
         public int NumY { get { return this[nameof(NumY)].GetValue<int>(); } set { this[nameof(NumY)].SetValue<int>(value); } }
-        public Array<ChildActorComponent> PreviewComponents { get { return new Array<ChildActorComponent>(this[nameof(PreviewComponents)].Address); } }
+        public UArray<ChildActorComponent> PreviewComponents { get { return new UArray<ChildActorComponent>(this[nameof(PreviewComponents)].Address); } }
         public void SetPaused(bool bPaused) { Invoke(nameof(SetPaused), bPaused); }
-        public void GetPreviews(Array<NiagaraComponent> OutPreviews) { Invoke(nameof(GetPreviews), OutPreviews); }
+        public void GetPreviews(UArray<NiagaraComponent> OutPreviews) { Invoke(nameof(GetPreviews), OutPreviews); }
         public void DeactivatePreviews() { Invoke(nameof(DeactivatePreviews)); }
         public void ActivatePreviews(bool bReset) { Invoke(nameof(ActivatePreviews), bReset); }
     }
@@ -923,7 +925,7 @@ namespace SDK.Script.NiagaraSDK
         public int WidthSegmentationCount { get { return this[nameof(WidthSegmentationCount)].GetValue<int>(); } set { this[nameof(WidthSegmentationCount)].SetValue<int>(value); } }
         public int MultiPlaneCount { get { return this[nameof(MultiPlaneCount)].GetValue<int>(); } set { this[nameof(MultiPlaneCount)].SetValue<int>(value); } }
         public int TubeSubdivisions { get { return this[nameof(TubeSubdivisions)].GetValue<int>(); } set { this[nameof(TubeSubdivisions)].SetValue<int>(value); } }
-        public Array<NiagaraRibbonShapeCustomVertex> CustomVertices { get { return new Array<NiagaraRibbonShapeCustomVertex>(this[nameof(CustomVertices)].Address); } }
+        public UArray<NiagaraRibbonShapeCustomVertex> CustomVertices { get { return new UArray<NiagaraRibbonShapeCustomVertex>(this[nameof(CustomVertices)].Address); } }
         public float CurveTension { get { return this[nameof(CurveTension)].GetValue<float>(); } set { this[nameof(CurveTension)].SetValue<float>(value); } }
         public ENiagaraRibbonTessellationMode TessellationMode { get { return (ENiagaraRibbonTessellationMode)this[nameof(TessellationMode)].GetValue<int>(); } set { this[nameof(TessellationMode)].SetValue<int>((int)value); } }
         public int TessellationFactor { get { return this[nameof(TessellationFactor)].GetValue<int>(); } set { this[nameof(TessellationFactor)].SetValue<int>(value); } }
@@ -949,7 +951,7 @@ namespace SDK.Script.NiagaraSDK
         public NiagaraVariableAttributeBinding V0RangeOverrideBinding { get { return this[nameof(V0RangeOverrideBinding)].As<NiagaraVariableAttributeBinding>(); } set { this["V0RangeOverrideBinding"] = value; } }
         public NiagaraVariableAttributeBinding U1OverrideBinding { get { return this[nameof(U1OverrideBinding)].As<NiagaraVariableAttributeBinding>(); } set { this["U1OverrideBinding"] = value; } }
         public NiagaraVariableAttributeBinding V1RangeOverrideBinding { get { return this[nameof(V1RangeOverrideBinding)].As<NiagaraVariableAttributeBinding>(); } set { this["V1RangeOverrideBinding"] = value; } }
-        public Array<NiagaraMaterialAttributeBinding> MaterialParameterBindings { get { return new Array<NiagaraMaterialAttributeBinding>(this[nameof(MaterialParameterBindings)].Address); } }
+        public UArray<NiagaraMaterialAttributeBinding> MaterialParameterBindings { get { return new UArray<NiagaraMaterialAttributeBinding>(this[nameof(MaterialParameterBindings)].Address); } }
     }
     public class NiagaraScript : NiagaraScriptBase
     {
@@ -958,11 +960,11 @@ namespace SDK.Script.NiagaraSDK
         public Guid UsageId { get { return this[nameof(UsageId)].As<Guid>(); } set { this["UsageId"] = value; } }
         public NiagaraParameterStore RapidIterationParameters { get { return this[nameof(RapidIterationParameters)].As<NiagaraParameterStore>(); } set { this["RapidIterationParameters"] = value; } }
         public NiagaraScriptExecutionParameterStore ScriptExecutionParamStore { get { return this[nameof(ScriptExecutionParamStore)].As<NiagaraScriptExecutionParameterStore>(); } set { this["ScriptExecutionParamStore"] = value; } }
-        public Array<NiagaraBoundParameter> ScriptExecutionBoundParameters { get { return new Array<NiagaraBoundParameter>(this[nameof(ScriptExecutionBoundParameters)].Address); } }
+        public UArray<NiagaraBoundParameter> ScriptExecutionBoundParameters { get { return new UArray<NiagaraBoundParameter>(this[nameof(ScriptExecutionBoundParameters)].Address); } }
         public NiagaraVMExecutableDataId CachedScriptVMId { get { return this[nameof(CachedScriptVMId)].As<NiagaraVMExecutableDataId>(); } set { this["CachedScriptVMId"] = value; } }
         public NiagaraVMExecutableData CachedScriptVM { get { return this[nameof(CachedScriptVM)].As<NiagaraVMExecutableData>(); } set { this["CachedScriptVM"] = value; } }
-        public Array<NiagaraParameterCollection> CachedParameterCollectionReferences { get { return new Array<NiagaraParameterCollection>(this[nameof(CachedParameterCollectionReferences)].Address); } }
-        public Array<NiagaraScriptDataInterfaceInfo> CachedDefaultDataInterfaces { get { return new Array<NiagaraScriptDataInterfaceInfo>(this[nameof(CachedDefaultDataInterfaces)].Address); } }
+        public UArray<NiagaraParameterCollection> CachedParameterCollectionReferences { get { return new UArray<NiagaraParameterCollection>(this[nameof(CachedParameterCollectionReferences)].Address); } }
+        public UArray<NiagaraScriptDataInterfaceInfo> CachedDefaultDataInterfaces { get { return new UArray<NiagaraScriptDataInterfaceInfo>(this[nameof(CachedDefaultDataInterfaces)].Address); } }
         public void RaiseOnGPUCompilationComplete() { Invoke(nameof(RaiseOnGPUCompilationComplete)); }
     }
     public class NiagaraScriptSourceBase : Object
@@ -973,7 +975,7 @@ namespace SDK.Script.NiagaraSDK
     {
         public NiagaraSettings(nint addr) : base(addr) { }
         public SoftObjectPath DefaultEffectType { get { return this[nameof(DefaultEffectType)].As<SoftObjectPath>(); } set { this["DefaultEffectType"] = value; } }
-        public Array<Object> QualityLevels { get { return new Array<Object>(this[nameof(QualityLevels)].Address); } }
+        public UArray<Object> QualityLevels { get { return new UArray<Object>(this[nameof(QualityLevels)].Address); } }
         public Object ComponentRendererWarningsPerClass { get { return this[nameof(ComponentRendererWarningsPerClass)]; } set { this[nameof(ComponentRendererWarningsPerClass)] = value; } }
         public byte DefaultRenderTargetFormat { get { return this[nameof(DefaultRenderTargetFormat)].GetValue<byte>(); } set { this[nameof(DefaultRenderTargetFormat)].SetValue<byte>(value); } }
         public ENiagaraGpuBufferFormat DefaultGridFormat { get { return (ENiagaraGpuBufferFormat)this[nameof(DefaultGridFormat)].GetValue<int>(); } set { this[nameof(DefaultGridFormat)].SetValue<int>((int)value); } }
@@ -1039,7 +1041,7 @@ namespace SDK.Script.NiagaraSDK
         public NiagaraVariableAttributeBinding CustomSortingBinding { get { return this[nameof(CustomSortingBinding)].As<NiagaraVariableAttributeBinding>(); } set { this["CustomSortingBinding"] = value; } }
         public NiagaraVariableAttributeBinding NormalizedAgeBinding { get { return this[nameof(NormalizedAgeBinding)].As<NiagaraVariableAttributeBinding>(); } set { this["NormalizedAgeBinding"] = value; } }
         public NiagaraVariableAttributeBinding RendererVisibilityTagBinding { get { return this[nameof(RendererVisibilityTagBinding)].As<NiagaraVariableAttributeBinding>(); } set { this["RendererVisibilityTagBinding"] = value; } }
-        public Array<NiagaraMaterialAttributeBinding> MaterialParameterBindings { get { return new Array<NiagaraMaterialAttributeBinding>(this[nameof(MaterialParameterBindings)].Address); } }
+        public UArray<NiagaraMaterialAttributeBinding> MaterialParameterBindings { get { return new UArray<NiagaraMaterialAttributeBinding>(this[nameof(MaterialParameterBindings)].Address); } }
         public NiagaraVariableAttributeBinding PrevPositionBinding { get { return this[nameof(PrevPositionBinding)].As<NiagaraVariableAttributeBinding>(); } set { this["PrevPositionBinding"] = value; } }
         public NiagaraVariableAttributeBinding PrevVelocityBinding { get { return this[nameof(PrevVelocityBinding)].As<NiagaraVariableAttributeBinding>(); } set { this["PrevVelocityBinding"] = value; } }
         public NiagaraVariableAttributeBinding PrevSpriteRotationBinding { get { return this[nameof(PrevSpriteRotationBinding)].As<NiagaraVariableAttributeBinding>(); } set { this["PrevSpriteRotationBinding"] = value; } }
@@ -1058,10 +1060,10 @@ namespace SDK.Script.NiagaraSDK
         public bool bFixedBounds { get { return this[nameof(bFixedBounds)].Flag; } set { this[nameof(bFixedBounds)].Flag = value; } }
         public NiagaraEffectType EffectType { get { return this[nameof(EffectType)].As<NiagaraEffectType>(); } set { this["EffectType"] = value; } }
         public bool bOverrideScalabilitySettings { get { return this[nameof(bOverrideScalabilitySettings)].Flag; } set { this[nameof(bOverrideScalabilitySettings)].Flag = value; } }
-        public Array<NiagaraSystemScalabilityOverride> ScalabilityOverrides { get { return new Array<NiagaraSystemScalabilityOverride>(this[nameof(ScalabilityOverrides)].Address); } }
+        public UArray<NiagaraSystemScalabilityOverride> ScalabilityOverrides { get { return new UArray<NiagaraSystemScalabilityOverride>(this[nameof(ScalabilityOverrides)].Address); } }
         public NiagaraSystemScalabilityOverrides SystemScalabilityOverrides { get { return this[nameof(SystemScalabilityOverrides)].As<NiagaraSystemScalabilityOverrides>(); } set { this["SystemScalabilityOverrides"] = value; } }
-        public Array<NiagaraEmitterHandle> EmitterHandles { get { return new Array<NiagaraEmitterHandle>(this[nameof(EmitterHandles)].Address); } }
-        public Array<NiagaraParameterCollectionInstance> ParameterCollectionOverrides { get { return new Array<NiagaraParameterCollectionInstance>(this[nameof(ParameterCollectionOverrides)].Address); } }
+        public UArray<NiagaraEmitterHandle> EmitterHandles { get { return new UArray<NiagaraEmitterHandle>(this[nameof(EmitterHandles)].Address); } }
+        public UArray<NiagaraParameterCollectionInstance> ParameterCollectionOverrides { get { return new UArray<NiagaraParameterCollectionInstance>(this[nameof(ParameterCollectionOverrides)].Address); } }
         public NiagaraScript SystemSpawnScript { get { return this[nameof(SystemSpawnScript)].As<NiagaraScript>(); } set { this["SystemSpawnScript"] = value; } }
         public NiagaraScript SystemUpdateScript { get { return this[nameof(SystemUpdateScript)].As<NiagaraScript>(); } set { this["SystemUpdateScript"] = value; } }
         public NiagaraSystemCompiledData SystemCompiledData { get { return this[nameof(SystemCompiledData)].As<NiagaraSystemCompiledData>(); } set { this["SystemCompiledData"] = value; } }
@@ -1073,7 +1075,7 @@ namespace SDK.Script.NiagaraSDK
         public float WarmupTickDelta { get { return this[nameof(WarmupTickDelta)].GetValue<float>(); } set { this[nameof(WarmupTickDelta)].SetValue<float>(value); } }
         public bool bHasSystemScriptDIsWithPerInstanceData { get { return this[nameof(bHasSystemScriptDIsWithPerInstanceData)].Flag; } set { this[nameof(bHasSystemScriptDIsWithPerInstanceData)].Flag = value; } }
         public bool bNeedsGPUContextInitForDataInterfaces { get { return this[nameof(bNeedsGPUContextInitForDataInterfaces)].Flag; } set { this[nameof(bNeedsGPUContextInitForDataInterfaces)].Flag = value; } }
-        public Array<Object> UserDINamesReadInSystemScripts { get { return new Array<Object>(this[nameof(UserDINamesReadInSystemScripts)].Address); } }
+        public UArray<Object> UserDINamesReadInSystemScripts { get { return new UArray<Object>(this[nameof(UserDINamesReadInSystemScripts)].Address); } }
     }
     public enum ENiagaraSystemSpawnSectionEndBehavior : int
     {
@@ -1661,7 +1663,7 @@ namespace SDK.Script.NiagaraSDK
     public class NiagaraVariable : NiagaraVariableBase
     {
         public NiagaraVariable(nint addr) : base(addr) { }
-        public Array<byte> VarData { get { return new Array<byte>(this[nameof(VarData)].Address); } }
+        public UArray<byte> VarData { get { return new UArray<byte>(this[nameof(VarData)].Address); } }
     }
     public class MovieSceneNiagaraBoolParameterSectionTemplate : MovieSceneNiagaraParameterSectionTemplate
     {
@@ -1738,7 +1740,7 @@ namespace SDK.Script.NiagaraSDK
         public Object LinkerErrorMessage { get { return this[nameof(LinkerErrorMessage)]; } set { this[nameof(LinkerErrorMessage)] = value; } }
         public Guid NodeGuid { get { return this[nameof(NodeGuid)].As<Guid>(); } set { this["NodeGuid"] = value; } }
         public Guid PinGuid { get { return this[nameof(PinGuid)].As<Guid>(); } set { this["PinGuid"] = value; } }
-        public Array<Guid> StackGuids { get { return new Array<Guid>(this[nameof(StackGuids)].Address); } }
+        public UArray<Guid> StackGuids { get { return new UArray<Guid>(this[nameof(StackGuids)].Address); } }
         public NiagaraVariableBase DependentVariable { get { return this[nameof(DependentVariable)].As<NiagaraVariableBase>(); } set { this["DependentVariable"] = value; } }
     }
     public class NiagaraRandInfo : Object
@@ -1791,19 +1793,19 @@ namespace SDK.Script.NiagaraSDK
     public class NiagaraSystemUpdateContext : Object
     {
         public NiagaraSystemUpdateContext(nint addr) : base(addr) { }
-        public Array<NiagaraComponent> ComponentsToReset { get { return new Array<NiagaraComponent>(this[nameof(ComponentsToReset)].Address); } }
-        public Array<NiagaraComponent> ComponentsToReInit { get { return new Array<NiagaraComponent>(this[nameof(ComponentsToReInit)].Address); } }
-        public Array<NiagaraComponent> ComponentsToNotifySimDestroy { get { return new Array<NiagaraComponent>(this[nameof(ComponentsToNotifySimDestroy)].Address); } }
-        public Array<NiagaraSystem> SystemSimsToDestroy { get { return new Array<NiagaraSystem>(this[nameof(SystemSimsToDestroy)].Address); } }
+        public UArray<NiagaraComponent> ComponentsToReset { get { return new UArray<NiagaraComponent>(this[nameof(ComponentsToReset)].Address); } }
+        public UArray<NiagaraComponent> ComponentsToReInit { get { return new UArray<NiagaraComponent>(this[nameof(ComponentsToReInit)].Address); } }
+        public UArray<NiagaraComponent> ComponentsToNotifySimDestroy { get { return new UArray<NiagaraComponent>(this[nameof(ComponentsToNotifySimDestroy)].Address); } }
+        public UArray<NiagaraSystem> SystemSimsToDestroy { get { return new UArray<NiagaraSystem>(this[nameof(SystemSimsToDestroy)].Address); } }
     }
     public class VMExternalFunctionBindingInfo : Object
     {
         public VMExternalFunctionBindingInfo(nint addr) : base(addr) { }
         public Object Name { get { return this[nameof(Name)]; } set { this[nameof(Name)] = value; } }
         public Object OwnerName { get { return this[nameof(OwnerName)]; } set { this[nameof(OwnerName)] = value; } }
-        public Array<bool> InputParamLocations { get { return new Array<bool>(this[nameof(InputParamLocations)].Address); } }
+        public UArray<bool> InputParamLocations { get { return new UArray<bool>(this[nameof(InputParamLocations)].Address); } }
         public int NumOutputs { get { return this[nameof(NumOutputs)].GetValue<int>(); } set { this[nameof(NumOutputs)].SetValue<int>(value); } }
-        public Array<VMFunctionSpecifier> FunctionSpecifiers { get { return new Array<VMFunctionSpecifier>(this[nameof(FunctionSpecifiers)].Address); } }
+        public UArray<VMFunctionSpecifier> FunctionSpecifiers { get { return new UArray<VMFunctionSpecifier>(this[nameof(FunctionSpecifiers)].Address); } }
     }
     public class VMFunctionSpecifier : Object
     {
@@ -1847,8 +1849,8 @@ namespace SDK.Script.NiagaraSDK
     {
         public NiagaraFunctionSignature(nint addr) : base(addr) { }
         public Object Name { get { return this[nameof(Name)]; } set { this[nameof(Name)] = value; } }
-        public Array<NiagaraVariable> Inputs { get { return new Array<NiagaraVariable>(this[nameof(Inputs)].Address); } }
-        public Array<NiagaraVariable> Outputs { get { return new Array<NiagaraVariable>(this[nameof(Outputs)].Address); } }
+        public UArray<NiagaraVariable> Inputs { get { return new UArray<NiagaraVariable>(this[nameof(Inputs)].Address); } }
+        public UArray<NiagaraVariable> Outputs { get { return new UArray<NiagaraVariable>(this[nameof(Outputs)].Address); } }
         public Object OwnerName { get { return this[nameof(OwnerName)]; } set { this[nameof(OwnerName)] = value; } }
         public bool bRequiresContext { get { return this[nameof(bRequiresContext)].Flag; } set { this[nameof(bRequiresContext)].Flag = value; } }
         public bool bRequiresExecPin { get { return this[nameof(bRequiresExecPin)].Flag; } set { this[nameof(bRequiresExecPin)].Flag = value; } }
@@ -1874,7 +1876,7 @@ namespace SDK.Script.NiagaraSDK
     {
         public NiagaraDataSetProperties(nint addr) : base(addr) { }
         public NiagaraDataSetID ID { get { return this[nameof(ID)].As<NiagaraDataSetID>(); } set { this["ID"] = value; } }
-        public Array<NiagaraVariable> Variables { get { return new Array<NiagaraVariable>(this[nameof(Variables)].Address); } }
+        public UArray<NiagaraVariable> Variables { get { return new UArray<NiagaraVariable>(this[nameof(Variables)].Address); } }
     }
     public class NiagaraDataSetID : Object
     {
@@ -1892,7 +1894,7 @@ namespace SDK.Script.NiagaraSDK
     public class NCPool : Object
     {
         public NCPool(nint addr) : base(addr) { }
-        public Array<NCPoolElement> FreeElements { get { return new Array<NCPoolElement>(this[nameof(FreeElements)].Address); } }
+        public UArray<NCPoolElement> FreeElements { get { return new UArray<NCPoolElement>(this[nameof(FreeElements)].Address); } }
     }
     public class NCPoolElement : Object
     {
@@ -1931,13 +1933,13 @@ namespace SDK.Script.NiagaraSDK
     public class NDIStaticMeshSectionFilter : Object
     {
         public NDIStaticMeshSectionFilter(nint addr) : base(addr) { }
-        public Array<int> AllowedMaterialSlots { get { return new Array<int>(this[nameof(AllowedMaterialSlots)].Address); } }
+        public UArray<int> AllowedMaterialSlots { get { return new UArray<int>(this[nameof(AllowedMaterialSlots)].Address); } }
     }
     public class NiagaraDataSetCompiledData : Object
     {
         public NiagaraDataSetCompiledData(nint addr) : base(addr) { }
-        public Array<NiagaraVariable> Variables { get { return new Array<NiagaraVariable>(this[nameof(Variables)].Address); } }
-        public Array<NiagaraVariableLayoutInfo> VariableLayouts { get { return new Array<NiagaraVariableLayoutInfo>(this[nameof(VariableLayouts)].Address); } }
+        public UArray<NiagaraVariable> Variables { get { return new UArray<NiagaraVariable>(this[nameof(Variables)].Address); } }
+        public UArray<NiagaraVariableLayoutInfo> VariableLayouts { get { return new UArray<NiagaraVariableLayoutInfo>(this[nameof(VariableLayouts)].Address); } }
         public NiagaraDataSetID ID { get { return this[nameof(ID)].As<NiagaraDataSetID>(); } set { this["ID"] = value; } }
         public uint TotalFloatComponents { get { return this[nameof(TotalFloatComponents)].GetValue<uint>(); } set { this[nameof(TotalFloatComponents)].SetValue<uint>(value); } }
         public uint TotalInt32Components { get { return this[nameof(TotalInt32Components)].GetValue<uint>(); } set { this[nameof(TotalInt32Components)].SetValue<uint>(value); } }
@@ -1956,20 +1958,20 @@ namespace SDK.Script.NiagaraSDK
     public class NiagaraTypeLayoutInfo : Object
     {
         public NiagaraTypeLayoutInfo(nint addr) : base(addr) { }
-        public Array<uint> FloatComponentByteOffsets { get { return new Array<uint>(this[nameof(FloatComponentByteOffsets)].Address); } }
-        public Array<uint> FloatComponentRegisterOffsets { get { return new Array<uint>(this[nameof(FloatComponentRegisterOffsets)].Address); } }
-        public Array<uint> Int32ComponentByteOffsets { get { return new Array<uint>(this[nameof(Int32ComponentByteOffsets)].Address); } }
-        public Array<uint> Int32ComponentRegisterOffsets { get { return new Array<uint>(this[nameof(Int32ComponentRegisterOffsets)].Address); } }
-        public Array<uint> HalfComponentByteOffsets { get { return new Array<uint>(this[nameof(HalfComponentByteOffsets)].Address); } }
-        public Array<uint> HalfComponentRegisterOffsets { get { return new Array<uint>(this[nameof(HalfComponentRegisterOffsets)].Address); } }
+        public UArray<uint> FloatComponentByteOffsets { get { return new UArray<uint>(this[nameof(FloatComponentByteOffsets)].Address); } }
+        public UArray<uint> FloatComponentRegisterOffsets { get { return new UArray<uint>(this[nameof(FloatComponentRegisterOffsets)].Address); } }
+        public UArray<uint> Int32ComponentByteOffsets { get { return new UArray<uint>(this[nameof(Int32ComponentByteOffsets)].Address); } }
+        public UArray<uint> Int32ComponentRegisterOffsets { get { return new UArray<uint>(this[nameof(Int32ComponentRegisterOffsets)].Address); } }
+        public UArray<uint> HalfComponentByteOffsets { get { return new UArray<uint>(this[nameof(HalfComponentByteOffsets)].Address); } }
+        public UArray<uint> HalfComponentRegisterOffsets { get { return new UArray<uint>(this[nameof(HalfComponentRegisterOffsets)].Address); } }
     }
     public class NiagaraSimpleClientInfo : Object
     {
         public NiagaraSimpleClientInfo(nint addr) : base(addr) { }
-        public Array<Object> Systems { get { return new Array<Object>(this[nameof(Systems)].Address); } }
-        public Array<Object> Actors { get { return new Array<Object>(this[nameof(Actors)].Address); } }
-        public Array<Object> Components { get { return new Array<Object>(this[nameof(Components)].Address); } }
-        public Array<Object> Emitters { get { return new Array<Object>(this[nameof(Emitters)].Address); } }
+        public UArray<Object> Systems { get { return new UArray<Object>(this[nameof(Systems)].Address); } }
+        public UArray<Object> Actors { get { return new UArray<Object>(this[nameof(Actors)].Address); } }
+        public UArray<Object> Components { get { return new UArray<Object>(this[nameof(Components)].Address); } }
+        public UArray<Object> Emitters { get { return new UArray<Object>(this[nameof(Emitters)].Address); } }
     }
     public class NiagaraOutlinerCaptureSettings : Object
     {
@@ -2004,11 +2006,11 @@ namespace SDK.Script.NiagaraSDK
         public bool bSystemShowBounds { get { return this[nameof(bSystemShowBounds)].Flag; } set { this[nameof(bSystemShowBounds)].Flag = value; } }
         public bool bSystemShowActiveOnlyInWorld { get { return this[nameof(bSystemShowActiveOnlyInWorld)].Flag; } set { this[nameof(bSystemShowActiveOnlyInWorld)].Flag = value; } }
         public bool bShowSystemVariables { get { return this[nameof(bShowSystemVariables)].Flag; } set { this[nameof(bShowSystemVariables)].Flag = value; } }
-        public Array<NiagaraDebugHUDVariable> SystemVariables { get { return new Array<NiagaraDebugHUDVariable>(this[nameof(SystemVariables)].Address); } }
+        public UArray<NiagaraDebugHUDVariable> SystemVariables { get { return new UArray<NiagaraDebugHUDVariable>(this[nameof(SystemVariables)].Address); } }
         public NiagaraDebugHudTextOptions SystemTextOptions { get { return this[nameof(SystemTextOptions)].As<NiagaraDebugHudTextOptions>(); } set { this["SystemTextOptions"] = value; } }
         public bool bShowParticleVariables { get { return this[nameof(bShowParticleVariables)].Flag; } set { this[nameof(bShowParticleVariables)].Flag = value; } }
         public bool bEnableGpuParticleReadback { get { return this[nameof(bEnableGpuParticleReadback)].Flag; } set { this[nameof(bEnableGpuParticleReadback)].Flag = value; } }
-        public Array<NiagaraDebugHUDVariable> ParticlesVariables { get { return new Array<NiagaraDebugHUDVariable>(this[nameof(ParticlesVariables)].Address); } }
+        public UArray<NiagaraDebugHUDVariable> ParticlesVariables { get { return new UArray<NiagaraDebugHUDVariable>(this[nameof(ParticlesVariables)].Address); } }
         public NiagaraDebugHudTextOptions ParticleTextOptions { get { return this[nameof(ParticleTextOptions)].As<NiagaraDebugHudTextOptions>(); } set { this["ParticleTextOptions"] = value; } }
         public bool bShowParticlesVariablesWithSystem { get { return this[nameof(bShowParticlesVariablesWithSystem)].Flag; } set { this[nameof(bShowParticlesVariablesWithSystem)].Flag = value; } }
         public bool bUseMaxParticlesToDisplay { get { return this[nameof(bUseMaxParticlesToDisplay)].Flag; } set { this[nameof(bUseMaxParticlesToDisplay)].Flag = value; } }
@@ -2063,7 +2065,7 @@ namespace SDK.Script.NiagaraSDK
     public class NiagaraOutlinerSystemData : Object
     {
         public NiagaraOutlinerSystemData(nint addr) : base(addr) { }
-        public Array<NiagaraOutlinerSystemInstanceData> SystemInstances { get { return new Array<NiagaraOutlinerSystemInstanceData>(this[nameof(SystemInstances)].Address); } }
+        public UArray<NiagaraOutlinerSystemInstanceData> SystemInstances { get { return new UArray<NiagaraOutlinerSystemInstanceData>(this[nameof(SystemInstances)].Address); } }
         public NiagaraOutlinerTimingData AveragePerFrameTime { get { return this[nameof(AveragePerFrameTime)].As<NiagaraOutlinerTimingData>(); } set { this["AveragePerFrameTime"] = value; } }
         public NiagaraOutlinerTimingData MaxPerFrameTime { get { return this[nameof(MaxPerFrameTime)].As<NiagaraOutlinerTimingData>(); } set { this["MaxPerFrameTime"] = value; } }
         public NiagaraOutlinerTimingData AveragePerInstanceTime { get { return this[nameof(AveragePerInstanceTime)].As<NiagaraOutlinerTimingData>(); } set { this["AveragePerInstanceTime"] = value; } }
@@ -2073,7 +2075,7 @@ namespace SDK.Script.NiagaraSDK
     {
         public NiagaraOutlinerSystemInstanceData(nint addr) : base(addr) { }
         public Object ComponentName { get { return this[nameof(ComponentName)]; } set { this[nameof(ComponentName)] = value; } }
-        public Array<NiagaraOutlinerEmitterInstanceData> Emitters { get { return new Array<NiagaraOutlinerEmitterInstanceData>(this[nameof(Emitters)].Address); } }
+        public UArray<NiagaraOutlinerEmitterInstanceData> Emitters { get { return new UArray<NiagaraOutlinerEmitterInstanceData>(this[nameof(Emitters)].Address); } }
         public ENiagaraExecutionState ActualExecutionState { get { return (ENiagaraExecutionState)this[nameof(ActualExecutionState)].GetValue<int>(); } set { this[nameof(ActualExecutionState)].SetValue<int>((int)value); } }
         public ENiagaraExecutionState RequestedExecutionState { get { return (ENiagaraExecutionState)this[nameof(RequestedExecutionState)].GetValue<int>(); } set { this[nameof(RequestedExecutionState)].SetValue<int>((int)value); } }
         public NiagaraScalabilityState ScalabilityState { get { return this[nameof(ScalabilityState)].As<NiagaraScalabilityState>(); } set { this["ScalabilityState"] = value; } }
@@ -2124,7 +2126,7 @@ namespace SDK.Script.NiagaraSDK
     public class NiagaraEmitterScalabilityOverrides : Object
     {
         public NiagaraEmitterScalabilityOverrides(nint addr) : base(addr) { }
-        public Array<NiagaraEmitterScalabilityOverride> Overrides { get { return new Array<NiagaraEmitterScalabilityOverride>(this[nameof(Overrides)].Address); } }
+        public UArray<NiagaraEmitterScalabilityOverride> Overrides { get { return new UArray<NiagaraEmitterScalabilityOverride>(this[nameof(Overrides)].Address); } }
     }
     public class NiagaraEmitterScalabilitySettings : Object
     {
@@ -2137,8 +2139,8 @@ namespace SDK.Script.NiagaraSDK
     {
         public NiagaraPlatformSet(nint addr) : base(addr) { }
         public int QualityLevelMask { get { return this[nameof(QualityLevelMask)].GetValue<int>(); } set { this[nameof(QualityLevelMask)].SetValue<int>(value); } }
-        public Array<NiagaraDeviceProfileStateEntry> DeviceProfileStates { get { return new Array<NiagaraDeviceProfileStateEntry>(this[nameof(DeviceProfileStates)].Address); } }
-        public Array<NiagaraPlatformSetCVarCondition> CVarConditions { get { return new Array<NiagaraPlatformSetCVarCondition>(this[nameof(CVarConditions)].Address); } }
+        public UArray<NiagaraDeviceProfileStateEntry> DeviceProfileStates { get { return new UArray<NiagaraDeviceProfileStateEntry>(this[nameof(DeviceProfileStates)].Address); } }
+        public UArray<NiagaraPlatformSetCVarCondition> CVarConditions { get { return new UArray<NiagaraPlatformSetCVarCondition>(this[nameof(CVarConditions)].Address); } }
     }
     public class NiagaraPlatformSetCVarCondition : Object
     {
@@ -2169,12 +2171,12 @@ namespace SDK.Script.NiagaraSDK
     public class NiagaraEmitterScalabilitySettingsArray : Object
     {
         public NiagaraEmitterScalabilitySettingsArray(nint addr) : base(addr) { }
-        public Array<NiagaraEmitterScalabilitySettings> Settings { get { return new Array<NiagaraEmitterScalabilitySettings>(this[nameof(Settings)].Address); } }
+        public UArray<NiagaraEmitterScalabilitySettings> Settings { get { return new UArray<NiagaraEmitterScalabilitySettings>(this[nameof(Settings)].Address); } }
     }
     public class NiagaraSystemScalabilityOverrides : Object
     {
         public NiagaraSystemScalabilityOverrides(nint addr) : base(addr) { }
-        public Array<NiagaraSystemScalabilityOverride> Overrides { get { return new Array<NiagaraSystemScalabilityOverride>(this[nameof(Overrides)].Address); } }
+        public UArray<NiagaraSystemScalabilityOverride> Overrides { get { return new UArray<NiagaraSystemScalabilityOverride>(this[nameof(Overrides)].Address); } }
     }
     public class NiagaraSystemScalabilitySettings : Object
     {
@@ -2203,7 +2205,7 @@ namespace SDK.Script.NiagaraSDK
     public class NiagaraSystemScalabilitySettingsArray : Object
     {
         public NiagaraSystemScalabilitySettingsArray(nint addr) : base(addr) { }
-        public Array<NiagaraSystemScalabilitySettings> Settings { get { return new Array<NiagaraSystemScalabilitySettings>(this[nameof(Settings)].Address); } }
+        public UArray<NiagaraSystemScalabilitySettings> Settings { get { return new UArray<NiagaraSystemScalabilitySettings>(this[nameof(Settings)].Address); } }
     }
     public class NiagaraDetailsLevelScaleOverrides : Object
     {
@@ -2218,8 +2220,8 @@ namespace SDK.Script.NiagaraSDK
     {
         public NiagaraEmitterScriptProperties(nint addr) : base(addr) { }
         public NiagaraScript Script { get { return this[nameof(Script)].As<NiagaraScript>(); } set { this["Script"] = value; } }
-        public Array<NiagaraEventReceiverProperties> EventReceivers { get { return new Array<NiagaraEventReceiverProperties>(this[nameof(EventReceivers)].Address); } }
-        public Array<NiagaraEventGeneratorProperties> EventGenerators { get { return new Array<NiagaraEventGeneratorProperties>(this[nameof(EventGenerators)].Address); } }
+        public UArray<NiagaraEventReceiverProperties> EventReceivers { get { return new UArray<NiagaraEventReceiverProperties>(this[nameof(EventReceivers)].Address); } }
+        public UArray<NiagaraEventGeneratorProperties> EventGenerators { get { return new UArray<NiagaraEventGeneratorProperties>(this[nameof(EventGenerators)].Address); } }
     }
     public class NiagaraEventGeneratorProperties : Object
     {
@@ -2285,16 +2287,16 @@ namespace SDK.Script.NiagaraSDK
     public class NiagaraParameters : Object
     {
         public NiagaraParameters(nint addr) : base(addr) { }
-        public Array<NiagaraVariable> Parameters { get { return new Array<NiagaraVariable>(this[nameof(Parameters)].Address); } }
+        public UArray<NiagaraVariable> Parameters { get { return new UArray<NiagaraVariable>(this[nameof(Parameters)].Address); } }
     }
     public class NiagaraParameterStore : Object
     {
         public NiagaraParameterStore(nint addr) : base(addr) { }
         public Object Owner { get { return this[nameof(Owner)].As<Object>(); } set { this["Owner"] = value; } }
-        public Array<NiagaraVariableWithOffset> SortedParameterOffsets { get { return new Array<NiagaraVariableWithOffset>(this[nameof(SortedParameterOffsets)].Address); } }
-        public Array<byte> ParameterData { get { return new Array<byte>(this[nameof(ParameterData)].Address); } }
-        public Array<NiagaraDataInterface> DataInterfaces { get { return new Array<NiagaraDataInterface>(this[nameof(DataInterfaces)].Address); } }
-        public Array<Object> UObjects { get { return new Array<Object>(this[nameof(UObjects)].Address); } }
+        public UArray<NiagaraVariableWithOffset> SortedParameterOffsets { get { return new UArray<NiagaraVariableWithOffset>(this[nameof(SortedParameterOffsets)].Address); } }
+        public UArray<byte> ParameterData { get { return new UArray<byte>(this[nameof(ParameterData)].Address); } }
+        public UArray<NiagaraDataInterface> DataInterfaces { get { return new UArray<NiagaraDataInterface>(this[nameof(DataInterfaces)].Address); } }
+        public UArray<Object> UObjects { get { return new UArray<Object>(this[nameof(UObjects)].Address); } }
     }
     public class NiagaraVariableWithOffset : NiagaraVariableBase
     {
@@ -2321,7 +2323,7 @@ namespace SDK.Script.NiagaraSDK
         public NiagaraPlatformSetConflictInfo(nint addr) : base(addr) { }
         public int SetAIndex { get { return this[nameof(SetAIndex)].GetValue<int>(); } set { this[nameof(SetAIndex)].SetValue<int>(value); } }
         public int SetBIndex { get { return this[nameof(SetBIndex)].GetValue<int>(); } set { this[nameof(SetBIndex)].SetValue<int>(value); } }
-        public Array<NiagaraPlatformSetConflictEntry> Conflicts { get { return new Array<NiagaraPlatformSetConflictEntry>(this[nameof(Conflicts)].Address); } }
+        public UArray<NiagaraPlatformSetConflictEntry> Conflicts { get { return new UArray<NiagaraPlatformSetConflictEntry>(this[nameof(Conflicts)].Address); } }
     }
     public class NiagaraPlatformSetConflictEntry : Object
     {
@@ -2352,7 +2354,7 @@ namespace SDK.Script.NiagaraSDK
     {
         public NiagaraScalabilityManager(nint addr) : base(addr) { }
         public NiagaraEffectType EffectType { get { return this[nameof(EffectType)].As<NiagaraEffectType>(); } set { this["EffectType"] = value; } }
-        public Array<NiagaraComponent> ManagedComponents { get { return new Array<NiagaraComponent>(this[nameof(ManagedComponents)].Address); } }
+        public UArray<NiagaraComponent> ManagedComponents { get { return new UArray<NiagaraComponent>(this[nameof(ManagedComponents)].Address); } }
     }
     public class VersionedNiagaraScriptData : Object
     {
@@ -2361,22 +2363,22 @@ namespace SDK.Script.NiagaraSDK
     public class NiagaraVMExecutableData : Object
     {
         public NiagaraVMExecutableData(nint addr) : base(addr) { }
-        public Array<byte> ByteCode { get { return new Array<byte>(this[nameof(ByteCode)].Address); } }
-        public Array<byte> OptimizedByteCode { get { return new Array<byte>(this[nameof(OptimizedByteCode)].Address); } }
+        public UArray<byte> ByteCode { get { return new UArray<byte>(this[nameof(ByteCode)].Address); } }
+        public UArray<byte> OptimizedByteCode { get { return new UArray<byte>(this[nameof(OptimizedByteCode)].Address); } }
         public int NumTempRegisters { get { return this[nameof(NumTempRegisters)].GetValue<int>(); } set { this[nameof(NumTempRegisters)].SetValue<int>(value); } }
         public int NumUserPtrs { get { return this[nameof(NumUserPtrs)].GetValue<int>(); } set { this[nameof(NumUserPtrs)].SetValue<int>(value); } }
-        public Array<NiagaraCompilerTag> CompileTags { get { return new Array<NiagaraCompilerTag>(this[nameof(CompileTags)].Address); } }
-        public Array<byte> ScriptLiterals { get { return new Array<byte>(this[nameof(ScriptLiterals)].Address); } }
-        public Array<NiagaraVariable> Attributes { get { return new Array<NiagaraVariable>(this[nameof(Attributes)].Address); } }
+        public UArray<NiagaraCompilerTag> CompileTags { get { return new UArray<NiagaraCompilerTag>(this[nameof(CompileTags)].Address); } }
+        public UArray<byte> ScriptLiterals { get { return new UArray<byte>(this[nameof(ScriptLiterals)].Address); } }
+        public UArray<NiagaraVariable> Attributes { get { return new UArray<NiagaraVariable>(this[nameof(Attributes)].Address); } }
         public NiagaraScriptDataUsageInfo DataUsage { get { return this[nameof(DataUsage)].As<NiagaraScriptDataUsageInfo>(); } set { this["DataUsage"] = value; } }
-        public Array<NiagaraScriptDataInterfaceCompileInfo> DataInterfaceInfo { get { return new Array<NiagaraScriptDataInterfaceCompileInfo>(this[nameof(DataInterfaceInfo)].Address); } }
-        public Array<VMExternalFunctionBindingInfo> CalledVMExternalFunctions { get { return new Array<VMExternalFunctionBindingInfo>(this[nameof(CalledVMExternalFunctions)].Address); } }
-        public Array<NiagaraDataSetID> ReadDataSets { get { return new Array<NiagaraDataSetID>(this[nameof(ReadDataSets)].Address); } }
-        public Array<NiagaraDataSetProperties> WriteDataSets { get { return new Array<NiagaraDataSetProperties>(this[nameof(WriteDataSets)].Address); } }
-        public Array<NiagaraStatScope> StatScopes { get { return new Array<NiagaraStatScope>(this[nameof(StatScopes)].Address); } }
-        public Array<NiagaraDataInterfaceGPUParamInfo> DIParamInfo { get { return new Array<NiagaraDataInterfaceGPUParamInfo>(this[nameof(DIParamInfo)].Address); } }
+        public UArray<NiagaraScriptDataInterfaceCompileInfo> DataInterfaceInfo { get { return new UArray<NiagaraScriptDataInterfaceCompileInfo>(this[nameof(DataInterfaceInfo)].Address); } }
+        public UArray<VMExternalFunctionBindingInfo> CalledVMExternalFunctions { get { return new UArray<VMExternalFunctionBindingInfo>(this[nameof(CalledVMExternalFunctions)].Address); } }
+        public UArray<NiagaraDataSetID> ReadDataSets { get { return new UArray<NiagaraDataSetID>(this[nameof(ReadDataSets)].Address); } }
+        public UArray<NiagaraDataSetProperties> WriteDataSets { get { return new UArray<NiagaraDataSetProperties>(this[nameof(WriteDataSets)].Address); } }
+        public UArray<NiagaraStatScope> StatScopes { get { return new UArray<NiagaraStatScope>(this[nameof(StatScopes)].Address); } }
+        public UArray<NiagaraDataInterfaceGPUParamInfo> DIParamInfo { get { return new UArray<NiagaraDataInterfaceGPUParamInfo>(this[nameof(DIParamInfo)].Address); } }
         public ENiagaraScriptCompileStatus LastCompileStatus { get { return (ENiagaraScriptCompileStatus)this[nameof(LastCompileStatus)].GetValue<int>(); } set { this[nameof(LastCompileStatus)].SetValue<int>((int)value); } }
-        public Array<SimulationStageMetaData> SimulationStageMetaData { get { return new Array<SimulationStageMetaData>(this[nameof(SimulationStageMetaData)].Address); } }
+        public UArray<SimulationStageMetaData> SimulationStageMetaData { get { return new UArray<SimulationStageMetaData>(this[nameof(SimulationStageMetaData)].Address); } }
         public bool bReadsSignificanceIndex { get { return this[nameof(bReadsSignificanceIndex)].Flag; } set { this[nameof(bReadsSignificanceIndex)].Flag = value; } }
         public bool bNeedsGPUContextInit { get { return this[nameof(bNeedsGPUContextInit)].Flag; } set { this[nameof(bNeedsGPUContextInit)].Flag = value; } }
     }
@@ -2416,7 +2418,7 @@ namespace SDK.Script.NiagaraSDK
         public NiagaraScriptExecutionParameterStore(nint addr) : base(addr) { }
         public int ParameterSize { get { return this[nameof(ParameterSize)].GetValue<int>(); } set { this[nameof(ParameterSize)].SetValue<int>(value); } }
         public uint PaddedParameterSize { get { return this[nameof(PaddedParameterSize)].GetValue<uint>(); } set { this[nameof(PaddedParameterSize)].SetValue<uint>(value); } }
-        public Array<NiagaraScriptExecutionPaddingInfo> PaddingInfo { get { return new Array<NiagaraScriptExecutionPaddingInfo>(this[nameof(PaddingInfo)].Address); } }
+        public UArray<NiagaraScriptExecutionPaddingInfo> PaddingInfo { get { return new UArray<NiagaraScriptExecutionPaddingInfo>(this[nameof(PaddingInfo)].Address); } }
         public bool bInitialized { get { return this[nameof(bInitialized)].Flag; } set { this[nameof(bInitialized)].Flag = value; } }
     }
     public class NiagaraScriptExecutionPaddingInfo : Object
@@ -2436,7 +2438,7 @@ namespace SDK.Script.NiagaraSDK
     public class NiagaraSystemCompileRequest : Object
     {
         public NiagaraSystemCompileRequest(nint addr) : base(addr) { }
-        public Array<Object> RootObjects { get { return new Array<Object>(this[nameof(RootObjects)].Address); } }
+        public UArray<Object> RootObjects { get { return new UArray<Object>(this[nameof(RootObjects)].Address); } }
     }
     public class EmitterCompiledScriptPair : Object
     {
@@ -2452,17 +2454,17 @@ namespace SDK.Script.NiagaraSDK
         public NiagaraParameterDataSetBindingCollection SpawnInstanceGlobalBinding { get { return this[nameof(SpawnInstanceGlobalBinding)].As<NiagaraParameterDataSetBindingCollection>(); } set { this["SpawnInstanceGlobalBinding"] = value; } }
         public NiagaraParameterDataSetBindingCollection SpawnInstanceSystemBinding { get { return this[nameof(SpawnInstanceSystemBinding)].As<NiagaraParameterDataSetBindingCollection>(); } set { this["SpawnInstanceSystemBinding"] = value; } }
         public NiagaraParameterDataSetBindingCollection SpawnInstanceOwnerBinding { get { return this[nameof(SpawnInstanceOwnerBinding)].As<NiagaraParameterDataSetBindingCollection>(); } set { this["SpawnInstanceOwnerBinding"] = value; } }
-        public Array<NiagaraParameterDataSetBindingCollection> SpawnInstanceEmitterBindings { get { return new Array<NiagaraParameterDataSetBindingCollection>(this[nameof(SpawnInstanceEmitterBindings)].Address); } }
+        public UArray<NiagaraParameterDataSetBindingCollection> SpawnInstanceEmitterBindings { get { return new UArray<NiagaraParameterDataSetBindingCollection>(this[nameof(SpawnInstanceEmitterBindings)].Address); } }
         public NiagaraParameterDataSetBindingCollection UpdateInstanceGlobalBinding { get { return this[nameof(UpdateInstanceGlobalBinding)].As<NiagaraParameterDataSetBindingCollection>(); } set { this["UpdateInstanceGlobalBinding"] = value; } }
         public NiagaraParameterDataSetBindingCollection UpdateInstanceSystemBinding { get { return this[nameof(UpdateInstanceSystemBinding)].As<NiagaraParameterDataSetBindingCollection>(); } set { this["UpdateInstanceSystemBinding"] = value; } }
         public NiagaraParameterDataSetBindingCollection UpdateInstanceOwnerBinding { get { return this[nameof(UpdateInstanceOwnerBinding)].As<NiagaraParameterDataSetBindingCollection>(); } set { this["UpdateInstanceOwnerBinding"] = value; } }
-        public Array<NiagaraParameterDataSetBindingCollection> UpdateInstanceEmitterBindings { get { return new Array<NiagaraParameterDataSetBindingCollection>(this[nameof(UpdateInstanceEmitterBindings)].Address); } }
+        public UArray<NiagaraParameterDataSetBindingCollection> UpdateInstanceEmitterBindings { get { return new UArray<NiagaraParameterDataSetBindingCollection>(this[nameof(UpdateInstanceEmitterBindings)].Address); } }
     }
     public class NiagaraParameterDataSetBindingCollection : Object
     {
         public NiagaraParameterDataSetBindingCollection(nint addr) : base(addr) { }
-        public Array<NiagaraParameterDataSetBinding> FloatOffsets { get { return new Array<NiagaraParameterDataSetBinding>(this[nameof(FloatOffsets)].Address); } }
-        public Array<NiagaraParameterDataSetBinding> Int32Offsets { get { return new Array<NiagaraParameterDataSetBinding>(this[nameof(Int32Offsets)].Address); } }
+        public UArray<NiagaraParameterDataSetBinding> FloatOffsets { get { return new UArray<NiagaraParameterDataSetBinding>(this[nameof(FloatOffsets)].Address); } }
+        public UArray<NiagaraParameterDataSetBinding> Int32Offsets { get { return new UArray<NiagaraParameterDataSetBinding>(this[nameof(Int32Offsets)].Address); } }
     }
     public class NiagaraParameterDataSetBinding : Object
     {
@@ -2473,7 +2475,7 @@ namespace SDK.Script.NiagaraSDK
     public class NiagaraEmitterCompiledData : Object
     {
         public NiagaraEmitterCompiledData(nint addr) : base(addr) { }
-        public Array<Object> SpawnAttributes { get { return new Array<Object>(this[nameof(SpawnAttributes)].Address); } }
+        public UArray<Object> SpawnAttributes { get { return new UArray<Object>(this[nameof(SpawnAttributes)].Address); } }
         public NiagaraVariable EmitterSpawnIntervalVar { get { return this[nameof(EmitterSpawnIntervalVar)].As<NiagaraVariable>(); } set { this["EmitterSpawnIntervalVar"] = value; } }
         public NiagaraVariable EmitterInterpSpawnStartDTVar { get { return this[nameof(EmitterInterpSpawnStartDTVar)].As<NiagaraVariable>(); } set { this["EmitterInterpSpawnStartDTVar"] = value; } }
         public NiagaraVariable EmitterSpawnGroupVar { get { return this[nameof(EmitterSpawnGroupVar)].As<NiagaraVariable>(); } set { this["EmitterSpawnGroupVar"] = value; } }
@@ -2503,14 +2505,14 @@ namespace SDK.Script.NiagaraSDK
     {
         public NiagaraInputConditionMetadata(nint addr) : base(addr) { }
         public Object InputName { get { return this[nameof(InputName)]; } set { this[nameof(InputName)] = value; } }
-        public Array<Object> TargetValues { get { return new Array<Object>(this[nameof(TargetValues)].Address); } }
+        public UArray<Object> TargetValues { get { return new UArray<Object>(this[nameof(TargetValues)].Address); } }
     }
     public class NiagaraCompileHashVisitorDebugInfo : Object
     {
         public NiagaraCompileHashVisitorDebugInfo(nint addr) : base(addr) { }
         public Object Object { get { return this[nameof(Object)]; } set { this[nameof(Object)] = value; } }
-        public Array<Object> PropertyKeys { get { return new Array<Object>(this[nameof(PropertyKeys)].Address); } }
-        public Array<Object> PropertyValues { get { return new Array<Object>(this[nameof(PropertyValues)].Address); } }
+        public UArray<Object> PropertyKeys { get { return new UArray<Object>(this[nameof(PropertyKeys)].Address); } }
+        public UArray<Object> PropertyValues { get { return new UArray<Object>(this[nameof(PropertyValues)].Address); } }
     }
     public class NiagaraID : Object
     {
@@ -2605,7 +2607,7 @@ namespace SDK.Script.NiagaraSDK
         public NiagaraVariant(nint addr) : base(addr) { }
         public Object Object { get { return this[nameof(Object)].As<Object>(); } set { this["Object"] = value; } }
         public NiagaraDataInterface DataInterface { get { return this[nameof(DataInterface)].As<NiagaraDataInterface>(); } set { this["DataInterface"] = value; } }
-        public Array<byte> Bytes { get { return new Array<byte>(this[nameof(Bytes)].Address); } }
+        public UArray<byte> Bytes { get { return new UArray<byte>(this[nameof(Bytes)].Address); } }
         public ENiagaraVariantMode CurrentMode { get { return (ENiagaraVariantMode)this[nameof(CurrentMode)].GetValue<int>(); } set { this[nameof(CurrentMode)].SetValue<int>((int)value); } }
     }
     public class NiagaraWorldManagerTickFunction : TickFunction

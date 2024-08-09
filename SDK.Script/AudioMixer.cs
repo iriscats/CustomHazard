@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -23,9 +25,9 @@ namespace SDK.Script.AudioMixerSDK
         public SoundClass SoundClass { get { return this[nameof(SoundClass)].As<SoundClass>(); } set { this["SoundClass"] = value; } }
         public SoundEffectSourcePresetChain SourceEffectChain { get { return this[nameof(SourceEffectChain)].As<SoundEffectSourcePresetChain>(); } set { this["SourceEffectChain"] = value; } }
         public SoundSubmixBase SoundSubmix { get { return this[nameof(SoundSubmix)].As<SoundSubmixBase>(); } set { this["SoundSubmix"] = value; } }
-        public Array<SoundSubmixSendInfo> SoundSubmixSends { get { return new Array<SoundSubmixSendInfo>(this[nameof(SoundSubmixSends)].Address); } }
-        public Array<SoundSourceBusSendInfo> BusSends { get { return new Array<SoundSourceBusSendInfo>(this[nameof(BusSends)].Address); } }
-        public Array<SoundSourceBusSendInfo> PreEffectBusSends { get { return new Array<SoundSourceBusSendInfo>(this[nameof(PreEffectBusSends)].Address); } }
+        public UArray<SoundSubmixSendInfo> SoundSubmixSends { get { return new UArray<SoundSubmixSendInfo>(this[nameof(SoundSubmixSends)].Address); } }
+        public UArray<SoundSourceBusSendInfo> BusSends { get { return new UArray<SoundSourceBusSendInfo>(this[nameof(BusSends)].Address); } }
+        public UArray<SoundSourceBusSendInfo> PreEffectBusSends { get { return new UArray<SoundSourceBusSendInfo>(this[nameof(PreEffectBusSends)].Address); } }
         public bool bIsUISound { get { return this[nameof(bIsUISound)].Flag; } set { this[nameof(bIsUISound)].Flag = value; } }
         public bool bIsPreviewSound { get { return this[nameof(bIsPreviewSound)].Flag; } set { this[nameof(bIsPreviewSound)].Flag = value; } }
         public int EnvelopeFollowerAttackTime { get { return this[nameof(EnvelopeFollowerAttackTime)].GetValue<int>(); } set { this[nameof(EnvelopeFollowerAttackTime)].SetValue<int>(value); } }
@@ -56,7 +58,7 @@ namespace SDK.Script.AudioMixerSDK
         public void StartRecordingOutput(Object WorldContextObject, float ExpectedDuration, SoundSubmix SubmixToRecord) { Invoke(nameof(StartRecordingOutput), WorldContextObject, ExpectedDuration, SubmixToRecord); }
         public void StartAudioBus(Object WorldContextObject, AudioBus AudioBus) { Invoke(nameof(StartAudioBus), WorldContextObject, AudioBus); }
         public void StartAnalyzingOutput(Object WorldContextObject, SoundSubmix SubmixToAnalyze, EFFTSize FFTSize, EFFTPeakInterpolationMethod InterpolationMethod, EFFTWindowType WindowType, float HopSize, EAudioSpectrumType SpectrumType) { Invoke(nameof(StartAnalyzingOutput), WorldContextObject, SubmixToAnalyze, FFTSize, InterpolationMethod, WindowType, HopSize, SpectrumType); }
-        public void SetSubmixEffectChainOverride(Object WorldContextObject, SoundSubmix SoundSubmix, Array<SoundEffectSubmixPreset> SubmixEffectPresetChain, float FadeTimeSec) { Invoke(nameof(SetSubmixEffectChainOverride), WorldContextObject, SoundSubmix, SubmixEffectPresetChain, FadeTimeSec); }
+        public void SetSubmixEffectChainOverride(Object WorldContextObject, SoundSubmix SoundSubmix, UArray<SoundEffectSubmixPreset> SubmixEffectPresetChain, float FadeTimeSec) { Invoke(nameof(SetSubmixEffectChainOverride), WorldContextObject, SoundSubmix, SubmixEffectPresetChain, FadeTimeSec); }
         public void SetBypassSourceEffectChainEntry(Object WorldContextObject, SoundEffectSourcePresetChain PresetChain, int EntryIndex, bool bBypassed) { Invoke(nameof(SetBypassSourceEffectChainEntry), WorldContextObject, PresetChain, EntryIndex, bBypassed); }
         public void ResumeRecordingOutput(Object WorldContextObject, SoundSubmix SubmixToPause) { Invoke(nameof(ResumeRecordingOutput), WorldContextObject, SubmixToPause); }
         public void ReplaceSubmixEffect(Object WorldContextObject, SoundSubmix InSoundSubmix, int SubmixChainIndex, SoundEffectSubmixPreset SubmixEffectPreset) { Invoke(nameof(ReplaceSubmixEffect), WorldContextObject, InSoundSubmix, SubmixChainIndex, SubmixEffectPreset); }
@@ -70,13 +72,13 @@ namespace SDK.Script.AudioMixerSDK
         public void PrimeSoundForPlayback(SoundWave SoundWave, Object OnLoadCompletion) { Invoke(nameof(PrimeSoundForPlayback), SoundWave, OnLoadCompletion); }
         public void PrimeSoundCueForPlayback(SoundCue SoundCue) { Invoke(nameof(PrimeSoundCueForPlayback), SoundCue); }
         public void PauseRecordingOutput(Object WorldContextObject, SoundSubmix SubmixToPause) { Invoke(nameof(PauseRecordingOutput), WorldContextObject, SubmixToPause); }
-        public Array<SoundSubmixSpectralAnalysisBandSettings> MakePresetSpectralAnalysisBandSettings(EAudioSpectrumBandPresetType InBandPresetType, int InNumBands, int InAttackTimeMsec, int InReleaseTimeMsec) { return Invoke<Array<SoundSubmixSpectralAnalysisBandSettings>>(nameof(MakePresetSpectralAnalysisBandSettings), InBandPresetType, InNumBands, InAttackTimeMsec, InReleaseTimeMsec); }
-        public Array<SoundSubmixSpectralAnalysisBandSettings> MakeMusicalSpectralAnalysisBandSettings(int InNumSemitones, EMusicalNoteName InStartingMusicalNote, int InStartingOctave, int InAttackTimeMsec, int InReleaseTimeMsec) { return Invoke<Array<SoundSubmixSpectralAnalysisBandSettings>>(nameof(MakeMusicalSpectralAnalysisBandSettings), InNumSemitones, InStartingMusicalNote, InStartingOctave, InAttackTimeMsec, InReleaseTimeMsec); }
-        public Array<SoundSubmixSpectralAnalysisBandSettings> MakeFullSpectrumSpectralAnalysisBandSettings(int InNumBands, float InMinimumFrequency, float InMaximumFrequency, int InAttackTimeMsec, int InReleaseTimeMsec) { return Invoke<Array<SoundSubmixSpectralAnalysisBandSettings>>(nameof(MakeFullSpectrumSpectralAnalysisBandSettings), InNumBands, InMinimumFrequency, InMaximumFrequency, InAttackTimeMsec, InReleaseTimeMsec); }
+        public UArray<SoundSubmixSpectralAnalysisBandSettings> MakePresetSpectralAnalysisBandSettings(EAudioSpectrumBandPresetType InBandPresetType, int InNumBands, int InAttackTimeMsec, int InReleaseTimeMsec) { return Invoke<UArray<SoundSubmixSpectralAnalysisBandSettings>>(nameof(MakePresetSpectralAnalysisBandSettings), InBandPresetType, InNumBands, InAttackTimeMsec, InReleaseTimeMsec); }
+        public UArray<SoundSubmixSpectralAnalysisBandSettings> MakeMusicalSpectralAnalysisBandSettings(int InNumSemitones, EMusicalNoteName InStartingMusicalNote, int InStartingOctave, int InAttackTimeMsec, int InReleaseTimeMsec) { return Invoke<UArray<SoundSubmixSpectralAnalysisBandSettings>>(nameof(MakeMusicalSpectralAnalysisBandSettings), InNumSemitones, InStartingMusicalNote, InStartingOctave, InAttackTimeMsec, InReleaseTimeMsec); }
+        public UArray<SoundSubmixSpectralAnalysisBandSettings> MakeFullSpectrumSpectralAnalysisBandSettings(int InNumBands, float InMinimumFrequency, float InMaximumFrequency, int InAttackTimeMsec, int InReleaseTimeMsec) { return Invoke<UArray<SoundSubmixSpectralAnalysisBandSettings>>(nameof(MakeFullSpectrumSpectralAnalysisBandSettings), InNumBands, InMinimumFrequency, InMaximumFrequency, InAttackTimeMsec, InReleaseTimeMsec); }
         public bool IsAudioBusActive(Object WorldContextObject, AudioBus AudioBus) { return Invoke<bool>(nameof(IsAudioBusActive), WorldContextObject, AudioBus); }
-        public void GetPhaseForFrequencies(Object WorldContextObject, Array<float> Frequencies, Array<float> Phases, SoundSubmix SubmixToAnalyze) { Invoke(nameof(GetPhaseForFrequencies), WorldContextObject, Frequencies, Phases, SubmixToAnalyze); }
+        public void GetPhaseForFrequencies(Object WorldContextObject, UArray<float> Frequencies, UArray<float> Phases, SoundSubmix SubmixToAnalyze) { Invoke(nameof(GetPhaseForFrequencies), WorldContextObject, Frequencies, Phases, SubmixToAnalyze); }
         public int GetNumberOfEntriesInSourceEffectChain(Object WorldContextObject, SoundEffectSourcePresetChain PresetChain) { return Invoke<int>(nameof(GetNumberOfEntriesInSourceEffectChain), WorldContextObject, PresetChain); }
-        public void GetMagnitudeForFrequencies(Object WorldContextObject, Array<float> Frequencies, Array<float> Magnitudes, SoundSubmix SubmixToAnalyze) { Invoke(nameof(GetMagnitudeForFrequencies), WorldContextObject, Frequencies, Magnitudes, SubmixToAnalyze); }
+        public void GetMagnitudeForFrequencies(Object WorldContextObject, UArray<float> Frequencies, UArray<float> Magnitudes, SoundSubmix SubmixToAnalyze) { Invoke(nameof(GetMagnitudeForFrequencies), WorldContextObject, Frequencies, Magnitudes, SubmixToAnalyze); }
         public void ClearSubmixEffects(Object WorldContextObject, SoundSubmix SoundSubmix) { Invoke(nameof(ClearSubmixEffects), WorldContextObject, SoundSubmix); }
         public void ClearSubmixEffectChainOverride(Object WorldContextObject, SoundSubmix SoundSubmix, float FadeTimeSec) { Invoke(nameof(ClearSubmixEffectChainOverride), WorldContextObject, SoundSubmix, FadeTimeSec); }
         public void ClearMasterSubmixEffects(Object WorldContextObject) { Invoke(nameof(ClearMasterSubmixEffects), WorldContextObject); }
@@ -256,7 +258,7 @@ namespace SDK.Script.AudioMixerSDK
     public class SubmixEffectSubmixEQSettings : Object
     {
         public SubmixEffectSubmixEQSettings(nint addr) : base(addr) { }
-        public Array<SubmixEffectEQBand> EQBands { get { return new Array<SubmixEffectEQBand>(this[nameof(EQBands)].Address); } }
+        public UArray<SubmixEffectEQBand> EQBands { get { return new UArray<SubmixEffectEQBand>(this[nameof(EQBands)].Address); } }
     }
     public class SubmixEffectEQBand : Object
     {

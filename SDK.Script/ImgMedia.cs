@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -20,7 +22,7 @@ namespace SDK.Script.ImgMediaSDK
         public void RemoveTargetObject(Actor InActor) { Invoke(nameof(RemoveTargetObject), InActor); }
         public void RemoveGlobalCamera(Actor InActor) { Invoke(nameof(RemoveGlobalCamera), InActor); }
         public Object GetSequencePath() { return Invoke<Object>(nameof(GetSequencePath)); }
-        public void GetProxies(Array<Object> OutProxies) { Invoke(nameof(GetProxies), OutProxies); }
+        public void GetProxies(UArray<Object> OutProxies) { Invoke(nameof(GetProxies), OutProxies); }
         public void AddTargetObject(Actor InActor, float Width) { Invoke(nameof(AddTargetObject), InActor, Width); }
         public void AddGlobalCamera(Actor InActor) { Invoke(nameof(AddGlobalCamera), InActor); }
     }

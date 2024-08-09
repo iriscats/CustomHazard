@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -26,12 +28,12 @@ namespace SDK.Script.MRMeshSDK
         public bool RequestNormals { get { return this[nameof(RequestNormals)].Flag; } set { this[nameof(RequestNormals)].Flag = value; } }
         public bool RequestVertexConfidence { get { return this[nameof(RequestVertexConfidence)].Flag; } set { this[nameof(RequestVertexConfidence)].Flag = value; } }
         public EMeshTrackerVertexColorMode VertexColorMode { get { return (EMeshTrackerVertexColorMode)this[nameof(VertexColorMode)].GetValue<int>(); } set { this[nameof(VertexColorMode)].SetValue<int>((int)value); } }
-        public Array<Color> BlockVertexColors { get { return new Array<Color>(this[nameof(BlockVertexColors)].Address); } }
+        public UArray<Color> BlockVertexColors { get { return new UArray<Color>(this[nameof(BlockVertexColors)].Address); } }
         public LinearColor VertexColorFromConfidenceZero { get { return this[nameof(VertexColorFromConfidenceZero)].As<LinearColor>(); } set { this["VertexColorFromConfidenceZero"] = value; } }
         public LinearColor VertexColorFromConfidenceOne { get { return this[nameof(VertexColorFromConfidenceOne)].As<LinearColor>(); } set { this["VertexColorFromConfidenceOne"] = value; } }
         public float UpdateInterval { get { return this[nameof(UpdateInterval)].GetValue<float>(); } set { this[nameof(UpdateInterval)].SetValue<float>(value); } }
         public MRMeshComponent MRMesh { get { return this[nameof(MRMesh)].As<MRMeshComponent>(); } set { this["MRMesh"] = value; } }
-        public void OnMockDataMeshTrackerUpdated__DelegateSignature(int Index, Array<Vector> Vertices, Array<int> Triangles, Array<Vector> Normals, Array<float> Confidence) { Invoke(nameof(OnMockDataMeshTrackerUpdated__DelegateSignature), Index, Vertices, Triangles, Normals, Confidence); }
+        public void OnMockDataMeshTrackerUpdated__DelegateSignature(int Index, UArray<Vector> Vertices, UArray<int> Triangles, UArray<Vector> Normals, UArray<float> Confidence) { Invoke(nameof(OnMockDataMeshTrackerUpdated__DelegateSignature), Index, Vertices, Triangles, Normals, Confidence); }
         public void DisconnectMRMesh(MRMeshComponent InMRMeshPtr) { Invoke(nameof(DisconnectMRMesh), InMRMeshPtr); }
         public void ConnectMRMesh(MRMeshComponent InMRMeshPtr) { Invoke(nameof(ConnectMRMesh), InMRMeshPtr); }
     }
@@ -44,7 +46,7 @@ namespace SDK.Script.MRMeshSDK
         public bool bUpdateNavMeshOnMeshUpdate { get { return this[nameof(bUpdateNavMeshOnMeshUpdate)].Flag; } set { this[nameof(bUpdateNavMeshOnMeshUpdate)].Flag = value; } }
         public bool bNeverCreateCollisionMesh { get { return this[nameof(bNeverCreateCollisionMesh)].Flag; } set { this[nameof(bNeverCreateCollisionMesh)].Flag = value; } }
         public BodySetup CachedBodySetup { get { return this[nameof(CachedBodySetup)].As<BodySetup>(); } set { this["CachedBodySetup"] = value; } }
-        public Array<BodySetup> BodySetups { get { return new Array<BodySetup>(this[nameof(BodySetups)].Address); } }
+        public UArray<BodySetup> BodySetups { get { return new UArray<BodySetup>(this[nameof(BodySetups)].Address); } }
         public void SetWireframeMaterial(MaterialInterface InMaterial) { Invoke(nameof(SetWireframeMaterial), InMaterial); }
         public void SetWireframeColor(LinearColor InColor) { Invoke(nameof(SetWireframeColor), InColor); }
         public void SetUseWireframe(bool bUseWireframe) { Invoke(nameof(SetUseWireframe), bUseWireframe); }

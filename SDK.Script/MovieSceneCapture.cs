@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -168,7 +170,7 @@ namespace SDK.Script.MovieSceneCaptureSDK
     public class CompositionGraphCapturePasses : Object
     {
         public CompositionGraphCapturePasses(nint addr) : base(addr) { }
-        public Array<Object> Value { get { return new Array<Object>(this[nameof(Value)].Address); } }
+        public UArray<Object> Value { get { return new UArray<Object>(this[nameof(Value)].Address); } }
     }
     public class FrameMetrics : Object
     {

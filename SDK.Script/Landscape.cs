@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -41,18 +43,18 @@ namespace SDK.Script.LandscapeSDK
         public float StreamingDistanceMultiplier { get { return this[nameof(StreamingDistanceMultiplier)].GetValue<float>(); } set { this[nameof(StreamingDistanceMultiplier)].SetValue<float>(value); } }
         public MaterialInterface LandscapeMaterial { get { return this[nameof(LandscapeMaterial)].As<MaterialInterface>(); } set { this["LandscapeMaterial"] = value; } }
         public MaterialInterface LandscapeHoleMaterial { get { return this[nameof(LandscapeHoleMaterial)].As<MaterialInterface>(); } set { this["LandscapeHoleMaterial"] = value; } }
-        public Array<LandscapeProxyMaterialOverride> LandscapeMaterialsOverride { get { return new Array<LandscapeProxyMaterialOverride>(this[nameof(LandscapeMaterialsOverride)].Address); } }
+        public UArray<LandscapeProxyMaterialOverride> LandscapeMaterialsOverride { get { return new UArray<LandscapeProxyMaterialOverride>(this[nameof(LandscapeMaterialsOverride)].Address); } }
         public bool bMeshHoles { get { return this[nameof(bMeshHoles)].Flag; } set { this[nameof(bMeshHoles)].Flag = value; } }
         public byte MeshHolesMaxLod { get { return this[nameof(MeshHolesMaxLod)].GetValue<byte>(); } set { this[nameof(MeshHolesMaxLod)].SetValue<byte>(value); } }
-        public Array<RuntimeVirtualTexture> RuntimeVirtualTextures { get { return new Array<RuntimeVirtualTexture>(this[nameof(RuntimeVirtualTextures)].Address); } }
+        public UArray<RuntimeVirtualTexture> RuntimeVirtualTextures { get { return new UArray<RuntimeVirtualTexture>(this[nameof(RuntimeVirtualTextures)].Address); } }
         public int VirtualTextureNumLods { get { return this[nameof(VirtualTextureNumLods)].GetValue<int>(); } set { this[nameof(VirtualTextureNumLods)].SetValue<int>(value); } }
         public int VirtualTextureLodBias { get { return this[nameof(VirtualTextureLodBias)].GetValue<int>(); } set { this[nameof(VirtualTextureLodBias)].SetValue<int>(value); } }
         public ERuntimeVirtualTextureMainPassType VirtualTextureRenderPassType { get { return (ERuntimeVirtualTextureMainPassType)this[nameof(VirtualTextureRenderPassType)].GetValue<int>(); } set { this[nameof(VirtualTextureRenderPassType)].SetValue<int>((int)value); } }
         public float NegativeZBoundsExtension { get { return this[nameof(NegativeZBoundsExtension)].GetValue<float>(); } set { this[nameof(NegativeZBoundsExtension)].SetValue<float>(value); } }
         public float PositiveZBoundsExtension { get { return this[nameof(PositiveZBoundsExtension)].GetValue<float>(); } set { this[nameof(PositiveZBoundsExtension)].SetValue<float>(value); } }
-        public Array<LandscapeComponent> LandscapeComponents { get { return new Array<LandscapeComponent>(this[nameof(LandscapeComponents)].Address); } }
-        public Array<LandscapeHeightfieldCollisionComponent> CollisionComponents { get { return new Array<LandscapeHeightfieldCollisionComponent>(this[nameof(CollisionComponents)].Address); } }
-        public Array<HierarchicalInstancedStaticMeshComponent> FoliageComponents { get { return new Array<HierarchicalInstancedStaticMeshComponent>(this[nameof(FoliageComponents)].Address); } }
+        public UArray<LandscapeComponent> LandscapeComponents { get { return new UArray<LandscapeComponent>(this[nameof(LandscapeComponents)].Address); } }
+        public UArray<LandscapeHeightfieldCollisionComponent> CollisionComponents { get { return new UArray<LandscapeHeightfieldCollisionComponent>(this[nameof(CollisionComponents)].Address); } }
+        public UArray<HierarchicalInstancedStaticMeshComponent> FoliageComponents { get { return new UArray<HierarchicalInstancedStaticMeshComponent>(this[nameof(FoliageComponents)].Address); } }
         public bool bHasLandscapeGrass { get { return this[nameof(bHasLandscapeGrass)].Flag; } set { this[nameof(bHasLandscapeGrass)].Flag = value; } }
         public float StaticLightingResolution { get { return this[nameof(StaticLightingResolution)].GetValue<float>(); } set { this[nameof(StaticLightingResolution)].SetValue<float>(value); } }
         public bool CastShadow { get { return this[nameof(CastShadow)].Flag; } set { this[nameof(CastShadow)].Flag = value; } }
@@ -107,7 +109,7 @@ namespace SDK.Script.LandscapeSDK
         public void RequestLandscapeUpdate() { Invoke(nameof(RequestLandscapeUpdate)); }
         public TextureRenderTarget2D Render(bool InIsHeightmap, TextureRenderTarget2D InCombinedResult, Object InWeightmapLayerName) { return Invoke<TextureRenderTarget2D>(nameof(Render), InIsHeightmap, InCombinedResult, InWeightmapLayerName); }
         public void Initialize(Transform InLandscapeTransform, IntPoint InLandscapeSize, IntPoint InLandscapeRenderTargetSize) { Invoke(nameof(Initialize), InLandscapeTransform, InLandscapeSize, InLandscapeRenderTargetSize); }
-        public void GetBlueprintRenderDependencies(Array<Object> OutStreamableAssets) { Invoke(nameof(GetBlueprintRenderDependencies), OutStreamableAssets); }
+        public void GetBlueprintRenderDependencies(UArray<Object> OutStreamableAssets) { Invoke(nameof(GetBlueprintRenderDependencies), OutStreamableAssets); }
     }
     public class LandscapeLODStreamingProxy : StreamableRenderAsset
     {
@@ -123,11 +125,11 @@ namespace SDK.Script.LandscapeSDK
         public int NumSubsections { get { return this[nameof(NumSubsections)].GetValue<int>(); } set { this[nameof(NumSubsections)].SetValue<int>(value); } }
         public MaterialInterface OverrideMaterial { get { return this[nameof(OverrideMaterial)].As<MaterialInterface>(); } set { this["OverrideMaterial"] = value; } }
         public MaterialInterface OverrideHoleMaterial { get { return this[nameof(OverrideHoleMaterial)].As<MaterialInterface>(); } set { this["OverrideHoleMaterial"] = value; } }
-        public Array<LandscapeComponentMaterialOverride> OverrideMaterials { get { return new Array<LandscapeComponentMaterialOverride>(this[nameof(OverrideMaterials)].Address); } }
-        public Array<MaterialInstanceConstant> MaterialInstances { get { return new Array<MaterialInstanceConstant>(this[nameof(MaterialInstances)].Address); } }
-        public Array<MaterialInstanceDynamic> MaterialInstancesDynamic { get { return new Array<MaterialInstanceDynamic>(this[nameof(MaterialInstancesDynamic)].Address); } }
-        public Array<byte> LODIndexToMaterialIndex { get { return new Array<byte>(this[nameof(LODIndexToMaterialIndex)].Address); } }
-        public Array<byte> MaterialIndexToDisabledTessellationMaterial { get { return new Array<byte>(this[nameof(MaterialIndexToDisabledTessellationMaterial)].Address); } }
+        public UArray<LandscapeComponentMaterialOverride> OverrideMaterials { get { return new UArray<LandscapeComponentMaterialOverride>(this[nameof(OverrideMaterials)].Address); } }
+        public UArray<MaterialInstanceConstant> MaterialInstances { get { return new UArray<MaterialInstanceConstant>(this[nameof(MaterialInstances)].Address); } }
+        public UArray<MaterialInstanceDynamic> MaterialInstancesDynamic { get { return new UArray<MaterialInstanceDynamic>(this[nameof(MaterialInstancesDynamic)].Address); } }
+        public UArray<byte> LODIndexToMaterialIndex { get { return new UArray<byte>(this[nameof(LODIndexToMaterialIndex)].Address); } }
+        public UArray<byte> MaterialIndexToDisabledTessellationMaterial { get { return new UArray<byte>(this[nameof(MaterialIndexToDisabledTessellationMaterial)].Address); } }
         public Texture2D XYOffsetmapTexture { get { return this[nameof(XYOffsetmapTexture)].As<Texture2D>(); } set { this["XYOffsetmapTexture"] = value; } }
         public Vector4 WeightmapScaleBias { get { return this[nameof(WeightmapScaleBias)].As<Vector4>(); } set { this["WeightmapScaleBias"] = value; } }
         public float WeightmapSubsectionOffset { get { return this[nameof(WeightmapSubsectionOffset)].GetValue<float>(); } set { this[nameof(WeightmapSubsectionOffset)].SetValue<float>(value); } }
@@ -135,11 +137,11 @@ namespace SDK.Script.LandscapeSDK
         public Box CachedLocalBox { get { return this[nameof(CachedLocalBox)].As<Box>(); } set { this["CachedLocalBox"] = value; } }
         public Object CollisionComponent { get { return this[nameof(CollisionComponent)]; } set { this[nameof(CollisionComponent)] = value; } }
         public Texture2D HeightmapTexture { get { return this[nameof(HeightmapTexture)].As<Texture2D>(); } set { this["HeightmapTexture"] = value; } }
-        public Array<WeightmapLayerAllocationInfo> WeightmapLayerAllocations { get { return new Array<WeightmapLayerAllocationInfo>(this[nameof(WeightmapLayerAllocations)].Address); } }
-        public Array<Texture2D> WeightmapTextures { get { return new Array<Texture2D>(this[nameof(WeightmapTextures)].Address); } }
+        public UArray<WeightmapLayerAllocationInfo> WeightmapLayerAllocations { get { return new UArray<WeightmapLayerAllocationInfo>(this[nameof(WeightmapLayerAllocations)].Address); } }
+        public UArray<Texture2D> WeightmapTextures { get { return new UArray<Texture2D>(this[nameof(WeightmapTextures)].Address); } }
         public LandscapeLODStreamingProxy LODStreamingProxy { get { return this[nameof(LODStreamingProxy)].As<LandscapeLODStreamingProxy>(); } set { this["LODStreamingProxy"] = value; } }
         public Guid MapBuildDataId { get { return this[nameof(MapBuildDataId)].As<Guid>(); } set { this["MapBuildDataId"] = value; } }
-        public Array<Guid> IrrelevantLights { get { return new Array<Guid>(this[nameof(IrrelevantLights)].Address); } }
+        public UArray<Guid> IrrelevantLights { get { return new UArray<Guid>(this[nameof(IrrelevantLights)].Address); } }
         public int CollisionMipLevel { get { return this[nameof(CollisionMipLevel)].GetValue<int>(); } set { this[nameof(CollisionMipLevel)].SetValue<int>(value); } }
         public int SimpleCollisionMipLevel { get { return this[nameof(SimpleCollisionMipLevel)].GetValue<int>(); } set { this[nameof(SimpleCollisionMipLevel)].SetValue<int>(value); } }
         public float NegativeZBoundsExtension { get { return this[nameof(NegativeZBoundsExtension)].GetValue<float>(); } set { this[nameof(NegativeZBoundsExtension)].SetValue<float>(value); } }
@@ -152,8 +154,8 @@ namespace SDK.Script.LandscapeSDK
         public Texture2D GIBakedBaseColorTexture { get { return this[nameof(GIBakedBaseColorTexture)].As<Texture2D>(); } set { this["GIBakedBaseColorTexture"] = value; } }
         public byte MobileBlendableLayerMask { get { return this[nameof(MobileBlendableLayerMask)].GetValue<byte>(); } set { this[nameof(MobileBlendableLayerMask)].SetValue<byte>(value); } }
         public MaterialInterface MobileMaterialInterface { get { return this[nameof(MobileMaterialInterface)].As<MaterialInterface>(); } set { this["MobileMaterialInterface"] = value; } }
-        public Array<MaterialInterface> MobileMaterialInterfaces { get { return new Array<MaterialInterface>(this[nameof(MobileMaterialInterfaces)].Address); } }
-        public Array<Texture2D> MobileWeightmapTextures { get { return new Array<Texture2D>(this[nameof(MobileWeightmapTextures)].Address); } }
+        public UArray<MaterialInterface> MobileMaterialInterfaces { get { return new UArray<MaterialInterface>(this[nameof(MobileMaterialInterfaces)].Address); } }
+        public UArray<Texture2D> MobileWeightmapTextures { get { return new UArray<Texture2D>(this[nameof(MobileWeightmapTextures)].Address); } }
         public MaterialInstanceDynamic GetMaterialInstanceDynamic(int InIndex) { return Invoke<MaterialInstanceDynamic>(nameof(GetMaterialInstanceDynamic), InIndex); }
         public float EditorGetPaintLayerWeightByNameAtLocation(Vector InLocation, Object InPaintLayerName) { return Invoke<float>(nameof(EditorGetPaintLayerWeightByNameAtLocation), InLocation, InPaintLayerName); }
         public float EditorGetPaintLayerWeightAtLocation(Vector InLocation, LandscapeLayerInfoObject PaintLayer) { return Invoke<float>(nameof(EditorGetPaintLayerWeightAtLocation), InLocation, PaintLayer); }
@@ -173,7 +175,7 @@ namespace SDK.Script.LandscapeSDK
     public class LandscapeGrassType : Object
     {
         public LandscapeGrassType(nint addr) : base(addr) { }
-        public Array<GrassVariety> GrassVarieties { get { return new Array<GrassVariety>(this[nameof(GrassVarieties)].Address); } }
+        public UArray<GrassVariety> GrassVarieties { get { return new UArray<GrassVariety>(this[nameof(GrassVarieties)].Address); } }
         public bool bEnableDensityScaling { get { return this[nameof(bEnableDensityScaling)].Flag; } set { this[nameof(bEnableDensityScaling)].Flag = value; } }
         public StaticMesh GrassMesh { get { return this[nameof(GrassMesh)].As<StaticMesh>(); } set { this["GrassMesh"] = value; } }
         public float GrassDensity { get { return this[nameof(GrassDensity)].GetValue<float>(); } set { this[nameof(GrassDensity)].SetValue<float>(value); } }
@@ -186,17 +188,17 @@ namespace SDK.Script.LandscapeSDK
     public class LandscapeHeightfieldCollisionComponent : PrimitiveComponent
     {
         public LandscapeHeightfieldCollisionComponent(nint addr) : base(addr) { }
-        public Array<LandscapeLayerInfoObject> ComponentLayerInfos { get { return new Array<LandscapeLayerInfoObject>(this[nameof(ComponentLayerInfos)].Address); } }
+        public UArray<LandscapeLayerInfoObject> ComponentLayerInfos { get { return new UArray<LandscapeLayerInfoObject>(this[nameof(ComponentLayerInfos)].Address); } }
         public int SectionBaseX { get { return this[nameof(SectionBaseX)].GetValue<int>(); } set { this[nameof(SectionBaseX)].SetValue<int>(value); } }
         public int SectionBaseY { get { return this[nameof(SectionBaseY)].GetValue<int>(); } set { this[nameof(SectionBaseY)].SetValue<int>(value); } }
         public int CollisionSizeQuads { get { return this[nameof(CollisionSizeQuads)].GetValue<int>(); } set { this[nameof(CollisionSizeQuads)].SetValue<int>(value); } }
         public float CollisionScale { get { return this[nameof(CollisionScale)].GetValue<float>(); } set { this[nameof(CollisionScale)].SetValue<float>(value); } }
         public int SimpleCollisionSizeQuads { get { return this[nameof(SimpleCollisionSizeQuads)].GetValue<int>(); } set { this[nameof(SimpleCollisionSizeQuads)].SetValue<int>(value); } }
-        public Array<byte> CollisionQuadFlags { get { return new Array<byte>(this[nameof(CollisionQuadFlags)].Address); } }
+        public UArray<byte> CollisionQuadFlags { get { return new UArray<byte>(this[nameof(CollisionQuadFlags)].Address); } }
         public Guid HeightfieldGuid { get { return this[nameof(HeightfieldGuid)].As<Guid>(); } set { this["HeightfieldGuid"] = value; } }
         public Box CachedLocalBox { get { return this[nameof(CachedLocalBox)].As<Box>(); } set { this["CachedLocalBox"] = value; } }
         public Object RenderComponent { get { return this[nameof(RenderComponent)]; } set { this[nameof(RenderComponent)] = value; } }
-        public Array<PhysicalMaterial> CookedPhysicalMaterials { get { return new Array<PhysicalMaterial>(this[nameof(CookedPhysicalMaterials)].Address); } }
+        public UArray<PhysicalMaterial> CookedPhysicalMaterials { get { return new UArray<PhysicalMaterial>(this[nameof(CookedPhysicalMaterials)].Address); } }
         public LandscapeComponent GetRenderComponent() { return Invoke<LandscapeComponent>(nameof(GetRenderComponent)); }
     }
     public class LandscapeInfo : Object
@@ -208,7 +210,7 @@ namespace SDK.Script.LandscapeSDK
         public int SubsectionSizeQuads { get { return this[nameof(SubsectionSizeQuads)].GetValue<int>(); } set { this[nameof(SubsectionSizeQuads)].SetValue<int>(value); } }
         public int ComponentNumSubsections { get { return this[nameof(ComponentNumSubsections)].GetValue<int>(); } set { this[nameof(ComponentNumSubsections)].SetValue<int>(value); } }
         public Vector DrawScale { get { return this[nameof(DrawScale)].As<Vector>(); } set { this["DrawScale"] = value; } }
-        public Array<LandscapeStreamingProxy> Proxies { get { return new Array<LandscapeStreamingProxy>(this[nameof(Proxies)].Address); } }
+        public UArray<LandscapeStreamingProxy> Proxies { get { return new UArray<LandscapeStreamingProxy>(this[nameof(Proxies)].Address); } }
     }
     public class LandscapeInfoMap : Object
     {
@@ -225,7 +227,7 @@ namespace SDK.Script.LandscapeSDK
     public class LandscapeMaterialInstanceConstant : MaterialInstanceConstant
     {
         public LandscapeMaterialInstanceConstant(nint addr) : base(addr) { }
-        public Array<LandscapeMaterialTextureStreamingInfo> TextureStreamingInfo { get { return new Array<LandscapeMaterialTextureStreamingInfo>(this[nameof(TextureStreamingInfo)].Address); } }
+        public UArray<LandscapeMaterialTextureStreamingInfo> TextureStreamingInfo { get { return new UArray<LandscapeMaterialTextureStreamingInfo>(this[nameof(TextureStreamingInfo)].Address); } }
         public bool bIsLayerThumbnail { get { return this[nameof(bIsLayerThumbnail)].Flag; } set { this[nameof(bIsLayerThumbnail)].Flag = value; } }
         public bool bDisableTessellation { get { return this[nameof(bDisableTessellation)].Flag; } set { this[nameof(bDisableTessellation)].Flag = value; } }
         public bool bMobile { get { return this[nameof(bMobile)].Flag; } set { this[nameof(bMobile)].Flag = value; } }
@@ -245,7 +247,7 @@ namespace SDK.Script.LandscapeSDK
     {
         public LandscapeMeshProxyComponent(nint addr) : base(addr) { }
         public Guid LandscapeGuid { get { return this[nameof(LandscapeGuid)].As<Guid>(); } set { this["LandscapeGuid"] = value; } }
-        public Array<IntPoint> ProxyComponentBases { get { return new Array<IntPoint>(this[nameof(ProxyComponentBases)].Address); } }
+        public UArray<IntPoint> ProxyComponentBases { get { return new UArray<IntPoint>(this[nameof(ProxyComponentBases)].Address); } }
         public byte ProxyLOD { get { return this[nameof(ProxyLOD)].GetValue<byte>(); } set { this[nameof(ProxyLOD)].SetValue<byte>(value); } }
     }
     public class LandscapeSettings : DeveloperSettings
@@ -256,10 +258,10 @@ namespace SDK.Script.LandscapeSDK
     public class LandscapeSplinesComponent : PrimitiveComponent
     {
         public LandscapeSplinesComponent(nint addr) : base(addr) { }
-        public Array<LandscapeSplineControlPoint> ControlPoints { get { return new Array<LandscapeSplineControlPoint>(this[nameof(ControlPoints)].Address); } }
-        public Array<LandscapeSplineSegment> Segments { get { return new Array<LandscapeSplineSegment>(this[nameof(Segments)].Address); } }
-        public Array<MeshComponent> CookedForeignMeshComponents { get { return new Array<MeshComponent>(this[nameof(CookedForeignMeshComponents)].Address); } }
-        public Array<SplineMeshComponent> GetSplineMeshComponents() { return Invoke<Array<SplineMeshComponent>>(nameof(GetSplineMeshComponents)); }
+        public UArray<LandscapeSplineControlPoint> ControlPoints { get { return new UArray<LandscapeSplineControlPoint>(this[nameof(ControlPoints)].Address); } }
+        public UArray<LandscapeSplineSegment> Segments { get { return new UArray<LandscapeSplineSegment>(this[nameof(Segments)].Address); } }
+        public UArray<MeshComponent> CookedForeignMeshComponents { get { return new UArray<MeshComponent>(this[nameof(CookedForeignMeshComponents)].Address); } }
+        public UArray<SplineMeshComponent> GetSplineMeshComponents() { return Invoke<UArray<SplineMeshComponent>>(nameof(GetSplineMeshComponents)); }
     }
     public class LandscapeSplineControlPoint : Object
     {
@@ -274,8 +276,8 @@ namespace SDK.Script.LandscapeSDK
         public float LeftSideLayerFalloffFactor { get { return this[nameof(LeftSideLayerFalloffFactor)].GetValue<float>(); } set { this[nameof(LeftSideLayerFalloffFactor)].SetValue<float>(value); } }
         public float RightSideLayerFalloffFactor { get { return this[nameof(RightSideLayerFalloffFactor)].GetValue<float>(); } set { this[nameof(RightSideLayerFalloffFactor)].SetValue<float>(value); } }
         public float EndFalloff { get { return this[nameof(EndFalloff)].GetValue<float>(); } set { this[nameof(EndFalloff)].SetValue<float>(value); } }
-        public Array<LandscapeSplineConnection> ConnectedSegments { get { return new Array<LandscapeSplineConnection>(this[nameof(ConnectedSegments)].Address); } }
-        public Array<LandscapeSplineInterpPoint> Points { get { return new Array<LandscapeSplineInterpPoint>(this[nameof(Points)].Address); } }
+        public UArray<LandscapeSplineConnection> ConnectedSegments { get { return new UArray<LandscapeSplineConnection>(this[nameof(ConnectedSegments)].Address); } }
+        public UArray<LandscapeSplineInterpPoint> Points { get { return new UArray<LandscapeSplineInterpPoint>(this[nameof(Points)].Address); } }
         public Box Bounds { get { return this[nameof(Bounds)].As<Box>(); } set { this["Bounds"] = value; } }
         public ControlPointMeshComponent LocalMeshComponent { get { return this[nameof(LocalMeshComponent)].As<ControlPointMeshComponent>(); } set { this["LocalMeshComponent"] = value; } }
     }
@@ -284,9 +286,9 @@ namespace SDK.Script.LandscapeSDK
         public LandscapeSplineSegment(nint addr) : base(addr) { }
         public LandscapeSplineSegmentConnection Connections { get { return this[nameof(Connections)].As<LandscapeSplineSegmentConnection>(); } set { this["Connections"] = value; } }
         public InterpCurveVector SplineInfo { get { return this[nameof(SplineInfo)].As<InterpCurveVector>(); } set { this["SplineInfo"] = value; } }
-        public Array<LandscapeSplineInterpPoint> Points { get { return new Array<LandscapeSplineInterpPoint>(this[nameof(Points)].Address); } }
+        public UArray<LandscapeSplineInterpPoint> Points { get { return new UArray<LandscapeSplineInterpPoint>(this[nameof(Points)].Address); } }
         public Box Bounds { get { return this[nameof(Bounds)].As<Box>(); } set { this["Bounds"] = value; } }
-        public Array<SplineMeshComponent> LocalMeshComponents { get { return new Array<SplineMeshComponent>(this[nameof(LocalMeshComponents)].Address); } }
+        public UArray<SplineMeshComponent> LocalMeshComponents { get { return new UArray<SplineMeshComponent>(this[nameof(LocalMeshComponents)].Address); } }
     }
     public class LandscapeStreamingProxy : LandscapeProxy
     {
@@ -306,12 +308,12 @@ namespace SDK.Script.LandscapeSDK
     public class MaterialExpressionLandscapeGrassOutput : MaterialExpressionCustomOutput
     {
         public MaterialExpressionLandscapeGrassOutput(nint addr) : base(addr) { }
-        public Array<GrassInput> GrassTypes { get { return new Array<GrassInput>(this[nameof(GrassTypes)].Address); } }
+        public UArray<GrassInput> GrassTypes { get { return new UArray<GrassInput>(this[nameof(GrassTypes)].Address); } }
     }
     public class MaterialExpressionLandscapeLayerBlend : MaterialExpression
     {
         public MaterialExpressionLandscapeLayerBlend(nint addr) : base(addr) { }
-        public Array<LayerBlendInput> Layers { get { return new Array<LayerBlendInput>(this[nameof(Layers)].Address); } }
+        public UArray<LayerBlendInput> Layers { get { return new UArray<LayerBlendInput>(this[nameof(Layers)].Address); } }
         public Guid ExpressionGUID { get { return this[nameof(ExpressionGUID)].As<Guid>(); } set { this["ExpressionGUID"] = value; } }
     }
     public class MaterialExpressionLandscapeLayerCoords : MaterialExpression
@@ -353,7 +355,7 @@ namespace SDK.Script.LandscapeSDK
     public class MaterialExpressionLandscapePhysicalMaterialOutput : MaterialExpressionCustomOutput
     {
         public MaterialExpressionLandscapePhysicalMaterialOutput(nint addr) : base(addr) { }
-        public Array<PhysicalMaterialInput> Inputs { get { return new Array<PhysicalMaterialInput>(this[nameof(Inputs)].Address); } }
+        public UArray<PhysicalMaterialInput> Inputs { get { return new UArray<PhysicalMaterialInput>(this[nameof(Inputs)].Address); } }
     }
     public class MaterialExpressionLandscapeVisibilityMask : MaterialExpression
     {
@@ -513,7 +515,7 @@ namespace SDK.Script.LandscapeSDK
         public float HeightmapAlpha { get { return this[nameof(HeightmapAlpha)].GetValue<float>(); } set { this[nameof(HeightmapAlpha)].SetValue<float>(value); } }
         public float WeightmapAlpha { get { return this[nameof(WeightmapAlpha)].GetValue<float>(); } set { this[nameof(WeightmapAlpha)].SetValue<float>(value); } }
         public byte BlendMode { get { return this[nameof(BlendMode)].GetValue<byte>(); } set { this[nameof(BlendMode)].SetValue<byte>(value); } }
-        public Array<LandscapeLayerBrush> Brushes { get { return new Array<LandscapeLayerBrush>(this[nameof(Brushes)].Address); } }
+        public UArray<LandscapeLayerBrush> Brushes { get { return new UArray<LandscapeLayerBrush>(this[nameof(Brushes)].Address); } }
         public Object WeightmapLayerAllocationBlend { get { return this[nameof(WeightmapLayerAllocationBlend)]; } set { this[nameof(WeightmapLayerAllocationBlend)] = value; } }
     }
     public class LandscapeLayerBrush : Object
@@ -529,9 +531,9 @@ namespace SDK.Script.LandscapeSDK
     public class WeightmapData : Object
     {
         public WeightmapData(nint addr) : base(addr) { }
-        public Array<Texture2D> Textures { get { return new Array<Texture2D>(this[nameof(Textures)].Address); } }
-        public Array<WeightmapLayerAllocationInfo> LayerAllocations { get { return new Array<WeightmapLayerAllocationInfo>(this[nameof(LayerAllocations)].Address); } }
-        public Array<LandscapeWeightmapUsage> TextureUsages { get { return new Array<LandscapeWeightmapUsage>(this[nameof(TextureUsages)].Address); } }
+        public UArray<Texture2D> Textures { get { return new UArray<Texture2D>(this[nameof(Textures)].Address); } }
+        public UArray<WeightmapLayerAllocationInfo> LayerAllocations { get { return new UArray<WeightmapLayerAllocationInfo>(this[nameof(LayerAllocations)].Address); } }
+        public UArray<LandscapeWeightmapUsage> TextureUsages { get { return new UArray<LandscapeWeightmapUsage>(this[nameof(TextureUsages)].Address); } }
     }
     public class WeightmapLayerAllocationInfo : Object
     {
@@ -572,7 +574,7 @@ namespace SDK.Script.LandscapeSDK
     {
         public GrassVariety(nint addr) : base(addr) { }
         public StaticMesh GrassMesh { get { return this[nameof(GrassMesh)].As<StaticMesh>(); } set { this["GrassMesh"] = value; } }
-        public Array<MaterialInterface> OverrideMaterials { get { return new Array<MaterialInterface>(this[nameof(OverrideMaterials)].Address); } }
+        public UArray<MaterialInterface> OverrideMaterials { get { return new UArray<MaterialInterface>(this[nameof(OverrideMaterials)].Address); } }
         public PerPlatformFloat GrassDensity { get { return this[nameof(GrassDensity)].As<PerPlatformFloat>(); } set { this["GrassDensity"] = value; } }
         public bool bUseGrid { get { return this[nameof(bUseGrid)].Flag; } set { this[nameof(bUseGrid)].Flag = value; } }
         public float PlacementJitter { get { return this[nameof(PlacementJitter)].GetValue<float>(); } set { this[nameof(PlacementJitter)].SetValue<float>(value); } }
@@ -644,7 +646,7 @@ namespace SDK.Script.LandscapeSDK
     {
         public LandscapeSplineMeshEntry(nint addr) : base(addr) { }
         public StaticMesh Mesh { get { return this[nameof(Mesh)].As<StaticMesh>(); } set { this["Mesh"] = value; } }
-        public Array<MaterialInterface> MaterialOverrides { get { return new Array<MaterialInterface>(this[nameof(MaterialOverrides)].Address); } }
+        public UArray<MaterialInterface> MaterialOverrides { get { return new UArray<MaterialInterface>(this[nameof(MaterialOverrides)].Address); } }
         public bool bCenterH { get { return this[nameof(bCenterH)].Flag; } set { this[nameof(bCenterH)].Flag = value; } }
         public Vector2D CenterAdjust { get { return this[nameof(CenterAdjust)].As<Vector2D>(); } set { this["CenterAdjust"] = value; } }
         public bool bScaleToWidth { get { return this[nameof(bScaleToWidth)].Flag; } set { this[nameof(bScaleToWidth)].Flag = value; } }

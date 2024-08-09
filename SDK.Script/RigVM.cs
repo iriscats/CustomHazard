@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -14,8 +16,8 @@ namespace SDK.Script.RigVMSDK
         public RigVMByteCode ByteCodeStorage { get { return this[nameof(ByteCodeStorage)].As<RigVMByteCode>(); } set { this["ByteCodeStorage"] = value; } }
         public RigVMInstructionArray Instructions { get { return this[nameof(Instructions)].As<RigVMInstructionArray>(); } set { this["Instructions"] = value; } }
         public RigVMExecuteContext Context { get { return this[nameof(Context)].As<RigVMExecuteContext>(); } set { this["Context"] = value; } }
-        public Array<Object> FunctionNamesStorage { get { return new Array<Object>(this[nameof(FunctionNamesStorage)].Address); } }
-        public Array<RigVMParameter> Parameters { get { return new Array<RigVMParameter>(this[nameof(Parameters)].Address); } }
+        public UArray<Object> FunctionNamesStorage { get { return new UArray<Object>(this[nameof(FunctionNamesStorage)].Address); } }
+        public UArray<RigVMParameter> Parameters { get { return new UArray<RigVMParameter>(this[nameof(Parameters)].Address); } }
         public Object ParametersNameMap { get { return this[nameof(ParametersNameMap)]; } set { this[nameof(ParametersNameMap)] = value; } }
         public RigVM DeferredVMToCopy { get { return this[nameof(DeferredVMToCopy)].As<RigVM>(); } set { this["DeferredVMToCopy"] = value; } }
         public void SetParameterValueVector2D(Object InParameterName, Vector2D InValue, int InArrayIndex) { Invoke(nameof(SetParameterValueVector2D), InParameterName, InValue, InArrayIndex); }
@@ -184,9 +186,9 @@ namespace SDK.Script.RigVMSDK
     public class RigVMByteCode : Object
     {
         public RigVMByteCode(nint addr) : base(addr) { }
-        public Array<byte> ByteCode { get { return new Array<byte>(this[nameof(ByteCode)].Address); } }
+        public UArray<byte> ByteCode { get { return new UArray<byte>(this[nameof(ByteCode)].Address); } }
         public int NumInstructions { get { return this[nameof(NumInstructions)].GetValue<int>(); } set { this[nameof(NumInstructions)].SetValue<int>(value); } }
-        public Array<RigVMByteCodeEntry> Entries { get { return new Array<RigVMByteCodeEntry>(this[nameof(Entries)].Address); } }
+        public UArray<RigVMByteCodeEntry> Entries { get { return new UArray<RigVMByteCodeEntry>(this[nameof(Entries)].Address); } }
     }
     public class RigVMByteCodeEntry : Object
     {
@@ -197,7 +199,7 @@ namespace SDK.Script.RigVMSDK
     public class RigVMInstructionArray : Object
     {
         public RigVMInstructionArray(nint addr) : base(addr) { }
-        public Array<RigVMInstruction> Instructions { get { return new Array<RigVMInstruction>(this[nameof(Instructions)].Address); } }
+        public UArray<RigVMInstruction> Instructions { get { return new UArray<RigVMInstruction>(this[nameof(Instructions)].Address); } }
     }
     public class RigVMInstruction : Object
     {
@@ -251,17 +253,17 @@ namespace SDK.Script.RigVMSDK
         public RigVMMemoryContainer(nint addr) : base(addr) { }
         public bool bUseNameMap { get { return this[nameof(bUseNameMap)].Flag; } set { this[nameof(bUseNameMap)].Flag = value; } }
         public ERigVMMemoryType MemoryType { get { return (ERigVMMemoryType)this[nameof(MemoryType)].GetValue<int>(); } set { this[nameof(MemoryType)].SetValue<int>((int)value); } }
-        public Array<RigVMRegister> Registers { get { return new Array<RigVMRegister>(this[nameof(Registers)].Address); } }
-        public Array<RigVMRegisterOffset> RegisterOffsets { get { return new Array<RigVMRegisterOffset>(this[nameof(RegisterOffsets)].Address); } }
-        public Array<byte> Data { get { return new Array<byte>(this[nameof(Data)].Address); } }
-        public Array<ScriptStruct> ScriptStructs { get { return new Array<ScriptStruct>(this[nameof(ScriptStructs)].Address); } }
+        public UArray<RigVMRegister> Registers { get { return new UArray<RigVMRegister>(this[nameof(Registers)].Address); } }
+        public UArray<RigVMRegisterOffset> RegisterOffsets { get { return new UArray<RigVMRegisterOffset>(this[nameof(RegisterOffsets)].Address); } }
+        public UArray<byte> Data { get { return new UArray<byte>(this[nameof(Data)].Address); } }
+        public UArray<ScriptStruct> ScriptStructs { get { return new UArray<ScriptStruct>(this[nameof(ScriptStructs)].Address); } }
         public Object NameMap { get { return this[nameof(NameMap)]; } set { this[nameof(NameMap)] = value; } }
         public bool bEncounteredErrorDuringLoad { get { return this[nameof(bEncounteredErrorDuringLoad)].Flag; } set { this[nameof(bEncounteredErrorDuringLoad)].Flag = value; } }
     }
     public class RigVMRegisterOffset : Object
     {
         public RigVMRegisterOffset(nint addr) : base(addr) { }
-        public Array<int> Segments { get { return new Array<int>(this[nameof(Segments)].Address); } }
+        public UArray<int> Segments { get { return new UArray<int>(this[nameof(Segments)].Address); } }
         public ERigVMRegisterType Type { get { return (ERigVMRegisterType)this[nameof(Type)].GetValue<int>(); } set { this[nameof(Type)].SetValue<int>((int)value); } }
         public Object CPPType { get { return this[nameof(CPPType)]; } set { this[nameof(CPPType)] = value; } }
         public ScriptStruct ScriptStruct { get { return this[nameof(ScriptStruct)].As<ScriptStruct>(); } set { this["ScriptStruct"] = value; } }

@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -65,8 +67,8 @@ namespace SDK.Script.FullBodyIKSDK
     {
         public RigUnit_FullbodyIK(nint addr) : base(addr) { }
         public RigElementKey Root { get { return this[nameof(Root)].As<RigElementKey>(); } set { this["Root"] = value; } }
-        public Array<FBIKEndEffector> Effectors { get { return new Array<FBIKEndEffector>(this[nameof(Effectors)].Address); } }
-        public Array<FBIKConstraintOption> Constraints { get { return new Array<FBIKConstraintOption>(this[nameof(Constraints)].Address); } }
+        public UArray<FBIKEndEffector> Effectors { get { return new UArray<FBIKEndEffector>(this[nameof(Effectors)].Address); } }
+        public UArray<FBIKConstraintOption> Constraints { get { return new UArray<FBIKConstraintOption>(this[nameof(Constraints)].Address); } }
         public SolverInput SolverProperty { get { return this[nameof(SolverProperty)].As<SolverInput>(); } set { this["SolverProperty"] = value; } }
         public MotionProcessInput MotionProperty { get { return this[nameof(MotionProperty)].As<MotionProcessInput>(); } set { this["MotionProperty"] = value; } }
         public bool bPropagateToChildren { get { return this[nameof(bPropagateToChildren)].Flag; } set { this[nameof(bPropagateToChildren)].Flag = value; } }

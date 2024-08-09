@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -124,28 +126,28 @@ namespace SDK.Script.OnlineSubsystemUtilsSDK
         public InAppPurchaseQueryCallbackProxy(nint addr) : base(addr) { }
         public Object OnSuccess { get { return this[nameof(OnSuccess)]; } set { this[nameof(OnSuccess)] = value; } }
         public Object OnFailure { get { return this[nameof(OnFailure)]; } set { this[nameof(OnFailure)] = value; } }
-        public InAppPurchaseQueryCallbackProxy CreateProxyObjectForInAppPurchaseQuery(PlayerController PlayerController, Array<Object> ProductIdentifiers) { return Invoke<InAppPurchaseQueryCallbackProxy>(nameof(CreateProxyObjectForInAppPurchaseQuery), PlayerController, ProductIdentifiers); }
+        public InAppPurchaseQueryCallbackProxy CreateProxyObjectForInAppPurchaseQuery(PlayerController PlayerController, UArray<Object> ProductIdentifiers) { return Invoke<InAppPurchaseQueryCallbackProxy>(nameof(CreateProxyObjectForInAppPurchaseQuery), PlayerController, ProductIdentifiers); }
     }
     public class InAppPurchaseQueryCallbackProxy2 : Object
     {
         public InAppPurchaseQueryCallbackProxy2(nint addr) : base(addr) { }
         public Object OnSuccess { get { return this[nameof(OnSuccess)]; } set { this[nameof(OnSuccess)] = value; } }
         public Object OnFailure { get { return this[nameof(OnFailure)]; } set { this[nameof(OnFailure)] = value; } }
-        public InAppPurchaseQueryCallbackProxy2 CreateProxyObjectForInAppPurchaseQuery(PlayerController PlayerController, Array<Object> ProductIdentifiers) { return Invoke<InAppPurchaseQueryCallbackProxy2>(nameof(CreateProxyObjectForInAppPurchaseQuery), PlayerController, ProductIdentifiers); }
+        public InAppPurchaseQueryCallbackProxy2 CreateProxyObjectForInAppPurchaseQuery(PlayerController PlayerController, UArray<Object> ProductIdentifiers) { return Invoke<InAppPurchaseQueryCallbackProxy2>(nameof(CreateProxyObjectForInAppPurchaseQuery), PlayerController, ProductIdentifiers); }
     }
     public class InAppPurchaseRestoreCallbackProxy : Object
     {
         public InAppPurchaseRestoreCallbackProxy(nint addr) : base(addr) { }
         public Object OnSuccess { get { return this[nameof(OnSuccess)]; } set { this[nameof(OnSuccess)] = value; } }
         public Object OnFailure { get { return this[nameof(OnFailure)]; } set { this[nameof(OnFailure)] = value; } }
-        public InAppPurchaseRestoreCallbackProxy CreateProxyObjectForInAppPurchaseRestore(Array<InAppPurchaseProductRequest> ConsumableProductFlags, PlayerController PlayerController) { return Invoke<InAppPurchaseRestoreCallbackProxy>(nameof(CreateProxyObjectForInAppPurchaseRestore), ConsumableProductFlags, PlayerController); }
+        public InAppPurchaseRestoreCallbackProxy CreateProxyObjectForInAppPurchaseRestore(UArray<InAppPurchaseProductRequest> ConsumableProductFlags, PlayerController PlayerController) { return Invoke<InAppPurchaseRestoreCallbackProxy>(nameof(CreateProxyObjectForInAppPurchaseRestore), ConsumableProductFlags, PlayerController); }
     }
     public class InAppPurchaseRestoreCallbackProxy2 : Object
     {
         public InAppPurchaseRestoreCallbackProxy2(nint addr) : base(addr) { }
         public Object OnSuccess { get { return this[nameof(OnSuccess)]; } set { this[nameof(OnSuccess)] = value; } }
         public Object OnFailure { get { return this[nameof(OnFailure)]; } set { this[nameof(OnFailure)] = value; } }
-        public InAppPurchaseRestoreCallbackProxy2 CreateProxyObjectForInAppPurchaseRestore(Array<InAppPurchaseProductRequest2> ConsumableProductFlags, PlayerController PlayerController) { return Invoke<InAppPurchaseRestoreCallbackProxy2>(nameof(CreateProxyObjectForInAppPurchaseRestore), ConsumableProductFlags, PlayerController); }
+        public InAppPurchaseRestoreCallbackProxy2 CreateProxyObjectForInAppPurchaseRestore(UArray<InAppPurchaseProductRequest2> ConsumableProductFlags, PlayerController PlayerController) { return Invoke<InAppPurchaseRestoreCallbackProxy2>(nameof(CreateProxyObjectForInAppPurchaseRestore), ConsumableProductFlags, PlayerController); }
     }
     public class JoinSessionCallbackProxy : OnlineBlueprintCallProxyBase
     {
@@ -199,27 +201,27 @@ namespace SDK.Script.OnlineSubsystemUtilsSDK
     {
         public OnlineBeaconHost(nint addr) : base(addr) { }
         public int ListenPort { get { return this[nameof(ListenPort)].GetValue<int>(); } set { this[nameof(ListenPort)].SetValue<int>(value); } }
-        public Array<OnlineBeaconClient> ClientActors { get { return new Array<OnlineBeaconClient>(this[nameof(ClientActors)].Address); } }
+        public UArray<OnlineBeaconClient> ClientActors { get { return new UArray<OnlineBeaconClient>(this[nameof(ClientActors)].Address); } }
     }
     public class OnlineBeaconHostObject : Actor
     {
         public OnlineBeaconHostObject(nint addr) : base(addr) { }
         public Object BeaconTypeName { get { return this[nameof(BeaconTypeName)]; } set { this[nameof(BeaconTypeName)] = value; } }
         public Object ClientBeaconActorClass { get { return this[nameof(ClientBeaconActorClass)]; } set { this[nameof(ClientBeaconActorClass)] = value; } }
-        public Array<OnlineBeaconClient> ClientActors { get { return new Array<OnlineBeaconClient>(this[nameof(ClientActors)].Address); } }
+        public UArray<OnlineBeaconClient> ClientActors { get { return new UArray<OnlineBeaconClient>(this[nameof(ClientActors)].Address); } }
     }
     public class OnlineEngineInterfaceImpl : OnlineEngineInterface
     {
         public OnlineEngineInterfaceImpl(nint addr) : base(addr) { }
         public Object MappedUniqueNetIdTypes { get { return this[nameof(MappedUniqueNetIdTypes)]; } set { this[nameof(MappedUniqueNetIdTypes)] = value; } }
-        public Array<Object> CompatibleUniqueNetIdTypes { get { return new Array<Object>(this[nameof(CompatibleUniqueNetIdTypes)].Address); } }
+        public UArray<Object> CompatibleUniqueNetIdTypes { get { return new UArray<Object>(this[nameof(CompatibleUniqueNetIdTypes)].Address); } }
         public Object VoiceSubsystemNameOverride { get { return this[nameof(VoiceSubsystemNameOverride)]; } set { this[nameof(VoiceSubsystemNameOverride)] = value; } }
     }
     public class OnlinePIESettings : DeveloperSettings
     {
         public OnlinePIESettings(nint addr) : base(addr) { }
         public bool bOnlinePIEEnabled { get { return this[nameof(bOnlinePIEEnabled)].Flag; } set { this[nameof(bOnlinePIEEnabled)].Flag = value; } }
-        public Array<PIELoginSettingsInternal> Logins { get { return new Array<PIELoginSettingsInternal>(this[nameof(Logins)].Address); } }
+        public UArray<PIELoginSettingsInternal> Logins { get { return new UArray<PIELoginSettingsInternal>(this[nameof(Logins)].Address); } }
     }
     public class OnlineSessionClient : OnlineSession
     {
@@ -265,10 +267,10 @@ namespace SDK.Script.OnlineSubsystemUtilsSDK
         public int ReservedHostTeamNum { get { return this[nameof(ReservedHostTeamNum)].GetValue<int>(); } set { this[nameof(ReservedHostTeamNum)].SetValue<int>(value); } }
         public int ForceTeamNum { get { return this[nameof(ForceTeamNum)].GetValue<int>(); } set { this[nameof(ForceTeamNum)].SetValue<int>(value); } }
         public bool bRestrictCrossConsole { get { return this[nameof(bRestrictCrossConsole)].Flag; } set { this[nameof(bRestrictCrossConsole)].Flag = value; } }
-        public Array<Object> PlatformCrossplayRestrictions { get { return new Array<Object>(this[nameof(PlatformCrossplayRestrictions)].Address); } }
-        public Array<PartyBeaconCrossplayPlatformMapping> PlatformTypeMapping { get { return new Array<PartyBeaconCrossplayPlatformMapping>(this[nameof(PlatformTypeMapping)].Address); } }
+        public UArray<Object> PlatformCrossplayRestrictions { get { return new UArray<Object>(this[nameof(PlatformCrossplayRestrictions)].Address); } }
+        public UArray<PartyBeaconCrossplayPlatformMapping> PlatformTypeMapping { get { return new UArray<PartyBeaconCrossplayPlatformMapping>(this[nameof(PlatformTypeMapping)].Address); } }
         public bool bEnableRemovalRequests { get { return this[nameof(bEnableRemovalRequests)].Flag; } set { this[nameof(bEnableRemovalRequests)].Flag = value; } }
-        public Array<PartyReservation> Reservations { get { return new Array<PartyReservation>(this[nameof(Reservations)].Address); } }
+        public UArray<PartyReservation> Reservations { get { return new UArray<PartyReservation>(this[nameof(Reservations)].Address); } }
     }
     public class QuitMatchCallbackProxy : OnlineBlueprintCallProxyBase
     {
@@ -314,7 +316,7 @@ namespace SDK.Script.OnlineSubsystemUtilsSDK
         public int NumConsumedReservations { get { return this[nameof(NumConsumedReservations)].GetValue<int>(); } set { this[nameof(NumConsumedReservations)].SetValue<int>(value); } }
         public int MaxReservations { get { return this[nameof(MaxReservations)].GetValue<int>(); } set { this[nameof(MaxReservations)].SetValue<int>(value); } }
         public bool bRestrictCrossConsole { get { return this[nameof(bRestrictCrossConsole)].Flag; } set { this[nameof(bRestrictCrossConsole)].Flag = value; } }
-        public Array<SpectatorReservation> Reservations { get { return new Array<SpectatorReservation>(this[nameof(Reservations)].Address); } }
+        public UArray<SpectatorReservation> Reservations { get { return new UArray<SpectatorReservation>(this[nameof(Reservations)].Address); } }
     }
     public class TestBeaconClient : OnlineBeaconClient
     {
@@ -506,7 +508,7 @@ namespace SDK.Script.OnlineSubsystemUtilsSDK
         public Object ID { get { return this[nameof(ID)]; } set { this[nameof(ID)] = value; } }
         public Object Token { get { return this[nameof(Token)]; } set { this[nameof(Token)] = value; } }
         public Object Type { get { return this[nameof(Type)]; } set { this[nameof(Type)] = value; } }
-        public Array<byte> TokenBytes { get { return new Array<byte>(this[nameof(TokenBytes)].Address); } }
+        public UArray<byte> TokenBytes { get { return new UArray<byte>(this[nameof(TokenBytes)].Address); } }
     }
     public class PartyBeaconCrossplayPlatformMapping : Object
     {
@@ -519,8 +521,8 @@ namespace SDK.Script.OnlineSubsystemUtilsSDK
         public PartyReservation(nint addr) : base(addr) { }
         public int TeamNum { get { return this[nameof(TeamNum)].GetValue<int>(); } set { this[nameof(TeamNum)].SetValue<int>(value); } }
         public UniqueNetIdRepl PartyLeader { get { return this[nameof(PartyLeader)].As<UniqueNetIdRepl>(); } set { this["PartyLeader"] = value; } }
-        public Array<PlayerReservation> PartyMembers { get { return new Array<PlayerReservation>(this[nameof(PartyMembers)].Address); } }
-        public Array<PlayerReservation> RemovedPartyMembers { get { return new Array<PlayerReservation>(this[nameof(RemovedPartyMembers)].Address); } }
+        public UArray<PlayerReservation> PartyMembers { get { return new UArray<PlayerReservation>(this[nameof(PartyMembers)].Address); } }
+        public UArray<PlayerReservation> RemovedPartyMembers { get { return new UArray<PlayerReservation>(this[nameof(RemovedPartyMembers)].Address); } }
     }
     public class SpectatorReservation : Object
     {

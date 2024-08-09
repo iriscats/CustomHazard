@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -16,7 +18,7 @@ namespace SDK.Script.TimeSynthSDK
     public class TimeSynthClip : Object
     {
         public TimeSynthClip(nint addr) : base(addr) { }
-        public Array<TimeSynthClipSound> Sounds { get { return new Array<TimeSynthClipSound>(this[nameof(Sounds)].Address); } }
+        public UArray<TimeSynthClipSound> Sounds { get { return new UArray<TimeSynthClipSound>(this[nameof(Sounds)].Address); } }
         public Vector2D VolumeScaleDb { get { return this[nameof(VolumeScaleDb)].As<Vector2D>(); } set { this["VolumeScaleDb"] = value; } }
         public Vector2D PitchScaleSemitones { get { return this[nameof(PitchScaleSemitones)].As<Vector2D>(); } set { this["PitchScaleSemitones"] = value; } }
         public TimeSynthTimeDef FadeInTime { get { return this[nameof(FadeInTime)].As<TimeSynthTimeDef>(); } set { this["FadeInTime"] = value; } }
@@ -30,7 +32,7 @@ namespace SDK.Script.TimeSynthSDK
         public TimeSynthComponent(nint addr) : base(addr) { }
         public TimeSynthQuantizationSettings QuantizationSettings { get { return this[nameof(QuantizationSettings)].As<TimeSynthQuantizationSettings>(); } set { this["QuantizationSettings"] = value; } }
         public bool bEnableSpectralAnalysis { get { return this[nameof(bEnableSpectralAnalysis)].Flag; } set { this[nameof(bEnableSpectralAnalysis)].Flag = value; } }
-        public Array<float> FrequenciesToAnalyze { get { return new Array<float>(this[nameof(FrequenciesToAnalyze)].Address); } }
+        public UArray<float> FrequenciesToAnalyze { get { return new UArray<float>(this[nameof(FrequenciesToAnalyze)].Address); } }
         public ETimeSynthFFTSize FFTSize { get { return (ETimeSynthFFTSize)this[nameof(FFTSize)].GetValue<int>(); } set { this[nameof(FFTSize)].SetValue<int>((int)value); } }
         public Object OnPlaybackTime { get { return this[nameof(OnPlaybackTime)]; } set { this[nameof(OnPlaybackTime)] = value; } }
         public bool bIsFilterAEnabled { get { return this[nameof(bIsFilterAEnabled)].Flag; } set { this[nameof(bIsFilterAEnabled)].Flag = value; } }
@@ -56,7 +58,7 @@ namespace SDK.Script.TimeSynthSDK
         public void ResetSeed() { Invoke(nameof(ResetSeed)); }
         public TimeSynthClipHandle PlayClip(TimeSynthClip InClip, TimeSynthVolumeGroup InVolumeGroup) { return Invoke<TimeSynthClipHandle>(nameof(PlayClip), InClip, InVolumeGroup); }
         public bool HasActiveClips() { return Invoke<bool>(nameof(HasActiveClips)); }
-        public Array<TimeSynthSpectralData> GetSpectralData() { return Invoke<Array<TimeSynthSpectralData>>(nameof(GetSpectralData)); }
+        public UArray<TimeSynthSpectralData> GetSpectralData() { return Invoke<UArray<TimeSynthSpectralData>>(nameof(GetSpectralData)); }
         public int GetMaxActiveClipLimit() { return Invoke<int>(nameof(GetMaxActiveClipLimit)); }
         public float GetEnvelopeFollowerValue() { return Invoke<float>(nameof(GetEnvelopeFollowerValue)); }
         public int GetBPM() { return Invoke<int>(nameof(GetBPM)); }

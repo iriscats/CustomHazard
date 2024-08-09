@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -20,7 +22,7 @@ namespace SDK.Script.GameplayTasksSDK
     public class GameplayTask_ClaimResource : GameplayTask
     {
         public GameplayTask_ClaimResource(nint addr) : base(addr) { }
-        public GameplayTask_ClaimResource ClaimResources(Object InTaskOwner, Array<Object> ResourceClasses, byte Priority, Object TaskInstanceName) { return Invoke<GameplayTask_ClaimResource>(nameof(ClaimResources), InTaskOwner, ResourceClasses, Priority, TaskInstanceName); }
+        public GameplayTask_ClaimResource ClaimResources(Object InTaskOwner, UArray<Object> ResourceClasses, byte Priority, Object TaskInstanceName) { return Invoke<GameplayTask_ClaimResource>(nameof(ClaimResources), InTaskOwner, ResourceClasses, Priority, TaskInstanceName); }
         public GameplayTask_ClaimResource ClaimResource(Object InTaskOwner, Object ResourceClass, byte Priority, Object TaskInstanceName) { return Invoke<GameplayTask_ClaimResource>(nameof(ClaimResource), InTaskOwner, ResourceClass, Priority, TaskInstanceName); }
     }
     public class GameplayTask_SpawnActor : GameplayTask
@@ -61,13 +63,13 @@ namespace SDK.Script.GameplayTasksSDK
     {
         public GameplayTasksComponent(nint addr) : base(addr) { }
         public bool bIsNetDirty { get { return this[nameof(bIsNetDirty)].Flag; } set { this[nameof(bIsNetDirty)].Flag = value; } }
-        public Array<GameplayTask> SimulatedTasks { get { return new Array<GameplayTask>(this[nameof(SimulatedTasks)].Address); } }
-        public Array<GameplayTask> TaskPriorityQueue { get { return new Array<GameplayTask>(this[nameof(TaskPriorityQueue)].Address); } }
-        public Array<GameplayTask> TickingTasks { get { return new Array<GameplayTask>(this[nameof(TickingTasks)].Address); } }
-        public Array<GameplayTask> KnownTasks { get { return new Array<GameplayTask>(this[nameof(KnownTasks)].Address); } }
+        public UArray<GameplayTask> SimulatedTasks { get { return new UArray<GameplayTask>(this[nameof(SimulatedTasks)].Address); } }
+        public UArray<GameplayTask> TaskPriorityQueue { get { return new UArray<GameplayTask>(this[nameof(TaskPriorityQueue)].Address); } }
+        public UArray<GameplayTask> TickingTasks { get { return new UArray<GameplayTask>(this[nameof(TickingTasks)].Address); } }
+        public UArray<GameplayTask> KnownTasks { get { return new UArray<GameplayTask>(this[nameof(KnownTasks)].Address); } }
         public Object OnClaimedResourcesChange { get { return this[nameof(OnClaimedResourcesChange)]; } set { this[nameof(OnClaimedResourcesChange)] = value; } }
         public void OnRep_SimulatedTasks() { Invoke(nameof(OnRep_SimulatedTasks)); }
-        public EGameplayTaskRunResult K2_RunGameplayTask(Object TaskOwner, GameplayTask Task, byte Priority, Array<Object> AdditionalRequiredResources, Array<Object> AdditionalClaimedResources) { return Invoke<EGameplayTaskRunResult>(nameof(K2_RunGameplayTask), TaskOwner, Task, Priority, AdditionalRequiredResources, AdditionalClaimedResources); }
+        public EGameplayTaskRunResult K2_RunGameplayTask(Object TaskOwner, GameplayTask Task, byte Priority, UArray<Object> AdditionalRequiredResources, UArray<Object> AdditionalClaimedResources) { return Invoke<EGameplayTaskRunResult>(nameof(K2_RunGameplayTask), TaskOwner, Task, Priority, AdditionalRequiredResources, AdditionalClaimedResources); }
     }
     public enum ETaskResourceOverlapPolicy : int
     {

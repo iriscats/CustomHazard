@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -10,8 +12,8 @@ namespace SDK.Script.EngineSettingsSDK
     {
         public ConsoleSettings(nint addr) : base(addr) { }
         public int MaxScrollbackSize { get { return this[nameof(MaxScrollbackSize)].GetValue<int>(); } set { this[nameof(MaxScrollbackSize)].SetValue<int>(value); } }
-        public Array<AutoCompleteCommand> ManualAutoCompleteList { get { return new Array<AutoCompleteCommand>(this[nameof(ManualAutoCompleteList)].Address); } }
-        public Array<Object> AutoCompleteMapPaths { get { return new Array<Object>(this[nameof(AutoCompleteMapPaths)].Address); } }
+        public UArray<AutoCompleteCommand> ManualAutoCompleteList { get { return new UArray<AutoCompleteCommand>(this[nameof(ManualAutoCompleteList)].Address); } }
+        public UArray<Object> AutoCompleteMapPaths { get { return new UArray<Object>(this[nameof(AutoCompleteMapPaths)].Address); } }
         public float BackgroundOpacityPercentage { get { return this[nameof(BackgroundOpacityPercentage)].GetValue<float>(); } set { this[nameof(BackgroundOpacityPercentage)].SetValue<float>(value); } }
         public bool bOrderTopToBottom { get { return this[nameof(bOrderTopToBottom)].Flag; } set { this[nameof(bOrderTopToBottom)].Flag = value; } }
         public bool bDisplayHelpInAutoComplete { get { return this[nameof(bDisplayHelpInAutoComplete)].Flag; } set { this[nameof(bDisplayHelpInAutoComplete)].Flag = value; } }
@@ -36,8 +38,8 @@ namespace SDK.Script.EngineSettingsSDK
         public SoftObjectPath ServerDefaultMap { get { return this[nameof(ServerDefaultMap)].As<SoftObjectPath>(); } set { this["ServerDefaultMap"] = value; } }
         public SoftClassPath GlobalDefaultGameMode { get { return this[nameof(GlobalDefaultGameMode)].As<SoftClassPath>(); } set { this["GlobalDefaultGameMode"] = value; } }
         public SoftClassPath GlobalDefaultServerGameMode { get { return this[nameof(GlobalDefaultServerGameMode)].As<SoftClassPath>(); } set { this["GlobalDefaultServerGameMode"] = value; } }
-        public Array<GameModeName> GameModeMapPrefixes { get { return new Array<GameModeName>(this[nameof(GameModeMapPrefixes)].Address); } }
-        public Array<GameModeName> GameModeClassAliases { get { return new Array<GameModeName>(this[nameof(GameModeClassAliases)].Address); } }
+        public UArray<GameModeName> GameModeMapPrefixes { get { return new UArray<GameModeName>(this[nameof(GameModeMapPrefixes)].Address); } }
+        public UArray<GameModeName> GameModeClassAliases { get { return new UArray<GameModeName>(this[nameof(GameModeClassAliases)].Address); } }
         public void SetSkipAssigningGamepadToPlayer1(bool bSkipFirstPlayer) { Invoke(nameof(SetSkipAssigningGamepadToPlayer1), bSkipFirstPlayer); }
         public bool GetSkipAssigningGamepadToPlayer1() { return Invoke<bool>(nameof(GetSkipAssigningGamepadToPlayer1)); }
         public GameMapsSettings GetGameMapsSettings() { return Invoke<GameMapsSettings>(nameof(GetGameMapsSettings)); }
@@ -96,7 +98,7 @@ namespace SDK.Script.EngineSettingsSDK
     {
         public HudSettings(nint addr) : base(addr) { }
         public bool bShowHUD { get { return this[nameof(bShowHUD)].Flag; } set { this[nameof(bShowHUD)].Flag = value; } }
-        public Array<Object> DebugDisplay { get { return new Array<Object>(this[nameof(DebugDisplay)].Address); } }
+        public UArray<Object> DebugDisplay { get { return new UArray<Object>(this[nameof(DebugDisplay)].Address); } }
     }
     public enum ESubLevelStripMode : int
     {

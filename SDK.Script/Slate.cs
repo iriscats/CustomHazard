@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -255,12 +257,12 @@ namespace SDK.Script.SlateSDK
         public Object Entries { get { return this[nameof(Entries)]; } set { this[nameof(Entries)] = value; } }
         public Object Sections { get { return this[nameof(Sections)]; } set { this[nameof(Sections)] = value; } }
         public Object EntryOrder { get { return this[nameof(EntryOrder)]; } set { this[nameof(EntryOrder)] = value; } }
-        public Array<Object> SectionOrder { get { return new Array<Object>(this[nameof(SectionOrder)].Address); } }
+        public UArray<Object> SectionOrder { get { return new UArray<Object>(this[nameof(SectionOrder)].Address); } }
     }
     public class CustomizedToolMenuNameArray : Object
     {
         public CustomizedToolMenuNameArray(nint addr) : base(addr) { }
-        public Array<Object> Names { get { return new Array<Object>(this[nameof(Names)].Address); } }
+        public UArray<Object> Names { get { return new UArray<Object>(this[nameof(Names)].Address); } }
     }
     public class CustomizedToolMenuSection : Object
     {

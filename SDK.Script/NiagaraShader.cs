@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -25,7 +27,7 @@ namespace SDK.Script.NiagaraShaderSDK
         public bool bSpawnOnly { get { return this[nameof(bSpawnOnly)].Flag; } set { this[nameof(bSpawnOnly)].Flag = value; } }
         public bool bWritesParticles { get { return this[nameof(bWritesParticles)].Flag; } set { this[nameof(bWritesParticles)].Flag = value; } }
         public bool bPartialParticleUpdate { get { return this[nameof(bPartialParticleUpdate)].Flag; } set { this[nameof(bPartialParticleUpdate)].Flag = value; } }
-        public Array<Object> OutputDestinations { get { return new Array<Object>(this[nameof(OutputDestinations)].Address); } }
+        public UArray<Object> OutputDestinations { get { return new UArray<Object>(this[nameof(OutputDestinations)].Address); } }
         public int MinStage { get { return this[nameof(MinStage)].GetValue<int>(); } set { this[nameof(MinStage)].SetValue<int>(value); } }
         public int MaxStage { get { return this[nameof(MaxStage)].GetValue<int>(); } set { this[nameof(MaxStage)].SetValue<int>(value); } }
     }
@@ -34,7 +36,7 @@ namespace SDK.Script.NiagaraShaderSDK
         public NiagaraDataInterfaceGPUParamInfo(nint addr) : base(addr) { }
         public Object DataInterfaceHLSLSymbol { get { return this[nameof(DataInterfaceHLSLSymbol)]; } set { this[nameof(DataInterfaceHLSLSymbol)] = value; } }
         public Object DIClassName { get { return this[nameof(DIClassName)]; } set { this[nameof(DIClassName)] = value; } }
-        public Array<NiagaraDataInterfaceGeneratedFunction> GeneratedFunctions { get { return new Array<NiagaraDataInterfaceGeneratedFunction>(this[nameof(GeneratedFunctions)].Address); } }
+        public UArray<NiagaraDataInterfaceGeneratedFunction> GeneratedFunctions { get { return new UArray<NiagaraDataInterfaceGeneratedFunction>(this[nameof(GeneratedFunctions)].Address); } }
     }
     public class NiagaraDataInterfaceGeneratedFunction : Object
     {
@@ -49,6 +51,6 @@ namespace SDK.Script.NiagaraShaderSDK
         public bool bDismissable { get { return this[nameof(bDismissable)].Flag; } set { this[nameof(bDismissable)].Flag = value; } }
         public Guid NodeGuid { get { return this[nameof(NodeGuid)].As<Guid>(); } set { this["NodeGuid"] = value; } }
         public Guid PinGuid { get { return this[nameof(PinGuid)].As<Guid>(); } set { this["PinGuid"] = value; } }
-        public Array<Guid> StackGuids { get { return new Array<Guid>(this[nameof(StackGuids)].Address); } }
+        public UArray<Guid> StackGuids { get { return new UArray<Guid>(this[nameof(StackGuids)].Address); } }
     }
 }

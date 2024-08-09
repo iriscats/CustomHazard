@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -8,7 +10,7 @@ namespace SDK.Script.NetCoreSDK
     public class NetAnalyticsAggregatorConfig : Object
     {
         public NetAnalyticsAggregatorConfig(nint addr) : base(addr) { }
-        public Array<NetAnalyticsDataConfig> NetAnalyticsData { get { return new Array<NetAnalyticsDataConfig>(this[nameof(NetAnalyticsData)].Address); } }
+        public UArray<NetAnalyticsDataConfig> NetAnalyticsData { get { return new UArray<NetAnalyticsDataConfig>(this[nameof(NetAnalyticsData)].Address); } }
     }
     public class NetAnalyticsDataConfig : Object
     {

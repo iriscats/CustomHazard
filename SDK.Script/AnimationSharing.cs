@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -15,7 +17,7 @@ namespace SDK.Script.AnimationSharingSDK
         public float PlayRate { get { return this[nameof(PlayRate)].GetValue<float>(); } set { this[nameof(PlayRate)].SetValue<float>(value); } }
         public bool bStateBool { get { return this[nameof(bStateBool)].Flag; } set { this[nameof(bStateBool)].Flag = value; } }
         public AnimSharingInstance instance { get { return this[nameof(instance)].As<AnimSharingInstance>(); } set { this["instance"] = value; } }
-        public void GetInstancedActors(Array<Actor> Actors) { Invoke(nameof(GetInstancedActors), Actors); }
+        public void GetInstancedActors(UArray<Actor> Actors) { Invoke(nameof(GetInstancedActors), Actors); }
     }
     public class AnimSharingTransitionInstance : AnimInstance
     {
@@ -36,17 +38,17 @@ namespace SDK.Script.AnimationSharingSDK
     public class AnimSharingInstance : Object
     {
         public AnimSharingInstance(nint addr) : base(addr) { }
-        public Array<Actor> RegisteredActors { get { return new Array<Actor>(this[nameof(RegisteredActors)].Address); } }
+        public UArray<Actor> RegisteredActors { get { return new UArray<Actor>(this[nameof(RegisteredActors)].Address); } }
         public AnimationSharingStateProcessor StateProcessor { get { return this[nameof(StateProcessor)].As<AnimationSharingStateProcessor>(); } set { this["StateProcessor"] = value; } }
-        public Array<AnimSequence> UsedAnimationSequences { get { return new Array<AnimSequence>(this[nameof(UsedAnimationSequences)].Address); } }
+        public UArray<AnimSequence> UsedAnimationSequences { get { return new UArray<AnimSequence>(this[nameof(UsedAnimationSequences)].Address); } }
         public Enum StateEnum { get { return this[nameof(StateEnum)].As<Enum>(); } set { this["StateEnum"] = value; } }
         public Actor SharingActor { get { return this[nameof(SharingActor)].As<Actor>(); } set { this["SharingActor"] = value; } }
     }
     public class AnimationSharingManager : Object
     {
         public AnimationSharingManager(nint addr) : base(addr) { }
-        public Array<Skeleton> Skeletons { get { return new Array<Skeleton>(this[nameof(Skeletons)].Address); } }
-        public Array<AnimSharingInstance> PerSkeletonData { get { return new Array<AnimSharingInstance>(this[nameof(PerSkeletonData)].Address); } }
+        public UArray<Skeleton> Skeletons { get { return new UArray<Skeleton>(this[nameof(Skeletons)].Address); } }
+        public UArray<AnimSharingInstance> PerSkeletonData { get { return new UArray<AnimSharingInstance>(this[nameof(PerSkeletonData)].Address); } }
         public void RegisterActorWithSkeletonBP(Actor InActor, Skeleton SharingSkeleton) { Invoke(nameof(RegisterActorWithSkeletonBP), InActor, SharingSkeleton); }
         public AnimationSharingManager GetAnimationSharingManager(Object WorldContextObject) { return Invoke<AnimationSharingManager>(nameof(GetAnimationSharingManager), WorldContextObject); }
         public bool CreateAnimationSharingManager(Object WorldContextObject, AnimationSharingSetup Setup) { return Invoke<bool>(nameof(CreateAnimationSharingManager), WorldContextObject, Setup); }
@@ -55,7 +57,7 @@ namespace SDK.Script.AnimationSharingSDK
     public class AnimationSharingSetup : Object
     {
         public AnimationSharingSetup(nint addr) : base(addr) { }
-        public Array<PerSkeletonAnimationSharingSetup> SkeletonSetups { get { return new Array<PerSkeletonAnimationSharingSetup>(this[nameof(SkeletonSetups)].Address); } }
+        public UArray<PerSkeletonAnimationSharingSetup> SkeletonSetups { get { return new UArray<PerSkeletonAnimationSharingSetup>(this[nameof(SkeletonSetups)].Address); } }
         public AnimationSharingScalability ScalabilitySettings { get { return this[nameof(ScalabilitySettings)].As<AnimationSharingScalability>(); } set { this["ScalabilitySettings"] = value; } }
     }
     public class AnimationSharingStateProcessor : Object
@@ -85,13 +87,13 @@ namespace SDK.Script.AnimationSharingSDK
         public Object BlendAnimBlueprint { get { return this[nameof(BlendAnimBlueprint)]; } set { this[nameof(BlendAnimBlueprint)] = value; } }
         public Object AdditiveAnimBlueprint { get { return this[nameof(AdditiveAnimBlueprint)]; } set { this[nameof(AdditiveAnimBlueprint)] = value; } }
         public Object StateProcessorClass { get { return this[nameof(StateProcessorClass)]; } set { this[nameof(StateProcessorClass)] = value; } }
-        public Array<AnimationStateEntry> AnimationStates { get { return new Array<AnimationStateEntry>(this[nameof(AnimationStates)].Address); } }
+        public UArray<AnimationStateEntry> AnimationStates { get { return new UArray<AnimationStateEntry>(this[nameof(AnimationStates)].Address); } }
     }
     public class AnimationStateEntry : Object
     {
         public AnimationStateEntry(nint addr) : base(addr) { }
         public byte State { get { return this[nameof(State)].GetValue<byte>(); } set { this[nameof(State)].SetValue<byte>(value); } }
-        public Array<AnimationSetup> AnimationSetups { get { return new Array<AnimationSetup>(this[nameof(AnimationSetups)].Address); } }
+        public UArray<AnimationSetup> AnimationSetups { get { return new UArray<AnimationSetup>(this[nameof(AnimationSetups)].Address); } }
         public bool bOnDemand { get { return this[nameof(bOnDemand)].Flag; } set { this[nameof(bOnDemand)].Flag = value; } }
         public bool bAdditive { get { return this[nameof(bAdditive)].Flag; } set { this[nameof(bAdditive)].Flag = value; } }
         public float BlendTime { get { return this[nameof(BlendTime)].GetValue<float>(); } set { this[nameof(BlendTime)].SetValue<float>(value); } }

@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -9,8 +11,8 @@ namespace SDK.Script.OnlineSubsystemSDK
     public class NamedInterfaces : Object
     {
         public NamedInterfaces(nint addr) : base(addr) { }
-        public Array<NamedInterface> NamedInterfaces_value { get { return new Array<NamedInterface>(this[nameof(NamedInterfaces)].Address); } }
-        public Array<NamedInterfaceDef> NamedInterfaceDefs { get { return new Array<NamedInterfaceDef>(this[nameof(NamedInterfaceDefs)].Address); } }
+        public UArray<NamedInterface> NamedInterfaces_value { get { return new UArray<NamedInterface>(this[nameof(NamedInterfaces)].Address); } }
+        public UArray<NamedInterfaceDef> NamedInterfaceDefs { get { return new UArray<NamedInterfaceDef>(this[nameof(NamedInterfaceDefs)].Address); } }
     }
     public class TurnBasedMatchInterface : Interface
     {

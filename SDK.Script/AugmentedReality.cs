@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -34,8 +36,8 @@ namespace SDK.Script.AugmentedRealitySDK
         public ARPin PinComponent(SceneComponent ComponentToPin, Transform PinToWorldTransform, ARTrackedGeometry TrackedGeometry, Object DebugName) { return Invoke<ARPin>(nameof(PinComponent), ComponentToPin, PinToWorldTransform, TrackedGeometry, DebugName); }
         public void PauseARSession() { Invoke(nameof(PauseARSession)); }
         public Object LoadARPinsFromLocalStore() { return Invoke<Object>(nameof(LoadARPinsFromLocalStore)); }
-        public Array<ARTraceResult> LineTraceTrackedObjects3D(Vector Start, Vector End, bool bTestFeaturePoints, bool bTestGroundPlane, bool bTestPlaneExtents, bool bTestPlaneBoundaryPolygon) { return Invoke<Array<ARTraceResult>>(nameof(LineTraceTrackedObjects3D), Start, End, bTestFeaturePoints, bTestGroundPlane, bTestPlaneExtents, bTestPlaneBoundaryPolygon); }
-        public Array<ARTraceResult> LineTraceTrackedObjects(Vector2D ScreenCoord, bool bTestFeaturePoints, bool bTestGroundPlane, bool bTestPlaneExtents, bool bTestPlaneBoundaryPolygon) { return Invoke<Array<ARTraceResult>>(nameof(LineTraceTrackedObjects), ScreenCoord, bTestFeaturePoints, bTestGroundPlane, bTestPlaneExtents, bTestPlaneBoundaryPolygon); }
+        public UArray<ARTraceResult> LineTraceTrackedObjects3D(Vector Start, Vector End, bool bTestFeaturePoints, bool bTestGroundPlane, bool bTestPlaneExtents, bool bTestPlaneBoundaryPolygon) { return Invoke<UArray<ARTraceResult>>(nameof(LineTraceTrackedObjects3D), Start, End, bTestFeaturePoints, bTestGroundPlane, bTestPlaneExtents, bTestPlaneBoundaryPolygon); }
+        public UArray<ARTraceResult> LineTraceTrackedObjects(Vector2D ScreenCoord, bool bTestFeaturePoints, bool bTestGroundPlane, bool bTestPlaneExtents, bool bTestPlaneBoundaryPolygon) { return Invoke<UArray<ARTraceResult>>(nameof(LineTraceTrackedObjects), ScreenCoord, bTestFeaturePoints, bTestGroundPlane, bTestPlaneExtents, bTestPlaneBoundaryPolygon); }
         public bool IsSessionTypeSupported(EARSessionType SessionType) { return Invoke<bool>(nameof(IsSessionTypeSupported), SessionType); }
         public bool IsSessionTrackingFeatureSupported(EARSessionType SessionType, EARSessionTrackingFeature SessionTrackingFeature) { return Invoke<bool>(nameof(IsSessionTrackingFeatureSupported), SessionType, SessionTrackingFeature); }
         public bool IsSceneReconstructionSupported(EARSessionType SessionType, EARSceneReconstruction SceneReconstructionMethod) { return Invoke<bool>(nameof(IsSceneReconstructionSupported), SessionType, SceneReconstructionMethod); }
@@ -45,9 +47,9 @@ namespace SDK.Script.AugmentedRealitySDK
         public EARWorldMappingState GetWorldMappingStatus() { return Invoke<EARWorldMappingState>(nameof(GetWorldMappingStatus)); }
         public EARTrackingQualityReason GetTrackingQualityReason() { return Invoke<EARTrackingQualityReason>(nameof(GetTrackingQualityReason)); }
         public EARTrackingQuality GetTrackingQuality() { return Invoke<EARTrackingQuality>(nameof(GetTrackingQuality)); }
-        public Array<ARVideoFormat> GetSupportedVideoFormats(EARSessionType SessionType) { return Invoke<Array<ARVideoFormat>>(nameof(GetSupportedVideoFormats), SessionType); }
+        public UArray<ARVideoFormat> GetSupportedVideoFormats(EARSessionType SessionType) { return Invoke<UArray<ARVideoFormat>>(nameof(GetSupportedVideoFormats), SessionType); }
         public ARSessionConfig GetSessionConfig() { return Invoke<ARSessionConfig>(nameof(GetSessionConfig)); }
-        public Array<Vector> GetPointCloud() { return Invoke<Array<Vector>>(nameof(GetPointCloud)); }
+        public UArray<Vector> GetPointCloud() { return Invoke<UArray<Vector>>(nameof(GetPointCloud)); }
         public ARTexture GetPersonSegmentationImage() { return Invoke<ARTexture>(nameof(GetPersonSegmentationImage)); }
         public ARTexture GetPersonSegmentationDepthImage() { return Invoke<ARTexture>(nameof(GetPersonSegmentationDepthImage)); }
         public bool GetObjectClassificationAtLocation(Vector InWorldLocation, EARObjectClassification OutClassification, Vector OutClassificationLocation, float MaxLocationDiff) { return Invoke<bool>(nameof(GetObjectClassificationAtLocation), InWorldLocation, OutClassification, OutClassificationLocation, MaxLocationDiff); }
@@ -59,20 +61,20 @@ namespace SDK.Script.AugmentedRealitySDK
         public float GetARWorldScale() { return Invoke<float>(nameof(GetARWorldScale)); }
         public ARTexture GetARTexture(EARTextureType TextureType) { return Invoke<ARTexture>(nameof(GetARTexture), TextureType); }
         public ARSessionStatus GetARSessionStatus() { return Invoke<ARSessionStatus>(nameof(GetARSessionStatus)); }
-        public Array<ARTrackedPose> GetAllTrackedPoses() { return Invoke<Array<ARTrackedPose>>(nameof(GetAllTrackedPoses)); }
-        public Array<ARTrackedPoint> GetAllTrackedPoints() { return Invoke<Array<ARTrackedPoint>>(nameof(GetAllTrackedPoints)); }
-        public Array<ARPlaneGeometry> GetAllTrackedPlanes() { return Invoke<Array<ARPlaneGeometry>>(nameof(GetAllTrackedPlanes)); }
-        public Array<ARTrackedImage> GetAllTrackedImages() { return Invoke<Array<ARTrackedImage>>(nameof(GetAllTrackedImages)); }
-        public Array<AREnvironmentCaptureProbe> GetAllTrackedEnvironmentCaptureProbes() { return Invoke<Array<AREnvironmentCaptureProbe>>(nameof(GetAllTrackedEnvironmentCaptureProbes)); }
-        public Array<ARPose2D> GetAllTracked2DPoses() { return Invoke<Array<ARPose2D>>(nameof(GetAllTracked2DPoses)); }
-        public Array<ARPin> GetAllPins() { return Invoke<Array<ARPin>>(nameof(GetAllPins)); }
-        public Array<ARTrackedGeometry> GetAllGeometriesByClass(Object GeometryClass) { return Invoke<Array<ARTrackedGeometry>>(nameof(GetAllGeometriesByClass), GeometryClass); }
-        public Array<ARTrackedGeometry> GetAllGeometries() { return Invoke<Array<ARTrackedGeometry>>(nameof(GetAllGeometries)); }
+        public UArray<ARTrackedPose> GetAllTrackedPoses() { return Invoke<UArray<ARTrackedPose>>(nameof(GetAllTrackedPoses)); }
+        public UArray<ARTrackedPoint> GetAllTrackedPoints() { return Invoke<UArray<ARTrackedPoint>>(nameof(GetAllTrackedPoints)); }
+        public UArray<ARPlaneGeometry> GetAllTrackedPlanes() { return Invoke<UArray<ARPlaneGeometry>>(nameof(GetAllTrackedPlanes)); }
+        public UArray<ARTrackedImage> GetAllTrackedImages() { return Invoke<UArray<ARTrackedImage>>(nameof(GetAllTrackedImages)); }
+        public UArray<AREnvironmentCaptureProbe> GetAllTrackedEnvironmentCaptureProbes() { return Invoke<UArray<AREnvironmentCaptureProbe>>(nameof(GetAllTrackedEnvironmentCaptureProbes)); }
+        public UArray<ARPose2D> GetAllTracked2DPoses() { return Invoke<UArray<ARPose2D>>(nameof(GetAllTracked2DPoses)); }
+        public UArray<ARPin> GetAllPins() { return Invoke<UArray<ARPin>>(nameof(GetAllPins)); }
+        public UArray<ARTrackedGeometry> GetAllGeometriesByClass(Object GeometryClass) { return Invoke<UArray<ARTrackedGeometry>>(nameof(GetAllGeometriesByClass), GeometryClass); }
+        public UArray<ARTrackedGeometry> GetAllGeometries() { return Invoke<UArray<ARTrackedGeometry>>(nameof(GetAllGeometries)); }
         public Transform GetAlignmentTransform() { return Invoke<Transform>(nameof(GetAlignmentTransform)); }
-        public Array<ARTrackedPoint> FindTrackedPointsByName(Object PointName) { return Invoke<Array<ARTrackedPoint>>(nameof(FindTrackedPointsByName), PointName); }
+        public UArray<ARTrackedPoint> FindTrackedPointsByName(Object PointName) { return Invoke<UArray<ARTrackedPoint>>(nameof(FindTrackedPointsByName), PointName); }
         public void DebugDrawTrackedGeometry(ARTrackedGeometry TrackedGeometry, Object WorldContextObject, LinearColor Color, float OutlineThickness, float PersistForSeconds) { Invoke(nameof(DebugDrawTrackedGeometry), TrackedGeometry, WorldContextObject, Color, OutlineThickness, PersistForSeconds); }
         public void DebugDrawPin(ARPin ARPin, Object WorldContextObject, LinearColor Color, float Scale, float PersistForSeconds) { Invoke(nameof(DebugDrawPin), ARPin, WorldContextObject, Color, Scale, PersistForSeconds); }
-        public void CalculateClosestIntersection(Array<Vector> StartPoints, Array<Vector> EndPoints, Vector ClosestIntersection) { Invoke(nameof(CalculateClosestIntersection), StartPoints, EndPoints, ClosestIntersection); }
+        public void CalculateClosestIntersection(UArray<Vector> StartPoints, UArray<Vector> EndPoints, Vector ClosestIntersection) { Invoke(nameof(CalculateClosestIntersection), StartPoints, EndPoints, ClosestIntersection); }
         public void CalculateAlignmentTransform(Transform TransformInFirstCoordinateSystem, Transform TransformInSecondCoordinateSystem, Transform AlignmentTransform) { Invoke(nameof(CalculateAlignmentTransform), TransformInFirstCoordinateSystem, TransformInSecondCoordinateSystem, AlignmentTransform); }
         public bool AddTrackedPointWithName(Transform WorldTransform, Object PointName, bool bDeletePointsWithSameName) { return Invoke<bool>(nameof(AddTrackedPointWithName), WorldTransform, PointName, bDeletePointsWithSameName); }
         public ARCandidateImage AddRuntimeCandidateImage(ARSessionConfig SessionConfig, Texture2D CandidateTexture, Object FriendlyName, float PhysicalWidth) { return Invoke<ARCandidateImage>(nameof(AddRuntimeCandidateImage), SessionConfig, CandidateTexture, FriendlyName, PhysicalWidth); }
@@ -319,17 +321,17 @@ namespace SDK.Script.AugmentedRealitySDK
         public bool bEnableAutomaticCameraTracking { get { return this[nameof(bEnableAutomaticCameraTracking)].Flag; } set { this[nameof(bEnableAutomaticCameraTracking)].Flag = value; } }
         public bool bResetCameraTracking { get { return this[nameof(bResetCameraTracking)].Flag; } set { this[nameof(bResetCameraTracking)].Flag = value; } }
         public bool bResetTrackedObjects { get { return this[nameof(bResetTrackedObjects)].Flag; } set { this[nameof(bResetTrackedObjects)].Flag = value; } }
-        public Array<ARCandidateImage> CandidateImages { get { return new Array<ARCandidateImage>(this[nameof(CandidateImages)].Address); } }
+        public UArray<ARCandidateImage> CandidateImages { get { return new UArray<ARCandidateImage>(this[nameof(CandidateImages)].Address); } }
         public int MaxNumSimultaneousImagesTracked { get { return this[nameof(MaxNumSimultaneousImagesTracked)].GetValue<int>(); } set { this[nameof(MaxNumSimultaneousImagesTracked)].SetValue<int>(value); } }
         public EAREnvironmentCaptureProbeType EnvironmentCaptureProbeType { get { return (EAREnvironmentCaptureProbeType)this[nameof(EnvironmentCaptureProbeType)].GetValue<int>(); } set { this[nameof(EnvironmentCaptureProbeType)].SetValue<int>((int)value); } }
-        public Array<byte> WorldMapData { get { return new Array<byte>(this[nameof(WorldMapData)].Address); } }
-        public Array<ARCandidateObject> CandidateObjects { get { return new Array<ARCandidateObject>(this[nameof(CandidateObjects)].Address); } }
+        public UArray<byte> WorldMapData { get { return new UArray<byte>(this[nameof(WorldMapData)].Address); } }
+        public UArray<ARCandidateObject> CandidateObjects { get { return new UArray<ARCandidateObject>(this[nameof(CandidateObjects)].Address); } }
         public ARVideoFormat DesiredVideoFormat { get { return this[nameof(DesiredVideoFormat)].As<ARVideoFormat>(); } set { this["DesiredVideoFormat"] = value; } }
         public bool bUseOptimalVideoFormat { get { return this[nameof(bUseOptimalVideoFormat)].Flag; } set { this[nameof(bUseOptimalVideoFormat)].Flag = value; } }
         public EARFaceTrackingDirection FaceTrackingDirection { get { return (EARFaceTrackingDirection)this[nameof(FaceTrackingDirection)].GetValue<int>(); } set { this[nameof(FaceTrackingDirection)].SetValue<int>((int)value); } }
         public EARFaceTrackingUpdate FaceTrackingUpdate { get { return (EARFaceTrackingUpdate)this[nameof(FaceTrackingUpdate)].GetValue<int>(); } set { this[nameof(FaceTrackingUpdate)].SetValue<int>((int)value); } }
         public int MaxNumberOfTrackedFaces { get { return this[nameof(MaxNumberOfTrackedFaces)].GetValue<int>(); } set { this[nameof(MaxNumberOfTrackedFaces)].SetValue<int>(value); } }
-        public Array<byte> SerializedARCandidateImageDatabase { get { return new Array<byte>(this[nameof(SerializedARCandidateImageDatabase)].Address); } }
+        public UArray<byte> SerializedARCandidateImageDatabase { get { return new UArray<byte>(this[nameof(SerializedARCandidateImageDatabase)].Address); } }
         public EARSessionTrackingFeature EnabledSessionTrackingFeature { get { return (EARSessionTrackingFeature)this[nameof(EnabledSessionTrackingFeature)].GetValue<int>(); } set { this[nameof(EnabledSessionTrackingFeature)].SetValue<int>((int)value); } }
         public EARSceneReconstruction SceneReconstructionMethod { get { return (EARSceneReconstruction)this[nameof(SceneReconstructionMethod)].GetValue<int>(); } set { this[nameof(SceneReconstructionMethod)].SetValue<int>((int)value); } }
         public Object PlaneComponentClass { get { return this[nameof(PlaneComponentClass)]; } set { this[nameof(PlaneComponentClass)] = value; } }
@@ -349,7 +351,7 @@ namespace SDK.Script.AugmentedRealitySDK
         public bool ShouldRenderCameraOverlay() { return Invoke<bool>(nameof(ShouldRenderCameraOverlay)); }
         public bool ShouldEnableCameraTracking() { return Invoke<bool>(nameof(ShouldEnableCameraTracking)); }
         public bool ShouldEnableAutoFocus() { return Invoke<bool>(nameof(ShouldEnableAutoFocus)); }
-        public void SetWorldMapData(Array<byte> WorldMapData) { Invoke(nameof(SetWorldMapData), WorldMapData); }
+        public void SetWorldMapData(UArray<byte> WorldMapData) { Invoke(nameof(SetWorldMapData), WorldMapData); }
         public void SetSessionTrackingFeatureToEnable(EARSessionTrackingFeature InSessionTrackingFeature) { Invoke(nameof(SetSessionTrackingFeatureToEnable), InSessionTrackingFeature); }
         public void SetSceneReconstructionMethod(EARSceneReconstruction InSceneReconstructionMethod) { Invoke(nameof(SetSceneReconstructionMethod), InSceneReconstructionMethod); }
         public void SetResetTrackedObjects(bool bNewValue) { Invoke(nameof(SetResetTrackedObjects), bNewValue); }
@@ -358,8 +360,8 @@ namespace SDK.Script.AugmentedRealitySDK
         public void SetFaceTrackingDirection(EARFaceTrackingDirection InDirection) { Invoke(nameof(SetFaceTrackingDirection), InDirection); }
         public void SetEnableAutoFocus(bool bNewValue) { Invoke(nameof(SetEnableAutoFocus), bNewValue); }
         public void SetDesiredVideoFormat(ARVideoFormat NewFormat) { Invoke(nameof(SetDesiredVideoFormat), NewFormat); }
-        public void SetCandidateObjectList(Array<ARCandidateObject> InCandidateObjects) { Invoke(nameof(SetCandidateObjectList), InCandidateObjects); }
-        public Array<byte> GetWorldMapData() { return Invoke<Array<byte>>(nameof(GetWorldMapData)); }
+        public void SetCandidateObjectList(UArray<ARCandidateObject> InCandidateObjects) { Invoke(nameof(SetCandidateObjectList), InCandidateObjects); }
+        public UArray<byte> GetWorldMapData() { return Invoke<UArray<byte>>(nameof(GetWorldMapData)); }
         public EARWorldAlignment GetWorldAlignment() { return Invoke<EARWorldAlignment>(nameof(GetWorldAlignment)); }
         public EARSessionType GetSessionType() { return Invoke<EARSessionType>(nameof(GetSessionType)); }
         public EARSceneReconstruction GetSceneReconstructionMethod() { return Invoke<EARSceneReconstruction>(nameof(GetSceneReconstructionMethod)); }
@@ -372,8 +374,8 @@ namespace SDK.Script.AugmentedRealitySDK
         public EAREnvironmentCaptureProbeType GetEnvironmentCaptureProbeType() { return Invoke<EAREnvironmentCaptureProbeType>(nameof(GetEnvironmentCaptureProbeType)); }
         public EARSessionTrackingFeature GetEnabledSessionTrackingFeature() { return Invoke<EARSessionTrackingFeature>(nameof(GetEnabledSessionTrackingFeature)); }
         public ARVideoFormat GetDesiredVideoFormat() { return Invoke<ARVideoFormat>(nameof(GetDesiredVideoFormat)); }
-        public Array<ARCandidateObject> GetCandidateObjectList() { return Invoke<Array<ARCandidateObject>>(nameof(GetCandidateObjectList)); }
-        public Array<ARCandidateImage> GetCandidateImageList() { return Invoke<Array<ARCandidateImage>>(nameof(GetCandidateImageList)); }
+        public UArray<ARCandidateObject> GetCandidateObjectList() { return Invoke<UArray<ARCandidateObject>>(nameof(GetCandidateObjectList)); }
+        public UArray<ARCandidateImage> GetCandidateImageList() { return Invoke<UArray<ARCandidateImage>>(nameof(GetCandidateImageList)); }
         public void AddCandidateObject(ARCandidateObject CandidateObject) { Invoke(nameof(AddCandidateObject), CandidateObject); }
         public void AddCandidateImage(ARCandidateImage NewCandidateImage) { Invoke(nameof(AddCandidateImage), NewCandidateImage); }
     }
@@ -381,16 +383,16 @@ namespace SDK.Script.AugmentedRealitySDK
     {
         public ARSharedWorldGameMode(nint addr) : base(addr) { }
         public int BufferSizePerChunk { get { return this[nameof(BufferSizePerChunk)].GetValue<int>(); } set { this[nameof(BufferSizePerChunk)].SetValue<int>(value); } }
-        public void SetPreviewImageData(Array<byte> ImageData) { Invoke(nameof(SetPreviewImageData), ImageData); }
+        public void SetPreviewImageData(UArray<byte> ImageData) { Invoke(nameof(SetPreviewImageData), ImageData); }
         public void SetARWorldSharingIsReady() { Invoke(nameof(SetARWorldSharingIsReady)); }
-        public void SetARSharedWorldData(Array<byte> ARWorldData) { Invoke(nameof(SetARSharedWorldData), ARWorldData); }
+        public void SetARSharedWorldData(UArray<byte> ARWorldData) { Invoke(nameof(SetARSharedWorldData), ARWorldData); }
         public ARSharedWorldGameState GetARSharedWorldGameState() { return Invoke<ARSharedWorldGameState>(nameof(GetARSharedWorldGameState)); }
     }
     public class ARSharedWorldGameState : GameState
     {
         public ARSharedWorldGameState(nint addr) : base(addr) { }
-        public Array<byte> PreviewImageData { get { return new Array<byte>(this[nameof(PreviewImageData)].Address); } }
-        public Array<byte> ARWorldData { get { return new Array<byte>(this[nameof(ARWorldData)].Address); } }
+        public UArray<byte> PreviewImageData { get { return new UArray<byte>(this[nameof(PreviewImageData)].Address); } }
+        public UArray<byte> ARWorldData { get { return new UArray<byte>(this[nameof(ARWorldData)].Address); } }
         public int PreviewImageBytesTotal { get { return this[nameof(PreviewImageBytesTotal)].GetValue<int>(); } set { this[nameof(PreviewImageBytesTotal)].SetValue<int>(value); } }
         public int ARWorldBytesTotal { get { return this[nameof(ARWorldBytesTotal)].GetValue<int>(); } set { this[nameof(ARWorldBytesTotal)].SetValue<int>(value); } }
         public int PreviewImageBytesDelivered { get { return this[nameof(PreviewImageBytesDelivered)].GetValue<int>(); } set { this[nameof(PreviewImageBytesDelivered)].SetValue<int>(value); } }
@@ -401,8 +403,8 @@ namespace SDK.Script.AugmentedRealitySDK
     {
         public ARSharedWorldPlayerController(nint addr) : base(addr) { }
         public void ServerMarkReadyForReceiving() { Invoke(nameof(ServerMarkReadyForReceiving)); }
-        public void ClientUpdatePreviewImageData(int Offset, Array<byte> Buffer) { Invoke(nameof(ClientUpdatePreviewImageData), Offset, Buffer); }
-        public void ClientUpdateARWorldData(int Offset, Array<byte> Buffer) { Invoke(nameof(ClientUpdateARWorldData), Offset, Buffer); }
+        public void ClientUpdatePreviewImageData(int Offset, UArray<byte> Buffer) { Invoke(nameof(ClientUpdatePreviewImageData), Offset, Buffer); }
+        public void ClientUpdateARWorldData(int Offset, UArray<byte> Buffer) { Invoke(nameof(ClientUpdateARWorldData), Offset, Buffer); }
         public void ClientInitSharedWorld(int PreviewImageSize, int ARWorldDataSize) { Invoke(nameof(ClientInitSharedWorld), PreviewImageSize, ARWorldDataSize); }
     }
     public class ARSkyLight : SkyLight
@@ -472,13 +474,13 @@ namespace SDK.Script.AugmentedRealitySDK
         public EARPlaneOrientation Orientation { get { return (EARPlaneOrientation)this[nameof(Orientation)].GetValue<int>(); } set { this[nameof(Orientation)].SetValue<int>((int)value); } }
         public Vector Center { get { return this[nameof(Center)].As<Vector>(); } set { this["Center"] = value; } }
         public Vector Extent { get { return this[nameof(Extent)].As<Vector>(); } set { this["Extent"] = value; } }
-        public Array<Vector> BoundaryPolygon { get { return new Array<Vector>(this[nameof(BoundaryPolygon)].Address); } }
+        public UArray<Vector> BoundaryPolygon { get { return new UArray<Vector>(this[nameof(BoundaryPolygon)].Address); } }
         public ARPlaneGeometry SubsumedBy { get { return this[nameof(SubsumedBy)].As<ARPlaneGeometry>(); } set { this["SubsumedBy"] = value; } }
         public ARPlaneGeometry GetSubsumedBy() { return Invoke<ARPlaneGeometry>(nameof(GetSubsumedBy)); }
         public EARPlaneOrientation GetOrientation() { return Invoke<EARPlaneOrientation>(nameof(GetOrientation)); }
         public Vector GetExtent() { return Invoke<Vector>(nameof(GetExtent)); }
         public Vector GetCenter() { return Invoke<Vector>(nameof(GetCenter)); }
-        public Array<Vector> GetBoundaryPolygonInLocalSpace() { return Invoke<Array<Vector>>(nameof(GetBoundaryPolygonInLocalSpace)); }
+        public UArray<Vector> GetBoundaryPolygonInLocalSpace() { return Invoke<UArray<Vector>>(nameof(GetBoundaryPolygonInLocalSpace)); }
     }
     public class ARTrackedPoint : ARTrackedGeometry
     {
@@ -590,14 +592,14 @@ namespace SDK.Script.AugmentedRealitySDK
     public class ARCandidateObject : DataAsset
     {
         public ARCandidateObject(nint addr) : base(addr) { }
-        public Array<byte> CandidateObjectData { get { return new Array<byte>(this[nameof(CandidateObjectData)].Address); } }
+        public UArray<byte> CandidateObjectData { get { return new UArray<byte>(this[nameof(CandidateObjectData)].Address); } }
         public Object FriendlyName { get { return this[nameof(FriendlyName)]; } set { this[nameof(FriendlyName)] = value; } }
         public Box BoundingBox { get { return this[nameof(BoundingBox)].As<Box>(); } set { this["BoundingBox"] = value; } }
         public void SetFriendlyName(Object NewName) { Invoke(nameof(SetFriendlyName), NewName); }
-        public void SetCandidateObjectData(Array<byte> InCandidateObject) { Invoke(nameof(SetCandidateObjectData), InCandidateObject); }
+        public void SetCandidateObjectData(UArray<byte> InCandidateObject) { Invoke(nameof(SetCandidateObjectData), InCandidateObject); }
         public void SetBoundingBox(Box InBoundingBox) { Invoke(nameof(SetBoundingBox), InBoundingBox); }
         public Object GetFriendlyName() { return Invoke<Object>(nameof(GetFriendlyName)); }
-        public Array<byte> GetCandidateObjectData() { return Invoke<Array<byte>>(nameof(GetCandidateObjectData)); }
+        public UArray<byte> GetCandidateObjectData() { return Invoke<UArray<byte>>(nameof(GetCandidateObjectData)); }
         public Box GetBoundingBox() { return Invoke<Box>(nameof(GetBoundingBox)); }
     }
     public enum EARTrackingState : int
@@ -1043,7 +1045,7 @@ namespace SDK.Script.AugmentedRealitySDK
     {
         public ARPoseUpdatePayload(nint addr) : base(addr) { }
         public Transform WorldTransform { get { return this[nameof(WorldTransform)].As<Transform>(); } set { this["WorldTransform"] = value; } }
-        public Array<Transform> JointTransforms { get { return new Array<Transform>(this[nameof(JointTransforms)].Address); } }
+        public UArray<Transform> JointTransforms { get { return new UArray<Transform>(this[nameof(JointTransforms)].Address); } }
     }
     public class ARQRCodeUpdatePayload : Object
     {
@@ -1080,7 +1082,7 @@ namespace SDK.Script.AugmentedRealitySDK
         public Transform WorldTransform { get { return this[nameof(WorldTransform)].As<Transform>(); } set { this["WorldTransform"] = value; } }
         public Vector Center { get { return this[nameof(Center)].As<Vector>(); } set { this["Center"] = value; } }
         public Vector Extents { get { return this[nameof(Extents)].As<Vector>(); } set { this["Extents"] = value; } }
-        public Array<Vector> BoundaryVertices { get { return new Array<Vector>(this[nameof(BoundaryVertices)].Address); } }
+        public UArray<Vector> BoundaryVertices { get { return new UArray<Vector>(this[nameof(BoundaryVertices)].Address); } }
         public EARObjectClassification ObjectClassification { get { return (EARObjectClassification)this[nameof(ObjectClassification)].GetValue<int>(); } set { this[nameof(ObjectClassification)].SetValue<int>((int)value); } }
     }
     public class ARSharedWorldReplicationState : Object
@@ -1108,23 +1110,23 @@ namespace SDK.Script.AugmentedRealitySDK
     {
         public ARPose3D(nint addr) : base(addr) { }
         public ARSkeletonDefinition SkeletonDefinition { get { return this[nameof(SkeletonDefinition)].As<ARSkeletonDefinition>(); } set { this["SkeletonDefinition"] = value; } }
-        public Array<Transform> JointTransforms { get { return new Array<Transform>(this[nameof(JointTransforms)].Address); } }
-        public Array<bool> IsJointTracked { get { return new Array<bool>(this[nameof(IsJointTracked)].Address); } }
+        public UArray<Transform> JointTransforms { get { return new UArray<Transform>(this[nameof(JointTransforms)].Address); } }
+        public UArray<bool> IsJointTracked { get { return new UArray<bool>(this[nameof(IsJointTracked)].Address); } }
         public EARJointTransformSpace JointTransformSpace { get { return (EARJointTransformSpace)this[nameof(JointTransformSpace)].GetValue<int>(); } set { this[nameof(JointTransformSpace)].SetValue<int>((int)value); } }
     }
     public class ARSkeletonDefinition : Object
     {
         public ARSkeletonDefinition(nint addr) : base(addr) { }
         public int NumJoints { get { return this[nameof(NumJoints)].GetValue<int>(); } set { this[nameof(NumJoints)].SetValue<int>(value); } }
-        public Array<Object> JointNames { get { return new Array<Object>(this[nameof(JointNames)].Address); } }
-        public Array<int> ParentIndices { get { return new Array<int>(this[nameof(ParentIndices)].Address); } }
+        public UArray<Object> JointNames { get { return new UArray<Object>(this[nameof(JointNames)].Address); } }
+        public UArray<int> ParentIndices { get { return new UArray<int>(this[nameof(ParentIndices)].Address); } }
     }
     public class ARPose2D : Object
     {
         public ARPose2D(nint addr) : base(addr) { }
         public ARSkeletonDefinition SkeletonDefinition { get { return this[nameof(SkeletonDefinition)].As<ARSkeletonDefinition>(); } set { this["SkeletonDefinition"] = value; } }
-        public Array<Vector2D> JointLocations { get { return new Array<Vector2D>(this[nameof(JointLocations)].Address); } }
-        public Array<bool> IsJointTracked { get { return new Array<bool>(this[nameof(IsJointTracked)].Address); } }
+        public UArray<Vector2D> JointLocations { get { return new UArray<Vector2D>(this[nameof(JointLocations)].Address); } }
+        public UArray<bool> IsJointTracked { get { return new UArray<bool>(this[nameof(IsJointTracked)].Address); } }
     }
     public class ARVideoFormat : Object
     {

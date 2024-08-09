@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -34,8 +36,8 @@ namespace SDK.Script.ModioSDK
     {
         public ModioCreateModLibrary(nint addr) : base(addr) { }
         public void SetVersionString(ModioCreateModFileParams In, Object Version) { Invoke(nameof(SetVersionString), In, Version); }
-        public void SetTags(ModioCreateModParams In, Array<Object> Tags) { Invoke(nameof(SetTags), In, Tags); }
-        public void SetModfilePlatforms(ModioCreateModFileParams In, Array<EModioModfilePlatform> Platforms) { Invoke(nameof(SetModfilePlatforms), In, Platforms); }
+        public void SetTags(ModioCreateModParams In, UArray<Object> Tags) { Invoke(nameof(SetTags), In, Tags); }
+        public void SetModfilePlatforms(ModioCreateModFileParams In, UArray<EModioModfilePlatform> Platforms) { Invoke(nameof(SetModfilePlatforms), In, Platforms); }
         public void SetModFileMetadataBlob(ModioCreateModFileParams In, Object MetadataBlob) { Invoke(nameof(SetModFileMetadataBlob), In, MetadataBlob); }
         public void SetMetadataBlob(ModioCreateModParams In, Object MetadataBlob) { Invoke(nameof(SetMetadataBlob), In, MetadataBlob); }
         public void SetMarkAsActiveRelease(ModioCreateModFileParams In, bool bMarkAsActiveRelease) { Invoke(nameof(SetMarkAsActiveRelease), In, bMarkAsActiveRelease); }
@@ -79,20 +81,20 @@ namespace SDK.Script.ModioSDK
     public class ModioFilterParamsLibrary : BlueprintFunctionLibrary
     {
         public ModioFilterParamsLibrary(nint addr) : base(addr) { }
-        public ModioFilterParams WithTags(ModioFilterParams Filter, Array<Object> NewTags) { return Invoke<ModioFilterParams>(nameof(WithTags), Filter, NewTags); }
+        public ModioFilterParams WithTags(ModioFilterParams Filter, UArray<Object> NewTags) { return Invoke<ModioFilterParams>(nameof(WithTags), Filter, NewTags); }
         public ModioFilterParams WithTag(ModioFilterParams Filter, Object Tag) { return Invoke<ModioFilterParams>(nameof(WithTag), Filter, Tag); }
-        public ModioFilterParams WithoutTags(ModioFilterParams Filter, Array<Object> NewTags) { return Invoke<ModioFilterParams>(nameof(WithoutTags), Filter, NewTags); }
+        public ModioFilterParams WithoutTags(ModioFilterParams Filter, UArray<Object> NewTags) { return Invoke<ModioFilterParams>(nameof(WithoutTags), Filter, NewTags); }
         public ModioFilterParams WithoutTag(ModioFilterParams Filter, Object Tag) { return Invoke<ModioFilterParams>(nameof(WithoutTag), Filter, Tag); }
         public ModioFilterParams SortBy(ModioFilterParams Filter, EModioSortFieldType ByField, EModioSortDirection ByDirection) { return Invoke<ModioFilterParams>(nameof(SortBy), Filter, ByField, ByDirection); }
         public ModioFilterParams PagedResults(ModioFilterParams Filter, long PageNumber, long PageSize) { return Invoke<ModioFilterParams>(nameof(PagedResults), Filter, PageNumber, PageSize); }
-        public ModioFilterParams NameContainsStrings(ModioFilterParams Filter, Array<Object> SearchStrings) { return Invoke<ModioFilterParams>(nameof(NameContainsStrings), Filter, SearchStrings); }
+        public ModioFilterParams NameContainsStrings(ModioFilterParams Filter, UArray<Object> SearchStrings) { return Invoke<ModioFilterParams>(nameof(NameContainsStrings), Filter, SearchStrings); }
         public ModioFilterParams NameContains(ModioFilterParams Filter, Object SearchString) { return Invoke<ModioFilterParams>(nameof(NameContains), Filter, SearchString); }
         public ModioFilterParams MetadataLike(ModioFilterParams Filter, Object SearchString) { return Invoke<ModioFilterParams>(nameof(MetadataLike), Filter, SearchString); }
-        public ModioFilterParams MatchingIDs(ModioFilterParams Filter, Array<ModioModID> IDs) { return Invoke<ModioFilterParams>(nameof(MatchingIDs), Filter, IDs); }
+        public ModioFilterParams MatchingIDs(ModioFilterParams Filter, UArray<ModioModID> IDs) { return Invoke<ModioFilterParams>(nameof(MatchingIDs), Filter, IDs); }
         public ModioFilterParams MarkedLiveBefore(ModioFilterParams Filter, DateTime LiveBefore) { return Invoke<ModioFilterParams>(nameof(MarkedLiveBefore), Filter, LiveBefore); }
         public ModioFilterParams MarkedLiveAfter(ModioFilterParams Filter, DateTime LiveAfter) { return Invoke<ModioFilterParams>(nameof(MarkedLiveAfter), Filter, LiveAfter); }
         public ModioFilterParams IndexedResults(ModioFilterParams Filter, long StartIndex, long ResultCount) { return Invoke<ModioFilterParams>(nameof(IndexedResults), Filter, StartIndex, ResultCount); }
-        public ModioFilterParams ExcludingIDs(ModioFilterParams Filter, Array<ModioModID> IDs) { return Invoke<ModioFilterParams>(nameof(ExcludingIDs), Filter, IDs); }
+        public ModioFilterParams ExcludingIDs(ModioFilterParams Filter, UArray<ModioModID> IDs) { return Invoke<ModioFilterParams>(nameof(ExcludingIDs), Filter, IDs); }
     }
     public class ModioImageLibrary : BlueprintFunctionLibrary
     {
@@ -116,18 +118,18 @@ namespace SDK.Script.ModioSDK
     {
         public ModioModDependenciesLibrary(nint addr) : base(addr) { }
         public ModioPagedResult GetPagedResult(ModioModDependencyList ModTags) { return Invoke<ModioPagedResult>(nameof(GetPagedResult), ModTags); }
-        public Array<ModioModDependency> GetDependencies(ModioModDependencyList ModTags) { return Invoke<Array<ModioModDependency>>(nameof(GetDependencies), ModTags); }
+        public UArray<ModioModDependency> GetDependencies(ModioModDependencyList ModTags) { return Invoke<UArray<ModioModDependency>>(nameof(GetDependencies), ModTags); }
     }
     public class ModioModInfoListLibrary : BlueprintFunctionLibrary
     {
         public ModioModInfoListLibrary(nint addr) : base(addr) { }
         public ModioPagedResult GetPagedResult(ModioModInfoList ModInfoList) { return Invoke<ModioPagedResult>(nameof(GetPagedResult), ModInfoList); }
-        public Array<ModioModInfo> GetMods(ModioModInfoList ModInfoList) { return Invoke<Array<ModioModInfo>>(nameof(GetMods), ModInfoList); }
+        public UArray<ModioModInfo> GetMods(ModioModInfoList ModInfoList) { return Invoke<UArray<ModioModInfo>>(nameof(GetMods), ModInfoList); }
     }
     public class ModioModTagOptionsLibrary : BlueprintFunctionLibrary
     {
         public ModioModTagOptionsLibrary(nint addr) : base(addr) { }
-        public Array<ModioModTagInfo> GetTags(ModioModTagOptions ModTags) { return Invoke<Array<ModioModTagInfo>>(nameof(GetTags), ModTags); }
+        public UArray<ModioModTagInfo> GetTags(ModioModTagOptions ModTags) { return Invoke<UArray<ModioModTagInfo>>(nameof(GetTags), ModTags); }
         public ModioPagedResult GetPagedResult(ModioModTagOptions ModTags) { return Invoke<ModioPagedResult>(nameof(GetPagedResult), ModTags); }
     }
     public class ModioOptionalLibrary : BlueprintFunctionLibrary
@@ -159,8 +161,8 @@ namespace SDK.Script.ModioSDK
     public class ModioPopupContainer : UserWidget
     {
         public ModioPopupContainer(nint addr) : base(addr) { }
-        public Array<ModioPopupBase> PopupStack { get { return new Array<ModioPopupBase>(this[nameof(PopupStack)].Address); } }
-        public Array<ModioPopupBase> PopupCache { get { return new Array<ModioPopupBase>(this[nameof(PopupCache)].Address); } }
+        public UArray<ModioPopupBase> PopupStack { get { return new UArray<ModioPopupBase>(this[nameof(PopupStack)].Address); } }
+        public UArray<ModioPopupBase> PopupCache { get { return new UArray<ModioPopupBase>(this[nameof(PopupCache)].Address); } }
         public ModioPopupBase PushPopup(Object PopupClass) { return Invoke<ModioPopupBase>(nameof(PushPopup), PopupClass); }
         public ModioPopupBase PopPopup(Object PopupClass) { return Invoke<ModioPopupBase>(nameof(PopPopup), PopupClass); }
     }
@@ -235,7 +237,7 @@ namespace SDK.Script.ModioSDK
         public void K2_AuthenticateUserEmailAsync(ModioEmailAuthCode AuthenticationCode, Object Callback) { Invoke(nameof(K2_AuthenticateUserEmailAsync), AuthenticationCode, Callback); }
         public void K2_ArchiveModAsync(ModioModID Mod, Object Callback) { Invoke(nameof(K2_ArchiveModAsync), Mod, Callback); }
         public bool IsModManagementBusy() { return Invoke<bool>(nameof(IsModManagementBusy)); }
-        public Array<ModioValidationError> GetLastValidationError() { return Invoke<Array<ModioValidationError>>(nameof(GetLastValidationError)); }
+        public UArray<ModioValidationError> GetLastValidationError() { return Invoke<UArray<ModioValidationError>>(nameof(GetLastValidationError)); }
         public void DisableModManagement() { Invoke(nameof(DisableModManagement)); }
     }
     public class ModioTestSettings : Object
@@ -271,7 +273,7 @@ namespace SDK.Script.ModioSDK
     {
         public ModioModInfoList(nint addr) : base(addr) { }
         public ModioPagedResult PagedResult { get { return this[nameof(PagedResult)].As<ModioPagedResult>(); } set { this["PagedResult"] = value; } }
-        public Array<ModioModInfo> InternalList { get { return new Array<ModioModInfo>(this[nameof(InternalList)].Address); } }
+        public UArray<ModioModInfo> InternalList { get { return new UArray<ModioModInfo>(this[nameof(InternalList)].Address); } }
     }
     public class ModioModInfo : Object
     {
@@ -290,8 +292,8 @@ namespace SDK.Script.ModioSDK
         public bool bVisible { get { return this[nameof(bVisible)].Flag; } set { this[nameof(bVisible)].Flag = value; } }
         public Object MetadataBlob { get { return this[nameof(MetadataBlob)]; } set { this[nameof(MetadataBlob)] = value; } }
         public ModioFileMetadata FileInfo { get { return this[nameof(FileInfo)].As<ModioFileMetadata>(); } set { this["FileInfo"] = value; } }
-        public Array<ModioMetadata> MetadataKvp { get { return new Array<ModioMetadata>(this[nameof(MetadataKvp)].Address); } }
-        public Array<ModioModTag> Tags { get { return new Array<ModioModTag>(this[nameof(Tags)].Address); } }
+        public UArray<ModioMetadata> MetadataKvp { get { return new UArray<ModioMetadata>(this[nameof(MetadataKvp)].Address); } }
+        public UArray<ModioModTag> Tags { get { return new UArray<ModioModTag>(this[nameof(Tags)].Address); } }
         public int NumGalleryImages { get { return this[nameof(NumGalleryImages)].GetValue<int>(); } set { this[nameof(NumGalleryImages)].SetValue<int>(value); } }
         public ModioYoutubeURLList YoutubeURLs { get { return this[nameof(YoutubeURLs)].As<ModioYoutubeURLList>(); } set { this["YoutubeURLs"] = value; } }
         public ModioSketchfabURLList SketchfabURLs { get { return this[nameof(SketchfabURLs)].As<ModioSketchfabURLList>(); } set { this["SketchfabURLs"] = value; } }
@@ -394,13 +396,13 @@ namespace SDK.Script.ModioSDK
     {
         public ModioModTagOptions(nint addr) : base(addr) { }
         public ModioPagedResult PagedResult { get { return this[nameof(PagedResult)].As<ModioPagedResult>(); } set { this["PagedResult"] = value; } }
-        public Array<ModioModTagInfo> InternalList { get { return new Array<ModioModTagInfo>(this[nameof(InternalList)].Address); } }
+        public UArray<ModioModTagInfo> InternalList { get { return new UArray<ModioModTagInfo>(this[nameof(InternalList)].Address); } }
     }
     public class ModioModTagInfo : Object
     {
         public ModioModTagInfo(nint addr) : base(addr) { }
         public Object TagGroupName { get { return this[nameof(TagGroupName)]; } set { this[nameof(TagGroupName)] = value; } }
-        public Array<Object> TagGroupValues { get { return new Array<Object>(this[nameof(TagGroupValues)].Address); } }
+        public UArray<Object> TagGroupValues { get { return new UArray<Object>(this[nameof(TagGroupValues)].Address); } }
         public bool bAllowMultipleSelection { get { return this[nameof(bAllowMultipleSelection)].Flag; } set { this[nameof(bAllowMultipleSelection)].Flag = value; } }
     }
     public class ModioErrorCode : Object
@@ -697,7 +699,7 @@ namespace SDK.Script.ModioSDK
     {
         public ModioModDependencyList(nint addr) : base(addr) { }
         public ModioPagedResult PagedResult { get { return this[nameof(PagedResult)].As<ModioPagedResult>(); } set { this["PagedResult"] = value; } }
-        public Array<ModioModDependency> InternalList { get { return new Array<ModioModDependency>(this[nameof(InternalList)].Address); } }
+        public UArray<ModioModDependency> InternalList { get { return new UArray<ModioModDependency>(this[nameof(InternalList)].Address); } }
     }
     public class ModioModDependency : Object
     {

@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -25,11 +27,11 @@ namespace SDK.Script.ControlRigSDK
         public Object OutputProperties { get { return this[nameof(OutputProperties)]; } set { this[nameof(OutputProperties)] = value; } }
         public ControlRigDrawContainer DrawContainer { get { return this[nameof(DrawContainer)].As<ControlRigDrawContainer>(); } set { this["DrawContainer"] = value; } }
         public AnimationDataSourceRegistry DataSourceRegistry { get { return this[nameof(DataSourceRegistry)].As<AnimationDataSourceRegistry>(); } set { this["DataSourceRegistry"] = value; } }
-        public Array<Object> EventQueue { get { return new Array<Object>(this[nameof(EventQueue)].Address); } }
+        public UArray<Object> EventQueue { get { return new UArray<Object>(this[nameof(EventQueue)].Address); } }
         public RigInfluenceMapPerEvent Influences { get { return this[nameof(Influences)].As<RigInfluenceMapPerEvent>(); } set { this["Influences"] = value; } }
         public ControlRig InteractionRig { get { return this[nameof(InteractionRig)].As<ControlRig>(); } set { this["InteractionRig"] = value; } }
         public Object InteractionRigClass { get { return this[nameof(InteractionRigClass)]; } set { this[nameof(InteractionRigClass)] = value; } }
-        public Array<AssetUserData> AssetUserData { get { return new Array<AssetUserData>(this[nameof(AssetUserData)].Address); } }
+        public UArray<AssetUserData> AssetUserData { get { return new UArray<AssetUserData>(this[nameof(AssetUserData)].Address); } }
         public void SetInteractionRigClass(Object InInteractionRigClass) { Invoke(nameof(SetInteractionRigClass), InInteractionRigClass); }
         public void SetInteractionRig(ControlRig InInteractionRig) { Invoke(nameof(SetInteractionRig), InInteractionRig); }
         public Object GetInteractionRigClass() { return Invoke<Object>(nameof(GetInteractionRigClass)); }
@@ -56,7 +58,7 @@ namespace SDK.Script.ControlRigSDK
         public Object OnPostSetupDelegate { get { return this[nameof(OnPostSetupDelegate)]; } set { this[nameof(OnPostSetupDelegate)] = value; } }
         public Object OnPreUpdateDelegate { get { return this[nameof(OnPreUpdateDelegate)]; } set { this[nameof(OnPreUpdateDelegate)] = value; } }
         public Object OnPostUpdateDelegate { get { return this[nameof(OnPostUpdateDelegate)]; } set { this[nameof(OnPostUpdateDelegate)] = value; } }
-        public Array<ControlRigComponentMappedElement> MappedElements { get { return new Array<ControlRigComponentMappedElement>(this[nameof(MappedElements)].Address); } }
+        public UArray<ControlRigComponentMappedElement> MappedElements { get { return new UArray<ControlRigComponentMappedElement>(this[nameof(MappedElements)].Address); } }
         public bool bResetTransformBeforeTick { get { return this[nameof(bResetTransformBeforeTick)].Flag; } set { this[nameof(bResetTransformBeforeTick)].Flag = value; } }
         public bool bResetInitialsBeforeSetup { get { return this[nameof(bResetInitialsBeforeSetup)].Flag; } set { this[nameof(bResetInitialsBeforeSetup)].Flag = value; } }
         public bool bUpdateRigOnTick { get { return this[nameof(bUpdateRigOnTick)].Flag; } set { this[nameof(bUpdateRigOnTick)].Flag = value; } }
@@ -65,7 +67,7 @@ namespace SDK.Script.ControlRigSDK
         public bool bShowDebugDrawing { get { return this[nameof(bShowDebugDrawing)].Flag; } set { this[nameof(bShowDebugDrawing)].Flag = value; } }
         public ControlRig ControlRig { get { return this[nameof(ControlRig)].As<ControlRig>(); } set { this["ControlRig"] = value; } }
         public void Update(float DeltaTime) { Invoke(nameof(Update), DeltaTime); }
-        public void SetMappedElements(Array<ControlRigComponentMappedElement> NewMappedElements) { Invoke(nameof(SetMappedElements), NewMappedElements); }
+        public void SetMappedElements(UArray<ControlRigComponentMappedElement> NewMappedElements) { Invoke(nameof(SetMappedElements), NewMappedElements); }
         public void SetInitialSpaceTransform(Object SpaceName, Transform InitialTransform, EControlRigComponentSpace Space) { Invoke(nameof(SetInitialSpaceTransform), SpaceName, InitialTransform, Space); }
         public void SetInitialBoneTransform(Object BoneName, Transform InitialTransform, EControlRigComponentSpace Space, bool bPropagateToChildren) { Invoke(nameof(SetInitialBoneTransform), BoneName, InitialTransform, Space, bPropagateToChildren); }
         public void SetControlVector2D(Object ControlName, Vector2D Value) { Invoke(nameof(SetControlVector2D), ControlName, Value); }
@@ -88,7 +90,7 @@ namespace SDK.Script.ControlRigSDK
         public Transform GetSpaceTransform(Object SpaceName, EControlRigComponentSpace Space) { return Invoke<Transform>(nameof(GetSpaceTransform), SpaceName, Space); }
         public Transform GetInitialSpaceTransform(Object SpaceName, EControlRigComponentSpace Space) { return Invoke<Transform>(nameof(GetInitialSpaceTransform), SpaceName, Space); }
         public Transform GetInitialBoneTransform(Object BoneName, EControlRigComponentSpace Space) { return Invoke<Transform>(nameof(GetInitialBoneTransform), BoneName, Space); }
-        public Array<Object> GetElementNames(ERigElementType ElementType) { return Invoke<Array<Object>>(nameof(GetElementNames), ElementType); }
+        public UArray<Object> GetElementNames(ERigElementType ElementType) { return Invoke<UArray<Object>>(nameof(GetElementNames), ElementType); }
         public Vector2D GetControlVector2D(Object ControlName) { return Invoke<Vector2D>(nameof(GetControlVector2D), ControlName); }
         public Transform GetControlTransform(Object ControlName, EControlRigComponentSpace Space) { return Invoke<Transform>(nameof(GetControlTransform), ControlName, Space); }
         public Vector GetControlScale(Object ControlName, EControlRigComponentSpace Space) { return Invoke<Vector>(nameof(GetControlScale), ControlName, Space); }
@@ -103,9 +105,9 @@ namespace SDK.Script.ControlRigSDK
         public float GetAbsoluteTime() { return Invoke<float>(nameof(GetAbsoluteTime)); }
         public bool DoesElementExist(Object Name, ERigElementType ElementType) { return Invoke<bool>(nameof(DoesElementExist), Name, ElementType); }
         public void ClearMappedElements() { Invoke(nameof(ClearMappedElements)); }
-        public void AddMappedSkeletalMesh(SkeletalMeshComponent SkeletalMeshComponent, Array<ControlRigComponentMappedBone> Bones, Array<ControlRigComponentMappedCurve> Curves) { Invoke(nameof(AddMappedSkeletalMesh), SkeletalMeshComponent, Bones, Curves); }
-        public void AddMappedElements(Array<ControlRigComponentMappedElement> NewMappedElements) { Invoke(nameof(AddMappedElements), NewMappedElements); }
-        public void AddMappedComponents(Array<ControlRigComponentMappedComponent> Components) { Invoke(nameof(AddMappedComponents), Components); }
+        public void AddMappedSkeletalMesh(SkeletalMeshComponent SkeletalMeshComponent, UArray<ControlRigComponentMappedBone> Bones, UArray<ControlRigComponentMappedCurve> Curves) { Invoke(nameof(AddMappedSkeletalMesh), SkeletalMeshComponent, Bones, Curves); }
+        public void AddMappedElements(UArray<ControlRigComponentMappedElement> NewMappedElements) { Invoke(nameof(AddMappedElements), NewMappedElements); }
+        public void AddMappedComponents(UArray<ControlRigComponentMappedComponent> Components) { Invoke(nameof(AddMappedComponents), Components); }
         public void AddMappedCompleteSkeletalMesh(SkeletalMeshComponent SkeletalMeshComponent) { Invoke(nameof(AddMappedCompleteSkeletalMesh), SkeletalMeshComponent); }
     }
     public class ControlRigControlActor : Actor
@@ -120,10 +122,10 @@ namespace SDK.Script.ControlRigSDK
         public bool bCastShadows { get { return this[nameof(bCastShadows)].Flag; } set { this[nameof(bCastShadows)].Flag = value; } }
         public SceneComponent ActorRootComponent { get { return this[nameof(ActorRootComponent)].As<SceneComponent>(); } set { this["ActorRootComponent"] = value; } }
         public ControlRig ControlRig { get { return this[nameof(ControlRig)].As<ControlRig>(); } set { this["ControlRig"] = value; } }
-        public Array<Object> ControlNames { get { return new Array<Object>(this[nameof(ControlNames)].Address); } }
-        public Array<Transform> GizmoTransforms { get { return new Array<Transform>(this[nameof(GizmoTransforms)].Address); } }
-        public Array<StaticMeshComponent> Components { get { return new Array<StaticMeshComponent>(this[nameof(Components)].Address); } }
-        public Array<MaterialInstanceDynamic> Materials { get { return new Array<MaterialInstanceDynamic>(this[nameof(Materials)].Address); } }
+        public UArray<Object> ControlNames { get { return new UArray<Object>(this[nameof(ControlNames)].Address); } }
+        public UArray<Transform> GizmoTransforms { get { return new UArray<Transform>(this[nameof(GizmoTransforms)].Address); } }
+        public UArray<StaticMeshComponent> Components { get { return new UArray<StaticMeshComponent>(this[nameof(Components)].Address); } }
+        public UArray<MaterialInstanceDynamic> Materials { get { return new UArray<MaterialInstanceDynamic>(this[nameof(Materials)].Address); } }
         public Object ColorParameterName { get { return this[nameof(ColorParameterName)]; } set { this[nameof(ColorParameterName)] = value; } }
         public void Refresh() { Invoke(nameof(Refresh)); }
         public void Clear() { Invoke(nameof(Clear)); }
@@ -161,7 +163,7 @@ namespace SDK.Script.ControlRigSDK
         public ControlRigGizmoDefinition DefaultGizmo { get { return this[nameof(DefaultGizmo)].As<ControlRigGizmoDefinition>(); } set { this["DefaultGizmo"] = value; } }
         public Object DefaultMaterial { get { return this[nameof(DefaultMaterial)]; } set { this[nameof(DefaultMaterial)] = value; } }
         public Object MaterialColorParameter { get { return this[nameof(MaterialColorParameter)]; } set { this[nameof(MaterialColorParameter)] = value; } }
-        public Array<ControlRigGizmoDefinition> Gizmos { get { return new Array<ControlRigGizmoDefinition>(this[nameof(Gizmos)].Address); } }
+        public UArray<ControlRigGizmoDefinition> Gizmos { get { return new UArray<ControlRigGizmoDefinition>(this[nameof(Gizmos)].Address); } }
     }
     public class ControlRigLayerInstance : AnimInstance
     {
@@ -188,7 +190,7 @@ namespace SDK.Script.ControlRigSDK
     public class ControlRigObjectHolder : Object
     {
         public ControlRigObjectHolder(nint addr) : base(addr) { }
-        public Array<Object> Objects { get { return new Array<Object>(this[nameof(Objects)].Address); } }
+        public UArray<Object> Objects { get { return new UArray<Object>(this[nameof(Objects)].Address); } }
     }
     public class ControlRigSequence : LevelSequence
     {
@@ -208,12 +210,12 @@ namespace SDK.Script.ControlRigSDK
     public class ControlRigValidator : Object
     {
         public ControlRigValidator(nint addr) : base(addr) { }
-        public Array<ControlRigValidationPass> Passes { get { return new Array<ControlRigValidationPass>(this[nameof(Passes)].Address); } }
+        public UArray<ControlRigValidationPass> Passes { get { return new UArray<ControlRigValidationPass>(this[nameof(Passes)].Address); } }
     }
     public class FKControlRig : ControlRig
     {
         public FKControlRig(nint addr) : base(addr) { }
-        public Array<bool> IsControlActive { get { return new Array<bool>(this[nameof(IsControlActive)].Address); } }
+        public UArray<bool> IsControlActive { get { return new UArray<bool>(this[nameof(IsControlActive)].Address); } }
         public EControlRigFKRigExecuteMode ApplyMode { get { return (EControlRigFKRigExecuteMode)this[nameof(ApplyMode)].GetValue<int>(); } set { this[nameof(ApplyMode)].SetValue<int>((int)value); } }
     }
     public class MovieSceneControlRigParameterSection : MovieSceneParameterSection
@@ -221,19 +223,19 @@ namespace SDK.Script.ControlRigSDK
         public MovieSceneControlRigParameterSection(nint addr) : base(addr) { }
         public ControlRig ControlRig { get { return this[nameof(ControlRig)].As<ControlRig>(); } set { this["ControlRig"] = value; } }
         public Object ControlRigClass { get { return this[nameof(ControlRigClass)]; } set { this[nameof(ControlRigClass)] = value; } }
-        public Array<bool> ControlsMask { get { return new Array<bool>(this[nameof(ControlsMask)].Address); } }
+        public UArray<bool> ControlsMask { get { return new UArray<bool>(this[nameof(ControlsMask)].Address); } }
         public MovieSceneTransformMask TransformMask { get { return this[nameof(TransformMask)].As<MovieSceneTransformMask>(); } set { this["TransformMask"] = value; } }
         public MovieSceneFloatChannel Weight { get { return this[nameof(Weight)].As<MovieSceneFloatChannel>(); } set { this["Weight"] = value; } }
         public Object ControlChannelMap { get { return this[nameof(ControlChannelMap)]; } set { this[nameof(ControlChannelMap)] = value; } }
-        public Array<EnumParameterNameAndCurve> EnumParameterNamesAndCurves { get { return new Array<EnumParameterNameAndCurve>(this[nameof(EnumParameterNamesAndCurves)].Address); } }
-        public Array<IntegerParameterNameAndCurve> IntegerParameterNamesAndCurves { get { return new Array<IntegerParameterNameAndCurve>(this[nameof(IntegerParameterNamesAndCurves)].Address); } }
+        public UArray<EnumParameterNameAndCurve> EnumParameterNamesAndCurves { get { return new UArray<EnumParameterNameAndCurve>(this[nameof(EnumParameterNamesAndCurves)].Address); } }
+        public UArray<IntegerParameterNameAndCurve> IntegerParameterNamesAndCurves { get { return new UArray<IntegerParameterNameAndCurve>(this[nameof(IntegerParameterNamesAndCurves)].Address); } }
     }
     public class MovieSceneControlRigParameterTrack : MovieSceneNameableTrack
     {
         public MovieSceneControlRigParameterTrack(nint addr) : base(addr) { }
         public ControlRig ControlRig { get { return this[nameof(ControlRig)].As<ControlRig>(); } set { this["ControlRig"] = value; } }
         public MovieSceneSection SectionToKey { get { return this[nameof(SectionToKey)].As<MovieSceneSection>(); } set { this["SectionToKey"] = value; } }
-        public Array<MovieSceneSection> Sections { get { return new Array<MovieSceneSection>(this[nameof(Sections)].Address); } }
+        public UArray<MovieSceneSection> Sections { get { return new UArray<MovieSceneSection>(this[nameof(Sections)].Address); } }
         public Object TrackName { get { return this[nameof(TrackName)]; } set { this[nameof(TrackName)] = value; } }
     }
     public enum EControlRigComponentMapDirection : int
@@ -533,7 +535,7 @@ namespace SDK.Script.ControlRigSDK
     public class AnimationHierarchy : NodeHierarchyWithUserData
     {
         public AnimationHierarchy(nint addr) : base(addr) { }
-        public Array<ConstraintNodeData> UserData { get { return new Array<ConstraintNodeData>(this[nameof(UserData)].Address); } }
+        public UArray<ConstraintNodeData> UserData { get { return new UArray<ConstraintNodeData>(this[nameof(UserData)].Address); } }
     }
     public class ConstraintNodeData : Object
     {
@@ -541,7 +543,7 @@ namespace SDK.Script.ControlRigSDK
         public Transform RelativeParent { get { return this[nameof(RelativeParent)].As<Transform>(); } set { this["RelativeParent"] = value; } }
         public ConstraintOffset ConstraintOffset { get { return this[nameof(ConstraintOffset)].As<ConstraintOffset>(); } set { this["ConstraintOffset"] = value; } }
         public Object LinkedNode { get { return this[nameof(LinkedNode)]; } set { this[nameof(LinkedNode)] = value; } }
-        public Array<TransformConstraint> Constraints { get { return new Array<TransformConstraint>(this[nameof(Constraints)].Address); } }
+        public UArray<TransformConstraint> Constraints { get { return new UArray<TransformConstraint>(this[nameof(Constraints)].Address); } }
     }
     public class AnimNode_ControlRigBase : AnimNode_CustomProperty
     {
@@ -630,14 +632,14 @@ namespace SDK.Script.ControlRigSDK
     public class ControlRigDrawContainer : Object
     {
         public ControlRigDrawContainer(nint addr) : base(addr) { }
-        public Array<ControlRigDrawInstruction> Instructions { get { return new Array<ControlRigDrawInstruction>(this[nameof(Instructions)].Address); } }
+        public UArray<ControlRigDrawInstruction> Instructions { get { return new UArray<ControlRigDrawInstruction>(this[nameof(Instructions)].Address); } }
     }
     public class ControlRigDrawInstruction : Object
     {
         public ControlRigDrawInstruction(nint addr) : base(addr) { }
         public Object Name { get { return this[nameof(Name)]; } set { this[nameof(Name)] = value; } }
         public byte PrimitiveType { get { return this[nameof(PrimitiveType)].GetValue<byte>(); } set { this[nameof(PrimitiveType)].SetValue<byte>(value); } }
-        public Array<Vector> Positions { get { return new Array<Vector>(this[nameof(Positions)].Address); } }
+        public UArray<Vector> Positions { get { return new UArray<Vector>(this[nameof(Positions)].Address); } }
         public LinearColor Color { get { return this[nameof(Color)].As<LinearColor>(); } set { this["Color"] = value; } }
         public float Thickness { get { return this[nameof(Thickness)].GetValue<float>(); } set { this[nameof(Thickness)].SetValue<float>(value); } }
         public Transform Transform { get { return this[nameof(Transform)].As<Transform>(); } set { this["Transform"] = value; } }
@@ -677,13 +679,13 @@ namespace SDK.Script.ControlRigSDK
     public class ControlRigSequenceObjectReferenceMap : Object
     {
         public ControlRigSequenceObjectReferenceMap(nint addr) : base(addr) { }
-        public Array<Guid> BindingIds { get { return new Array<Guid>(this[nameof(BindingIds)].Address); } }
-        public Array<ControlRigSequenceObjectReferences> References { get { return new Array<ControlRigSequenceObjectReferences>(this[nameof(References)].Address); } }
+        public UArray<Guid> BindingIds { get { return new UArray<Guid>(this[nameof(BindingIds)].Address); } }
+        public UArray<ControlRigSequenceObjectReferences> References { get { return new UArray<ControlRigSequenceObjectReferences>(this[nameof(References)].Address); } }
     }
     public class ControlRigSequenceObjectReferences : Object
     {
         public ControlRigSequenceObjectReferences(nint addr) : base(addr) { }
-        public Array<ControlRigSequenceObjectReference> Array { get { return new Array<ControlRigSequenceObjectReference>(this[nameof(Array)].Address); } }
+        public UArray<ControlRigSequenceObjectReference> Array { get { return new UArray<ControlRigSequenceObjectReference>(this[nameof(Array)].Address); } }
     }
     public class ControlRigSequenceObjectReference : Object
     {
@@ -740,12 +742,12 @@ namespace SDK.Script.ControlRigSDK
     public class CRSimPointContainer : CRSimContainer
     {
         public CRSimPointContainer(nint addr) : base(addr) { }
-        public Array<CRSimPoint> Points { get { return new Array<CRSimPoint>(this[nameof(Points)].Address); } }
-        public Array<CRSimLinearSpring> Springs { get { return new Array<CRSimLinearSpring>(this[nameof(Springs)].Address); } }
-        public Array<CRSimPointForce> Forces { get { return new Array<CRSimPointForce>(this[nameof(Forces)].Address); } }
-        public Array<CRSimSoftCollision> CollisionVolumes { get { return new Array<CRSimSoftCollision>(this[nameof(CollisionVolumes)].Address); } }
-        public Array<CRSimPointConstraint> Constraints { get { return new Array<CRSimPointConstraint>(this[nameof(Constraints)].Address); } }
-        public Array<CRSimPoint> PreviousStep { get { return new Array<CRSimPoint>(this[nameof(PreviousStep)].Address); } }
+        public UArray<CRSimPoint> Points { get { return new UArray<CRSimPoint>(this[nameof(Points)].Address); } }
+        public UArray<CRSimLinearSpring> Springs { get { return new UArray<CRSimLinearSpring>(this[nameof(Springs)].Address); } }
+        public UArray<CRSimPointForce> Forces { get { return new UArray<CRSimPointForce>(this[nameof(Forces)].Address); } }
+        public UArray<CRSimSoftCollision> CollisionVolumes { get { return new UArray<CRSimSoftCollision>(this[nameof(CollisionVolumes)].Address); } }
+        public UArray<CRSimPointConstraint> Constraints { get { return new UArray<CRSimPointConstraint>(this[nameof(Constraints)].Address); } }
+        public UArray<CRSimPoint> PreviousStep { get { return new UArray<CRSimPoint>(this[nameof(PreviousStep)].Address); } }
     }
     public class CRSimSoftCollision : Object
     {
@@ -799,15 +801,15 @@ namespace SDK.Script.ControlRigSDK
     public class MovieSceneControlRigParameterTemplate : MovieSceneParameterSectionTemplate
     {
         public MovieSceneControlRigParameterTemplate(nint addr) : base(addr) { }
-        public Array<EnumParameterNameAndCurve> Enums { get { return new Array<EnumParameterNameAndCurve>(this[nameof(Enums)].Address); } }
-        public Array<IntegerParameterNameAndCurve> Integers { get { return new Array<IntegerParameterNameAndCurve>(this[nameof(Integers)].Address); } }
+        public UArray<EnumParameterNameAndCurve> Enums { get { return new UArray<EnumParameterNameAndCurve>(this[nameof(Enums)].Address); } }
+        public UArray<IntegerParameterNameAndCurve> Integers { get { return new UArray<IntegerParameterNameAndCurve>(this[nameof(Integers)].Address); } }
     }
     public class RigBoneHierarchy : Object
     {
         public RigBoneHierarchy(nint addr) : base(addr) { }
-        public Array<RigBone> Bones { get { return new Array<RigBone>(this[nameof(Bones)].Address); } }
+        public UArray<RigBone> Bones { get { return new UArray<RigBone>(this[nameof(Bones)].Address); } }
         public Object NameToIndexMapping { get { return this[nameof(NameToIndexMapping)]; } set { this[nameof(NameToIndexMapping)] = value; } }
-        public Array<Object> Selection { get { return new Array<Object>(this[nameof(Selection)].Address); } }
+        public UArray<Object> Selection { get { return new UArray<Object>(this[nameof(Selection)].Address); } }
     }
     public class RigElement : Object
     {
@@ -823,15 +825,15 @@ namespace SDK.Script.ControlRigSDK
         public Transform InitialTransform { get { return this[nameof(InitialTransform)].As<Transform>(); } set { this["InitialTransform"] = value; } }
         public Transform GlobalTransform { get { return this[nameof(GlobalTransform)].As<Transform>(); } set { this["GlobalTransform"] = value; } }
         public Transform LocalTransform { get { return this[nameof(LocalTransform)].As<Transform>(); } set { this["LocalTransform"] = value; } }
-        public Array<int> Dependents { get { return new Array<int>(this[nameof(Dependents)].Address); } }
+        public UArray<int> Dependents { get { return new UArray<int>(this[nameof(Dependents)].Address); } }
         public ERigBoneType Type { get { return (ERigBoneType)this[nameof(Type)].GetValue<int>(); } set { this[nameof(Type)].SetValue<int>((int)value); } }
     }
     public class RigControlHierarchy : Object
     {
         public RigControlHierarchy(nint addr) : base(addr) { }
-        public Array<RigControl> Controls { get { return new Array<RigControl>(this[nameof(Controls)].Address); } }
+        public UArray<RigControl> Controls { get { return new UArray<RigControl>(this[nameof(Controls)].Address); } }
         public Object NameToIndexMapping { get { return this[nameof(NameToIndexMapping)]; } set { this[nameof(NameToIndexMapping)] = value; } }
-        public Array<Object> Selection { get { return new Array<Object>(this[nameof(Selection)].Address); } }
+        public UArray<Object> Selection { get { return new UArray<Object>(this[nameof(Selection)].Address); } }
     }
     public class RigControl : RigElement
     {
@@ -859,7 +861,7 @@ namespace SDK.Script.ControlRigSDK
         public Object GizmoName { get { return this[nameof(GizmoName)]; } set { this[nameof(GizmoName)] = value; } }
         public Transform GizmoTransform { get { return this[nameof(GizmoTransform)].As<Transform>(); } set { this["GizmoTransform"] = value; } }
         public LinearColor GizmoColor { get { return this[nameof(GizmoColor)].As<LinearColor>(); } set { this["GizmoColor"] = value; } }
-        public Array<int> Dependents { get { return new Array<int>(this[nameof(Dependents)].Address); } }
+        public UArray<int> Dependents { get { return new UArray<int>(this[nameof(Dependents)].Address); } }
         public bool bIsTransientControl { get { return this[nameof(bIsTransientControl)].Flag; } set { this[nameof(bIsTransientControl)].Flag = value; } }
         public Enum ControlEnum { get { return this[nameof(ControlEnum)].As<Enum>(); } set { this["ControlEnum"] = value; } }
     }
@@ -893,9 +895,9 @@ namespace SDK.Script.ControlRigSDK
     public class RigCurveContainer : Object
     {
         public RigCurveContainer(nint addr) : base(addr) { }
-        public Array<RigCurve> Curves { get { return new Array<RigCurve>(this[nameof(Curves)].Address); } }
+        public UArray<RigCurve> Curves { get { return new UArray<RigCurve>(this[nameof(Curves)].Address); } }
         public Object NameToIndexMapping { get { return this[nameof(NameToIndexMapping)]; } set { this[nameof(NameToIndexMapping)] = value; } }
-        public Array<Object> Selection { get { return new Array<Object>(this[nameof(Selection)].Address); } }
+        public UArray<Object> Selection { get { return new UArray<Object>(this[nameof(Selection)].Address); } }
     }
     public class RigCurve : RigElement
     {
@@ -931,9 +933,9 @@ namespace SDK.Script.ControlRigSDK
     public class RigSpaceHierarchy : Object
     {
         public RigSpaceHierarchy(nint addr) : base(addr) { }
-        public Array<RigSpace> Spaces { get { return new Array<RigSpace>(this[nameof(Spaces)].Address); } }
+        public UArray<RigSpace> Spaces { get { return new UArray<RigSpace>(this[nameof(Spaces)].Address); } }
         public Object NameToIndexMapping { get { return this[nameof(NameToIndexMapping)]; } set { this[nameof(NameToIndexMapping)] = value; } }
-        public Array<Object> Selection { get { return new Array<Object>(this[nameof(Selection)].Address); } }
+        public UArray<Object> Selection { get { return new UArray<Object>(this[nameof(Selection)].Address); } }
     }
     public class RigSpace : RigElement
     {
@@ -955,10 +957,10 @@ namespace SDK.Script.ControlRigSDK
     public class RigHierarchyCopyPasteContent : Object
     {
         public RigHierarchyCopyPasteContent(nint addr) : base(addr) { }
-        public Array<ERigElementType> Types { get { return new Array<ERigElementType>(this[nameof(Types)].Address); } }
-        public Array<Object> Contents { get { return new Array<Object>(this[nameof(Contents)].Address); } }
-        public Array<Transform> LocalTransforms { get { return new Array<Transform>(this[nameof(LocalTransforms)].Address); } }
-        public Array<Transform> GlobalTransforms { get { return new Array<Transform>(this[nameof(GlobalTransforms)].Address); } }
+        public UArray<ERigElementType> Types { get { return new UArray<ERigElementType>(this[nameof(Types)].Address); } }
+        public UArray<Object> Contents { get { return new UArray<Object>(this[nameof(Contents)].Address); } }
+        public UArray<Transform> LocalTransforms { get { return new UArray<Transform>(this[nameof(LocalTransforms)].Address); } }
+        public UArray<Transform> GlobalTransforms { get { return new UArray<Transform>(this[nameof(GlobalTransforms)].Address); } }
     }
     public class RigEventContext : Object
     {
@@ -975,7 +977,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigPose : Object
     {
         public RigPose(nint addr) : base(addr) { }
-        public Array<RigPoseElement> Elements { get { return new Array<RigPoseElement>(this[nameof(Elements)].Address); } }
+        public UArray<RigPoseElement> Elements { get { return new UArray<RigPoseElement>(this[nameof(Elements)].Address); } }
     }
     public class RigPoseElement : Object
     {
@@ -988,26 +990,26 @@ namespace SDK.Script.ControlRigSDK
     public class RigInfluenceMapPerEvent : Object
     {
         public RigInfluenceMapPerEvent(nint addr) : base(addr) { }
-        public Array<RigInfluenceMap> Maps { get { return new Array<RigInfluenceMap>(this[nameof(Maps)].Address); } }
+        public UArray<RigInfluenceMap> Maps { get { return new UArray<RigInfluenceMap>(this[nameof(Maps)].Address); } }
         public Object EventToIndex { get { return this[nameof(EventToIndex)]; } set { this[nameof(EventToIndex)] = value; } }
     }
     public class RigInfluenceMap : Object
     {
         public RigInfluenceMap(nint addr) : base(addr) { }
         public Object EventName { get { return this[nameof(EventName)]; } set { this[nameof(EventName)] = value; } }
-        public Array<RigInfluenceEntry> Entries { get { return new Array<RigInfluenceEntry>(this[nameof(Entries)].Address); } }
+        public UArray<RigInfluenceEntry> Entries { get { return new UArray<RigInfluenceEntry>(this[nameof(Entries)].Address); } }
         public Object KeyToIndex { get { return this[nameof(KeyToIndex)]; } set { this[nameof(KeyToIndex)] = value; } }
     }
     public class RigInfluenceEntry : Object
     {
         public RigInfluenceEntry(nint addr) : base(addr) { }
         public RigElementKey Source { get { return this[nameof(Source)].As<RigElementKey>(); } set { this["Source"] = value; } }
-        public Array<RigElementKey> AffectedList { get { return new Array<RigElementKey>(this[nameof(AffectedList)].Address); } }
+        public UArray<RigElementKey> AffectedList { get { return new UArray<RigElementKey>(this[nameof(AffectedList)].Address); } }
     }
     public class RigInfluenceEntryModifier : Object
     {
         public RigInfluenceEntryModifier(nint addr) : base(addr) { }
-        public Array<RigElementKey> AffectedList { get { return new Array<RigElementKey>(this[nameof(AffectedList)].Address); } }
+        public UArray<RigElementKey> AffectedList { get { return new UArray<RigElementKey>(this[nameof(AffectedList)].Address); } }
     }
     public class RigUnit : RigVMStruct
     {
@@ -1224,14 +1226,14 @@ namespace SDK.Script.ControlRigSDK
         public EAimMode UpMode { get { return (EAimMode)this[nameof(UpMode)].GetValue<int>(); } set { this[nameof(UpMode)].SetValue<int>((int)value); } }
         public Vector AimVector { get { return this[nameof(AimVector)].As<Vector>(); } set { this["AimVector"] = value; } }
         public Vector UpVector { get { return this[nameof(UpVector)].As<Vector>(); } set { this["UpVector"] = value; } }
-        public Array<AimTarget> AimTargets { get { return new Array<AimTarget>(this[nameof(AimTargets)].Address); } }
-        public Array<AimTarget> UpTargets { get { return new Array<AimTarget>(this[nameof(UpTargets)].Address); } }
+        public UArray<AimTarget> AimTargets { get { return new UArray<AimTarget>(this[nameof(AimTargets)].Address); } }
+        public UArray<AimTarget> UpTargets { get { return new UArray<AimTarget>(this[nameof(UpTargets)].Address); } }
         public RigUnit_AimConstraint_WorkData WorkData { get { return this[nameof(WorkData)].As<RigUnit_AimConstraint_WorkData>(); } set { this["WorkData"] = value; } }
     }
     public class RigUnit_AimConstraint_WorkData : Object
     {
         public RigUnit_AimConstraint_WorkData(nint addr) : base(addr) { }
-        public Array<ConstraintData> ConstraintData { get { return new Array<ConstraintData>(this[nameof(ConstraintData)].Address); } }
+        public UArray<ConstraintData> ConstraintData { get { return new UArray<ConstraintData>(this[nameof(ConstraintData)].Address); } }
     }
     public class AimTarget : Object
     {
@@ -1332,7 +1334,7 @@ namespace SDK.Script.ControlRigSDK
     {
         public RigUnit_BlendTransform(nint addr) : base(addr) { }
         public Transform Source { get { return this[nameof(Source)].As<Transform>(); } set { this["Source"] = value; } }
-        public Array<BlendTarget> Targets { get { return new Array<BlendTarget>(this[nameof(Targets)].Address); } }
+        public UArray<BlendTarget> Targets { get { return new UArray<BlendTarget>(this[nameof(Targets)].Address); } }
         public Transform Result { get { return this[nameof(Result)].As<Transform>(); } set { this["Result"] = value; } }
     }
     public class BlendTarget : Object
@@ -1344,7 +1346,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_ItemHarmonics : RigUnit_HighlevelBaseMutable
     {
         public RigUnit_ItemHarmonics(nint addr) : base(addr) { }
-        public Array<RigUnit_Harmonics_TargetItem> Targets { get { return new Array<RigUnit_Harmonics_TargetItem>(this[nameof(Targets)].Address); } }
+        public UArray<RigUnit_Harmonics_TargetItem> Targets { get { return new UArray<RigUnit_Harmonics_TargetItem>(this[nameof(Targets)].Address); } }
         public Vector WaveSpeed { get { return this[nameof(WaveSpeed)].As<Vector>(); } set { this["WaveSpeed"] = value; } }
         public Vector WaveFrequency { get { return this[nameof(WaveFrequency)].As<Vector>(); } set { this["WaveFrequency"] = value; } }
         public Vector WaveAmplitude { get { return this[nameof(WaveAmplitude)].As<Vector>(); } set { this["WaveAmplitude"] = value; } }
@@ -1359,7 +1361,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_BoneHarmonics_WorkData : Object
     {
         public RigUnit_BoneHarmonics_WorkData(nint addr) : base(addr) { }
-        public Array<CachedRigElement> CachedItems { get { return new Array<CachedRigElement>(this[nameof(CachedItems)].Address); } }
+        public UArray<CachedRigElement> CachedItems { get { return new UArray<CachedRigElement>(this[nameof(CachedItems)].Address); } }
         public Vector WaveTime { get { return this[nameof(WaveTime)].As<Vector>(); } set { this["WaveTime"] = value; } }
     }
     public class RigUnit_Harmonics_TargetItem : Object
@@ -1371,7 +1373,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_BoneHarmonics : RigUnit_HighlevelBaseMutable
     {
         public RigUnit_BoneHarmonics(nint addr) : base(addr) { }
-        public Array<RigUnit_BoneHarmonics_BoneTarget> Bones { get { return new Array<RigUnit_BoneHarmonics_BoneTarget>(this[nameof(Bones)].Address); } }
+        public UArray<RigUnit_BoneHarmonics_BoneTarget> Bones { get { return new UArray<RigUnit_BoneHarmonics_BoneTarget>(this[nameof(Bones)].Address); } }
         public Vector WaveSpeed { get { return this[nameof(WaveSpeed)].As<Vector>(); } set { this["WaveSpeed"] = value; } }
         public Vector WaveFrequency { get { return this[nameof(WaveFrequency)].As<Vector>(); } set { this["WaveFrequency"] = value; } }
         public Vector WaveAmplitude { get { return this[nameof(WaveAmplitude)].As<Vector>(); } set { this["WaveAmplitude"] = value; } }
@@ -1420,17 +1422,17 @@ namespace SDK.Script.ControlRigSDK
         public int MaxIterations { get { return this[nameof(MaxIterations)].GetValue<int>(); } set { this[nameof(MaxIterations)].SetValue<int>(value); } }
         public bool bStartFromTail { get { return this[nameof(bStartFromTail)].Flag; } set { this[nameof(bStartFromTail)].Flag = value; } }
         public float BaseRotationLimit { get { return this[nameof(BaseRotationLimit)].GetValue<float>(); } set { this[nameof(BaseRotationLimit)].SetValue<float>(value); } }
-        public Array<RigUnit_CCDIK_RotationLimitPerItem> RotationLimits { get { return new Array<RigUnit_CCDIK_RotationLimitPerItem>(this[nameof(RotationLimits)].Address); } }
+        public UArray<RigUnit_CCDIK_RotationLimitPerItem> RotationLimits { get { return new UArray<RigUnit_CCDIK_RotationLimitPerItem>(this[nameof(RotationLimits)].Address); } }
         public bool bPropagateToChildren { get { return this[nameof(bPropagateToChildren)].Flag; } set { this[nameof(bPropagateToChildren)].Flag = value; } }
         public RigUnit_CCDIK_WorkData WorkData { get { return this[nameof(WorkData)].As<RigUnit_CCDIK_WorkData>(); } set { this["WorkData"] = value; } }
     }
     public class RigUnit_CCDIK_WorkData : Object
     {
         public RigUnit_CCDIK_WorkData(nint addr) : base(addr) { }
-        public Array<CCDIKChainLink> Chain { get { return new Array<CCDIKChainLink>(this[nameof(Chain)].Address); } }
-        public Array<CachedRigElement> CachedItems { get { return new Array<CachedRigElement>(this[nameof(CachedItems)].Address); } }
-        public Array<int> RotationLimitIndex { get { return new Array<int>(this[nameof(RotationLimitIndex)].Address); } }
-        public Array<float> RotationLimitsPerItem { get { return new Array<float>(this[nameof(RotationLimitsPerItem)].Address); } }
+        public UArray<CCDIKChainLink> Chain { get { return new UArray<CCDIKChainLink>(this[nameof(Chain)].Address); } }
+        public UArray<CachedRigElement> CachedItems { get { return new UArray<CachedRigElement>(this[nameof(CachedItems)].Address); } }
+        public UArray<int> RotationLimitIndex { get { return new UArray<int>(this[nameof(RotationLimitIndex)].Address); } }
+        public UArray<float> RotationLimitsPerItem { get { return new UArray<float>(this[nameof(RotationLimitsPerItem)].Address); } }
         public CachedRigElement CachedEffector { get { return this[nameof(CachedEffector)].As<CachedRigElement>(); } set { this["CachedEffector"] = value; } }
     }
     public class RigUnit_CCDIK_RotationLimitPerItem : Object
@@ -1450,7 +1452,7 @@ namespace SDK.Script.ControlRigSDK
         public int MaxIterations { get { return this[nameof(MaxIterations)].GetValue<int>(); } set { this[nameof(MaxIterations)].SetValue<int>(value); } }
         public bool bStartFromTail { get { return this[nameof(bStartFromTail)].Flag; } set { this[nameof(bStartFromTail)].Flag = value; } }
         public float BaseRotationLimit { get { return this[nameof(BaseRotationLimit)].GetValue<float>(); } set { this[nameof(BaseRotationLimit)].SetValue<float>(value); } }
-        public Array<RigUnit_CCDIK_RotationLimit> RotationLimits { get { return new Array<RigUnit_CCDIK_RotationLimit>(this[nameof(RotationLimits)].Address); } }
+        public UArray<RigUnit_CCDIK_RotationLimit> RotationLimits { get { return new UArray<RigUnit_CCDIK_RotationLimit>(this[nameof(RotationLimits)].Address); } }
         public bool bPropagateToChildren { get { return this[nameof(bPropagateToChildren)].Flag; } set { this[nameof(bPropagateToChildren)].Flag = value; } }
         public RigUnit_CCDIK_WorkData WorkData { get { return this[nameof(WorkData)].As<RigUnit_CCDIK_WorkData>(); } set { this["WorkData"] = value; } }
     }
@@ -1477,14 +1479,14 @@ namespace SDK.Script.ControlRigSDK
     {
         public RigUnit_ChainHarmonics_WorkData(nint addr) : base(addr) { }
         public Vector Time { get { return this[nameof(Time)].As<Vector>(); } set { this["Time"] = value; } }
-        public Array<CachedRigElement> Items { get { return new Array<CachedRigElement>(this[nameof(Items)].Address); } }
-        public Array<float> Ratio { get { return new Array<float>(this[nameof(Ratio)].Address); } }
-        public Array<Vector> LocalTip { get { return new Array<Vector>(this[nameof(LocalTip)].Address); } }
-        public Array<Vector> PendulumTip { get { return new Array<Vector>(this[nameof(PendulumTip)].Address); } }
-        public Array<Vector> PendulumPosition { get { return new Array<Vector>(this[nameof(PendulumPosition)].Address); } }
-        public Array<Vector> PendulumVelocity { get { return new Array<Vector>(this[nameof(PendulumVelocity)].Address); } }
-        public Array<Vector> HierarchyLine { get { return new Array<Vector>(this[nameof(HierarchyLine)].Address); } }
-        public Array<Vector> VelocityLines { get { return new Array<Vector>(this[nameof(VelocityLines)].Address); } }
+        public UArray<CachedRigElement> Items { get { return new UArray<CachedRigElement>(this[nameof(Items)].Address); } }
+        public UArray<float> Ratio { get { return new UArray<float>(this[nameof(Ratio)].Address); } }
+        public UArray<Vector> LocalTip { get { return new UArray<Vector>(this[nameof(LocalTip)].Address); } }
+        public UArray<Vector> PendulumTip { get { return new UArray<Vector>(this[nameof(PendulumTip)].Address); } }
+        public UArray<Vector> PendulumPosition { get { return new UArray<Vector>(this[nameof(PendulumPosition)].Address); } }
+        public UArray<Vector> PendulumVelocity { get { return new UArray<Vector>(this[nameof(PendulumVelocity)].Address); } }
+        public UArray<Vector> HierarchyLine { get { return new UArray<Vector>(this[nameof(HierarchyLine)].Address); } }
+        public UArray<Vector> VelocityLines { get { return new UArray<Vector>(this[nameof(VelocityLines)].Address); } }
     }
     public class RigUnit_ChainHarmonics_Pendulum : Object
     {
@@ -1598,7 +1600,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_CollectionItems : RigUnit_CollectionBase
     {
         public RigUnit_CollectionItems(nint addr) : base(addr) { }
-        public Array<RigElementKey> Items { get { return new Array<RigElementKey>(this[nameof(Items)].Address); } }
+        public UArray<RigElementKey> Items { get { return new UArray<RigElementKey>(this[nameof(Items)].Address); } }
         public RigElementKeyCollection Collection { get { return this[nameof(Collection)].As<RigElementKeyCollection>(); } set { this["Collection"] = value; } }
     }
     public class RigUnit_CollectionReplaceItems : RigUnit_CollectionBase
@@ -1784,7 +1786,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_DebugLineStripItemSpace : RigUnit_DebugBaseMutable
     {
         public RigUnit_DebugLineStripItemSpace(nint addr) : base(addr) { }
-        public Array<Vector> Points { get { return new Array<Vector>(this[nameof(Points)].Address); } }
+        public UArray<Vector> Points { get { return new UArray<Vector>(this[nameof(Points)].Address); } }
         public LinearColor Color { get { return this[nameof(Color)].As<LinearColor>(); } set { this["Color"] = value; } }
         public float Thickness { get { return this[nameof(Thickness)].GetValue<float>(); } set { this[nameof(Thickness)].SetValue<float>(value); } }
         public RigElementKey Space { get { return this[nameof(Space)].As<RigElementKey>(); } set { this["Space"] = value; } }
@@ -1794,7 +1796,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_DebugLineStrip : RigUnit_DebugBaseMutable
     {
         public RigUnit_DebugLineStrip(nint addr) : base(addr) { }
-        public Array<Vector> Points { get { return new Array<Vector>(this[nameof(Points)].Address); } }
+        public UArray<Vector> Points { get { return new UArray<Vector>(this[nameof(Points)].Address); } }
         public LinearColor Color { get { return this[nameof(Color)].As<LinearColor>(); } set { this["Color"] = value; } }
         public float Thickness { get { return this[nameof(Thickness)].GetValue<float>(); } set { this[nameof(Thickness)].SetValue<float>(value); } }
         public Object Space { get { return this[nameof(Space)]; } set { this[nameof(Space)] = value; } }
@@ -1878,7 +1880,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_DebugTransformArrayMutable : RigUnit_DebugBaseMutable
     {
         public RigUnit_DebugTransformArrayMutable(nint addr) : base(addr) { }
-        public Array<Transform> Transforms { get { return new Array<Transform>(this[nameof(Transforms)].Address); } }
+        public UArray<Transform> Transforms { get { return new UArray<Transform>(this[nameof(Transforms)].Address); } }
         public ERigUnitDebugTransformMode Mode { get { return (ERigUnitDebugTransformMode)this[nameof(Mode)].GetValue<int>(); } set { this[nameof(Mode)].SetValue<int>((int)value); } }
         public LinearColor Color { get { return this[nameof(Color)].As<LinearColor>(); } set { this["Color"] = value; } }
         public float Thickness { get { return this[nameof(Thickness)].GetValue<float>(); } set { this[nameof(Thickness)].SetValue<float>(value); } }
@@ -1891,7 +1893,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_DebugTransformArrayMutable_WorkData : Object
     {
         public RigUnit_DebugTransformArrayMutable_WorkData(nint addr) : base(addr) { }
-        public Array<Transform> DrawTransforms { get { return new Array<Transform>(this[nameof(DrawTransforms)].Address); } }
+        public UArray<Transform> DrawTransforms { get { return new UArray<Transform>(this[nameof(DrawTransforms)].Address); } }
     }
     public class RigUnit_DebugTransformMutableItemSpace : RigUnit_DebugBaseMutable
     {
@@ -1965,7 +1967,7 @@ namespace SDK.Script.ControlRigSDK
     {
         public RigUnit_DistributeRotationForCollection(nint addr) : base(addr) { }
         public RigElementKeyCollection Items { get { return this[nameof(Items)].As<RigElementKeyCollection>(); } set { this["Items"] = value; } }
-        public Array<RigUnit_DistributeRotation_Rotation> Rotations { get { return new Array<RigUnit_DistributeRotation_Rotation>(this[nameof(Rotations)].Address); } }
+        public UArray<RigUnit_DistributeRotation_Rotation> Rotations { get { return new UArray<RigUnit_DistributeRotation_Rotation>(this[nameof(Rotations)].Address); } }
         public EControlRigAnimEasingType RotationEaseType { get { return (EControlRigAnimEasingType)this[nameof(RotationEaseType)].GetValue<int>(); } set { this[nameof(RotationEaseType)].SetValue<int>((int)value); } }
         public float Weight { get { return this[nameof(Weight)].GetValue<float>(); } set { this[nameof(Weight)].SetValue<float>(value); } }
         public RigUnit_DistributeRotation_WorkData WorkData { get { return this[nameof(WorkData)].As<RigUnit_DistributeRotation_WorkData>(); } set { this["WorkData"] = value; } }
@@ -1973,11 +1975,11 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_DistributeRotation_WorkData : Object
     {
         public RigUnit_DistributeRotation_WorkData(nint addr) : base(addr) { }
-        public Array<CachedRigElement> CachedItems { get { return new Array<CachedRigElement>(this[nameof(CachedItems)].Address); } }
-        public Array<int> ItemRotationA { get { return new Array<int>(this[nameof(ItemRotationA)].Address); } }
-        public Array<int> ItemRotationB { get { return new Array<int>(this[nameof(ItemRotationB)].Address); } }
-        public Array<float> ItemRotationT { get { return new Array<float>(this[nameof(ItemRotationT)].Address); } }
-        public Array<Transform> ItemLocalTransforms { get { return new Array<Transform>(this[nameof(ItemLocalTransforms)].Address); } }
+        public UArray<CachedRigElement> CachedItems { get { return new UArray<CachedRigElement>(this[nameof(CachedItems)].Address); } }
+        public UArray<int> ItemRotationA { get { return new UArray<int>(this[nameof(ItemRotationA)].Address); } }
+        public UArray<int> ItemRotationB { get { return new UArray<int>(this[nameof(ItemRotationB)].Address); } }
+        public UArray<float> ItemRotationT { get { return new UArray<float>(this[nameof(ItemRotationT)].Address); } }
+        public UArray<Transform> ItemLocalTransforms { get { return new UArray<Transform>(this[nameof(ItemLocalTransforms)].Address); } }
     }
     public class RigUnit_DistributeRotation_Rotation : Object
     {
@@ -1990,7 +1992,7 @@ namespace SDK.Script.ControlRigSDK
         public RigUnit_DistributeRotation(nint addr) : base(addr) { }
         public Object StartBone { get { return this[nameof(StartBone)]; } set { this[nameof(StartBone)] = value; } }
         public Object EndBone { get { return this[nameof(EndBone)]; } set { this[nameof(EndBone)] = value; } }
-        public Array<RigUnit_DistributeRotation_Rotation> Rotations { get { return new Array<RigUnit_DistributeRotation_Rotation>(this[nameof(Rotations)].Address); } }
+        public UArray<RigUnit_DistributeRotation_Rotation> Rotations { get { return new UArray<RigUnit_DistributeRotation_Rotation>(this[nameof(Rotations)].Address); } }
         public EControlRigAnimEasingType RotationEaseType { get { return (EControlRigAnimEasingType)this[nameof(RotationEaseType)].GetValue<int>(); } set { this[nameof(RotationEaseType)].SetValue<int>((int)value); } }
         public float Weight { get { return this[nameof(Weight)].GetValue<float>(); } set { this[nameof(Weight)].SetValue<float>(value); } }
         public bool bPropagateToChildren { get { return this[nameof(bPropagateToChildren)].Flag; } set { this[nameof(bPropagateToChildren)].Flag = value; } }
@@ -2035,8 +2037,8 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_FABRIK_WorkData : Object
     {
         public RigUnit_FABRIK_WorkData(nint addr) : base(addr) { }
-        public Array<FABRIKChainLink> Chain { get { return new Array<FABRIKChainLink>(this[nameof(Chain)].Address); } }
-        public Array<CachedRigElement> CachedItems { get { return new Array<CachedRigElement>(this[nameof(CachedItems)].Address); } }
+        public UArray<FABRIKChainLink> Chain { get { return new UArray<FABRIKChainLink>(this[nameof(Chain)].Address); } }
+        public UArray<CachedRigElement> CachedItems { get { return new UArray<CachedRigElement>(this[nameof(CachedItems)].Address); } }
         public CachedRigElement CachedEffector { get { return this[nameof(CachedEffector)].As<CachedRigElement>(); } set { this["CachedEffector"] = value; } }
     }
     public class RigUnit_FABRIK : RigUnit_HighlevelBaseMutable
@@ -2063,7 +2065,7 @@ namespace SDK.Script.ControlRigSDK
         public Vector PrimaryAxis { get { return this[nameof(PrimaryAxis)].As<Vector>(); } set { this["PrimaryAxis"] = value; } }
         public Vector SecondaryAxis { get { return this[nameof(SecondaryAxis)].As<Vector>(); } set { this["SecondaryAxis"] = value; } }
         public Vector PoleVectorPosition { get { return this[nameof(PoleVectorPosition)].As<Vector>(); } set { this["PoleVectorPosition"] = value; } }
-        public Array<RigUnit_FitChainToCurve_Rotation> Rotations { get { return new Array<RigUnit_FitChainToCurve_Rotation>(this[nameof(Rotations)].Address); } }
+        public UArray<RigUnit_FitChainToCurve_Rotation> Rotations { get { return new UArray<RigUnit_FitChainToCurve_Rotation>(this[nameof(Rotations)].Address); } }
         public EControlRigAnimEasingType RotationEaseType { get { return (EControlRigAnimEasingType)this[nameof(RotationEaseType)].GetValue<int>(); } set { this[nameof(RotationEaseType)].SetValue<int>((int)value); } }
         public float Weight { get { return this[nameof(Weight)].GetValue<float>(); } set { this[nameof(Weight)].SetValue<float>(value); } }
         public bool bPropagateToChildren { get { return this[nameof(bPropagateToChildren)].Flag; } set { this[nameof(bPropagateToChildren)].Flag = value; } }
@@ -2074,15 +2076,15 @@ namespace SDK.Script.ControlRigSDK
     {
         public RigUnit_FitChainToCurve_WorkData(nint addr) : base(addr) { }
         public float ChainLength { get { return this[nameof(ChainLength)].GetValue<float>(); } set { this[nameof(ChainLength)].SetValue<float>(value); } }
-        public Array<Vector> ItemPositions { get { return new Array<Vector>(this[nameof(ItemPositions)].Address); } }
-        public Array<float> ItemSegments { get { return new Array<float>(this[nameof(ItemSegments)].Address); } }
-        public Array<Vector> CurvePositions { get { return new Array<Vector>(this[nameof(CurvePositions)].Address); } }
-        public Array<float> CurveSegments { get { return new Array<float>(this[nameof(CurveSegments)].Address); } }
-        public Array<CachedRigElement> CachedItems { get { return new Array<CachedRigElement>(this[nameof(CachedItems)].Address); } }
-        public Array<int> ItemRotationA { get { return new Array<int>(this[nameof(ItemRotationA)].Address); } }
-        public Array<int> ItemRotationB { get { return new Array<int>(this[nameof(ItemRotationB)].Address); } }
-        public Array<float> ItemRotationT { get { return new Array<float>(this[nameof(ItemRotationT)].Address); } }
-        public Array<Transform> ItemLocalTransforms { get { return new Array<Transform>(this[nameof(ItemLocalTransforms)].Address); } }
+        public UArray<Vector> ItemPositions { get { return new UArray<Vector>(this[nameof(ItemPositions)].Address); } }
+        public UArray<float> ItemSegments { get { return new UArray<float>(this[nameof(ItemSegments)].Address); } }
+        public UArray<Vector> CurvePositions { get { return new UArray<Vector>(this[nameof(CurvePositions)].Address); } }
+        public UArray<float> CurveSegments { get { return new UArray<float>(this[nameof(CurveSegments)].Address); } }
+        public UArray<CachedRigElement> CachedItems { get { return new UArray<CachedRigElement>(this[nameof(CachedItems)].Address); } }
+        public UArray<int> ItemRotationA { get { return new UArray<int>(this[nameof(ItemRotationA)].Address); } }
+        public UArray<int> ItemRotationB { get { return new UArray<int>(this[nameof(ItemRotationB)].Address); } }
+        public UArray<float> ItemRotationT { get { return new UArray<float>(this[nameof(ItemRotationT)].Address); } }
+        public UArray<Transform> ItemLocalTransforms { get { return new UArray<Transform>(this[nameof(ItemLocalTransforms)].Address); } }
     }
     public class RigUnit_FitChainToCurve_DebugSettings : Object
     {
@@ -2112,7 +2114,7 @@ namespace SDK.Script.ControlRigSDK
         public Vector PrimaryAxis { get { return this[nameof(PrimaryAxis)].As<Vector>(); } set { this["PrimaryAxis"] = value; } }
         public Vector SecondaryAxis { get { return this[nameof(SecondaryAxis)].As<Vector>(); } set { this["SecondaryAxis"] = value; } }
         public Vector PoleVectorPosition { get { return this[nameof(PoleVectorPosition)].As<Vector>(); } set { this["PoleVectorPosition"] = value; } }
-        public Array<RigUnit_FitChainToCurve_Rotation> Rotations { get { return new Array<RigUnit_FitChainToCurve_Rotation>(this[nameof(Rotations)].Address); } }
+        public UArray<RigUnit_FitChainToCurve_Rotation> Rotations { get { return new UArray<RigUnit_FitChainToCurve_Rotation>(this[nameof(Rotations)].Address); } }
         public EControlRigAnimEasingType RotationEaseType { get { return (EControlRigAnimEasingType)this[nameof(RotationEaseType)].GetValue<int>(); } set { this[nameof(RotationEaseType)].SetValue<int>((int)value); } }
         public float Weight { get { return this[nameof(Weight)].GetValue<float>(); } set { this[nameof(Weight)].SetValue<float>(value); } }
         public bool bPropagateToChildren { get { return this[nameof(bPropagateToChildren)].Flag; } set { this[nameof(bPropagateToChildren)].Flag = value; } }
@@ -2408,7 +2410,7 @@ namespace SDK.Script.ControlRigSDK
         public Transform Value { get { return this[nameof(Value)].As<Transform>(); } set { this["Value"] = value; } }
         public int BufferSize { get { return this[nameof(BufferSize)].GetValue<int>(); } set { this[nameof(BufferSize)].SetValue<int>(value); } }
         public Transform Result { get { return this[nameof(Result)].As<Transform>(); } set { this["Result"] = value; } }
-        public Array<Transform> Buffer { get { return new Array<Transform>(this[nameof(Buffer)].Address); } }
+        public UArray<Transform> Buffer { get { return new UArray<Transform>(this[nameof(Buffer)].Address); } }
         public int LastInsertIndex { get { return this[nameof(LastInsertIndex)].GetValue<int>(); } set { this[nameof(LastInsertIndex)].SetValue<int>(value); } }
     }
     public class RigUnit_KalmanVector : RigUnit_SimBase
@@ -2417,7 +2419,7 @@ namespace SDK.Script.ControlRigSDK
         public Vector Value { get { return this[nameof(Value)].As<Vector>(); } set { this["Value"] = value; } }
         public int BufferSize { get { return this[nameof(BufferSize)].GetValue<int>(); } set { this[nameof(BufferSize)].SetValue<int>(value); } }
         public Vector Result { get { return this[nameof(Result)].As<Vector>(); } set { this["Result"] = value; } }
-        public Array<Vector> Buffer { get { return new Array<Vector>(this[nameof(Buffer)].Address); } }
+        public UArray<Vector> Buffer { get { return new UArray<Vector>(this[nameof(Buffer)].Address); } }
         public int LastInsertIndex { get { return this[nameof(LastInsertIndex)].GetValue<int>(); } set { this[nameof(LastInsertIndex)].SetValue<int>(value); } }
     }
     public class RigUnit_KalmanFloat : RigUnit_SimBase
@@ -2426,7 +2428,7 @@ namespace SDK.Script.ControlRigSDK
         public float Value { get { return this[nameof(Value)].GetValue<float>(); } set { this[nameof(Value)].SetValue<float>(value); } }
         public int BufferSize { get { return this[nameof(BufferSize)].GetValue<int>(); } set { this[nameof(BufferSize)].SetValue<int>(value); } }
         public float Result { get { return this[nameof(Result)].GetValue<float>(); } set { this[nameof(Result)].SetValue<float>(value); } }
-        public Array<float> Buffer { get { return new Array<float>(this[nameof(Buffer)].Address); } }
+        public UArray<float> Buffer { get { return new UArray<float>(this[nameof(Buffer)].Address); } }
         public int LastInsertIndex { get { return this[nameof(LastInsertIndex)].GetValue<int>(); } set { this[nameof(LastInsertIndex)].SetValue<int>(value); } }
     }
     public class RigUnit_MathBase : RigUnit
@@ -3058,7 +3060,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_MathRBFInterpolateVectorXform : RigUnit_MathRBFInterpolateVectorBase
     {
         public RigUnit_MathRBFInterpolateVectorXform(nint addr) : base(addr) { }
-        public Array<MathRBFInterpolateVectorXform_Target> Targets { get { return new Array<MathRBFInterpolateVectorXform_Target>(this[nameof(Targets)].Address); } }
+        public UArray<MathRBFInterpolateVectorXform_Target> Targets { get { return new UArray<MathRBFInterpolateVectorXform_Target>(this[nameof(Targets)].Address); } }
         public Transform Output { get { return this[nameof(Output)].As<Transform>(); } set { this["Output"] = value; } }
     }
     public class MathRBFInterpolateVectorXform_Target : Object
@@ -3070,7 +3072,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_MathRBFInterpolateVectorQuat : RigUnit_MathRBFInterpolateVectorBase
     {
         public RigUnit_MathRBFInterpolateVectorQuat(nint addr) : base(addr) { }
-        public Array<MathRBFInterpolateVectorQuat_Target> Targets { get { return new Array<MathRBFInterpolateVectorQuat_Target>(this[nameof(Targets)].Address); } }
+        public UArray<MathRBFInterpolateVectorQuat_Target> Targets { get { return new UArray<MathRBFInterpolateVectorQuat_Target>(this[nameof(Targets)].Address); } }
         public Quat Output { get { return this[nameof(Output)].As<Quat>(); } set { this["Output"] = value; } }
     }
     public class MathRBFInterpolateVectorQuat_Target : Object
@@ -3082,7 +3084,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_MathRBFInterpolateVectorColor : RigUnit_MathRBFInterpolateVectorBase
     {
         public RigUnit_MathRBFInterpolateVectorColor(nint addr) : base(addr) { }
-        public Array<MathRBFInterpolateVectorColor_Target> Targets { get { return new Array<MathRBFInterpolateVectorColor_Target>(this[nameof(Targets)].Address); } }
+        public UArray<MathRBFInterpolateVectorColor_Target> Targets { get { return new UArray<MathRBFInterpolateVectorColor_Target>(this[nameof(Targets)].Address); } }
         public LinearColor Output { get { return this[nameof(Output)].As<LinearColor>(); } set { this["Output"] = value; } }
     }
     public class MathRBFInterpolateVectorColor_Target : Object
@@ -3094,7 +3096,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_MathRBFInterpolateVectorVector : RigUnit_MathRBFInterpolateVectorBase
     {
         public RigUnit_MathRBFInterpolateVectorVector(nint addr) : base(addr) { }
-        public Array<MathRBFInterpolateVectorVector_Target> Targets { get { return new Array<MathRBFInterpolateVectorVector_Target>(this[nameof(Targets)].Address); } }
+        public UArray<MathRBFInterpolateVectorVector_Target> Targets { get { return new UArray<MathRBFInterpolateVectorVector_Target>(this[nameof(Targets)].Address); } }
         public Vector Output { get { return this[nameof(Output)].As<Vector>(); } set { this["Output"] = value; } }
     }
     public class MathRBFInterpolateVectorVector_Target : Object
@@ -3106,7 +3108,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_MathRBFInterpolateVectorFloat : RigUnit_MathRBFInterpolateVectorBase
     {
         public RigUnit_MathRBFInterpolateVectorFloat(nint addr) : base(addr) { }
-        public Array<MathRBFInterpolateVectorFloat_Target> Targets { get { return new Array<MathRBFInterpolateVectorFloat_Target>(this[nameof(Targets)].Address); } }
+        public UArray<MathRBFInterpolateVectorFloat_Target> Targets { get { return new UArray<MathRBFInterpolateVectorFloat_Target>(this[nameof(Targets)].Address); } }
         public float Output { get { return this[nameof(Output)].GetValue<float>(); } set { this[nameof(Output)].SetValue<float>(value); } }
     }
     public class MathRBFInterpolateVectorFloat_Target : Object
@@ -3133,7 +3135,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_MathRBFInterpolateQuatXform : RigUnit_MathRBFInterpolateQuatBase
     {
         public RigUnit_MathRBFInterpolateQuatXform(nint addr) : base(addr) { }
-        public Array<MathRBFInterpolateQuatXform_Target> Targets { get { return new Array<MathRBFInterpolateQuatXform_Target>(this[nameof(Targets)].Address); } }
+        public UArray<MathRBFInterpolateQuatXform_Target> Targets { get { return new UArray<MathRBFInterpolateQuatXform_Target>(this[nameof(Targets)].Address); } }
         public Transform Output { get { return this[nameof(Output)].As<Transform>(); } set { this["Output"] = value; } }
     }
     public class MathRBFInterpolateQuatXform_Target : Object
@@ -3145,7 +3147,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_MathRBFInterpolateQuatQuat : RigUnit_MathRBFInterpolateQuatBase
     {
         public RigUnit_MathRBFInterpolateQuatQuat(nint addr) : base(addr) { }
-        public Array<MathRBFInterpolateQuatQuat_Target> Targets { get { return new Array<MathRBFInterpolateQuatQuat_Target>(this[nameof(Targets)].Address); } }
+        public UArray<MathRBFInterpolateQuatQuat_Target> Targets { get { return new UArray<MathRBFInterpolateQuatQuat_Target>(this[nameof(Targets)].Address); } }
         public Quat Output { get { return this[nameof(Output)].As<Quat>(); } set { this["Output"] = value; } }
     }
     public class MathRBFInterpolateQuatQuat_Target : Object
@@ -3157,7 +3159,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_MathRBFInterpolateQuatColor : RigUnit_MathRBFInterpolateQuatBase
     {
         public RigUnit_MathRBFInterpolateQuatColor(nint addr) : base(addr) { }
-        public Array<MathRBFInterpolateQuatColor_Target> Targets { get { return new Array<MathRBFInterpolateQuatColor_Target>(this[nameof(Targets)].Address); } }
+        public UArray<MathRBFInterpolateQuatColor_Target> Targets { get { return new UArray<MathRBFInterpolateQuatColor_Target>(this[nameof(Targets)].Address); } }
         public LinearColor Output { get { return this[nameof(Output)].As<LinearColor>(); } set { this["Output"] = value; } }
     }
     public class MathRBFInterpolateQuatColor_Target : Object
@@ -3169,7 +3171,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_MathRBFInterpolateQuatVector : RigUnit_MathRBFInterpolateQuatBase
     {
         public RigUnit_MathRBFInterpolateQuatVector(nint addr) : base(addr) { }
-        public Array<MathRBFInterpolateQuatVector_Target> Targets { get { return new Array<MathRBFInterpolateQuatVector_Target>(this[nameof(Targets)].Address); } }
+        public UArray<MathRBFInterpolateQuatVector_Target> Targets { get { return new UArray<MathRBFInterpolateQuatVector_Target>(this[nameof(Targets)].Address); } }
         public Vector Output { get { return this[nameof(Output)].As<Vector>(); } set { this["Output"] = value; } }
     }
     public class MathRBFInterpolateQuatVector_Target : Object
@@ -3181,7 +3183,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_MathRBFInterpolateQuatFloat : RigUnit_MathRBFInterpolateQuatBase
     {
         public RigUnit_MathRBFInterpolateQuatFloat(nint addr) : base(addr) { }
-        public Array<MathRBFInterpolateQuatFloat_Target> Targets { get { return new Array<MathRBFInterpolateQuatFloat_Target>(this[nameof(Targets)].Address); } }
+        public UArray<MathRBFInterpolateQuatFloat_Target> Targets { get { return new UArray<MathRBFInterpolateQuatFloat_Target>(this[nameof(Targets)].Address); } }
         public float Output { get { return this[nameof(Output)].GetValue<float>(); } set { this[nameof(Output)].SetValue<float>(value); } }
     }
     public class MathRBFInterpolateQuatFloat_Target : Object
@@ -3566,7 +3568,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_ModifyBoneTransforms : RigUnit_HighlevelBaseMutable
     {
         public RigUnit_ModifyBoneTransforms(nint addr) : base(addr) { }
-        public Array<RigUnit_ModifyBoneTransforms_PerBone> BoneToModify { get { return new Array<RigUnit_ModifyBoneTransforms_PerBone>(this[nameof(BoneToModify)].Address); } }
+        public UArray<RigUnit_ModifyBoneTransforms_PerBone> BoneToModify { get { return new UArray<RigUnit_ModifyBoneTransforms_PerBone>(this[nameof(BoneToModify)].Address); } }
         public float Weight { get { return this[nameof(Weight)].GetValue<float>(); } set { this[nameof(Weight)].SetValue<float>(value); } }
         public float WeightMinimum { get { return this[nameof(WeightMinimum)].GetValue<float>(); } set { this[nameof(WeightMinimum)].SetValue<float>(value); } }
         public float WeightMaximum { get { return this[nameof(WeightMaximum)].GetValue<float>(); } set { this[nameof(WeightMaximum)].SetValue<float>(value); } }
@@ -3576,7 +3578,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_ModifyTransforms_WorkData : Object
     {
         public RigUnit_ModifyTransforms_WorkData(nint addr) : base(addr) { }
-        public Array<CachedRigElement> CachedItems { get { return new Array<CachedRigElement>(this[nameof(CachedItems)].Address); } }
+        public UArray<CachedRigElement> CachedItems { get { return new UArray<CachedRigElement>(this[nameof(CachedItems)].Address); } }
     }
     public class RigUnit_ModifyBoneTransforms_WorkData : RigUnit_ModifyTransforms_WorkData
     {
@@ -3591,7 +3593,7 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_ModifyTransforms : RigUnit_HighlevelBaseMutable
     {
         public RigUnit_ModifyTransforms(nint addr) : base(addr) { }
-        public Array<RigUnit_ModifyTransforms_PerItem> ItemToModify { get { return new Array<RigUnit_ModifyTransforms_PerItem>(this[nameof(ItemToModify)].Address); } }
+        public UArray<RigUnit_ModifyTransforms_PerItem> ItemToModify { get { return new UArray<RigUnit_ModifyTransforms_PerItem>(this[nameof(ItemToModify)].Address); } }
         public float Weight { get { return this[nameof(Weight)].GetValue<float>(); } set { this[nameof(Weight)].SetValue<float>(value); } }
         public float WeightMinimum { get { return this[nameof(WeightMinimum)].GetValue<float>(); } set { this[nameof(WeightMinimum)].SetValue<float>(value); } }
         public float WeightMaximum { get { return this[nameof(WeightMaximum)].GetValue<float>(); } set { this[nameof(WeightMaximum)].SetValue<float>(value); } }
@@ -3608,7 +3610,7 @@ namespace SDK.Script.ControlRigSDK
     {
         public RigUnit_MultiFABRIK(nint addr) : base(addr) { }
         public Object RootBone { get { return this[nameof(RootBone)]; } set { this[nameof(RootBone)] = value; } }
-        public Array<RigUnit_MultiFABRIK_EndEffector> Effectors { get { return new Array<RigUnit_MultiFABRIK_EndEffector>(this[nameof(Effectors)].Address); } }
+        public UArray<RigUnit_MultiFABRIK_EndEffector> Effectors { get { return new UArray<RigUnit_MultiFABRIK_EndEffector>(this[nameof(Effectors)].Address); } }
         public float Precision { get { return this[nameof(Precision)].GetValue<float>(); } set { this[nameof(Precision)].SetValue<float>(value); } }
         public bool bPropagateToChildren { get { return this[nameof(bPropagateToChildren)].Flag; } set { this[nameof(bPropagateToChildren)].Flag = value; } }
         public int MaxIterations { get { return this[nameof(MaxIterations)].GetValue<int>(); } set { this[nameof(MaxIterations)].SetValue<int>(value); } }
@@ -3725,14 +3727,14 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_PointSimulation : RigUnit_SimBaseMutable
     {
         public RigUnit_PointSimulation(nint addr) : base(addr) { }
-        public Array<CRSimPoint> Points { get { return new Array<CRSimPoint>(this[nameof(Points)].Address); } }
-        public Array<CRSimLinearSpring> Links { get { return new Array<CRSimLinearSpring>(this[nameof(Links)].Address); } }
-        public Array<CRSimPointForce> Forces { get { return new Array<CRSimPointForce>(this[nameof(Forces)].Address); } }
-        public Array<CRSimSoftCollision> CollisionVolumes { get { return new Array<CRSimSoftCollision>(this[nameof(CollisionVolumes)].Address); } }
+        public UArray<CRSimPoint> Points { get { return new UArray<CRSimPoint>(this[nameof(Points)].Address); } }
+        public UArray<CRSimLinearSpring> Links { get { return new UArray<CRSimLinearSpring>(this[nameof(Links)].Address); } }
+        public UArray<CRSimPointForce> Forces { get { return new UArray<CRSimPointForce>(this[nameof(Forces)].Address); } }
+        public UArray<CRSimSoftCollision> CollisionVolumes { get { return new UArray<CRSimSoftCollision>(this[nameof(CollisionVolumes)].Address); } }
         public float SimulatedStepsPerSecond { get { return this[nameof(SimulatedStepsPerSecond)].GetValue<float>(); } set { this[nameof(SimulatedStepsPerSecond)].SetValue<float>(value); } }
         public ECRSimPointIntegrateType IntegratorType { get { return (ECRSimPointIntegrateType)this[nameof(IntegratorType)].GetValue<int>(); } set { this[nameof(IntegratorType)].SetValue<int>((int)value); } }
         public float VerletBlend { get { return this[nameof(VerletBlend)].GetValue<float>(); } set { this[nameof(VerletBlend)].SetValue<float>(value); } }
-        public Array<RigUnit_PointSimulation_BoneTarget> BoneTargets { get { return new Array<RigUnit_PointSimulation_BoneTarget>(this[nameof(BoneTargets)].Address); } }
+        public UArray<RigUnit_PointSimulation_BoneTarget> BoneTargets { get { return new UArray<RigUnit_PointSimulation_BoneTarget>(this[nameof(BoneTargets)].Address); } }
         public bool bLimitLocalPosition { get { return this[nameof(bLimitLocalPosition)].Flag; } set { this[nameof(bLimitLocalPosition)].Flag = value; } }
         public bool bPropagateToChildren { get { return this[nameof(bPropagateToChildren)].Flag; } set { this[nameof(bPropagateToChildren)].Flag = value; } }
         public Vector PrimaryAimAxis { get { return this[nameof(PrimaryAimAxis)].As<Vector>(); } set { this["PrimaryAimAxis"] = value; } }
@@ -3745,7 +3747,7 @@ namespace SDK.Script.ControlRigSDK
     {
         public RigUnit_PointSimulation_WorkData(nint addr) : base(addr) { }
         public CRSimPointContainer Simulation { get { return this[nameof(Simulation)].As<CRSimPointContainer>(); } set { this["Simulation"] = value; } }
-        public Array<CachedRigElement> BoneIndices { get { return new Array<CachedRigElement>(this[nameof(BoneIndices)].Address); } }
+        public UArray<CachedRigElement> BoneIndices { get { return new UArray<CachedRigElement>(this[nameof(BoneIndices)].Address); } }
     }
     public class RigUnit_PointSimulation_DebugSettings : Object
     {
@@ -3957,9 +3959,9 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_SetMultiControlRotator : RigUnitMutable
     {
         public RigUnit_SetMultiControlRotator(nint addr) : base(addr) { }
-        public Array<RigUnit_SetMultiControlRotator_Entry> Entries { get { return new Array<RigUnit_SetMultiControlRotator_Entry>(this[nameof(Entries)].Address); } }
+        public UArray<RigUnit_SetMultiControlRotator_Entry> Entries { get { return new UArray<RigUnit_SetMultiControlRotator_Entry>(this[nameof(Entries)].Address); } }
         public float Weight { get { return this[nameof(Weight)].GetValue<float>(); } set { this[nameof(Weight)].SetValue<float>(value); } }
-        public Array<CachedRigElement> CachedControlIndices { get { return new Array<CachedRigElement>(this[nameof(CachedControlIndices)].Address); } }
+        public UArray<CachedRigElement> CachedControlIndices { get { return new UArray<CachedRigElement>(this[nameof(CachedControlIndices)].Address); } }
     }
     public class RigUnit_SetMultiControlRotator_Entry : Object
     {
@@ -3989,9 +3991,9 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_SetMultiControlVector2D : RigUnitMutable
     {
         public RigUnit_SetMultiControlVector2D(nint addr) : base(addr) { }
-        public Array<RigUnit_SetMultiControlVector2D_Entry> Entries { get { return new Array<RigUnit_SetMultiControlVector2D_Entry>(this[nameof(Entries)].Address); } }
+        public UArray<RigUnit_SetMultiControlVector2D_Entry> Entries { get { return new UArray<RigUnit_SetMultiControlVector2D_Entry>(this[nameof(Entries)].Address); } }
         public float Weight { get { return this[nameof(Weight)].GetValue<float>(); } set { this[nameof(Weight)].SetValue<float>(value); } }
-        public Array<CachedRigElement> CachedControlIndices { get { return new Array<CachedRigElement>(this[nameof(CachedControlIndices)].Address); } }
+        public UArray<CachedRigElement> CachedControlIndices { get { return new UArray<CachedRigElement>(this[nameof(CachedControlIndices)].Address); } }
     }
     public class RigUnit_SetMultiControlVector2D_Entry : Object
     {
@@ -4010,9 +4012,9 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_SetMultiControlInteger : RigUnitMutable
     {
         public RigUnit_SetMultiControlInteger(nint addr) : base(addr) { }
-        public Array<RigUnit_SetMultiControlInteger_Entry> Entries { get { return new Array<RigUnit_SetMultiControlInteger_Entry>(this[nameof(Entries)].Address); } }
+        public UArray<RigUnit_SetMultiControlInteger_Entry> Entries { get { return new UArray<RigUnit_SetMultiControlInteger_Entry>(this[nameof(Entries)].Address); } }
         public float Weight { get { return this[nameof(Weight)].GetValue<float>(); } set { this[nameof(Weight)].SetValue<float>(value); } }
-        public Array<CachedRigElement> CachedControlIndices { get { return new Array<CachedRigElement>(this[nameof(CachedControlIndices)].Address); } }
+        public UArray<CachedRigElement> CachedControlIndices { get { return new UArray<CachedRigElement>(this[nameof(CachedControlIndices)].Address); } }
     }
     public class RigUnit_SetMultiControlInteger_Entry : Object
     {
@@ -4031,9 +4033,9 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_SetMultiControlFloat : RigUnitMutable
     {
         public RigUnit_SetMultiControlFloat(nint addr) : base(addr) { }
-        public Array<RigUnit_SetMultiControlFloat_Entry> Entries { get { return new Array<RigUnit_SetMultiControlFloat_Entry>(this[nameof(Entries)].Address); } }
+        public UArray<RigUnit_SetMultiControlFloat_Entry> Entries { get { return new UArray<RigUnit_SetMultiControlFloat_Entry>(this[nameof(Entries)].Address); } }
         public float Weight { get { return this[nameof(Weight)].GetValue<float>(); } set { this[nameof(Weight)].SetValue<float>(value); } }
-        public Array<CachedRigElement> CachedControlIndices { get { return new Array<CachedRigElement>(this[nameof(CachedControlIndices)].Address); } }
+        public UArray<CachedRigElement> CachedControlIndices { get { return new UArray<CachedRigElement>(this[nameof(CachedControlIndices)].Address); } }
     }
     public class RigUnit_SetMultiControlFloat_Entry : Object
     {
@@ -4052,8 +4054,8 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_SetMultiControlBool : RigUnitMutable
     {
         public RigUnit_SetMultiControlBool(nint addr) : base(addr) { }
-        public Array<RigUnit_SetMultiControlBool_Entry> Entries { get { return new Array<RigUnit_SetMultiControlBool_Entry>(this[nameof(Entries)].Address); } }
-        public Array<CachedRigElement> CachedControlIndices { get { return new Array<CachedRigElement>(this[nameof(CachedControlIndices)].Address); } }
+        public UArray<RigUnit_SetMultiControlBool_Entry> Entries { get { return new UArray<RigUnit_SetMultiControlBool_Entry>(this[nameof(Entries)].Address); } }
+        public UArray<CachedRigElement> CachedControlIndices { get { return new UArray<CachedRigElement>(this[nameof(CachedControlIndices)].Address); } }
     }
     public class RigUnit_SetMultiControlBool_Entry : Object
     {
@@ -4074,7 +4076,7 @@ namespace SDK.Script.ControlRigSDK
         public RigElementKey Item { get { return this[nameof(Item)].As<RigElementKey>(); } set { this["Item"] = value; } }
         public Object Pattern { get { return this[nameof(Pattern)]; } set { this[nameof(Pattern)] = value; } }
         public bool bVisible { get { return this[nameof(bVisible)].Flag; } set { this[nameof(bVisible)].Flag = value; } }
-        public Array<CachedRigElement> CachedControlIndices { get { return new Array<CachedRigElement>(this[nameof(CachedControlIndices)].Address); } }
+        public UArray<CachedRigElement> CachedControlIndices { get { return new UArray<CachedRigElement>(this[nameof(CachedControlIndices)].Address); } }
     }
     public class RigUnit_SetCurveValue : RigUnitMutable
     {
@@ -4177,10 +4179,10 @@ namespace SDK.Script.ControlRigSDK
     {
         public RigUnit_SlideChain_WorkData(nint addr) : base(addr) { }
         public float ChainLength { get { return this[nameof(ChainLength)].GetValue<float>(); } set { this[nameof(ChainLength)].SetValue<float>(value); } }
-        public Array<float> ItemSegments { get { return new Array<float>(this[nameof(ItemSegments)].Address); } }
-        public Array<CachedRigElement> CachedItems { get { return new Array<CachedRigElement>(this[nameof(CachedItems)].Address); } }
-        public Array<Transform> Transforms { get { return new Array<Transform>(this[nameof(Transforms)].Address); } }
-        public Array<Transform> BlendedTransforms { get { return new Array<Transform>(this[nameof(BlendedTransforms)].Address); } }
+        public UArray<float> ItemSegments { get { return new UArray<float>(this[nameof(ItemSegments)].Address); } }
+        public UArray<CachedRigElement> CachedItems { get { return new UArray<CachedRigElement>(this[nameof(CachedItems)].Address); } }
+        public UArray<Transform> Transforms { get { return new UArray<Transform>(this[nameof(Transforms)].Address); } }
+        public UArray<Transform> BlendedTransforms { get { return new UArray<Transform>(this[nameof(BlendedTransforms)].Address); } }
     }
     public class RigUnit_SlideChain : RigUnit_HighlevelBaseMutable
     {
@@ -4218,9 +4220,9 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_SpringIK_WorkData : Object
     {
         public RigUnit_SpringIK_WorkData(nint addr) : base(addr) { }
-        public Array<CachedRigElement> CachedBones { get { return new Array<CachedRigElement>(this[nameof(CachedBones)].Address); } }
+        public UArray<CachedRigElement> CachedBones { get { return new UArray<CachedRigElement>(this[nameof(CachedBones)].Address); } }
         public CachedRigElement CachedPoleVector { get { return this[nameof(CachedPoleVector)].As<CachedRigElement>(); } set { this["CachedPoleVector"] = value; } }
-        public Array<Transform> Transforms { get { return new Array<Transform>(this[nameof(Transforms)].Address); } }
+        public UArray<Transform> Transforms { get { return new UArray<Transform>(this[nameof(Transforms)].Address); } }
         public CRSimPointContainer Simulation { get { return this[nameof(Simulation)].As<CRSimPointContainer>(); } set { this["Simulation"] = value; } }
     }
     public class RigUnit_SpringIK_DebugSettings : Object
@@ -4258,8 +4260,8 @@ namespace SDK.Script.ControlRigSDK
         public int BufferSize { get { return this[nameof(BufferSize)].GetValue<int>(); } set { this[nameof(BufferSize)].SetValue<int>(value); } }
         public float TimeRange { get { return this[nameof(TimeRange)].GetValue<float>(); } set { this[nameof(TimeRange)].SetValue<float>(value); } }
         public Transform Result { get { return this[nameof(Result)].As<Transform>(); } set { this["Result"] = value; } }
-        public Array<Transform> Buffer { get { return new Array<Transform>(this[nameof(Buffer)].Address); } }
-        public Array<float> DeltaTimes { get { return new Array<float>(this[nameof(DeltaTimes)].Address); } }
+        public UArray<Transform> Buffer { get { return new UArray<Transform>(this[nameof(Buffer)].Address); } }
+        public UArray<float> DeltaTimes { get { return new UArray<float>(this[nameof(DeltaTimes)].Address); } }
         public int LastInsertIndex { get { return this[nameof(LastInsertIndex)].GetValue<int>(); } set { this[nameof(LastInsertIndex)].SetValue<int>(value); } }
         public int UpperBound { get { return this[nameof(UpperBound)].GetValue<int>(); } set { this[nameof(UpperBound)].SetValue<int>(value); } }
     }
@@ -4271,8 +4273,8 @@ namespace SDK.Script.ControlRigSDK
         public int BufferSize { get { return this[nameof(BufferSize)].GetValue<int>(); } set { this[nameof(BufferSize)].SetValue<int>(value); } }
         public float TimeRange { get { return this[nameof(TimeRange)].GetValue<float>(); } set { this[nameof(TimeRange)].SetValue<float>(value); } }
         public Vector Result { get { return this[nameof(Result)].As<Vector>(); } set { this["Result"] = value; } }
-        public Array<Vector> Buffer { get { return new Array<Vector>(this[nameof(Buffer)].Address); } }
-        public Array<float> DeltaTimes { get { return new Array<float>(this[nameof(DeltaTimes)].Address); } }
+        public UArray<Vector> Buffer { get { return new UArray<Vector>(this[nameof(Buffer)].Address); } }
+        public UArray<float> DeltaTimes { get { return new UArray<float>(this[nameof(DeltaTimes)].Address); } }
         public int LastInsertIndex { get { return this[nameof(LastInsertIndex)].GetValue<int>(); } set { this[nameof(LastInsertIndex)].SetValue<int>(value); } }
         public int UpperBound { get { return this[nameof(UpperBound)].GetValue<int>(); } set { this[nameof(UpperBound)].SetValue<int>(value); } }
     }
@@ -4284,8 +4286,8 @@ namespace SDK.Script.ControlRigSDK
         public int BufferSize { get { return this[nameof(BufferSize)].GetValue<int>(); } set { this[nameof(BufferSize)].SetValue<int>(value); } }
         public float TimeRange { get { return this[nameof(TimeRange)].GetValue<float>(); } set { this[nameof(TimeRange)].SetValue<float>(value); } }
         public float Result { get { return this[nameof(Result)].GetValue<float>(); } set { this[nameof(Result)].SetValue<float>(value); } }
-        public Array<float> Buffer { get { return new Array<float>(this[nameof(Buffer)].Address); } }
-        public Array<float> DeltaTimes { get { return new Array<float>(this[nameof(DeltaTimes)].Address); } }
+        public UArray<float> Buffer { get { return new UArray<float>(this[nameof(Buffer)].Address); } }
+        public UArray<float> DeltaTimes { get { return new UArray<float>(this[nameof(DeltaTimes)].Address); } }
         public int LastInsertIndex { get { return this[nameof(LastInsertIndex)].GetValue<int>(); } set { this[nameof(LastInsertIndex)].SetValue<int>(value); } }
         public int UpperBound { get { return this[nameof(UpperBound)].GetValue<int>(); } set { this[nameof(UpperBound)].SetValue<int>(value); } }
     }
@@ -4311,14 +4313,14 @@ namespace SDK.Script.ControlRigSDK
         public ETransformSpaceMode BaseTransformSpace { get { return (ETransformSpaceMode)this[nameof(BaseTransformSpace)].GetValue<int>(); } set { this[nameof(BaseTransformSpace)].SetValue<int>((int)value); } }
         public Transform BaseTransform { get { return this[nameof(BaseTransform)].As<Transform>(); } set { this["BaseTransform"] = value; } }
         public RigElementKey BaseItem { get { return this[nameof(BaseItem)].As<RigElementKey>(); } set { this["BaseItem"] = value; } }
-        public Array<ConstraintTarget> Targets { get { return new Array<ConstraintTarget>(this[nameof(Targets)].Address); } }
+        public UArray<ConstraintTarget> Targets { get { return new UArray<ConstraintTarget>(this[nameof(Targets)].Address); } }
         public bool bUseInitialTransforms { get { return this[nameof(bUseInitialTransforms)].Flag; } set { this[nameof(bUseInitialTransforms)].Flag = value; } }
         public RigUnit_TransformConstraint_WorkData WorkData { get { return this[nameof(WorkData)].As<RigUnit_TransformConstraint_WorkData>(); } set { this["WorkData"] = value; } }
     }
     public class RigUnit_TransformConstraint_WorkData : Object
     {
         public RigUnit_TransformConstraint_WorkData(nint addr) : base(addr) { }
-        public Array<ConstraintData> ConstraintData { get { return new Array<ConstraintData>(this[nameof(ConstraintData)].Address); } }
+        public UArray<ConstraintData> ConstraintData { get { return new UArray<ConstraintData>(this[nameof(ConstraintData)].Address); } }
         public Object ConstraintDataToTargets { get { return this[nameof(ConstraintDataToTargets)]; } set { this[nameof(ConstraintDataToTargets)] = value; } }
     }
     public class ConstraintTarget : Object
@@ -4336,7 +4338,7 @@ namespace SDK.Script.ControlRigSDK
         public ETransformSpaceMode BaseTransformSpace { get { return (ETransformSpaceMode)this[nameof(BaseTransformSpace)].GetValue<int>(); } set { this[nameof(BaseTransformSpace)].SetValue<int>((int)value); } }
         public Transform BaseTransform { get { return this[nameof(BaseTransform)].As<Transform>(); } set { this["BaseTransform"] = value; } }
         public Object BaseBone { get { return this[nameof(BaseBone)]; } set { this[nameof(BaseBone)] = value; } }
-        public Array<ConstraintTarget> Targets { get { return new Array<ConstraintTarget>(this[nameof(Targets)].Address); } }
+        public UArray<ConstraintTarget> Targets { get { return new UArray<ConstraintTarget>(this[nameof(Targets)].Address); } }
         public bool bUseInitialTransforms { get { return this[nameof(bUseInitialTransforms)].Flag; } set { this[nameof(bUseInitialTransforms)].Flag = value; } }
         public RigUnit_TransformConstraint_WorkData WorkData { get { return this[nameof(WorkData)].As<RigUnit_TransformConstraint_WorkData>(); } set { this["WorkData"] = value; } }
     }
@@ -4354,9 +4356,9 @@ namespace SDK.Script.ControlRigSDK
     public class RigUnit_TwistBones_WorkData : Object
     {
         public RigUnit_TwistBones_WorkData(nint addr) : base(addr) { }
-        public Array<CachedRigElement> CachedItems { get { return new Array<CachedRigElement>(this[nameof(CachedItems)].Address); } }
-        public Array<float> ItemRatios { get { return new Array<float>(this[nameof(ItemRatios)].Address); } }
-        public Array<Transform> ItemTransforms { get { return new Array<Transform>(this[nameof(ItemTransforms)].Address); } }
+        public UArray<CachedRigElement> CachedItems { get { return new UArray<CachedRigElement>(this[nameof(CachedItems)].Address); } }
+        public UArray<float> ItemRatios { get { return new UArray<float>(this[nameof(ItemRatios)].Address); } }
+        public UArray<Transform> ItemTransforms { get { return new UArray<Transform>(this[nameof(ItemTransforms)].Address); } }
     }
     public class RigUnit_TwistBones : RigUnit_HighlevelBaseMutable
     {

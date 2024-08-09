@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -114,7 +116,7 @@ namespace SDK.Script.InteractiveToolsFrameworkSDK
     {
         public InteractiveTool(nint addr) : base(addr) { }
         public InputBehaviorSet InputBehaviors { get { return this[nameof(InputBehaviors)].As<InputBehaviorSet>(); } set { this["InputBehaviors"] = value; } }
-        public Array<Object> ToolPropertyObjects { get { return new Array<Object>(this[nameof(ToolPropertyObjects)].Address); } }
+        public UArray<Object> ToolPropertyObjects { get { return new UArray<Object>(this[nameof(ToolPropertyObjects)].Address); } }
     }
     public class SingleSelectionTool : InteractiveTool
     {
@@ -297,7 +299,7 @@ namespace SDK.Script.InteractiveToolsFrameworkSDK
     public class InputBehaviorSet : Object
     {
         public InputBehaviorSet(nint addr) : base(addr) { }
-        public Array<BehaviorInfo> Behaviors { get { return new Array<BehaviorInfo>(this[nameof(Behaviors)].Address); } }
+        public UArray<BehaviorInfo> Behaviors { get { return new UArray<BehaviorInfo>(this[nameof(Behaviors)].Address); } }
     }
     public class InputBehaviorSource : Interface
     {
@@ -317,7 +319,7 @@ namespace SDK.Script.InteractiveToolsFrameworkSDK
     public class InteractiveGizmoManager : Object
     {
         public InteractiveGizmoManager(nint addr) : base(addr) { }
-        public Array<ActiveGizmo> ActiveGizmos { get { return new Array<ActiveGizmo>(this[nameof(ActiveGizmos)].Address); } }
+        public UArray<ActiveGizmo> ActiveGizmos { get { return new UArray<ActiveGizmo>(this[nameof(ActiveGizmos)].Address); } }
         public Object GizmoBuilders { get { return this[nameof(GizmoBuilders)]; } set { this[nameof(GizmoBuilders)] = value; } }
     }
     public class ToolContextTransactionProvider : Interface
@@ -359,8 +361,8 @@ namespace SDK.Script.InteractiveToolsFrameworkSDK
         public IntervalGizmo(nint addr) : base(addr) { }
         public GizmoTransformChangeStateTarget StateTarget { get { return this[nameof(StateTarget)].As<GizmoTransformChangeStateTarget>(); } set { this["StateTarget"] = value; } }
         public TransformProxy TransformProxy { get { return this[nameof(TransformProxy)].As<TransformProxy>(); } set { this["TransformProxy"] = value; } }
-        public Array<PrimitiveComponent> ActiveComponents { get { return new Array<PrimitiveComponent>(this[nameof(ActiveComponents)].Address); } }
-        public Array<InteractiveGizmo> ActiveGizmos { get { return new Array<InteractiveGizmo>(this[nameof(ActiveGizmos)].Address); } }
+        public UArray<PrimitiveComponent> ActiveComponents { get { return new UArray<PrimitiveComponent>(this[nameof(ActiveComponents)].Address); } }
+        public UArray<InteractiveGizmo> ActiveGizmos { get { return new UArray<InteractiveGizmo>(this[nameof(ActiveGizmos)].Address); } }
         public GizmoComponentAxisSource AxisYSource { get { return this[nameof(AxisYSource)].As<GizmoComponentAxisSource>(); } set { this["AxisYSource"] = value; } }
         public GizmoComponentAxisSource AxisZSource { get { return this[nameof(AxisZSource)].As<GizmoComponentAxisSource>(); } set { this["AxisZSource"] = value; } }
     }
@@ -518,10 +520,10 @@ namespace SDK.Script.InteractiveToolsFrameworkSDK
     public class MeshSelectionSet : SelectionSet
     {
         public MeshSelectionSet(nint addr) : base(addr) { }
-        public Array<int> Vertices { get { return new Array<int>(this[nameof(Vertices)].Address); } }
-        public Array<int> Edges { get { return new Array<int>(this[nameof(Edges)].Address); } }
-        public Array<int> Faces { get { return new Array<int>(this[nameof(Faces)].Address); } }
-        public Array<int> Groups { get { return new Array<int>(this[nameof(Groups)].Address); } }
+        public UArray<int> Vertices { get { return new UArray<int>(this[nameof(Vertices)].Address); } }
+        public UArray<int> Edges { get { return new UArray<int>(this[nameof(Edges)].Address); } }
+        public UArray<int> Faces { get { return new UArray<int>(this[nameof(Faces)].Address); } }
+        public UArray<int> Groups { get { return new UArray<int>(this[nameof(Groups)].Address); } }
     }
     public class SingleClickInputBehavior : AnyButtonInputBehavior
     {
@@ -589,9 +591,9 @@ namespace SDK.Script.InteractiveToolsFrameworkSDK
         public bool bSnapToWorldRotGrid { get { return this[nameof(bSnapToWorldRotGrid)].Flag; } set { this[nameof(bSnapToWorldRotGrid)].Flag = value; } }
         public bool bUseContextCoordinateSystem { get { return this[nameof(bUseContextCoordinateSystem)].Flag; } set { this[nameof(bUseContextCoordinateSystem)].Flag = value; } }
         public EToolContextCoordinateSystem CurrentCoordinateSystem { get { return (EToolContextCoordinateSystem)this[nameof(CurrentCoordinateSystem)].GetValue<int>(); } set { this[nameof(CurrentCoordinateSystem)].SetValue<int>((int)value); } }
-        public Array<PrimitiveComponent> ActiveComponents { get { return new Array<PrimitiveComponent>(this[nameof(ActiveComponents)].Address); } }
-        public Array<PrimitiveComponent> NonuniformScaleComponents { get { return new Array<PrimitiveComponent>(this[nameof(NonuniformScaleComponents)].Address); } }
-        public Array<InteractiveGizmo> ActiveGizmos { get { return new Array<InteractiveGizmo>(this[nameof(ActiveGizmos)].Address); } }
+        public UArray<PrimitiveComponent> ActiveComponents { get { return new UArray<PrimitiveComponent>(this[nameof(ActiveComponents)].Address); } }
+        public UArray<PrimitiveComponent> NonuniformScaleComponents { get { return new UArray<PrimitiveComponent>(this[nameof(NonuniformScaleComponents)].Address); } }
+        public UArray<InteractiveGizmo> ActiveGizmos { get { return new UArray<InteractiveGizmo>(this[nameof(ActiveGizmos)].Address); } }
         public GizmoConstantFrameAxisSource CameraAxisSource { get { return this[nameof(CameraAxisSource)].As<GizmoConstantFrameAxisSource>(); } set { this["CameraAxisSource"] = value; } }
         public GizmoComponentAxisSource AxisXSource { get { return this[nameof(AxisXSource)].As<GizmoComponentAxisSource>(); } set { this["AxisXSource"] = value; } }
         public GizmoComponentAxisSource AxisYSource { get { return this[nameof(AxisYSource)].As<GizmoComponentAxisSource>(); } set { this["AxisYSource"] = value; } }

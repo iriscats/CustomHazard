@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -10,15 +12,15 @@ namespace SDK.Script.ScriptPluginSDK
     public class ScriptBlueprint : Blueprint
     {
         public ScriptBlueprint(nint addr) : base(addr) { }
-        public Array<byte> ByteCode { get { return new Array<byte>(this[nameof(ByteCode)].Address); } }
+        public UArray<byte> ByteCode { get { return new UArray<byte>(this[nameof(ByteCode)].Address); } }
         public Object SourceCode { get { return this[nameof(SourceCode)]; } set { this[nameof(SourceCode)] = value; } }
     }
     public class ScriptBlueprintGeneratedClass : BlueprintGeneratedClass
     {
         public ScriptBlueprintGeneratedClass(nint addr) : base(addr) { }
-        public Array<byte> ByteCode { get { return new Array<byte>(this[nameof(ByteCode)].Address); } }
+        public UArray<byte> ByteCode { get { return new UArray<byte>(this[nameof(ByteCode)].Address); } }
         public Object SourceCode { get { return this[nameof(SourceCode)]; } set { this[nameof(SourceCode)] = value; } }
-        public Array<Property> ScriptProperties { get { return new Array<Property>(this[nameof(ScriptProperties)].Address); } }
+        public UArray<Property> ScriptProperties { get { return new UArray<Property>(this[nameof(ScriptProperties)].Address); } }
     }
     public class ScriptContext : Object
     {

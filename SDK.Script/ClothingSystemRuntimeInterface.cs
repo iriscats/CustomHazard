@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -50,22 +52,22 @@ namespace SDK.Script.ClothingSystemRuntimeInterfaceSDK
     public class ClothPhysicalMeshDataBase_Legacy : Object
     {
         public ClothPhysicalMeshDataBase_Legacy(nint addr) : base(addr) { }
-        public Array<Vector> Vertices { get { return new Array<Vector>(this[nameof(Vertices)].Address); } }
-        public Array<Vector> Normals { get { return new Array<Vector>(this[nameof(Normals)].Address); } }
-        public Array<uint> Indices { get { return new Array<uint>(this[nameof(Indices)].Address); } }
-        public Array<float> InverseMasses { get { return new Array<float>(this[nameof(InverseMasses)].Address); } }
-        public Array<ClothVertBoneData> BoneData { get { return new Array<ClothVertBoneData>(this[nameof(BoneData)].Address); } }
+        public UArray<Vector> Vertices { get { return new UArray<Vector>(this[nameof(Vertices)].Address); } }
+        public UArray<Vector> Normals { get { return new UArray<Vector>(this[nameof(Normals)].Address); } }
+        public UArray<uint> Indices { get { return new UArray<uint>(this[nameof(Indices)].Address); } }
+        public UArray<float> InverseMasses { get { return new UArray<float>(this[nameof(InverseMasses)].Address); } }
+        public UArray<ClothVertBoneData> BoneData { get { return new UArray<ClothVertBoneData>(this[nameof(BoneData)].Address); } }
         public int NumFixedVerts { get { return this[nameof(NumFixedVerts)].GetValue<int>(); } set { this[nameof(NumFixedVerts)].SetValue<int>(value); } }
         public int MaxBoneWeights { get { return this[nameof(MaxBoneWeights)].GetValue<int>(); } set { this[nameof(MaxBoneWeights)].SetValue<int>(value); } }
-        public Array<uint> SelfCollisionIndices { get { return new Array<uint>(this[nameof(SelfCollisionIndices)].Address); } }
+        public UArray<uint> SelfCollisionIndices { get { return new UArray<uint>(this[nameof(SelfCollisionIndices)].Address); } }
     }
     public class ClothCollisionData : Object
     {
         public ClothCollisionData(nint addr) : base(addr) { }
-        public Array<ClothCollisionPrim_Sphere> Spheres { get { return new Array<ClothCollisionPrim_Sphere>(this[nameof(Spheres)].Address); } }
-        public Array<ClothCollisionPrim_SphereConnection> SphereConnections { get { return new Array<ClothCollisionPrim_SphereConnection>(this[nameof(SphereConnections)].Address); } }
-        public Array<ClothCollisionPrim_Convex> Convexes { get { return new Array<ClothCollisionPrim_Convex>(this[nameof(Convexes)].Address); } }
-        public Array<ClothCollisionPrim_Box> Boxes { get { return new Array<ClothCollisionPrim_Box>(this[nameof(Boxes)].Address); } }
+        public UArray<ClothCollisionPrim_Sphere> Spheres { get { return new UArray<ClothCollisionPrim_Sphere>(this[nameof(Spheres)].Address); } }
+        public UArray<ClothCollisionPrim_SphereConnection> SphereConnections { get { return new UArray<ClothCollisionPrim_SphereConnection>(this[nameof(SphereConnections)].Address); } }
+        public UArray<ClothCollisionPrim_Convex> Convexes { get { return new UArray<ClothCollisionPrim_Convex>(this[nameof(Convexes)].Address); } }
+        public UArray<ClothCollisionPrim_Box> Boxes { get { return new UArray<ClothCollisionPrim_Box>(this[nameof(Boxes)].Address); } }
     }
     public class ClothCollisionPrim_Box : Object
     {
@@ -78,15 +80,15 @@ namespace SDK.Script.ClothingSystemRuntimeInterfaceSDK
     public class ClothCollisionPrim_Convex : Object
     {
         public ClothCollisionPrim_Convex(nint addr) : base(addr) { }
-        public Array<ClothCollisionPrim_ConvexFace> Faces { get { return new Array<ClothCollisionPrim_ConvexFace>(this[nameof(Faces)].Address); } }
-        public Array<Vector> SurfacePoints { get { return new Array<Vector>(this[nameof(SurfacePoints)].Address); } }
+        public UArray<ClothCollisionPrim_ConvexFace> Faces { get { return new UArray<ClothCollisionPrim_ConvexFace>(this[nameof(Faces)].Address); } }
+        public UArray<Vector> SurfacePoints { get { return new UArray<Vector>(this[nameof(SurfacePoints)].Address); } }
         public int BoneIndex { get { return this[nameof(BoneIndex)].GetValue<int>(); } set { this[nameof(BoneIndex)].SetValue<int>(value); } }
     }
     public class ClothCollisionPrim_ConvexFace : Object
     {
         public ClothCollisionPrim_ConvexFace(nint addr) : base(addr) { }
         public Plane Plane { get { return this[nameof(Plane)].As<Plane>(); } set { this["Plane"] = value; } }
-        public Array<int> Indices { get { return new Array<int>(this[nameof(Indices)].Address); } }
+        public UArray<int> Indices { get { return new UArray<int>(this[nameof(Indices)].Address); } }
     }
     public class ClothCollisionPrim_SphereConnection : Object
     {

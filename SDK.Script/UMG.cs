@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -41,7 +43,7 @@ namespace SDK.Script.UMGSDK
         public float RenderOpacity { get { return this[nameof(RenderOpacity)].GetValue<float>(); } set { this[nameof(RenderOpacity)].SetValue<float>(value); } }
         public WidgetNavigation Navigation { get { return this[nameof(Navigation)].As<WidgetNavigation>(); } set { this["Navigation"] = value; } }
         public EFlowDirectionPreference FlowDirectionPreference { get { return (EFlowDirectionPreference)this[nameof(FlowDirectionPreference)].GetValue<int>(); } set { this[nameof(FlowDirectionPreference)].SetValue<int>((int)value); } }
-        public Array<PropertyBinding> NativeBindings { get { return new Array<PropertyBinding>(this[nameof(NativeBindings)].Address); } }
+        public UArray<PropertyBinding> NativeBindings { get { return new UArray<PropertyBinding>(this[nameof(NativeBindings)].Address); } }
         public void SetVisibility(ESlateVisibility InVisibility) { Invoke(nameof(SetVisibility), InVisibility); }
         public void SetUserFocus(PlayerController PlayerController) { Invoke(nameof(SetUserFocus), PlayerController); }
         public void SetToolTipText(Object InToolTipText) { Invoke(nameof(SetToolTipText), InToolTipText); }
@@ -118,10 +120,10 @@ namespace SDK.Script.UMGSDK
         public Object ForegroundColorDelegate { get { return this[nameof(ForegroundColorDelegate)]; } set { this[nameof(ForegroundColorDelegate)] = value; } }
         public Object OnVisibilityChanged { get { return this[nameof(OnVisibilityChanged)]; } set { this[nameof(OnVisibilityChanged)] = value; } }
         public Margin Padding { get { return this[nameof(Padding)].As<Margin>(); } set { this["Padding"] = value; } }
-        public Array<UMGSequencePlayer> ActiveSequencePlayers { get { return new Array<UMGSequencePlayer>(this[nameof(ActiveSequencePlayers)].Address); } }
+        public UArray<UMGSequencePlayer> ActiveSequencePlayers { get { return new UArray<UMGSequencePlayer>(this[nameof(ActiveSequencePlayers)].Address); } }
         public UMGSequenceTickManager AnimationTickManager { get { return this[nameof(AnimationTickManager)].As<UMGSequenceTickManager>(); } set { this["AnimationTickManager"] = value; } }
-        public Array<UMGSequencePlayer> StoppedSequencePlayers { get { return new Array<UMGSequencePlayer>(this[nameof(StoppedSequencePlayers)].Address); } }
-        public Array<NamedSlotBinding> NamedSlotBindings { get { return new Array<NamedSlotBinding>(this[nameof(NamedSlotBindings)].Address); } }
+        public UArray<UMGSequencePlayer> StoppedSequencePlayers { get { return new UArray<UMGSequencePlayer>(this[nameof(StoppedSequencePlayers)].Address); } }
+        public UArray<NamedSlotBinding> NamedSlotBindings { get { return new UArray<NamedSlotBinding>(this[nameof(NamedSlotBindings)].Address); } }
         public WidgetTree WidgetTree { get { return this[nameof(WidgetTree)].As<WidgetTree>(); } set { this["WidgetTree"] = value; } }
         public int Priority { get { return this[nameof(Priority)].GetValue<int>(); } set { this[nameof(Priority)].SetValue<int>(value); } }
         public bool bSupportsKeyboardFocus { get { return this[nameof(bSupportsKeyboardFocus)].Flag; } set { this[nameof(bSupportsKeyboardFocus)].Flag = value; } }
@@ -131,7 +133,7 @@ namespace SDK.Script.UMGSDK
         public bool bHasScriptImplementedPaint { get { return this[nameof(bHasScriptImplementedPaint)].Flag; } set { this[nameof(bHasScriptImplementedPaint)].Flag = value; } }
         public EWidgetTickFrequency TickFrequency { get { return (EWidgetTickFrequency)this[nameof(TickFrequency)].GetValue<int>(); } set { this[nameof(TickFrequency)].SetValue<int>((int)value); } }
         public InputComponent InputComponent { get { return this[nameof(InputComponent)].As<InputComponent>(); } set { this["InputComponent"] = value; } }
-        public Array<AnimationEventBinding> AnimationCallbacks { get { return new Array<AnimationEventBinding>(this[nameof(AnimationCallbacks)].Address); } }
+        public UArray<AnimationEventBinding> AnimationCallbacks { get { return new UArray<AnimationEventBinding>(this[nameof(AnimationCallbacks)].Address); } }
         public void UnregisterInputComponent() { Invoke(nameof(UnregisterInputComponent)); }
         public void UnbindFromAnimationStarted(WidgetAnimation Animation, Object Delegate) { Invoke(nameof(UnbindFromAnimationStarted), Animation, Delegate); }
         public void UnbindFromAnimationFinished(WidgetAnimation Animation, Object Delegate) { Invoke(nameof(UnbindFromAnimationFinished), Animation, Delegate); }
@@ -356,13 +358,13 @@ namespace SDK.Script.UMGSDK
         public RichTextBlock(nint addr) : base(addr) { }
         public Object Text { get { return this[nameof(Text)]; } set { this[nameof(Text)] = value; } }
         public DataTable TextStyleSet { get { return this[nameof(TextStyleSet)].As<DataTable>(); } set { this["TextStyleSet"] = value; } }
-        public Array<Object> DecoratorClasses { get { return new Array<Object>(this[nameof(DecoratorClasses)].Address); } }
+        public UArray<Object> DecoratorClasses { get { return new UArray<Object>(this[nameof(DecoratorClasses)].Address); } }
         public bool bOverrideDefaultStyle { get { return this[nameof(bOverrideDefaultStyle)].Flag; } set { this[nameof(bOverrideDefaultStyle)].Flag = value; } }
         public TextBlockStyle DefaultTextStyleOverride { get { return this[nameof(DefaultTextStyleOverride)].As<TextBlockStyle>(); } set { this["DefaultTextStyleOverride"] = value; } }
         public float MinDesiredWidth { get { return this[nameof(MinDesiredWidth)].GetValue<float>(); } set { this[nameof(MinDesiredWidth)].SetValue<float>(value); } }
         public ETextTransformPolicy TextTransformPolicy { get { return (ETextTransformPolicy)this[nameof(TextTransformPolicy)].GetValue<int>(); } set { this[nameof(TextTransformPolicy)].SetValue<int>((int)value); } }
         public TextBlockStyle DefaultTextStyle { get { return this[nameof(DefaultTextStyle)].As<TextBlockStyle>(); } set { this["DefaultTextStyle"] = value; } }
-        public Array<RichTextBlockDecorator> InstanceDecorators { get { return new Array<RichTextBlockDecorator>(this[nameof(InstanceDecorators)].Address); } }
+        public UArray<RichTextBlockDecorator> InstanceDecorators { get { return new UArray<RichTextBlockDecorator>(this[nameof(InstanceDecorators)].Address); } }
         public void SetTextTransformPolicy(ETextTransformPolicy InTransformPolicy) { Invoke(nameof(SetTextTransformPolicy), InTransformPolicy); }
         public void SetTextStyleSet(DataTable NewTextStyleSet) { Invoke(nameof(SetTextStyleSet), NewTextStyleSet); }
         public void SetText(Object InText) { Invoke(nameof(SetText), InText); }
@@ -388,7 +390,7 @@ namespace SDK.Script.UMGSDK
     public class PanelWidget : Widget
     {
         public PanelWidget(nint addr) : base(addr) { }
-        public Array<PanelSlot> Slots { get { return new Array<PanelSlot>(this[nameof(Slots)].Address); } }
+        public UArray<PanelSlot> Slots { get { return new UArray<PanelSlot>(this[nameof(Slots)].Address); } }
         public bool RemoveChildAt(int Index) { return Invoke<bool>(nameof(RemoveChildAt), Index); }
         public bool RemoveChild(Widget Content) { return Invoke<bool>(nameof(RemoveChild), Content); }
         public bool HasChild(Widget Content) { return Invoke<bool>(nameof(HasChild), Content); }
@@ -396,7 +398,7 @@ namespace SDK.Script.UMGSDK
         public int GetChildrenCount() { return Invoke<int>(nameof(GetChildrenCount)); }
         public int GetChildIndex(Widget Content) { return Invoke<int>(nameof(GetChildIndex), Content); }
         public Widget GetChildAt(int Index) { return Invoke<Widget>(nameof(GetChildAt), Index); }
-        public Array<Widget> GetAllChildren() { return Invoke<Array<Widget>>(nameof(GetAllChildren)); }
+        public UArray<Widget> GetAllChildren() { return Invoke<UArray<Widget>>(nameof(GetAllChildren)); }
         public void ClearChildren() { Invoke(nameof(ClearChildren)); }
         public PanelSlot AddChild(Widget Content) { return Invoke<PanelSlot>(nameof(AddChild), Content); }
     }
@@ -624,14 +626,14 @@ namespace SDK.Script.UMGSDK
     public class ComboBox : Widget
     {
         public ComboBox(nint addr) : base(addr) { }
-        public Array<Object> Items { get { return new Array<Object>(this[nameof(Items)].Address); } }
+        public UArray<Object> Items { get { return new UArray<Object>(this[nameof(Items)].Address); } }
         public Object OnGenerateWidgetEvent { get { return this[nameof(OnGenerateWidgetEvent)]; } set { this[nameof(OnGenerateWidgetEvent)] = value; } }
         public bool bIsFocusable { get { return this[nameof(bIsFocusable)].Flag; } set { this[nameof(bIsFocusable)].Flag = value; } }
     }
     public class ComboBoxString : Widget
     {
         public ComboBoxString(nint addr) : base(addr) { }
-        public Array<Object> DefaultOptions { get { return new Array<Object>(this[nameof(DefaultOptions)].Address); } }
+        public UArray<Object> DefaultOptions { get { return new UArray<Object>(this[nameof(DefaultOptions)].Address); } }
         public Object SelectedOption { get { return this[nameof(SelectedOption)]; } set { this[nameof(SelectedOption)] = value; } }
         public ComboBoxStyle WidgetStyle { get { return this[nameof(WidgetStyle)].As<ComboBoxStyle>(); } set { this["WidgetStyle"] = value; } }
         public TableRowStyle ItemStyle { get { return this[nameof(ItemStyle)].As<TableRowStyle>(); } set { this["ItemStyle"] = value; } }
@@ -681,7 +683,7 @@ namespace SDK.Script.UMGSDK
         public DynamicEntryBoxBase(nint addr) : base(addr) { }
         public EDynamicBoxType EntryBoxType { get { return (EDynamicBoxType)this[nameof(EntryBoxType)].GetValue<int>(); } set { this[nameof(EntryBoxType)].SetValue<int>((int)value); } }
         public Vector2D EntrySpacing { get { return this[nameof(EntrySpacing)].As<Vector2D>(); } set { this["EntrySpacing"] = value; } }
-        public Array<Vector2D> SpacingPattern { get { return new Array<Vector2D>(this[nameof(SpacingPattern)].Address); } }
+        public UArray<Vector2D> SpacingPattern { get { return new UArray<Vector2D>(this[nameof(SpacingPattern)].Address); } }
         public SlateChildSize EntrySizeRule { get { return this[nameof(EntrySizeRule)].As<SlateChildSize>(); } set { this["EntrySizeRule"] = value; } }
         public byte EntryHorizontalAlignment { get { return this[nameof(EntryHorizontalAlignment)].GetValue<byte>(); } set { this[nameof(EntryHorizontalAlignment)].SetValue<byte>(value); } }
         public byte EntryVerticalAlignment { get { return this[nameof(EntryVerticalAlignment)].GetValue<byte>(); } set { this[nameof(EntryVerticalAlignment)].SetValue<byte>(value); } }
@@ -691,7 +693,7 @@ namespace SDK.Script.UMGSDK
         public void SetRadialSettings(RadialBoxSettings InSettings) { Invoke(nameof(SetRadialSettings), InSettings); }
         public void SetEntrySpacing(Vector2D InEntrySpacing) { Invoke(nameof(SetEntrySpacing), InEntrySpacing); }
         public int GetNumEntries() { return Invoke<int>(nameof(GetNumEntries)); }
-        public Array<UserWidget> GetAllEntries() { return Invoke<Array<UserWidget>>(nameof(GetAllEntries)); }
+        public UArray<UserWidget> GetAllEntries() { return Invoke<UArray<UserWidget>>(nameof(GetAllEntries)); }
     }
     public class DynamicEntryBox : DynamicEntryBoxBase
     {
@@ -810,8 +812,8 @@ namespace SDK.Script.UMGSDK
     public class GridPanel : PanelWidget
     {
         public GridPanel(nint addr) : base(addr) { }
-        public Array<float> ColumnFill { get { return new Array<float>(this[nameof(ColumnFill)].Address); } }
-        public Array<float> RowFill { get { return new Array<float>(this[nameof(RowFill)].Address); } }
+        public UArray<float> ColumnFill { get { return new UArray<float>(this[nameof(ColumnFill)].Address); } }
+        public UArray<float> RowFill { get { return new UArray<float>(this[nameof(RowFill)].Address); } }
         public void SetRowFill(int ColumnIndex, float Coefficient) { Invoke(nameof(SetRowFill), ColumnIndex, Coefficient); }
         public void SetColumnFill(int ColumnIndex, float Coefficient) { Invoke(nameof(SetColumnFill), ColumnIndex, Coefficient); }
         public GridSlot AddChildToGrid(Widget Content, int InRow, int InColumn) { return Invoke<GridSlot>(nameof(AddChildToGrid), Content, InRow, InColumn); }
@@ -892,14 +894,14 @@ namespace SDK.Script.UMGSDK
         public Object NoKeySpecifiedText { get { return this[nameof(NoKeySpecifiedText)]; } set { this[nameof(NoKeySpecifiedText)] = value; } }
         public bool bAllowModifierKeys { get { return this[nameof(bAllowModifierKeys)].Flag; } set { this[nameof(bAllowModifierKeys)].Flag = value; } }
         public bool bAllowGamepadKeys { get { return this[nameof(bAllowGamepadKeys)].Flag; } set { this[nameof(bAllowGamepadKeys)].Flag = value; } }
-        public Array<Key> EscapeKeys { get { return new Array<Key>(this[nameof(EscapeKeys)].Address); } }
+        public UArray<Key> EscapeKeys { get { return new UArray<Key>(this[nameof(EscapeKeys)].Address); } }
         public Object OnKeySelected { get { return this[nameof(OnKeySelected)]; } set { this[nameof(OnKeySelected)] = value; } }
         public Object OnIsSelectingKeyChanged { get { return this[nameof(OnIsSelectingKeyChanged)]; } set { this[nameof(OnIsSelectingKeyChanged)] = value; } }
         public void SetTextBlockVisibility(ESlateVisibility InVisibility) { Invoke(nameof(SetTextBlockVisibility), InVisibility); }
         public void SetSelectedKey(InputChord InSelectedKey) { Invoke(nameof(SetSelectedKey), InSelectedKey); }
         public void SetNoKeySpecifiedText(Object InNoKeySpecifiedText) { Invoke(nameof(SetNoKeySpecifiedText), InNoKeySpecifiedText); }
         public void SetKeySelectionText(Object InKeySelectionText) { Invoke(nameof(SetKeySelectionText), InKeySelectionText); }
-        public void SetEscapeKeys(Array<Key> InKeys) { Invoke(nameof(SetEscapeKeys), InKeys); }
+        public void SetEscapeKeys(UArray<Key> InKeys) { Invoke(nameof(SetEscapeKeys), InKeys); }
         public void SetAllowModifierKeys(bool bInAllowModifierKeys) { Invoke(nameof(SetAllowModifierKeys), bInAllowModifierKeys); }
         public void SetAllowGamepadKeys(bool bInAllowGamepadKeys) { Invoke(nameof(SetAllowGamepadKeys), bInAllowGamepadKeys); }
         public void OnKeySelected__DelegateSignature(InputChord SelectedKey) { Invoke(nameof(OnKeySelected__DelegateSignature), SelectedKey); }
@@ -962,7 +964,7 @@ namespace SDK.Script.UMGSDK
         public void ScrollToBottom() { Invoke(nameof(ScrollToBottom)); }
         public void RequestRefresh() { Invoke(nameof(RequestRefresh)); }
         public void RegenerateAllEntries() { Invoke(nameof(RegenerateAllEntries)); }
-        public Array<UserWidget> GetDisplayedEntryWidgets() { return Invoke<Array<UserWidget>>(nameof(GetDisplayedEntryWidgets)); }
+        public UArray<UserWidget> GetDisplayedEntryWidgets() { return Invoke<UArray<UserWidget>>(nameof(GetDisplayedEntryWidgets)); }
     }
     public class ListView : ListViewBase
     {
@@ -974,7 +976,7 @@ namespace SDK.Script.UMGSDK
         public bool bIsFocusable { get { return this[nameof(bIsFocusable)].Flag; } set { this[nameof(bIsFocusable)].Flag = value; } }
         public float EntrySpacing { get { return this[nameof(EntrySpacing)].GetValue<float>(); } set { this[nameof(EntrySpacing)].SetValue<float>(value); } }
         public bool bReturnFocusToSelection { get { return this[nameof(bReturnFocusToSelection)].Flag; } set { this[nameof(bReturnFocusToSelection)].Flag = value; } }
-        public Array<Object> ListItems { get { return new Array<Object>(this[nameof(ListItems)].Address); } }
+        public UArray<Object> ListItems { get { return new UArray<Object>(this[nameof(ListItems)].Address); } }
         public Object BP_OnEntryInitialized { get { return this[nameof(BP_OnEntryInitialized)]; } set { this[nameof(BP_OnEntryInitialized)] = value; } }
         public Object BP_OnItemClicked { get { return this[nameof(BP_OnItemClicked)]; } set { this[nameof(BP_OnItemClicked)] = value; } }
         public Object BP_OnItemDoubleClicked { get { return this[nameof(BP_OnItemDoubleClicked)]; } set { this[nameof(BP_OnItemDoubleClicked)] = value; } }
@@ -988,17 +990,17 @@ namespace SDK.Script.UMGSDK
         public void NavigateToIndex(int Index) { Invoke(nameof(NavigateToIndex), Index); }
         public bool IsRefreshPending() { return Invoke<bool>(nameof(IsRefreshPending)); }
         public int GetNumItems() { return Invoke<int>(nameof(GetNumItems)); }
-        public Array<Object> GetListItems() { return Invoke<Array<Object>>(nameof(GetListItems)); }
+        public UArray<Object> GetListItems() { return Invoke<UArray<Object>>(nameof(GetListItems)); }
         public Object GetItemAt(int Index) { return Invoke<Object>(nameof(GetItemAt), Index); }
         public int GetIndexForItem(Object Item) { return Invoke<int>(nameof(GetIndexForItem), Item); }
         public void ClearListItems() { Invoke(nameof(ClearListItems)); }
         public void BP_SetSelectedItem(Object Item) { Invoke(nameof(BP_SetSelectedItem), Item); }
-        public void BP_SetListItems(Array<Object> InListItems) { Invoke(nameof(BP_SetListItems), InListItems); }
+        public void BP_SetListItems(UArray<Object> InListItems) { Invoke(nameof(BP_SetListItems), InListItems); }
         public void BP_SetItemSelection(Object Item, bool bSelected) { Invoke(nameof(BP_SetItemSelection), Item, bSelected); }
         public void BP_ScrollItemIntoView(Object Item) { Invoke(nameof(BP_ScrollItemIntoView), Item); }
         public void BP_NavigateToItem(Object Item) { Invoke(nameof(BP_NavigateToItem), Item); }
         public bool BP_IsItemVisible(Object Item) { return Invoke<bool>(nameof(BP_IsItemVisible), Item); }
-        public bool BP_GetSelectedItems(Array<Object> Items) { return Invoke<bool>(nameof(BP_GetSelectedItems), Items); }
+        public bool BP_GetSelectedItems(UArray<Object> Items) { return Invoke<bool>(nameof(BP_GetSelectedItems), Items); }
         public Object BP_GetSelectedItem() { return Invoke<Object>(nameof(BP_GetSelectedItem)); }
         public int BP_GetNumItemsSelected() { return Invoke<int>(nameof(BP_GetNumItemsSelected)); }
         public void BP_ClearSelection() { Invoke(nameof(BP_ClearSelection)); }
@@ -1072,7 +1074,7 @@ namespace SDK.Script.UMGSDK
     public class MovieSceneWidgetMaterialTrack : MovieSceneMaterialTrack
     {
         public MovieSceneWidgetMaterialTrack(nint addr) : base(addr) { }
-        public Array<Object> BrushPropertyNamePath { get { return new Array<Object>(this[nameof(BrushPropertyNamePath)].Address); } }
+        public UArray<Object> BrushPropertyNamePath { get { return new UArray<Object>(this[nameof(BrushPropertyNamePath)].Address); } }
         public Object TrackName { get { return this[nameof(TrackName)]; } set { this[nameof(TrackName)] = value; } }
     }
     public class MultiLineEditableText : TextLayoutWidget
@@ -1371,8 +1373,8 @@ namespace SDK.Script.UMGSDK
     public class SlateVectorArtData : Object
     {
         public SlateVectorArtData(nint addr) : base(addr) { }
-        public Array<SlateMeshVertex> VertexData { get { return new Array<SlateMeshVertex>(this[nameof(VertexData)].Address); } }
-        public Array<uint> IndexData { get { return new Array<uint>(this[nameof(IndexData)].Address); } }
+        public UArray<SlateMeshVertex> VertexData { get { return new UArray<SlateMeshVertex>(this[nameof(VertexData)].Address); } }
+        public UArray<uint> IndexData { get { return new UArray<uint>(this[nameof(IndexData)].Address); } }
         public MaterialInterface Material { get { return this[nameof(Material)].As<MaterialInterface>(); } set { this["Material"] = value; } }
         public Vector2D ExtentMin { get { return this[nameof(ExtentMin)].As<Vector2D>(); } set { this["ExtentMin"] = value; } }
         public Vector2D ExtentMax { get { return this[nameof(ExtentMax)].As<Vector2D>(); } set { this["ExtentMax"] = value; } }
@@ -1599,7 +1601,7 @@ namespace SDK.Script.UMGSDK
     {
         public WidgetAnimation(nint addr) : base(addr) { }
         public MovieScene MovieScene { get { return this[nameof(MovieScene)].As<MovieScene>(); } set { this["MovieScene"] = value; } }
-        public Array<WidgetAnimationBinding> AnimationBindings { get { return new Array<WidgetAnimationBinding>(this[nameof(AnimationBindings)].Address); } }
+        public UArray<WidgetAnimationBinding> AnimationBindings { get { return new UArray<WidgetAnimationBinding>(this[nameof(AnimationBindings)].Address); } }
         public bool bLegacyFinishOnStop { get { return this[nameof(bLegacyFinishOnStop)].Flag; } set { this[nameof(bLegacyFinishOnStop)].Flag = value; } }
         public Object DisplayLabel { get { return this[nameof(DisplayLabel)]; } set { this[nameof(DisplayLabel)] = value; } }
         public void UnbindFromAnimationStarted(UserWidget Widget, Object Delegate) { Invoke(nameof(UnbindFromAnimationStarted), Widget, Delegate); }
@@ -1614,7 +1616,7 @@ namespace SDK.Script.UMGSDK
     public class WidgetAnimationDelegateBinding : DynamicBlueprintBinding
     {
         public WidgetAnimationDelegateBinding(nint addr) : base(addr) { }
-        public Array<BlueprintWidgetAnimationDelegateBinding> WidgetAnimationDelegateBindings { get { return new Array<BlueprintWidgetAnimationDelegateBinding>(this[nameof(WidgetAnimationDelegateBindings)].Address); } }
+        public UArray<BlueprintWidgetAnimationDelegateBinding> WidgetAnimationDelegateBindings { get { return new UArray<BlueprintWidgetAnimationDelegateBinding>(this[nameof(WidgetAnimationDelegateBindings)].Address); } }
     }
     public class WidgetAnimationPlayCallbackProxy : Object
     {
@@ -1633,9 +1635,9 @@ namespace SDK.Script.UMGSDK
         public WidgetBlueprintGeneratedClass(nint addr) : base(addr) { }
         public WidgetTree WidgetTree { get { return this[nameof(WidgetTree)].As<WidgetTree>(); } set { this["WidgetTree"] = value; } }
         public bool bClassRequiresNativeTick { get { return this[nameof(bClassRequiresNativeTick)].Flag; } set { this[nameof(bClassRequiresNativeTick)].Flag = value; } }
-        public Array<DelegateRuntimeBinding> Bindings { get { return new Array<DelegateRuntimeBinding>(this[nameof(Bindings)].Address); } }
-        public Array<WidgetAnimation> Animations { get { return new Array<WidgetAnimation>(this[nameof(Animations)].Address); } }
-        public Array<Object> NamedSlots { get { return new Array<Object>(this[nameof(NamedSlots)].Address); } }
+        public UArray<DelegateRuntimeBinding> Bindings { get { return new UArray<DelegateRuntimeBinding>(this[nameof(Bindings)].Address); } }
+        public UArray<WidgetAnimation> Animations { get { return new UArray<WidgetAnimation>(this[nameof(Animations)].Address); } }
+        public UArray<Object> NamedSlots { get { return new UArray<Object>(this[nameof(NamedSlots)].Address); } }
     }
     public class WidgetBlueprintLibrary : BlueprintFunctionLibrary
     {
@@ -1679,12 +1681,12 @@ namespace SDK.Script.UMGSDK
         public Texture2D GetBrushResourceAsTexture2D(SlateBrush Brush) { return Invoke<Texture2D>(nameof(GetBrushResourceAsTexture2D), Brush); }
         public MaterialInterface GetBrushResourceAsMaterial(SlateBrush Brush) { return Invoke<MaterialInterface>(nameof(GetBrushResourceAsMaterial), Brush); }
         public Object GetBrushResource(SlateBrush Brush) { return Invoke<Object>(nameof(GetBrushResource), Brush); }
-        public void GetAllWidgetsWithInterface(Object WorldContextObject, Array<UserWidget> FoundWidgets, Object Interface, bool TopLevelOnly) { Invoke(nameof(GetAllWidgetsWithInterface), WorldContextObject, FoundWidgets, Interface, TopLevelOnly); }
-        public void GetAllWidgetsOfClass(Object WorldContextObject, Array<UserWidget> FoundWidgets, Object WidgetClass, bool TopLevelOnly) { Invoke(nameof(GetAllWidgetsOfClass), WorldContextObject, FoundWidgets, WidgetClass, TopLevelOnly); }
+        public void GetAllWidgetsWithInterface(Object WorldContextObject, UArray<UserWidget> FoundWidgets, Object Interface, bool TopLevelOnly) { Invoke(nameof(GetAllWidgetsWithInterface), WorldContextObject, FoundWidgets, Interface, TopLevelOnly); }
+        public void GetAllWidgetsOfClass(Object WorldContextObject, UArray<UserWidget> FoundWidgets, Object WidgetClass, bool TopLevelOnly) { Invoke(nameof(GetAllWidgetsOfClass), WorldContextObject, FoundWidgets, WidgetClass, TopLevelOnly); }
         public EventReply EndDragDrop(EventReply Reply) { return Invoke<EventReply>(nameof(EndDragDrop), Reply); }
         public void DrawTextFormatted(PaintContext Context, Object Text, Vector2D Position, Font Font, int FontSize, Object FontTypeFace, LinearColor Tint) { Invoke(nameof(DrawTextFormatted), Context, Text, Position, Font, FontSize, FontTypeFace, Tint); }
         public void DrawText(PaintContext Context, Object inString, Vector2D Position, LinearColor Tint) { Invoke(nameof(DrawText), Context, inString, Position, Tint); }
-        public void DrawLines(PaintContext Context, Array<Vector2D> Points, LinearColor Tint, bool bAntiAlias, float Thickness) { Invoke(nameof(DrawLines), Context, Points, Tint, bAntiAlias, Thickness); }
+        public void DrawLines(PaintContext Context, UArray<Vector2D> Points, LinearColor Tint, bool bAntiAlias, float Thickness) { Invoke(nameof(DrawLines), Context, Points, Tint, bAntiAlias, Thickness); }
         public void DrawLine(PaintContext Context, Vector2D PositionA, Vector2D PositionB, LinearColor Tint, bool bAntiAlias, float Thickness) { Invoke(nameof(DrawLine), Context, PositionA, PositionB, Tint, bAntiAlias, Thickness); }
         public void DrawBox(PaintContext Context, Vector2D Position, Vector2D Size, SlateBrushAsset Brush, LinearColor Tint) { Invoke(nameof(DrawBox), Context, Position, Size, Brush, Tint); }
         public void DismissAllMenus() { Invoke(nameof(DismissAllMenus)); }
@@ -2036,7 +2038,7 @@ namespace SDK.Script.UMGSDK
     public class MovieSceneWidgetMaterialSectionTemplate : MovieSceneParameterSectionTemplate
     {
         public MovieSceneWidgetMaterialSectionTemplate(nint addr) : base(addr) { }
-        public Array<Object> BrushPropertyNamePath { get { return new Array<Object>(this[nameof(BrushPropertyNamePath)].Address); } }
+        public UArray<Object> BrushPropertyNamePath { get { return new UArray<Object>(this[nameof(BrushPropertyNamePath)].Address); } }
     }
     public class RadialBoxSettings : Object
     {
@@ -2077,8 +2079,8 @@ namespace SDK.Script.UMGSDK
     public class UserWidgetPool : Object
     {
         public UserWidgetPool(nint addr) : base(addr) { }
-        public Array<UserWidget> ActiveWidgets { get { return new Array<UserWidget>(this[nameof(ActiveWidgets)].Address); } }
-        public Array<UserWidget> InactiveWidgets { get { return new Array<UserWidget>(this[nameof(InactiveWidgets)].Address); } }
+        public UArray<UserWidget> ActiveWidgets { get { return new UArray<UserWidget>(this[nameof(ActiveWidgets)].Address); } }
+        public UArray<UserWidget> InactiveWidgets { get { return new UArray<UserWidget>(this[nameof(InactiveWidgets)].Address); } }
     }
     public class WidgetAnimationBinding : Object
     {

@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -20,7 +22,7 @@ namespace SDK.Script.DLSSBlueprintSDK
         public bool IsDLSSModeSupported(UDLSSMode DLSSMode) { return Invoke<bool>(nameof(IsDLSSModeSupported), DLSSMode); }
         public bool IsDLSSEnabled() { return Invoke<bool>(nameof(IsDLSSEnabled)); }
         public bool IsDLAAEnabled() { return Invoke<bool>(nameof(IsDLAAEnabled)); }
-        public Array<UDLSSMode> GetSupportedDLSSModes() { return Invoke<Array<UDLSSMode>>(nameof(GetSupportedDLSSModes)); }
+        public UArray<UDLSSMode> GetSupportedDLSSModes() { return Invoke<UArray<UDLSSMode>>(nameof(GetSupportedDLSSModes)); }
         public float GetDLSSSharpness() { return Invoke<float>(nameof(GetDLSSSharpness)); }
         public void GetDLSSScreenPercentageRange(float MinScreenPercentage, float MaxScreenPercentage) { Invoke(nameof(GetDLSSScreenPercentageRange), MinScreenPercentage, MaxScreenPercentage); }
         public void GetDLSSRRMinimumDriverVersion(int MinDriverVersionMajor, int MinDriverVersionMinor) { Invoke(nameof(GetDLSSRRMinimumDriverVersion), MinDriverVersionMajor, MinDriverVersionMinor); }

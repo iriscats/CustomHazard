@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -326,10 +328,10 @@ namespace SDK.Script.AnimGraphRuntimeSDK
         public int NumSolverIterationsPreUpdate { get { return this[nameof(NumSolverIterationsPreUpdate)].GetValue<int>(); } set { this[nameof(NumSolverIterationsPreUpdate)].SetValue<int>(value); } }
         public int NumSolverIterationsPostUpdate { get { return this[nameof(NumSolverIterationsPostUpdate)].GetValue<int>(); } set { this[nameof(NumSolverIterationsPostUpdate)].SetValue<int>(value); } }
         public AnimPhysConstraintSetup ConstraintSetup { get { return this[nameof(ConstraintSetup)].As<AnimPhysConstraintSetup>(); } set { this["ConstraintSetup"] = value; } }
-        public Array<AnimPhysSphericalLimit> SphericalLimits { get { return new Array<AnimPhysSphericalLimit>(this[nameof(SphericalLimits)].Address); } }
+        public UArray<AnimPhysSphericalLimit> SphericalLimits { get { return new UArray<AnimPhysSphericalLimit>(this[nameof(SphericalLimits)].Address); } }
         public float SphereCollisionRadius { get { return this[nameof(SphereCollisionRadius)].GetValue<float>(); } set { this[nameof(SphereCollisionRadius)].SetValue<float>(value); } }
         public Vector ExternalForce { get { return this[nameof(ExternalForce)].As<Vector>(); } set { this["ExternalForce"] = value; } }
-        public Array<AnimPhysPlanarLimit> PlanarLimits { get { return new Array<AnimPhysPlanarLimit>(this[nameof(PlanarLimits)].Address); } }
+        public UArray<AnimPhysPlanarLimit> PlanarLimits { get { return new UArray<AnimPhysPlanarLimit>(this[nameof(PlanarLimits)].Address); } }
         public AnimPhysCollisionType CollisionType { get { return (AnimPhysCollisionType)this[nameof(CollisionType)].GetValue<int>(); } set { this[nameof(CollisionType)].SetValue<int>((int)value); } }
         public AnimPhysSimSpaceType SimulationSpace { get { return (AnimPhysSimSpaceType)this[nameof(SimulationSpace)].GetValue<int>(); } set { this[nameof(SimulationSpace)].SetValue<int>((int)value); } }
         public bool bUseSphericalLimits { get { return this[nameof(bUseSphericalLimits)].Flag; } set { this[nameof(bUseSphericalLimits)].Flag = value; } }
@@ -412,8 +414,8 @@ namespace SDK.Script.AnimGraphRuntimeSDK
     public class AnimNode_ApplyLimits : AnimNode_SkeletalControlBase
     {
         public AnimNode_ApplyLimits(nint addr) : base(addr) { }
-        public Array<AngularRangeLimit> AngularRangeLimits { get { return new Array<AngularRangeLimit>(this[nameof(AngularRangeLimits)].Address); } }
-        public Array<Vector> AngularOffsets { get { return new Array<Vector>(this[nameof(AngularOffsets)].Address); } }
+        public UArray<AngularRangeLimit> AngularRangeLimits { get { return new UArray<AngularRangeLimit>(this[nameof(AngularRangeLimits)].Address); } }
+        public UArray<Vector> AngularOffsets { get { return new UArray<Vector>(this[nameof(AngularOffsets)].Address); } }
     }
     public class AngularRangeLimit : Object
     {
@@ -427,7 +429,7 @@ namespace SDK.Script.AnimGraphRuntimeSDK
         public AnimNode_BlendBoneByChannel(nint addr) : base(addr) { }
         public PoseLink A { get { return this[nameof(A)].As<PoseLink>(); } set { this["A"] = value; } }
         public PoseLink B { get { return this[nameof(B)].As<PoseLink>(); } set { this["B"] = value; } }
-        public Array<BlendBoneByChannelEntry> BoneDefinitions { get { return new Array<BlendBoneByChannelEntry>(this[nameof(BoneDefinitions)].Address); } }
+        public UArray<BlendBoneByChannelEntry> BoneDefinitions { get { return new UArray<BlendBoneByChannelEntry>(this[nameof(BoneDefinitions)].Address); } }
         public float alpha { get { return this[nameof(alpha)].GetValue<float>(); } set { this[nameof(alpha)].SetValue<float>(value); } }
         public InputScaleBias AlphaScaleBias { get { return this[nameof(AlphaScaleBias)].As<InputScaleBias>(); } set { this["AlphaScaleBias"] = value; } }
         public byte TransformsSpace { get { return this[nameof(TransformsSpace)].GetValue<byte>(); } set { this[nameof(TransformsSpace)].SetValue<byte>(value); } }
@@ -444,8 +446,8 @@ namespace SDK.Script.AnimGraphRuntimeSDK
     public class AnimNode_BlendListBase : AnimNode_Base
     {
         public AnimNode_BlendListBase(nint addr) : base(addr) { }
-        public Array<PoseLink> BlendPose { get { return new Array<PoseLink>(this[nameof(BlendPose)].Address); } }
-        public Array<float> BlendTime { get { return new Array<float>(this[nameof(BlendTime)].Address); } }
+        public UArray<PoseLink> BlendPose { get { return new UArray<PoseLink>(this[nameof(BlendPose)].Address); } }
+        public UArray<float> BlendTime { get { return new UArray<float>(this[nameof(BlendTime)].Address); } }
         public EBlendListTransitionType TransitionType { get { return (EBlendListTransitionType)this[nameof(TransitionType)].GetValue<int>(); } set { this[nameof(TransitionType)].SetValue<int>((int)value); } }
         public EAlphaBlendOption BlendType { get { return (EAlphaBlendOption)this[nameof(BlendType)].GetValue<int>(); } set { this[nameof(BlendType)].SetValue<int>((int)value); } }
         public bool bResetChildOnActivation { get { return this[nameof(bResetChildOnActivation)].Flag; } set { this[nameof(bResetChildOnActivation)].Flag = value; } }
@@ -460,7 +462,7 @@ namespace SDK.Script.AnimGraphRuntimeSDK
     public class AnimNode_BlendListByEnum : AnimNode_BlendListBase
     {
         public AnimNode_BlendListByEnum(nint addr) : base(addr) { }
-        public Array<int> EnumToPoseIndex { get { return new Array<int>(this[nameof(EnumToPoseIndex)].Address); } }
+        public UArray<int> EnumToPoseIndex { get { return new UArray<int>(this[nameof(EnumToPoseIndex)].Address); } }
         public byte ActiveEnumValue { get { return this[nameof(ActiveEnumValue)].GetValue<byte>(); } set { this[nameof(ActiveEnumValue)].SetValue<byte>(value); } }
     }
     public class AnimNode_BlendListByInt : AnimNode_BlendListBase
@@ -511,7 +513,7 @@ namespace SDK.Script.AnimGraphRuntimeSDK
         public int MaxIterations { get { return this[nameof(MaxIterations)].GetValue<int>(); } set { this[nameof(MaxIterations)].SetValue<int>(value); } }
         public bool bStartFromTail { get { return this[nameof(bStartFromTail)].Flag; } set { this[nameof(bStartFromTail)].Flag = value; } }
         public bool bEnableRotationLimit { get { return this[nameof(bEnableRotationLimit)].Flag; } set { this[nameof(bEnableRotationLimit)].Flag = value; } }
-        public Array<float> RotationLimitPerJoints { get { return new Array<float>(this[nameof(RotationLimitPerJoints)].Address); } }
+        public UArray<float> RotationLimitPerJoints { get { return new UArray<float>(this[nameof(RotationLimitPerJoints)].Address); } }
     }
     public class BoneSocketTarget : Object
     {
@@ -529,8 +531,8 @@ namespace SDK.Script.AnimGraphRuntimeSDK
     {
         public AnimNode_Constraint(nint addr) : base(addr) { }
         public BoneReference BoneToModify { get { return this[nameof(BoneToModify)].As<BoneReference>(); } set { this["BoneToModify"] = value; } }
-        public Array<Constraint> ConstraintSetup { get { return new Array<Constraint>(this[nameof(ConstraintSetup)].Address); } }
-        public Array<float> ConstraintWeights { get { return new Array<float>(this[nameof(ConstraintWeights)].Address); } }
+        public UArray<Constraint> ConstraintSetup { get { return new UArray<Constraint>(this[nameof(ConstraintSetup)].Address); } }
+        public UArray<float> ConstraintWeights { get { return new UArray<float>(this[nameof(ConstraintWeights)].Address); } }
     }
     public class Constraint : Object
     {
@@ -600,22 +602,22 @@ namespace SDK.Script.AnimGraphRuntimeSDK
         public BoneReference LeftHandFK { get { return this[nameof(LeftHandFK)].As<BoneReference>(); } set { this["LeftHandFK"] = value; } }
         public BoneReference RightHandIK { get { return this[nameof(RightHandIK)].As<BoneReference>(); } set { this["RightHandIK"] = value; } }
         public BoneReference LeftHandIK { get { return this[nameof(LeftHandIK)].As<BoneReference>(); } set { this["LeftHandIK"] = value; } }
-        public Array<BoneReference> IKBonesToMove { get { return new Array<BoneReference>(this[nameof(IKBonesToMove)].Address); } }
+        public UArray<BoneReference> IKBonesToMove { get { return new UArray<BoneReference>(this[nameof(IKBonesToMove)].Address); } }
         public float HandFKWeight { get { return this[nameof(HandFKWeight)].GetValue<float>(); } set { this[nameof(HandFKWeight)].SetValue<float>(value); } }
     }
     public class AnimNode_LayeredBoneBlend : AnimNode_Base
     {
         public AnimNode_LayeredBoneBlend(nint addr) : base(addr) { }
         public PoseLink BasePose { get { return this[nameof(BasePose)].As<PoseLink>(); } set { this["BasePose"] = value; } }
-        public Array<PoseLink> BlendPoses { get { return new Array<PoseLink>(this[nameof(BlendPoses)].Address); } }
-        public Array<InputBlendPose> LayerSetup { get { return new Array<InputBlendPose>(this[nameof(LayerSetup)].Address); } }
-        public Array<float> BlendWeights { get { return new Array<float>(this[nameof(BlendWeights)].Address); } }
+        public UArray<PoseLink> BlendPoses { get { return new UArray<PoseLink>(this[nameof(BlendPoses)].Address); } }
+        public UArray<InputBlendPose> LayerSetup { get { return new UArray<InputBlendPose>(this[nameof(LayerSetup)].Address); } }
+        public UArray<float> BlendWeights { get { return new UArray<float>(this[nameof(BlendWeights)].Address); } }
         public bool bMeshSpaceRotationBlend { get { return this[nameof(bMeshSpaceRotationBlend)].Flag; } set { this[nameof(bMeshSpaceRotationBlend)].Flag = value; } }
         public bool bMeshSpaceScaleBlend { get { return this[nameof(bMeshSpaceScaleBlend)].Flag; } set { this[nameof(bMeshSpaceScaleBlend)].Flag = value; } }
         public byte CurveBlendOption { get { return this[nameof(CurveBlendOption)].GetValue<byte>(); } set { this[nameof(CurveBlendOption)].SetValue<byte>(value); } }
         public bool bBlendRootMotionBasedOnRootBone { get { return this[nameof(bBlendRootMotionBasedOnRootBone)].Flag; } set { this[nameof(bBlendRootMotionBasedOnRootBone)].Flag = value; } }
         public int LODThreshold { get { return this[nameof(LODThreshold)].GetValue<int>(); } set { this[nameof(LODThreshold)].SetValue<int>(value); } }
-        public Array<PerBoneBlendWeight> PerBoneBlendWeights { get { return new Array<PerBoneBlendWeight>(this[nameof(PerBoneBlendWeights)].Address); } }
+        public UArray<PerBoneBlendWeight> PerBoneBlendWeights { get { return new UArray<PerBoneBlendWeight>(this[nameof(PerBoneBlendWeights)].Address); } }
         public Guid SkeletonGuid { get { return this[nameof(SkeletonGuid)].As<Guid>(); } set { this["SkeletonGuid"] = value; } }
         public Guid VirtualBoneGuid { get { return this[nameof(VirtualBoneGuid)].As<Guid>(); } set { this["VirtualBoneGuid"] = value; } }
     }
@@ -624,7 +626,7 @@ namespace SDK.Script.AnimGraphRuntimeSDK
         public AnimNode_LegIK(nint addr) : base(addr) { }
         public float ReachPrecision { get { return this[nameof(ReachPrecision)].GetValue<float>(); } set { this[nameof(ReachPrecision)].SetValue<float>(value); } }
         public int MaxIterations { get { return this[nameof(MaxIterations)].GetValue<int>(); } set { this[nameof(MaxIterations)].SetValue<int>(value); } }
-        public Array<AnimLegIKDefinition> LegsDefinition { get { return new Array<AnimLegIKDefinition>(this[nameof(LegsDefinition)].Address); } }
+        public UArray<AnimLegIKDefinition> LegsDefinition { get { return new UArray<AnimLegIKDefinition>(this[nameof(LegsDefinition)].Address); } }
     }
     public class AnimLegIKDefinition : Object
     {
@@ -689,16 +691,16 @@ namespace SDK.Script.AnimGraphRuntimeSDK
     {
         public AnimNode_ModifyCurve(nint addr) : base(addr) { }
         public PoseLink SourcePose { get { return this[nameof(SourcePose)].As<PoseLink>(); } set { this["SourcePose"] = value; } }
-        public Array<float> CurveValues { get { return new Array<float>(this[nameof(CurveValues)].Address); } }
-        public Array<Object> CurveNames { get { return new Array<Object>(this[nameof(CurveNames)].Address); } }
+        public UArray<float> CurveValues { get { return new UArray<float>(this[nameof(CurveValues)].Address); } }
+        public UArray<Object> CurveNames { get { return new UArray<Object>(this[nameof(CurveNames)].Address); } }
         public float alpha { get { return this[nameof(alpha)].GetValue<float>(); } set { this[nameof(alpha)].SetValue<float>(value); } }
         public EModifyCurveApplyMode ApplyMode { get { return (EModifyCurveApplyMode)this[nameof(ApplyMode)].GetValue<int>(); } set { this[nameof(ApplyMode)].SetValue<int>((int)value); } }
     }
     public class AnimNode_MultiWayBlend : AnimNode_Base
     {
         public AnimNode_MultiWayBlend(nint addr) : base(addr) { }
-        public Array<PoseLink> Poses { get { return new Array<PoseLink>(this[nameof(Poses)].Address); } }
-        public Array<float> DesiredAlphas { get { return new Array<float>(this[nameof(DesiredAlphas)].Address); } }
+        public UArray<PoseLink> Poses { get { return new UArray<PoseLink>(this[nameof(Poses)].Address); } }
+        public UArray<float> DesiredAlphas { get { return new UArray<float>(this[nameof(DesiredAlphas)].Address); } }
         public InputScaleBias AlphaScaleBias { get { return this[nameof(AlphaScaleBias)].As<InputScaleBias>(); } set { this["AlphaScaleBias"] = value; } }
         public bool bAdditiveNode { get { return this[nameof(bAdditiveNode)].Flag; } set { this[nameof(bAdditiveNode)].Flag = value; } }
         public bool bNormalizeAlpha { get { return this[nameof(bNormalizeAlpha)].Flag; } set { this[nameof(bNormalizeAlpha)].Flag = value; } }
@@ -735,9 +737,9 @@ namespace SDK.Script.AnimGraphRuntimeSDK
     {
         public AnimNode_PoseDriver(nint addr) : base(addr) { }
         public PoseLink SourcePose { get { return this[nameof(SourcePose)].As<PoseLink>(); } set { this["SourcePose"] = value; } }
-        public Array<BoneReference> SourceBones { get { return new Array<BoneReference>(this[nameof(SourceBones)].Address); } }
-        public Array<BoneReference> OnlyDriveBones { get { return new Array<BoneReference>(this[nameof(OnlyDriveBones)].Address); } }
-        public Array<PoseDriverTarget> PoseTargets { get { return new Array<PoseDriverTarget>(this[nameof(PoseTargets)].Address); } }
+        public UArray<BoneReference> SourceBones { get { return new UArray<BoneReference>(this[nameof(SourceBones)].Address); } }
+        public UArray<BoneReference> OnlyDriveBones { get { return new UArray<BoneReference>(this[nameof(OnlyDriveBones)].Address); } }
+        public UArray<PoseDriverTarget> PoseTargets { get { return new UArray<PoseDriverTarget>(this[nameof(PoseTargets)].Address); } }
         public BoneReference EvalSpaceBone { get { return this[nameof(EvalSpaceBone)].As<BoneReference>(); } set { this["EvalSpaceBone"] = value; } }
         public RBFParams RBFParams { get { return this[nameof(RBFParams)].As<RBFParams>(); } set { this["RBFParams"] = value; } }
         public EPoseDriverSource DriveSource { get { return (EPoseDriverSource)this[nameof(DriveSource)].GetValue<int>(); } set { this[nameof(DriveSource)].SetValue<int>((int)value); } }
@@ -764,7 +766,7 @@ namespace SDK.Script.AnimGraphRuntimeSDK
     public class PoseDriverTarget : Object
     {
         public PoseDriverTarget(nint addr) : base(addr) { }
-        public Array<PoseDriverTransform> BoneTransforms { get { return new Array<PoseDriverTransform>(this[nameof(BoneTransforms)].Address); } }
+        public UArray<PoseDriverTransform> BoneTransforms { get { return new UArray<PoseDriverTransform>(this[nameof(BoneTransforms)].Address); } }
         public Rotator TargetRotation { get { return this[nameof(TargetRotation)].As<Rotator>(); } set { this["TargetRotation"] = value; } }
         public float TargetScale { get { return this[nameof(TargetScale)].GetValue<float>(); } set { this[nameof(TargetScale)].SetValue<float>(value); } }
         public ERBFDistanceMethod DistanceMethod { get { return (ERBFDistanceMethod)this[nameof(DistanceMethod)].GetValue<int>(); } set { this[nameof(DistanceMethod)].SetValue<int>((int)value); } }
@@ -790,7 +792,7 @@ namespace SDK.Script.AnimGraphRuntimeSDK
     public class AnimNode_RandomPlayer : AnimNode_Base
     {
         public AnimNode_RandomPlayer(nint addr) : base(addr) { }
-        public Array<RandomPlayerSequenceEntry> Entries { get { return new Array<RandomPlayerSequenceEntry>(this[nameof(Entries)].Address); } }
+        public UArray<RandomPlayerSequenceEntry> Entries { get { return new UArray<RandomPlayerSequenceEntry>(this[nameof(Entries)].Address); } }
         public bool bShuffleMode { get { return this[nameof(bShuffleMode)].Flag; } set { this[nameof(bShuffleMode)].Flag = value; } }
     }
     public class RandomPlayerSequenceEntry : Object
@@ -923,7 +925,7 @@ namespace SDK.Script.AnimGraphRuntimeSDK
         public ESplineBoneAxis BoneAxis { get { return (ESplineBoneAxis)this[nameof(BoneAxis)].GetValue<int>(); } set { this[nameof(BoneAxis)].SetValue<int>((int)value); } }
         public bool bAutoCalculateSpline { get { return this[nameof(bAutoCalculateSpline)].Flag; } set { this[nameof(bAutoCalculateSpline)].Flag = value; } }
         public int PointCount { get { return this[nameof(PointCount)].GetValue<int>(); } set { this[nameof(PointCount)].SetValue<int>(value); } }
-        public Array<Transform> ControlPoints { get { return new Array<Transform>(this[nameof(ControlPoints)].Address); } }
+        public UArray<Transform> ControlPoints { get { return new UArray<Transform>(this[nameof(ControlPoints)].Address); } }
         public float Roll { get { return this[nameof(Roll)].GetValue<float>(); } set { this[nameof(Roll)].SetValue<float>(value); } }
         public float TwistStart { get { return this[nameof(TwistStart)].GetValue<float>(); } set { this[nameof(TwistStart)].SetValue<float>(value); } }
         public float TwistEnd { get { return this[nameof(TwistEnd)].GetValue<float>(); } set { this[nameof(TwistEnd)].SetValue<float>(value); } }
@@ -973,9 +975,9 @@ namespace SDK.Script.AnimGraphRuntimeSDK
         public float RelaxationSpeedScale { get { return this[nameof(RelaxationSpeedScale)].GetValue<float>(); } set { this[nameof(RelaxationSpeedScale)].SetValue<float>(value); } }
         public RuntimeFloatCurve TrailRelaxationSpeed { get { return this[nameof(TrailRelaxationSpeed)].As<RuntimeFloatCurve>(); } set { this["TrailRelaxationSpeed"] = value; } }
         public InputScaleBiasClamp RelaxationSpeedScaleInputProcessor { get { return this[nameof(RelaxationSpeedScaleInputProcessor)].As<InputScaleBiasClamp>(); } set { this["RelaxationSpeedScaleInputProcessor"] = value; } }
-        public Array<RotationLimit> RotationLimits { get { return new Array<RotationLimit>(this[nameof(RotationLimits)].Address); } }
-        public Array<Vector> RotationOffsets { get { return new Array<Vector>(this[nameof(RotationOffsets)].Address); } }
-        public Array<AnimPhysPlanarLimit> PlanarLimits { get { return new Array<AnimPhysPlanarLimit>(this[nameof(PlanarLimits)].Address); } }
+        public UArray<RotationLimit> RotationLimits { get { return new UArray<RotationLimit>(this[nameof(RotationLimits)].Address); } }
+        public UArray<Vector> RotationOffsets { get { return new UArray<Vector>(this[nameof(RotationOffsets)].Address); } }
+        public UArray<AnimPhysPlanarLimit> PlanarLimits { get { return new UArray<AnimPhysPlanarLimit>(this[nameof(PlanarLimits)].Address); } }
         public float StretchLimit { get { return this[nameof(StretchLimit)].GetValue<float>(); } set { this[nameof(StretchLimit)].SetValue<float>(value); } }
         public Vector FakeVelocity { get { return this[nameof(FakeVelocity)].As<Vector>(); } set { this["FakeVelocity"] = value; } }
         public BoneReference BaseJoint { get { return this[nameof(BaseJoint)].As<BoneReference>(); } set { this["BaseJoint"] = value; } }
@@ -1039,13 +1041,13 @@ namespace SDK.Script.AnimGraphRuntimeSDK
     public class PositionHistory : Object
     {
         public PositionHistory(nint addr) : base(addr) { }
-        public Array<Vector> Positions { get { return new Array<Vector>(this[nameof(Positions)].Address); } }
+        public UArray<Vector> Positions { get { return new UArray<Vector>(this[nameof(Positions)].Address); } }
         public float range { get { return this[nameof(range)].GetValue<float>(); } set { this[nameof(range)].SetValue<float>(value); } }
     }
     public class RBFEntry : Object
     {
         public RBFEntry(nint addr) : base(addr) { }
-        public Array<float> Values { get { return new Array<float>(this[nameof(Values)].Address); } }
+        public UArray<float> Values { get { return new UArray<float>(this[nameof(Values)].Address); } }
     }
     public class RBFTarget : RBFEntry
     {

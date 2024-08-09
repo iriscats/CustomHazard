@@ -120,6 +120,50 @@ public unsafe partial class UnrealEngine
         return (ushort)obj!;
     }
 
+
+
+    public unsafe Object ReadProcessMemory2(Type type, nint addr)
+    {
+        if (type == typeof(String))
+        {
+            var stringLength = MaxReadSize;
+            List<Byte> bytes = new List<Byte>();
+            var isUtf16 = false;
+            for (var i = 0; i < 64; i++)
+            {
+                var letters8 = MemoryReadPtr(addr + i * 8);
+                var tempBytes = BitConverter.GetBytes(letters8);
+                for (int j = 0; j < 8 && stringLength > 0; j++)
+                {
+                    if (tempBytes[j] == 0 && j == 1 && bytes.Count == 1)
+                        isUtf16 = true;
+                    if (isUtf16 && j % 2 == 1)
+                        continue;
+                    if (tempBytes[j] == 0)
+                        return (Object)Encoding.UTF8.GetString(bytes.ToArray());
+                    if ((tempBytes[j] < 32 || tempBytes[j] > 126) && tempBytes[j] != '\n')
+                        return (Object)"null";
+                    bytes.Add(tempBytes[j]);
+                    stringLength--;
+                }
+            }
+            return (Object)Encoding.UTF8.GetString(bytes.ToArray());
+        }
+        var buffer = new Byte[Marshal.SizeOf(type)];
+        ReadProcessMemory(_procHandle, addr, buffer, Marshal.SizeOf(type), out Int32 bytesRead);
+        var structPtr = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+        var obj = Marshal.PtrToStructure(structPtr.AddrOfPinnedObject(), type);
+        var members = obj.GetType().GetFields();
+        structPtr.Free();
+        return obj;
+    }
+
+    public T MemoryRead<T>(nint addr)
+    {
+        return (T)ReadProcessMemory2(typeof(T), addr);
+    }
+
+
     public void WriteProcessMemory(nint addr, byte[] buffer)
     {
         WriteProcessMemory(_procHandle, addr, buffer, buffer.Length, out int bytesRead);

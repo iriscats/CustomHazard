@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -11,12 +13,12 @@ namespace SDK.Script.FSDRawInputSDK
     public class RawInputFunctionLibrary : BlueprintFunctionLibrary
     {
         public RawInputFunctionLibrary(nint addr) : base(addr) { }
-        public Array<RegisteredDeviceInfo> GetRegisteredDevices() { return Invoke<Array<RegisteredDeviceInfo>>(nameof(GetRegisteredDevices)); }
+        public UArray<RegisteredDeviceInfo> GetRegisteredDevices() { return Invoke<UArray<RegisteredDeviceInfo>>(nameof(GetRegisteredDevices)); }
     }
     public class RawInputSettings : DeveloperSettings
     {
         public RawInputSettings(nint addr) : base(addr) { }
-        public Array<RawInputDeviceConfiguration> DeviceConfigurations { get { return new Array<RawInputDeviceConfiguration>(this[nameof(DeviceConfigurations)].Address); } }
+        public UArray<RawInputDeviceConfiguration> DeviceConfigurations { get { return new UArray<RawInputDeviceConfiguration>(this[nameof(DeviceConfigurations)].Address); } }
         public bool bRegisterDefaultDevice { get { return this[nameof(bRegisterDefaultDevice)].Flag; } set { this[nameof(bRegisterDefaultDevice)].Flag = value; } }
     }
     public class RegisteredDeviceInfo : Object
@@ -32,8 +34,8 @@ namespace SDK.Script.FSDRawInputSDK
         public RawInputDeviceConfiguration(nint addr) : base(addr) { }
         public Object VendorID { get { return this[nameof(VendorID)]; } set { this[nameof(VendorID)] = value; } }
         public Object ProductID { get { return this[nameof(ProductID)]; } set { this[nameof(ProductID)] = value; } }
-        public Array<RawInputDeviceAxisProperties> AxisProperties { get { return new Array<RawInputDeviceAxisProperties>(this[nameof(AxisProperties)].Address); } }
-        public Array<RawInputDeviceButtonProperties> ButtonProperties { get { return new Array<RawInputDeviceButtonProperties>(this[nameof(ButtonProperties)].Address); } }
+        public UArray<RawInputDeviceAxisProperties> AxisProperties { get { return new UArray<RawInputDeviceAxisProperties>(this[nameof(AxisProperties)].Address); } }
+        public UArray<RawInputDeviceButtonProperties> ButtonProperties { get { return new UArray<RawInputDeviceButtonProperties>(this[nameof(ButtonProperties)].Address); } }
     }
     public class RawInputDeviceButtonProperties : Object
     {
@@ -50,7 +52,7 @@ namespace SDK.Script.FSDRawInputSDK
         public bool bInverted { get { return this[nameof(bInverted)].Flag; } set { this[nameof(bInverted)].Flag = value; } }
         public bool bGamepadStick { get { return this[nameof(bGamepadStick)].Flag; } set { this[nameof(bGamepadStick)].Flag = value; } }
         public float Offset { get { return this[nameof(Offset)].GetValue<float>(); } set { this[nameof(Offset)].SetValue<float>(value); } }
-        public Array<RawInputDeviceAxisToButtonProperties> AxisToButtonMapping { get { return new Array<RawInputDeviceAxisToButtonProperties>(this[nameof(AxisToButtonMapping)].Address); } }
+        public UArray<RawInputDeviceAxisToButtonProperties> AxisToButtonMapping { get { return new UArray<RawInputDeviceAxisToButtonProperties>(this[nameof(AxisToButtonMapping)].Address); } }
     }
     public class RawInputDeviceAxisToButtonProperties : Object
     {

@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -14,7 +16,7 @@ namespace SDK.Script.SynthesisSDK
     public class ModularSynthPresetBank : Object
     {
         public ModularSynthPresetBank(nint addr) : base(addr) { }
-        public Array<ModularSynthPresetBankEntry> Presets { get { return new Array<ModularSynthPresetBankEntry>(this[nameof(Presets)].Address); } }
+        public UArray<ModularSynthPresetBankEntry> Presets { get { return new UArray<ModularSynthPresetBankEntry>(this[nameof(Presets)].Address); } }
     }
     public class ModularSynthLibrary : BlueprintFunctionLibrary
     {
@@ -83,7 +85,7 @@ namespace SDK.Script.SynthesisSDK
         public void SetAttackTime(float AttackTimeMsec) { Invoke(nameof(SetAttackTime), AttackTimeMsec); }
         public void NoteOn(float Note, int Velocity, float Duration) { Invoke(nameof(NoteOn), Note, Velocity, Duration); }
         public void NoteOff(float Note, bool bAllNotesOff, bool bKillAllNotes) { Invoke(nameof(NoteOff), Note, bAllNotesOff, bKillAllNotes); }
-        public PatchId CreatePatch(ESynth1PatchSource PatchSource, Array<Synth1PatchCable> PatchCables, bool bEnableByDefault) { return Invoke<PatchId>(nameof(CreatePatch), PatchSource, PatchCables, bEnableByDefault); }
+        public PatchId CreatePatch(ESynth1PatchSource PatchSource, UArray<Synth1PatchCable> PatchCables, bool bEnableByDefault) { return Invoke<PatchId>(nameof(CreatePatch), PatchSource, PatchCables, bEnableByDefault); }
     }
     public class SourceEffectBitCrusherPreset : SoundEffectSourcePreset
     {
@@ -197,12 +199,12 @@ namespace SDK.Script.SynthesisSDK
     public class AudioImpulseResponse : Object
     {
         public AudioImpulseResponse(nint addr) : base(addr) { }
-        public Array<float> ImpulseResponse { get { return new Array<float>(this[nameof(ImpulseResponse)].Address); } }
+        public UArray<float> ImpulseResponse { get { return new UArray<float>(this[nameof(ImpulseResponse)].Address); } }
         public int NumChannels { get { return this[nameof(NumChannels)].GetValue<int>(); } set { this[nameof(NumChannels)].SetValue<int>(value); } }
         public int SampleRate { get { return this[nameof(SampleRate)].GetValue<int>(); } set { this[nameof(SampleRate)].SetValue<int>(value); } }
         public float NormalizationVolumeDb { get { return this[nameof(NormalizationVolumeDb)].GetValue<float>(); } set { this[nameof(NormalizationVolumeDb)].SetValue<float>(value); } }
         public bool bTrueStereo { get { return this[nameof(bTrueStereo)].Flag; } set { this[nameof(bTrueStereo)].Flag = value; } }
-        public Array<float> IRData { get { return new Array<float>(this[nameof(IRData)].Address); } }
+        public UArray<float> IRData { get { return new UArray<float>(this[nameof(IRData)].Address); } }
     }
     public class SubmixEffectConvolutionReverbPreset : SoundEffectSubmixPreset
     {
@@ -262,7 +264,7 @@ namespace SDK.Script.SynthesisSDK
         public void SetSettings(SubmixEffectTapDelaySettings InSettings) { Invoke(nameof(SetSettings), InSettings); }
         public void SetInterpolationTime(float Time) { Invoke(nameof(SetInterpolationTime), Time); }
         public void RemoveTap(int TapId) { Invoke(nameof(RemoveTap), TapId); }
-        public void GetTapIds(Array<int> TapIds) { Invoke(nameof(GetTapIds), TapIds); }
+        public void GetTapIds(UArray<int> TapIds) { Invoke(nameof(GetTapIds), TapIds); }
         public void GetTap(int TapId, TapDelayInfo TapInfo) { Invoke(nameof(GetTap), TapId, TapInfo); }
         public float GetMaxDelayInMilliseconds() { return Invoke<float>(nameof(GetMaxDelayInMilliseconds)); }
         public void AddTap(int TapId) { Invoke(nameof(AddTap), TapId); }
@@ -325,7 +327,7 @@ namespace SDK.Script.SynthesisSDK
         public bool bLockKeyframesToGridBool { get { return this[nameof(bLockKeyframesToGridBool)].Flag; } set { this[nameof(bLockKeyframesToGridBool)].Flag = value; } }
         public int LockKeyframesToGrid { get { return this[nameof(LockKeyframesToGrid)].GetValue<int>(); } set { this[nameof(LockKeyframesToGrid)].SetValue<int>(value); } }
         public int WaveTableResolution { get { return this[nameof(WaveTableResolution)].GetValue<int>(); } set { this[nameof(WaveTableResolution)].SetValue<int>(value); } }
-        public Array<RuntimeFloatCurve> WaveTable { get { return new Array<RuntimeFloatCurve>(this[nameof(WaveTable)].Address); } }
+        public UArray<RuntimeFloatCurve> WaveTable { get { return new UArray<RuntimeFloatCurve>(this[nameof(WaveTable)].Address); } }
         public bool bNormalizeWaveTables { get { return this[nameof(bNormalizeWaveTables)].Flag; } set { this[nameof(bNormalizeWaveTables)].Flag = value; } }
     }
     public class SynthComponentMonoWaveTable : SynthComponent
@@ -376,7 +378,7 @@ namespace SDK.Script.SynthesisSDK
         public void NoteOff(float InMidiNote) { Invoke(nameof(NoteOff), InMidiNote); }
         public int GetNumTableEntries() { return Invoke<int>(nameof(GetNumTableEntries)); }
         public int GetMaxTableIndex() { return Invoke<int>(nameof(GetMaxTableIndex)); }
-        public Array<float> GetKeyFrameValuesForTable(float TableIndex) { return Invoke<Array<float>>(nameof(GetKeyFrameValuesForTable), TableIndex); }
+        public UArray<float> GetKeyFrameValuesForTable(float TableIndex) { return Invoke<UArray<float>>(nameof(GetKeyFrameValuesForTable), TableIndex); }
         public float GetCurveTangent(int TableIndex) { return Invoke<float>(nameof(GetCurveTangent), TableIndex); }
     }
     public class SynthComponentToneGenerator : SynthComponent
@@ -811,13 +813,13 @@ namespace SDK.Script.SynthesisSDK
         public float ChorusDepth { get { return this[nameof(ChorusDepth)].GetValue<float>(); } set { this[nameof(ChorusDepth)].SetValue<float>(value); } }
         public float ChorusFeedback { get { return this[nameof(ChorusFeedback)].GetValue<float>(); } set { this[nameof(ChorusFeedback)].SetValue<float>(value); } }
         public float ChorusFrequency { get { return this[nameof(ChorusFrequency)].GetValue<float>(); } set { this[nameof(ChorusFrequency)].SetValue<float>(value); } }
-        public Array<EpicSynth1Patch> Patches { get { return new Array<EpicSynth1Patch>(this[nameof(Patches)].Address); } }
+        public UArray<EpicSynth1Patch> Patches { get { return new UArray<EpicSynth1Patch>(this[nameof(Patches)].Address); } }
     }
     public class EpicSynth1Patch : Object
     {
         public EpicSynth1Patch(nint addr) : base(addr) { }
         public ESynth1PatchSource PatchSource { get { return (ESynth1PatchSource)this[nameof(PatchSource)].GetValue<int>(); } set { this[nameof(PatchSource)].SetValue<int>((int)value); } }
-        public Array<Synth1PatchCable> PatchCables { get { return new Array<Synth1PatchCable>(this[nameof(PatchCables)].Address); } }
+        public UArray<Synth1PatchCable> PatchCables { get { return new UArray<Synth1PatchCable>(this[nameof(PatchCables)].Address); } }
     }
     public class Synth1PatchCable : Object
     {
@@ -897,7 +899,7 @@ namespace SDK.Script.SynthesisSDK
     public class SourceEffectEQSettings : Object
     {
         public SourceEffectEQSettings(nint addr) : base(addr) { }
-        public Array<SourceEffectEQBand> EQBands { get { return new Array<SourceEffectEQBand>(this[nameof(EQBands)].Address); } }
+        public UArray<SourceEffectEQBand> EQBands { get { return new UArray<SourceEffectEQBand>(this[nameof(EQBands)].Address); } }
     }
     public class SourceEffectEQBand : Object
     {
@@ -914,7 +916,7 @@ namespace SDK.Script.SynthesisSDK
         public ESourceEffectFilterType FilterType { get { return (ESourceEffectFilterType)this[nameof(FilterType)].GetValue<int>(); } set { this[nameof(FilterType)].SetValue<int>((int)value); } }
         public float CutoffFrequency { get { return this[nameof(CutoffFrequency)].GetValue<float>(); } set { this[nameof(CutoffFrequency)].SetValue<float>(value); } }
         public float FilterQ { get { return this[nameof(FilterQ)].GetValue<float>(); } set { this[nameof(FilterQ)].SetValue<float>(value); } }
-        public Array<SourceEffectFilterAudioBusModulationSettings> AudioBusModulation { get { return new Array<SourceEffectFilterAudioBusModulationSettings>(this[nameof(AudioBusModulation)].Address); } }
+        public UArray<SourceEffectFilterAudioBusModulationSettings> AudioBusModulation { get { return new UArray<SourceEffectFilterAudioBusModulationSettings>(this[nameof(AudioBusModulation)].Address); } }
     }
     public class SourceEffectFilterAudioBusModulationSettings : Object
     {
@@ -1045,7 +1047,7 @@ namespace SDK.Script.SynthesisSDK
         public bool bLinkChannels { get { return this[nameof(bLinkChannels)].Flag; } set { this[nameof(bLinkChannels)].Flag = value; } }
         public bool bAnalogMode { get { return this[nameof(bAnalogMode)].Flag; } set { this[nameof(bAnalogMode)].Flag = value; } }
         public bool bFourPole { get { return this[nameof(bFourPole)].Flag; } set { this[nameof(bFourPole)].Flag = value; } }
-        public Array<DynamicsBandSettings> Bands { get { return new Array<DynamicsBandSettings>(this[nameof(Bands)].Address); } }
+        public UArray<DynamicsBandSettings> Bands { get { return new UArray<DynamicsBandSettings>(this[nameof(Bands)].Address); } }
     }
     public class DynamicsBandSettings : Object
     {
@@ -1078,7 +1080,7 @@ namespace SDK.Script.SynthesisSDK
         public SubmixEffectTapDelaySettings(nint addr) : base(addr) { }
         public float MaximumDelayLength { get { return this[nameof(MaximumDelayLength)].GetValue<float>(); } set { this[nameof(MaximumDelayLength)].SetValue<float>(value); } }
         public float InterpolationTime { get { return this[nameof(InterpolationTime)].GetValue<float>(); } set { this[nameof(InterpolationTime)].SetValue<float>(value); } }
-        public Array<TapDelayInfo> Taps { get { return new Array<TapDelayInfo>(this[nameof(Taps)].Address); } }
+        public UArray<TapDelayInfo> Taps { get { return new UArray<TapDelayInfo>(this[nameof(Taps)].Address); } }
     }
     public class TapDelayInfo : Object
     {

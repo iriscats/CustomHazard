@@ -1,5 +1,6 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -35,13 +36,13 @@ namespace SDK.Script.ActorSequenceSDK
     public class ActorSequenceObjectReferenceMap : Object
     {
         public ActorSequenceObjectReferenceMap(nint addr) : base(addr) { }
-        public Array<Guid> BindingIds { get { return new Array<Guid>(this[nameof(BindingIds)].Address); } }
-        public Array<ActorSequenceObjectReferences> References { get { return new Array<ActorSequenceObjectReferences>(this[nameof(References)].Address); } }
+        public UArray<Guid> BindingIds { get { return new UArray<Guid>(this[nameof(BindingIds)].Address); } }
+        public UArray<ActorSequenceObjectReferences> References { get { return new UArray<ActorSequenceObjectReferences>(this[nameof(References)].Address); } }
     }
     public class ActorSequenceObjectReferences : Object
     {
         public ActorSequenceObjectReferences(nint addr) : base(addr) { }
-        public Array<ActorSequenceObjectReference> Array { get { return new Array<ActorSequenceObjectReference>(this[nameof(Array)].Address); } }
+        public UArray<ActorSequenceObjectReference> Array { get { return new UArray<ActorSequenceObjectReference>(this[nameof(Array)].Address); } }
     }
     public class ActorSequenceObjectReference : Object
     {

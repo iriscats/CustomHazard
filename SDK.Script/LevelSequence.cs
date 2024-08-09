@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -19,7 +21,7 @@ namespace SDK.Script.LevelSequenceSDK
         public LevelSequenceBindingReferences BindingReferences { get { return this[nameof(BindingReferences)].As<LevelSequenceBindingReferences>(); } set { this["BindingReferences"] = value; } }
         public Object PossessedObjects { get { return this[nameof(PossessedObjects)]; } set { this[nameof(PossessedObjects)] = value; } }
         public Object DirectorClass { get { return this[nameof(DirectorClass)]; } set { this[nameof(DirectorClass)] = value; } }
-        public Array<AssetUserData> AssetUserData { get { return new Array<AssetUserData>(this[nameof(AssetUserData)].Address); } }
+        public UArray<AssetUserData> AssetUserData { get { return new UArray<AssetUserData>(this[nameof(AssetUserData)].Address); } }
         public void RemoveMetaDataByClass(Object InClass) { Invoke(nameof(RemoveMetaDataByClass), InClass); }
         public Object FindOrAddMetaDataByClass(Object InClass) { return Invoke<Object>(nameof(FindOrAddMetaDataByClass), InClass); }
         public Object FindMetaDataByClass(Object InClass) { return Invoke<Object>(nameof(FindMetaDataByClass), InClass); }
@@ -71,8 +73,8 @@ namespace SDK.Script.LevelSequenceSDK
         public void ShowBurnin() { Invoke(nameof(ShowBurnin)); }
         public void SetSequence(LevelSequence InSequence) { Invoke(nameof(SetSequence), InSequence); }
         public void SetReplicatePlayback(bool ReplicatePlayback) { Invoke(nameof(SetReplicatePlayback), ReplicatePlayback); }
-        public void SetBindingByTag(Object BindingTag, Array<Actor> Actors, bool bAllowBindingsFromAsset) { Invoke(nameof(SetBindingByTag), BindingTag, Actors, bAllowBindingsFromAsset); }
-        public void SetBinding(MovieSceneObjectBindingID Binding, Array<Actor> Actors, bool bAllowBindingsFromAsset) { Invoke(nameof(SetBinding), Binding, Actors, bAllowBindingsFromAsset); }
+        public void SetBindingByTag(Object BindingTag, UArray<Actor> Actors, bool bAllowBindingsFromAsset) { Invoke(nameof(SetBindingByTag), BindingTag, Actors, bAllowBindingsFromAsset); }
+        public void SetBinding(MovieSceneObjectBindingID Binding, UArray<Actor> Actors, bool bAllowBindingsFromAsset) { Invoke(nameof(SetBinding), Binding, Actors, bAllowBindingsFromAsset); }
         public void ResetBindings() { Invoke(nameof(ResetBindings)); }
         public void ResetBinding(MovieSceneObjectBindingID Binding) { Invoke(nameof(ResetBinding), Binding); }
         public void RemoveBindingByTag(Object Tag, Actor Actor) { Invoke(nameof(RemoveBindingByTag), Tag, Actor); }
@@ -82,7 +84,7 @@ namespace SDK.Script.LevelSequenceSDK
         public void HideBurnin() { Invoke(nameof(HideBurnin)); }
         public LevelSequencePlayer GetSequencePlayer() { return Invoke<LevelSequencePlayer>(nameof(GetSequencePlayer)); }
         public LevelSequence GetSequence() { return Invoke<LevelSequence>(nameof(GetSequence)); }
-        public Array<MovieSceneObjectBindingID> FindNamedBindings(Object Tag) { return Invoke<Array<MovieSceneObjectBindingID>>(nameof(FindNamedBindings), Tag); }
+        public UArray<MovieSceneObjectBindingID> FindNamedBindings(Object Tag) { return Invoke<UArray<MovieSceneObjectBindingID>>(nameof(FindNamedBindings), Tag); }
         public MovieSceneObjectBindingID FindNamedBinding(Object Tag) { return Invoke<MovieSceneObjectBindingID>(nameof(FindNamedBinding), Tag); }
         public void AddBindingByTag(Object BindingTag, Actor Actor, bool bAllowBindingsFromAsset) { Invoke(nameof(AddBindingByTag), BindingTag, Actor, bAllowBindingsFromAsset); }
         public void AddBinding(MovieSceneObjectBindingID Binding, Actor Actor, bool bAllowBindingsFromAsset) { Invoke(nameof(AddBinding), Binding, Actor, bAllowBindingsFromAsset); }
@@ -90,7 +92,7 @@ namespace SDK.Script.LevelSequenceSDK
     public class LevelSequenceAnimSequenceLink : AssetUserData
     {
         public LevelSequenceAnimSequenceLink(nint addr) : base(addr) { }
-        public Array<LevelSequenceAnimSequenceLinkItem> AnimSequenceLinks { get { return new Array<LevelSequenceAnimSequenceLinkItem>(this[nameof(AnimSequenceLinks)].Address); } }
+        public UArray<LevelSequenceAnimSequenceLinkItem> AnimSequenceLinks { get { return new UArray<LevelSequenceAnimSequenceLinkItem>(this[nameof(AnimSequenceLinks)].Address); } }
     }
     public class LevelSequenceBurnIn : UserWidget
     {
@@ -108,9 +110,9 @@ namespace SDK.Script.LevelSequenceSDK
         public int MovieScenePlayerIndex { get { return this[nameof(MovieScenePlayerIndex)].GetValue<int>(); } set { this[nameof(MovieScenePlayerIndex)].SetValue<int>(value); } }
         public void OnCreated() { Invoke(nameof(OnCreated)); }
         public MovieSceneSequence GetSequence() { return Invoke<MovieSceneSequence>(nameof(GetSequence)); }
-        public Array<Object> GetBoundObjects(MovieSceneObjectBindingID ObjectBinding) { return Invoke<Array<Object>>(nameof(GetBoundObjects), ObjectBinding); }
+        public UArray<Object> GetBoundObjects(MovieSceneObjectBindingID ObjectBinding) { return Invoke<UArray<Object>>(nameof(GetBoundObjects), ObjectBinding); }
         public Object GetBoundObject(MovieSceneObjectBindingID ObjectBinding) { return Invoke<Object>(nameof(GetBoundObject), ObjectBinding); }
-        public Array<Actor> GetBoundActors(MovieSceneObjectBindingID ObjectBinding) { return Invoke<Array<Actor>>(nameof(GetBoundActors), ObjectBinding); }
+        public UArray<Actor> GetBoundActors(MovieSceneObjectBindingID ObjectBinding) { return Invoke<UArray<Actor>>(nameof(GetBoundActors), ObjectBinding); }
         public Actor GetBoundActor(MovieSceneObjectBindingID ObjectBinding) { return Invoke<Actor>(nameof(GetBoundActor), ObjectBinding); }
     }
     public class LegacyLevelSequenceDirectorBlueprint : Blueprint
@@ -172,7 +174,7 @@ namespace SDK.Script.LevelSequenceSDK
     public class LevelSequenceBindingReferenceArray : Object
     {
         public LevelSequenceBindingReferenceArray(nint addr) : base(addr) { }
-        public Array<LevelSequenceBindingReference> References { get { return new Array<LevelSequenceBindingReference>(this[nameof(References)].Address); } }
+        public UArray<LevelSequenceBindingReference> References { get { return new UArray<LevelSequenceBindingReference>(this[nameof(References)].Address); } }
     }
     public class LevelSequenceBindingReference : Object
     {

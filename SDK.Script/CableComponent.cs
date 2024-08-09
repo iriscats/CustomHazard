@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -37,7 +39,7 @@ namespace SDK.Script.CableComponentSDK
         public float TileMaterial { get { return this[nameof(TileMaterial)].GetValue<float>(); } set { this[nameof(TileMaterial)].SetValue<float>(value); } }
         public void SetAttachEndToComponent(SceneComponent Component, Object SocketName) { Invoke(nameof(SetAttachEndToComponent), Component, SocketName); }
         public void SetAttachEndTo(Actor Actor, Object ComponentProperty, Object SocketName) { Invoke(nameof(SetAttachEndTo), Actor, ComponentProperty, SocketName); }
-        public void GetCableParticleLocations(Array<Vector> Locations) { Invoke(nameof(GetCableParticleLocations), Locations); }
+        public void GetCableParticleLocations(UArray<Vector> Locations) { Invoke(nameof(GetCableParticleLocations), Locations); }
         public SceneComponent GetAttachedComponent() { return Invoke<SceneComponent>(nameof(GetAttachedComponent)); }
         public Actor GetAttachedActor() { return Invoke<Actor>(nameof(GetAttachedActor)); }
     }

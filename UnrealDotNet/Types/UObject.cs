@@ -337,4 +337,14 @@ public partial class UObject
         obj._classAddress = _classAddress;
         return obj;
     }
+
+    public T GetValue<T>()
+    {
+        return _unrealEngine.MemoryRead<T>(Address);
+    }
+    public void SetValue<T>(T value)
+    {
+        _unrealEngine.WriteProcessMemory<T>(Address, value);
+    }
+
 }

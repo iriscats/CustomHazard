@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -44,9 +46,9 @@ namespace SDK.Script.FoliageSDK
         public float RandomPitchAngle { get { return this[nameof(RandomPitchAngle)].GetValue<float>(); } set { this[nameof(RandomPitchAngle)].SetValue<float>(value); } }
         public FloatInterval GroundSlopeAngle { get { return this[nameof(GroundSlopeAngle)].As<FloatInterval>(); } set { this["GroundSlopeAngle"] = value; } }
         public FloatInterval Height { get { return this[nameof(Height)].As<FloatInterval>(); } set { this["Height"] = value; } }
-        public Array<Object> LandscapeLayers { get { return new Array<Object>(this[nameof(LandscapeLayers)].Address); } }
+        public UArray<Object> LandscapeLayers { get { return new UArray<Object>(this[nameof(LandscapeLayers)].Address); } }
         public float MinimumLayerWeight { get { return this[nameof(MinimumLayerWeight)].GetValue<float>(); } set { this[nameof(MinimumLayerWeight)].SetValue<float>(value); } }
-        public Array<Object> ExclusionLandscapeLayers { get { return new Array<Object>(this[nameof(ExclusionLandscapeLayers)].Address); } }
+        public UArray<Object> ExclusionLandscapeLayers { get { return new UArray<Object>(this[nameof(ExclusionLandscapeLayers)].Address); } }
         public float MinimumExclusionLayerWeight { get { return this[nameof(MinimumExclusionLayerWeight)].GetValue<float>(); } set { this[nameof(MinimumExclusionLayerWeight)].SetValue<float>(value); } }
         public Object LandscapeLayer { get { return this[nameof(LandscapeLayer)]; } set { this[nameof(LandscapeLayer)] = value; } }
         public bool CollisionWithWorld { get { return this[nameof(CollisionWithWorld)].Flag; } set { this[nameof(CollisionWithWorld)].Flag = value; } }
@@ -110,7 +112,7 @@ namespace SDK.Script.FoliageSDK
         public bool ReapplyVertexColorMask { get { return this[nameof(ReapplyVertexColorMask)].Flag; } set { this[nameof(ReapplyVertexColorMask)].Flag = value; } }
         public bool bEnableDensityScaling { get { return this[nameof(bEnableDensityScaling)].Flag; } set { this[nameof(bEnableDensityScaling)].Flag = value; } }
         public bool bEnableDiscardOnLoad { get { return this[nameof(bEnableDiscardOnLoad)].Flag; } set { this[nameof(bEnableDiscardOnLoad)].Flag = value; } }
-        public Array<RuntimeVirtualTexture> RuntimeVirtualTextures { get { return new Array<RuntimeVirtualTexture>(this[nameof(RuntimeVirtualTextures)].Address); } }
+        public UArray<RuntimeVirtualTexture> RuntimeVirtualTextures { get { return new UArray<RuntimeVirtualTexture>(this[nameof(RuntimeVirtualTextures)].Address); } }
         public int VirtualTextureCullMips { get { return this[nameof(VirtualTextureCullMips)].GetValue<int>(); } set { this[nameof(VirtualTextureCullMips)].SetValue<int>(value); } }
         public ERuntimeVirtualTextureMainPassType VirtualTextureRenderPassType { get { return (ERuntimeVirtualTextureMainPassType)this[nameof(VirtualTextureRenderPassType)].GetValue<int>(); } set { this[nameof(VirtualTextureRenderPassType)].SetValue<int>((int)value); } }
     }
@@ -124,7 +126,7 @@ namespace SDK.Script.FoliageSDK
     {
         public FoliageType_InstancedStaticMesh(nint addr) : base(addr) { }
         public StaticMesh Mesh { get { return this[nameof(Mesh)].As<StaticMesh>(); } set { this["Mesh"] = value; } }
-        public Array<MaterialInterface> OverrideMaterials { get { return new Array<MaterialInterface>(this[nameof(OverrideMaterials)].Address); } }
+        public UArray<MaterialInterface> OverrideMaterials { get { return new UArray<MaterialInterface>(this[nameof(OverrideMaterials)].Address); } }
         public Object ComponentClass { get { return this[nameof(ComponentClass)]; } set { this[nameof(ComponentClass)] = value; } }
     }
     public class InstancedFoliageActor : Actor
@@ -174,14 +176,14 @@ namespace SDK.Script.FoliageSDK
         public float TileSize { get { return this[nameof(TileSize)].GetValue<float>(); } set { this[nameof(TileSize)].SetValue<float>(value); } }
         public int NumUniqueTiles { get { return this[nameof(NumUniqueTiles)].GetValue<int>(); } set { this[nameof(NumUniqueTiles)].SetValue<int>(value); } }
         public float MinimumQuadTreeSize { get { return this[nameof(MinimumQuadTreeSize)].GetValue<float>(); } set { this[nameof(MinimumQuadTreeSize)].SetValue<float>(value); } }
-        public Array<FoliageTypeObject> FoliageTypes { get { return new Array<FoliageTypeObject>(this[nameof(FoliageTypes)].Address); } }
+        public UArray<FoliageTypeObject> FoliageTypes { get { return new UArray<FoliageTypeObject>(this[nameof(FoliageTypes)].Address); } }
         public void Simulate(int NumSteps) { Invoke(nameof(Simulate), NumSteps); }
     }
     public class ProceduralFoliageTile : Object
     {
         public ProceduralFoliageTile(nint addr) : base(addr) { }
         public ProceduralFoliageSpawner FoliageSpawner { get { return this[nameof(FoliageSpawner)].As<ProceduralFoliageSpawner>(); } set { this["FoliageSpawner"] = value; } }
-        public Array<ProceduralFoliageInstance> InstancesArray { get { return new Array<ProceduralFoliageInstance>(this[nameof(InstancesArray)].Address); } }
+        public UArray<ProceduralFoliageInstance> InstancesArray { get { return new UArray<ProceduralFoliageInstance>(this[nameof(InstancesArray)].Address); } }
     }
     public class ProceduralFoliageVolume : Volume
     {

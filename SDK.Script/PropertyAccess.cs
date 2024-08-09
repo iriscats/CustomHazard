@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -68,14 +70,14 @@ namespace SDK.Script.PropertyAccessSDK
     public class PropertyAccessLibrary : Object
     {
         public PropertyAccessLibrary(nint addr) : base(addr) { }
-        public Array<PropertyAccessSegment> PathSegments { get { return new Array<PropertyAccessSegment>(this[nameof(PathSegments)].Address); } }
-        public Array<PropertyAccessPath> SrcPaths { get { return new Array<PropertyAccessPath>(this[nameof(SrcPaths)].Address); } }
-        public Array<PropertyAccessPath> DestPaths { get { return new Array<PropertyAccessPath>(this[nameof(DestPaths)].Address); } }
+        public UArray<PropertyAccessSegment> PathSegments { get { return new UArray<PropertyAccessSegment>(this[nameof(PathSegments)].Address); } }
+        public UArray<PropertyAccessPath> SrcPaths { get { return new UArray<PropertyAccessPath>(this[nameof(SrcPaths)].Address); } }
+        public UArray<PropertyAccessPath> DestPaths { get { return new UArray<PropertyAccessPath>(this[nameof(DestPaths)].Address); } }
         public PropertyAccessCopyBatch CopyBatches { get { return this[nameof(CopyBatches)].As<PropertyAccessCopyBatch>(); } set { this["CopyBatches"] = value; } }
-        public Array<PropertyAccessIndirectionChain> SrcAccesses { get { return new Array<PropertyAccessIndirectionChain>(this[nameof(SrcAccesses)].Address); } }
-        public Array<PropertyAccessIndirectionChain> DestAccesses { get { return new Array<PropertyAccessIndirectionChain>(this[nameof(DestAccesses)].Address); } }
-        public Array<PropertyAccessIndirection> Indirections { get { return new Array<PropertyAccessIndirection>(this[nameof(Indirections)].Address); } }
-        public Array<int> EventAccessIndices { get { return new Array<int>(this[nameof(EventAccessIndices)].Address); } }
+        public UArray<PropertyAccessIndirectionChain> SrcAccesses { get { return new UArray<PropertyAccessIndirectionChain>(this[nameof(SrcAccesses)].Address); } }
+        public UArray<PropertyAccessIndirectionChain> DestAccesses { get { return new UArray<PropertyAccessIndirectionChain>(this[nameof(DestAccesses)].Address); } }
+        public UArray<PropertyAccessIndirection> Indirections { get { return new UArray<PropertyAccessIndirection>(this[nameof(Indirections)].Address); } }
+        public UArray<int> EventAccessIndices { get { return new UArray<int>(this[nameof(EventAccessIndices)].Address); } }
     }
     public class PropertyAccessIndirection : Object
     {
@@ -100,7 +102,7 @@ namespace SDK.Script.PropertyAccessSDK
     public class PropertyAccessCopyBatch : Object
     {
         public PropertyAccessCopyBatch(nint addr) : base(addr) { }
-        public Array<PropertyAccessCopy> Copies { get { return new Array<PropertyAccessCopy>(this[nameof(Copies)].Address); } }
+        public UArray<PropertyAccessCopy> Copies { get { return new UArray<PropertyAccessCopy>(this[nameof(Copies)].Address); } }
     }
     public class PropertyAccessCopy : Object
     {

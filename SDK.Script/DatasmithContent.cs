@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -182,7 +184,7 @@ namespace SDK.Script.DatasmithContentSDK
     {
         public DatasmithContentBlueprintLibrary(nint addr) : base(addr) { }
         public Object GetDatasmithUserDataValueForKey(Object Object, Object Key) { return Invoke<Object>(nameof(GetDatasmithUserDataValueForKey), Object, Key); }
-        public void GetDatasmithUserDataKeysAndValuesForValue(Object Object, Object StringToMatch, Array<Object> OutKeys, Array<Object> OutValues) { Invoke(nameof(GetDatasmithUserDataKeysAndValuesForValue), Object, StringToMatch, OutKeys, OutValues); }
+        public void GetDatasmithUserDataKeysAndValuesForValue(Object Object, Object StringToMatch, UArray<Object> OutKeys, UArray<Object> OutValues) { Invoke(nameof(GetDatasmithUserDataKeysAndValuesForValue), Object, StringToMatch, OutKeys, OutValues); }
         public DatasmithAssetUserData GetDatasmithUserData(Object Object) { return Invoke<DatasmithAssetUserData>(nameof(GetDatasmithUserData), Object); }
     }
     public class DatasmithCustomActionBase : Object
@@ -199,7 +201,7 @@ namespace SDK.Script.DatasmithContentSDK
     public class DatasmithImportedSequencesActor : Actor
     {
         public DatasmithImportedSequencesActor(nint addr) : base(addr) { }
-        public Array<LevelSequence> ImportedSequences { get { return new Array<LevelSequence>(this[nameof(ImportedSequences)].Address); } }
+        public UArray<LevelSequence> ImportedSequences { get { return new UArray<LevelSequence>(this[nameof(ImportedSequences)].Address); } }
         public void PlayLevelSequence(LevelSequence SequenceToPlay) { Invoke(nameof(PlayLevelSequence), SequenceToPlay); }
     }
     public class DatasmithOptionsBase : Object
@@ -307,7 +309,7 @@ namespace SDK.Script.DatasmithContentSDK
     {
         public DatasmithStaticMeshComponentTemplate(nint addr) : base(addr) { }
         public StaticMesh StaticMesh { get { return this[nameof(StaticMesh)].As<StaticMesh>(); } set { this["StaticMesh"] = value; } }
-        public Array<MaterialInterface> OverrideMaterials { get { return new Array<MaterialInterface>(this[nameof(OverrideMaterials)].Address); } }
+        public UArray<MaterialInterface> OverrideMaterials { get { return new UArray<MaterialInterface>(this[nameof(OverrideMaterials)].Address); } }
     }
     public class DatasmithStaticMeshTemplate : DatasmithObjectTemplate
     {
@@ -315,8 +317,8 @@ namespace SDK.Script.DatasmithContentSDK
         public DatasmithMeshSectionInfoMapTemplate SectionInfoMap { get { return this[nameof(SectionInfoMap)].As<DatasmithMeshSectionInfoMapTemplate>(); } set { this["SectionInfoMap"] = value; } }
         public int LightMapCoordinateIndex { get { return this[nameof(LightMapCoordinateIndex)].GetValue<int>(); } set { this[nameof(LightMapCoordinateIndex)].SetValue<int>(value); } }
         public int LightMapResolution { get { return this[nameof(LightMapResolution)].GetValue<int>(); } set { this[nameof(LightMapResolution)].SetValue<int>(value); } }
-        public Array<DatasmithMeshBuildSettingsTemplate> BuildSettings { get { return new Array<DatasmithMeshBuildSettingsTemplate>(this[nameof(BuildSettings)].Address); } }
-        public Array<DatasmithStaticMaterialTemplate> StaticMaterials { get { return new Array<DatasmithStaticMaterialTemplate>(this[nameof(StaticMaterials)].Address); } }
+        public UArray<DatasmithMeshBuildSettingsTemplate> BuildSettings { get { return new UArray<DatasmithMeshBuildSettingsTemplate>(this[nameof(BuildSettings)].Address); } }
+        public UArray<DatasmithStaticMaterialTemplate> StaticMaterials { get { return new UArray<DatasmithStaticMaterialTemplate>(this[nameof(StaticMaterials)].Address); } }
     }
     public enum EDatasmithAreaLightActorType : int
     {

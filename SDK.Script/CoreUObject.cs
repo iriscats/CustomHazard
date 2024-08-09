@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -412,7 +414,7 @@ namespace SDK.Script.CoreUObjectSDK
     public class InterpCurveFloat : Object
     {
         public InterpCurveFloat(nint addr) : base(addr) { }
-        public Array<InterpCurvePointFloat> Points { get { return new Array<InterpCurvePointFloat>(this[nameof(Points)].Address); } }
+        public UArray<InterpCurvePointFloat> Points { get { return new UArray<InterpCurvePointFloat>(this[nameof(Points)].Address); } }
         public bool bIsLooped { get { return this[nameof(bIsLooped)].Flag; } set { this[nameof(bIsLooped)].Flag = value; } }
         public float LoopKeyOffset { get { return this[nameof(LoopKeyOffset)].GetValue<float>(); } set { this[nameof(LoopKeyOffset)].SetValue<float>(value); } }
     }
@@ -428,7 +430,7 @@ namespace SDK.Script.CoreUObjectSDK
     public class InterpCurveVector2D : Object
     {
         public InterpCurveVector2D(nint addr) : base(addr) { }
-        public Array<InterpCurvePointVector2D> Points { get { return new Array<InterpCurvePointVector2D>(this[nameof(Points)].Address); } }
+        public UArray<InterpCurvePointVector2D> Points { get { return new UArray<InterpCurvePointVector2D>(this[nameof(Points)].Address); } }
         public bool bIsLooped { get { return this[nameof(bIsLooped)].Flag; } set { this[nameof(bIsLooped)].Flag = value; } }
         public float LoopKeyOffset { get { return this[nameof(LoopKeyOffset)].GetValue<float>(); } set { this[nameof(LoopKeyOffset)].SetValue<float>(value); } }
     }
@@ -444,7 +446,7 @@ namespace SDK.Script.CoreUObjectSDK
     public class InterpCurveVector : Object
     {
         public InterpCurveVector(nint addr) : base(addr) { }
-        public Array<InterpCurvePointVector> Points { get { return new Array<InterpCurvePointVector>(this[nameof(Points)].Address); } }
+        public UArray<InterpCurvePointVector> Points { get { return new UArray<InterpCurvePointVector>(this[nameof(Points)].Address); } }
         public bool bIsLooped { get { return this[nameof(bIsLooped)].Flag; } set { this[nameof(bIsLooped)].Flag = value; } }
         public float LoopKeyOffset { get { return this[nameof(LoopKeyOffset)].GetValue<float>(); } set { this[nameof(LoopKeyOffset)].SetValue<float>(value); } }
     }
@@ -460,7 +462,7 @@ namespace SDK.Script.CoreUObjectSDK
     public class InterpCurveQuat : Object
     {
         public InterpCurveQuat(nint addr) : base(addr) { }
-        public Array<InterpCurvePointQuat> Points { get { return new Array<InterpCurvePointQuat>(this[nameof(Points)].Address); } }
+        public UArray<InterpCurvePointQuat> Points { get { return new UArray<InterpCurvePointQuat>(this[nameof(Points)].Address); } }
         public bool bIsLooped { get { return this[nameof(bIsLooped)].Flag; } set { this[nameof(bIsLooped)].Flag = value; } }
         public float LoopKeyOffset { get { return this[nameof(LoopKeyOffset)].GetValue<float>(); } set { this[nameof(LoopKeyOffset)].SetValue<float>(value); } }
     }
@@ -476,7 +478,7 @@ namespace SDK.Script.CoreUObjectSDK
     public class InterpCurveTwoVectors : Object
     {
         public InterpCurveTwoVectors(nint addr) : base(addr) { }
-        public Array<InterpCurvePointTwoVectors> Points { get { return new Array<InterpCurvePointTwoVectors>(this[nameof(Points)].Address); } }
+        public UArray<InterpCurvePointTwoVectors> Points { get { return new UArray<InterpCurvePointTwoVectors>(this[nameof(Points)].Address); } }
         public bool bIsLooped { get { return this[nameof(bIsLooped)].Flag; } set { this[nameof(bIsLooped)].Flag = value; } }
         public float LoopKeyOffset { get { return this[nameof(LoopKeyOffset)].GetValue<float>(); } set { this[nameof(LoopKeyOffset)].SetValue<float>(value); } }
     }
@@ -492,7 +494,7 @@ namespace SDK.Script.CoreUObjectSDK
     public class InterpCurveLinearColor : Object
     {
         public InterpCurveLinearColor(nint addr) : base(addr) { }
-        public Array<InterpCurvePointLinearColor> Points { get { return new Array<InterpCurvePointLinearColor>(this[nameof(Points)].Address); } }
+        public UArray<InterpCurvePointLinearColor> Points { get { return new UArray<InterpCurvePointLinearColor>(this[nameof(Points)].Address); } }
         public bool bIsLooped { get { return this[nameof(bIsLooped)].Flag; } set { this[nameof(bIsLooped)].Flag = value; } }
         public float LoopKeyOffset { get { return this[nameof(LoopKeyOffset)].GetValue<float>(); } set { this[nameof(LoopKeyOffset)].SetValue<float>(value); } }
     }
@@ -674,10 +676,10 @@ namespace SDK.Script.CoreUObjectSDK
     public class ARFilter : Object
     {
         public ARFilter(nint addr) : base(addr) { }
-        public Array<Object> PackageNames { get { return new Array<Object>(this[nameof(PackageNames)].Address); } }
-        public Array<Object> PackagePaths { get { return new Array<Object>(this[nameof(PackagePaths)].Address); } }
-        public Array<Object> ObjectPaths { get { return new Array<Object>(this[nameof(ObjectPaths)].Address); } }
-        public Array<Object> ClassNames { get { return new Array<Object>(this[nameof(ClassNames)].Address); } }
+        public UArray<Object> PackageNames { get { return new UArray<Object>(this[nameof(PackageNames)].Address); } }
+        public UArray<Object> PackagePaths { get { return new UArray<Object>(this[nameof(PackagePaths)].Address); } }
+        public UArray<Object> ObjectPaths { get { return new UArray<Object>(this[nameof(ObjectPaths)].Address); } }
+        public UArray<Object> ClassNames { get { return new UArray<Object>(this[nameof(ClassNames)].Address); } }
         public Object RecursiveClassesExclusionSet { get { return this[nameof(RecursiveClassesExclusionSet)]; } set { this[nameof(RecursiveClassesExclusionSet)] = value; } }
         public bool bRecursivePaths { get { return this[nameof(bRecursivePaths)].Flag; } set { this[nameof(bRecursivePaths)].Flag = value; } }
         public bool bRecursiveClasses { get { return this[nameof(bRecursiveClasses)].Flag; } set { this[nameof(bRecursiveClasses)].Flag = value; } }
@@ -687,12 +689,12 @@ namespace SDK.Script.CoreUObjectSDK
     {
         public AssetBundleEntry(nint addr) : base(addr) { }
         public Object BundleName { get { return this[nameof(BundleName)]; } set { this[nameof(BundleName)] = value; } }
-        public Array<SoftObjectPath> BundleAssets { get { return new Array<SoftObjectPath>(this[nameof(BundleAssets)].Address); } }
+        public UArray<SoftObjectPath> BundleAssets { get { return new UArray<SoftObjectPath>(this[nameof(BundleAssets)].Address); } }
     }
     public class AssetBundleData : Object
     {
         public AssetBundleData(nint addr) : base(addr) { }
-        public Array<AssetBundleEntry> Bundles { get { return new Array<AssetBundleEntry>(this[nameof(Bundles)].Address); } }
+        public UArray<AssetBundleEntry> Bundles { get { return new UArray<AssetBundleEntry>(this[nameof(Bundles)].Address); } }
     }
     public class AssetData : Object
     {

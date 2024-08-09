@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -15,7 +17,7 @@ namespace SDK.Script.SimpleUGCSDK
     public class ReplacementActorComponent : ActorComponent
     {
         public ReplacementActorComponent(nint addr) : base(addr) { }
-        public Array<Object> ActorClassesToReplace { get { return new Array<Object>(this[nameof(ActorClassesToReplace)].Address); } }
+        public UArray<Object> ActorClassesToReplace { get { return new UArray<Object>(this[nameof(ActorClassesToReplace)].Address); } }
     }
     public class UGCBlueprintLibrary : BlueprintFunctionLibrary
     {
@@ -67,7 +69,7 @@ namespace SDK.Script.SimpleUGCSDK
         public EUGCDownloadVersion DownloadVersion { get { return (EUGCDownloadVersion)this[nameof(DownloadVersion)].GetValue<int>(); } set { this[nameof(DownloadVersion)].SetValue<int>((int)value); } }
         public Object ModPath { get { return this[nameof(ModPath)]; } set { this[nameof(ModPath)] = value; } }
         public Object PakFileLocation { get { return this[nameof(PakFileLocation)]; } set { this[nameof(PakFileLocation)] = value; } }
-        public Array<Object> PakFileAssets { get { return new Array<Object>(this[nameof(PakFileAssets)].Address); } }
+        public UArray<Object> PakFileAssets { get { return new UArray<Object>(this[nameof(PakFileAssets)].Address); } }
         public Object Author { get { return this[nameof(Author)]; } set { this[nameof(Author)] = value; } }
         public Object AuthorURL { get { return this[nameof(AuthorURL)]; } set { this[nameof(AuthorURL)] = value; } }
         public Object Description { get { return this[nameof(Description)]; } set { this[nameof(Description)] = value; } }
@@ -75,7 +77,7 @@ namespace SDK.Script.SimpleUGCSDK
         public bool MountingToBeApplied { get { return this[nameof(MountingToBeApplied)].Flag; } set { this[nameof(MountingToBeApplied)].Flag = value; } }
         public bool DeprecatedLocation { get { return this[nameof(DeprecatedLocation)].Flag; } set { this[nameof(DeprecatedLocation)].Flag = value; } }
         public bool ShowStatusForAudioCosmetic { get { return this[nameof(ShowStatusForAudioCosmetic)].Flag; } set { this[nameof(ShowStatusForAudioCosmetic)].Flag = value; } }
-        public Array<long> Dependencies { get { return new Array<long>(this[nameof(Dependencies)].Address); } }
+        public UArray<long> Dependencies { get { return new UArray<long>(this[nameof(Dependencies)].Address); } }
         public bool DependencyRemoved { get { return this[nameof(DependencyRemoved)].Flag; } set { this[nameof(DependencyRemoved)].Flag = value; } }
         public bool PackagedForLatestVersion { get { return this[nameof(PackagedForLatestVersion)].Flag; } set { this[nameof(PackagedForLatestVersion)].Flag = value; } }
         public bool OverridePackedForLatestVersion { get { return this[nameof(OverridePackedForLatestVersion)].Flag; } set { this[nameof(OverridePackedForLatestVersion)].Flag = value; } }
@@ -87,13 +89,13 @@ namespace SDK.Script.SimpleUGCSDK
     {
         public UGCRegistry(nint addr) : base(addr) { }
         public Object OnPackageMounted { get { return this[nameof(OnPackageMounted)]; } set { this[nameof(OnPackageMounted)] = value; } }
-        public Array<UGCPackage> UGCPackages { get { return new Array<UGCPackage>(this[nameof(UGCPackages)].Address); } }
+        public UArray<UGCPackage> UGCPackages { get { return new UArray<UGCPackage>(this[nameof(UGCPackages)].Address); } }
         public Object RegisteredOverrides { get { return this[nameof(RegisteredOverrides)]; } set { this[nameof(RegisteredOverrides)] = value; } }
         public bool PackageChange { get { return this[nameof(PackageChange)].Flag; } set { this[nameof(PackageChange)].Flag = value; } }
         public Object OnBlueprintsSpawned { get { return this[nameof(OnBlueprintsSpawned)]; } set { this[nameof(OnBlueprintsSpawned)] = value; } }
-        public Array<UGCPackage> UGCPackagesInstalledDuringJoin { get { return new Array<UGCPackage>(this[nameof(UGCPackagesInstalledDuringJoin)].Address); } }
-        public Array<UGCPackage> UGCPackagesUnmountedDuringJoin { get { return new Array<UGCPackage>(this[nameof(UGCPackagesUnmountedDuringJoin)].Address); } }
-        public void UnmountUGCPackages(Array<Object> ExcludingModIds) { Invoke(nameof(UnmountUGCPackages), ExcludingModIds); }
+        public UArray<UGCPackage> UGCPackagesInstalledDuringJoin { get { return new UArray<UGCPackage>(this[nameof(UGCPackagesInstalledDuringJoin)].Address); } }
+        public UArray<UGCPackage> UGCPackagesUnmountedDuringJoin { get { return new UArray<UGCPackage>(this[nameof(UGCPackagesUnmountedDuringJoin)].Address); } }
+        public void UnmountUGCPackages(UArray<Object> ExcludingModIds) { Invoke(nameof(UnmountUGCPackages), ExcludingModIds); }
         public bool UnmountUGCPackage(UGCPackage Package, bool RemoveFromUserSettings, bool RemoveFromDisk) { return Invoke<bool>(nameof(UnmountUGCPackage), Package, RemoveFromUserSettings, RemoveFromDisk); }
         public void UnmountSandboxUGCPackages() { Invoke(nameof(UnmountSandboxUGCPackages)); }
         public void UnmountAllNonVerifiedUGCPackages() { Invoke(nameof(UnmountAllNonVerifiedUGCPackages)); }
@@ -109,23 +111,23 @@ namespace SDK.Script.SimpleUGCSDK
         public bool IsModInstalledByIdOrName(Object ModIdOrName, bool IncludeDeprecatedLocation) { return Invoke<bool>(nameof(IsModInstalledByIdOrName), ModIdOrName, IncludeDeprecatedLocation); }
         public bool IsModInstalled(Object ModId) { return Invoke<bool>(nameof(IsModInstalled), ModId); }
         public bool IsModEnabled(Object ModId) { return Invoke<bool>(nameof(IsModEnabled), ModId); }
-        public Array<UGCPackage> GetPackagesWhichDependsOnPackage(UGCPackage Package) { return Invoke<Array<UGCPackage>>(nameof(GetPackagesWhichDependsOnPackage), Package); }
-        public Array<UGCPackage> GetPackagesSorted(EPackageSortField ByField, bool Ascending) { return Invoke<Array<UGCPackage>>(nameof(GetPackagesSorted), ByField, Ascending); }
-        public bool GetMapsInPackage(UGCPackage Package, Array<Object> Maps) { return Invoke<bool>(nameof(GetMapsInPackage), Package, Maps); }
-        public bool GetAllClassesInPackage(UGCPackage Package, Array<Object> Classes) { return Invoke<bool>(nameof(GetAllClassesInPackage), Package, Classes); }
+        public UArray<UGCPackage> GetPackagesWhichDependsOnPackage(UGCPackage Package) { return Invoke<UArray<UGCPackage>>(nameof(GetPackagesWhichDependsOnPackage), Package); }
+        public UArray<UGCPackage> GetPackagesSorted(EPackageSortField ByField, bool Ascending) { return Invoke<UArray<UGCPackage>>(nameof(GetPackagesSorted), ByField, Ascending); }
+        public bool GetMapsInPackage(UGCPackage Package, UArray<Object> Maps) { return Invoke<bool>(nameof(GetMapsInPackage), Package, Maps); }
+        public bool GetAllClassesInPackage(UGCPackage Package, UArray<Object> Classes) { return Invoke<bool>(nameof(GetAllClassesInPackage), Package, Classes); }
         public bool AreModsInstalled(EUGCApprovalStatus ApprovalStatus) { return Invoke<bool>(nameof(AreModsInstalled), ApprovalStatus); }
         public bool AreDeprecatedModsInstalled() { return Invoke<bool>(nameof(AreDeprecatedModsInstalled)); }
     }
     public class UGCSettings : Object
     {
         public UGCSettings(nint addr) : base(addr) { }
-        public Array<Object> slot1 { get { return new Array<Object>(this[nameof(slot1)].Address); } }
+        public UArray<Object> slot1 { get { return new UArray<Object>(this[nameof(slot1)].Address); } }
         public int slot1Icon { get { return this[nameof(slot1Icon)].GetValue<int>(); } set { this[nameof(slot1Icon)].SetValue<int>(value); } }
-        public Array<Object> slot2 { get { return new Array<Object>(this[nameof(slot2)].Address); } }
+        public UArray<Object> slot2 { get { return new UArray<Object>(this[nameof(slot2)].Address); } }
         public int slot2Icon { get { return this[nameof(slot2Icon)].GetValue<int>(); } set { this[nameof(slot2Icon)].SetValue<int>(value); } }
-        public Array<Object> slot3 { get { return new Array<Object>(this[nameof(slot3)].Address); } }
+        public UArray<Object> slot3 { get { return new UArray<Object>(this[nameof(slot3)].Address); } }
         public int slot3Icon { get { return this[nameof(slot3Icon)].GetValue<int>(); } set { this[nameof(slot3Icon)].SetValue<int>(value); } }
-        public Array<Object> slot4 { get { return new Array<Object>(this[nameof(slot4)].Address); } }
+        public UArray<Object> slot4 { get { return new UArray<Object>(this[nameof(slot4)].Address); } }
         public int slot4Icon { get { return this[nameof(slot4Icon)].GetValue<int>(); } set { this[nameof(slot4Icon)].SetValue<int>(value); } }
         public int SelectedSlot { get { return this[nameof(SelectedSlot)].GetValue<int>(); } set { this[nameof(SelectedSlot)].SetValue<int>(value); } }
         public Object OnSettingsUpdated { get { return this[nameof(OnSettingsUpdated)]; } set { this[nameof(OnSettingsUpdated)] = value; } }
@@ -137,8 +139,8 @@ namespace SDK.Script.SimpleUGCSDK
         public void ResetSlot() { Invoke(nameof(ResetSlot)); }
         public bool ReadFromPlainText(Object Filename, Object OutTextContent) { return Invoke<bool>(nameof(ReadFromPlainText), Filename, OutTextContent); }
         public bool LoadSlot(int SlotNumber) { return Invoke<bool>(nameof(LoadSlot), SlotNumber); }
-        public Array<Object> GetModNamesOfSlot(int SlotNumber, int outNumberOfUnknown) { return Invoke<Array<Object>>(nameof(GetModNamesOfSlot), SlotNumber, outNumberOfUnknown); }
-        public Array<Object> GetModIdsOfSlot(int SlotNumber) { return Invoke<Array<Object>>(nameof(GetModIdsOfSlot), SlotNumber); }
+        public UArray<Object> GetModNamesOfSlot(int SlotNumber, int outNumberOfUnknown) { return Invoke<UArray<Object>>(nameof(GetModNamesOfSlot), SlotNumber, outNumberOfUnknown); }
+        public UArray<Object> GetModIdsOfSlot(int SlotNumber) { return Invoke<UArray<Object>>(nameof(GetModIdsOfSlot), SlotNumber); }
         public int GetIconIndexOfSlot(int SlotNumber) { return Invoke<int>(nameof(GetIconIndexOfSlot), SlotNumber); }
         public bool DoesSlotContainMods(int SlotNumber) { return Invoke<bool>(nameof(DoesSlotContainMods), SlotNumber); }
         public void ClearSlot(int SlotNumber) { Invoke(nameof(ClearSlot), SlotNumber); }
@@ -167,25 +169,25 @@ namespace SDK.Script.SimpleUGCSDK
         public bool IsLocalUserModsInstalled { get { return this[nameof(IsLocalUserModsInstalled)].Flag; } set { this[nameof(IsLocalUserModsInstalled)].Flag = value; } }
         public Object OnEscapeMenuOpened { get { return this[nameof(OnEscapeMenuOpened)]; } set { this[nameof(OnEscapeMenuOpened)] = value; } }
         public Object OnModioRequestHandled { get { return this[nameof(OnModioRequestHandled)]; } set { this[nameof(OnModioRequestHandled)] = value; } }
-        public Array<Object> CrashingDisabledMods { get { return new Array<Object>(this[nameof(CrashingDisabledMods)].Address); } }
-        public Array<UGCPackage> ModsPendingUninstall { get { return new Array<UGCPackage>(this[nameof(ModsPendingUninstall)].Address); } }
-        public Array<UGCPackage> ModsPendingUpdate { get { return new Array<UGCPackage>(this[nameof(ModsPendingUpdate)].Address); } }
-        public Array<EModioRequestType> ModioRequests { get { return new Array<EModioRequestType>(this[nameof(ModioRequests)].Address); } }
-        public Array<long> ModioSubscribeRequestsIds { get { return new Array<long>(this[nameof(ModioSubscribeRequestsIds)].Address); } }
-        public Array<long> ModioSubscribeDependecyRequestsIds { get { return new Array<long>(this[nameof(ModioSubscribeDependecyRequestsIds)].Address); } }
-        public Array<long> ModioAddDependecyRequestsIds { get { return new Array<long>(this[nameof(ModioAddDependecyRequestsIds)].Address); } }
-        public void UGRequiredModsFetched__DelegateSignature(Array<Object> ModsToEnable, Array<Object> ModsToInstall) { Invoke(nameof(UGRequiredModsFetched__DelegateSignature), ModsToEnable, ModsToInstall); }
+        public UArray<Object> CrashingDisabledMods { get { return new UArray<Object>(this[nameof(CrashingDisabledMods)].Address); } }
+        public UArray<UGCPackage> ModsPendingUninstall { get { return new UArray<UGCPackage>(this[nameof(ModsPendingUninstall)].Address); } }
+        public UArray<UGCPackage> ModsPendingUpdate { get { return new UArray<UGCPackage>(this[nameof(ModsPendingUpdate)].Address); } }
+        public UArray<EModioRequestType> ModioRequests { get { return new UArray<EModioRequestType>(this[nameof(ModioRequests)].Address); } }
+        public UArray<long> ModioSubscribeRequestsIds { get { return new UArray<long>(this[nameof(ModioSubscribeRequestsIds)].Address); } }
+        public UArray<long> ModioSubscribeDependecyRequestsIds { get { return new UArray<long>(this[nameof(ModioSubscribeDependecyRequestsIds)].Address); } }
+        public UArray<long> ModioAddDependecyRequestsIds { get { return new UArray<long>(this[nameof(ModioAddDependecyRequestsIds)].Address); } }
+        public void UGRequiredModsFetched__DelegateSignature(UArray<Object> ModsToEnable, UArray<Object> ModsToInstall) { Invoke(nameof(UGRequiredModsFetched__DelegateSignature), ModsToEnable, ModsToInstall); }
         public void UGModProgressDone__DelegateSignature(Object ModName, Object ModId) { Invoke(nameof(UGModProgressDone__DelegateSignature), ModName, ModId); }
         public void UGInstallError__DelegateSignature(Object ModName, EUGCPackageError ErrorType) { Invoke(nameof(UGInstallError__DelegateSignature), ModName, ErrorType); }
         public void UGCRequestHandled__DelegateSignature(EModioRequestType requestType) { Invoke(nameof(UGCRequestHandled__DelegateSignature), requestType); }
-        public void UGCModProgress__DelegateSignature(Object Name, Array<Object> ModsPendingDownload, bool Downloading, int Progress, int Total) { Invoke(nameof(UGCModProgress__DelegateSignature), Name, ModsPendingDownload, Downloading, Progress, Total); }
+        public void UGCModProgress__DelegateSignature(Object Name, UArray<Object> ModsPendingDownload, bool Downloading, int Progress, int Total) { Invoke(nameof(UGCModProgress__DelegateSignature), Name, ModsPendingDownload, Downloading, Progress, Total); }
         public void UGCModManagementStateChanged__DelegateSignature(bool Enabled) { Invoke(nameof(UGCModManagementStateChanged__DelegateSignature), Enabled); }
         public void UGCLocalUserModsInstalled__DelegateSignature() { Invoke(nameof(UGCLocalUserModsInstalled__DelegateSignature)); }
         public void UGCHiddenMods__DelegateSignature() { Invoke(nameof(UGCHiddenMods__DelegateSignature)); }
         public void UGCEscapeMenuOpened__DelegateSignature() { Invoke(nameof(UGCEscapeMenuOpened__DelegateSignature)); }
         public void UGCAuthenticatedModioUser__DelegateSignature(bool Authenticated) { Invoke(nameof(UGCAuthenticatedModioUser__DelegateSignature), Authenticated); }
-        public void SetPackagesAsRecentlyInstalled(Array<UGCPackage> RecentMods) { Invoke(nameof(SetPackagesAsRecentlyInstalled), RecentMods); }
-        public void SetModsAsRecentlyInstalled(Array<Object> RecentMods) { Invoke(nameof(SetModsAsRecentlyInstalled), RecentMods); }
+        public void SetPackagesAsRecentlyInstalled(UArray<UGCPackage> RecentMods) { Invoke(nameof(SetPackagesAsRecentlyInstalled), RecentMods); }
+        public void SetModsAsRecentlyInstalled(UArray<Object> RecentMods) { Invoke(nameof(SetModsAsRecentlyInstalled), RecentMods); }
         public void SetModidngSettingsMenuEnabled(bool bEnabled) { Invoke(nameof(SetModidngSettingsMenuEnabled), bEnabled); }
         public void SetCheckGameVersion(bool ShouldCheck) { Invoke(nameof(SetCheckGameVersion), ShouldCheck); }
         public void RemoveRequestOfType(EModioRequestType requestType) { Invoke(nameof(RemoveRequestOfType), requestType); }
@@ -195,18 +197,18 @@ namespace SDK.Script.SimpleUGCSDK
         public void K2_RequestModThumbnailById(Object WorldContext, LatentActionInfo LatentInfo, Object ModId) { Invoke(nameof(K2_RequestModThumbnailById), WorldContext, LatentInfo, ModId); }
         public void K2_RequestModThumbnail(Object WorldContext, LatentActionInfo LatentInfo, UGCPackage Package) { Invoke(nameof(K2_RequestModThumbnail), WorldContext, LatentInfo, Package); }
         public void K2_RequestModMetaData(Object WorldContext, LatentActionInfo LatentInfo, Object ModioStringID, long ModId) { Invoke(nameof(K2_RequestModMetaData), WorldContext, LatentInfo, ModioStringID, ModId); }
-        public void K2_RequestModDependencyList(Object WorldContext, LatentActionInfo LatentInfo, Object ModId, Object outParentId, Array<Object> outModIds) { Invoke(nameof(K2_RequestModDependencyList), WorldContext, LatentInfo, ModId, outParentId, outModIds); }
+        public void K2_RequestModDependencyList(Object WorldContext, LatentActionInfo LatentInfo, Object ModId, Object outParentId, UArray<Object> outModIds) { Invoke(nameof(K2_RequestModDependencyList), WorldContext, LatentInfo, ModId, outParentId, outModIds); }
         public void K2_RequestFetchModUpdates() { Invoke(nameof(K2_RequestFetchModUpdates)); }
         public void K2_RequestAuthentication() { Invoke(nameof(K2_RequestAuthentication)); }
         public bool IsModPendingUninstall(UGCPackage InMod) { return Invoke<bool>(nameof(IsModPendingUninstall), InMod); }
         public bool HasOutstadingRequestOfType(EModioRequestType requestType) { return Invoke<bool>(nameof(HasOutstadingRequestOfType), requestType); }
-        public Array<EModioRequestType> GetQueuedModioRequests() { return Invoke<Array<EModioRequestType>>(nameof(GetQueuedModioRequests)); }
-        public Array<Object> GetNamesOfModsPendingUpdate() { return Invoke<Array<Object>>(nameof(GetNamesOfModsPendingUpdate)); }
-        public Array<Object> GetNamesOfModsPendingUninstall() { return Invoke<Array<Object>>(nameof(GetNamesOfModsPendingUninstall)); }
-        public Array<Object> GetNamesOfModsPendingInstall() { return Invoke<Array<Object>>(nameof(GetNamesOfModsPendingInstall)); }
+        public UArray<EModioRequestType> GetQueuedModioRequests() { return Invoke<UArray<EModioRequestType>>(nameof(GetQueuedModioRequests)); }
+        public UArray<Object> GetNamesOfModsPendingUpdate() { return Invoke<UArray<Object>>(nameof(GetNamesOfModsPendingUpdate)); }
+        public UArray<Object> GetNamesOfModsPendingUninstall() { return Invoke<UArray<Object>>(nameof(GetNamesOfModsPendingUninstall)); }
+        public UArray<Object> GetNamesOfModsPendingInstall() { return Invoke<UArray<Object>>(nameof(GetNamesOfModsPendingInstall)); }
         public bool GetModdingSettingsMenuEnabled() { return Invoke<bool>(nameof(GetModdingSettingsMenuEnabled)); }
         public bool GetCheckGameVersion() { return Invoke<bool>(nameof(GetCheckGameVersion)); }
-        public bool FetchModsForSession(Array<Object> HostMods, Object OnModsFetched) { return Invoke<bool>(nameof(FetchModsForSession), HostMods, OnModsFetched); }
+        public bool FetchModsForSession(UArray<Object> HostMods, Object OnModsFetched) { return Invoke<bool>(nameof(FetchModsForSession), HostMods, OnModsFetched); }
         public void EnableModioModManagement() { Invoke(nameof(EnableModioModManagement)); }
         public void DisableModioModManagement() { Invoke(nameof(DisableModioModManagement)); }
         public void ApplyPendingMods(bool FromJoining) { Invoke(nameof(ApplyPendingMods), FromJoining); }
@@ -266,7 +268,7 @@ namespace SDK.Script.SimpleUGCSDK
     public class Mods : Object
     {
         public Mods(nint addr) : base(addr) { }
-        public Array<ModDefinition> Mods_value { get { return new Array<ModDefinition>(this[nameof(Mods)].Address); } }
+        public UArray<ModDefinition> Mods_value { get { return new UArray<ModDefinition>(this[nameof(Mods)].Address); } }
     }
     public class ModDefinition : Object
     {

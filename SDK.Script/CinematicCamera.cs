@@ -1,5 +1,7 @@
-using UnrealSharp;
-using Object = UnrealSharp.UEObject;
+using UnrealDotNet;
+using UnrealDotNet.Types;
+
+using Object = UnrealDotNet.Types.UObject;
 using Guid = SDK.Script.CoreUObjectSDK.Guid;
 using Enum = SDK.Script.CoreUObjectSDK.Enum;
 using DateTime = SDK.Script.CoreUObjectSDK.DateTime;
@@ -46,8 +48,8 @@ namespace SDK.Script.CinematicCameraSDK
         public float CurrentFocalLength { get { return this[nameof(CurrentFocalLength)].GetValue<float>(); } set { this[nameof(CurrentFocalLength)].SetValue<float>(value); } }
         public float CurrentAperture { get { return this[nameof(CurrentAperture)].GetValue<float>(); } set { this[nameof(CurrentAperture)].SetValue<float>(value); } }
         public float CurrentFocusDistance { get { return this[nameof(CurrentFocusDistance)].GetValue<float>(); } set { this[nameof(CurrentFocusDistance)].SetValue<float>(value); } }
-        public Array<NamedFilmbackPreset> FilmbackPresets { get { return new Array<NamedFilmbackPreset>(this[nameof(FilmbackPresets)].Address); } }
-        public Array<NamedLensPreset> LensPresets { get { return new Array<NamedLensPreset>(this[nameof(LensPresets)].Address); } }
+        public UArray<NamedFilmbackPreset> FilmbackPresets { get { return new UArray<NamedFilmbackPreset>(this[nameof(FilmbackPresets)].Address); } }
+        public UArray<NamedLensPreset> LensPresets { get { return new UArray<NamedLensPreset>(this[nameof(LensPresets)].Address); } }
         public Object DefaultFilmbackPresetName { get { return this[nameof(DefaultFilmbackPresetName)]; } set { this[nameof(DefaultFilmbackPresetName)] = value; } }
         public Object DefaultFilmbackPreset { get { return this[nameof(DefaultFilmbackPreset)]; } set { this[nameof(DefaultFilmbackPreset)] = value; } }
         public Object DefaultLensPresetName { get { return this[nameof(DefaultLensPresetName)]; } set { this[nameof(DefaultLensPresetName)] = value; } }
@@ -57,10 +59,10 @@ namespace SDK.Script.CinematicCameraSDK
         public void SetFilmbackPresetByName(Object InPresetName) { Invoke(nameof(SetFilmbackPresetByName), InPresetName); }
         public void SetCurrentFocalLength(float InFocalLength) { Invoke(nameof(SetCurrentFocalLength), InFocalLength); }
         public float GetVerticalFieldOfView() { return Invoke<float>(nameof(GetVerticalFieldOfView)); }
-        public Array<NamedLensPreset> GetLensPresetsCopy() { return Invoke<Array<NamedLensPreset>>(nameof(GetLensPresetsCopy)); }
+        public UArray<NamedLensPreset> GetLensPresetsCopy() { return Invoke<UArray<NamedLensPreset>>(nameof(GetLensPresetsCopy)); }
         public Object GetLensPresetName() { return Invoke<Object>(nameof(GetLensPresetName)); }
         public float GetHorizontalFieldOfView() { return Invoke<float>(nameof(GetHorizontalFieldOfView)); }
-        public Array<NamedFilmbackPreset> GetFilmbackPresetsCopy() { return Invoke<Array<NamedFilmbackPreset>>(nameof(GetFilmbackPresetsCopy)); }
+        public UArray<NamedFilmbackPreset> GetFilmbackPresetsCopy() { return Invoke<UArray<NamedFilmbackPreset>>(nameof(GetFilmbackPresetsCopy)); }
         public Object GetFilmbackPresetName() { return Invoke<Object>(nameof(GetFilmbackPresetName)); }
         public Object GetDefaultFilmbackPresetName() { return Invoke<Object>(nameof(GetDefaultFilmbackPresetName)); }
     }
