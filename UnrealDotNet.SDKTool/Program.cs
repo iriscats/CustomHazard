@@ -27,8 +27,12 @@ namespace UnrealDotNet.SDKTool
 
                 Thread.Sleep(100);
             }
-    
-            new DumpSdkTool().DumpSdk();
+
+            //new DumpSdkTool().DumpSdk();
+            //UObjectCache.FindObject("");
+            new DevTool().DumpObjects();
+
+
         }
     }
 }
