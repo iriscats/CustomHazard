@@ -30,8 +30,8 @@ public partial class UObject
 
     public int GetFieldOffset(nint fieldAddr)
     {
-        if (FieldAddrToOffset.ContainsKey(fieldAddr))
-            return FieldAddrToOffset[fieldAddr];
+        if (FieldAddrToOffset.TryGetValue(fieldAddr, out var fieldOffset))
+            return fieldOffset;
 
         var offset = _unrealEngine.MemoryReadInt(fieldAddr + FieldOffset);
         FieldAddrToOffset[fieldAddr] = offset;
@@ -48,8 +48,8 @@ public partial class UObject
     public bool IsA(nint entityClassAddr, string targetClassName)
     {
         var key = entityClassAddr + ":" + targetClassName;
-        if (ClassIsSubClass.ContainsKey(key))
-            return ClassIsSubClass[key];
+        if (ClassIsSubClass.TryGetValue(key, out var value))
+            return value;
 
         var tempEntityClassAddr = entityClassAddr;
         while (true)
