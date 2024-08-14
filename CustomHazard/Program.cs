@@ -26,9 +26,11 @@ static class Program
             Thread.Sleep(100);
         }
 
+        UObject.FindUObjectOffset();
+
         new WaveTimer();
-        FSDGameMode gameMode = UObjectCache.FindObject("FSDGameMode /Script/FSD.Default__FSDGameMode").As<FSDGameMode>();
-        gameMode.GetWaveManager();
+        GameFunctionLibrary gameMode = UObjectCache.FindObject("GameFunctionLibrary /Script/FSD.Default__GameFunctionLibrary").As<GameFunctionLibrary>();
+        gameMode.GetFSDGameMode(new UObject(ue.GWorld));
 
 
     }

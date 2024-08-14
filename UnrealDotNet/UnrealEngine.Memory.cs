@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
+using UnrealDotNet.Types;
 
 namespace UnrealDotNet;
 
@@ -171,13 +172,28 @@ public unsafe partial class UnrealEngine
 
     public void WriteProcessMemory<T>(nint addr, T value)
     {
-        var objSize = Marshal.SizeOf(value);
-        var objBytes = new byte[objSize];
-        var objPtr = Marshal.AllocHGlobal(objSize);
-        Marshal.StructureToPtr(value, objPtr, true);
-        Marshal.Copy(objPtr, objBytes, 0, objSize);
-        Marshal.FreeHGlobal(objPtr);
-        WriteProcessMemory(_procHandle, addr, objBytes, objBytes.Length, out int bytesRead);
+        int objSize = 0;
+        if (value is UObject)
+        {
+            objSize = 8;
+            var objBytes = new byte[objSize];
+            var objPtr = Marshal.AllocHGlobal(objSize);
+            Marshal.StructureToPtr((value as UObject).Address, objPtr, true);
+            Marshal.Copy(objPtr, objBytes, 0, objSize);
+            Marshal.FreeHGlobal(objPtr);
+            WriteProcessMemory(_procHandle, addr, objBytes, objBytes.Length, out int bytesRead);
+        }
+        else
+        {
+            objSize = Marshal.SizeOf(value);
+            var objBytes = new byte[objSize];
+            var objPtr = Marshal.AllocHGlobal(objSize);
+            Marshal.StructureToPtr(value, objPtr, true);
+            Marshal.Copy(objPtr, objBytes, 0, objSize);
+            Marshal.FreeHGlobal(objPtr);
+            WriteProcessMemory(_procHandle, addr, objBytes, objBytes.Length, out int bytesRead);
+        }
+
     }
 
     public nint Execute(nint fPtr, nint a1, nint a2, nint a3, nint a4, params nint[] args)
